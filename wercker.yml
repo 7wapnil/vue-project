@@ -1,0 +1,22 @@
+box: node:9
+
+build:
+  steps:
+    - script:
+      name: Install yarn
+      code: |
+        curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+        echo "deb http://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+        apt-get update && apt-get install -y yarn
+
+    - script:
+      name: Install app dependencies
+      code: yarn install
+
+    - script:
+      name: Style guide check
+      code: yarn run lint
+
+    - script:
+      name: Unit test
+      code: yarn run test:unit
