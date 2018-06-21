@@ -2,7 +2,7 @@
     <div>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <router-link
-                    :to="{ path: 'home' }"
+                    :to="{ name: 'home' }"
                     class="navbar-brand">ArcaneBet
             </router-link>
 
@@ -21,9 +21,9 @@
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item"
                         v-for="item in mainMenu"
-                        :key="item.path">
+                        :key="item.key">
 
-                        <router-link :to="{ path: item.path }"
+                        <router-link :to="{ name: item.path }"
                                      class="nav-link">
                             {{ item.label }}
                         </router-link>
@@ -31,23 +31,41 @@
                     </li>
                 </ul>
 
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item"
-                        v-for="item in authMenu"
-                        :key="item.path">
-
-                        <router-link :to="{ path: item.path }"
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item dropdown">
+                        <a href="#"
+                            id="username-dropdown"
+                            role="button"
+                            class="nav-link dropdown-toggle"
+                            data-toggle="dropdown"
+                            aria-haspopup="true"
+                            aria-expanded="false">
+                            Customer Name
+                        </a>
+                        <div class="dropdown-menu">
+                            <a href="#" class="dropdown-item" @click.prevent="logout">
+                                Sign Out
+                            </a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <router-link :to="{ name: 'sign-in' }"
                                      class="nav-link">
-                            {{ item.label }}
+                            Sign In
                         </router-link>
-
+                    </li>
+                    <li class="nav-item">
+                        <router-link :to="{ name: 'sign-up' }"
+                                     class="nav-link">
+                            Sign Up
+                        </router-link>
                     </li>
                 </ul>
             </div>
         </nav>
 
         <div class="container">
-            <router-view></router-view>
+            <slot></slot>
         </div>
     </div>
 </template>
@@ -57,22 +75,31 @@
     data() {
       return {
         mainMenu: [{
+          key: 'esports',
           path: 'esports',
           label: 'Esports'
         }, {
-          path: 'live',
+          key: 'live',
+          path: 'esports',
           label: 'Live'
         }, {
-          path: 'outrights',
+          key: 'outright',
+          path: 'esports',
           label: 'Outrights'
         }, {
-          path: 'sports',
+          key: 'sports',
+          path: 'esports',
           label: 'Sports'
         }, {
-          path: 'live-casino',
+          key: 'live-casino',
+          path: 'esports',
           label: 'Live casino'
-        }],
-        authMenu: []
+        }]
+      }
+    },
+    methods: {
+      logout() {
+
       }
     }
   }
