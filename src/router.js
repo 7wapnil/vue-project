@@ -1,11 +1,13 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Home from './views/Home.vue';
-import About from './views/About.vue';
+import Esports from './views/esports/Page.vue';
 
 Vue.use(Router);
 
 export default new Router({
+  mode: 'history',
+  linkActiveClass: 'active',
   routes: [
     {
       path: '/',
@@ -13,9 +15,39 @@ export default new Router({
       component: Home,
     },
     {
-      path: '/about',
-      name: 'about',
-      component: About,
+      path: '/esports',
+      name: 'esports',
+      component: Esports,
     },
+    {
+      path: '/live',
+      name: 'live',
+      component: Esports,
+    },
+    {
+      path: '/outright',
+      name: 'outright',
+      component: Esports,
+    },
+    {
+      path: '/sports',
+      name: 'sports',
+      component: Esports,
+    },
+    {
+      path: '/live-casino',
+      name: 'live-casino',
+      component: Esports,
+    },
+    {
+      path: '/sign-in',
+      name: 'sign-in',
+      component: Esports,
+    },
+    {
+      path: '/sign-up',
+      name: 'sign-up',
+      component: Esports,
+    }
   ],
 });

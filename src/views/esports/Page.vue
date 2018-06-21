@@ -1,9 +1,10 @@
 <template>
     <main-layout>
-        <h3>Home page</h3>
+        <h1>E Sports</h1>
     </main-layout>
 </template>
 
 <script>
-  export default {}
+  export default {
+  }
 </script>
