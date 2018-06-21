@@ -17,7 +17,7 @@
             #navbar-content.collapse.navbar-collapse
                 ul.navbar-nav.mr-auto
                     li.nav-item(v-for="item in mainMenu" :key="item.path")
-                        router-link.nav-link(:to="{ name: item.path }")
+                        router-link.nav-link(:to="item.path")
                             | {{ item.label }}
 
                 ul.navbar-nav.ml-auto
@@ -35,10 +35,10 @@
                                 @click.prevent="logout"
                             ) Sign Out
                     li.nav-item
-                        router-link.nav-link(:to="{ name: 'sign-in' }")
+                        router-link.nav-link(:to="'sign-in'")
                             | Sign In
                     li.nav-item
-                        router-link.nav-link(:to="{ name: 'sign-up' }")
+                        router-link.nav-link(:to="'sign-up'")
                             | Sign Up
 
         .container
