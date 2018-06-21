@@ -21,7 +21,7 @@
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item"
                         v-for="item in mainMenu"
-                        :key="item.key">
+                        :key="item.path">
 
                         <router-link :to="{ name: item.path }"
                                      class="nav-link">
@@ -75,24 +75,19 @@
     data() {
       return {
         mainMenu: [{
-          key: 'esports',
           path: 'esports',
           label: 'Esports'
         }, {
-          key: 'live',
-          path: 'esports',
+          path: 'live',
           label: 'Live'
         }, {
-          key: 'outright',
-          path: 'esports',
+          path: 'outright',
           label: 'Outrights'
         }, {
-          key: 'sports',
-          path: 'esports',
+          path: 'sports',
           label: 'Sports'
         }, {
-          key: 'live-casino',
-          path: 'esports',
+          path: 'live-casino',
           label: 'Live casino'
         }]
       }

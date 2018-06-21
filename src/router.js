@@ -19,5 +19,35 @@ export default new Router({
       name: 'esports',
       component: Esports,
     },
+    {
+      path: '/live',
+      name: 'live',
+      component: Esports,
+    },
+    {
+      path: '/outright',
+      name: 'outright',
+      component: Esports,
+    },
+    {
+      path: '/sports',
+      name: 'sports',
+      component: Esports,
+    },
+    {
+      path: '/live-casino',
+      name: 'live-casino',
+      component: Esports,
+    },
+    {
+      path: '/sign-in',
+      name: 'sign-in',
+      component: Esports,
+    },
+    {
+      path: '/sign-up',
+      name: 'sign-up',
+      component: Esports,
+    }
   ],
 });
