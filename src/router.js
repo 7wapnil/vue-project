@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+import SignUp from './views/auth/SignUp.vue';
 import Home from './views/Home.vue';
 import Esports from './views/esports/Page.vue';
 
@@ -47,7 +48,7 @@ export default new Router({
     {
       path: '/sign-up',
       name: 'sign-up',
-      component: Esports,
+      component: SignUp
     }
   ],
 });
