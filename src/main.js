@@ -7,10 +7,12 @@ import App from './App'
 import router from '@/routes'
 import '@/components/global-components'
 import apolloProvider from '@/libs/apollo'
+import Auth from '@/libs/auth'
 
 Vue.config.productionTip = false
 
 Vue.use(BootstrapVue)
+Vue.use(Auth)
 
 new Vue({
   router,

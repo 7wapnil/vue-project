@@ -29,6 +29,13 @@
                         b-form-input#first_name(v-model="fields.first_name" :state="getState('first_name')")
 
                     b-form-group(
+                        label="Last name"
+                        :state="getState('last_name')"
+                        :invalid-feedback="errors.last_name"
+                    )
+                        b-form-input#last_name(v-model="fields.last_name" :state="getState('last_name')")
+
+                    b-form-group(
                         label="Birth Date"
                         :state="getState('date_of_birth')"
                         :invalid-feedback="errors.date_of_birth"
@@ -92,8 +99,9 @@
         this
           .apiService
           .signUp(input)
-          .then(() => {
-            console.log('OK')
+          .then(({ data: { signUp } }) => {
+            this.$auth.login(signUp.token, signUp.user)
+            this.$router.push({ name: 'home' })
           })
           .catch(this.handleGraphQLErrors)
 
