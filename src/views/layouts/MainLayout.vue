@@ -21,23 +21,23 @@
                             | {{ item.label }}
 
                 ul.navbar-nav.ml-auto
-                    li.nav-item.dropdown
+                    li.nav-item.dropdown(v-if="loggedIn")
                         a#username-dropdown.nav-link.dropdown-toggle(
                             href="#"
                             role="button"
                             data-toggle="dropdown"
                             aria-haspopup="true"
                             aria-expanded="false"
-                        ) Customer Name
+                        ) {{ user.username }}
                         .dropdown-menu
                             a.dropdown-item(
                                 href="#"
                                 @click.prevent="logout"
                             ) Sign Out
-                    li.nav-item
+                    li.nav-item(v-if="!loggedIn")
                         router-link.nav-link(:to="'sign-in'")
                             | Sign In
-                    li.nav-item
+                    li.nav-item(v-if="!loggedIn")
                         router-link.nav-link(:to="'sign-up'")
                             | Sign Up
 
@@ -67,9 +67,17 @@
         }]
       }
     },
+    computed: {
+        loggedIn() {
+          return this.$store.getters['isLoggedIn']
+        },
+        user() {
+          return this.$store.getters['getUser'] || {}
+        }
+    },
     methods: {
       logout() {
-
+        this.$store.commit('logout')
       }
     }
   }

@@ -4,12 +4,13 @@ import { from, ApolloLink } from 'apollo-link'
 import { HttpLink } from 'apollo-link-http'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import VueApollo from 'vue-apollo'
+import Store from '@/stores'
 
 const authLink = new ApolloLink((operation, forward) => {
   const headers = operation.getContext().headers || {}
 
-  if (Vue.$auth.authenticated) {
-    headers['Authorization'] = `Bearer ${Vue.$auth.token}`
+  if (Store.getters['isLoggedIn']) {
+    headers['Authorization'] = `Bearer ${Store.getters['token']}`
   }
   operation.setContext({ headers: headers })
 

@@ -100,7 +100,7 @@
           .apiService
           .signUp(input)
           .then(({ data: { signUp } }) => {
-            this.$auth.login(signUp.token, signUp.user)
+            this.$store.commit('login', signUp)
             this.$router.push({ name: 'home' })
           })
           .catch(this.handleGraphQLErrors)

@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import SignUp from '@/views/auth/SignUp.vue';
+import SignIn from '@/views/auth/SignIn.vue';
 import Home from '@/views/Home.vue';
 import Esports from '@/views/esports/Page.vue';
 
@@ -43,7 +44,7 @@ export default new Router({
     {
       path: '/sign-in',
       name: 'sign-in',
-      component: Esports,
+      component: SignIn,
     },
     {
       path: '/sign-up',
