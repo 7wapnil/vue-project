@@ -23,17 +23,17 @@
 
                     b-form-group(
                         label="First name"
-                        :state="getState('firstName')"
-                        :invalid-feedback="errors.firstName"
+                        :state="getState('first_name')"
+                        :invalid-feedback="errors.first_name"
                         )
-                        b-form-input#firstName(v-model="fields.firstName" :state="getState('firstName')")
+                        b-form-input#first_name(v-model="fields.first_name" :state="getState('first_name')")
 
                     b-form-group(
                         label="Birth Date"
-                        :state="getState('birthDate')"
-                        :invalid-feedback="errors.birthDate"
+                        :state="getState('date_of_birth')"
+                        :invalid-feedback="errors.date_of_birth"
                     )
-                        b-form-input#birthDate(v-model="fields.birthDate" :state="getState('birthDate')")
+                        b-form-input#date_of_birth(v-model="fields.date_of_birth" :state="getState('date_of_birth')")
 
                     b-form-group(
                         label="Password"
@@ -44,13 +44,13 @@
 
                     b-form-group(
                         label="Password confirmation"
-                        :state="getState('passwordConfirm')"
-                        :invalid-feedback="errors.passwordConfirm"
+                        :state="getState('password_confirmation')"
+                        :invalid-feedback="errors.password_confirmation"
                     )
-                        b-form-input#passwordConfirm(
+                        b-form-input#password_confirmation(
                             type="password"
-                            v-model="fields.passwordConfirm"
-                            :state="getState('passwordConfirm')"
+                            v-model="fields.password_confirmation"
+                            :state="getState('password_confirmation')"
                         )
 
                     button.btn.btn-dark.btn-block(
@@ -65,39 +65,38 @@
 </template>
 
 <script>
+  import AccountService from '@/services/api/account'
+  import formsMixin from '@/mixins/forms'
+
   export default {
+    mixins: [formsMixin],
     data(){
       return {
+        apiService: new AccountService(this),
         fields: {
           username: '',
           email: '',
-          firstName: '',
-          lastName: '',
-          birthDate: '',
+          first_name: '',
+          last_name: '',
+          date_of_birth: '',
           password: '',
-          passwordConfirm: ''
-        },
-        errors: {
-          username: null,
-          email: null,
-          firstName: null,
-          lastName: null,
-          birthDate: null,
-          password: null,
-          passwordConfirm: null
+          password_confirmation: ''
         }
       }
     },
     methods: {
-      getState(field) {
-        if (!this.errors[field] || this.errors[field] === null) {
-          return null
-        }
-
-        return !this.errors[field].length
-      },
       submit() {
-        this.errors.username = 'Error came here'
+        this.clearErrors()
+        const input = this.fields
+
+        this
+          .apiService
+          .signUp(input)
+          .then(() => {
+            console.log('OK')
+          })
+          .catch(this.handleGraphQLErrors)
+
       }
     }
   }

@@ -1,8 +1,8 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import SignUp from './views/auth/SignUp.vue';
-import Home from './views/Home.vue';
-import Esports from './views/esports/Page.vue';
+import SignUp from '@/views/auth/SignUp.vue';
+import Home from '@/views/Home.vue';
+import Esports from '@/views/esports/Page.vue';
 
 Vue.use(Router);
 
