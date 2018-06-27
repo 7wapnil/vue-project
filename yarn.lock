@@ -3326,6 +3326,10 @@ flat-cache@^1.2.1:
     graceful-fs "^4.1.2"
     write "^0.2.1"
 
+flatpickr@^4.4.6:
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/flatpickr/-/flatpickr-4.5.0.tgz#f72c7164a1c24e3ad419e3b2209d1a2d3604724a"
+
 flatten@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/flatten/-/flatten-1.0.2.tgz#dae46a9d78fbe25292258cc1e780a41d95c03782"
@@ -4930,6 +4934,10 @@ mocha@^5.1.1:
     minimatch "3.0.4"
     mkdirp "0.5.1"
     supports-color "5.4.0"
+
+moment@^2.22.2:
+  version "2.22.2"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.22.2.tgz#3c257f9839fc0e93ff53149632239eb90783ff66"
 
 move-concurrently@^1.0.1:
   version "1.0.1"
@@ -7412,6 +7420,12 @@ vue-eslint-parser@^2.0.3:
     espree "^3.5.2"
     esquery "^1.0.0"
     lodash "^4.17.4"
+
+vue-flatpickr-component@^7.0.4:
+  version "7.0.4"
+  resolved "https://registry.yarnpkg.com/vue-flatpickr-component/-/vue-flatpickr-component-7.0.4.tgz#29909596555f5160792a917f469f9e809e5e6c26"
+  dependencies:
+    flatpickr "^4.4.6"
 
 vue-functional-data-merge@^2.0.5:
   version "2.0.6"

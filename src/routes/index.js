@@ -1,11 +1,8 @@
-import Vue from 'vue';
-import Router from 'vue-router';
-import SignUp from '@/views/auth/SignUp.vue';
-import SignIn from '@/views/auth/SignIn.vue';
-import Home from '@/views/Home.vue';
-import Esports from '@/views/esports/Page.vue';
-
-Vue.use(Router);
+import Router from 'vue-router'
+import SignUp from '@/views/auth/SignUp.vue'
+import SignIn from '@/views/auth/SignIn.vue'
+import Home from '@/views/Home.vue'
+import Esports from '@/views/esports/Page.vue'
 
 export default new Router({
   mode: 'history',

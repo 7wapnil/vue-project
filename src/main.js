@@ -3,7 +3,6 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import 'vuejs-noty/dist/vuejs-noty.css'
 import 'bootstrap'
 import Vue from 'vue'
-import BootstrapVue from 'bootstrap-vue'
 import VueNoty from 'vuejs-noty'
 import App from './App'
 import Router from '@/routes'
@@ -13,7 +12,6 @@ import '@/components/global-components'
 
 Vue.config.productionTip = false
 
-Vue.use(BootstrapVue)
 Vue.use(VueNoty, {
   timeout: 2000,
   layout: 'topRight'

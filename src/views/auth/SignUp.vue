@@ -40,7 +40,11 @@
                         :state="getState('date_of_birth')"
                         :invalid-feedback="errors.date_of_birth"
                     )
-                        b-form-input#date_of_birth(v-model="fields.date_of_birth" :state="getState('date_of_birth')")
+                        flat-pickr#date_of_birth.form-control(
+                            v-model="fields.date_of_birth",
+                            :config="datePickerConfig",
+                            :class="{'is-invalid': getState('date_of_birth') === false}"
+                        )
 
                     b-form-group(
                         label="Password"
@@ -72,10 +76,16 @@
 </template>
 
 <script>
+  import flatPickr from 'vue-flatpickr-component'
+  import 'flatpickr/dist/flatpickr.css'
+  import moment from 'moment'
   import AccountService from '@/services/api/account'
   import formsMixin from '@/mixins/forms'
 
   export default {
+    components: {
+      flatPickr
+    },
     mixins: [formsMixin],
     data(){
       return {
@@ -85,9 +95,14 @@
           email: '',
           first_name: '',
           last_name: '',
-          date_of_birth: '',
+          date_of_birth: moment().format('YYYY-MM-DD'),
           password: '',
           password_confirmation: ''
+        },
+        datePickerConfig: {
+          altInput: true,
+          dateFormat: 'Y-m-d',
+          altFormat: 'j F Y'
         }
       }
     },
