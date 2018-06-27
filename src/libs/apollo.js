@@ -18,7 +18,7 @@ const authLink = new ApolloLink((operation, forward) => {
 })
 
 const httpLink = new HttpLink({
-  uri: 'http://backend.test/graphql'
+  uri: process.env.API_URL || ''
 })
 
 /**
