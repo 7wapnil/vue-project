@@ -15,8 +15,8 @@ build:
 
     - script:
       name: Style guide check
-      code: yarn run lint
+      code: yarn lint
 
     - script:
       name: Unit test
-      code: yarn run test:unit
+      code: yarn test:unit

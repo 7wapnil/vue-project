@@ -1,7 +1,6 @@
-<template>
-    <main-layout>
-        <h1>E Sports</h1>
-    </main-layout>
+<template lang="pug">
+    main-layout
+        h1 ESports
 </template>
 
 <script>
