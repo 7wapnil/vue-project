@@ -41,3 +41,5 @@ deploy:
     - script:
       name: deploy
       code: yarn deploy
+
+    - internal/store-container
