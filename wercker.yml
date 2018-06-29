@@ -20,3 +20,9 @@ build:
     - script:
       name: Unit test
       code: yarn test:unit
+
+deploy:
+  steps:
+    - script:
+      name: deploy
+      code: yarn deploy
