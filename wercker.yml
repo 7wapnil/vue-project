@@ -31,5 +31,9 @@ deploy:
         apt-get update && apt-get install -y yarn
 
     - script:
+      name: Build production assets
+      code: yarn build
+
+    - script:
       name: deploy
       code: yarn deploy
