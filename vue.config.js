@@ -9,8 +9,6 @@ module.exports = {
   },
 
   pluginOptions: {
-    s3Deploy: {
-      assetPath: 'dist'
-    }
+    s3Deploy: {}
   }
 }
