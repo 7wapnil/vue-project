@@ -31,6 +31,10 @@ deploy:
         apt-get update && apt-get install -y yarn
 
     - script:
+      name: Install app dependencies
+      code: yarn install
+
+    - script:
       name: Build production assets
       code: yarn build
 
