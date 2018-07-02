@@ -78,6 +78,7 @@
     methods: {
       logout() {
         this.$store.commit('logout')
+        this.$noty.success('Signed out successfully')
       }
     }
   }
