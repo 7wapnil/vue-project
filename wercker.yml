@@ -2,7 +2,7 @@ box: kkarczmarczyk/node-yarn:latest
 
 build:
   steps:
-    - yarn:
+    - bashaus/yarn-install:
       name: Install app dependencies
 
     - script:
@@ -19,7 +19,7 @@ build:
 
 deploy:
   steps:
-    - yarn:
+    - bashaus/yarn-install:
       name: Install app dependencies
 
     - script:
