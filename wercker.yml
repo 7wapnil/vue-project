@@ -17,6 +17,12 @@ build:
       name: deploy
       code: yarn deploy
 
+    - script:
+      name: Cleanup
+      code: |
+        rm -rf ./node_modules
+        rm ./yarn.lock
+
 deploy:
   steps:
     - bashaus/yarn-install:
