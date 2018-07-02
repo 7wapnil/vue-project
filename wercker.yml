@@ -2,9 +2,8 @@ box: kkarczmarczyk/node-yarn:latest
 
 build:
   steps:
-    - script:
+    - yarn:
       name: Install app dependencies
-      code: yarn install
 
     - script:
       name: Style guide check
@@ -20,9 +19,8 @@ build:
 
 deploy:
   steps:
-    - script:
+    - yarn:
       name: Install app dependencies
-      code: yarn install
 
     - script:
       name: Build production assets
