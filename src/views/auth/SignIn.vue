@@ -62,7 +62,6 @@
             if (err.graphQLErrors && err.graphQLErrors.length) {
               this.$noty.warning(err.graphQLErrors[0].message)
             }
-            console.log(err)
           })
 
       }
