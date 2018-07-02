@@ -12,14 +12,19 @@
                         :state="getState('username')"
                         :invalid-feedback="errors.username"
                     )
-                        b-form-input#username(v-model="fields.username" :state="getState('username')")
+                        b-form-input#username(v-model="fields.username" :state="getState('username')" required)
 
                     b-form-group(
                         label="Password"
                         :state="getState('password')"
                         :invalid-feedback="errors.password"
                     )
-                        b-form-input#password(type="password" v-model="fields.password" :state="getState('password')")
+                        b-form-input#password(
+                            type="password"
+                            v-model="fields.password"
+                            :state="getState('password')"
+                            required
+                        )
 
                     button.btn.btn-dark.btn-block(
                         type="submit"
@@ -56,6 +61,7 @@
           .signIn(input)
           .then(({ data: { signIn } }) => {
             this.$store.commit('login', signIn)
+            this.$noty.success('Signed in successfully')
             this.$router.push({ name: 'home' })
           })
           .catch((err) => {

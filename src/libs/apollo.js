@@ -18,7 +18,7 @@ const authLink = new ApolloLink((operation, forward) => {
 })
 
 const httpLink = new HttpLink({
-  uri: 'test' //process.env.API_URL || ''
+  uri: process.env.API_URL || ''
 })
 
 /**

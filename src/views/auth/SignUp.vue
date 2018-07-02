@@ -12,28 +12,28 @@
                         :state="getState('username')"
                         :invalid-feedback="errors.username"
                     )
-                        b-form-input#username(v-model="fields.username" :state="getState('username')")
+                        b-form-input#username(v-model="fields.username" :state="getState('username')" required)
 
                     b-form-group(
                         label="Email"
                         :state="getState('email')"
                         :invalid-feedback="errors.email"
                     )
-                        b-form-input#email(v-model="fields.email" :state="getState('email')")
+                        b-form-input#email(v-model="fields.email" :state="getState('email')" required)
 
                     b-form-group(
                         label="First name"
                         :state="getState('first_name')"
                         :invalid-feedback="errors.first_name"
                         )
-                        b-form-input#first_name(v-model="fields.first_name" :state="getState('first_name')")
+                        b-form-input#first_name(v-model="fields.first_name" :state="getState('first_name')" required)
 
                     b-form-group(
                         label="Last name"
                         :state="getState('last_name')"
                         :invalid-feedback="errors.last_name"
                     )
-                        b-form-input#last_name(v-model="fields.last_name" :state="getState('last_name')")
+                        b-form-input#last_name(v-model="fields.last_name" :state="getState('last_name')" required)
 
                     b-form-group(
                         label="Birth Date"
@@ -51,7 +51,7 @@
                         :state="getState('password')"
                         :invalid-feedback="errors.password"
                     )
-                        b-form-input#password(type="password" v-model="fields.password" :state="getState('password')")
+                        b-form-input#password(type="password" v-model="fields.password" :state="getState('password')" required)
 
                     b-form-group(
                         label="Password confirmation"
@@ -62,6 +62,7 @@
                             type="password"
                             v-model="fields.password_confirmation"
                             :state="getState('password_confirmation')"
+                            required
                         )
 
                     button.btn.btn-dark.btn-block(
