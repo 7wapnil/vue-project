@@ -2,7 +2,7 @@
     simple-layout
         .row
             .col-6.offset-3
-                form
+                form(@submit.prevent="submit")
                     h2 Sign Up
                     hr
 
@@ -65,8 +65,7 @@
                         )
 
                     button.btn.btn-dark.btn-block(
-                        type="button"
-                        @click="submit"
+                        type="submit"
                     ) Sign Up
 
                     hr

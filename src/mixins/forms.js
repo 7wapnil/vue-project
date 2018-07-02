@@ -19,6 +19,12 @@ export default {
       graphQLErrors.forEach((error) => {
         this.$set(this.errors, error.path, error.message)
       })
+
+      if (networkError) {
+        this.$noty.error('Oops, something went wrong!', {
+          timeout: 3000
+        })
+      }
     }
   }
 }
