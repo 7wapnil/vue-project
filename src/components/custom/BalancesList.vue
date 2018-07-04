@@ -8,10 +8,10 @@
             aria-haspopup="true"
             aria-expanded="false"
             ) {{ displayAmount(activeWallet) }}
-            .dropdown-menu
+            .dropdown-menu(v-if="walletsList.length")
                 a.dropdown-item(
                     v-for="wallet in walletsList"
-                    :key="wallet.id"
+                    :key="wallet.currency.code"
                     href="#"
                     @click.prevent="selectWallet(wallet)"
                 ) {{ displayAmount(wallet) }}
@@ -58,7 +58,9 @@
           wallet = this.wallets.find((item) => {
             return item.id == chosenWalletId
           })
-        } else {
+        }
+
+        if (!wallet) {
           wallet = this.wallets[0]
         }
 
