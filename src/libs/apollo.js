@@ -10,7 +10,10 @@ const authLink = new ApolloLink((operation, forward) => {
   const headers = operation.getContext().headers || {}
 
   if (Store.getters['isLoggedIn']) {
-    headers['Authorization'] = `Bearer ${Store.getters['token']}`
+    const token = Store.getters['getToken']
+    if (token) {
+      headers['Authorization'] = `Bearer ${token}`
+    }
   }
   operation.setContext({ headers: headers })
 

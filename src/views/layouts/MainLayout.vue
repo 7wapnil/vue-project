@@ -20,7 +20,9 @@
                         router-link.nav-link(:to="item.path")
                             | {{ item.label }}
 
-                ul.navbar-nav.ml-auto
+                balances-list(v-if="loggedIn")
+
+                ul.navbar-nav
                     li.nav-item.dropdown(v-if="loggedIn")
                         a#username-dropdown.nav-link.dropdown-toggle(
                             href="#"
@@ -46,7 +48,12 @@
 </template>
 
 <script>
+  import BalancesList from '@/components/custom/BalancesList.vue'
+
   export default {
+    components: {
+        BalancesList
+    },
     data() {
       return {
         mainMenu: [{

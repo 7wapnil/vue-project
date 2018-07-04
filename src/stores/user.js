@@ -32,6 +32,16 @@ export default {
     logout (state) {
       state.session = {}
       dropSession()
+    },
+    userData(state, data) {
+      const session = state.session
+      if (session.user) {
+        Object.keys(data).forEach((key) => {
+          session.user[key] = data[key]
+        })
+      }
+      state.session = session
+      storeSession(state.session)
     }
   },
   getters: {
@@ -42,8 +52,14 @@ export default {
       return Boolean(state.session.token)
     },
     getUser (state) {
-      console.log(state)
       return state.session.user
+    },
+    getUserData: (state, getters) => (attribute) => {
+      const userData = getters['getUser']
+      if (userData) {
+        return userData[attribute]
+      }
+      return null
     }
   }
 }
