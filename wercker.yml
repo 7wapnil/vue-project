@@ -3,14 +3,14 @@ box: kkarczmarczyk/node-yarn:latest
 build:
   steps:
     - bashaus/yarn-install:
-      name: Install app dependencies
+      name: install-dependencies
 
     - script:
-      name: Style guide check
+      name: style-guide-check
       code: yarn lint
 
     - script:
-      name: Unit test
+      name: unit-test
       code: yarn test:unit
 
     - script:
@@ -18,7 +18,7 @@ build:
       code: yarn deploy
 
     - script:
-      name: Cleanup
+      name: cleanup
       code: |
         rm -rf ./node_modules
         rm ./yarn.lock
@@ -26,10 +26,10 @@ build:
 deploy:
   steps:
     - bashaus/yarn-install:
-      name: Install app dependencies
+      name: install-dependencies
 
     - script:
-      name: Build production assets
+      name: build-production-assets
       code: yarn build
 
     - script:
