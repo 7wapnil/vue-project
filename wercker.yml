@@ -1,28 +1,40 @@
-box: node:9
+box: kkarczmarczyk/node-yarn:latest
 
 build:
   steps:
-    - script:
-      name: Install yarn
-      code: |
-        curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
-        echo "deb http://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
-        apt-get update && apt-get install -y yarn
+    - bashaus/yarn-install:
+      name: install-dependencies
 
     - script:
-      name: Install app dependencies
-      code: yarn install
-
-    - script:
-      name: Style guide check
+      name: style-guide-check
       code: yarn lint
 
     - script:
-      name: Unit test
+      name: unit-test
       code: yarn test:unit
 
-deploy:
-  steps:
     - script:
       name: deploy
       code: yarn deploy
+
+    - script:
+      name: cleanup
+      code: |
+        rm -rf ./node_modules
+        rm ./yarn.lock
+
+deploy:
+  steps:
+    - bashaus/yarn-install:
+      name: install-dependencies
+
+    - script:
+      name: build-production-assets
+      code: yarn build
+
+    - script:
+      name: deploy
+      code: |
+        echo $AWS_ACCESS_KEY_ID
+        echo $AWS_SECRET_ACCESS_KEY
+        yarn deploy
