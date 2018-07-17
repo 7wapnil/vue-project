@@ -67,6 +67,7 @@
 
                     button.btn.btn-dark.btn-block(
                         type="submit"
+                        :disabled="submitting"
                     ) Sign Up
 
                     hr
@@ -103,13 +104,15 @@
           altInput: true,
           dateFormat: 'Y-m-d',
           altFormat: 'j F Y'
-        }
+        },
+        submitting: false
       }
     },
     methods: {
       submit() {
         this.clearErrors()
         const input = this.fields
+        this.submitting = true
 
         this
           .apiService
@@ -119,7 +122,9 @@
             this.$router.push({ name: 'home' })
           })
           .catch(this.handleGraphQLErrors)
-
+          .finally(() => {
+            this.submitting = false
+          })
       }
     }
   }

@@ -28,6 +28,7 @@
 
                     button.btn.btn-dark.btn-block(
                         type="submit"
+                        :disabled="submitting"
                     ) Sign In
 
                     hr
@@ -48,13 +49,15 @@
         fields: {
           username: '',
           password: ''
-        }
+        },
+        submitting: false
       }
     },
     methods: {
       submit() {
         this.clearErrors()
         const input = this.fields
+        this.submitting = true
 
         this
           .apiService
@@ -69,7 +72,9 @@
               this.$noty.warning(err.graphQLErrors[0].message)
             }
           })
-
+          .finally(() => {
+            this.submitting = false
+          })
       }
     }
   }
