@@ -13,7 +13,7 @@
     },
     computed: {
       name() {
-        return `${this.odd.name} ${this.odd.odd_values[0].value}`
+        return `${this.odd.name} ${this.odd.value}`
       }
     }
   }

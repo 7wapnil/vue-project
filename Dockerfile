@@ -1,7 +1,5 @@
-FROM node:9
+FROM node:8.11-alpine
 
-RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
-RUN echo "deb http://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
-RUN apt-get update && apt-get install -y yarn
+RUN npm i -g yarn
 
 WORKDIR /usr/src/app

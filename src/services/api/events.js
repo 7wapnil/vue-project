@@ -19,11 +19,7 @@ class EventsService extends BaseService {
         odds {
           id
           name
-          odd_values {
-            id
-            value
-            created_at
-          }
+          value
         }
       }
     `
