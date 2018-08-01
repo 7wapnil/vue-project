@@ -8,19 +8,25 @@ import App from './App'
 import Router from '@/routes'
 import ApolloProvider from '@/libs/apollo'
 import Store from '@/stores/index'
+import globalMixin from '@/mixins/global'
 import '@/components/global-components'
+import WebSocket from 'vue-socket.io'
 
 Vue.config.productionTip = false
+
+Vue.mixin(globalMixin)
 
 Vue.use(VueNoty, {
   timeout: 2000,
   layout: 'topRight'
 })
 
+Vue.use(WebSocket, process.env.VUE_APP_WEB_SOCKET_URL)
+
 new Vue({
   router: Router,
   store: Store,
   provide: ApolloProvider.provide(),
-  render: h => h(App)
+  render: h => h(App),
 }).$mount('#app')
 
