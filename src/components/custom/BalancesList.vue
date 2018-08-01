@@ -29,14 +29,7 @@
       }
     },
     created() {
-        this.service.loadList(`
-            id
-            amount
-            currency {
-                code
-            }
-        `)
-          .then(this.setActiveWallet)
+        this.loadWallets()
     },
     computed: {
       walletsList() {
@@ -50,6 +43,16 @@
       }
     },
     methods: {
+      loadWallets() {
+        this.service.loadList(`
+            id
+            amount
+            currency {
+                code
+            }
+        `)
+        .then(this.setActiveWallet)
+      },
       setActiveWallet() {
         let wallet;
         const chosenWalletId = this.$store.getters.getUserData('wallet')
