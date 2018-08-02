@@ -42,10 +42,25 @@
                     li.nav-item(v-if="!loggedIn")
                         router-link.nav-link(:to="'sign-up'")
                             | Sign Up
+                    li.socket
+                        div(:class="{'online': socketConnected}")
 
         .container
             slot
 </template>
+
+<style>
+    li.socket > div {
+        width: 8px;
+        height: 8px;
+        margin: auto;
+        border-radius: 50px;
+        background: red;
+    }
+    li.socket > div.online {
+        background: green;
+    }
+</style>
 
 <script>
   import BalancesList from '@/components/custom/BalancesList.vue'

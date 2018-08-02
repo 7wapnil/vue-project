@@ -55,7 +55,10 @@ describe('BalancesList component', () => {
 
     wrapper = shallowMount(BalancesList, {
       localVue,
-      store
+      store,
+      methods: {
+        loadWallets: () => {}
+      }
     })
     wrapper.setData({ wallets })
   })
