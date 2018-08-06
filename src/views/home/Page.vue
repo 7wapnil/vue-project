@@ -1,9 +1,15 @@
 <template lang="pug">
     main-layout
         .row
-            .col-xs-12.col-md-4.pull-right.order-md-12
-                betslip          
-            .col-xs-12.col-md-8.order-md-1
+            .col-xs-12.col-md-2.pull-right.order-md-12
+                p.mt-3 Websocket messages
+                hr
+                ul.list-unstyled
+                    li(v-for="message in messages")
+                        | {{ message.name }}: {{ message.message }}
+            .col-xs-12.col-md-4.pull-right.order-md-11
+                betslip
+            .col-xs-12.col-md-6.order-md-1
                 b-card.mt-4(
                     header="Events"
                 )
@@ -14,7 +20,7 @@
                         .row
                             .col
                                 h5.card-title {{ event.description }}
-        
+
                         event-item(:event="event")
 </template>
 
@@ -28,10 +34,17 @@
       EventItem,
       Betslip
     },
+    sockets: {
+      test(data) {
+        console.log(data)
+        this.messages.push(data)
+      }
+    },
     data() {
       return {
         apiService: new ApiService(this),
-        events: []
+        events: [],
+        messages: []
       }
     },
     created() {
