@@ -3,11 +3,6 @@ import { createLocalVue, shallowMount } from '@vue/test-utils'
 import Vuex from 'vuex'
 import Betslip from '@/components/betslip/Betslip.vue'
 
-const betslipContent = [{
-  id: 1,
-  stack: 0.00
-}]
-
 const localVue = createLocalVue()
 localVue.use(Vuex)
 
