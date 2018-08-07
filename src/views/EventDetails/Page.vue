@@ -30,12 +30,6 @@
     components: {
       OddButton
     },
-    props: {
-      id: {
-        type: String,
-        required: true
-      }
-    },
     data() {
       return {
         apiService: new ApiService(this),
@@ -43,7 +37,7 @@
       }
     },
     created(){
-      this.apiService.loadById(this.id, `
+      this.apiService.loadById(this.$route.params.id, `
         id
         name
         description
@@ -57,8 +51,7 @@
                 value
             }
         }
-      `).then(() => {
-      }).catch(console.log)
+      `).catch(console.log)
     }
   }
 </script>

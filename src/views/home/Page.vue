@@ -1,28 +1,39 @@
-<template lang="pug">
-    main-layout
-        .row
-            .col-xs-12.col-md-2.order-md-1
-                p.mt-3 Websocket messages
-                hr
-                ul.list-unstyled
-                    li(v-for="message in messages")
-                        | {{ message.name }}: {{ message.message }}
-            .col-xs-12.col-md-4.order-md-12
-                betslip.mt-4
-            .col-xs-12.col-md-6.order-md-2
-                b-card.mt-4(
-                    header="Events"
-                )
-                    b-card.mt-2.event-card(
-                        @click="showEventDetails(event)"
-                        v-for="event in events"
-                        :key="event.id"
-                    )
-                        .row
-                            .col
-                                h5.card-title {{ event.description }}
+<template>
+    <main-layout>
+        <div class="row">
+            <div class="col-xs-12 col-md-2 order-md-1">
+                <p class="mt-3">Websocket messages</p>
+                <hr/>
+                <ul class="list-unstyled">
+                    <li v-for="message in messages"
+                        :key="message">{{ message.name }}: {{ message.message }}</li>
+                </ul>
+            </div>
+            <div class="col-xs-12 col-md-4 order-md-12">
+                <betslip class="mt-4"></betslip>
+            </div>
+            <div class="col-xs-12 col-md-6 order-md-2">
+                <b-card class="mt-4" header="Events">
+                    <b-card class="mt-2"
+                            v-for="event in events"
+                            :key="event.id">
+                        <div class="row">
+                            <div class="col">
+                                <h5 class="card-title">
+                                    <router-link
+                                            :to="{ name: 'event', params: { id: event.id } }">
+                                        {{ event.description }}
+                                    </router-link>
 
-                        event-item(:event="event")
+                                </h5>
+                            </div>
+                        </div>
+                        <event-item :event="event"></event-item>
+                    </b-card>
+                </b-card>
+            </div>
+        </div>
+    </main-layout>
 </template>
 
 <script>
@@ -50,21 +61,8 @@
     },
     created() {
       this.apiService.load()
-    },
-    methods:{
-      showEventDetails(event){
-        this.$router.push({
-          path: `/event/${event.id}`,
-          component: Event,
-          props: { id: event.id }
-        })
-      }
     }
   }
 </script>
 <style scoped>
-    .event-card:hover {
-        background-color: #f7f7f7;
-        cursor: pointer;
-    }
 </style>
