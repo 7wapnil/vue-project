@@ -1,5 +1,5 @@
 <template lang="pug">
-    .btn.btn-block.btn-outline-primary(v-on:click="$emit('obbButtonClick', odd)")
+    .btn.btn-block.btn-outline-primary(@click="obbButtonClick")
         | {{ name }}
 </template>
 
@@ -16,11 +16,11 @@
         return `${this.odd.name} ${this.odd.value}`
       }
     },
-    created(){
-        this.$on('obbButtonClick', odd => {
-            this.$store.dispatch('addOddtoBetslip', odd)
-        })
-    }  
+    methods: {
+      obbButtonClick() {
+        this.$store.dispatch('addOddtoBetslip', this.odd.id)
+      }
+    }
   }
 </script>
 
