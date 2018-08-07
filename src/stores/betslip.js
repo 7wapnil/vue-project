@@ -8,7 +8,7 @@ export default {
     actions: {
         addOddtoBetslip (context, odd) {
             context.commit('pushOddToBetslip', odd)
-        }   
+        }
     },
     mutations: {
         pushOddToBetslip (state, odd) {
