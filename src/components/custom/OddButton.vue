@@ -1,6 +1,8 @@
-<template lang="pug">
-    .btn.btn-block.btn-outline-primary(@click="obbButtonClick")
-        | {{ odd.name }} {{ value }}
+<template>
+    <div class="btn btn-block btn-outline-primary mb-2"
+         @click="obbButtonClick">
+        {{ odd.name }} {{ value }}
+    </div>
 </template>
 
 <script>
