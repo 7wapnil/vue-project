@@ -1,5 +1,5 @@
 <template lang="pug">
-    .btn.btn-block.btn-outline-primary
+    .btn.btn-block.btn-outline-primary(@click="obbButtonClick")
         | {{ odd.name }} {{ value }}
 </template>
 
@@ -21,6 +21,11 @@
         if (data.id === this.odd.id) {
           return this.value = data.value
         }
+      }
+    },
+    methods: {
+      obbButtonClick() {
+        this.$store.dispatch('addOddtoBetslip', this.odd.id)
       }
     }
   }
