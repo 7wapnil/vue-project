@@ -25,7 +25,7 @@
     },
     methods: {
       obbButtonClick() {
-        this.$store.dispatch('addOddtoBetslip', this.odd.id)
+        this.$store.dispatch('addOddtoBetslip', this.odd)
       }
     }
   }
