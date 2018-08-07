@@ -1,14 +1,14 @@
 <template lang="pug">
     main-layout
         .row
-            .col-xs-12.col-md-2.pull-right.order-md-1
+            .col-xs-12.col-md-2.order-md-1
                 p.mt-3 Websocket messages
                 hr
                 ul.list-unstyled
                     li(v-for="message in messages")
                         | {{ message.name }}: {{ message.message }}
-            .col-xs-12.col-md-4.pull-right.order-md-12
-                betslip
+            .col-xs-12.col-md-4.order-md-12
+                betslip.mt-4
             .col-xs-12.col-md-6.order-md-2
                 b-card.mt-4(
                     header="Events"
