@@ -11,7 +11,8 @@
                 b-card.mt-4(
                     header="Events"
                 )
-                    b-card.mt-2(
+                    b-card.mt-2.event-card(
+                        @click="showEventDetails(event)"
                         v-for="event in events"
                         :key="event.id"
                     )
@@ -45,6 +46,21 @@
     },
     created() {
       this.apiService.load()
+    },
+    methods:{
+      showEventDetails(event){
+        this.$router.push({
+          path: `/event/${event.id}`,
+          component: Event,
+          props: { id: event.id }
+        })
+      }
     }
   }
 </script>
+<style scoped>
+    .event-card:hover {
+        background-color: #f7f7f7;
+        cursor: pointer;
+    }
+</style>
