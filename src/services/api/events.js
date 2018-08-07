@@ -27,6 +27,7 @@ class EventsService extends BaseService {
 
   load(prop = 'events') {
     return new Promise((resolve, reject) => {
+
       this.client.addSmartQuery(prop, {
         query: this.buildQuery(`
           query {
@@ -35,6 +36,26 @@ class EventsService extends BaseService {
             }
           }
         `),
+        result: resolve,
+        error: reject
+      })
+
+    })
+  }
+
+  loadById(id, fields = '') {
+    fields = fields || this.fields
+
+    return new Promise((resolve, reject) => {
+      this.client.addSmartQuery('event', {
+        query: this.buildQuery(`
+          query event($id: ID!) {
+            event(id: $id) {
+              ${fields}
+            }
+          }
+        `),
+        variables: { id },
         result: resolve,
         error: reject
       })
