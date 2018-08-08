@@ -3,7 +3,7 @@
  */
 export default {
     state: {
-        bets: [ { odd: {id: 1}} ]
+        bets: []
     },
     actions: {
         addOddtoBetslip (context, odd) {
