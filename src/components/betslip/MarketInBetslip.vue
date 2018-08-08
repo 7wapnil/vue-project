@@ -4,7 +4,7 @@
             div(slot='header')
                 = "{{event.name}}"
                 button.close(aria-label="Close")
-                    span(aria-hidden="true")
+                    span(aria-hidden="true" @click="removeOdd(odd.odd)")
                         ="×"
             .row.m-2
                 p
@@ -52,6 +52,10 @@
             },
             potentialReturn: function () {
                 return this.odd.stake * this.odd.odd.value
+        },
+        methods: {
+            removeOdd: function (odd) {
+                this.$store.commit('removeOddFromBetslip',{ odd: odd })
             }
         }
     }

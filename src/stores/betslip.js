@@ -16,7 +16,10 @@ export default {
             if(exists == undefined) {
                 state.bets.push({odd: odd, stake: 0})
             }
-        }
+        },
+        removeOddFromBetslip (state, odd) {
+            state.bets = state.bets.filter(e => e.id !== odd.id)
+        },
     },
     getters: {
         getBets (state) {
