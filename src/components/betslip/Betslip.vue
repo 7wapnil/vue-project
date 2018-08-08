@@ -49,10 +49,10 @@
                 return this.$store.getters.getBets.length
             },
             totalStakes: function () {
-                return this.$store.getters.getBets.map(el => el.stake).reduce((a, b) => +a + +b, '')
+                return this.$store.getters.getBets.map(el => el.stake).reduce((a, b) => +a + +b, '') || 0
             },
             totalReturn: function () {
-                return this.$store.getters.getBets.map(el => el.stake * el.odd.value).reduce((a, b) => +a + +b, '')
+                return Math.round(this.$store.getters.getBets.map(el => el.stake * el.odd.value).reduce((a, b) => +a + +b, '')) || 0
             }
         }
     }

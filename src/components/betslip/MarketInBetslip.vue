@@ -45,13 +45,14 @@
         },
         computed: {
             market: function () {
-                return { name: "Market for odd " + this.odd.odd.id }
+                return { name: "Market of Odd " + this.odd.odd.id }
             },
             event: function () {
-                return { name: "Event for odd " + this.odd.odd.id }
+                return { name: "Event of Odd " + this.odd.odd.id }
             },
             potentialReturn: function () {
-                return this.odd.stake * this.odd.odd.value
+                return Math.round(this.odd.stake * this.odd.odd.value)
+            }
         },
         methods: {
             removeOdd: function (odd) {
