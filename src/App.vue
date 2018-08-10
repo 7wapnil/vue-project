@@ -2,6 +2,51 @@
     <router-view/>
 </template>
 
+<script>
+
+    export default {
+      sockets: {
+        oddChange(data) {
+          console.log('Received odd change', data)
+          this.updateFragment('Odd', data)
+        },
+        updateMarket(data) {
+            this.updateFragment('Market', data)
+        },
+        updateEvent(data) {
+          this.updateFragment('Event', data)
+        }
+      },
+      methods: {
+        updateFragment(typename, updates) {
+          const client = this.$apollo.getClient()
+          const id = `${typename}:${updates.id}`
+          const fields = Object.keys(updates).filter((key) => {
+            return key !== 'eventId' && key !== 'marketId'
+          })
+
+          const fragment = this.gql(`
+            fragment ${typename} on ${typename} {
+              ${ fields.join('\n') }
+            }
+          `)
+
+          const data = client.readFragment({ id, fragment })
+
+          if (data) {
+            fields.forEach((attr) => {
+              if (attr !== 'eventId' && attr !== 'marketId') {
+                data[attr] = updates[attr]
+              }
+            })
+            console.log('Updating odd cache')
+            client.writeFragment( {id, fragment, data })
+          }
+        }
+      }
+    }
+</script>
+
 <style>
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;

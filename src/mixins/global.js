@@ -1,3 +1,7 @@
+import gql, { disableFragmentWarnings } from 'graphql-tag'
+
+disableFragmentWarnings()
+
 export default {
   sockets: {
     connect() {
@@ -12,6 +16,11 @@ export default {
   data() {
     return {
       socketConnected: false
+    }
+  },
+  methods: {
+    gql (query) {
+      return gql `${query}`
     }
   }
 }
