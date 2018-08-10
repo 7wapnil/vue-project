@@ -15,7 +15,6 @@
                     <odd-button v-for="odd in primaryMarket.odds"
                                 :key="odd.id"
                                 :odd="odd"></odd-button>
-                </div>
             </div>
         </div>
     </div>
