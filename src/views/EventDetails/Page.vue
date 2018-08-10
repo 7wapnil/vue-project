@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col">
                 <b-card class="mt-4" v-if="event">
-                    <div slot="header">{{ event.name }}</div>
+                    <div slot="header">{{ event.description }}</div>
                     <b-card class="mt-2"
                             v-for="market in event.markets"
                             :key="market.id">

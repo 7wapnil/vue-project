@@ -1,7 +1,8 @@
 <template>
     <div class="btn btn-block btn-outline-primary mb-2"
+         :class="{'btn-outline-success': raised, 'btn-outline-danger': !raised}"
          @click="obbButtonClick">
-        {{ odd.name }} {{ value }}
+        {{ odd.name }} {{ odd.value }} ({{ diff > 0 ? '+' : '' }}{{ diff }})
     </div>
 </template>
 
@@ -15,24 +16,21 @@
     },
     data() {
       return {
-        value: this.odd.value
-      }
-    },
-    sockets: {
-      oddChange(data) {
-        if (data.id === this.odd.id) {
-          return this.value = data.value
-        }
+        raised: null,
+        diff: 0
       }
     },
     methods: {
       obbButtonClick() {
         this.$store.dispatch('addOddtoBetslip', this.odd)
       }
+    },
+    watch: {
+      odd(oldOdd, newOdd) {
+        this.diff = (newOdd.value - oldOdd.value).toFixed(2)
+        this.raised = oldOdd.value < newOdd.value
+        console.log(this.raised, oldOdd.value, newOdd.value)
+      }
     }
   }
 </script>
-
-<style scoped>
-
-</style>

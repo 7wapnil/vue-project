@@ -1,5 +1,32 @@
 import BaseService from './base-service'
 
+const fields = `
+  id
+  name
+  description
+  title_name
+  start_at
+  end_at
+  markets {
+    id
+    name
+    priority
+    odds {
+      id
+      name
+      value
+    }
+  }
+`
+
+export const listQuery = `
+  query eventList {
+    events {
+      ${fields}
+    }
+  }
+`
+
 class EventsService extends BaseService {
 
   constructor(vm) {
@@ -29,13 +56,7 @@ class EventsService extends BaseService {
     return new Promise((resolve, reject) => {
 
       this.client.addSmartQuery(prop, {
-        query: this.buildQuery(`
-          query {
-            events {
-              ${this.fields}
-            }
-          }
-        `),
+        query: this.buildQuery(listQuery),
         result: resolve,
         error: reject
       })

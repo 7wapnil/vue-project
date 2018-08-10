@@ -1,20 +1,24 @@
-<template lang="pug">
-    .row.align-items-end
-        .col-lg-6
-            .row
-                .col-lg-12.col-sm-6
-                    p.card-text.font-weight-bold
-                        | {{ event.title_name }}
-
-                .col-lg-12.col-sm-6
-                    p.catd-text
-                        | {{ fromNow }}
-
-        .col-lg-6
-            .row
-                .col(v-for="odd in primaryMarket.odds", :key="odd.id")
-                    odd-button(:odd="odd")
-
+<template>
+    <div class="row align-items-end">
+        <div class="col-lg-6">
+            <div class="row">
+                <div class="col-lg-12 col-sm-6">
+                    <p class="card-text font-weight-bold">{{ event.title_name }}</p>
+                </div>
+                <div class="col-lg-12 col-sm-6">
+                    <p class="catd-text">{{ fromNow }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="row" v-if="primaryMarket">
+                    <odd-button v-for="odd in primaryMarket.odds"
+                                :key="odd.id"
+                                :odd="odd"></odd-button>
+                </div>
+            </div>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -31,18 +35,13 @@
         required: true
       }
     },
-    data() {
-      return {
-        primaryMarket: null
-      }
-    },
-    created(){
-        this.primaryMarket = this.event.markets.find(market => market.priority === 1)
-    },
     computed: {
-        fromNow() {
-          return moment(this.event.start_at).fromNow()
-        }
+      primaryMarket () {
+        return this.event.markets.find(market => market.priority === 1)
+      },
+      fromNow() {
+        return moment(this.event.start_at).fromNow()
+      }
     }
   }
 </script>
