@@ -12,6 +12,10 @@ class BaseService {
   buildQuery(query) {
     return gql `${query}`
   }
+  
+  static gql(query) {
+    return gql `${query}`
+  }
 }
 
 export default BaseService

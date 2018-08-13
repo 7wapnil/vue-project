@@ -3,7 +3,7 @@ import SignUp from '@/views/auth/SignUp.vue'
 import SignIn from '@/views/auth/SignIn.vue'
 import Home from '@/views/home/Page.vue'
 import Esports from '@/views/esports/Page.vue'
-import Event from '@/views/EventDetails/Page.vue'
+import Event from '@/views/event/Page.vue'
 
 export default new Router({
   mode: 'history',
