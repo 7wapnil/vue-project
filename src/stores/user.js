@@ -1,28 +1,11 @@
-const storageKey = 'session'
-
-const storeSession = (sessionData) => {
-  localStorage.setItem(storageKey, JSON.stringify(sessionData))
-}
-
-const getSession = () => {
-  const data = localStorage.getItem(storageKey)
-  if (!data) {
-    return null
-  }
-
-  return JSON.parse(data)
-}
-
-const dropSession = () => {
-  localStorage.removeItem(storageKey)
-}
+import ArcanebetSession from '@/services/local-storage/session'
 
 /**
  * User store module
  */
 export default {
   state: {
-    session: getSession() || {}
+    session: ArcanebetSession.getSession() || {}
   },
   actions: {
     logout(context, componentContext) {
@@ -52,7 +35,7 @@ export default {
         })
       }
       state.session = session
-      storeSession(state.session)
+      ArcanebetSession.storeSession(state.session)
     }
   },
   getters: {
