@@ -1,6 +1,7 @@
 <template>
-        <b-tabs class="mt-2">
+    <b-card id="betslip">
         <div slot="header">Betslip ({{betslipOdds.length}})</div>
+        <b-tabs class="mt-2" v-if="betslipOdds.length > 0">
             <b-tab class="p-2 px-2" title="Single" active="">
                 <div class="mt-4" id="markets-in-betslip">
                     <div v-for="odd in betslipOdds" :key="odd.id">
