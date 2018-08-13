@@ -56,7 +56,7 @@
         },
         methods: {
             removeOdd: function (odd) {
-                this.$store.commit('removeOddFromBetslip',{ odd: odd })
+                this.$store.commit('removeOddFromBetslip', odd)
             }
         }
     }

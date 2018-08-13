@@ -18,7 +18,7 @@ export default {
             }
         },
         removeOddFromBetslip (state, odd) {
-            state.bets = state.bets.filter(e => e.id !== odd.id)
+            state.bets = state.bets.filter(e => e.odd.id !== odd.id)
         },
     },
     getters: {
