@@ -4,6 +4,34 @@ import { LIST_QUERY, EVENT_QUERY } from '@/services/api/events'
 export default {
   methods: {
     /**
+     * @param {Object} eventData
+     * @returns {*|void}
+     */
+    addEventToCache(eventData) {
+      if (this.hasFragment('Event', eventData.id)) {
+        return this.updateFragment('Event', eventData)
+      }
+
+      const cacheKey = { query: LIST_QUERY }
+      const store = this._readStore(cacheKey)
+      if (store) {
+        store.events.push({
+          id: eventData.id,
+          name: eventData.name,
+          description: eventData.name,
+          start_at: null,
+          end_at: null,
+          title_name: '',
+          markets: [],
+          __typename: 'Event'
+        })
+
+        cacheKey.data = store
+        this._writeStore(cacheKey)
+      }
+    },
+
+    /**
      * @param {Object} oddData
      * @returns {*|void}
      */
@@ -11,7 +39,7 @@ export default {
       if (this.hasFragment('Odd', oddData.id)) {
         return this.updateFragment('Odd', oddData)
       }
-  
+
       this._findEvent(oddData.eventId, (event) => {
         console.log(event)
         event.markets.forEach((market) => {
@@ -26,7 +54,7 @@ export default {
         })
       })
     },
-  
+
     /**
      * @param {Object} marketData
      * @returns {*|void}
@@ -46,7 +74,7 @@ export default {
         })
       })
     },
-  
+
     /**
      * @param {String} eventId
      * @param {Function} callback
@@ -57,7 +85,7 @@ export default {
         { query: LIST_QUERY },
         { query: EVENT_QUERY, variables: { id: eventId } }
       ]
-  
+
       cacheKeys.forEach((cacheKey) => {
         const store = this._readStore(cacheKey)
         if (store) {
@@ -67,7 +95,7 @@ export default {
           } else if (store.events) {
             event = store.events.find(event => event.id === marketData.eventId)
           }
-      
+
           if (event) {
             callback(event)
             cacheKey.data = store
@@ -76,26 +104,26 @@ export default {
         }
       })
     },
-    
+
     _readStore (cacheKey) {
       const client = this.$apollo.getClient()
       let store
-  
+
       try {
         store = client.readQuery(cacheKey)
       } catch (e) {
         console.log(e)
         return null
       }
-      
+
       return store
     },
-    
+
     _writeStore (date) {
       const client = this.$apollo.getClient()
       client.writeQuery(date)
     },
-    
+
     /**
      * Checks if entity exists in a cache
      * @param {string} typename
@@ -108,15 +136,15 @@ export default {
           id
         }
       `
-      
+
       const cacheFragment = this.$apollo.getClient().readFragment({
         id: `${typename}:${id}`,
         fragment
       })
-  
+
       return cacheFragment !== null
     },
-  
+
     /**
      *
      * @param {string} typename
@@ -128,21 +156,21 @@ export default {
       const fields = Object.keys(updates).filter((key) => {
         return key !== 'eventId' && key !== 'marketId'
       })
-      
+
       const fragment = gql `
         fragment ${typename} on ${typename} {
           ${ fields.join('\n') }
         }
       `
-      
+
       const data = client.readFragment({ id, fragment })
-      
+
       // if entity found in cache update it,
       // otherwise it was not loaded yet and not displayed
       if (data) {
-        
+
         console.log(`Updating entity '${typename}', id ${updates.id}`)
-        
+
         fields.forEach((attr) => {
           if (attr !== 'eventId' && attr !== 'marketId') {
             data[attr] = updates[attr]

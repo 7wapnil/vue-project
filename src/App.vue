@@ -13,6 +13,9 @@
         },
         updateMarket(data) {
           this.updateMarketInCache(data)
+        },
+        updateEvent(data) {
+          this.addEventToCache(data)
         }
       }
     }
