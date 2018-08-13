@@ -24,14 +24,25 @@ export default {
   state: {
     session: getSession() || {}
   },
+  actions: {
+    logout(context, componentContext) {
+      context.commit('cleanSession')
+      context.commit('cleanWalletsStorage')
+      ArcanebetSession.dropSession()
+      componentContext.$apollo.getClient().cache.reset()
+    },
+    login(context, sessionData) {
+      context.commit('storeSession',sessionData)
+      context.dispatch('loadWallets', this)
+      ArcanebetSession.storeSession(sessionData)
+    }
+  },
   mutations: {
-    login (state, sessionData) {
-      storeSession(sessionData)
+    storeSession(state, sessionData) {
       state.session = sessionData
     },
-    logout (state) {
+    cleanSession(state) {
       state.session = {}
-      dropSession()
     },
     userData(state, data) {
       const session = state.session
