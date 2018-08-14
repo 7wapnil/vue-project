@@ -46,10 +46,6 @@ describe('BalancesList component', () => {
       getWallets: () => wallets
     }
 
-    mutations = {
-      setActiveWalletId: sinon.stub()
-    }
-
     actions = {
       loadWallets: sinon.stub(),
       changeActiveWallet: sinon.stub()
@@ -58,7 +54,6 @@ describe('BalancesList component', () => {
     const store = new Vuex.Store({
       state,
       getters,
-      mutations,
       actions
     })
 
@@ -82,8 +77,8 @@ describe('BalancesList component', () => {
 
     it ('should set other active wallet on select', () => {
       wrapper.find('a.dropdown-item').trigger('click')
-      expect(mutations.setActiveWalletId.calledOnce).to.equal(true)
-      expect(mutations.setActiveWalletId.firstCall.args[1]).to.eq(1);
+      expect(actions.changeActiveWallet.calledOnce).to.equal(true)
+      expect(actions.changeActiveWallet.firstCall.args[1]).to.eq(1);
     })
   })
 
