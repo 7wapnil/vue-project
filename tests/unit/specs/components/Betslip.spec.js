@@ -63,7 +63,7 @@ describe('Betslip component', () => {
       })
 
       it('reacts on store state change', () => {
-        expect(wrapper.vm.betslipOdds).to.eql([sampleBet])
+        expect(wrapper.vm.getBets).to.eql([sampleBet])
       })
 
       describe('totals block', () => {
