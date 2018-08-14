@@ -1,37 +1,31 @@
-const storageKey = 'session'
-
-const storeSession = (sessionData) => {
-  localStorage.setItem(storageKey, JSON.stringify(sessionData))
-}
-
-const getSession = () => {
-  const data = localStorage.getItem(storageKey)
-  if (!data) {
-    return null
-  }
-
-  return JSON.parse(data)
-}
-
-const dropSession = () => {
-  localStorage.removeItem(storageKey)
-}
+import ArcanebetSession from '@/services/local-storage/session'
 
 /**
  * User store module
  */
 export default {
   state: {
-    session: getSession() || {}
+    session: ArcanebetSession.getSession() || {}
+  },
+  actions: {
+    logout(context, componentContext) {
+      context.commit('cleanSession')
+      context.commit('cleanWalletsStorage')
+      ArcanebetSession.dropSession()
+      componentContext.$apollo.getClient().cache.reset()
+    },
+    login(context, sessionData) {
+      context.commit('storeSession',sessionData)
+      context.dispatch('loadWallets', this)
+      ArcanebetSession.storeSession(sessionData)
+    }
   },
   mutations: {
-    login (state, sessionData) {
-      storeSession(sessionData)
+    storeSession(state, sessionData) {
       state.session = sessionData
     },
-    logout (state) {
+    cleanSession(state) {
       state.session = {}
-      dropSession()
     },
     userData(state, data) {
       const session = state.session
@@ -41,7 +35,7 @@ export default {
         })
       }
       state.session = session
-      storeSession(state.session)
+      ArcanebetSession.storeSession(state.session)
     }
   },
   getters: {

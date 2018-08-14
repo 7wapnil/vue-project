@@ -99,7 +99,7 @@
     },
     methods: {
       logout() {
-        this.$store.commit('logout')
+        this.$store.dispatch('logout', this)
         this.$noty.success('Signed out successfully')
       }
     }
