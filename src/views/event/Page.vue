@@ -24,7 +24,7 @@
 
 <script>
   import OddButton from '@/components/custom/OddButton.vue'
-  import ApiService from '@/services/api/events'
+  import ApiService, { LIST_QUERY } from '@/services/api/events'
 
   export default {
     components: {
@@ -37,25 +37,15 @@
       }
     },
     created(){
-      this.apiService.loadById(this.$route.params.id, `
-        id
-        name
-        description
-        markets {
-            name
-            id
-            priority
-            odds {
-                id
-                name
-                value
-            }
-        }
-      `).catch(console.log)
+      this
+        .apiService
+        .loadById(this.eventId)
+        .catch(console.log)
+    },
+    computed: {
+      eventId() {
+        return this.$route.params.id
+      }
     }
   }
 </script>
-
-<style scoped>
-
-</style>
