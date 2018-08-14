@@ -6,31 +6,31 @@ export default {
         bets: []
     },
     actions: {
-        addOddtoBetslip (context, odd) {
-            context.commit('pushOddToBetslip', odd)
+        addNewEmptyBet (context, odd) {
+            context.commit('pushNewBetToBetslip', odd)
         }
     },
     mutations: {
-        pushOddToBetslip (state, odd) {
+        pushNewBetToBetslip (state, odd) {
             let exists = state.bets.find(bet => bet.odd.id == odd.id )
             if(exists == undefined) {
                 state.bets.push({odd: odd, stake: 0})
             }
         },
-        setStake (state, { oddId, stakeValue }){
+        setBetStake (state, { oddId, stakeValue }){
           let bet = state.bets.find(bet => bet.odd.id == oddId )
           if (!bet) { return; }
           bet.stake = stakeValue
         },
-        removeOddFromBetslip (state, odd) {
+        removeBetFromBetslip (state, odd) {
             state.bets = state.bets.filter(e => e.odd.id !== odd.id)
         },
     },
     getters: {
-        getBets (state) {
+        getBets(state) {
             return state.bets
         },
-        getBetsCount (state) {
+        getBetsCount(state) {
             return state.bets.length
         },
         getTotalStakes(state) {
