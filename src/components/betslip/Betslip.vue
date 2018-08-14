@@ -1,6 +1,11 @@
 <template>
     <b-card id="betslip">
-        <div slot="header">Betslip ({{getBets.length}})</div>
+        <div slot="header">
+            Betslip
+            <transition name="fade">
+                <span v-show="getBets.length > 0">({{getBets.length}})</span>
+            </transition>
+        </div>
         <b-tabs class="mt-2">
             <b-tab class="p-2 px-2" title="Single" active="" id="betslipSingleTab">
                 <div v-if="getBets.length == 0">
