@@ -8,9 +8,9 @@
             aria-haspopup="true"
             aria-expanded="false"
             ) {{ displayAmount(activeWallet) }}
-            .dropdown-menu(v-if="walletsList.length")
+            .dropdown-menu(v-if="inactiveWalletsList.length")
                 a.dropdown-item(
-                    v-for="wallet in walletsList"
+                    v-for="wallet in inactiveWalletsList"
                     :key="wallet.currency.code"
                     href="#"
                     @click.prevent="selectWallet(wallet)"
@@ -18,67 +18,26 @@
 </template>
 
 <script>
-    import WalletsService from '@/services/api/wallets'
+
+  import { default as wallets } from '@/mixins/wallets';
 
   export default {
-    data() {
-      return {
-        service: new WalletsService(this),
-        wallets: [],
-        activeWallet: null
-      }
-    },
-    created() {
-        this.loadWallets()
-    },
-    computed: {
-      walletsList() {
-        if (!this.activeWallet) {
-          return this.wallets
-        }
-
-        return this.wallets.filter((wallet) => {
-          return this.activeWallet.id != wallet.id
-        })
-      }
-    },
-    methods: {
-      loadWallets() {
-        this.service.loadList(`
-            id
-            amount
-            currency {
-                code
-            }
-        `)
-        .then(this.setActiveWallet)
+      mixins: [ wallets ],
+      computed: {
+          inactiveWalletsList() {
+              const wallets = this.$store.getters.getWallets
+              return wallets.filter((wallet) => {
+                  return (wallet.id != null && this.activeWallet.id != wallet.id)
+              })
+          }
       },
-      setActiveWallet() {
-        let wallet;
-        const chosenWalletId = this.$store.getters.getUserData('wallet')
-
-        if (chosenWalletId) {
-          wallet = this.wallets.find((item) => {
-            return item.id == chosenWalletId
-          })
-        }
-
-        if (!wallet) {
-          wallet = this.wallets[0]
-        }
-
-        this.activeWallet = wallet
-      },
-      displayAmount(wallet) {
-        return `${wallet.amount.toFixed(2)} ${wallet.currency.code}`
-      },
-      selectWallet(wallet) {
-        this.$store.commit('userData', { wallet: wallet.id })
-        this.activeWallet = wallet
+      methods: {
+          displayAmount(wallet) {
+              return `${wallet.amount.toFixed(2)} ${wallet.currency.code}`
+          },
+          selectWallet(wallet) {
+              this.$store.commit('setActiveWalletId', wallet.id )
+          }
       }
-    },
-    beforeDestroy() {
-      this.service = null
-    }
   }
 </script>

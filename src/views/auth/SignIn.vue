@@ -63,7 +63,7 @@
           .apiService
           .signIn(input)
           .then(({ data: { signIn } }) => {
-            this.$store.commit('login', signIn)
+            this.$store.dispatch('login', signIn)
             this.$noty.success('Signed in successfully')
             this.$router.push({ name: 'home' })
           })
