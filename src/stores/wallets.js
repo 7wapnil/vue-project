@@ -17,7 +17,13 @@ export default {
         currency {
             code
         }
-      `).then(data => { context.commit('storeWallets', data.data.wallets) } )
+      `).then(data => {
+        context.commit('storeWallets', data.data.wallets)
+      } )
+    },
+    changeActiveWallet (context, walletId){
+      context.commit('setActiveWalletId', walletId)
+      context.commit('resetBetslipStakes')
     }
   },
   mutations: {

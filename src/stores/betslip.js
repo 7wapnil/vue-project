@@ -25,6 +25,14 @@ export default {
         removeBetFromBetslip (state, odd) {
             state.bets = state.bets.filter(e => e.odd.id !== odd.id)
         },
+        resetBetslipStakes (state){
+          state.bets.forEach(function(bet){
+            bet.stake = 0
+          })
+        },
+        cleanBetslip (state){
+          state.bets = []
+        }
     },
     getters: {
         getBets(state) {

@@ -51,7 +51,8 @@ describe('BalancesList component', () => {
     }
 
     actions = {
-      loadWallets: sinon.stub()
+      loadWallets: sinon.stub(),
+      changeActiveWallet: sinon.stub()
     }
 
     const store = new Vuex.Store({

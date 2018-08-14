@@ -36,7 +36,7 @@
               return `${wallet.amount.toFixed(2)} ${wallet.currency.code}`
           },
           selectWallet(wallet) {
-              this.$store.commit('setActiveWalletId', wallet.id )
+              this.$store.dispatch('changeActiveWallet', wallet.id )
           }
       }
   }
