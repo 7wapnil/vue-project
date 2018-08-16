@@ -109,6 +109,8 @@ describe('BalancesList component', () => {
   })
 
   describe('Functional tests', ()=>{
+    let selectWalletStub
+
     beforeEach(function() {
       loadWalletsStub = sinon.stub(BalancesList.methods, 'loadWallets').returns({})
       selectWalletStub = sinon.stub(BalancesList.methods, 'selectWallet').returns({})
