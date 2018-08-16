@@ -31,33 +31,33 @@
 </template>
 
 <script>
-    import OddButton from '@/components/custom/OddButton.vue'
+  import OddButton from '@/components/custom/OddButton.vue'
 
-    export default {
-        props: {
-            odd: {
-                type: Object,
-                required: true
-            }
-        },
-        components: {
-            OddButton
-        },
-        computed: {
-            market: function () {
-                return { name: "Market of Odd " + this.odd.odd.id }
-            },
-            event: function () {
-                return { name: "Event of Odd " + this.odd.odd.id }
-            },
-            potentialReturn: function () {
-                return Math.round(this.odd.stake * this.odd.odd.value)
-            }
-        },
-        methods: {
-            removeOdd: function (odd) {
-                this.$store.commit('removeBetFromBetslip', odd)
-            }
-        }
+  export default {
+    props: {
+      odd: {
+        type: Object,
+        required: true
+      }
+    },
+    components: {
+      OddButton
+    },
+    computed: {
+      market: function () {
+        return {name: "Market of Odd " + this.odd.odd.id}
+      },
+      event: function () {
+        return {name: "Event of Odd " + this.odd.odd.id}
+      },
+      potentialReturn: function () {
+        return Math.round(this.odd.stake * this.odd.odd.value)
+      }
+    },
+    methods: {
+      removeOdd: function (odd) {
+        this.$store.commit('removeBetFromBetslip', odd)
+      }
     }
+  }
 </script>

@@ -46,20 +46,20 @@
 </template>
 
 <script>
-    import MarketInBetslip from './MarketInBetslip.vue'
-    import { mapGetters } from 'vuex'
+  import MarketInBetslip from './MarketInBetslip.vue'
+  import { mapGetters } from 'vuex'
 
-    export default {
-        components: {
-            MarketInBetslip
-        },
-        computed: {
-            ...mapGetters([
-                           'getBets',
-                           'getBetsCount',
-                           'getTotalReturn',
-                           'getTotalStakes'
-                       ])
-        }
+  export default {
+    components: {
+      MarketInBetslip
+    },
+    computed: {
+      ...mapGetters([
+               'getBets',
+               'getBetsCount',
+               'getTotalReturn',
+               'getTotalStakes'
+             ])
     }
+  }
 </script>
