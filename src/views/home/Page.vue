@@ -12,7 +12,7 @@
             <div class="col-xs-12 col-md-4 order-md-12">
                 <betslip class="mt-4"></betslip>
             </div>
-            <div class="col-xs-12 col-md-6 order-md-2">
+            <div class="col-xs-12 col order-md-2">
                 <b-card class="mt-4" header="Events">
                     <b-card class="mt-2"
                             v-for="event in events"
