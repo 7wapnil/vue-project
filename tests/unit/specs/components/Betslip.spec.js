@@ -115,10 +115,11 @@ describe('Betslip component', () => {
           expect(wrapper.vm.getTotalReturn).to.eq( Math.round(sampleStakeReturn) )
         })
 
-        // TODO: Fix this test; while "calculates correct total return" passed
-        xit('displays correct total return', ()=>{
-          const returnValue = String(Math.round(sampleStakeReturn))
-          expect(wrapper.find('#betslipSingleTab .total-return-value').text()).to.eq(returnValue)
+        it('displays correct total return', ()=>{
+          setTimeout(function(){
+            const returnValue = String(Math.round(sampleStakeReturn))
+            expect(wrapper.find('#betslipSingleTab .total-return-value').text()).to.eq(returnValue)
+          }, 1000);
         })
       })
     })
