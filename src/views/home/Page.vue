@@ -24,7 +24,6 @@
                                             :to="{ name: 'event', params: { id: event.id } }">
                                         {{ event.description }}
                                     </router-link>
-
                                 </h5>
                             </div>
                         </div>

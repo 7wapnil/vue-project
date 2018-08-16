@@ -1,20 +1,16 @@
-<template lang="pug">
-    ul.navbar-nav.ml-auto
-        li.nav-item.dropdown(v-if="activeWallet")
-            a#wallets-dropdown.nav-link.dropdown-toggle(
-            href="#"
-            role="button"
-            data-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
-            ) {{ displayAmount(activeWallet) }}
-            .dropdown-menu(v-if="inactiveWalletsList.length")
-                a.dropdown-item(
-                    v-for="wallet in inactiveWalletsList"
-                    :key="wallet.currency.code"
-                    href="#"
-                    @click.prevent="selectWallet(wallet)"
-                ) {{ displayAmount(wallet) }}
+<template>
+    <ul class="navbar-nav ml-auto">
+        <li class="nav-item dropdown" v-if="activeWallet">
+            <a class="nav-link dropdown-toggle" id="wallets-dropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{ displayAmount(activeWallet) }}
+            </a>
+            <div class="dropdown-menu" v-if="inactiveWalletsList.length">
+                <a class="dropdown-item" v-for="wallet in inactiveWalletsList" :key="wallet.currency.code" href="#" @click.prevent="selectWallet(wallet)">
+                    {{ displayAmount(wallet) }}
+                </a>
+            </div>
+        </li>
+    </ul>
 </template>
 
 <script>
