@@ -1,5 +1,3 @@
-import WalletsService from '@/services/api/wallets'
-
 /**
  * Wallets store module
  */
@@ -9,18 +7,6 @@ export default {
     activeWalletId: null
   },
   actions: {
-    loadWallets (context, componentContext) {
-      const service = new WalletsService(componentContext)
-      service.loadList(`
-        id
-        amount
-        currency {
-            code
-        }
-      `).then(data => {
-        context.commit('storeWallets', data.data.wallets)
-      } )
-    },
     changeActiveWallet (context, walletId){
       context.commit('setActiveWalletId', walletId)
       context.commit('resetBetslipStakes')

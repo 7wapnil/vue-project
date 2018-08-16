@@ -17,7 +17,6 @@ export default {
     },
     login(context, sessionData) {
       context.commit('storeSession',sessionData)
-      context.dispatch('loadWallets', this)
       ArcanebetSession.storeSession(sessionData)
     }
   },
