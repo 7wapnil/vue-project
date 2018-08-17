@@ -1,40 +1,43 @@
-<template lang="pug">
-    simple-layout
-        .row
-            .col-6.offset-3
-                form(@submit.prevent="submit")
-                    h2 Sign In
-                    hr
-
-                    b-form-group(
-                        label="Username"
-                        required
-                        :state="getState('username')"
-                        :invalid-feedback="errors.username"
-                    )
-                        b-form-input#username(v-model="fields.username" :state="getState('username')" required)
-
-                    b-form-group(
-                        label="Password"
-                        :state="getState('password')"
-                        :invalid-feedback="errors.password"
-                    )
-                        b-form-input#password(
-                            type="password"
-                            v-model="fields.password"
-                            :state="getState('password')"
-                            required
-                        )
-
-                    button.btn.btn-dark.btn-block(
-                        type="submit"
-                        :disabled="submitting"
-                    ) Sign In
-
-                    hr
-                    router-link(:to="'sign-up'")
-                        | Have no account yet? Sign up here
-
+<template>
+    <simple-layout>
+        <div class="row">
+            <div class="col-6 offset-3">
+                <form @submit.prevent="submit">
+                    <h2>Sign In</h2>
+                    <hr/>
+                    <b-form-group label="Username"
+                                  required="required"
+                                  :state="getState('username')"
+                                  :invalid-feedback="errors.username">
+                        <b-form-input id="username"
+                                      v-model="fields.username"
+                                      :state="getState('username')"
+                                      required="required">
+                        </b-form-input>
+                    </b-form-group>
+                    <b-form-group label="Password"
+                                  :state="getState('password')"
+                                  :invalid-feedback="errors.password">
+                        <b-form-input id="password"
+                                      type="password"
+                                      v-model="fields.password"
+                                      :state="getState('password')"
+                                      required="required">
+                        </b-form-input>
+                    </b-form-group>
+                    <button class="btn btn-dark btn-block"
+                            type="submit"
+                            :disabled="submitting">
+                        Sign In
+                    </button>
+                    <hr/>
+                    <router-link :to="'sign-up'">
+                        Have no account yet? Sign up here
+                    </router-link>
+                </form>
+            </div>
+        </div>
+    </simple-layout>
 </template>
 
 <script>
