@@ -21,7 +21,7 @@
                             button.btn.btn-sm.btn-outline-secondary.my-2
                                 = "Place max bet"
                         .col-4
-                            input.form-control(type='text', name='odd-value', v-model="odd.stake")
+                            input.form-control(type='number', name='odd-value', v-model="odd.stake")
                     .row.my-2
                         .col-8.text-nowrap.text-right
                             = "Potential Return:"
