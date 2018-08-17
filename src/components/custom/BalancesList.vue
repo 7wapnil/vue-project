@@ -1,11 +1,22 @@
 <template>
     <ul class="navbar-nav ml-auto">
-        <li class="nav-item dropdown" v-if="activeWallet">
-            <a class="nav-link dropdown-toggle" id="wallets-dropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <li class="nav-item dropdown"
+            v-if="activeWallet">
+            <a class="nav-link dropdown-toggle"
+               id="wallets-dropdown" href="#"
+               role="button"
+               data-toggle="dropdown"
+               aria-haspopup="true"
+               aria-expanded="false">
                 {{ displayAmount(activeWallet) }}
             </a>
-            <div class="dropdown-menu" v-if="inactiveWalletsList.length">
-                <a class="dropdown-item" v-for="wallet in inactiveWalletsList" :key="wallet.currency.code" href="#" @click.prevent="selectWallet(wallet)">
+            <div class="dropdown-menu"
+                 v-if="inactiveWalletsList.length">
+                <a class="dropdown-item"
+                   v-for="wallet in inactiveWalletsList"
+                   :key="wallet.currency.code"
+                   href="#"
+                   @click.prevent="selectWallet(wallet)">
                     {{ displayAmount(wallet) }}
                 </a>
             </div>

@@ -1,24 +1,65 @@
 <template>
     <div>
         <div class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <router-link class="navbar-brand" :to="{ name: 'home' }">ArcaneBet</router-link><button class="navbar-toggler" type="button" aria-controls="navbar-content" aria-expanded="false" aria-label="Toggle navigation" aria-target="#navbar-content" aria-toggle="collapse"><span class="navbar-toggler-icon"></span></button>
-            <div
-                    class="collapse navbar-collapse" id="navbar-content">
+            <router-link class="navbar-brand"
+                         :to="{ name: 'home' }">
+                ArcaneBet
+            </router-link>
+            <button class="navbar-toggler"
+                    type="button"
+                    aria-controls="navbar-content"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation"
+                    aria-target="#navbar-content"
+                    aria-toggle="collapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse"
+                 id="navbar-content">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item" v-for="item in mainMenu" :key="item.path">
-                        <router-link class="nav-link" :to="item.path">{{ item.label }}</router-link>
+                    <li class="nav-item"
+                        v-for="item in mainMenu"
+                        :key="item.path">
+                        <router-link class="nav-link"
+                                     :to="item.path">
+                            {{ item.label }}
+                        </router-link>
                     </li>
                 </ul>
                 <balances-list v-if="loggedIn"></balances-list>
                 <ul class="navbar-nav">
-                    <li class="nav-item dropdown" v-if="loggedIn"><a class="nav-link dropdown-toggle" id="username-dropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ user.username }}</a>
-                        <div class="dropdown-menu"><a class="dropdown-item" href="#" @click.prevent="logout">Sign Out</a></div>
+                    <li class="nav-item dropdown"
+                        v-if="loggedIn">
+                        <a class="nav-link dropdown-toggle"
+                             id="username-dropdown"
+                             href="#"
+                             role="button"
+                             data-toggle="dropdown"
+                             aria-haspopup="true"
+                             aria-expanded="false">
+                            {{ user.username }}
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item"
+                               href="#"
+                               @click.prevent="logout">
+                                Sign Out
+                            </a>
+                        </div>
                     </li>
-                    <li class="nav-item" v-if="!loggedIn">
-                        <router-link class="nav-link" :to="'sign-in'">Sign In</router-link>
+                    <li class="nav-item"
+                        v-if="!loggedIn">
+                        <router-link class="nav-link"
+                                     :to="'sign-in'">
+                            Sign In
+                        </router-link>
                     </li>
-                    <li class="nav-item" v-if="!loggedIn">
-                        <router-link class="nav-link" :to="'sign-up'">Sign Up</router-link>
+                    <li class="nav-item"
+                        v-if="!loggedIn">
+                        <router-link class="nav-link"
+                                     :to="'sign-up'">
+                            Sign Up
+                        </router-link>
                     </li>
                     <li class="socket">
                         <div :class="{'online': socketConnected}"></div>
@@ -40,6 +81,7 @@
         border-radius: 50px;
         background: red;
     }
+
     li.socket > div.online {
         background: green;
     }
@@ -50,7 +92,7 @@
 
   export default {
     components: {
-        BalancesList
+      BalancesList
     },
     data() {
       return {
@@ -73,12 +115,12 @@
       }
     },
     computed: {
-        loggedIn() {
-          return this.$store.getters['isLoggedIn']
-        },
-        user() {
-          return this.$store.getters['getUser'] || {}
-        }
+      loggedIn() {
+        return this.$store.getters['isLoggedIn']
+      },
+      user() {
+        return this.$store.getters['getUser'] || {}
+      }
     },
     methods: {
       logout() {

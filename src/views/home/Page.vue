@@ -2,11 +2,15 @@
     <main-layout>
         <div class="row">
             <div class="col-xs-12 col-md-2 order-md-1">
-                <p class="mt-3">Websocket messages</p>
+                <p class="mt-3">
+                    Websocket messages
+                </p>
                 <hr/>
                 <ul class="list-unstyled">
                     <li v-for="message in messages"
-                        :key="message">{{ message.name }}: {{ message.message }}</li>
+                        :key="message">
+                        {{ message.name }}: {{ message.message }}
+                    </li>
                 </ul>
             </div>
             <div class="col-xs-12 col-md-4 order-md-12">
@@ -21,13 +25,16 @@
                             <div class="col">
                                 <h5 class="card-title">
                                     <router-link
-                                            :to="{ name: 'event', params: { id: event.id } }">
+                                            :to="{ name: 'event',
+                                            params: { id: event.id } }">
                                         {{ event.description }}
                                     </router-link>
                                 </h5>
                             </div>
                         </div>
-                        <event-item :event="event"></event-item>
+                        <event-item
+                                :event="event">
+                        </event-item>
                     </b-card>
                 </b-card>
             </div>
