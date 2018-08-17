@@ -33,8 +33,14 @@
                         <div class="row"></div>
                     </div>
                     <div class="mt-4">
-                        <button class="btn btn-danger btn-lg btn-block btn-submit-bets"
-                                v-on:click="$emit('placeBetslip')">Place bet
+                        <button class="btn btn-lg btn-block btn-submit-bets"
+                                v-on:click="$emit('placeBetslip')"
+                                v-bind:class="{
+                                    disabled: !betslipSubmittable,
+                                    'btn-danger': !betslipSubmittable ,
+                                    'btn-success': betslipSubmittable
+                                }"
+                        >Place bet
                         </button>
                     </div>
                 </div>
@@ -54,12 +60,19 @@
       MarketInBetslip
     },
     computed: {
+      betslipSubmittable() {
+        let enabled = false
+        if (this.getTotalStakes > 0){
+          enabled = true
+        }
+        return enabled
+      },
       ...mapGetters([
-               'getBets',
-               'getBetsCount',
-               'getTotalReturn',
-               'getTotalStakes'
-             ])
+        'getBets',
+        'getBetsCount',
+        'getTotalReturn',
+        'getTotalStakes'
+      ])
     }
   }
 </script>

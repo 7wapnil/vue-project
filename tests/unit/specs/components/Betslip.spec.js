@@ -66,6 +66,10 @@ describe('Betslip component', () => {
         expect(wrapper.vm.getBets).to.eql([sampleBet])
       })
 
+      it('has bet placement button disabled', () => {
+        expect(wrapper.find('#betslipSingleTab .btn-submit-bets').html()).to.contain('disabled')
+      })
+
       describe('totals block', () => {
         it('has total return field', () => {
           expect(wrapper.find('#betslipSingleTab .total-return').text()).to.contain('Total return:')
@@ -100,6 +104,12 @@ describe('Betslip component', () => {
       describe('with stake entered', ()=> {
         before(() => {
           wrapper.vm.$store.commit('setBetStake',{oddId: sampleOdd.id, stakeValue: sampleStake})
+        })
+
+        it('has bet placement button enabled', () => {
+          setTimeout(function(){
+            expect(wrapper.find('#betslipSingleTab .btn-submit-bets').html()).to.not.contain('disabled')
+          }, 1000);
         })
 
         it('calculates correct total stakes', ()=>{
