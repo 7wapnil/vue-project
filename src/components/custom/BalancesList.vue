@@ -52,6 +52,7 @@
         id
         amount
         currency {
+          id
           code
         }
         `).then(data => {
