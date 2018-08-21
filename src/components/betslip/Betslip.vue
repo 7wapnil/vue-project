@@ -25,20 +25,12 @@
                         </div>
                     </div>
                     <div class="mt-4 text-right">
-                        <div class="row my-2 total-odds">
-                            <div class="col text-nowrap text-right">
-                                Total Odds:
-                            </div>
-                            <div class="col-4 total-odds-value">
-                                {{getBetsCount}}
-                            </div>
-                        </div>
                         <div class="row my-2 total-stake">
                             <div class="col text-nowrap text-right">
                                 Total stake:
                             </div>
                             <div class="col-4 total-stake-value">
-                                {{getTotalStakes}}
+                                {{parseFloat(getTotalStakes.toFixed(2))}}
                             </div>
                         </div>
                         <div class="row my-2 total-return">
@@ -46,7 +38,7 @@
                                 Total return:
                             </div>
                             <div class="col-4 total-return-value">
-                                {{getTotalReturn}}
+                                {{parseFloat(getTotalReturn.toFixed(2))}}
                             </div>
                         </div>
                         <div class="row"></div>

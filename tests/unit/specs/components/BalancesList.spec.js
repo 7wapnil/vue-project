@@ -135,7 +135,6 @@ describe('BalancesList component', () => {
       })
 
       it ('should set other active wallet on select', () => {
-        console.log(wrapper.find('a.dropdown-item').html())
         wrapper.find('a.dropdown-item').trigger('click')
         expect(selectWalletStub.calledOnce).to.equal(true)
       })
