@@ -2,7 +2,7 @@ import { expect } from 'chai'
 import { createLocalVue, shallowMount } from '@vue/test-utils'
 import Vuex from 'vuex'
 import BalancesList from '@/components/custom/BalancesList.vue'
-import WalletsService from '@/services/api/wallets'
+import walletsMixin from '@/mixins/wallets'
 
 const wallets = [{
   id: 1,
@@ -29,6 +29,7 @@ const wallets = [{
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
+localVue.mixin(walletsMixin)
 
 describe('BalancesList component', () => {
 
@@ -60,28 +61,21 @@ describe('BalancesList component', () => {
       getters,
       actions
     })
+
+    loadWalletsStub = sinon.stub(walletsMixin.methods, 'loadWallets').returns({})
   })
 
   describe('Lifecycle', () => {
-    it('Created', done => {
-      loadWalletsStub = sinon.stub(BalancesList.methods, 'loadWallets').returns({})
+    it('Created', () => {
       wrapper = shallowMount(BalancesList, { localVue, store })
 
-      expect(loadWalletsStub.calledOnce).to.equal(true)
-
-      loadWalletsStub.restore()
-      done()
+      expect(loadWalletsStub.called).to.eq(true)
     })
   })
 
   describe('Methods', () => {
     beforeEach(function() {
-      loadWalletsStub = sinon.stub(BalancesList.methods, 'loadWallets').returns({})
-      wrapper = shallowMount(BalancesList, { localVue, store })
-    })
-
-    afterEach(function() {
-      loadWalletsStub.restore();
+      wrapper = shallowMount(BalancesList, { localVue, store, mixins: [ walletsMixin ] })
     })
 
     it('displayAmount - should return wallet amount to fixed 2 and with currency code', done => {
@@ -95,7 +89,7 @@ describe('BalancesList component', () => {
       done()
     })
 
-    it('selectWallet - should dispatch action with active wallet id', done => {
+    it('selectWallet - should dispatch action with active wallet id', () => {
       const walletId = 832
       const wallet = { id: walletId }
 
@@ -103,8 +97,6 @@ describe('BalancesList component', () => {
 
       expect(actions.changeActiveWallet.calledOnce).to.equal(true)
       expect(actions.changeActiveWallet.firstCall.args[1]).to.eq(walletId);
-
-      done()
     })
   })
 
@@ -112,14 +104,12 @@ describe('BalancesList component', () => {
     let selectWalletStub
 
     beforeEach(function() {
-      loadWalletsStub = sinon.stub(BalancesList.methods, 'loadWallets').returns({})
       selectWalletStub = sinon.stub(BalancesList.methods, 'selectWallet').returns({})
       wrapper = shallowMount(BalancesList, { localVue, store })
     })
 
     afterEach(function() {
       selectWalletStub.restore()
-      loadWalletsStub.restore()
     })
 
     describe('Setting active wallet', () => {
