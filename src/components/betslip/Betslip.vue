@@ -79,7 +79,9 @@
     computed: {
       betslipSubmittable() {
         let enabled = false
-        if (this.getTotalStakes > 0){
+        if (this.getTotalStakes > 0 &&
+            this.getTotalStakes <= this.$store.getters.getActiveWallet.amount
+        ){
           enabled = true
         }
         return enabled

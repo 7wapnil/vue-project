@@ -3,6 +3,7 @@ import { createLocalVue, shallowMount } from '@vue/test-utils'
 import Vuex from 'vuex'
 import Betslip from '@/components/betslip/Betslip.vue'
 import betslip from '@/stores/betslip'
+import wallets from '@/stores/wallets'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
@@ -13,7 +14,7 @@ describe('Betslip component', () => {
 
   before(() => {
     store = new Vuex.Store({
-      modules: [ betslip ]
+      modules: [ betslip, wallets ]
     })
 
     wrapper = shallowMount(Betslip, {
@@ -121,6 +122,31 @@ describe('Betslip component', () => {
         it('displays correct total return', ()=>{
           setTimeout(function(){
             expect(wrapper.find('#betslipSingleTab .total-return-value').text()).to.eq(sampleStakeReturnDisplayValue)
+          }, 1000);
+        })
+      })
+
+      describe('with negative stake', ()=> {
+        before(() => {
+          wrapper.vm.$store.commit('setBetStake',{oddId: 1, stakeValue: -3})
+        })
+
+        it('has bet placement button disabled', () => {
+          setTimeout(function(){
+            expect(wrapper.find('#betslipSingleTab .btn-submit-bets').html()).to.contain('disabled')
+          }, 1000);
+        })
+      })
+
+      describe('with stake over current wallet balance', ()=> {
+        before(() => {
+          wrapper.vm.$store.commit('storeWallets',[{id: 1, amount: 112.23, currency: {code: "EUR"}}])
+          wrapper.vm.$store.commit('setBetStake',{oddId: 1, stakeValue: 112.24})
+        })
+
+        it('has bet placement button disabled', () => {
+          setTimeout(function(){
+            expect(wrapper.find('#betslipSingleTab .btn-submit-bets').html()).to.contain('disabled')
           }, 1000);
         })
       })
