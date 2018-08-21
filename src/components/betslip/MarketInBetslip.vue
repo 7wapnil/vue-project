@@ -21,24 +21,24 @@
                 <div class="col-12">
                     <div class="row my-2">
                         <div class="col-8 text-nowrap text-right">
-                            My Stake:<br/>
+                            My Stake:
+                            <br/>
                             <button class="btn btn-sm btn-outline-secondary my-2">
                                 Place max bet
                             </button>
                         </div>
                         <div class="col-4">
                             <input class="form-control"
-                                   type="text" name="odd-value"
-                                   v-model="odd.stake" />
+                                   type="number"
+                                   name="odd-value"
+                                   v-model="odd.stake"/>
                         </div>
                     </div>
                     <div class="row my-2">
                         <div class="col-8 text-nowrap text-right">
                             Potential Return:
                         </div>
-                        <div class="col-4">
-                            {{potentialReturn}}
-                        </div>
+                        <div class="col-4">{{potentialReturn}}</div>
                     </div>
                 </div>
             </div>
