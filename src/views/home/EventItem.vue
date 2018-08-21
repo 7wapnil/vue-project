@@ -3,10 +3,14 @@
         <div class="col-lg-6">
             <div class="row">
                 <div class="col-lg-12 col-sm-6">
-                    <p class="card-text font-weight-bold">{{ event.title_name }}</p>
+                    <p class="card-text font-weight-bold">
+                        {{ event.title_name }}
+                    </p>
                 </div>
                 <div class="col-lg-12 col-sm-6">
-                    <p class="catd-text">{{ fromNow }}</p>
+                    <p class="catd-text">
+                        {{ fromNow }}
+                    </p>
                 </div>
             </div>
         </div>
@@ -14,7 +18,8 @@
             <div class="row" v-if="primaryMarket">
                     <odd-button v-for="odd in primaryMarket.odds"
                                 :key="odd.id"
-                                :odd="odd"></odd-button>
+                                :odd="odd">
+                    </odd-button>
             </div>
         </div>
     </div>

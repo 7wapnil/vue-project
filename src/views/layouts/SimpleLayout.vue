@@ -1,7 +1,9 @@
-<template lang="pug">
-    div
-        .container
-            slot
+<template>
+    <div>
+        <div class="container">
+            <slot></slot>
+        </div>
+    </div>
 </template>
 
 <style scoped>
