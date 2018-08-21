@@ -1,6 +1,9 @@
 import WalletsService from '@/services/api/wallets'
 
 export default {
+  created(){
+    this.loadWallets()
+  },
   computed: {
     wallets: function () {
       return this.$store.getters.getWallets

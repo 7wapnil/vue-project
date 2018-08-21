@@ -68,9 +68,11 @@
 
 <script>
   import MarketInBetslip from './MarketInBetslip.vue'
-  import { mapGetters } from 'vuex'
+  import {mapGetters} from 'vuex'
+  import { default as wallets } from '@/mixins/wallets';
 
   export default {
+    mixins: [ wallets ],
     components: {
       MarketInBetslip
     },

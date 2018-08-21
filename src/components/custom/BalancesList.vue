@@ -38,9 +38,6 @@
         })
       }
     },
-    created(){
-      this.loadWallets()
-    },
     methods: {
       displayAmount(wallet) {
         return `${wallet.amount.toFixed(2)} ${wallet.currency.code}`
