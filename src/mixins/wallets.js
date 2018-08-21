@@ -20,6 +20,7 @@ export default {
         amount
         currency {
           code
+          id
         }
         `).then(data => {
         this.$store.commit('storeWallets', data.data.wallets)

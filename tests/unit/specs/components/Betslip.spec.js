@@ -53,10 +53,12 @@ describe('Betslip component', () => {
     })
 
     describe('with bets added', ()=> {
-      let sampleOdd = {id: 1, value: 1.2}
+      let sampleOdd = {id: 1, value: 1.13}
       let sampleBet = { odd: sampleOdd, stake: 0 }
-      let sampleStake = 2
-      let sampleStakeReturn = 2.4
+      let sampleStake = 1.006
+      let sampleStakeDisplayValue = '1.01'
+      let sampleStakeReturn = 1.13678
+      let sampleStakeReturnDisplayValue = '1.14'
 
       before(() => {
         wrapper.vm.$store.dispatch('addNewEmptyBet', sampleOdd)
@@ -75,10 +77,6 @@ describe('Betslip component', () => {
           expect(wrapper.find('#betslipSingleTab .total-return').text()).to.contain('Total return:')
         })
 
-        it('has total odds field', () => {
-          expect(wrapper.find('#betslipSingleTab .total-odds').text()).to.contain('Total Odds:')
-        })
-
         it('has total stake field', () => {
           expect(wrapper.find('#betslipSingleTab .total-stake').text()).to.contain('Total stake:')
         })
@@ -86,10 +84,6 @@ describe('Betslip component', () => {
         it('should display a button to place bets', () => {
           expect(wrapper.findAll('#betslipSingleTab .btn-submit-bets')).to.have.length(1);
           expect(wrapper.find('#betslipSingleTab .btn-submit-bets').text()).to.contain("Place bet")
-        })
-
-        it('has zero odds by default', () => {
-          expect(wrapper.find('#betslipSingleTab .total-odds-value').text()).to.eq('1')
         })
 
         it('has zero stake by default', () => {
@@ -117,18 +111,16 @@ describe('Betslip component', () => {
         })
 
         it('displays correct total stakes', ()=>{
-          const stake = String(sampleStake)
-          expect(wrapper.find('#betslipSingleTab .total-stake-value').text()).to.eq(stake)
+          expect(wrapper.find('#betslipSingleTab .total-stake-value').text()).to.eq(sampleStakeDisplayValue)
         })
 
         it('calculates correct total return', ()=>{
-          expect(wrapper.vm.getTotalReturn).to.eq( Math.round(sampleStakeReturn) )
+          expect(wrapper.vm.getTotalReturn).to.eq( sampleStakeReturn )
         })
 
         it('displays correct total return', ()=>{
           setTimeout(function(){
-            const returnValue = String(Math.round(sampleStakeReturn))
-            expect(wrapper.find('#betslipSingleTab .total-return-value').text()).to.eq(returnValue)
+            expect(wrapper.find('#betslipSingleTab .total-return-value').text()).to.eq(sampleStakeReturnDisplayValue)
           }, 1000);
         })
       })

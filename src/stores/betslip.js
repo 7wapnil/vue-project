@@ -45,7 +45,7 @@ export default {
           return state.bets.map(el => el.stake).reduce((a, b) => +a + +b, 0)
         },
         getTotalReturn(state){
-          return Math.round(state.bets.map(el => el.stake * el.odd.value).reduce((a, b) => +a + +b, 0))
+          return state.bets.map(el => el.stake * el.odd.value).reduce((a, b) => +a + +b, 0)
         }
     }
 }
