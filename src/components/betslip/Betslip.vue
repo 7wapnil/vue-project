@@ -19,10 +19,13 @@
                 <div v-if="getBets.length > 0">
                     <div class="mt-4"
                          id="markets-in-betslip">
-                        <div v-for="odd in getBets"
-                             :key="odd.id">
-                            <market-in-betslip v-bind='{odd}'/>
+                        <div v-for="bet in getBets"
+                             :key="bet.id">
+                            <market-in-betslip :row='oddsFullTree.filter(row => row.odd.id == bet.odd.id)[0]'
+                                               :bet='bet'
+                            />
                         </div>
+
                     </div>
                     <div class="mt-4 text-right">
                         <div class="row my-2 total-stake">
@@ -70,11 +73,27 @@
   import MarketInBetslip from './MarketInBetslip.vue'
   import { mapGetters } from 'vuex'
   import { default as wallets } from '@/mixins/wallets';
+  import ApiService from '@/services/api/events'
 
   export default {
     mixins: [ wallets ],
     components: {
       MarketInBetslip
+    },
+    data() {
+      return {
+          apiService: this.getNewApiService(this),
+          events: [],
+          messages: []
+      }
+    },
+    created() {
+      this.apiService.load()
+    },
+    methods: {
+        getNewApiService: function (that){
+            return new ApiService(that)
+        }
     },
     computed: {
       betslipSubmittable() {
@@ -86,6 +105,29 @@
         }
         return enabled
       },
+        oddsFullTree() {
+            let tree = []
+            this.events.forEach(function(event) {
+                event.markets.forEach(function(market) {
+                    market.odds.forEach(function(odd) {
+                        const displayEvent = Object.assign({}, event);
+                        displayEvent.markets = {}
+
+                        const displayMarket = Object.assign({}, market);
+                        displayMarket.odds = {}
+
+                        tree.push({
+                                event: displayEvent,
+                                eventId: event.id,
+                                market: displayMarket,
+                                marketId: market.id,
+                                odd: odd
+                            })
+                    })
+                })
+            })
+            return tree
+        },
       ...mapGetters([
         'getBets',
         'getBetsCount',

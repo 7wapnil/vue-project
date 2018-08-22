@@ -2,20 +2,20 @@
     <div>
         <b-card>
             <div slot="header">
-                {{event.name}}
+                {{row.event.name}}
                 <button class="close"
                         aria-label="Close">
                     <span aria-hidden="true"
-                          @click="removeOdd(odd.odd)">
+                          @click="removeOdd(row.odd)">
                         ×
                     </span>
                 </button>
             </div>
             <div class="row m-2">
-                <p>{{market.name}}</p>
+                <p>{{row.market.name}}</p>
             </div>
             <div class="row m-2">
-                <p>Outcome {{odd.odd.name}} with value {{odd.odd.value}}</p>
+                <p>Outcome {{row.odd.name}} with value {{row.odd.value}}</p>
             </div>
             <div class="row mt-4 text-right">
                 <div class="col-12">
@@ -31,7 +31,7 @@
                             <input class="form-control"
                                    type="number"
                                    name="odd-value"
-                                   v-model="odd.stake"/>
+                                   v-model="bet.stake"/>
                         </div>
                     </div>
                     <div class="row my-2">
@@ -52,23 +52,21 @@
 
   export default {
     props: {
-      odd: {
+      row: {
         type: Object,
         required: true
-      }
+      },
+      bet: {
+        type: Object,
+        required: true
+      },
     },
     components: {
       OddButton
     },
     computed: {
-      market: function () {
-        return {name: "Market of Odd " + this.odd.odd.id}
-      },
-      event: function () {
-        return {name: "Event of Odd " + this.odd.odd.id}
-      },
       potentialReturn: function () {
-        return Math.round(this.odd.stake * this.odd.odd.value)
+        return Math.round(this.bet.stake * this.row.odd.value)
       }
     },
     methods: {
