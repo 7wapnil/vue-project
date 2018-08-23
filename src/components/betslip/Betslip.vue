@@ -21,7 +21,7 @@
                          id="markets-in-betslip">
                         <div v-for="bet in getBets"
                              :key="bet.id">
-                            <market-in-betslip :row='oddsFullTree.filter(row => row.odd.id == bet.odd.id)[0]'
+                            <market-in-betslip :row='oddsFullTree.find(row => row.odd.id == bet.odd.id)'
                                                :bet='bet'
                             />
                         </div>
