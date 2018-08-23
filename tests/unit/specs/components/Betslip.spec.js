@@ -11,8 +11,12 @@ localVue.use(Vuex)
 describe('Betslip component', () => {
   let wrapper
   let store
+  let loadEventsStub
 
   before(() => {
+    loadEventsStub = sinon.stub(Betslip.methods, 'getNewApiService')
+      .returns({ load: function () {}})
+
     store = new Vuex.Store({
       modules: [ betslip, wallets ]
     })
