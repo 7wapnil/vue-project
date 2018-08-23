@@ -15,7 +15,12 @@ export default {
         pushNewBetToBetslip (state, odd) {
             let exists = state.bets.find(bet => bet.odd.id == odd.id )
             if(exists == undefined) {
-                state.bets.push({ odd: odd, stake: 0, frozen: false })
+                state.bets.push({
+                  odd: odd,
+                  stake: 0,
+                  frozen: false,
+                  approvedValue: odd.value
+                })
             }
         },
         setBetStake (state, { oddId, stakeValue }){
