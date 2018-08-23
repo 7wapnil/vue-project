@@ -1,6 +1,9 @@
 /**
  * Betslip store module
  */
+
+import Bet from '@/models/bet'
+
 export default {
     state: {
         bets: [],
@@ -15,12 +18,15 @@ export default {
         pushNewBetToBetslip (state, odd) {
             let exists = state.bets.find(bet => bet.odd.id == odd.id )
             if(exists == undefined) {
-                state.bets.push({
+                let bet = new Bet({
                   odd: odd,
                   stake: 0,
-                  frozen: false,
+                  status: 'initial',
+                  externalId: null,
                   approvedValue: odd.value
                 })
+
+                state.bets.push(bet)
             }
         },
         setBetStake (state, { oddId, stakeValue }){
@@ -41,7 +47,7 @@ export default {
         },
         freezeBets (state) {
           state.bets = state.bets.map((bet) => {
-            bet.frozen = true
+            bet.status = Bet.statuses.submitting
             return bet
           })
         },
