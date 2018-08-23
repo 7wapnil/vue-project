@@ -1,12 +1,13 @@
 <template>
     <div>
-        <b-card>
+        <b-card :bg-variant="cardVariant">
             <div slot="header">
                 {{row.event.name}}
                 <button class="close"
                         aria-label="Close">
                     <span aria-hidden="true"
-                          @click="removeOdd(row.odd)">
+                          @click="removeOdd(row.odd)"
+                          v-show="!bet.frozen">
                         ×
                     </span>
                 </button>
@@ -31,6 +32,7 @@
                             <input class="form-control"
                                    type="number"
                                    name="odd-value"
+                                   :disabled="bet.frozen"
                                    v-model="bet.stake"/>
                         </div>
                     </div>
@@ -59,7 +61,7 @@
       bet: {
         type: Object,
         required: true
-      },
+      }
     },
     components: {
       OddButton
@@ -67,6 +69,9 @@
     computed: {
       potentialReturn: function () {
         return Math.round(this.bet.stake * this.row.odd.value)
+      },
+      cardVariant: function () {
+        return this.bet.frozen ? 'light' : 'default'
       }
     },
     methods: {

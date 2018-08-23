@@ -48,7 +48,7 @@
                     </div>
                     <div class="mt-4">
                         <button class="btn btn-lg btn-block btn-submit-bets"
-                                v-on:click="$emit('placeBetslip')"
+                                @click="submit"
                                 v-bind:class="{
                                     'btn-danger': !betslipSubmittable ,
                                     'btn-success': betslipSubmittable
@@ -93,14 +93,18 @@
     methods: {
         getNewApiService: function (that){
             return new ApiService(that)
-        }
+        },
+        submit() {
+          this.$store.commit('freezeBets')
+          this.$store.commit('setBetslipAsSubmitted')
+      }
     },
     computed: {
       betslipSubmittable() {
         let enabled = false
         if (this.getTotalStakes > 0 &&
-            this.getTotalStakes <= this.$store.getters.getActiveWallet.amount
-        ){
+            this.getTotalStakes <= this.$store.getters.getActiveWallet.amount &&
+            !this.isBetslipSubmitted) {
           enabled = true
         }
         return enabled
@@ -129,6 +133,7 @@
             return tree
         },
       ...mapGetters([
+        'isBetslipSubmitted',
         'getBets',
         'getBetsCount',
         'getTotalReturn',

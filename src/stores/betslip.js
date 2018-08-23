@@ -3,7 +3,8 @@
  */
 export default {
     state: {
-        bets: []
+        bets: [],
+        submitted: false
     },
     actions: {
         addNewEmptyBet (context, odd) {
@@ -14,7 +15,7 @@ export default {
         pushNewBetToBetslip (state, odd) {
             let exists = state.bets.find(bet => bet.odd.id == odd.id )
             if(exists == undefined) {
-                state.bets.push({odd: odd, stake: 0})
+                state.bets.push({ odd: odd, stake: 0, frozen: false })
             }
         },
         setBetStake (state, { oddId, stakeValue }){
@@ -25,16 +26,28 @@ export default {
         removeBetFromBetslip (state, odd) {
             state.bets = state.bets.filter(e => e.odd.id !== odd.id)
         },
-        resetBetslipStakes (state){
+        resetBetslipStakes (state) {
           state.bets.forEach(function(bet){
             bet.stake = 0
           })
         },
-        cleanBetslip (state){
+        cleanBetslip (state) {
           state.bets = []
+        },
+        freezeBets (state) {
+          state.bets = state.bets.map((bet) => {
+            bet.frozen = true
+            return bet
+          })
+        },
+        setBetslipAsSubmitted(state){
+          state.submitted = true
         }
     },
     getters: {
+        isBetslipSubmitted(state){
+          return state.submitted
+        },
         getBets(state) {
             return state.bets
         },
