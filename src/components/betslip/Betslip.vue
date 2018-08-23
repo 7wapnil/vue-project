@@ -50,10 +50,10 @@
                         <button class="btn btn-lg btn-block btn-submit-bets"
                                 v-on:click="$emit('placeBetslip')"
                                 v-bind:class="{
-                                    disabled: !betslipSubmittable,
                                     'btn-danger': !betslipSubmittable ,
                                     'btn-success': betslipSubmittable
                                 }"
+                                :disabled="!betslipSubmittable"
                         >Place bet
                         </button>
                     </div>
