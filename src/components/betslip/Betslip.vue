@@ -76,6 +76,9 @@
   import ApiService from '@/services/api/events'
   import BetslipService from '@/services/api/betslip'
   import BetslipSerializer from '@/services/serializers/betslip'
+  import Bet from '@/models/bet'
+
+  const BET_DESTROY_TIMEOUT = 5000;
 
   export default {
     mixins: [ wallets ],
@@ -110,7 +113,36 @@
           })
 
           this.betslipService.place(betsPayload)
-      }
+            .then(this.updateBetsFromResponse)
+            .catch(this.handlePlacementFailure)
+      },
+      updateBetsFromResponse(response) {
+        const bets = this.getBets
+
+        if (response.data && response.data.placeBets) {
+          response.data.placeBets.forEach((betPayload) => {
+            let bet = bets.find(el => el.odd.id === betPayload.odd.id)
+
+            this.$store.commit(
+              'updateBet',
+              {
+                oddId: bet.odd.id,
+                payload: {
+                  status: betPayload.status,
+                  externalId: betPayload.id
+                }
+              }
+            )
+
+            if (betPayload.status === Bet.statuses.succeeded) {
+              setTimeout(() => {
+                this.$store.commit('removeBetFromBetslip',bet.odd)
+              }, BET_DESTROY_TIMEOUT)
+            }
+          })
+        }
+      },
+      handlePlacementFailure(response) {}
     },
     computed: {
       betslipSubmittable() {

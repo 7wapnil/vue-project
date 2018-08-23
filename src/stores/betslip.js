@@ -29,6 +29,11 @@ export default {
                 state.bets.push(bet)
             }
         },
+        updateBet(state, { oddId, payload }) {
+          let bet = state.bets.find(el => el.odd.id === oddId)
+          if (!bet) return;
+          bet = Object.assign(bet, payload)
+        },
         setBetStake (state, { oddId, stakeValue }){
           let bet = state.bets.find(bet => bet.odd.id == oddId )
           if (!bet) { return; }

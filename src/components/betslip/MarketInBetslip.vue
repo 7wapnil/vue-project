@@ -51,6 +51,7 @@
 
 <script>
   import OddButton from '@/components/custom/OddButton.vue'
+  import Bet from '@/models/bet'
 
   export default {
     props: {
@@ -59,7 +60,7 @@
         required: true
       },
       bet: {
-        type: Object,
+        type: Bet,
         required: true
       }
     },
@@ -71,7 +72,15 @@
         return Math.round(this.bet.stake * this.row.odd.value)
       },
       cardVariant: function () {
-        return this.bet.frozen ? 'light' : 'default'
+        const variantMapping = {
+          initial: 'default',
+          submitting: 'light',
+          pending: 'light',
+          succeeded: 'success',
+          failed: 'danger'
+        }
+
+        return variantMapping[this.bet.status]
       }
     },
     methods: {
