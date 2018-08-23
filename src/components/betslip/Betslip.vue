@@ -74,6 +74,8 @@
   import { mapGetters } from 'vuex'
   import { default as wallets } from '@/mixins/wallets';
   import ApiService from '@/services/api/events'
+  import BetslipService from '@/services/api/betslip'
+  import BetslipSerializer from '@/services/serializers/betslip'
 
   export default {
     mixins: [ wallets ],
@@ -83,6 +85,7 @@
     data() {
       return {
           apiService: this.getNewApiService(this),
+          betslipService: this.getNewBetslipService(this),
           events: [],
           messages: []
       }
@@ -94,9 +97,19 @@
         getNewApiService: function (that){
             return new ApiService(that)
         },
+        getNewBetslipService: function (that){
+            return new BetslipService(that)
+        },
         submit() {
           this.$store.commit('freezeBets')
           this.$store.commit('setBetslipAsSubmitted')
+
+          let betsPayload = BetslipSerializer.serialize({
+            bets: this.getBets,
+            currencyCode: this.activeWallet.currency.code
+          })
+
+          this.betslipService.place(betsPayload)
       }
     },
     computed: {
