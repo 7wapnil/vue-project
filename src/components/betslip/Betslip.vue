@@ -146,7 +146,10 @@
           })
         }
       },
-      handlePlacementFailure(response) {}
+      handlePlacementFailure(response) {
+        this.$noty.error(response.message, { timeout: 3000 })
+        this.$store.commit('clearBetslip')
+      }
     },
     computed: {
       betslipSubmittable() {
