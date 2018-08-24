@@ -20,7 +20,7 @@ export default {
     setActiveWalletId (state, id) {
       state.activeWalletId =id
     },
-    cleanWalletsStorage (state){
+    clearWalletsStorage (state){
       state.activeWalletId = null
       state.wallets = []
     }

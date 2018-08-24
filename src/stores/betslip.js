@@ -36,7 +36,7 @@ export default {
             bet.stake = 0
           })
         },
-        cleanBetslip (state) {
+        clearBetslip (state) {
           state.bets = []
         },
         freezeBets (state) {
