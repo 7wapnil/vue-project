@@ -144,7 +144,14 @@ describe('Betslip component', () => {
 
       describe('with stake over current wallet balance', ()=> {
         before(() => {
-          wrapper.vm.$store.commit('storeWallets',[{id: 1, amount: 112.23, currency: {code: "EUR"}}])
+          const wallet = { id: 1, amount: 112.23, currency: { code: "EUR" } }
+          wrapper.vm.$store.commit(
+            'storeWallets',
+            {
+              wallets: [wallet],
+              activeWallet: wallet
+            }
+          )
           wrapper.vm.$store.commit('setBetStake',{oddId: 1, stakeValue: 112.24})
         })
 
@@ -156,7 +163,4 @@ describe('Betslip component', () => {
       })
     })
   })
-
-
-
 })

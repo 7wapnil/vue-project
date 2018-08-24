@@ -112,8 +112,12 @@
           })
 
           this.betslipService.place(betsPayload)
-            .then(this.updateBetsFromResponse)
+            .then(this.processBetsPlacementResponse)
             .catch(this.handlePlacementFailure)
+      },
+      processBetsPlacementResponse(response){
+        this.updateBetsFromResponse(response)
+        this.refetchWallets()
       },
       updateBetsFromResponse(response) {
         const bets = this.getBets
