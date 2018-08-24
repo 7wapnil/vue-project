@@ -19,6 +19,16 @@ export default class Bet {
     return STATUSES
   }
 
+  static initial({ odd }) {
+    return new this({
+      odd: odd,
+      stake: 0,
+      status: STATUSES.initial,
+      externalId: null,
+      approvedValue: odd.value
+    })
+  }
+
   get frozen() {
     return [
       STATUSES.submitting,
