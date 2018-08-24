@@ -132,6 +132,7 @@
                 oddId: bet.odd.id,
                 payload: {
                   status: betPayload.status,
+                  message: betPayload.message,
                   externalId: betPayload.id
                 }
               }

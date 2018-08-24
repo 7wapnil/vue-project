@@ -21,6 +21,13 @@
             <div class="row mt-4 text-right">
                 <div class="col-12">
                     <div class="row my-2">
+                      <div class="col-12">
+                        <b-alert :show="hasMessage">
+                          {{bet.message}}
+                        </b-alert>
+                      </div>
+                    </div>
+                    <div class="row my-2">
                         <div class="col-8 text-nowrap text-right">
                             My Stake:
                             <br/>
@@ -78,6 +85,9 @@
         }
 
         return variantMapping[this.bet.status]
+      },
+      hasMessage: function () {
+        return this.bet.message !== null
       }
     },
     methods: {

@@ -7,10 +7,11 @@ const STATUSES = {
 }
 
 export default class Bet {
-  constructor({ odd, stake, status, externalId, approvedValue }) {
+  constructor({ odd, stake, status, message, externalId, approvedValue }) {
     this.odd = odd
     this.stake = stake
     this.status = STATUSES[status] || STATUSES.initial
+    this.message = message
     this.externalId = externalId
     this.approvedValue = approvedValue
   }
@@ -24,6 +25,7 @@ export default class Bet {
       odd: odd,
       stake: 0,
       status: STATUSES.initial,
+      message: null,
       externalId: null,
       approvedValue: odd.value
     })
