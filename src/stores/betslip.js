@@ -6,8 +6,7 @@ import Bet from '@/models/bet'
 
 export default {
     state: {
-        bets: [],
-        submitted: false
+        bets: []
     },
     actions: {
         addNewEmptyBet (context, odd) {
@@ -55,15 +54,9 @@ export default {
             bet.status = Bet.statuses.submitting
             return bet
           })
-        },
-        setBetslipAsSubmitted(state){
-          state.submitted = true
         }
     },
     getters: {
-        isBetslipSubmitted(state){
-          return state.submitted
-        },
         getBets(state) {
             return state.bets
         },

@@ -105,7 +105,6 @@
         },
         submit() {
           this.$store.commit('freezeBets')
-          this.$store.commit('setBetslipAsSubmitted')
 
           let betsPayload = BetslipSerializer.serialize({
             bets: this.getBets,
@@ -146,10 +145,13 @@
     },
     computed: {
       betslipSubmittable() {
+        const anyInitialBet = this.$store.getters.getBets.some((bet) => {
+          return bet.status === Bet.statuses.initial
+        })
         let enabled = false
         if (this.getTotalStakes > 0 &&
             this.getTotalStakes <= this.$store.getters.getActiveWallet.amount &&
-            !this.isBetslipSubmitted) {
+            anyInitialBet) {
           enabled = true
         }
         return enabled
@@ -178,7 +180,6 @@
             return tree
         },
       ...mapGetters([
-        'isBetslipSubmitted',
         'getBets',
         'getBetsCount',
         'getTotalReturn',
