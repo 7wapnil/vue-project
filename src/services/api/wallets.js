@@ -16,6 +16,7 @@ class WalletsService extends BaseService {
             }
           }
         `),
+        fetchPolicy: 'network-only',
         result: resolve,
         error: reject
       })
