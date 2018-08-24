@@ -5,13 +5,13 @@
                 <form @submit.prevent="submit">
                     <h2>Sign In</h2>
                     <hr/>
-                    <b-form-group label="Username"
+                    <b-form-group label="Username or email"
                                   required="required"
-                                  :state="getState('username')"
+                                  :state="getState('login')"
                                   :invalid-feedback="errors.username">
                         <b-form-input id="username"
-                                      v-model="fields.username"
-                                      :state="getState('username')"
+                                      v-model="fields.login"
+                                      :state="getState('login')"
                                       required="required">
                         </b-form-input>
                     </b-form-group>
@@ -50,7 +50,7 @@
       return {
         apiService: new AccountService(this),
         fields: {
-          username: '',
+          login: '',
           password: ''
         },
         submitting: false
