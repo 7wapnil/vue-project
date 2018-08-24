@@ -24,9 +24,6 @@
                         <div class="col-8 text-nowrap text-right">
                             My Stake:
                             <br/>
-                            <button class="btn btn-sm btn-outline-secondary my-2">
-                                Place max bet
-                            </button>
                         </div>
                         <div class="col-4">
                             <input class="form-control"
