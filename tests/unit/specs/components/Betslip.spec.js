@@ -10,15 +10,23 @@ localVue.use(Vuex)
 
 describe('Betslip component', () => {
   let wrapper
+
   let store
+  let mutations
+
   let loadEventsStub
 
   before(() => {
     loadEventsStub = sinon.stub(Betslip.methods, 'getNewApiService')
       .returns({ load: function () {}})
 
+    mutations = {
+      freezeBets: sinon.stub()
+    }
+
     store = new Vuex.Store({
-      modules: [ betslip, wallets ]
+      modules: [ betslip, wallets ],
+      mutations
     })
 
     wrapper = shallowMount(Betslip, {
@@ -122,6 +130,18 @@ describe('Betslip component', () => {
           setTimeout(function(){
             expect(wrapper.find('#betslipSingleTab .btn-submit-bets').html()).to.not.contain('disabled')
           }, 1000);
+        })
+
+        describe('submit button pressed', ()=> {
+          before(() => {
+            wrapper.find('.btn-submit-bets').trigger('click')
+          })
+
+          it('commit placeBets event', () => {
+            setTimeout(function(){
+              expect(mutations.freezeBets.calledOnce).to.equal(true)
+            }, 500);
+          })
         })
 
         describe('totals block adjusted', () => {
