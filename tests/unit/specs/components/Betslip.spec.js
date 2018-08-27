@@ -59,7 +59,6 @@ describe('Betslip component', () => {
 
     describe('with bets added', ()=> {
       let sampleOdd = {id: 1, value: 1.13}
-      let sampleBet = { odd: sampleOdd, stake: 0 }
       let sampleStake = 1.006
       let sampleStakeDisplayValue = '1.01'
       let sampleStakeReturn = 1.13678
@@ -69,8 +68,22 @@ describe('Betslip component', () => {
         wrapper.vm.$store.dispatch('addNewEmptyBet', sampleOdd)
       })
 
-      it('reacts on store state change', () => {
-        expect(wrapper.vm.getBets).to.eql([sampleBet])
+      describe('initial bet state', ()=> {
+        it('has correct odd id', () => {
+          expect(wrapper.vm.getBets[0].odd.id).to.eql(sampleOdd.id)
+        })
+
+        it('has approved value equals to currrent odd value', () => {
+          expect(wrapper.vm.getBets[0].approvedValue).to.eql(sampleOdd.value)
+        })
+
+        it('has status as initial', () => {
+          expect(wrapper.vm.getBets[0].status).to.eql('initial')
+        })
+
+        it('has zero stake', () => {
+          expect(wrapper.vm.getBets[0].stake).to.eql(0)
+        })
       })
 
       it('has bet placement button disabled', () => {
@@ -100,7 +113,7 @@ describe('Betslip component', () => {
         })
       })
 
-      describe('with stake entered', ()=> {
+      describe('with correct stake entered', ()=> {
         before(() => {
           wrapper.vm.$store.commit('setBetStake',{oddId: sampleOdd.id, stakeValue: sampleStake})
         })
@@ -130,35 +143,42 @@ describe('Betslip component', () => {
         })
       })
 
-      describe('with negative stake', ()=> {
-        before(() => {
-          wrapper.vm.$store.commit('setBetStake',{oddId: 1, stakeValue: -3})
+      describe('with invalide stake', ()=> {
+        describe('negative stake entered', ()=> {
+          before(() => {
+            wrapper.vm.$store.commit('setBetStake',{oddId: 1, stakeValue: -3})
+          })
+
+          it('has bet placement button disabled', () => {
+            setTimeout(function(){
+              expect(wrapper.find('#betslipSingleTab .btn-submit-bets').html()).to.contain('disabled')
+            }, 1000);
+          })
         })
 
-        it('has bet placement button disabled', () => {
-          setTimeout(function(){
-            expect(wrapper.find('#betslipSingleTab .btn-submit-bets').html()).to.contain('disabled')
-          }, 1000);
-        })
-      })
+        describe('stake over current wallet balance', ()=> {
+          before(() => {
+            const wallet = { id: 1, amount: 112.23, currency: { code: "EUR" } }
+            wrapper.vm.$store.commit(
+              'storeWallets',
+              {
+                wallets: [wallet],
+                activeWallet: wallet
+              }
+            )
+          })
 
-      describe('with stake over current wallet balance', ()=> {
-        before(() => {
-          const wallet = { id: 1, amount: 112.23, currency: { code: "EUR" } }
-          wrapper.vm.$store.commit(
-            'storeWallets',
-            {
-              wallets: [wallet],
-              activeWallet: wallet
-            }
-          )
-          wrapper.vm.$store.commit('setBetStake',{oddId: 1, stakeValue: 112.24})
-        })
-
-        it('has bet placement button disabled', () => {
-          setTimeout(function(){
-            expect(wrapper.find('#betslipSingleTab .btn-submit-bets').html()).to.contain('disabled')
-          }, 1000);
+          it('bet placement button reacts on wallet balance rule', () => {
+            wrapper.vm.$store.commit('setBetStake',{oddId: 1, stakeValue: 112.23})
+            setTimeout(function(){
+              expect(wrapper.find('#betslipSingleTab .btn-submit-bets').html()).to.contain('enabled')
+              wrapper.vm.$store.commit('resetBetslipStakes')
+              wrapper.vm.$store.commit('setBetStake',{oddId: 1, stakeValue: 112.24})
+              setTimeout(function(){
+                expect(wrapper.find('#betslipSingleTab .btn-submit-bets').html()).to.contain('disabled')
+              }, 1000)
+            }, 1000)
+          })
         })
       })
     })
