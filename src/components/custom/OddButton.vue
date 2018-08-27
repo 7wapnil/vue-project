@@ -1,6 +1,6 @@
 <template>
     <div class="btn btn-block btn-outline-primary mb-2"
-         :class="{'btn-outline-success': raised, 'btn-outline-danger': !raised}"
+         :class="{'btn-outline-success': diff > 0, 'btn-outline-danger': diff < 0}"
          @click="obbButtonClick">
         {{ odd.name }} {{ odd.value }} ({{ diff > 0 ? '+' : '' }}{{ diff }})
     </div>

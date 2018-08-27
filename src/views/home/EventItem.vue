@@ -1,21 +1,38 @@
 <template>
     <div class="row align-items-end">
-        <div class="col-lg-6">
+        <div class="col">
+
             <div class="row">
-                <div class="col-lg-12 col-sm-6">
+                <div class="col">
                     <p class="card-text font-weight-bold">{{ event.title_name }}</p>
                 </div>
-                <div class="col-lg-12 col-sm-6">
-                    <p class="catd-text">{{ fromNow }}</p>
+                <div class="col">
+                    <p class="card-text">{{ fromNow }}</p>
                 </div>
             </div>
-        </div>
-        <div class="col-lg-6">
-            <div class="row" v-if="primaryMarket">
-                    <odd-button v-for="odd in primaryMarket.odds"
-                                :key="odd.id"
-                                :odd="odd"></odd-button>
+
+            <hr>
+
+            <div class="row">
+                <div class="col">
+                    <div class="row"
+                         v-for="market in event.markets"
+                         :key="market.id">
+                        <div class="col">
+                            <b>{{ market.name }}</b>
+
+                            <div class="row">
+                                <div class="col"
+                                     v-for="odd in market.odds"
+                                     :key="odd.id">
+                                    <odd-button :odd="odd"></odd-button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+
         </div>
     </div>
 </template>
@@ -35,8 +52,8 @@
       }
     },
     computed: {
-      primaryMarket () {
-        return this.event.markets.find(market => market.priority === 1)
+      primaryMarkets () {
+        return this.event.markets.filter(market => market.priority === 1)
       },
       fromNow() {
         return moment(this.event.start_at).fromNow()
