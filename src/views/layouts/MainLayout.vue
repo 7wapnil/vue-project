@@ -28,7 +28,7 @@
                 </ul>
                 <balances-list v-if="loggedIn"></balances-list>
                 <ul class="navbar-nav">
-                    <li class="nav-item dropdown"
+                    <li class="nav-item dropleft"
                         v-if="loggedIn">
                         <a class="nav-link dropdown-toggle"
                              id="username-dropdown"
@@ -40,6 +40,10 @@
                             {{ user.username }}
                         </a>
                         <div class="dropdown-menu">
+                            <router-link :to="'account'"
+                                         class="dropdown-item">
+                                Account
+                            </router-link>
                             <a class="dropdown-item"
                                href="#"
                                @click.prevent="logout">
