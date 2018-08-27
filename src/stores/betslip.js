@@ -42,10 +42,10 @@ export default {
             return state.bets.length
         },
         getTotalStakes(state) {
-          return state.bets.map(el => el.stake).reduce((a, b) => +a + +b, 0)
+          return state.bets.map(el => el.stake > 0 ? el.stake : 0).reduce((a, b) => +a + +b, 0)
         },
         getTotalReturn(state){
-          return state.bets.map(el => el.stake * el.odd.value).reduce((a, b) => +a + +b, 0)
+          return state.bets.map(el => (el.stake > 0 ? el.stake : 0) * el.odd.value).reduce((a, b) => +a + +b, 0)
         }
     }
 }

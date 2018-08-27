@@ -69,7 +69,8 @@
         return {name: "Event of Odd " + this.odd.odd.id}
       },
       potentialReturn: function () {
-        return Math.round(this.odd.stake * this.odd.odd.value)
+          const stake = this.odd.stake > 0 ? this.odd.stake : 0
+          return Math.round(stake * this.odd.odd.value)
       }
     },
     methods: {
