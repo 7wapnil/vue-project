@@ -124,22 +124,24 @@ describe('Betslip component', () => {
           }, 1000);
         })
 
-        it('calculates correct total stakes', ()=>{
-          expect(wrapper.vm.getTotalStakes).to.eq(sampleStake)
-        })
+        describe('totals block adjusted', () => {
+          it('calculates correct total stakes', ()=>{
+            expect(wrapper.vm.getTotalStakes).to.eq(sampleStake)
+          })
 
-        it('displays correct total stakes', ()=>{
-          expect(wrapper.find('#betslipSingleTab .total-stake-value').text()).to.eq(sampleStakeDisplayValue)
-        })
+          it('displays correct total stakes', ()=>{
+            expect(wrapper.find('#betslipSingleTab .total-stake-value').text()).to.eq(sampleStakeDisplayValue)
+          })
 
-        it('calculates correct total return', ()=>{
-          expect(wrapper.vm.getTotalReturn).to.eq( sampleStakeReturn )
-        })
+          it('calculates correct total return', ()=>{
+            expect(wrapper.vm.getTotalReturn).to.eq( sampleStakeReturn )
+          })
 
-        it('displays correct total return', ()=>{
-          setTimeout(function(){
-            expect(wrapper.find('#betslipSingleTab .total-return-value').text()).to.eq(sampleStakeReturnDisplayValue)
-          }, 1000);
+          it('displays correct total return', ()=>{
+            setTimeout(function(){
+              expect(wrapper.find('#betslipSingleTab .total-return-value').text()).to.eq(sampleStakeReturnDisplayValue)
+            }, 1000);
+          })
         })
       })
 
