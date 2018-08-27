@@ -96,7 +96,10 @@
         }
     },
     computed: {
-      betslipSubmittable() {
+      betslipSubmittable(){
+        if(this.$store.getters.getActiveWallet === undefined){
+          return false
+        }
         let enabled = false
         if (this.getTotalStakes > 0 &&
             this.getTotalStakes <= this.$store.getters.getActiveWallet.amount
