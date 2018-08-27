@@ -31,6 +31,7 @@
                             <input class="form-control"
                                    type="number"
                                    name="odd-value"
+                                   @change="odd.stake = odd.stake > 0 ? odd.stake : 0"
                                    v-model="odd.stake"/>
                         </div>
                     </div>
