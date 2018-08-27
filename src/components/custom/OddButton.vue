@@ -22,7 +22,7 @@
     },
     methods: {
       obbButtonClick() {
-        this.$store.dispatch('addOddtoBetslip', this.odd)
+        this.$store.dispatch('addNewEmptyBet', this.odd)
       }
     },
     watch: {

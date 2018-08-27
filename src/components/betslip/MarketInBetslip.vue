@@ -1,41 +1,75 @@
-<template lang="pug">
-    div
-        h5
-            ="USION.BET MASTERS: One vs Two"
-        .my-4
-            = "Match Winner"
-            button.close(aria-label="Close")
-                span(aria-hidden="true")
-                    ="×"
-        .row
-            .m-2.col
-                odd-button(:odd={name:"winner 1",value:"2.2"})
-            .m-2.col
-                odd-button(:odd={name:"draw",value:"1"})
-        .row.mt-4.text-right
-            .col-12
-                .row.my-2
-                    .col-8.text-nowrap.text-right
-                        = "My Stake:"
-                        br
-                        button.btn.btn-sm.btn-outline-secondary.my-2
-                            = "Place max bet"
-                    .col-4
-                        input.form-control(type='text', name='odd-value', value=0)
-                .row.my-2
-                    .col-8.text-nowrap.text-right
-                        = "Potential Return:"
-                    .col-4
-                        = "NaN"
-        hr
+<template>
+    <div>
+        <b-card>
+            <div slot="header">
+                {{row.event.name}}
+                <button class="close"
+                        aria-label="Close">
+                    <span aria-hidden="true"
+                          @click="removeOdd(row.odd)">
+                        ×
+                    </span>
+                </button>
+            </div>
+            <div class="row m-2">
+                <p>{{row.market.name}}</p>
+            </div>
+            <div class="row m-2">
+                <p>Outcome {{row.odd.name}} with value {{row.odd.value}}</p>
+            </div>
+            <div class="row mt-4 text-right">
+                <div class="col-12">
+                    <div class="row my-2">
+                        <div class="col-8 text-nowrap text-right">
+                            My Stake:
+                            <br/>
+                        </div>
+                        <div class="col-4">
+                            <input class="form-control"
+                                   type="number"
+                                   name="odd-value"
+                                   v-model="bet.stake"/>
+                        </div>
+                    </div>
+                    <div class="row my-2">
+                        <div class="col-8 text-nowrap text-right">
+                            Potential Return:
+                        </div>
+                        <div class="col-4">{{potentialReturn}}</div>
+                    </div>
+                </div>
+            </div>
+        </b-card>
+        <hr/>
+    </div>
 </template>
 
 <script>
-    import OddButton from '@/components/custom/OddButton.vue'
+  import OddButton from '@/components/custom/OddButton.vue'
 
-    export default {
-        components: {
-            OddButton
-        }
+  export default {
+    props: {
+      row: {
+        type: Object,
+        required: true
+      },
+      bet: {
+        type: Object,
+        required: true
+      },
+    },
+    components: {
+      OddButton
+    },
+    computed: {
+      potentialReturn: function () {
+        return Math.round(this.bet.stake * this.row.odd.value)
+      }
+    },
+    methods: {
+      removeOdd: function (odd) {
+        this.$store.commit('removeBetFromBetslip', odd)
+      }
     }
+  }
 </script>

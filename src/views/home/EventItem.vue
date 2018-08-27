@@ -16,7 +16,7 @@
             <div class="row">
                 <div class="col">
                     <div class="row"
-                         v-for="market in event.markets"
+                         v-for="market in primaryMarkets"
                          :key="market.id">
                         <div class="col">
                             <b>{{ market.name }}</b>

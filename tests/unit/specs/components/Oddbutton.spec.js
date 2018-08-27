@@ -15,7 +15,7 @@ describe('OddButton component', () => {
     exampleOdd = { id: 1, name: 'foo', value: 1.22 }
 
     actions = {
-      addOddtoBetslip: sinon.stub()
+      addNewEmptyBet: sinon.stub()
     }
 
     store = new Vuex.Store({
@@ -25,7 +25,7 @@ describe('OddButton component', () => {
 
   describe('methods', () => {
     describe('obbButtonClick', () => {
-      it('dispatches addOddtoBetslip event with current odd object', () => {
+      it('dispatches addNewEmptyBet event with current odd object', () => {
         const wrapper = shallowMount(OddButton, {
           propsData: { odd: exampleOdd },
           store,
@@ -34,8 +34,8 @@ describe('OddButton component', () => {
 
         wrapper.findAll('.btn').at(0).trigger('click')
 
-        expect(actions.addOddtoBetslip.calledOnce).to.equal(true)
-        expect(actions.addOddtoBetslip.firstCall.args[1]).to.eq(exampleOdd);
+        expect(actions.addNewEmptyBet.calledOnce).to.equal(true)
+        expect(actions.addNewEmptyBet.firstCall.args[1]).to.eq(exampleOdd);
       })
     })
   })
