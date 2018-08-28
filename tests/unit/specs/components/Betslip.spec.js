@@ -4,6 +4,7 @@ import Vuex from 'vuex'
 import Betslip from '@/components/betslip/Betslip.vue'
 import betslip from '@/stores/betslip'
 import wallets from '@/stores/wallets'
+import BetslipService from '@/services/api/betslip'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
@@ -15,10 +16,17 @@ describe('Betslip component', () => {
   let mutations
 
   let loadEventsStub
+  let betslipServiceStub
+  let betslipPlacementStub
 
   before(() => {
     loadEventsStub = sinon.stub(Betslip.methods, 'getNewApiService')
       .returns({ load: function () {}})
+
+    betslipPlacementStub = sinon.stub()
+      .returns({then: function () { return {  catch: function () {} }},})
+    betslipServiceStub = sinon.stub(Betslip.methods, 'getNewBetslipService')
+      .returns({ place: betslipPlacementStub })
 
     mutations = {
       freezeBets: sinon.stub()
@@ -67,12 +75,22 @@ describe('Betslip component', () => {
 
     describe('with bets added', ()=> {
       let sampleOdd = {id: 1, value: 1.13}
+      let sampleInitialWalletBalance = 10.006
       let sampleStake = 1.006
       let sampleStakeDisplayValue = '1.01'
       let sampleStakeReturn = 1.13678
       let sampleStakeReturnDisplayValue = '1.14'
 
       before(() => {
+        const wallet = { id: 1, amount: sampleInitialWalletBalance, currency: { code: "EUR" } }
+        wrapper.vm.$store.commit(
+          'storeWallets',
+          {
+            wallets: [wallet],
+            activeWallet: wallet
+          }
+        )
+
         wrapper.vm.$store.dispatch('addNewEmptyBet', sampleOdd)
       })
 
@@ -126,21 +144,22 @@ describe('Betslip component', () => {
           wrapper.vm.$store.commit('setBetStake',{oddId: sampleOdd.id, stakeValue: sampleStake})
         })
 
-        it('has bet placement button enabled', () => {
-          setTimeout(function(){
-            expect(wrapper.find('#betslipSingleTab .btn-submit-bets').html()).to.not.contain('disabled')
-          }, 1000);
+        it('has correct preconditions to submit', () => {
+          expect(wrapper.vm.betslipSubmittable).to.eq(true)
         })
 
-        describe('submit button pressed', ()=> {
+        describe('betslip submitted', ()=> {
           before(() => {
-            wrapper.find('.btn-submit-bets').trigger('click')
+            wrapper.vm.submit()
           })
 
-          it('commit placeBets event', () => {
-            setTimeout(function(){
-              expect(mutations.freezeBets.calledOnce).to.equal(true)
-            }, 500);
+          it('freezes BetItems in Betslip', function(){
+            expect(mutations.freezeBets.calledOnce).to.equal(true)
+          })
+
+          it('calls bet placement API', () => {
+            expect(betslipPlacementStub.called).to.eq(true)
+            expect(betslipPlacementStub.firstCall.args[0][0].amount).to.eq(sampleStake)
           })
         })
 
