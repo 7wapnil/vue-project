@@ -145,7 +145,7 @@ describe('Betslip component', () => {
         })
 
         it('has correct preconditions to submit', () => {
-          expect(wrapper.vm.betslipSubmittable).to.eq(true)
+          expect(wrapper.vm.$store.getters.betslipSubmittable).to.eq(true)
         })
 
         describe('betslip submitted', ()=> {

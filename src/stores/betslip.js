@@ -47,6 +47,18 @@ export default {
         }
     },
     getters: {
+        betslipSubmittable(state, getters) {
+          if(getters.getActiveWallet === undefined){
+            return false
+          }
+          let enabled = false
+          if (getters.getTotalStakes > 0 &&
+            getters.getTotalStakes <= getters.getActiveWallet.amount &&
+            getters.anyInitialBet) {
+            enabled = true
+          }
+          return enabled
+        },
         getBets(state) {
             return state.bets
         },

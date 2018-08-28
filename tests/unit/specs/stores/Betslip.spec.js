@@ -27,4 +27,51 @@ describe('wallets store', () => {
       })
     })
   })
+  describe('getters', () => {
+    describe('betslipSubmittable', () => {
+
+      const validGettersState = {
+        getTotalStakes: 2,
+        getActiveWallet: { amount: 2},
+        anyInitialBet: true
+      }
+
+      it('is submittable when all rules valid', () => {
+        const state = {}
+        expect(store.getters.betslipSubmittable(state, validGettersState)).to.eql(true)
+      })
+
+      describe('fails', () => {
+        it('with zero stakes', () => {
+          const state = {}
+
+          const invalidGetters = {}
+          Object.assign(invalidGetters, validGettersState)
+          invalidGetters.getTotalStakes = 0
+
+          expect(store.getters.betslipSubmittable(state, invalidGetters)).to.eql(false)
+        })
+
+        it('fails without enough balance in active wallet', () => {
+          const state = {}
+
+          const invalidGetters = {}
+          Object.assign(invalidGetters, validGettersState)
+          invalidGetters.getActiveWallet = { amount: 1}
+
+          expect(store.getters.betslipSubmittable(state, invalidGetters)).to.eql(false)
+        })
+
+        it('fails without any intial bet in betslip', () => {
+          const state = {}
+
+          const invalidGetters = {}
+          Object.assign(invalidGetters, validGettersState)
+          invalidGetters.anyInitialBet = false
+
+          expect(store.getters.betslipSubmittable(state, invalidGetters)).to.eql(false)
+        })
+      })
+    })
+  })
 })
