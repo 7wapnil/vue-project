@@ -9,9 +9,9 @@ export default {
   },
   actions: {
     logout(context, componentContext) {
-      context.commit('cleanSession')
-      context.commit('cleanBetslip')
-      context.commit('cleanWalletsStorage')
+      context.commit('clearSession')
+      context.commit('clearBetslip')
+      context.commit('clearWalletsStorage')
       ArcanebetSession.dropSession()
       componentContext.$apollo.getClient().cache.reset()
     },
@@ -24,7 +24,7 @@ export default {
     storeSession(state, sessionData) {
       state.session = sessionData
     },
-    cleanSession(state) {
+    clearSession(state) {
       state.session = {}
     },
     userData(state, data) {
