@@ -153,13 +153,10 @@
     },
     computed: {
       betslipSubmittable() {
-        const anyInitialBet = this.$store.getters.getBets.some((bet) => {
-          return bet.status === Bet.statuses.initial
-        })
         let enabled = false
         if (this.getTotalStakes > 0 &&
             this.getTotalStakes <= this.$store.getters.getActiveWallet.amount &&
-            anyInitialBet) {
+            this.$store.getters.anyInitialBet) {
           enabled = true
         }
         return enabled

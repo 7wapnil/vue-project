@@ -50,6 +50,11 @@ export default {
         getBets(state) {
             return state.bets
         },
+        anyInitialBet(state){
+          return state.bets.some((bet) => {
+            return bet.status === Bet.statuses.initial
+          })
+        },
         getBetsCount(state) {
             return state.bets.length
         },
