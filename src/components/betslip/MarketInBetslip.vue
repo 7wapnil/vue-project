@@ -36,9 +36,8 @@
                             <input class="form-control"
                                    type="number"
                                    name="odd-value"
-                                   :disabled="bet.frozen"
-                                   @change="bet.stake = bet.stake > 0 ? bet.stake : 0"
-                                   v-model="bet.stake"/>
+                                   min="0"
+                                   v-model="betStake"/>
                         </div>
                     </div>
                     <div class="row my-2">
@@ -74,8 +73,17 @@
     },
     computed: {
       potentialReturn: function () {
-          const stake = this.bet.stake > 0 ? this.bet.stake : 0
-          return stake * this.row.odd.value
+        const stake = this.bet.stake > 0 ? this.bet.stake : 0
+        return stake * this.row.odd.value
+      },
+      betStake: {
+        get () {
+          return this.bet.stake
+        },
+        set (value) {
+          let stakeValue = value > 0 ? value : 0
+          this.$store.commit('setBetStake', { oddId: this.bet.odd.id, stakeValue })
+        }
       },
       cardVariant: function () {
         const variantMapping = {
