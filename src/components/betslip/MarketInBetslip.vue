@@ -37,6 +37,7 @@
                                    type="number"
                                    name="odd-value"
                                    :disabled="bet.frozen"
+                                   @change="bet.stake = bet.stake > 0 ? bet.stake : 0"
                                    v-model="bet.stake"/>
                         </div>
                     </div>
@@ -44,7 +45,7 @@
                         <div class="col-8 text-nowrap text-right">
                             Potential Return:
                         </div>
-                        <div class="col-4">{{potentialReturn}}</div>
+                        <div class="col-4">{{parseFloat(potentialReturn.toFixed(2))}}</div>
                     </div>
                 </div>
             </div>
@@ -73,7 +74,8 @@
     },
     computed: {
       potentialReturn: function () {
-        return Math.round(this.bet.stake * this.row.odd.value)
+          const stake = this.bet.stake > 0 ? this.bet.stake : 0
+          return stake * this.row.odd.value
       },
       cardVariant: function () {
         const variantMapping = {

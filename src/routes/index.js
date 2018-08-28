@@ -4,6 +4,7 @@ import SignIn from '@/views/auth/SignIn.vue'
 import Home from '@/views/home/Page.vue'
 import Esports from '@/views/esports/Page.vue'
 import Event from '@/views/event/Page.vue'
+import Account from '@/views/account/Page.vue'
 
 export default new Router({
   mode: 'history',
@@ -54,6 +55,11 @@ export default new Router({
       name: 'event',
       component: Event,
       props: true
+    },
+    {
+      path: '/account',
+      name: 'account',
+      component: Account
     }
   ],
 });
