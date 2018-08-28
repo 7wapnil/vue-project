@@ -13,15 +13,14 @@ export default {
     }
   },
   mutations: {
-    storeWallets (state, wallets) {
+    storeWallets (state, { wallets, activeWallet }) {
       state.wallets = wallets
-      const defaultActiveWalletId = wallets[0].id
-      state.activeWalletId = defaultActiveWalletId
+      state.activeWalletId = activeWallet.id
     },
     setActiveWalletId (state, id) {
       state.activeWalletId =id
     },
-    cleanWalletsStorage (state){
+    clearWalletsStorage (state){
       state.activeWalletId = null
       state.wallets = []
     }
