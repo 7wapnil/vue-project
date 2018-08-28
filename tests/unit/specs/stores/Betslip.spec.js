@@ -15,5 +15,16 @@ describe('wallets store', () => {
         expect(state.bets).to.eql([ { status: 'submitting'}, { status: 'submitting'}])
       })
     })
+    describe('updateBet', () => {
+      it('updates bet with correct id according to payload', () => {
+        const state = {
+          bets: [ { odd: { id: 1 }}, { odd: { id: 2 }, status: 'xxx'} ]
+        }
+
+        store.mutations.updateBet(state, {oddId: 2, payload: {status: 'foo'} })
+
+        expect(state.bets).to.eql([ { odd: { id: 1 }}, { odd: { id: 2 }, status: 'foo'} ])
+      })
+    })
   })
 })
