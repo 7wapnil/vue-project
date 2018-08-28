@@ -81,106 +81,106 @@
   const BET_DESTROY_TIMEOUT = 5000;
 
   export default {
-    mixins: [ wallets ],
-    components: {
-      MarketInBetslip
-    },
-    data() {
-      return {
-          apiService: this.getNewApiService(this),
-          betslipService: this.getNewBetslipService(this),
-          events: [],
-          messages: []
-      }
-    },
-    created() {
-      this.apiService.load()
-    },
-    methods: {
-        getNewApiService: function (that){
-            return new ApiService(that)
-        },
-        getNewBetslipService: function (that){
-            return new BetslipService(that)
-        },
-        submit() {
-          this.$store.commit('freezeBets')
-
-          let betsPayload = BetslipSerializer.serialize({
-            bets: this.getBets,
-            currencyCode: this.activeWallet.currency.code
-          })
-
-          this.betslipService.place(betsPayload)
-            .then(this.processBetsPlacementResponse)
-            .catch(this.handlePlacementFailure)
-      },
-      processBetsPlacementResponse(response){
-        this.updateBetsFromResponse(response)
-        this.refetchWallets()
-      },
-      updateBetsFromResponse(response) {
-        const bets = this.getBets
-
-        if (response.data && response.data.placeBets) {
-          response.data.placeBets.forEach((betPayload) => {
-            let bet = bets.find(el => el.odd.id === betPayload.odd.id)
-
-            this.$store.commit(
-              'updateBet',
-              {
-                oddId: bet.odd.id,
-                payload: {
-                  status: betPayload.status,
-                  message: betPayload.message,
-                  externalId: betPayload.id
-                }
-              }
-            )
-
-            if (betPayload.status === Bet.statuses.succeeded) {
-              setTimeout(() => {
-                this.$store.commit('removeBetFromBetslip',bet.odd)
-              }, BET_DESTROY_TIMEOUT)
-            }
-          })
-        }
-      },
-      handlePlacementFailure(response) {
-        this.$noty.error(response.message, { timeout: 3000 })
-        this.$store.commit('clearBetslip')
-      }
-    },
-    computed: {
-        oddsFullTree() {
-            let tree = []
-            this.events.forEach(function(event) {
-                event.markets.forEach(function(market) {
-                    market.odds.forEach(function(odd) {
-                        const displayEvent = Object.assign({}, event);
-                        displayEvent.markets = {}
-
-                        const displayMarket = Object.assign({}, market);
-                        displayMarket.odds = {}
-
-                        tree.push({
-                                event: displayEvent,
-                                eventId: event.id,
-                                market: displayMarket,
-                                marketId: market.id,
-                                odd: odd
-                            })
-                    })
-                })
-            })
-            return tree
-        },
-      ...mapGetters([
-        'getBets',
-        'getBetsCount',
-        'getTotalReturn',
-        'getTotalStakes'
-      ])
+  mixins: [ wallets ],
+  components: {
+    MarketInBetslip
+  },
+  data() {
+    return {
+      apiService: this.getNewApiService(this),
+      betslipService: this.getNewBetslipService(this),
+      events: [],
+      messages: []
     }
+  },
+  created() {
+    this.apiService.load()
+  },
+  methods: {
+    getNewApiService: function (that){
+      return new ApiService(that)
+    },
+    getNewBetslipService: function (that){
+      return new BetslipService(that)
+    },
+    submit() {
+      this.$store.commit('freezeBets')
+
+      let betsPayload = BetslipSerializer.serialize({
+      bets: this.getBets,
+      currencyCode: this.activeWallet.currency.code
+      })
+
+      this.betslipService.place(betsPayload)
+      .then(this.processBetsPlacementResponse)
+      .catch(this.handlePlacementFailure)
+    },
+    processBetsPlacementResponse(response){
+    this.updateBetsFromResponse(response)
+    this.refetchWallets()
+    },
+    updateBetsFromResponse(response) {
+    const bets = this.getBets
+
+    if (response.data && response.data.placeBets) {
+      response.data.placeBets.forEach((betPayload) => {
+      let bet = bets.find(el => el.odd.id === betPayload.odd.id)
+
+      this.$store.commit(
+        'updateBet',
+        {
+        oddId: bet.odd.id,
+        payload: {
+          status: betPayload.status,
+          message: betPayload.message,
+          externalId: betPayload.id
+        }
+        }
+      )
+
+      if (betPayload.status === Bet.statuses.succeeded) {
+        setTimeout(() => {
+        this.$store.commit('removeBetFromBetslip',bet.odd)
+        }, BET_DESTROY_TIMEOUT)
+      }
+      })
+    }
+    },
+    handlePlacementFailure(response) {
+    this.$noty.error(response.message, { timeout: 3000 })
+    this.$store.commit('clearBetslip')
+    }
+  },
+  computed: {
+    oddsFullTree() {
+      let tree = []
+      this.events.forEach(function(event) {
+        event.markets.forEach(function(market) {
+          market.odds.forEach(function(odd) {
+            const displayEvent = Object.assign({}, event);
+            displayEvent.markets = {}
+
+            const displayMarket = Object.assign({}, market);
+            displayMarket.odds = {}
+
+            tree.push({
+                event: displayEvent,
+                eventId: event.id,
+                market: displayMarket,
+                marketId: market.id,
+                odd: odd
+              })
+          })
+        })
+      })
+      return tree
+    },
+    ...mapGetters([
+    'getBets',
+    'getBetsCount',
+    'getTotalReturn',
+    'getTotalStakes'
+    ])
+  }
   }
 </script>
