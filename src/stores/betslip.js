@@ -66,7 +66,7 @@ export default {
           const betWithUnconfirmedValue = getters.getBets.find((bet) => {
             const currentOddValue =
               EventsLookup.from(events).findOddMapRowById(bet.odd.id).odd.value
-            currentOddValue != bet.approvedValue
+            return currentOddValue != bet.approvedValue
           })
           return (betWithUnconfirmedValue === undefined)
         },
