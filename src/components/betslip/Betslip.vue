@@ -159,29 +159,6 @@
     betslipIsSubmittable() {
       return this.$store.getters.betslipSubmittable(this.events)
     },
-    oddsFullTree() {
-      let tree = []
-      this.events.forEach(function(event) {
-        event.markets.forEach(function(market) {
-          market.odds.forEach(function(odd) {
-            const displayEvent = Object.assign({}, event);
-            displayEvent.markets = {}
-
-            const displayMarket = Object.assign({}, market);
-            displayMarket.odds = {}
-
-            tree.push({
-                event: displayEvent,
-                eventId: event.id,
-                market: displayMarket,
-                marketId: market.id,
-                odd: odd
-              })
-          })
-        })
-      })
-      return tree
-    },
     ...mapGetters([
     'getBets',
     'getBetsCount',
