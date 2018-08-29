@@ -25,6 +25,9 @@
                         <b-alert :show="hasMessage">
                           {{bet.message}}
                         </b-alert>
+                        <b-alert variant="danger" :show="hasUnconfirmedOddValue">
+                          This bet odd value changed from {{bet.approvedValue}} to {{row.odd.value}}.
+                        </b-alert>
                       </div>
                     </div>
                     <div class="row my-2">
@@ -85,6 +88,9 @@
           this.$store.commit('setBetStake', { oddId: this.bet.odd.id, stakeValue })
         }
       },
+      hasUnconfirmedOddValue: function () {
+        return (this.bet.approvedValue != this.row.odd.value)
+      },
       cardVariant: function () {
         const variantMapping = {
           initial: 'default',
@@ -92,6 +98,10 @@
           pending: 'light',
           succeeded: 'success',
           failed: 'danger'
+        }
+
+        if(this.bet.approvedValue != this.row.odd.value){
+          return 'danger'
         }
 
         return variantMapping[this.bet.status]
