@@ -144,10 +144,6 @@ describe('Betslip component', () => {
           wrapper.vm.$store.commit('setBetStake',{oddId: sampleOdd.id, stakeValue: sampleStake})
         })
 
-        it('has correct preconditions to submit', () => {
-          expect(wrapper.vm.$store.getters.betslipSubmittable).to.eq(true)
-        })
-
         describe('betslip submitted', ()=> {
           before(() => {
             wrapper.vm.submit()

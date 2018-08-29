@@ -3,6 +3,7 @@
  */
 
 import Bet from '@/models/bet'
+import EventsLookup from '@/services/helpers/events-lookup'
 
 export default {
     state: {
@@ -47,12 +48,12 @@ export default {
         }
     },
     getters: {
-        betslipSubmittable(state, getters) {
+        betslipSubmittable:(state, getters) => (events) => {
           if(getters.getActiveWallet === undefined){
             return false
           }
           let enabled = false
-          if (getters.betslipValuesConfirmed &&
+          if (getters.betslipValuesConfirmed(events) &&
               getters.getTotalStakes > 0 &&
               getters.getTotalStakes <= getters.getActiveWallet.amount &&
               getters.anyInitialBet
@@ -61,8 +62,12 @@ export default {
           }
           return enabled
         },
-        betslipValuesConfirmed(state) {
-          return true
+        betslipValuesConfirmed: (state, getters) => (events) => {
+          const oddsMap = EventsLookup.from(events).oddsMap()
+          const betWithUnconfirmedValue = getters.getBets.find((bet) => {
+            return false
+          })
+          return (betWithUnconfirmedValue === undefined)
         },
         getBets(state) {
             return state.bets
