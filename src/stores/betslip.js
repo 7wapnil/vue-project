@@ -63,9 +63,10 @@ export default {
           return enabled
         },
         betslipValuesConfirmed: (state, getters) => (events) => {
-          const oddsMap = EventsLookup.from(events).oddsMap()
           const betWithUnconfirmedValue = getters.getBets.find((bet) => {
-            return false
+            const currentOddValue =
+              EventsLookup.from(events).findOddMapRowById(bet.odd.id).odd.value
+            currentOddValue != bet.approvedValue
           })
           return (betWithUnconfirmedValue === undefined)
         },

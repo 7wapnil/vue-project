@@ -50,10 +50,10 @@
                         <button class="btn btn-lg btn-block btn-submit-bets"
                                 @click="submit"
                                 v-bind:class="{
-                                    'btn-danger': !betsliIsSubmittable ,
-                                    'btn-success': betsliIsSubmittable
+                                    'btn-danger': !betslipIsSubmittable ,
+                                    'btn-success': betslipIsSubmittable
                                 }"
-                                :disabled="!betsliIsSubmittable"
+                                :disabled="!betslipIsSubmittable"
                         >Place bet
                         </button>
                     </div>
@@ -156,8 +156,8 @@
     }
   },
   computed: {
-    betsliIsSubmittable() {
-      this.$store.getters.betslipSubmittable(this.events)
+    betslipIsSubmittable() {
+      return this.$store.getters.betslipSubmittable(this.events)
     },
     oddsFullTree() {
       let tree = []
