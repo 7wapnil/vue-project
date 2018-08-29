@@ -83,27 +83,37 @@ describe('wallets store', () => {
           expect(store.getters.betslipSubmittable(state, invalidGetters)({})).to.eql(false)
         })
       })
+    })
 
-      describe('betslipValuesConfirmed', () => {
-        it('returns true when all bets confirmed', () => {
-          const state = {
-            bets: [{confirmedValue: 1.11},{confirmedValue: 2.21}]
-          }
+    describe('betslipValuesConfirmed', () => {
+      it('returns true when all bets confirmed', () => {
+        const oddId = 3
+        const confirmedValue = 1.11
+        const currentOddValue = 1.11
+        const betsState = [{approvedValue: confirmedValue, odd: {id: oddId}},{approvedValue: 2.21, odd: {id: 4}}];
 
-          const getters = {
-            getBets: [{confirmedValue: 1.11},{confirmedValue: 2.21}]
-          }
+        const state = { bets: betsState }
+        const getters = { getBets: betsState }
+        const events = [
+          { id:1, markets: [ { id:2, odds: [ { id:oddId , value: currentOddValue}, { id:4 , value: 2.21}]}] }
+        ]
 
-          const events = [
-            { id:1, markets: [ { id:2, odds: [ { id:3 }]}] }
-          ]
+        expect(store.getters.betslipValuesConfirmed(state, getters)(events)).to.eql(true)
+      })
 
-          const invalidGetters = {}
-          Object.assign(invalidGetters, validGettersState)
-          invalidGetters.getTotalStakes = 0
+      it('returns false when one of bets not confirmed', () => {
+        const oddId = 3
+        const confirmedValue = 1.11
+        const currentOddValue = 1.12
+        const betsState = [{approvedValue: confirmedValue, odd: {id: oddId}},{approvedValue: 2.21, odd: {id: 4}}];
 
-          expect(store.getters.betslipValuesConfirmed(state, getters)(events)).to.eql(true)
-        })
+        const state = { bets: betsState }
+        const getters = { getBets: betsState }
+        const events = [
+          { id:1, markets: [ { id:2, odds: [ { id:oddId , value: currentOddValue}, { id:4 , value: 2.21}]}] }
+        ]
+
+        expect(store.getters.betslipValuesConfirmed(state, getters)(events)).to.eql(false)
       })
     })
   })
