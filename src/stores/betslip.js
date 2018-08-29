@@ -52,12 +52,17 @@ export default {
             return false
           }
           let enabled = false
-          if (getters.getTotalStakes > 0 &&
-            getters.getTotalStakes <= getters.getActiveWallet.amount &&
-            getters.anyInitialBet) {
+          if (getters.betslipValuesConfirmed &&
+              getters.getTotalStakes > 0 &&
+              getters.getTotalStakes <= getters.getActiveWallet.amount &&
+              getters.anyInitialBet
+          ) {
             enabled = true
           }
           return enabled
+        },
+        betslipValuesConfirmed(state) {
+          return true
         },
         getBets(state) {
             return state.bets

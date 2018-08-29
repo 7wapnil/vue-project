@@ -33,7 +33,8 @@ describe('wallets store', () => {
       const validGettersState = {
         getTotalStakes: 2,
         getActiveWallet: { amount: 2},
-        anyInitialBet: true
+        anyInitialBet: true,
+        betslipValuesConfirmed: true
       }
 
       it('is submittable when all rules valid', () => {
@@ -48,6 +49,16 @@ describe('wallets store', () => {
           const invalidGetters = {}
           Object.assign(invalidGetters, validGettersState)
           invalidGetters.getTotalStakes = 0
+
+          expect(store.getters.betslipSubmittable(state, invalidGetters)).to.eql(false)
+        })
+
+        it('with unconfirmed odd values in betslip', () => {
+          const state = {}
+
+          const invalidGetters = {}
+          Object.assign(invalidGetters, validGettersState)
+          invalidGetters.betslipValuesConfirmed = false
 
           expect(store.getters.betslipSubmittable(state, invalidGetters)).to.eql(false)
         })
