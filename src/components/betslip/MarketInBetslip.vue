@@ -118,7 +118,6 @@
     },
     methods: {
       confirmValue: function () {
-        // this.bet.approvedValue = this.row.odd.value
         this.$store.commit('updateBet',{ oddId: this.bet.odd.id, payload: { approvedValue: this.row.odd.value }})
       },
       removeOdd: function (odd) {
