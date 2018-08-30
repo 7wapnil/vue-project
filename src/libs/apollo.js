@@ -41,17 +41,11 @@ const cache = new InMemoryCache({
 /**
  * @todo Add error handler to logout user when unauthorized error received
  */
-const apolloClient = new ApolloClient({
+export default new ApolloClient({
   link: from([
     authLink,
     httpLink
   ]),
   cache,
   connectToDevTools: true
-})
-
-Vue.use(VueApollo)
-
-export default new VueApollo({
-  defaultClient: apolloClient
 })
