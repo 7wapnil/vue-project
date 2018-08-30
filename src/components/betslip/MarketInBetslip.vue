@@ -93,7 +93,10 @@
         }
       },
       displayUnconfirmedOddValueDialog: function () {
-        return (this.bet.status == 'initial' && this.bet.approvedValue != this.row.odd.value)
+        return (
+          this.bet.status === Bet.statuses.initial &&
+          this.bet.approvedValue != this.row.odd.value
+        )
       },
       cardVariant: function () {
         const variantMapping = {
@@ -104,7 +107,7 @@
           failed: 'danger'
         }
 
-        if(this.bet.status == 'initial' &&
+        if(this.bet.status === Bet.statuses.initial &&
            this.bet.approvedValue != this.row.odd.value
         ){
           return 'warning'
