@@ -1,10 +1,8 @@
-import Vue from 'vue'
 import { ApolloClient } from 'apollo-client'
 import { from, ApolloLink } from 'apollo-link'
 import { HttpLink } from 'apollo-link-http'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import { toIdValue } from 'apollo-utilities'
-import VueApollo from 'vue-apollo'
 import Store from '@/stores'
 
 const authLink = new ApolloLink((operation, forward) => {
