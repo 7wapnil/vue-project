@@ -16,7 +16,8 @@ export default {
     },
     mutations: {
         pushNewBetToBetslip (state, odd) {
-          let exists = state.bets.find(bet => bet.odd.id === odd.id )
+          const exists =
+            state.bets.find(bet => bet.odd.id.toString() === odd.id.toString())
           if (exists === undefined) { state.bets.push(Bet.initial({ odd })) }
         },
         updateBet(state, { oddId, payload }) {
