@@ -21,7 +21,7 @@
                          id="markets-in-betslip">
                         <div v-for="bet in getBets"
                              :key="bet.id">
-                            <betslip-item :row='oddsFullTree.find(row => row.odd.id == bet.odd.id)'
+                            <betslip-item :row='getEventByOddId(bet.odd.id)'
                                                :bet='bet'
                             />
                         </div>
@@ -50,10 +50,10 @@
                         <button class="btn btn-lg btn-block btn-submit-bets"
                                 @click="submit"
                                 v-bind:class="{
-                                    'btn-danger': !this.$store.getters.betslipSubmittable ,
-                                    'btn-success': this.$store.getters.betslipSubmittable
+                                    'btn-danger': !betslipIsSubmittable ,
+                                    'btn-success': betslipIsSubmittable
                                 }"
-                                :disabled="!this.$store.getters.betslipSubmittable"
+                                :disabled="!betslipIsSubmittable"
                         >Place bet
                         </button>
                     </div>
@@ -77,6 +77,7 @@
   import BetslipService from '@/services/api/betslip'
   import BetslipSerializer from '@/services/serializers/betslip'
   import Bet from '@/models/bet'
+  import EventsLookup from '@/services/helpers/events-lookup'
 
   const BET_DESTROY_TIMEOUT = 5000;
 
@@ -97,6 +98,9 @@
     this.apiService.load()
   },
   methods: {
+    getEventByOddId: function (oddId) {
+      return EventsLookup.from(this.events).findOddMapRowById(oddId)
+    },
     getNewApiService: function (that){
       return new ApiService(that)
     },
@@ -152,28 +156,8 @@
     }
   },
   computed: {
-    oddsFullTree() {
-      let tree = []
-      this.events.forEach(function(event) {
-        event.markets.forEach(function(market) {
-          market.odds.forEach(function(odd) {
-            const displayEvent = Object.assign({}, event);
-            displayEvent.markets = {}
-
-            const displayMarket = Object.assign({}, market);
-            displayMarket.odds = {}
-
-            tree.push({
-                event: displayEvent,
-                eventId: event.id,
-                market: displayMarket,
-                marketId: market.id,
-                odd: odd
-              })
-          })
-        })
-      })
-      return tree
+    betslipIsSubmittable() {
+      return this.$store.getters.betslipSubmittable(this.events)
     },
     ...mapGetters([
     'getBets',

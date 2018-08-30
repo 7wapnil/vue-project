@@ -25,6 +25,13 @@
                         <b-alert :show="hasMessage">
                           {{bet.message}}
                         </b-alert>
+                        <b-alert variant="danger" :show="displayUnconfirmedOddValueDialog">
+                          This bet odd value changed from {{bet.approvedValue}} to {{row.odd.value}}.
+                          <button class="btn"
+                                  @click="confirmValue">
+                              Accept new value
+                          </button>
+                        </b-alert>
                       </div>
                     </div>
                     <div class="row my-2">
@@ -85,6 +92,12 @@
           this.$store.commit('setBetStake', { oddId: this.bet.odd.id, stakeValue })
         }
       },
+      displayUnconfirmedOddValueDialog: function () {
+        return (
+          this.bet.status === Bet.statuses.initial &&
+          this.bet.approvedValue != this.row.odd.value
+        )
+      },
       cardVariant: function () {
         const variantMapping = {
           initial: 'default',
@@ -94,6 +107,12 @@
           failed: 'danger'
         }
 
+        if(this.bet.status === Bet.statuses.initial &&
+           this.bet.approvedValue != this.row.odd.value
+        ){
+          return 'warning'
+        }
+
         return variantMapping[this.bet.status]
       },
       hasMessage: function () {
@@ -101,6 +120,9 @@
       }
     },
     methods: {
+      confirmValue: function () {
+        this.$store.commit('updateBet',{ oddId: this.bet.odd.id, payload: { approvedValue: this.row.odd.value }})
+      },
       removeOdd: function (odd) {
         this.$store.commit('removeBetFromBetslip', odd)
       }

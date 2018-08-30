@@ -3,6 +3,7 @@
  */
 
 import Bet from '@/models/bet'
+import EventsLookup from '@/services/helpers/events-lookup'
 
 export default {
     state: {
@@ -15,7 +16,8 @@ export default {
     },
     mutations: {
         pushNewBetToBetslip (state, odd) {
-          let exists = state.bets.find(bet => bet.odd.id === odd.id )
+          const exists =
+            state.bets.find(bet => bet.odd.id.toString() === odd.id.toString())
           if (exists === undefined) { state.bets.push(Bet.initial({ odd })) }
         },
         updateBet(state, { oddId, payload }) {
@@ -47,17 +49,27 @@ export default {
         }
     },
     getters: {
-        betslipSubmittable(state, getters) {
+        betslipSubmittable:(state, getters) => (events) => {
           if(getters.getActiveWallet === undefined){
             return false
           }
           let enabled = false
-          if (getters.getTotalStakes > 0 &&
-            getters.getTotalStakes <= getters.getActiveWallet.amount &&
-            getters.anyInitialBet) {
+          if (getters.betslipValuesConfirmed(events) &&
+              getters.getTotalStakes > 0 &&
+              getters.getTotalStakes <= getters.getActiveWallet.amount &&
+              getters.anyInitialBet
+          ) {
             enabled = true
           }
           return enabled
+        },
+        betslipValuesConfirmed: (state, getters) => (events) => {
+          const betWithUnconfirmedValue = getters.getBets.find((bet) => {
+            const currentOddValue =
+              EventsLookup.from(events).findOddMapRowById(bet.odd.id).odd.value
+            return currentOddValue != bet.approvedValue
+          })
+          return (betWithUnconfirmedValue === undefined)
         },
         getBets(state) {
             return state.bets

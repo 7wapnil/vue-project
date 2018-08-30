@@ -74,7 +74,9 @@ describe('Betslip component', () => {
     })
 
     describe('with bets added', ()=> {
-      let sampleOdd = {id: 1, value: 1.13}
+      let sampleOddId = 1
+      let sampleOddValue = 1.13
+      let sampleOdd = {id: sampleOddId, value: sampleOddValue}
       let sampleInitialWalletBalance = 10.006
       let sampleStake = 1.006
       let sampleStakeDisplayValue = '1.01'
@@ -82,6 +84,12 @@ describe('Betslip component', () => {
       let sampleStakeReturnDisplayValue = '1.14'
 
       before(() => {
+        wrapper.setData({ events:
+            [
+              { id:1, markets: [ { id:2, odds: [ sampleOdd, { id:4 , value: 2.21}]}] }
+            ]
+        })
+
         const wallet = { id: 1, amount: sampleInitialWalletBalance, currency: { code: "EUR" } }
         wrapper.vm.$store.commit(
           'storeWallets',
@@ -142,10 +150,6 @@ describe('Betslip component', () => {
       describe('with correct stake entered', ()=> {
         before(() => {
           wrapper.vm.$store.commit('setBetStake',{oddId: sampleOdd.id, stakeValue: sampleStake})
-        })
-
-        it('has correct preconditions to submit', () => {
-          expect(wrapper.vm.$store.getters.betslipSubmittable).to.eq(true)
         })
 
         describe('betslip submitted', ()=> {
