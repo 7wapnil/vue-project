@@ -21,7 +21,7 @@
                          id="markets-in-betslip">
                         <div v-for="bet in getBets"
                              :key="bet.id">
-                            <market-in-betslip :row='oddsFullTree.find(row => row.odd.id == bet.odd.id)'
+                            <betslip-item :row='oddsFullTree.find(row => row.odd.id == bet.odd.id)'
                                                :bet='bet'
                             />
                         </div>
@@ -70,7 +70,7 @@
 </template>
 
 <script>
-  import MarketInBetslip from './MarketInBetslip.vue'
+  import BetslipItem from './BetslipItem.vue'
   import { mapGetters } from 'vuex'
   import { default as wallets } from '@/mixins/wallets';
   import ApiService from '@/services/api/events'
@@ -83,7 +83,7 @@
   export default {
   mixins: [ wallets ],
   components: {
-    MarketInBetslip
+    BetslipItem
   },
   data() {
     return {
