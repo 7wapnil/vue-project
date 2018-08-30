@@ -40,7 +40,7 @@ describe('Betslip component', () => {
     wrapper = shallowMount(Betslip, {
       stubs: {
         'b-card': '<div><slot/></div>',
-        'market-in-betslip': '<div><slot/></div>'
+        'betslip-item': '<div><slot/></div>'
       },
       localVue,
       store
