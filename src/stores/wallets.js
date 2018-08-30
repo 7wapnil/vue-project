@@ -7,7 +7,7 @@ export default {
     activeWalletId: null
   },
   actions: {
-    changeActiveWallet (context, walletId){
+    changeActiveWallet (context, walletId) {
       context.commit('setActiveWalletId', walletId)
       context.commit('resetBetslipStakes')
     }
@@ -18,9 +18,9 @@ export default {
       state.activeWalletId = activeWallet.id
     },
     setActiveWalletId (state, id) {
-      state.activeWalletId =id
+      state.activeWalletId = id
     },
-    clearWalletsStorage (state){
+    clearWalletsStorage (state) {
       state.activeWalletId = null
       state.wallets = []
     }

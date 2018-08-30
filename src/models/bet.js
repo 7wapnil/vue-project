@@ -7,7 +7,7 @@ const STATUSES = {
 }
 
 export default class Bet {
-  constructor({ odd, stake, status, message, externalId, approvedValue }) {
+  constructor ({ odd, stake, status, message, externalId, approvedValue }) {
     this.odd = odd
     this.stake = stake
     this.status = STATUSES[status] || STATUSES.initial
@@ -16,11 +16,11 @@ export default class Bet {
     this.approvedValue = approvedValue
   }
 
-  static get statuses() {
+  static get statuses () {
     return STATUSES
   }
 
-  static initial({ odd }) {
+  static initial ({ odd }) {
     return new this({
       odd: odd,
       stake: 0,
@@ -31,7 +31,7 @@ export default class Bet {
     })
   }
 
-  get frozen() {
+  get frozen () {
     return [
       STATUSES.submitting,
       STATUSES.pending,

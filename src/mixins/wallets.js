@@ -1,7 +1,7 @@
 import WalletsService from '@/services/api/wallets'
 
 export default {
-  created(){
+  created () {
     this.loadWallets()
   },
   computed: {
@@ -18,7 +18,7 @@ export default {
 
     // Vuex assumption is that data updates are managed on store level, whereas
     // Apollo forces data manipulations inside components.
-    refetchWallets() {
+    refetchWallets () {
       this.$apollo.queries.wallets.refetch().then((response) => {
         const wallets = response.data.wallets
         this.$store.commit(
@@ -27,10 +27,10 @@ export default {
         )
       })
     },
-    getWalletsService(){
+    getWalletsService () {
       return new WalletsService(this)
     },
-    loadWallets() {
+    loadWallets () {
       const service = this.getWalletsService()
       service.loadList(`
         id
@@ -40,9 +40,9 @@ export default {
           id
         }
         `).then((response) => {
-          const wallets = response.data.wallets
-          this.$store.commit('storeWallets', { wallets, activeWallet: wallets[0] })
-      } )
+        const wallets = response.data.wallets
+        this.$store.commit('storeWallets', { wallets, activeWallet: wallets[0] })
+      })
     }
   }
 }

@@ -8,26 +8,26 @@ export default {
     session: ArcanebetSession.getSession() || {}
   },
   actions: {
-    logout(context, componentContext) {
+    logout (context, componentContext) {
       context.commit('clearSession')
       context.commit('clearBetslip')
       context.commit('clearWalletsStorage')
       ArcanebetSession.dropSession()
       componentContext.$apollo.getClient().cache.reset()
     },
-    login(context, sessionData) {
-      context.commit('storeSession',sessionData)
+    login (context, sessionData) {
+      context.commit('storeSession', sessionData)
       ArcanebetSession.storeSession(sessionData)
     }
   },
   mutations: {
-    storeSession(state, sessionData) {
+    storeSession (state, sessionData) {
       state.session = sessionData
     },
-    clearSession(state) {
+    clearSession (state) {
       state.session = {}
     },
-    userData(state, data) {
+    userData (state, data) {
       const session = state.session
       if (session.user) {
         Object.keys(data).forEach((key) => {

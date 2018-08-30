@@ -4,7 +4,8 @@ module.exports = {
     node: true
   },
   'extends': [
-    'plugin:vue/essential'
+    'standard',
+    'plugin:vue/recommended'
   ],
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',

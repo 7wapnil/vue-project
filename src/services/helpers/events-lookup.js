@@ -1,11 +1,11 @@
 const events = []
 
 class EventsLookup {
-  constructor(eventsPassed) {
+  constructor (eventsPassed) {
     this.events = eventsPassed
   }
 
-  static from(events) {
+  static from (events) {
     return new EventsLookup(events)
   }
 
@@ -15,9 +15,9 @@ class EventsLookup {
 
   oddsMap () {
     let tree = []
-    this.events.forEach(function(event) {
-      event.markets.forEach(function(market) {
-        market.odds.forEach(function(odd) {
+    this.events.forEach(function (event) {
+      event.markets.forEach(function (market) {
+        market.odds.forEach(function (odd) {
           const displayEvent = Object.assign({}, event);
           displayEvent.markets = {}
 

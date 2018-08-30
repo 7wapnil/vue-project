@@ -1,8 +1,7 @@
 import BaseService from './base-service'
 
 class AccountService extends BaseService {
-
-  constructor(vm) {
+  constructor (vm) {
     super(vm)
 
     this.authFields = `
@@ -15,7 +14,7 @@ class AccountService extends BaseService {
     `
   }
 
-  signIn(input) {
+  signIn (input) {
     return this.client.mutate({
       mutation: this.buildQuery(`
         mutation($input: AuthInput!) {
@@ -28,7 +27,7 @@ class AccountService extends BaseService {
     })
   }
 
-  signUp(input) {
+  signUp (input) {
     return this.client.mutate({
       mutation: this.buildQuery(`
         mutation($input: RegisterInput!) {
