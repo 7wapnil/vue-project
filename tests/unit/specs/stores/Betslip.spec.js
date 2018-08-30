@@ -15,6 +15,38 @@ describe('wallets store', () => {
         expect(state.bets).to.eql([ { status: 'submitting'}, { status: 'submitting'}])
       })
     })
+    describe('pushNewBetToBetslip', () => {
+      it('adds new bet to empty betslip based on odd', () => {
+        const state = {
+          bets: []
+        }
+
+        store.mutations.pushNewBetToBetslip(state, {id: 1, value: 2})
+
+        expect(state.bets.length).to.eql(1)
+        expect(state.bets[0].odd.id).to.eql(1)
+      })
+
+      it('does not add new bet when one exists in bets store', () => {
+        const state = {
+          bets: [{odd:{id: 1}}]
+        }
+
+        store.mutations.pushNewBetToBetslip(state, {id: 1, value: 2})
+
+        expect(state.bets.length).to.eql(1)
+      })
+
+      it('does not add new bet when one exists in bets store and id provided in string', () => {
+        const state = {
+          bets: [{odd:{id: 1}}]
+        }
+
+        store.mutations.pushNewBetToBetslip(state, {id: '1', value: 2})
+
+        expect(state.bets.length).to.eql(1)
+      })
+    })
     describe('updateBet', () => {
       it('updates bet with correct id according to payload', () => {
         const state = {
