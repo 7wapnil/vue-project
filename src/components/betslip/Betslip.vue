@@ -99,6 +99,17 @@ export default {
       messages: []
     }
   },
+  computed: {
+    betslipIsSubmittable () {
+      return this.$store.getters.betslipSubmittable(this.events)
+    },
+    ...mapGetters([
+      'getBets',
+      'getBetsCount',
+      'getTotalReturn',
+      'getTotalStakes'
+    ])
+  },
   created () {
     this.apiService.load()
   },
@@ -160,16 +171,5 @@ export default {
       this.$store.commit('clearBetslip')
     }
   },
-  computed: {
-    betslipIsSubmittable () {
-      return this.$store.getters.betslipSubmittable(this.events)
-    },
-    ...mapGetters([
-      'getBets',
-      'getBetsCount',
-      'getTotalReturn',
-      'getTotalStakes'
-    ])
-  }
 }
 </script>

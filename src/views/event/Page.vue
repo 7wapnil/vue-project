@@ -28,7 +28,7 @@
 
 <script>
 import OddButton from '@/components/custom/OddButton.vue'
-import ApiService, { LIST_QUERY } from '@/services/api/events'
+import ApiService from '@/services/api/events'
 
 export default {
   components: {

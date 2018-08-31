@@ -101,7 +101,7 @@ export default {
     displayUnconfirmedOddValueDialog: function () {
       return (
         this.bet.status === Bet.statuses.initial &&
-          this.bet.approvedValue != this.row.odd.value
+          this.bet.approvedValue !== this.row.odd.value
       )
     },
     cardVariant: function () {
@@ -114,7 +114,7 @@ export default {
       }
 
       if (this.bet.status === Bet.statuses.initial &&
-           this.bet.approvedValue != this.row.odd.value
+          this.bet.approvedValue !== this.row.odd.value
       ) {
         return 'warning'
       }

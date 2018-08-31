@@ -31,7 +31,7 @@
 
 <script>
 
-import { default as wallets } from '@/mixins/wallets';
+import wallets from '@/mixins/wallets';
 
 export default {
   mixins: [ wallets ],
@@ -39,7 +39,7 @@ export default {
     inactiveWalletsList () {
       const wallets = this.$store.getters.getWallets
       return wallets.filter((wallet) => {
-        return (wallet.id != null && this.activeWallet.id != wallet.id)
+        return (wallet.id !== null && this.activeWallet.id !== wallet.id)
       })
     }
   },
