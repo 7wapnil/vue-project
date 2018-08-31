@@ -6,12 +6,12 @@ describe('wallets store', () => {
     describe('freezeBets', () => {
       it('change state of all bets to submitting', () => {
         const state = {
-          bets: [ { status: 'initial' }, { status: 'initial' } ]
+          bets: [{ status: 'initial' }, { status: 'initial' }]
         }
 
         store.mutations.freezeBets(state)
 
-        expect(state.bets).to.eql([ { status: 'submitting' }, { status: 'submitting' }])
+        expect(state.bets).to.eql([{ status: 'submitting' }, { status: 'submitting' }])
       })
     })
     describe('pushNewBetToBetslip', () => {
@@ -54,7 +54,7 @@ describe('wallets store', () => {
 
         store.mutations.updateBet(state, { oddId: 2, payload: { status: 'foo' } })
 
-        expect(state.bets).to.eql([ { odd: { id: 1 } }, { odd: { id: 2 }, status: 'foo' } ])
+        expect(state.bets).to.eql([{ odd: { id: 1 } }, { odd: { id: 2 }, status: 'foo' }])
       })
     })
   })
@@ -125,7 +125,7 @@ describe('wallets store', () => {
         const state = { bets: betsState }
         const getters = { getBets: betsState }
         const events = [
-          { id: 1, markets: [ { id: 2, odds: [ { id: oddId, value: currentOddValue }, { id: 4, value: 2.21 }] }] }
+          { id: 1, markets: [{ id: 2, odds: [{ id: oddId, value: currentOddValue }, { id: 4, value: 2.21 }] }] }
         ]
 
         expect(store.getters.betslipValuesConfirmed(state, getters)(events)).to.eql(true)
@@ -140,7 +140,7 @@ describe('wallets store', () => {
         const state = { bets: betsState }
         const getters = { getBets: betsState }
         const events = [
-          { id: 1, markets: [ { id: 2, odds: [ { id: oddId, value: currentOddValue }, { id: 4, value: 2.21 }] }] }
+          { id: 1, markets: [{ id: 2, odds: [{ id: oddId, value: currentOddValue }, { id: 4, value: 2.21 }] }] }
         ]
 
         expect(store.getters.betslipValuesConfirmed(state, getters)(events)).to.eql(false)

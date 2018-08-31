@@ -1,5 +1,3 @@
-const events = []
-
 class EventsLookup {
   constructor (eventsPassed) {
     this.events = eventsPassed
@@ -10,7 +8,7 @@ class EventsLookup {
   }
 
   findOddMapRowById (oddId) {
-    return this.oddsMap().find(row => row.odd.id == oddId)
+    return this.oddsMap().find(row => row.odd.id === oddId)
   }
 
   oddsMap () {

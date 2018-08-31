@@ -5,7 +5,7 @@ describe('Eventslookup', () => {
   describe('oddsMap', () => {
     it('flatten events map', () => {
       const input = [
-        { id: 1, markets: [ { id: 2, odds: [ { id: 3 }] }] }
+        { id: 1, markets: [{ id: 2, odds: [{ id: 3 }] }] }
       ]
 
       expect(Eventslookup.from(input).oddsMap())
@@ -30,7 +30,7 @@ describe('Eventslookup', () => {
   describe('findOddMapRowById', () => {
     it('returns event row by Id', () => {
       const input = [
-        { id: 1, markets: [ { id: 2, odds: [ { id: 3 }] }] }
+        { id: 1, markets: [{ id: 2, odds: [{ id: 3 }] }] }
       ]
 
       expect(Eventslookup.from(input).findOddMapRowById(3))

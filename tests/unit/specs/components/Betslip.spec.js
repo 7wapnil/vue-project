@@ -4,7 +4,6 @@ import Vuex from 'vuex'
 import Betslip from '@/components/betslip/Betslip.vue'
 import betslip from '@/stores/betslip'
 import wallets from '@/stores/wallets'
-import BetslipService from '@/services/api/betslip'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
@@ -15,16 +14,17 @@ describe('Betslip component', () => {
   let store
   let mutations
 
-  let loadEventsStub
-  let betslipServiceStub
+  let loadEventsStub // eslint-disable-line no-unused-vars
+  let betslipServiceStub // eslint-disable-line no-unused-vars
   let betslipPlacementStub
 
-  before(() => {
+  function beforeSetup () {
     loadEventsStub = sinon.stub(Betslip.methods, 'getNewApiService')
       .returns({ load: function () {} })
 
     betslipPlacementStub = sinon.stub()
       .returns({ then: function () { return { catch: function () {} } }, })
+
     betslipServiceStub = sinon.stub(Betslip.methods, 'getNewBetslipService')
       .returns({ place: betslipPlacementStub })
 
@@ -45,7 +45,9 @@ describe('Betslip component', () => {
       localVue,
       store
     })
-  })
+  }
+
+  before(beforeSetup)
 
   describe('Default state', () => {
     it('opens Single tab', () => {
@@ -86,7 +88,7 @@ describe('Betslip component', () => {
       before(() => {
         wrapper.setData({ events:
             [
-              { id: 1, markets: [ { id: 2, odds: [ sampleOdd, { id: 4, value: 2.21 }] }] }
+              { id: 1, markets: [{ id: 2, odds: [sampleOdd, { id: 4, value: 2.21 }] }] }
             ]
         })
 

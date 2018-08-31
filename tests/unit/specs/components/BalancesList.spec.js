@@ -35,7 +35,6 @@ describe('BalancesList component', () => {
   let wrapper
 
   let getters
-  let mutations
   let actions
   let store
 

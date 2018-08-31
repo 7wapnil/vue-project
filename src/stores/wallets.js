@@ -27,7 +27,7 @@ export default {
   },
   getters: {
     getActiveWallet (state) {
-      return state.wallets.find(el => el.id == state.activeWalletId)
+      return state.wallets.find(el => el.id === state.activeWalletId)
     },
     getWallets (state) {
       return state.wallets

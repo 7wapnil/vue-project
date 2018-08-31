@@ -26,7 +26,7 @@ export default {
       bet = Object.assign(bet, payload)
     },
     setBetStake (state, { oddId, stakeValue }) {
-      let bet = state.bets.find(bet => bet.odd.id == oddId)
+      let bet = state.bets.find(bet => bet.odd.id === oddId)
       if (!bet) { return; }
       bet.stake = stakeValue
     },
@@ -67,7 +67,7 @@ export default {
       const betWithUnconfirmedValue = getters.getBets.find((bet) => {
         const currentOddValue =
               EventsLookup.from(events).findOddMapRowById(bet.odd.id).odd.value
-        return currentOddValue != bet.approvedValue
+        return currentOddValue !== bet.approvedValue
       })
       return (betWithUnconfirmedValue === undefined)
     },

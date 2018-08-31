@@ -93,7 +93,7 @@ export default {
           if (store.event) {
             event = store.event
           } else if (store.events) {
-            event = store.events.find(event => event.id === marketData.eventId)
+            event = store.events.find(event => event.id === eventId)
           }
 
           if (event) {

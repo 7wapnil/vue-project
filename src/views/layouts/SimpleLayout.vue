@@ -1,9 +1,9 @@
 <template>
-    <div>
-        <div class="container">
-            <slot></slot>
-        </div>
+  <div>
+    <div class="container">
+      <slot/>
     </div>
+  </div>
 </template>
 
 <style scoped>
