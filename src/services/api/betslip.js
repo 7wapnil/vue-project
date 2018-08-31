@@ -1,8 +1,7 @@
 import BaseService from './base-service'
 
 class BetslipService extends BaseService {
-
-  constructor(vm) {
+  constructor (vm) {
     super(vm)
 
     this.responseStructure = `
@@ -15,7 +14,7 @@ class BetslipService extends BaseService {
     `
   }
 
-  place(bets) {
+  place (bets) {
     return this.client.mutate({
       mutation: this.buildQuery(`
         mutation placeBets($bets: [BetInput]) {

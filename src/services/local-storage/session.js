@@ -1,7 +1,6 @@
 const storageKey = 'session'
 
 class ArcanebetSession {
-
   static storeSession = (sessionData) => {
     localStorage.setItem(storageKey, JSON.stringify(sessionData))
   }

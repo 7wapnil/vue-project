@@ -7,7 +7,7 @@ export default {
     activeWalletId: null
   },
   actions: {
-    changeActiveWallet (context, walletId){
+    changeActiveWallet (context, walletId) {
       context.commit('setActiveWalletId', walletId)
       context.commit('resetBetslipStakes')
     }
@@ -18,16 +18,16 @@ export default {
       state.activeWalletId = activeWallet.id
     },
     setActiveWalletId (state, id) {
-      state.activeWalletId =id
+      state.activeWalletId = id
     },
-    clearWalletsStorage (state){
+    clearWalletsStorage (state) {
       state.activeWalletId = null
       state.wallets = []
     }
   },
   getters: {
     getActiveWallet (state) {
-      return state.wallets.find(el => el.id == state.activeWalletId)
+      return state.wallets.find(el => el.id === state.activeWalletId)
     },
     getWallets (state) {
       return state.wallets

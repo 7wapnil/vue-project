@@ -32,11 +32,9 @@ localVue.use(Vuex)
 localVue.mixin(walletsMixin)
 
 describe('BalancesList component', () => {
-
   let wrapper
 
   let getters
-  let mutations
   let actions
   let store
 
@@ -74,12 +72,12 @@ describe('BalancesList component', () => {
   })
 
   describe('Methods', () => {
-    beforeEach(function() {
+    beforeEach(function () {
       wrapper = shallowMount(BalancesList, { localVue, store, mixins: [ walletsMixin ] })
     })
 
     it('displayAmount - should return wallet amount to fixed 2 and with currency code', done => {
-      const wallet = {amount: 12.22545, currency: { code: 'FOO'} }
+      const wallet = { amount: 12.22545, currency: { code: 'FOO' } }
       const expectedDisplayText = '12.23 FOO'
 
       const result = wrapper.vm.displayAmount(wallet)
@@ -100,15 +98,15 @@ describe('BalancesList component', () => {
     })
   })
 
-  describe('Functional tests', ()=>{
+  describe('Functional tests', () => {
     let selectWalletStub
 
-    beforeEach(function() {
+    beforeEach(function () {
       selectWalletStub = sinon.stub(BalancesList.methods, 'selectWallet').returns({})
       wrapper = shallowMount(BalancesList, { localVue, store })
     })
 
-    afterEach(function() {
+    afterEach(function () {
       selectWalletStub.restore()
     })
 
@@ -120,11 +118,11 @@ describe('BalancesList component', () => {
     })
 
     describe('List of customer wallets', () => {
-      it ('should exclude active wallet from a list', () => {
+      it('should exclude active wallet from a list', () => {
         expect(wrapper.findAll('a.dropdown-item').length).to.eq(2)
       })
 
-      it ('should set other active wallet on select', () => {
+      it('should set other active wallet on select', () => {
         wrapper.find('a.dropdown-item').trigger('click')
         expect(selectWalletStub.calledOnce).to.equal(true)
       })

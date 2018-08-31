@@ -7,7 +7,7 @@ export default {
      * @param {Object} eventData
      * @returns {*|void}
      */
-    addEventToCache(eventData) {
+    addEventToCache (eventData) {
       if (this.hasFragment('Event', eventData.id)) {
         return this.updateFragment('Event', eventData)
       }
@@ -35,7 +35,7 @@ export default {
      * @param {Object} oddData
      * @returns {*|void}
      */
-    updateOddInCache(oddData) {
+    updateOddInCache (oddData) {
       if (this.hasFragment('Odd', oddData.id)) {
         return this.updateFragment('Odd', oddData)
       }
@@ -59,7 +59,7 @@ export default {
      * @param {Object} marketData
      * @returns {*|void}
      */
-    updateMarketInCache(marketData) {
+    updateMarketInCache (marketData) {
       if (this.hasFragment('Market', marketData.id)) {
         return this.updateFragment('Market', marketData)
       }
@@ -80,7 +80,7 @@ export default {
      * @param {Function} callback
      * @private
      */
-    _findEvent(eventId, callback) {
+    _findEvent (eventId, callback) {
       const cacheKeys = [
         { query: LIST_QUERY },
         { query: EVENT_QUERY, variables: { id: eventId } }
@@ -93,7 +93,7 @@ export default {
           if (store.event) {
             event = store.event
           } else if (store.events) {
-            event = store.events.find(event => event.id === marketData.eventId)
+            event = store.events.find(event => event.id === eventId)
           }
 
           if (event) {
@@ -130,8 +130,8 @@ export default {
      * @param {string} id
      * @returns {boolean}
      */
-    hasFragment(typename, id) {
-      const fragment = gql `
+    hasFragment (typename, id) {
+      const fragment = gql`
         fragment ${typename} on ${typename} {
           id
         }
@@ -150,16 +150,16 @@ export default {
      * @param {string} typename
      * @param {Object} updates
      */
-    updateFragment(typename, updates) {
+    updateFragment (typename, updates) {
       const client = this.$apollo.getClient()
       const id = `${typename}:${updates.id}`
       const fields = Object.keys(updates).filter((key) => {
         return key !== 'eventId' && key !== 'marketId'
       })
 
-      const fragment = gql `
+      const fragment = gql`
         fragment ${typename} on ${typename} {
-          ${ fields.join('\n') }
+          ${fields.join('\n')}
         }
       `
 
@@ -168,7 +168,6 @@ export default {
       // if entity found in cache update it,
       // otherwise it was not loaded yet and not displayed
       if (data) {
-
         console.log(`Updating entity '${typename}', id ${updates.id}`)
 
         fields.forEach((attr) => {
@@ -176,7 +175,7 @@ export default {
             data[attr] = updates[attr]
           }
         })
-        client.writeFragment( {id, fragment, data })
+        client.writeFragment({ id, fragment, data })
       }
     }
   }
