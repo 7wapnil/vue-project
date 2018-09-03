@@ -31,17 +31,23 @@
 
 <script>
 
-import wallets from '@/mixins/wallets';
-
 export default {
-  mixins: [ wallets ],
   computed: {
     inactiveWalletsList () {
       const wallets = this.$store.getters.getWallets
       return wallets.filter((wallet) => {
         return (wallet.id !== null && this.activeWallet.id !== wallet.id)
       })
+    },
+    wallets: function () {
+      return this.$store.getters.getWallets
+    },
+    activeWallet: function () {
+      return this.$store.getters.getActiveWallet
     }
+  },
+  created () {
+    this.$store.dispatch('fetchWallets')
   },
   methods: {
     displayAmount (wallet) {
@@ -49,6 +55,9 @@ export default {
     },
     selectWallet (wallet) {
       this.$store.dispatch('changeActiveWallet', wallet.id)
+    },
+    refetchWallets () {
+      this.$store.dispatch('fetchWallets', this.activeWallet)
     }
   }
 }

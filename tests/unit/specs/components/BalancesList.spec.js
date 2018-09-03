@@ -2,7 +2,6 @@ import { expect } from 'chai'
 import { createLocalVue, shallowMount } from '@vue/test-utils'
 import Vuex from 'vuex'
 import BalancesList from '@/components/custom/BalancesList.vue'
-import walletsMixin from '@/mixins/wallets'
 
 const wallets = [{
   id: 1,
@@ -29,16 +28,13 @@ const wallets = [{
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
-localVue.mixin(walletsMixin)
 
 describe('BalancesList component', () => {
-  let wrapper
+  let wrapper // eslint-disable-line no-unused-vars
 
   let getters
   let actions
   let store
-
-  let loadWalletsStub
 
   before(() => {
     const state = {
@@ -51,7 +47,8 @@ describe('BalancesList component', () => {
     }
 
     actions = {
-      changeActiveWallet: sinon.stub()
+      changeActiveWallet: sinon.stub(),
+      fetchWallets: sinon.stub()
     }
 
     store = new Vuex.Store({
@@ -59,21 +56,19 @@ describe('BalancesList component', () => {
       getters,
       actions
     })
-
-    loadWalletsStub = sinon.stub(walletsMixin.methods, 'loadWallets').returns({})
   })
 
   describe('Lifecycle', () => {
     it('Created', () => {
       wrapper = shallowMount(BalancesList, { localVue, store })
 
-      expect(loadWalletsStub.called).to.eq(true)
+      expect(actions.fetchWallets.called).to.eq(true)
     })
   })
 
   describe('Methods', () => {
     beforeEach(function () {
-      wrapper = shallowMount(BalancesList, { localVue, store, mixins: [ walletsMixin ] })
+      wrapper = shallowMount(BalancesList, { localVue, store })
     })
 
     it('displayAmount - should return wallet amount to fixed 2 and with currency code', done => {
