@@ -16,7 +16,7 @@
                 v-for="odd in market.odds"
                 :key="odd.id"
                 class="col mt-2">
-                <odd-button :odd="odd"/>
+                <odd-button :odd="odd" :market="market"/>
               </div>
             </div>
           </b-card>

@@ -18,8 +18,10 @@
       <div
         v-if="primaryMarket"
         class="row">
+
         <odd-button
           v-for="odd in primaryMarket.odds"
+          :market="primaryMarket"
           :key="odd.id"
           :odd="odd"/>
       </div>

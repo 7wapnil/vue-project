@@ -13,6 +13,7 @@ export const LIST_QUERY = BaseService.gql(`
           id
           name
           priority
+          status
           odds {
             id
             name
@@ -36,6 +37,7 @@ export const EVENT_QUERY = BaseService.gql(`
           id
           name
           priority
+          status
           odds {
             id
             name

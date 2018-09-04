@@ -69,6 +69,7 @@ export default {
           id: marketData.id,
           name: marketData.name,
           priority: marketData.priority,
+          status: marketData.status,
           odds: [],
           __typename: 'Market'
         })
