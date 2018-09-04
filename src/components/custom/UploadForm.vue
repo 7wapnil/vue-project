@@ -39,7 +39,6 @@ export default {
         name: 'personal_id',
         accept: 'image/jpeg, image/png, image/gif, application/pdf',
         label: 'Passport or Identity card',
-        state: null,
         file: null
       },
       {
@@ -47,7 +46,6 @@ export default {
         name: 'utility_bill',
         accept: 'image/jpeg, image/png, image/gif, application/pdf',
         label: 'Utility Bill',
-        state: null,
         file: null
       },
       {
@@ -55,7 +53,6 @@ export default {
         name: 'bank_statement',
         accept: 'image/jpeg, image/png, image/gif, application/pdf',
         label: 'Bank statement',
-        state: null,
         file: null
       },
       {
@@ -63,7 +60,6 @@ export default {
         name: 'credit_card',
         accept: 'image/jpeg, image/png, image/gif, application/pdf',
         label: 'Credit/Debit card',
-        state: null,
         file: null
       },
       {
@@ -71,7 +67,6 @@ export default {
         name: 'other_document',
         accept: 'image/jpeg, image/png, image/gif, application/pdf',
         label: 'Other',
-        state: null,
         file: null
       }],
       placeholder: 'Choose a file...'
@@ -91,7 +86,7 @@ export default {
         }
       })
 
-      const url = 'http://localhost:3000/customer_attachment_upload'
+      const url = `${process.env.VUE_APP_SERVER_URL}/customer_attachment_upload`
       const headers = {
         'Content-Type': 'multipart/form-data',
         'Authorization': this.getToken
@@ -102,14 +97,13 @@ export default {
         .catch(this.handleError)
     },
     handleSuccess () {
-      console.log('SUCCESS!!')
+      this.$noty.success('Your files has been submitted successfully')
       this.items.forEach((item) => {
         item.file = null
       })
     },
-    handleError (err) {
-      console.log('FAILURE!!', err)
-      this.state = false
+    handleError () {
+      this.$noty.error('Something went wrong')
     }
   }
 }
