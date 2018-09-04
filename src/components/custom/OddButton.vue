@@ -11,10 +11,11 @@
 <script>
 import {
   SUSPENDED_STATUS,
-  INACTIVE_STATUS,
+  INACTIVE_STATUS as MARKET_INACTIVE_STATUS,
   SETTLED_STATUS,
   HANDED_OVER_STATUS
 } from '@/models/market'
+import { INACTIVE_STATUS as ODD_INACTIVE_STATUS } from '@/models/odd'
 
 export default {
   props: {
@@ -38,12 +39,12 @@ export default {
       const isMarketDisabled = this.market &&
         [
           SUSPENDED_STATUS,
-          INACTIVE_STATUS,
+          MARKET_INACTIVE_STATUS,
           SETTLED_STATUS,
           HANDED_OVER_STATUS
         ].indexOf(this.market.status) !== -1
 
-      return isMarketDisabled || this.odd.status === 'inactive'
+      return isMarketDisabled || this.odd.status === ODD_INACTIVE_STATUS
     }
   },
   watch: {
