@@ -19,14 +19,21 @@
       <div class="col-xs-12 col-lg-9">
         <b-card
           class="mt-4"
-          header="Account"/>
+          header="Account">
+          <upload-form/>
+        </b-card>
       </div>
     </div>
   </main-layout>
 </template>
 
 <script>
+import UploadForm from '@/components/custom/UploadForm.vue'
+
 export default {
+  components: {
+    UploadForm
+  },
   data () {
     return {}
   }
