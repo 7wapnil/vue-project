@@ -69,7 +69,7 @@ export default {
     }
   },
   created () {
-    this.apiService.load()
+    this.apiService.load({ priority: 1 })
   }
 }
 </script>
