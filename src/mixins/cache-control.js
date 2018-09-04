@@ -1,7 +1,7 @@
 import { LIST_QUERY, EVENT_QUERY } from '@/services/api/events'
 
 const log = (msg) => {
-   console.log(msg)
+  console.log(msg)
 }
 
 export default {
@@ -10,11 +10,10 @@ export default {
      * @param {Object} eventData
      * @returns {*|void}
      */
-    addEventToCache(eventData) {
+    addEventToCache (eventData) {
       const cacheKey = { query: LIST_QUERY }
       const store = this._readStore(cacheKey)
       if (store) {
-        
         const event = store.events.find(item => item.id === eventData.id)
         if (event) {
           log(`Updating event ID ${eventData.id}`)
@@ -45,13 +44,11 @@ export default {
      * @param {Object} oddData
      * @returns {*|void}
      */
-    updateOddInCache(oddData) {
-
+    updateOddInCache (oddData) {
       this._findEvent(oddData.eventId, (event) => {
-        
         const market = event.markets.find(item => item.id === oddData.marketId)
         if (!market) { return }
-        
+
         const odd = market.odds.find(item => item.id === oddData.id)
         if (odd) {
           log(`Updating odd ID ${oddData.id}`)
@@ -60,7 +57,7 @@ export default {
           })
           return
         }
-  
+
         log(`New odd ID ${oddData.id}`)
         market.odds.push({
           id: oddData.id,
@@ -75,9 +72,8 @@ export default {
      * @param {Object} marketData
      * @returns {*|void}
      */
-    updateMarketInCache(marketData) {
+    updateMarketInCache (marketData) {
       this._findEvent(marketData.eventId, (event) => {
-  
         const market = event.markets.find(item => item.id === marketData.id)
         if (market) {
           Object.keys(marketData).forEach((key) => {
@@ -85,7 +81,7 @@ export default {
           })
           return
         }
-  
+
         event.markets.push({
           id: marketData.id,
           name: marketData.name,
@@ -101,7 +97,7 @@ export default {
      * @param {Function} callback
      * @private
      */
-    _findEvent(eventId, callback) {
+    _findEvent (eventId, callback) {
       const cacheKeys = [
         { query: LIST_QUERY },
         { query: EVENT_QUERY, variables: { id: eventId } }

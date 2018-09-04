@@ -4,23 +4,23 @@ disableFragmentWarnings()
 
 export default {
   sockets: {
-    connect() {
+    connect () {
       console.log('Socket connected')
       this.socketConnected = true
     },
-    disconnect() {
+    disconnect () {
       console.log('Socket disconnected')
       this.socketConnected = false
     }
   },
-  data() {
+  data () {
     return {
       socketConnected: false
     }
   },
   methods: {
     gql (query) {
-      return gql `${query}`
+      return gql`${query}`
     }
   }
 }

@@ -47,29 +47,24 @@ export const EVENT_QUERY = BaseService.gql(`
 `)
 
 class EventsService extends BaseService {
-
-  load(prop = 'events') {
+  load (prop = 'events') {
     return new Promise((resolve, reject) => {
-
       this.client.addSmartQuery(prop, {
         query: LIST_QUERY,
         result: resolve,
         error: reject
       })
-
     })
   }
 
-  loadById(id) {
+  loadById (id) {
     return new Promise((resolve, reject) => {
-      
       this.client.addSmartQuery('event', {
         query: EVENT_QUERY,
         variables: { id },
         result: resolve,
         error: reject
       })
-      
     })
   }
 }

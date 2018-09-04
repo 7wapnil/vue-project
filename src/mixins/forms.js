@@ -1,21 +1,21 @@
 export default {
-  data() {
+  data () {
     return {
       errors: {}
     }
   },
   methods: {
-    clearErrors() {
+    clearErrors () {
       this.errors = {}
     },
-    getState(field) {
+    getState (field) {
       if (!this.errors[field] || this.errors[field] === null) {
         return null
       }
 
       return !this.errors[field].length
     },
-    handleGraphQLErrors({ graphQLErrors, networkError }) {
+    handleGraphQLErrors ({ graphQLErrors, networkError }) {
       graphQLErrors.forEach((error) => {
         this.$set(this.errors, error.path, error.message)
       })
