@@ -18,6 +18,7 @@ export const LIST_QUERY = BaseService.gql(`
             id
             name
             value
+            status
           }
         }
       }
@@ -42,6 +43,7 @@ export const EVENT_QUERY = BaseService.gql(`
             id
             name
             value
+            status
           }
         }
       }

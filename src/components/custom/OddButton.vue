@@ -9,6 +9,13 @@
 </template>
 
 <script>
+import {
+  SUSPENDED_STATUS,
+  INACTIVE_STATUS,
+  SETTLED_STATUS,
+  HANDED_OVER_STATUS
+} from '@/models/market'
+
 export default {
   props: {
     odd: {
@@ -28,19 +35,27 @@ export default {
   },
   computed: {
     isDisabled () {
-      return this.market &&
-              this.market.status === 'suspended'
+      const isMarketDisabled = this.market &&
+        [
+          SUSPENDED_STATUS,
+          INACTIVE_STATUS,
+          SETTLED_STATUS,
+          HANDED_OVER_STATUS
+        ].indexOf(this.market.status) !== -1
+
+      console.log(this.odd)
+      return isMarketDisabled || this.odd.status === 'inactive'
     }
   },
   watch: {
     odd (oldOdd, newOdd) {
       this.diff = (newOdd.value - oldOdd.value).toFixed(2)
       this.raised = oldOdd.value < newOdd.value
-      console.log(this.raised, oldOdd.value, newOdd.value)
     }
   },
   methods: {
     obbButtonClick () {
+      if (this.isDisabled) { return }
       this.$store.dispatch('addNewEmptyBet', this.odd)
     }
   },
