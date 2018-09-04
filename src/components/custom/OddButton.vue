@@ -43,7 +43,6 @@ export default {
           HANDED_OVER_STATUS
         ].indexOf(this.market.status) !== -1
 
-      console.log(this.odd)
       return isMarketDisabled || this.odd.status === 'inactive'
     }
   },
