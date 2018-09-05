@@ -42,7 +42,7 @@ export default {
           MARKET_INACTIVE_STATUS,
           SETTLED_STATUS,
           HANDED_OVER_STATUS
-        ].indexOf(this.market.status) !== -1
+        ].includes(this.market.status)
 
       return isMarketDisabled || this.odd.status === ODD_INACTIVE_STATUS
     }
