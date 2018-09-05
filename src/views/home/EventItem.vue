@@ -23,7 +23,9 @@
                   v-for="odd in market.odds"
                   :key="odd.id"
                   class="col">
-                  <odd-button :odd="odd"/>
+                  <odd-button
+                    :odd="odd"
+                    :market="market"/>
                 </div>
               </div>
             </div>

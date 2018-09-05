@@ -1,7 +1,7 @@
 import { LIST_QUERY, EVENT_QUERY } from '@/services/api/events'
 
-const log = (msg) => {
-  console.log(msg)
+const log = function () {
+  console.log.apply(console, arguments)
 }
 
 export default {
@@ -73,6 +73,7 @@ export default {
      * @returns {*|void}
      */
     updateMarketInCache (marketData) {
+      log('Received market update event', marketData)
       this._findEvent(marketData.eventId, (event) => {
         const market = event.markets.find(item => item.id === marketData.id)
         if (market) {
@@ -86,6 +87,7 @@ export default {
           id: marketData.id,
           name: marketData.name,
           priority: marketData.priority,
+          status: marketData.status,
           odds: [],
           __typename: 'Market'
         })
