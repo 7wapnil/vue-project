@@ -50,7 +50,7 @@ export default {
   },
   computed: {
     primaryMarkets () {
-      return this.event.markets.filter(market => market.priority === 1)
+      return this.event.markets
     },
     fromNow () {
       return moment(this.event.start_at).fromNow()
