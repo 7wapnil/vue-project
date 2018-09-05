@@ -3,7 +3,6 @@ import { createLocalVue, shallowMount } from '@vue/test-utils'
 import Vuex from 'vuex'
 import Betslip from '@/components/betslip/Betslip.vue'
 import betslip from '@/stores/betslip'
-import wallets from '@/stores/wallets'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
@@ -12,29 +11,47 @@ describe('Betslip component', () => {
   let wrapper
 
   let store
+  let getters
   let mutations
+  let actions
 
   let loadEventsStub // eslint-disable-line no-unused-vars
   let betslipServiceStub // eslint-disable-line no-unused-vars
   let betslipPlacementStub
+  let eventsLoadStub // eslint-disable-line no-unused-vars
 
   function beforeSetup () {
-    loadEventsStub = sinon.stub(Betslip.methods, 'getNewApiService')
-      .returns({ load: function () {} })
-
     betslipPlacementStub = sinon.stub()
       .returns({ then: function () { return { catch: function () {} } }, })
 
     betslipServiceStub = sinon.stub(Betslip.methods, 'getNewBetslipService')
       .returns({ place: betslipPlacementStub })
 
+    eventsLoadStub = sinon.stub(Betslip.methods, 'getNewApiService')
+      .returns({ load: sinon.stub() })
+
+    const wallet = { id: 1, amount: 112.23, currency: { code: 'EUR' } }
+
+    getters = {
+      getWallets: () => { return [ wallet ] },
+      getActiveWallet: () => { return wallet }
+    }
+
     mutations = {
-      freezeBets: sinon.stub()
+      freezeBets: sinon.stub(),
+      storeWallets: sinon.stub(),
+      fetchWallets: sinon.stub()
+    }
+
+    actions = {
+      fetchWallets: sinon.stub()
     }
 
     store = new Vuex.Store({
-      modules: [ betslip, wallets ],
-      mutations
+      modules: [ betslip ],
+      getters,
+      mutations,
+      actions
     })
 
     wrapper = shallowMount(Betslip, {
