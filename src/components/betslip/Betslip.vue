@@ -79,7 +79,6 @@ import BetslipItem from './BetslipItem.vue'
 import { mapGetters } from 'vuex'
 import wallets from '@/mixins/wallets';
 import ApiService from '@/services/api/events'
-import BetslipService from '@/services/api/betslip'
 import BetslipSerializer from '@/services/serializers/betslip'
 import Bet from '@/models/bet'
 import EventsLookup from '@/services/helpers/events-lookup'
