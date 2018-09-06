@@ -1,5 +1,6 @@
 import { expect } from 'chai'
-import store from '@/stores/betslip'
+
+const store = {}
 
 describe.skip('wallets store', () => {
   describe('mutations', () => {
