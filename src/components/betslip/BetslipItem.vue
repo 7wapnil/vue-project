@@ -5,11 +5,11 @@
         {{ row.event.name }}
         <button
           class="close"
-          aria-label="Close">
+          aria-label="Close"
+          @click="removeOdd(row.odd)">
           <span
             v-show="!bet.frozen"
-            aria-hidden="true"
-            @click="removeOdd(row.odd)">
+            aria-hidden="true">
             ×
           </span>
         </button>
