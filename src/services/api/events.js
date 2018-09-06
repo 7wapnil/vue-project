@@ -1,7 +1,7 @@
 import BaseService from './base-service'
 
 export const LIST_QUERY = BaseService.gql(`
-  query eventList {
+  query eventList ($priority: Int) {
       events {
         id
         name
@@ -9,14 +9,16 @@ export const LIST_QUERY = BaseService.gql(`
         title_name
         start_at
         end_at
-        markets {
+        markets (priority: $priority) {
           id
           name
           priority
+          status
           odds {
             id
             name
             value
+            status
           }
         }
       }
@@ -36,10 +38,12 @@ export const EVENT_QUERY = BaseService.gql(`
           id
           name
           priority
+          status
           odds {
             id
             name
             value
+            status
           }
         }
       }
@@ -47,10 +51,11 @@ export const EVENT_QUERY = BaseService.gql(`
 `)
 
 class EventsService extends BaseService {
-  load (prop = 'events') {
+  load (variables = {}, prop = 'events') {
     return new Promise((resolve, reject) => {
       this.client.addSmartQuery(prop, {
         query: LIST_QUERY,
+        variables,
         result: resolve,
         error: reject
       })

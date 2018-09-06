@@ -23,7 +23,9 @@
                   v-for="odd in market.odds"
                   :key="odd.id"
                   class="col">
-                  <odd-button :odd="odd"/>
+                  <odd-button
+                    :odd="odd"
+                    :market="market"/>
                 </div>
               </div>
             </div>
@@ -50,7 +52,7 @@ export default {
   },
   computed: {
     primaryMarkets () {
-      return this.event.markets.filter(market => market.priority === 1)
+      return this.event.markets
     },
     fromNow () {
       return moment(this.event.start_at).fromNow()
