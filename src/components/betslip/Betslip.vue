@@ -92,7 +92,6 @@ export default {
   mixins: [ wallets ],
   data () {
     return {
-      betslipService: this.getNewBetslipService(this),
       events: [],
       eventsService: this.getNewEventsService(this),
       messages: []
