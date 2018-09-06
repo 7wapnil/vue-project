@@ -15,13 +15,11 @@ export default {
       context.commit('resetBetslipStakes')
     },
     fetchWallets: async function ({ commit }, activeWallet = undefined) {
-      console.log('making query')
       const response = await graphqlClient.query({
         query: WALLETS_LIST_QUERY,
         fetchPolicy: 'network-only'
       })
 
-      console.log('getting response: ' + response.data.wallets)
       const wallets = response.data.wallets
 
       const activeWalletExists = activeWallet ? (wallets.find((wallet) => {
