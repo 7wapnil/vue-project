@@ -51,7 +51,7 @@ export default {
   mixins: [formsMixin],
   data () {
     return {
-      apiService: new AccountService(this),
+      eventsService: new AccountService(this),
       fields: {
         login: '',
         password: ''
@@ -66,7 +66,7 @@ export default {
       this.submitting = true
 
       this
-        .apiService
+        .eventsService
         .signIn(input)
         .then(({ data: { signIn } }) => {
           this.$store.dispatch('login', signIn)

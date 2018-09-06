@@ -78,7 +78,7 @@
 import BetslipItem from './BetslipItem.vue'
 import { mapGetters } from 'vuex'
 import wallets from '@/mixins/wallets';
-import ApiService from '@/services/api/events'
+import EventsService from '@/services/api/events'
 import BetslipSerializer from '@/services/serializers/betslip'
 import Bet from '@/models/bet'
 import EventsLookup from '@/services/helpers/events-lookup'
@@ -92,9 +92,9 @@ export default {
   mixins: [ wallets ],
   data () {
     return {
-      apiService: this.getNewApiService(this),
       betslipService: this.getNewBetslipService(this),
       events: [],
+      eventsService: this.getNewEventsService(this),
       messages: []
     }
   },
@@ -110,14 +110,14 @@ export default {
     ])
   },
   created () {
-    this.apiService.load()
+    this.getNewEventsService(this).load()
   },
   methods: {
     getEventByOddId: function (oddId) {
       return EventsLookup.from(this.events).findOddMapRowById(oddId)
     },
-    getNewApiService: function (that) {
-      return new ApiService(that)
+    getNewEventsService: function (that) {
+      return new EventsService(that)
     },
     submit () {
       this.$store.commit('freezeBets')

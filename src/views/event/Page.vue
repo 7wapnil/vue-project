@@ -39,7 +39,7 @@ export default {
   },
   data () {
     return {
-      apiService: new ApiService(this),
+      eventsService: new ApiService(this),
       event: null
     }
   },
@@ -59,7 +59,7 @@ export default {
   },
   created () {
     this
-      .apiService
+      .eventsService
       .loadById(this.eventId)
       .catch(console.log)
   },

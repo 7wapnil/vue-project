@@ -109,7 +109,7 @@ export default {
   mixins: [formsMixin],
   data () {
     return {
-      apiService: new AccountService(this),
+      eventsService: new AccountService(this),
       fields: {
         username: '',
         email: '',
@@ -134,7 +134,7 @@ export default {
       this.submitting = true
 
       this
-        .apiService
+        .eventsService
         .signUp(input)
         .then(({ data: { signUp } }) => {
           this.$store.commit('login', signUp)

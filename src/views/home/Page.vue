@@ -63,13 +63,13 @@ export default {
   },
   data () {
     return {
-      apiService: new ApiService(this),
+      eventsService: new ApiService(this),
       events: [],
       messages: []
     }
   },
   created () {
-    this.apiService.load({ priority: 1 })
+    this.eventsService.load({ priority: 1 })
   }
 }
 </script>
