@@ -120,9 +120,6 @@ export default {
     getNewApiService: function (that) {
       return new ApiService(that)
     },
-    getNewBetslipService: function (that) {
-      return new BetslipService(that)
-    },
     submit () {
       this.$store.commit('freezeBets')
 
@@ -131,7 +128,7 @@ export default {
         currencyCode: this.activeWallet.currency.code
       })
 
-      this.betslipService.place(betsPayload)
+      this.$store.dispatch('placeBets', betsPayload)
         .then(this.processBetsPlacementResponse)
         .catch(this.handlePlacementFailure)
     },

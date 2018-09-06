@@ -5,6 +5,9 @@
 import Bet from '@/models/bet'
 import EventsLookup from '@/services/helpers/events-lookup'
 
+import graphqlClient from '@/libs/apollo'
+import { BETSLIP_PLACEMENT_QUERY } from './queries/betslip'
+
 export default {
   state: {
     bets: []
@@ -12,6 +15,15 @@ export default {
   actions: {
     addNewEmptyBet (context, odd) {
       context.commit('pushNewBetToBetslip', odd)
+    },
+    placeBets (context, betsPayload) {
+      const response = graphqlClient.mutate({
+        mutation: BETSLIP_PLACEMENT_QUERY,
+        variables: {
+          bets: betsPayload
+        }
+      })
+      return response
     }
   },
   mutations: {
