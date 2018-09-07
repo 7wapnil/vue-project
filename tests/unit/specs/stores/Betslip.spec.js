@@ -1,8 +1,7 @@
 import { expect } from 'chai'
+import { mutations, getters } from '@/stores/betslip'
 
-const store = {}
-
-describe.skip('wallets store', () => {
+describe('wallets store', () => {
   describe('mutations', () => {
     describe('freezeBets', () => {
       it('change state of all bets to submitting', () => {
@@ -10,7 +9,7 @@ describe.skip('wallets store', () => {
           bets: [{ status: 'initial' }, { status: 'initial' }]
         }
 
-        store.mutations.freezeBets(state)
+        mutations.freezeBets(state)
 
         expect(state.bets).to.eql([{ status: 'submitting' }, { status: 'submitting' }])
       })
@@ -21,7 +20,7 @@ describe.skip('wallets store', () => {
           bets: []
         }
 
-        store.mutations.pushNewBetToBetslip(state, { id: 1, value: 2 })
+        mutations.pushNewBetToBetslip(state, { id: 1, value: 2 })
 
         expect(state.bets.length).to.eql(1)
         expect(state.bets[0].odd.id).to.eql(1)
@@ -32,7 +31,7 @@ describe.skip('wallets store', () => {
           bets: [{ odd: { id: 1 } }]
         }
 
-        store.mutations.pushNewBetToBetslip(state, { id: 1, value: 2 })
+        mutations.pushNewBetToBetslip(state, { id: 1, value: 2 })
 
         expect(state.bets.length).to.eql(1)
       })
@@ -42,7 +41,7 @@ describe.skip('wallets store', () => {
           bets: [{ odd: { id: 1 } }]
         }
 
-        store.mutations.pushNewBetToBetslip(state, { id: '1', value: 2 })
+        mutations.pushNewBetToBetslip(state, { id: '1', value: 2 })
 
         expect(state.bets.length).to.eql(1)
       })
@@ -53,7 +52,7 @@ describe.skip('wallets store', () => {
           bets: [ { odd: { id: 1 } }, { odd: { id: 2 }, status: 'xxx' } ]
         }
 
-        store.mutations.updateBet(state, { oddId: 2, payload: { status: 'foo' } })
+        mutations.updateBet(state, { oddId: 2, payload: { status: 'foo' } })
 
         expect(state.bets).to.eql([{ odd: { id: 1 } }, { odd: { id: 2 }, status: 'foo' }])
       })
@@ -70,7 +69,7 @@ describe.skip('wallets store', () => {
 
       it('is submittable when all rules valid', () => {
         const state = {}
-        expect(store.getters.betslipSubmittable(state, validGettersState)({})).to.eql(true)
+        expect(getters.betslipSubmittable(state, validGettersState)({})).to.eql(true)
       })
 
       describe('fails', () => {
@@ -81,7 +80,7 @@ describe.skip('wallets store', () => {
           Object.assign(invalidGetters, validGettersState)
           invalidGetters.getTotalStakes = 0
 
-          expect(store.getters.betslipSubmittable(state, invalidGetters)({})).to.eql(false)
+          expect(getters.betslipSubmittable(state, invalidGetters)({})).to.eql(false)
         })
 
         it('with unconfirmed odd values in betslip', () => {
@@ -91,7 +90,7 @@ describe.skip('wallets store', () => {
           Object.assign(invalidGetters, validGettersState)
           invalidGetters.betslipValuesConfirmed = () => { return false }
 
-          expect(store.getters.betslipSubmittable(state, invalidGetters)({})).to.eql(false)
+          expect(getters.betslipSubmittable(state, invalidGetters)({})).to.eql(false)
         })
 
         it('fails without enough balance in active wallet', () => {
@@ -101,7 +100,7 @@ describe.skip('wallets store', () => {
           Object.assign(invalidGetters, validGettersState)
           invalidGetters.getActiveWallet = { amount: 1 }
 
-          expect(store.getters.betslipSubmittable(state, invalidGetters)({})).to.eql(false)
+          expect(getters.betslipSubmittable(state, invalidGetters)({})).to.eql(false)
         })
 
         it('fails without any intial bet in betslip', () => {
@@ -111,7 +110,7 @@ describe.skip('wallets store', () => {
           Object.assign(invalidGetters, validGettersState)
           invalidGetters.anyInitialBet = false
 
-          expect(store.getters.betslipSubmittable(state, invalidGetters)({})).to.eql(false)
+          expect(getters.betslipSubmittable(state, invalidGetters)({})).to.eql(false)
         })
       })
     })
@@ -124,12 +123,11 @@ describe.skip('wallets store', () => {
         const betsState = [{ approvedValue: confirmedValue, odd: { id: oddId } }, { approvedValue: 2.21, odd: { id: 4 } }];
 
         const state = { bets: betsState }
-        const getters = { getBets: betsState }
         const events = [
           { id: 1, markets: [{ id: 2, odds: [{ id: oddId, value: currentOddValue }, { id: 4, value: 2.21 }] }] }
         ]
 
-        expect(store.getters.betslipValuesConfirmed(state, getters)(events)).to.eql(true)
+        expect(getters.betslipValuesConfirmed(state)(events)).to.eql(true)
       })
 
       it('returns false when one of bets not confirmed', () => {
@@ -139,12 +137,11 @@ describe.skip('wallets store', () => {
         const betsState = [{ approvedValue: confirmedValue, odd: { id: oddId } }, { approvedValue: 2.21, odd: { id: 4 } }];
 
         const state = { bets: betsState }
-        const getters = { getBets: betsState }
         const events = [
           { id: 1, markets: [{ id: 2, odds: [{ id: oddId, value: currentOddValue }, { id: 4, value: 2.21 }] }] }
         ]
 
-        expect(store.getters.betslipValuesConfirmed(state, getters)(events)).to.eql(false)
+        expect(getters.betslipValuesConfirmed(state)(events)).to.eql(false)
       })
     })
   })
