@@ -4,12 +4,14 @@ import { HttpLink } from 'apollo-link-http'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import { toIdValue } from 'apollo-utilities'
 import Store from '@/stores'
+import arcanebetSession from '@/services/local-storage/session'
 
 const authLink = new ApolloLink((operation, forward) => {
   const headers = operation.getContext().headers || {}
 
-  if (Store.getters['isLoggedIn']) {
-    const token = Store.getters['getToken']
+  const sessionExists = arcanebetSession.getSession()
+  if (sessionExists !== null) {
+    const token = arcanebetSession.getSession().token
     if (token) {
       headers['Authorization'] = `Bearer ${token}`
     }

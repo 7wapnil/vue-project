@@ -1,23 +1,23 @@
-import ArcanebetSession from '@/services/local-storage/session'
+import arcanebetSession from '@/services/local-storage/session'
 
 /**
  * User store module
  */
 export default {
   state: {
-    session: ArcanebetSession.getSession() || {}
+    session: arcanebetSession.getSession() || {}
   },
   actions: {
     logout (context, componentContext) {
       context.commit('clearSession')
       context.commit('clearBetslip')
       context.commit('clearWalletsStorage')
-      ArcanebetSession.dropSession()
+      arcanebetSession.dropSession()
       componentContext.$apollo.getClient().cache.reset()
     },
     login (context, sessionData) {
       context.commit('storeSession', sessionData)
-      ArcanebetSession.storeSession(sessionData)
+      arcanebetSession.storeSession(sessionData)
     }
   },
   mutations: {
@@ -35,7 +35,7 @@ export default {
         })
       }
       state.session = session
-      ArcanebetSession.storeSession(state.session)
+      arcanebetSession.storeSession(state.session)
     }
   },
   getters: {
