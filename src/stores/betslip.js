@@ -85,24 +85,26 @@ export const getters = {
   }
 }
 
+export const actions = {
+  addNewEmptyBet (context, odd) {
+    context.commit('pushNewBetToBetslip', odd)
+  },
+  placeBets (context, betsPayload) {
+    const response = graphqlClient.mutate({
+      mutation: BETSLIP_PLACEMENT_QUERY,
+      variables: {
+        bets: betsPayload
+      }
+    })
+    return response
+  }
+}
+
 export default {
   state: {
     bets: []
   },
-  actions: {
-    addNewEmptyBet (context, odd) {
-      context.commit('pushNewBetToBetslip', odd)
-    },
-    placeBets (context, betsPayload) {
-      const response = graphqlClient.mutate({
-        mutation: BETSLIP_PLACEMENT_QUERY,
-        variables: {
-          bets: betsPayload
-        }
-      })
-      return response
-    }
-  },
+  actions,
   mutations,
   getters
 }
