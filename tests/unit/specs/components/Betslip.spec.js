@@ -2,6 +2,7 @@ import { expect } from 'chai'
 import { createLocalVue, shallowMount } from '@vue/test-utils'
 import Vuex from 'vuex'
 import Betslip from '@/components/betslip/Betslip.vue'
+import betslip from '@/stores/betslip'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
@@ -15,10 +16,9 @@ describe('Betslip component', () => {
   let mutations
   let actions
 
-  let betslipPlacementStub
   let eventsLoadStub // eslint-disable-line no-unused-vars
 
-  function beforeSetup () {
+  before(() => {
     eventsLoadStub = sinon.stub(Betslip.methods, 'getNewEventsService')
       .returns({ load: sinon.stub() })
 
@@ -27,7 +27,6 @@ describe('Betslip component', () => {
     getters = {
       getWallets: () => { return [ wallet ] },
       getActiveWallet: () => { return wallet },
-      getBets: () => { return [] }
     }
 
     mutations = {
@@ -37,10 +36,12 @@ describe('Betslip component', () => {
     }
 
     actions = {
-      fetchWallets: sinon.stub()
+      fetchWallets: sinon.stub(),
+      placeBets: sinon.stub()
     }
 
     store = new Vuex.Store({
+      modules: [ betslip ],
       state,
       getters,
       mutations,
@@ -55,11 +56,9 @@ describe('Betslip component', () => {
       localVue,
       store
     })
-  }
+  })
 
-  before(beforeSetup)
-
-  describe.skip('Default state', () => {
+  describe('Default state', () => {
     it('opens Single tab', () => {
       expect(wrapper.find('a.nav-link.active').text()).to.eq('Single')
     })
@@ -70,7 +69,7 @@ describe('Betslip component', () => {
     })
   })
 
-  describe.skip('Single tab', () => {
+  describe('Single tab', () => {
     before(() => {
       wrapper.find('#betslipSingleTab').trigger('click')
     })
@@ -174,8 +173,9 @@ describe('Betslip component', () => {
           })
 
           it('calls bet placement API', () => {
-            expect(betslipPlacementStub.called).to.eq(true)
-            expect(betslipPlacementStub.firstCall.args[0][0].amount).to.eq(sampleStake)
+            expect(actions.placeBets.called).to.eq(true)
+            const fistCallArgs = actions.placeBets.firstCall.args[1][0]
+            expect(fistCallArgs.amount).to.eq(sampleStake)
           })
         })
 
@@ -185,7 +185,9 @@ describe('Betslip component', () => {
           })
 
           it('displays correct total stakes', () => {
-            expect(wrapper.find('#betslipSingleTab .total-stake-value').text()).to.eq(sampleStakeDisplayValue)
+            expect(
+              wrapper.find('#betslipSingleTab .total-stake-value').text())
+              .to.eq(sampleStakeDisplayValue)
           })
 
           it('calculates correct total return', () => {
@@ -200,7 +202,7 @@ describe('Betslip component', () => {
         })
       })
 
-      describe('with invalide stake', () => {
+      describe('with invalid stake', () => {
         describe('negative stake entered', () => {
           before(() => {
             wrapper.vm.$store.commit('setBetStake', { oddId: 1, stakeValue: -3 })
