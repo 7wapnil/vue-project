@@ -3,7 +3,6 @@ import { from, ApolloLink } from 'apollo-link'
 import { HttpLink } from 'apollo-link-http'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import { toIdValue } from 'apollo-utilities'
-import Store from '@/stores'
 import arcanebetSession from '@/services/local-storage/session'
 
 const authLink = new ApolloLink((operation, forward) => {
