@@ -1,4 +1,6 @@
 import arcanebetSession from '@/services/local-storage/session'
+import graphqlClient from '@/libs/apollo'
+import { SIGN_IN_MUTATION, SIGN_UP_MUTATION } from '@/stores/queries/user'
 
 /**
  * User store module
@@ -14,6 +16,24 @@ export default {
       context.commit('clearWalletsStorage')
       arcanebetSession.dropSession()
       componentContext.$apollo.getClient().cache.reset()
+    },
+    authenticate (context, sessionData) {
+      const response = graphqlClient.mutate({
+        mutation: SIGN_IN_MUTATION,
+        variables: {
+          input: sessionData
+        }
+      })
+      return response
+    },
+    registerNewUser (context, sessionData) {
+      const response = graphqlClient.mutate({
+        mutation: SIGN_UP_MUTATION,
+        variables: {
+          input: sessionData
+        }
+      })
+      return response
     },
     login (context, sessionData) {
       context.commit('storeSession', sessionData)

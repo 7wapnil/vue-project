@@ -44,14 +44,12 @@
 </template>
 
 <script>
-import AccountService from '@/services/api/account'
 import formsMixin from '@/mixins/forms'
 
 export default {
   mixins: [formsMixin],
   data () {
     return {
-      eventsService: new AccountService(this),
       fields: {
         login: '',
         password: ''
@@ -65,9 +63,7 @@ export default {
       const input = this.fields
       this.submitting = true
 
-      this
-        .eventsService
-        .signIn(input)
+      this.$store.dispatch('authenticate', input)
         .then(({ data: { signIn } }) => {
           this.$store.dispatch('login', signIn)
           this.$noty.success('Signed in successfully')

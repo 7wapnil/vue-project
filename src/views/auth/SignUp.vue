@@ -99,7 +99,6 @@
 import flatPickr from 'vue-flatpickr-component'
 import 'flatpickr/dist/flatpickr.css'
 import moment from 'moment'
-import AccountService from '@/services/api/account'
 import formsMixin from '@/mixins/forms'
 
 export default {
@@ -109,7 +108,6 @@ export default {
   mixins: [formsMixin],
   data () {
     return {
-      eventsService: new AccountService(this),
       fields: {
         username: '',
         email: '',
@@ -133,14 +131,16 @@ export default {
       const input = this.fields
       this.submitting = true
 
-      this
-        .eventsService
-        .signUp(input)
+      this.$store.dispatch('registerNewUser', input)
         .then(({ data: { signUp } }) => {
-          this.$store.commit('login', signUp)
+          this.$store.dispatch('login', signUp)
           this.$router.push({ name: 'home' })
         })
-        .catch(this.handleGraphQLErrors)
+        .catch((err) => {
+          if (err.graphQLErrors && err.graphQLErrors.length) {
+            this.$noty.warning(err.graphQLErrors[0].message)
+          }
+        })
         .finally(() => {
           this.submitting = false
         })
