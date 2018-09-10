@@ -120,11 +120,13 @@ describe('wallets store', () => {
         const oddId = 3
         const confirmedValue = 1.11
         const currentOddValue = 1.11
-        const betsState = [{ approvedValue: confirmedValue, odd: { id: oddId } }, { approvedValue: 2.21, odd: { id: 4 } }];
+        const betsState = [
+          { currentOddValue: currentOddValue, approvedOddValue: confirmedValue, odd: { id: oddId } },
+        ]
 
         const state = { bets: betsState }
         const events = [
-          { id: 1, markets: [{ id: 2, odds: [{ id: oddId, value: currentOddValue }, { id: 4, value: 2.21 }] }] }
+          { id: 1, markets: [{ id: 2, odds: [{ id: oddId, value: currentOddValue }] }] }
         ]
 
         const gettersWithEvents = {
@@ -138,11 +140,13 @@ describe('wallets store', () => {
         const oddId = 3
         const confirmedValue = 1.11
         const currentOddValue = 1.12
-        const betsState = [{ approvedValue: confirmedValue, odd: { id: oddId } }, { approvedValue: 2.21, odd: { id: 4 } }];
+        const betsState = [
+          { currentOddValue: currentOddValue, approvedOddValue: confirmedValue, odd: { id: oddId } },
+        ]
 
         const state = { bets: betsState }
         const events = [
-          { id: 1, markets: [{ id: 2, odds: [{ id: oddId, value: currentOddValue }, { id: 4, value: 2.21 }] }] }
+          { id: 1, markets: [{ id: 2, odds: [{ id: oddId, value: currentOddValue }] }] }
         ]
 
         const gettersWithEvents = {

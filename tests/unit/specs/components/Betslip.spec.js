@@ -112,7 +112,7 @@ describe('Betslip component', () => {
         })
 
         it('has approved value equals to currrent odd value', () => {
-          expect(wrapper.vm.getBets[0].approvedValue).to.eql(sampleOdd.value)
+          expect(wrapper.vm.getBets[0].approvedOddValue).to.eql(sampleOdd.value)
         })
 
         it('has status as initial', () => {

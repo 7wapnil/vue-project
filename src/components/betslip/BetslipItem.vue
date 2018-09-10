@@ -30,7 +30,7 @@
               <b-alert
                 :show="displayUnconfirmedOddValueDialog"
                 variant="danger">
-                This bet odd value changed from {{ bet.approvedValue }} to {{ row.odd.value }}.
+                This bet odd value changed from {{ bet.approvedOddValue }} to {{ row.odd.value }}.
                 <button
                   class="btn"
                   @click="confirmValue">
@@ -74,6 +74,12 @@ export default {
   components: {
     OddButton
   },
+  sockets: {
+    oddChange (data) {
+      if(data.eventId == bet.odd.id){
+        bet.currentOddValue = data.value
+      }
+    },
   props: {
     row: {
       type: Object,
@@ -101,7 +107,7 @@ export default {
     displayUnconfirmedOddValueDialog: function () {
       return (
         this.bet.status === Bet.statuses.initial &&
-          this.bet.approvedValue !== this.row.odd.value
+          this.bet.approvedOddValue !== this.row.odd.value
       )
     },
     cardVariant: function () {
@@ -114,7 +120,7 @@ export default {
       }
 
       if (this.bet.status === Bet.statuses.initial &&
-          this.bet.approvedValue !== this.row.odd.value
+          this.bet.approvedOddValue !== this.row.odd.value
       ) {
         return 'warning'
       }

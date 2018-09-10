@@ -58,14 +58,9 @@ export const getters = {
     }
     return enabled
   },
-  betslipValuesConfirmed: (state, getters) => {
+  betslipValuesConfirmed: (state) => {
     const betWithUnconfirmedValue = state.bets.find((bet) => {
-      const currentOddValue =
-        EventsLookup
-          .from(getters.getEvents)
-          .findOddMapRowById(bet.odd.id).odd.value
-
-      return currentOddValue !== bet.approvedValue
+      return bet.currentOddValue !== bet.approvedOddValue
     })
     return (betWithUnconfirmedValue === undefined)
   },

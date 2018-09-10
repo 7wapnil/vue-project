@@ -10,14 +10,16 @@ describe('Bet', () => {
           status: 'initial',
           message: 'zoo',
           externalId: '3',
-          approvedValue: 12.22
+          approvedValue: 12.22,
+          currentOddValue: 12.22
         })
       expect(newBet.odd).to.eql({ id: 1 })
       expect(newBet.stake).to.eql(2)
       expect(newBet.status).to.eql('initial')
       expect(newBet.message).to.eql('zoo')
       expect(newBet.externalId).to.eql('3')
-      expect(newBet.approvedValue).to.eql(12.22)
+      expect(newBet.approvedOddValue).to.eql(12.22)
+      expect(newBet.currentOddValue).to.eql(12.22)
     })
 
     it('sets initial status for invalid status', () => {
@@ -35,7 +37,8 @@ describe('Bet', () => {
       expect(newBet.status).to.eql('initial')
       expect(newBet.message).to.eql(null)
       expect(newBet.externalId).to.eql(null)
-      expect(newBet.approvedValue).to.eql(23.22)
+      expect(newBet.approvedOddValue).to.eql(23.22)
+      expect(newBet.currentOddValue).to.eql(23.22)
     })
   })
 
