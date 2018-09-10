@@ -22,7 +22,7 @@
           class="mt-4"
           header="Events">
           <b-card
-            v-for="event in events"
+            v-for="event in this.$store.getters.getEvents"
             :key="event.id"
             class="mt-2">
             <div class="row">
@@ -62,8 +62,7 @@ export default {
   },
   data () {
     return {
-      messages: [],
-      events: []
+      messages: []
     }
   },
   created () {
