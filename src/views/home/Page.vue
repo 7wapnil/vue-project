@@ -22,7 +22,7 @@
           class="mt-4"
           header="Events">
           <b-card
-            v-for="event in this.$store.getters.getEvents"
+            v-for="event in events"
             :key="event.id"
             class="mt-2">
             <div class="row">
@@ -62,13 +62,17 @@ export default {
   },
   data () {
     return {
-      messages: []
+      messages: [],
+      events: []
     }
   },
   created () {
     this
       .$store
       .dispatch('loadEvents', { priority: 1 })
+      .then(({ data: { events } }) => {
+        this.events = events
+      })
   }
 }
 </script>

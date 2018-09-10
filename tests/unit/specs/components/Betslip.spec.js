@@ -29,9 +29,12 @@ describe('Betslip component', () => {
       fetchWallets: sinon.stub()
     }
 
+    const loadEventsStub = sinon.stub().returns({ then: function () {} });
+
     actions = {
       fetchWallets: sinon.stub(),
-      placeBets: sinon.stub()
+      placeBets: sinon.stub(),
+      loadEvents: loadEventsStub
     }
 
     store = new Vuex.Store({

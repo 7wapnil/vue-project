@@ -91,7 +91,8 @@ export default {
   mixins: [ wallets ],
   data () {
     return {
-      messages: []
+      messages: [],
+      events: []
     }
   },
   computed: {
@@ -99,7 +100,6 @@ export default {
       return this.$store.getters.betslipSubmittable
     },
     ...mapGetters([
-      'getEvents',
       'getBets',
       'getBetsCount',
       'getTotalReturn',
@@ -108,12 +108,16 @@ export default {
     ])
   },
   created () {
-    this.$store.dispatch('loadEvents', { priority: 1 })
+    this
+      .$store
+      .dispatch('loadEvents', { priority: 1 })
+      .then(({ data: { events } }) => {
+        this.events = events
+      })
   },
   methods: {
     getEventByOddId: function (oddId) {
-      const events = this.getEvents
-      return EventsLookup.from(events).findOddMapRowById(oddId)
+      return EventsLookup.from(this.events).findOddMapRowById(oddId)
     },
     submit () {
       this.$store.commit('freezeBets')

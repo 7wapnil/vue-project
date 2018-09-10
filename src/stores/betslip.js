@@ -3,7 +3,6 @@
  */
 
 import Bet from '@/models/bet'
-import EventsLookup from '@/services/helpers/events-lookup'
 
 import graphqlClient from '@/libs/apollo'
 import { BETSLIP_PLACEMENT_QUERY } from './queries/betslip'

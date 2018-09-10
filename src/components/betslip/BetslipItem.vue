@@ -76,10 +76,11 @@ export default {
   },
   sockets: {
     oddChange (data) {
-      if(data.eventId == bet.odd.id){
+      if (data.eventId == bet.odd.id) {
         bet.currentOddValue = data.value
       }
-    },
+    }
+  },
   props: {
     row: {
       type: Object,
