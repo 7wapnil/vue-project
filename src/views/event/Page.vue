@@ -30,7 +30,6 @@
 
 <script>
 import OddButton from '@/components/custom/OddButton.vue'
-import ApiService from '@/services/api/events'
 import { CANCELLED_STATUS } from '@/models/market'
 
 export default {
@@ -39,7 +38,6 @@ export default {
   },
   data () {
     return {
-      eventsService: new ApiService(this),
       event: null
     }
   },
@@ -59,9 +57,11 @@ export default {
   },
   created () {
     this
-      .eventsService
-      .loadById(this.eventId)
-      .catch(console.log)
+      .$store
+      .dispatch('loadEventById', this.eventId)
+      .then(({ data: { event } }) => {
+        this.event = event
+      })
   },
 }
 </script>
