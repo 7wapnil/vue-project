@@ -78,7 +78,6 @@
 import BetslipItem from './BetslipItem.vue'
 import { mapGetters } from 'vuex'
 import wallets from '@/mixins/wallets';
-import EventsService from '@/services/api/events'
 import BetslipSerializer from '@/services/serializers/betslip'
 import Bet from '@/models/bet'
 import EventsLookup from '@/services/helpers/events-lookup'
@@ -92,38 +91,36 @@ export default {
   mixins: [ wallets ],
   data () {
     return {
-      events: [],
-      eventsService: this.getNewEventsService(this),
       messages: []
     }
   },
   computed: {
     betslipIsSubmittable () {
-      return this.$store.getters.betslipSubmittable(this.events)
+      return this.$store.getters.betslipSubmittable
     },
     ...mapGetters([
+      'getEvents',
       'getBets',
       'getBetsCount',
       'getTotalReturn',
-      'getTotalStakes'
+      'getTotalStakes',
+      'getActiveWallet'
     ])
   },
   created () {
-    this.getNewEventsService(this).load()
+    this.$store.dispatch('loadEvents', { priority: 1 })
   },
   methods: {
     getEventByOddId: function (oddId) {
-      return EventsLookup.from(this.events).findOddMapRowById(oddId)
-    },
-    getNewEventsService: function (that) {
-      return new EventsService(that)
+      const events = this.getEvents
+      return EventsLookup.from(events).findOddMapRowById(oddId)
     },
     submit () {
       this.$store.commit('freezeBets')
 
       let betsPayload = BetslipSerializer.serialize({
         bets: this.getBets,
-        currencyCode: this.activeWallet.currency.code
+        currencyCode: this.getActiveWallet.currency.code
       })
 
       this.$store.dispatch('placeBets', betsPayload)

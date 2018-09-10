@@ -44,12 +44,12 @@ export const mutations = {
 }
 
 export const getters = {
-  betslipSubmittable: (state, getters) => (events) => {
+  betslipSubmittable: (state, getters) => {
     if (getters.getActiveWallet === undefined) {
       return false
     }
     let enabled = false
-    if (getters.betslipValuesConfirmed(events) &&
+    if (getters.betslipValuesConfirmed &&
       getters.getTotalStakes > 0 &&
       getters.getTotalStakes <= getters.getActiveWallet.amount &&
       getters.anyInitialBet
@@ -58,10 +58,13 @@ export const getters = {
     }
     return enabled
   },
-  betslipValuesConfirmed: (state) => (events) => {
+  betslipValuesConfirmed: (state, getters) => {
     const betWithUnconfirmedValue = state.bets.find((bet) => {
       const currentOddValue =
-        EventsLookup.from(events).findOddMapRowById(bet.odd.id).odd.value
+        EventsLookup
+          .from(getters.getEvents)
+          .findOddMapRowById(bet.odd.id).odd.value
+
       return currentOddValue !== bet.approvedValue
     })
     return (betWithUnconfirmedValue === undefined)

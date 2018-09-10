@@ -16,12 +16,7 @@ describe('Betslip component', () => {
   let mutations
   let actions
 
-  let eventsLoadStub // eslint-disable-line no-unused-vars
-
   before(() => {
-    eventsLoadStub = sinon.stub(Betslip.methods, 'getNewEventsService')
-      .returns({ load: sinon.stub() })
-
     const wallet = { id: 1, amount: 112.23, currency: { code: 'EUR' } }
 
     getters = {
@@ -31,7 +26,6 @@ describe('Betslip component', () => {
 
     mutations = {
       freezeBets: sinon.stub(),
-      storeWallets: sinon.stub(),
       fetchWallets: sinon.stub()
     }
 
@@ -95,20 +89,19 @@ describe('Betslip component', () => {
       let sampleStakeReturnDisplayValue = '1.14'
 
       before(() => {
-        wrapper.setData({ events:
-            [
-              { id: 1, markets: [{ id: 2, odds: [sampleOdd, { id: 4, value: 2.21 }] }] }
-            ]
-        })
-
+        const events = [
+          { id: 1, markets: [{ id: 2, odds: [sampleOdd, { id: 4, value: 2.21 }] }] }
+        ]
         const wallet = { id: 1, amount: sampleInitialWalletBalance, currency: { code: 'EUR' } }
-        wrapper.vm.$store.commit(
-          'storeWallets',
-          {
-            wallets: [wallet],
-            activeWallet: wallet
+
+        wrapper.vm.$store.hotUpdate({
+          getters: {
+            getEvents: () => { return events },
+            getWallets: () => { return [wallet] },
+            getActiveWallet: () => { return wallet }
           }
-        )
+
+        })
 
         wrapper.vm.$store.dispatch('addNewEmptyBet', sampleOdd)
       })

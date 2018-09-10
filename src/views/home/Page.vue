@@ -46,7 +46,6 @@
 </template>
 
 <script>
-import ApiService from '@/services/api/events'
 import Betslip from '@/components/betslip/Betslip.vue'
 import EventItem from './EventItem.vue'
 
@@ -63,13 +62,14 @@ export default {
   },
   data () {
     return {
-      eventsService: new ApiService(this),
-      events: [],
-      messages: []
+      messages: [],
+      events: []
     }
   },
   created () {
-    this.eventsService.load({ priority: 1 })
+    this
+      .$store
+      .dispatch('loadEvents', { priority: 1 })
   }
 }
 </script>
