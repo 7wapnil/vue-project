@@ -101,15 +101,23 @@ export default {
         }
       })
 
-      const url = `${process.env.VUE_APP_SERVER_URL}/customer_attachment_upload`
+      const serverDomain = process.env.VUE_APP_SERVER_URL.replace(/\/$/, '')
+      const url = `${serverDomain}/customer_attachment_upload`
       const headers = {
         'Content-Type': 'multipart/form-data',
         'Authorization': this.getToken
       }
 
       axios.post(url, formData, { headers })
-        .then(this.handleSuccess)
+        .then(this.handleResult)
         .catch(this.handleError)
+    },
+    handleResult ({ data }) {
+      if (data.success) {
+        this.handleSuccess()
+      } else {
+        this.handleError()
+      }
     },
     handleSuccess () {
       this.$noty.success('Your files has been submitted successfully')
