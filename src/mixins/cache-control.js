@@ -1,4 +1,4 @@
-import { LIST_QUERY, EVENT_QUERY } from '@/services/api/events'
+import { LOAD_EVENTS_QUERY, LOAD_EVENT_BY_ID_QUERY } from '@/stores/queries/events'
 
 const log = function () {
   console.log.apply(console, arguments)
@@ -11,7 +11,7 @@ export default {
      * @returns {*|void}
      */
     addEventToCache (eventData) {
-      const cacheKey = { query: LIST_QUERY }
+      const cacheKey = { query: LOAD_EVENTS_QUERY }
       const store = this._readStore(cacheKey)
       if (store) {
         const event = store.events.find(item => item.id === eventData.id)
@@ -101,8 +101,8 @@ export default {
      */
     _findEvent (eventId, callback) {
       const cacheKeys = [
-        { query: LIST_QUERY },
-        { query: EVENT_QUERY, variables: { id: eventId } }
+        { query: LOAD_EVENTS_QUERY, variables: { priority: 1 } },
+        { query: LOAD_EVENT_BY_ID_QUERY, variables: { id: eventId } }
       ]
 
       cacheKeys.forEach((cacheKey) => {
