@@ -26,7 +26,7 @@
               :key="bet.id">
               <betslip-item
                 :row="getEventByOddId(bet.odd.id)"
-                :bet="bet"
+                :bet="bet.id"
               />
             </div>
 

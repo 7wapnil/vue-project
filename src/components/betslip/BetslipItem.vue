@@ -86,9 +86,14 @@ export default {
       type: Object,
       required: true
     },
-    bet: {
-      type: Bet,
+    betId: {
+      type: Number,
       required: true
+    },
+  },
+  data () {
+    return {
+      bet: this.$store.getters.getBets.find((bet) => bet.id === this.betId)
     }
   },
   computed: {
