@@ -58,6 +58,15 @@ export default {
     test (data) {
       console.log(data)
       this.messages.push(data)
+    },
+    oddChange (data) {
+      this.loadEvents()
+    },
+    updateMarket (data) {
+      this.loadEvents()
+    },
+    updateEvent (data) {
+      this.loadEvents()
     }
   },
   data () {
@@ -67,12 +76,14 @@ export default {
     }
   },
   created () {
-    this
-      .$store
-      .dispatch('loadEvents', { priority: 1 })
-      .then(({ data: { events } }) => {
+    this.loadEvents()
+  },
+  methods: {
+    loadEvents: function () {
+      this.$store.dispatch('loadEvents').then(({ data: { events } }) => {
         this.events = events
       })
+    }
   }
 }
 </script>

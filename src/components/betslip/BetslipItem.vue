@@ -133,6 +133,11 @@ export default {
     }
   },
   methods: {
+    loadEvents: function () {
+      this.$store.dispatch('loadEvents').then(({ data: { events } }) => {
+        this.events = events
+      })
+    },
     confirmValue: function () {
       this.$store.commit('updateBet', { oddId: this.bet.odd.id, payload: { approvedOddValue: this.bet.currentOddValue } })
     },
