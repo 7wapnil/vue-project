@@ -86,14 +86,14 @@ export default {
       type: Object,
       required: true
     },
-    betId: {
-      type: Number,
+    oddId: {
+      type: String,
       required: true
     },
   },
   data () {
     return {
-      bet: this.$store.getters.getBets.find((bet) => bet.id === this.betId)
+      bet: this.$store.getters.getBets.find((bet) => bet.odd.id === this.oddId)
     }
   },
   computed: {
