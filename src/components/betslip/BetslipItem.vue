@@ -18,7 +18,7 @@
         <p>{{ row.market.name }}</p>
       </div>
       <div class="row m-2">
-        <p>Outcome {{ row.odd.name }} with value {{ row.odd.value }}</p>
+        <p>Outcome {{ row.odd.name }} with value {{ bet.currentOddValue }}</p>
       </div>
       <div class="row mt-4 text-right">
         <div class="col-12">
@@ -30,7 +30,7 @@
               <b-alert
                 :show="displayUnconfirmedOddValueDialog"
                 variant="danger">
-                This bet odd value changed from {{ bet.approvedOddValue }} to {{ row.odd.value }}.
+                This bet odd value changed from {{ bet.approvedOddValue }} to {{ bet.currentOddValue }}.
                 <button
                   class="btn"
                   @click="confirmValue">
@@ -76,8 +76,8 @@ export default {
   },
   sockets: {
     oddChange (data) {
-      if (data.eventId == bet.odd.id) {
-        bet.currentOddValue = data.value
+      if (data.id === this.bet.odd.id) {
+        this.bet.currentOddValue = data.value
       }
     }
   },
@@ -108,7 +108,7 @@ export default {
     displayUnconfirmedOddValueDialog: function () {
       return (
         this.bet.status === Bet.statuses.initial &&
-          this.bet.approvedOddValue !== this.row.odd.value
+          this.bet.approvedOddValue !== this.bet.currentOddValue
       )
     },
     cardVariant: function () {
@@ -121,7 +121,7 @@ export default {
       }
 
       if (this.bet.status === Bet.statuses.initial &&
-          this.bet.approvedOddValue !== this.row.odd.value
+          this.bet.approvedOddValue !== this.bet.currentOddValue
       ) {
         return 'warning'
       }
@@ -134,7 +134,7 @@ export default {
   },
   methods: {
     confirmValue: function () {
-      this.$store.commit('updateBet', { oddId: this.bet.odd.id, payload: { approvedValue: this.row.odd.value } })
+      this.$store.commit('updateBet', { oddId: this.bet.odd.id, payload: { approvedOddValue: this.bet.currentOddValue } })
     },
     removeOdd: function (odd) {
       this.$store.commit('removeBetFromBetslip', odd)
