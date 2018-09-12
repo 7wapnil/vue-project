@@ -69,6 +69,7 @@
 <script>
 import OddButton from '@/components/custom/OddButton.vue'
 import Bet from '@/models/bet'
+import { mapGetters } from 'vuex'
 
 export default {
   components: {
@@ -93,10 +94,13 @@ export default {
   },
   data () {
     return {
-      bet: this.$store.getters.getBets.find((bet) => bet.odd.id === this.oddId)
+      bet: this.getBetByOddId(this.oddId)
     }
   },
   computed: {
+    getBetByOddId: function (oddId) {
+      return this.getBets.find((bet) => bet.odd.id === oddId)
+    },
     potentialReturn: function () {
       const stake = this.bet.stake > 0 ? this.bet.stake : 0
       return stake * this.row.odd.value
@@ -135,7 +139,10 @@ export default {
     },
     hasMessage: function () {
       return this.bet.message !== null
-    }
+    },
+    ...mapGetters([
+      'getBets'
+    ])
   },
   methods: {
     loadEvents: function () {
