@@ -9,7 +9,7 @@ export const LOAD_EVENTS_QUERY = gql`
         title_name
         start_at
         end_at
-        markets (priority: $priority) {
+        markets (priority: $priority, limit: 1) {
           id
           name
           priority
