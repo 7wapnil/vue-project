@@ -9699,7 +9699,7 @@ vue-cli-plugin-apollo@^0.16.3:
     subscriptions-transport-ws "^0.9.14"
     ts-node "^7.0.1"
 
-vue-cli-plugin-s3-deploy@^2.0.2:
+vue-cli-plugin-s3-deploy@2.0.2:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/vue-cli-plugin-s3-deploy/-/vue-cli-plugin-s3-deploy-2.0.2.tgz#fd8fa2f486a4d6111eb40bed69189b6cf0e03572"
   dependencies:
