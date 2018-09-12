@@ -7,11 +7,12 @@ import Vue from 'vue'
 import VueNoty from 'vuejs-noty'
 import App from './App'
 import Router from '@/routes'
-import ApolloProvider from '@/libs/apollo'
+import apolloClient from '@/libs/apollo'
 import Store from '@/stores/index'
 import globalMixin from '@/mixins/global'
 import '@/components/global-components'
 import WebSocket from 'vue-socket.io'
+import VueApollo from 'vue-apollo';
 
 Vue.config.productionTip = false
 
@@ -23,6 +24,12 @@ Vue.use(VueNoty, {
 })
 
 Vue.use(WebSocket, process.env.VUE_APP_WEB_SOCKET_URL)
+
+Vue.use(VueApollo)
+
+const ApolloProvider = new VueApollo({
+  defaultClient: apolloClient
+})
 
 new Vue({
   router: Router,

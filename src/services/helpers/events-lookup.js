@@ -1,5 +1,8 @@
 class EventsLookup {
   constructor (eventsPassed) {
+    if (eventsPassed === undefined) {
+      throw new Error('Events not passed')
+    }
     this.events = eventsPassed
   }
 

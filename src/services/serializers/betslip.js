@@ -4,7 +4,7 @@ class BetslipSerializer {
       return {
         amount: parseFloat(bet.stake),
         oddId: bet.odd.id,
-        oddValue: bet.approvedValue,
+        oddValue: bet.approvedOddValue,
         currencyCode: currencyCode
       }
     })

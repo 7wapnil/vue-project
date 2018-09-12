@@ -1,6 +1,6 @@
-import BaseService from './base-service'
+import gql from 'graphql-tag'
 
-export const LIST_QUERY = BaseService.gql(`
+export const LOAD_EVENTS_QUERY = gql`
   query eventList ($priority: Int) {
       events {
         id
@@ -23,9 +23,9 @@ export const LIST_QUERY = BaseService.gql(`
         }
       }
     }
-`)
+`
 
-export const EVENT_QUERY = BaseService.gql(`
+export const LOAD_EVENT_BY_ID_QUERY = gql`
   query event($id: ID!) {
       event (id: $id) {
         id
@@ -48,30 +48,4 @@ export const EVENT_QUERY = BaseService.gql(`
         }
       }
     }
-`)
-
-class EventsService extends BaseService {
-  load (variables = {}, prop = 'events') {
-    return new Promise((resolve, reject) => {
-      this.client.addSmartQuery(prop, {
-        query: LIST_QUERY,
-        variables,
-        result: resolve,
-        error: reject
-      })
-    })
-  }
-
-  loadById (id) {
-    return new Promise((resolve, reject) => {
-      this.client.addSmartQuery('event', {
-        query: EVENT_QUERY,
-        variables: { id },
-        result: resolve,
-        error: reject
-      })
-    })
-  }
-}
-
-export default EventsService
+`
