@@ -108,13 +108,13 @@ export default {
         this.$store.commit('setBetStake', { oddId: this.bet.odd.id, stakeValue })
       }
     },
-    displayUnconfirmedOddValueDialog: function () {
+    displayUnconfirmedOddValueDialog () {
       return (
         this.bet.status === Bet.statuses.initial &&
           this.bet.approvedOddValue !== this.bet.currentOddValue
       )
     },
-    cardVariant: function () {
+    cardVariant () {
       const variantMapping = {
         initial: 'default',
         submitting: 'light',
@@ -131,7 +131,7 @@ export default {
 
       return variantMapping[this.bet.status]
     },
-    hasMessage: function () {
+    hasMessage () {
       return this.bet.message !== null
     },
     ...mapGetters([
@@ -139,15 +139,15 @@ export default {
     ])
   },
   methods: {
-    loadEvents: function () {
+    loadEvents () {
       this.$store.dispatch('loadEvents').then(({ data: { events } }) => {
         this.events = events
       })
     },
-    confirmValue: function () {
+    confirmValue () {
       this.$store.commit('updateBet', { oddId: this.bet.odd.id, payload: { approvedOddValue: this.bet.currentOddValue } })
     },
-    removeOdd: function (odd) {
+    removeOdd (odd) {
       this.$store.commit('removeBetFromBetslip', odd)
     },
     ...mapMutations([
