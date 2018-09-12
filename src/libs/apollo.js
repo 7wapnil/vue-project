@@ -4,6 +4,7 @@ import { HttpLink } from 'apollo-link-http'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import { toIdValue } from 'apollo-utilities'
 import arcanebetSession from '@/services/local-storage/session'
+import fetch from 'unfetch'
 
 const authLink = new ApolloLink((operation, forward) => {
   const headers = operation.getContext().headers || {}
@@ -21,7 +22,8 @@ const authLink = new ApolloLink((operation, forward) => {
 })
 
 const httpLink = new HttpLink({
-  uri: process.env.VUE_APP_API_URL || ''
+  uri: process.env.VUE_APP_API_URL || '',
+  fetch: fetch
 })
 
 const dataIdFromObject = object => `${object.__typename}:${object.id}`
