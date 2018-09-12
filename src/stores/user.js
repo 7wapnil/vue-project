@@ -1,23 +1,43 @@
-import ArcanebetSession from '@/services/local-storage/session'
+import arcanebetSession from '@/services/local-storage/session'
+import graphqlClient from '@/libs/apollo'
+import { SIGN_IN_MUTATION, SIGN_UP_MUTATION } from '@/stores/queries/user'
 
 /**
  * User store module
  */
 export default {
   state: {
-    session: ArcanebetSession.getSession() || {}
+    session: arcanebetSession.getSession() || {}
   },
   actions: {
     logout (context, componentContext) {
       context.commit('clearSession')
       context.commit('clearBetslip')
       context.commit('clearWalletsStorage')
-      ArcanebetSession.dropSession()
+      arcanebetSession.dropSession()
       componentContext.$apollo.getClient().cache.reset()
+    },
+    authenticate (context, sessionData) {
+      const response = graphqlClient.mutate({
+        mutation: SIGN_IN_MUTATION,
+        variables: {
+          input: sessionData
+        }
+      })
+      return response
+    },
+    registerNewUser (context, sessionData) {
+      const response = graphqlClient.mutate({
+        mutation: SIGN_UP_MUTATION,
+        variables: {
+          input: sessionData
+        }
+      })
+      return response
     },
     login (context, sessionData) {
       context.commit('storeSession', sessionData)
-      ArcanebetSession.storeSession(sessionData)
+      arcanebetSession.storeSession(sessionData)
     }
   },
   mutations: {
@@ -35,7 +55,7 @@ export default {
         })
       }
       state.session = session
-      ArcanebetSession.storeSession(state.session)
+      arcanebetSession.storeSession(state.session)
     }
   },
   getters: {

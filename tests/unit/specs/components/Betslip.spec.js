@@ -3,7 +3,6 @@ import { createLocalVue, shallowMount } from '@vue/test-utils'
 import Vuex from 'vuex'
 import Betslip from '@/components/betslip/Betslip.vue'
 import betslip from '@/stores/betslip'
-import wallets from '@/stores/wallets'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
@@ -12,29 +11,38 @@ describe('Betslip component', () => {
   let wrapper
 
   let store
+  let state
+  let getters
   let mutations
+  let actions
 
-  let loadEventsStub // eslint-disable-line no-unused-vars
-  let betslipServiceStub // eslint-disable-line no-unused-vars
-  let betslipPlacementStub
+  before(() => {
+    const wallet = { id: 1, amount: 112.23, currency: { code: 'EUR' } }
 
-  function beforeSetup () {
-    loadEventsStub = sinon.stub(Betslip.methods, 'getNewApiService')
-      .returns({ load: function () {} })
-
-    betslipPlacementStub = sinon.stub()
-      .returns({ then: function () { return { catch: function () {} } }, })
-
-    betslipServiceStub = sinon.stub(Betslip.methods, 'getNewBetslipService')
-      .returns({ place: betslipPlacementStub })
+    getters = {
+      getWallets: () => { return [ wallet ] },
+      getActiveWallet: () => { return wallet },
+    }
 
     mutations = {
-      freezeBets: sinon.stub()
+      freezeBets: sinon.stub(),
+      fetchWallets: sinon.stub()
+    }
+
+    const loadEventsStub = sinon.stub().returns({ then: function () {} });
+
+    actions = {
+      fetchWallets: sinon.stub(),
+      placeBets: sinon.stub(),
+      loadEvents: loadEventsStub
     }
 
     store = new Vuex.Store({
-      modules: [ betslip, wallets ],
-      mutations
+      modules: [ betslip ],
+      state,
+      getters,
+      mutations,
+      actions
     })
 
     wrapper = shallowMount(Betslip, {
@@ -45,9 +53,7 @@ describe('Betslip component', () => {
       localVue,
       store
     })
-  }
-
-  before(beforeSetup)
+  })
 
   describe('Default state', () => {
     it('opens Single tab', () => {
@@ -86,20 +92,19 @@ describe('Betslip component', () => {
       let sampleStakeReturnDisplayValue = '1.14'
 
       before(() => {
-        wrapper.setData({ events:
-            [
-              { id: 1, markets: [{ id: 2, odds: [sampleOdd, { id: 4, value: 2.21 }] }] }
-            ]
-        })
-
+        const events = [
+          { id: 1, markets: [{ id: 2, odds: [sampleOdd, { id: 4, value: 2.21 }] }] }
+        ]
         const wallet = { id: 1, amount: sampleInitialWalletBalance, currency: { code: 'EUR' } }
-        wrapper.vm.$store.commit(
-          'storeWallets',
-          {
-            wallets: [wallet],
-            activeWallet: wallet
+
+        wrapper.vm.$store.hotUpdate({
+          getters: {
+            getEvents: () => { return events },
+            getWallets: () => { return [wallet] },
+            getActiveWallet: () => { return wallet }
           }
-        )
+
+        })
 
         wrapper.vm.$store.dispatch('addNewEmptyBet', sampleOdd)
       })
@@ -110,7 +115,7 @@ describe('Betslip component', () => {
         })
 
         it('has approved value equals to currrent odd value', () => {
-          expect(wrapper.vm.getBets[0].approvedValue).to.eql(sampleOdd.value)
+          expect(wrapper.vm.getBets[0].approvedOddValue).to.eql(sampleOdd.value)
         })
 
         it('has status as initial', () => {
@@ -164,8 +169,9 @@ describe('Betslip component', () => {
           })
 
           it('calls bet placement API', () => {
-            expect(betslipPlacementStub.called).to.eq(true)
-            expect(betslipPlacementStub.firstCall.args[0][0].amount).to.eq(sampleStake)
+            expect(actions.placeBets.called).to.eq(true)
+            const fistCallArgs = actions.placeBets.firstCall.args[1][0]
+            expect(fistCallArgs.amount).to.eq(sampleStake)
           })
         })
 
@@ -175,7 +181,9 @@ describe('Betslip component', () => {
           })
 
           it('displays correct total stakes', () => {
-            expect(wrapper.find('#betslipSingleTab .total-stake-value').text()).to.eq(sampleStakeDisplayValue)
+            expect(
+              wrapper.find('#betslipSingleTab .total-stake-value').text())
+              .to.eq(sampleStakeDisplayValue)
           })
 
           it('calculates correct total return', () => {
@@ -190,7 +198,7 @@ describe('Betslip component', () => {
         })
       })
 
-      describe('with invalide stake', () => {
+      describe('with invalid stake', () => {
         describe('negative stake entered', () => {
           before(() => {
             wrapper.vm.$store.commit('setBetStake', { oddId: 1, stakeValue: -3 })

@@ -1,19 +1,6 @@
 <template>
   <main-layout>
     <div class="row">
-      <div class="col-xs-12 col-md-2 order-md-1">
-        <p class="mt-3">
-          Websocket messages
-        </p>
-        <hr>
-        <ul class="list-unstyled">
-          <li
-            v-for="message in messages"
-            :key="message">
-            {{ message.name }}: {{ message.message }}
-          </li>
-        </ul>
-      </div>
       <div class="col-xs-12 col-md-4 order-md-12">
         <betslip class="mt-4"/>
       </div>
@@ -46,7 +33,6 @@
 </template>
 
 <script>
-import ApiService from '@/services/api/events'
 import Betslip from '@/components/betslip/Betslip.vue'
 import EventItem from './EventItem.vue'
 
@@ -56,22 +42,31 @@ export default {
     Betslip
   },
   sockets: {
-    test (data) {
-      console.log(data)
-      this.messages.push(data)
+    oddChange (data) {
+      this.loadEvents()
+    },
+    updateMarket (data) {
+      this.loadEvents()
+    },
+    updateEvent (data) {
+      this.loadEvents()
     }
   },
   data () {
     return {
-      apiService: new ApiService(this),
-      events: [],
-      messages: []
+      messages: [],
+      events: []
     }
   },
   created () {
-    this.apiService.load({ priority: 1 })
+    this.loadEvents()
+  },
+  methods: {
+    loadEvents: function () {
+      this.$store.dispatch('loadEvents').then(({ data: { events } }) => {
+        this.events = events
+      })
+    }
   }
 }
 </script>
-<style scoped>
-</style>

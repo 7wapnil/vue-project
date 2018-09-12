@@ -26,7 +26,7 @@
               :key="bet.id">
               <betslip-item
                 :row="getEventByOddId(bet.odd.id)"
-                :bet="bet"
+                :odd-id="bet.odd.id"
               />
             </div>
 
@@ -78,8 +78,6 @@
 import BetslipItem from './BetslipItem.vue'
 import { mapGetters } from 'vuex'
 import wallets from '@/mixins/wallets';
-import ApiService from '@/services/api/events'
-import BetslipService from '@/services/api/betslip'
 import BetslipSerializer from '@/services/serializers/betslip'
 import Bet from '@/models/bet'
 import EventsLookup from '@/services/helpers/events-lookup'
@@ -93,45 +91,43 @@ export default {
   mixins: [ wallets ],
   data () {
     return {
-      apiService: this.getNewApiService(this),
-      betslipService: this.getNewBetslipService(this),
-      events: [],
-      messages: []
+      messages: [],
+      events: []
     }
   },
   computed: {
     betslipIsSubmittable () {
-      return this.$store.getters.betslipSubmittable(this.events)
+      return this.$store.getters.betslipSubmittable
     },
     ...mapGetters([
       'getBets',
       'getBetsCount',
       'getTotalReturn',
-      'getTotalStakes'
+      'getTotalStakes',
+      'getActiveWallet'
     ])
   },
   created () {
-    this.apiService.load()
+    this
+      .$store
+      .dispatch('loadEvents', { priority: 1 })
+      .then(({ data: { events } }) => {
+        this.events = events
+      })
   },
   methods: {
     getEventByOddId: function (oddId) {
       return EventsLookup.from(this.events).findOddMapRowById(oddId)
-    },
-    getNewApiService: function (that) {
-      return new ApiService(that)
-    },
-    getNewBetslipService: function (that) {
-      return new BetslipService(that)
     },
     submit () {
       this.$store.commit('freezeBets')
 
       let betsPayload = BetslipSerializer.serialize({
         bets: this.getBets,
-        currencyCode: this.activeWallet.currency.code
+        currencyCode: this.getActiveWallet.currency.code
       })
 
-      this.betslipService.place(betsPayload)
+      this.$store.dispatch('placeBets', betsPayload)
         .then(this.processBetsPlacementResponse)
         .catch(this.handlePlacementFailure)
     },
