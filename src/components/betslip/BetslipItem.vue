@@ -18,7 +18,7 @@
         <p>{{ row.market.name }}</p>
       </div>
       <div class="row m-2">
-        <p>Outcome {{ row.odd.name }} with value {{ row.odd.value }}</p>
+        <p>Outcome {{ row.odd.name }} with value {{ bet.currentOddValue }}</p>
       </div>
       <div class="row mt-4 text-right">
         <div class="col-12">
@@ -30,7 +30,7 @@
               <b-alert
                 :show="displayUnconfirmedOddValueDialog"
                 variant="danger">
-                This bet odd value changed from {{ bet.approvedValue }} to {{ row.odd.value }}.
+                This bet odd value changed from {{ bet.approvedOddValue }} to {{ bet.currentOddValue }}.
                 <button
                   class="btn"
                   @click="confirmValue">
@@ -69,22 +69,32 @@
 <script>
 import OddButton from '@/components/custom/OddButton.vue'
 import Bet from '@/models/bet'
+import { mapGetters, mapMutations } from 'vuex'
 
 export default {
   components: {
     OddButton
+  },
+  sockets: {
+    oddChange (data) {
+      if (data.id !== this.bet.odd.id) { return }
+      this.updateBet({ oddId: this.bet.odd.id, payload: { currentOddValue: data.value } })
+    }
   },
   props: {
     row: {
       type: Object,
       required: true
     },
-    bet: {
-      type: Bet,
+    oddId: {
+      type: String,
       required: true
-    }
+    },
   },
   computed: {
+    bet () {
+      return this.getBets.find((bet) => bet.odd.id === this.oddId)
+    },
     potentialReturn: function () {
       const stake = this.bet.stake > 0 ? this.bet.stake : 0
       return stake * this.row.odd.value
@@ -98,13 +108,13 @@ export default {
         this.$store.commit('setBetStake', { oddId: this.bet.odd.id, stakeValue })
       }
     },
-    displayUnconfirmedOddValueDialog: function () {
+    displayUnconfirmedOddValueDialog () {
       return (
         this.bet.status === Bet.statuses.initial &&
-          this.bet.approvedValue !== this.row.odd.value
+          this.bet.approvedOddValue !== this.bet.currentOddValue
       )
     },
-    cardVariant: function () {
+    cardVariant () {
       const variantMapping = {
         initial: 'default',
         submitting: 'light',
@@ -114,24 +124,35 @@ export default {
       }
 
       if (this.bet.status === Bet.statuses.initial &&
-          this.bet.approvedValue !== this.row.odd.value
+          this.bet.approvedOddValue !== this.bet.currentOddValue
       ) {
         return 'warning'
       }
 
       return variantMapping[this.bet.status]
     },
-    hasMessage: function () {
+    hasMessage () {
       return this.bet.message !== null
-    }
+    },
+    ...mapGetters([
+      'getBets'
+    ])
   },
   methods: {
-    confirmValue: function () {
-      this.$store.commit('updateBet', { oddId: this.bet.odd.id, payload: { approvedValue: this.row.odd.value } })
+    loadEvents () {
+      this.$store.dispatch('loadEvents').then(({ data: { events } }) => {
+        this.events = events
+      })
     },
-    removeOdd: function (odd) {
+    confirmValue () {
+      this.$store.commit('updateBet', { oddId: this.bet.odd.id, payload: { approvedOddValue: this.bet.currentOddValue } })
+    },
+    removeOdd (odd) {
       this.$store.commit('removeBetFromBetslip', odd)
-    }
+    },
+    ...mapMutations([
+      'updateBet'
+    ])
   }
 }
 </script>

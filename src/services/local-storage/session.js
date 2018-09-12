@@ -1,21 +1,25 @@
 const storageKey = 'session'
 
 class ArcanebetSession {
-  static storeSession = (sessionData) => {
-    localStorage.setItem(storageKey, JSON.stringify(sessionData))
+  constructor (storage) {
+    this.storage = storage
   }
 
-  static getSession = () => {
-    const data = localStorage.getItem(storageKey)
-    if (!data) {
-      return null
-    }
-    return JSON.parse(data)
+  storeSession = (sessionData) => {
+    this.storage.setItem(storageKey, JSON.stringify(sessionData))
   }
 
-  static dropSession = () => {
-    localStorage.removeItem(storageKey)
-  }
+   getSession = () => {
+     const data = this.storage.getItem(storageKey)
+     if (!data) {
+       return null
+     }
+     return JSON.parse(data)
+   }
+
+   dropSession = () => {
+     this.storage.removeItem(storageKey)
+   }
 }
 
-export default ArcanebetSession
+export default new ArcanebetSession(localStorage)

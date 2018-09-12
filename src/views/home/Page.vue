@@ -33,7 +33,6 @@
 </template>
 
 <script>
-import ApiService from '@/services/api/events'
 import Betslip from '@/components/betslip/Betslip.vue'
 import EventItem from './EventItem.vue'
 
@@ -42,15 +41,32 @@ export default {
     EventItem,
     Betslip
   },
+  sockets: {
+    oddChange (data) {
+      this.loadEvents()
+    },
+    updateMarket (data) {
+      this.loadEvents()
+    },
+    updateEvent (data) {
+      this.loadEvents()
+    }
+  },
   data () {
     return {
-      apiService: new ApiService(this),
-      events: [],
-      messages: []
+      messages: [],
+      events: []
     }
   },
   created () {
-    this.apiService.load({ priority: 1 })
+    this.loadEvents()
+  },
+  methods: {
+    loadEvents: function () {
+      this.$store.dispatch('loadEvents').then(({ data: { events } }) => {
+        this.events = events
+      })
+    }
   }
 }
 </script>
