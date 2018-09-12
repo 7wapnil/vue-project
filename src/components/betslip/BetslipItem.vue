@@ -69,7 +69,7 @@
 <script>
 import OddButton from '@/components/custom/OddButton.vue'
 import Bet from '@/models/bet'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 
 export default {
   components: {
@@ -77,9 +77,8 @@ export default {
   },
   sockets: {
     oddChange (data) {
-      if (data.id === this.bet.odd.id) {
-        this.bet.currentOddValue = data.value
-      }
+      if (data.id !== this.bet.odd.id) { return }
+      this.updateBet({ oddId: this.bet.odd.id, payload: { currentOddValue: data.value } })
     }
   },
   props: {
@@ -92,14 +91,9 @@ export default {
       required: true
     },
   },
-  data () {
-    return {
-      bet: this.getBetByOddId(this.oddId)
-    }
-  },
   computed: {
-    getBetByOddId: function (oddId) {
-      return this.getBets.find((bet) => bet.odd.id === oddId)
+    bet () {
+      return this.getBets.find((bet) => bet.odd.id === this.oddId)
     },
     potentialReturn: function () {
       const stake = this.bet.stake > 0 ? this.bet.stake : 0
@@ -155,7 +149,10 @@ export default {
     },
     removeOdd: function (odd) {
       this.$store.commit('removeBetFromBetslip', odd)
-    }
+    },
+    ...mapMutations([
+      'updateBet'
+    ])
   }
 }
 </script>
