@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 import { createLocalVue, shallowMount } from '@vue/test-utils'
 import Vuex from 'vuex'
-import OddButton from '@/components/custom/OddButton.vue'
+import OddButton from '@/components/markets/OddButton.vue'
 import {
   ACTIVE_STATUS,
   SUSPENDED_STATUS,

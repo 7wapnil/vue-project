@@ -1,4 +1,4 @@
-import { LOAD_EVENTS_QUERY, LOAD_EVENT_BY_ID_QUERY } from '@/stores/queries/events'
+import { LOAD_EVENTS_QUERY, LOAD_EVENT_BY_ID_QUERY } from '@/stores/events/queries'
 
 const log = function () {
   console.log.apply(console, arguments)

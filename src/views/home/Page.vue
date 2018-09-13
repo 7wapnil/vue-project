@@ -5,56 +5,24 @@
         <betslip class="mt-4"/>
       </div>
       <div class="col-xs-12 col order-md-2">
-        <b-card
-          class="mt-4"
-          header="Events">
-          <b-card
-            v-for="event in events"
-            :key="event.id"
-            class="mt-2">
-            <div class="row">
-              <div class="col">
-                <h5 class="card-title">
-                  <router-link
-                    :to="{ name: 'event',
-                           params: { id: event.id } }">
-                    {{ event.description }}
-                  </router-link>
-                </h5>
-              </div>
-            </div>
-            <event-item
-              :event="event"/>
-          </b-card>
-        </b-card>
+        <live-events :events="events" header="Live events"/>
       </div>
     </div>
   </main-layout>
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 import Betslip from '@/components/betslip/Betslip.vue'
-import EventItem from './EventItem.vue'
+import LiveEvents from './LiveEvents'
 
 export default {
   components: {
-    EventItem,
+    LiveEvents,
     Betslip
-  },
-  sockets: {
-    oddChange (data) {
-      this.loadEvents()
-    },
-    updateMarket (data) {
-      this.loadEvents()
-    },
-    updateEvent (data) {
-      this.loadEvents()
-    }
   },
   data () {
     return {
-      messages: [],
       events: []
     }
   },
@@ -62,8 +30,11 @@ export default {
     this.loadEvents()
   },
   methods: {
+    ...mapActions('events', [
+      'loadList'
+    ]),
     loadEvents: function () {
-      this.$store.dispatch('loadEvents').then(({ data: { events } }) => {
+      this.loadList({ limit: 10 }).then(({ data: { events } }) => {
         this.events = events
       })
     }

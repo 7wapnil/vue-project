@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import OddButton from '@/components/custom/OddButton.vue'
+import OddButton from '@/components/markets/OddButton.vue'
 import { CANCELLED_STATUS } from '@/models/market'
 
 export default {

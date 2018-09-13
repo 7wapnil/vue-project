@@ -110,7 +110,7 @@ export default {
   created () {
     this
       .$store
-      .dispatch('loadEvents', { priority: 1 })
+      .dispatch('events/loadList', { priority: 1 })
       .then(({ data: { events } }) => {
         this.events = events
       })
