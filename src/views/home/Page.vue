@@ -5,7 +5,9 @@
         <betslip class="mt-4"/>
       </div>
       <div class="col-xs-12 col order-md-2">
-        <live-events :events="events" header="Live events"/>
+        <live-events
+          :events="events"
+          header="Live events"/>
       </div>
     </div>
   </main-layout>

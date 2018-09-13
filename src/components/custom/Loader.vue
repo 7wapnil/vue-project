@@ -1,18 +1,20 @@
 <template>
-  <div class="w-100 d-flex justify-content-center align-items-center" :style="{ height }">
+  <div
+    :style="{ height }"
+    class="w-100 d-flex justify-content-center align-items-center">
     <div class="lds-dual-ring"/>
   </div>
 </template>
 
 <script>
-  export default {
-    props: {
-      height: {
-        type: String,
-        default: '100px'
-      }
+export default {
+  props: {
+    height: {
+      type: String,
+      default: '100px'
     }
   }
+}
 </script>
 
 <style scoped lang="scss">

@@ -1,11 +1,11 @@
 <template>
   <b-card
-      :header="header"
-      class="mt-4">
+    :header="header"
+    class="mt-4">
     <b-card
-        v-for="event in events"
-        :key="event.id"
-        class="mt-2">
+      v-for="event in events"
+      :key="event.id"
+      class="mt-2">
       <div class="row">
         <div class="col">
           <h5 class="card-title">
@@ -17,7 +17,9 @@
       </div>
 
       <live-event :event="event">
-        <markets-list :event="event" :query-opts="{ limit: 1 }"/>
+        <markets-list
+          :event="event"
+          :query-opts="{ limit: 1 }"/>
       </live-event>
 
     </b-card>
@@ -25,23 +27,23 @@
 </template>
 
 <script>
-  import LiveEvent from '@/components/events/LiveEvent'
-  import MarketsList from '@/components/markets/MarketsList'
+import LiveEvent from '@/components/events/LiveEvent'
+import MarketsList from '@/components/markets/MarketsList'
 
-  export default {
-    components: {
-      LiveEvent,
-      MarketsList
+export default {
+  components: {
+    LiveEvent,
+    MarketsList
+  },
+  props: {
+    events: {
+      type: Array,
+      required: true
     },
-    props: {
-      events: {
-        type: Array,
-        required: true
-      },
-      header: {
-        type: String,
-        default: 'Events'
-      }
+    header: {
+      type: String,
+      default: 'Events'
     }
   }
+}
 </script>

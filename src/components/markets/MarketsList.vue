@@ -3,8 +3,8 @@
     <div class="col">
       <loader v-if="loading"/>
       <market-item
-        v-if="!loading"
         v-for="market in markets"
+        v-if="!loading"
         :key="market.id"
         :market="market"/>
     </div>
