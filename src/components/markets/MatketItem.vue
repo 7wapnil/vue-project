@@ -27,8 +27,10 @@ export default {
     OddButton
   },
   props: {
-    market: Object,
-    required: true
+    market: {
+      type: Object,
+      required: true
+    }
   }
 }
 </script>

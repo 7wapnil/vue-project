@@ -18,7 +18,6 @@
 <script>
 import MarketsList from '@/components/markets/MarketsList'
 import { mapActions } from 'vuex'
-import { CANCELLED_STATUS } from '@/models/market'
 
 export default {
   components: {
@@ -32,16 +31,7 @@ export default {
   computed: {
     eventId () {
       return this.$route.params.id
-    },
-    // markets () {
-    //   if (!this.event) {
-    //     return [];
-    //   }
-    //
-    //   return this.event.markets.filter((market) => {
-    //     return market.status !== CANCELLED_STATUS
-    //   })
-    // }
+    }
   },
   created () {
     this

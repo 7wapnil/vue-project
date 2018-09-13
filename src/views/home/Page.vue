@@ -36,7 +36,8 @@ export default {
       'loadList'
     ]),
     loadEvents: function () {
-      this.loadList({ limit: 10 }).then(({ data: { events } }) => {
+      const opts = { limit: 10 }
+      this.loadList(opts).then(({ data: { events } }) => {
         this.events = events
       })
     }

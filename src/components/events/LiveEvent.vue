@@ -24,8 +24,10 @@ import moment from 'moment'
 
 export default {
   props: {
-    event: Object,
-    required: true
+    event: {
+      type: Object,
+      required: true
+    }
   },
   computed: {
     fromNow () {
