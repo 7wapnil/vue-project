@@ -77,7 +77,7 @@
 <script>
 import BetslipItem from './BetslipItem.vue'
 import { mapGetters } from 'vuex'
-import wallets from '@/mixins/wallets';
+import wallets from '@/mixins/wallets'
 import BetslipSerializer from '@/services/serializers/betslip'
 import Bet from '@/models/bet'
 import EventsLookup from '@/services/helpers/events-lookup'
@@ -110,7 +110,7 @@ export default {
   created () {
     this
       .$store
-      .dispatch('events/loadList', { priority: 1 })
+      .dispatch('events/loadList', { variables: { priority: 1 } })
       .then(({ data: { events } }) => {
         this.events = events
       })

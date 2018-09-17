@@ -24,3 +24,11 @@ export const LOAD_MARKETS_QUERY = gql`
     }
   }
 `
+
+export const LOAD_MARKET_BY_ID = gql`
+  query market ($id: ID!) {
+    market (id: $id) {
+      ${MARKET_FIELDS}
+    }
+  }
+`

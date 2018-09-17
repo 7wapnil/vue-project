@@ -20,7 +20,7 @@ export const mutations = {
   },
   setBetStake (state, { oddId, stakeValue }) {
     let bet = state.bets.find(bet => bet.odd.id === oddId)
-    if (!bet) { return; }
+    if (!bet) { return }
     bet.stake = stakeValue
   },
   removeBetFromBetslip (state, odd) {

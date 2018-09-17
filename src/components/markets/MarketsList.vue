@@ -14,7 +14,7 @@
 
 <script>
 import MarketItem from './MatketItem'
-import { mapActions } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import { CANCELLED_STATUS } from '@/models/market'
 
 export default {
@@ -33,15 +33,33 @@ export default {
   },
   data () {
     return {
-      loading: true,
-      markets: []
+      loading: true
+    }
+  },
+  sockets: {
+    marketAdded ({ eventId, id }) {
+      if (eventId !== this.event.id) { return }
+      this.addMarket({ variables: this.queryOptions, id })
+    },
+    marketUpdated ({ eventId, id, changes }) {
+      if (eventId !== this.event.id) { return }
+      this.updateMarket({ variables: this.queryOptions, id, changes })
     }
   },
   computed: {
+    ...mapGetters('markets', [
+      'markets'
+    ]),
     filteredMarkets () {
       return this.markets.filter((market) => {
         return market.status !== CANCELLED_STATUS
       })
+    },
+    queryOptions () {
+      return {
+        ...this.queryOpts,
+        eventId: this.event.id
+      }
     }
   },
   created () {
@@ -49,19 +67,15 @@ export default {
   },
   methods: {
     ...mapActions('markets', [
-      'loadList'
+      'loadList',
+      'addMarket',
+      'updateMarket'
     ]),
     loadMarkets () {
       this.loading = true
 
       this
-        .loadList({
-          eventId: this.event.id,
-          ...this.queryOpts
-        })
-        .then(({ data: { markets } }) => {
-          this.markets = markets
-        })
+        .loadList({ variables: this.queryOptions })
         .finally(() => { this.loading = false })
     }
   }

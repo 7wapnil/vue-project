@@ -42,7 +42,7 @@ const cache = new InMemoryCache({
 /**
  * @todo Add error handler to logout user when unauthorized error received
  */
-export default new ApolloClient({
+const client = new ApolloClient({
   link: from([
     authLink,
     httpLink
@@ -50,3 +50,11 @@ export default new ApolloClient({
   cache,
   connectToDevTools: true
 })
+
+export const updateCache = (query, callback) => {
+  const data = client.readQuery(query)
+  callback(data)
+  client.writeQuery({ ...query, data })
+}
+
+export default client
