@@ -16,33 +16,47 @@
         </div>
       </div>
 
-      <live-event :event="event">
-        <markets-list
-          :event="event"
-          :query-opts="{ limit: 1 }"/>
-      </live-event>
+      <slot :event="event"/>
 
     </b-card>
   </b-card>
 </template>
 
 <script>
-import LiveEvent from '@/components/events/LiveEvent'
-import MarketsList from '@/components/markets/MarketsList'
+import { mapActions } from 'vuex'
 
 export default {
-  components: {
-    LiveEvent,
-    MarketsList
-  },
   props: {
-    events: {
-      type: Array,
-      required: true
-    },
     header: {
       type: String,
       default: 'Events'
+    },
+    queryOptions: {
+      type: Object,
+      default () { return {} }
+    }
+  },
+  data () {
+    return {
+      loading: true,
+      events: []
+    }
+  },
+  created () {
+    this.loadEvents()
+  },
+  methods: {
+    ...mapActions('events', [
+      'loadList'
+    ]),
+    loadEvents: function () {
+      this.loading = true
+
+      this.loadList(this.queryOptions)
+        .then(({ data: { events } }) => {
+          this.events = events
+        })
+        .finally(() => { this.loading = false })
     }
   }
 }

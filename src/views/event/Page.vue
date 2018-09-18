@@ -35,7 +35,7 @@ export default {
   },
   created () {
     this
-      .loadOne({ id: this.eventId })
+      .loadOne({ variables: { id: this.eventId } })
       .then(({ data: { event } }) => {
         this.event = event
       })

@@ -1,46 +1,34 @@
 <template>
   <main-layout>
-    <div class="row">
-      <div class="col-xs-12 col-md-4 order-md-12">
-        <betslip class="mt-4"/>
-      </div>
-      <div class="col-xs-12 col order-md-2">
-        <live-events
-          :events="events"
-          header="Live events"/>
-      </div>
-    </div>
+    <events-list
+      :query-options="{ limit: 10 }"
+      header="Live events">
+
+      <simple-event
+        slot-scope="{ event }"
+        :event="event">
+
+        <markets-list
+          :event="event"
+          :query-opts="{ limit: 1 }"/>
+
+      </simple-event>
+
+    </events-list>
+
   </main-layout>
 </template>
 
 <script>
-import { mapActions } from 'vuex'
-import Betslip from '@/components/betslip/Betslip.vue'
-import LiveEvents from './LiveEvents'
+import EventsList from '@/components/events/EventsList'
+import SimpleEvent from '@/components/events/SimpleEvent'
+import MarketsList from '@/components/markets/MarketsList'
 
 export default {
   components: {
-    LiveEvents,
-    Betslip
-  },
-  data () {
-    return {
-      events: []
-    }
-  },
-  created () {
-    this.loadEvents()
-  },
-  methods: {
-    ...mapActions('events', [
-      'loadList'
-    ]),
-    loadEvents: function () {
-      const opts = { limit: 10 }
-      this.loadList(opts).then(({ data: { events } }) => {
-        this.events = events
-      })
-    }
+    SimpleEvent,
+    EventsList,
+    MarketsList
   }
 }
 </script>

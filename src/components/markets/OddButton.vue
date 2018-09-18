@@ -1,6 +1,7 @@
 <template>
   <button
     :disabled="isDisabled"
+    :data-id="odd.id"
     :class="{'btn-outline-success': raised, 'btn-outline-danger': !raised}"
     class="btn btn-block btn-outline-primary mb-2"
     @click="obbButtonClick">

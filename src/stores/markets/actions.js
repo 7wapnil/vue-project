@@ -41,12 +41,30 @@ export default {
       }
     })
   },
-  updateMarket ({ commit, dispatch }, { variables, id, changes }) {
+  updateMarket ({ commit }, { variables, id, changes }) {
     updateCache({
       query: LOAD_MARKETS_QUERY,
       variables
     }, (cache) => {
-      Object.assign(cache.markets.find(market => market.id === id), changes)
+      const market = cache.markets.find(market => market.id === id)
+      if (market) {
+        Object.assign(market, changes)
+        commit('setMarkets', cache.markets)
+      }
+    })
+  },
+  updateOdd ({ commit }, { variables, id, marketId, changes }) {
+    updateCache({
+      query: LOAD_MARKETS_QUERY,
+      variables
+    }, (cache) => {
+      const market = cache.markets.find(market => market.id === marketId)
+      if (!market) { return }
+
+      const odd = market.odds.find(odd => odd.id === id)
+      if (!odd) { return }
+
+      Object.assign(odd, changes)
       commit('setMarkets', cache.markets)
     })
   }

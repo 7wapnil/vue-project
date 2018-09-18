@@ -44,6 +44,16 @@ export default {
     marketUpdated ({ eventId, id, changes }) {
       if (eventId !== this.event.id) { return }
       this.updateMarket({ variables: this.queryOptions, id, changes })
+    },
+    oddUpdated ({ id, marketId, eventId, changes }) {
+      if (eventId !== this.event.id) { return }
+      this.updateOdd({
+        variables: this.queryOptions,
+        id,
+        marketId,
+        eventId,
+        changes
+      })
     }
   },
   computed: {
@@ -69,7 +79,8 @@ export default {
     ...mapActions('markets', [
       'loadList',
       'addMarket',
-      'updateMarket'
+      'updateMarket',
+      'updateOdd'
     ]),
     loadMarkets () {
       this.loading = true
