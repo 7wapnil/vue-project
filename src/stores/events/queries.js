@@ -1,4 +1,5 @@
 import gql from 'graphql-tag'
+import { MARKET_FIELDS } from '@/stores/markets/queries'
 
 export const EVENT_FIELDS = `
   id
@@ -21,6 +22,17 @@ export const LOAD_EVENT_BY_ID_QUERY = gql`
   query event($id: ID!) {
     event (id: $id) {
       ${EVENT_FIELDS}
+    }
+  }
+`
+
+export const LOAD_EVENTS_WITH_MARKETS_QUERY = gql`
+  query eventListWithMarkets ($limit: Int, $priority: Int) {
+    events (limit: $limit) {
+      ${EVENT_FIELDS}
+      markets (priority: $priority) {
+        ${MARKET_FIELDS}
+      }
     }
   }
 `

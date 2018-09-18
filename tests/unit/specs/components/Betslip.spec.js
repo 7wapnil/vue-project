@@ -42,7 +42,7 @@ describe('Betslip component', () => {
         events: {
           namespaced: true,
           actions: {
-            loadList: loadEventsStub
+            loadListWithMarkets: loadEventsStub
           }
         }
       },
