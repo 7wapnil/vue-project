@@ -52,7 +52,13 @@ const client = new ApolloClient({
 })
 
 export const updateCache = (query, callback) => {
-  const data = client.readQuery(query)
+  let data
+  try {
+    data = client.readQuery(query)
+  } catch (err) {
+    console.log('Query not found in cache', query)
+    return
+  }
   callback(data)
   client.writeQuery({ ...query, data })
 }

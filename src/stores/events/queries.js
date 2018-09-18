@@ -28,7 +28,7 @@ export const LOAD_EVENT_BY_ID_QUERY = gql`
 
 export const LOAD_EVENTS_WITH_MARKETS_QUERY = gql`
   query eventListWithMarkets ($limit: Int, $priority: Int) {
-    events (limit: $limit) {
+    events (limit: $limit) @connection(key: "eventsWithMarkets") {
       ${EVENT_FIELDS}
       markets (priority: $priority) {
         ${MARKET_FIELDS}

@@ -1,7 +1,7 @@
 <template>
   <main-layout>
     <events-list
-      :query-options="{ limit: 10 }"
+      :query-options="{ limit: 2 }"
       header="Live events">
 
       <simple-event

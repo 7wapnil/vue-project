@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 
 export default {
   props: {
@@ -36,26 +36,45 @@ export default {
       default () { return {} }
     }
   },
+  sockets: {
+    eventCreated ({ id }) {
+      this.addEvent({
+        variables: this.queryOptions,
+        id
+      })
+    },
+    eventUpdated ({ id, changes }) {
+      this.updateEvent({
+        variables: this.queryOptions,
+        id,
+        changes
+      })
+    }
+  },
   data () {
     return {
-      loading: true,
-      events: []
+      loading: true
     }
   },
   created () {
     this.loadEvents()
   },
+  computed: {
+    ...mapState('events', [
+      'events'
+    ])
+  },
   methods: {
     ...mapActions('events', [
-      'loadList'
+      'loadList',
+      'addEvent',
+      'updateEvent'
     ]),
     loadEvents: function () {
       this.loading = true
 
-      this.loadList(this.queryOptions)
-        .then(({ data: { events } }) => {
-          this.events = events
-        })
+      this
+        .loadList({ variables: this.queryOptions })
         .finally(() => { this.loading = false })
     }
   }
