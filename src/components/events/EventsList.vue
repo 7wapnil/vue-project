@@ -56,13 +56,13 @@ export default {
       loading: true
     }
   },
-  created () {
-    this.loadEvents()
-  },
   computed: {
     ...mapState('events', [
       'events'
     ])
+  },
+  created () {
+    this.loadEvents()
   },
   methods: {
     ...mapActions('events', [

@@ -2,7 +2,7 @@
  * Events store module
  */
 
-import graphqlClient, {updateCache} from '@/libs/apollo'
+import graphqlClient, { updateCache } from '@/libs/apollo'
 import { LOAD_EVENT_BY_ID_QUERY, LOAD_EVENTS_QUERY, LOAD_EVENTS_WITH_MARKETS_QUERY } from './queries'
 
 export default {
