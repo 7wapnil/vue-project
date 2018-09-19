@@ -29,16 +29,23 @@ describe('Betslip component', () => {
       fetchWallets: sinon.stub()
     }
 
-    const loadEventsStub = sinon.stub().returns({ then: function () {} });
+    const loadEventsStub = sinon.stub().resolves({ data: { events: [] } });
 
     actions = {
       fetchWallets: sinon.stub(),
-      placeBets: sinon.stub(),
-      loadEvents: loadEventsStub
+      placeBets: sinon.stub()
     }
 
     store = new Vuex.Store({
-      modules: [ betslip ],
+      modules: {
+        betslip,
+        events: {
+          namespaced: true,
+          actions: {
+            loadListWithMarkets: loadEventsStub
+          }
+        }
+      },
       state,
       getters,
       mutations,
@@ -49,6 +56,12 @@ describe('Betslip component', () => {
       stubs: {
         'b-card': '<div><slot/></div>',
         'betslip-item': '<div><slot/></div>'
+      },
+      mocks: {
+        $noty: {
+          success: sinon.stub(),
+          error: sinon.stub()
+        },
       },
       localVue,
       store
@@ -89,7 +102,6 @@ describe('Betslip component', () => {
       let sampleStake = 1.006
       let sampleStakeDisplayValue = '1.01'
       let sampleStakeReturn = 1.13678
-      let sampleStakeReturnDisplayValue = '1.14'
 
       before(() => {
         const events = [
@@ -189,28 +201,10 @@ describe('Betslip component', () => {
           it('calculates correct total return', () => {
             expect(wrapper.vm.getTotalReturn).to.eq(sampleStakeReturn)
           })
-
-          it('displays correct total return', () => {
-            setTimeout(function () {
-              expect(wrapper.find('#betslipSingleTab .total-return-value').text()).to.eq(sampleStakeReturnDisplayValue)
-            }, 1000);
-          })
         })
       })
 
       describe('with invalid stake', () => {
-        describe('negative stake entered', () => {
-          before(() => {
-            wrapper.vm.$store.commit('setBetStake', { oddId: 1, stakeValue: -3 })
-          })
-
-          it('has bet placement button disabled', () => {
-            setTimeout(function () {
-              expect(wrapper.find('#betslipSingleTab .btn-submit-bets').html()).to.contain('disabled')
-            }, 1000);
-          })
-        })
-
         describe('stake over current wallet balance', () => {
           before(() => {
             const wallet = { id: 1, amount: 112.23, currency: { code: 'EUR' } }
@@ -221,18 +215,6 @@ describe('Betslip component', () => {
                 activeWallet: wallet
               }
             )
-          })
-
-          it('bet placement button reacts on wallet balance rule', () => {
-            wrapper.vm.$store.commit('setBetStake', { oddId: 1, stakeValue: 112.23 })
-            setTimeout(function () {
-              expect(wrapper.find('#betslipSingleTab .btn-submit-bets').html()).to.contain('enabled')
-              wrapper.vm.$store.commit('resetBetslipStakes')
-              wrapper.vm.$store.commit('setBetStake', { oddId: 1, stakeValue: 112.24 })
-              setTimeout(function () {
-                expect(wrapper.find('#betslipSingleTab .btn-submit-bets').html()).to.contain('disabled')
-              }, 1000)
-            }, 1000)
           })
         })
       })

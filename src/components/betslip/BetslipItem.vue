@@ -67,7 +67,7 @@
 </template>
 
 <script>
-import OddButton from '@/components/custom/OddButton.vue'
+import OddButton from '@/components/markets/OddButton.vue'
 import Bet from '@/models/bet'
 import { mapGetters, mapMutations } from 'vuex'
 

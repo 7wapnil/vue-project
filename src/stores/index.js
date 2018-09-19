@@ -3,7 +3,8 @@ import Vuex from 'vuex'
 import user from './user'
 import betslip from './betslip'
 import wallets from './wallets'
-import events from './events'
+import events from './events/'
+import markets from './markets/'
 
 Vue.use(Vuex)
 
@@ -12,6 +13,7 @@ export default new Vuex.Store({
     user,
     betslip,
     wallets,
-    events
+    events,
+    markets
   }
 })
