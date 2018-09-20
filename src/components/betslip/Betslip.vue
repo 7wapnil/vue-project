@@ -82,6 +82,8 @@ import BetslipSerializer from '@/services/serializers/betslip'
 import Bet from '@/models/bet'
 import EventsLookup from '@/services/helpers/events-lookup'
 
+import { EVENTS_LIST_QUERY } from '@/graphql'
+
 const BET_DESTROY_TIMEOUT = 5000;
 
 export default {
@@ -89,10 +91,19 @@ export default {
     BetslipItem
   },
   mixins: [ wallets ],
+  apollo: {
+    events () {
+      return {
+        query: EVENTS_LIST_QUERY,
+        variables: {
+          withMarkets: true
+        }
+      }
+    }
+  },
   data () {
     return {
-      messages: [],
-      events: []
+      messages: []
     }
   },
   computed: {
@@ -106,14 +117,6 @@ export default {
       'getTotalStakes',
       'getActiveWallet'
     ])
-  },
-  created () {
-    this
-      .$store
-      .dispatch('events/loadListWithMarkets', { variables: { priority: 1 } })
-      .then(({ data: { events } }) => {
-        this.events = events
-      })
   },
   methods: {
     getEventByOddId: function (oddId) {

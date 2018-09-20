@@ -1,7 +1,6 @@
 <template>
   <b-card
-    :header="header"
-    class="mt-4">
+    :header="header">
     <b-card
       v-for="event in events"
       :key="event.id"
@@ -16,7 +15,7 @@
         </div>
       </div>
 
-      <slot :event="event"/>
+      <!--<slot :event="event"/>-->
 
     </b-card>
   </b-card>

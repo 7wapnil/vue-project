@@ -1,7 +1,6 @@
 import Router from 'vue-router'
 import SignUp from '@/views/auth/SignUp.vue'
 import SignIn from '@/views/auth/SignIn.vue'
-import Home from '@/views/home/Page.vue'
 import Esports from '@/views/esports/Page.vue'
 import Event from '@/views/event/Page.vue'
 import Account from '@/views/account/Page.vue'
@@ -13,12 +12,17 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      component: Home,
+      component: Esports,
     },
     {
       path: '/esports',
       name: 'esports',
       component: Esports,
+      children: [{
+        path: ':title',
+        name: 'esports-title',
+        component: Esports,
+      }]
     },
     {
       path: '/live',
