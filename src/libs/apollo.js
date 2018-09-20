@@ -51,16 +51,4 @@ const client = new ApolloClient({
   connectToDevTools: true
 })
 
-export const updateCache = (query, callback) => {
-  let data
-  try {
-    data = client.readQuery(query)
-  } catch (err) {
-    console.log('Query not found in cache', query)
-    return
-  }
-  callback(data)
-  client.writeQuery({ ...query, data })
-}
-
 export default client

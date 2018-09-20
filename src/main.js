@@ -12,7 +12,10 @@ import Store from '@/stores/index'
 import globalMixin from '@/mixins/global'
 import '@/components/global-components'
 import WebSocket from 'vue-socket.io'
-import VueApollo from 'vue-apollo';
+import VueApollo from 'vue-apollo'
+import VueLogger from 'vuejs-logger'
+
+const isProduction = process.env.NODE_ENV === 'production'
 
 Vue.config.productionTip = false
 
@@ -24,11 +27,18 @@ Vue.use(VueNoty, {
 })
 
 Vue.use(WebSocket, process.env.VUE_APP_WEB_SOCKET_URL)
-
 Vue.use(VueApollo)
+Vue.use(VueLogger, {
+  logLevel: isProduction ? 'error' : 'debug'
+})
 
 const ApolloProvider = new VueApollo({
-  defaultClient: apolloClient
+  defaultClient: apolloClient,
+  defaultOptions: {
+    $query: {
+      loadingKey: 'loading'
+    }
+  }
 })
 
 new Vue({

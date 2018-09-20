@@ -8,14 +8,19 @@
           :key="market.id"
           :market="market"/>
       </div>
+      <div
+        v-if="!loading && !filteredMarkets.length"
+        class="text-center">
+        <small>No markets for this event</small>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import MarketItem from './MatketItem'
-import { mapGetters, mapActions } from 'vuex'
 import { CANCELLED_STATUS } from '@/models/market'
+import { MARKETS_LIST_QUERY, MARKET_BY_ID_QUERY } from '@/graphql'
 
 export default {
   components: {
@@ -26,68 +31,102 @@ export default {
       type: Object,
       required: true
     },
-    queryOpts: {
+    queryOptions: {
       type: Object,
       default () { return {} }
     }
   },
   data () {
     return {
-      loading: true
+      loading: 0,
+      markets: []
     }
   },
   sockets: {
     marketAdded ({ eventId, id }) {
       if (eventId !== this.event.id) { return }
-      this.addMarket({ variables: this.queryOptions, id })
+      this.$log.debug('Market created socket event', id)
+      this.addMarket(id)
     },
     marketUpdated ({ eventId, id, changes }) {
       if (eventId !== this.event.id) { return }
-      this.updateMarket({ variables: this.queryOptions, id, changes })
+      this.$log.debug('Market updated socket event', id, changes)
+      this.updateMarket(id, changes)
     },
     oddUpdated ({ id, marketId, eventId, changes }) {
       if (eventId !== this.event.id) { return }
-      this.updateOdd({
-        variables: this.queryOptions,
-        id,
-        marketId,
-        eventId,
-        changes
-      })
+      this.$log.debug('Odd updated socket event', id, changes)
+      this.updateOdd(id, marketId, changes)
     }
   },
   computed: {
-    ...mapGetters('markets', [
-      'markets'
-    ]),
+    query () {
+      return {
+        query: MARKETS_LIST_QUERY,
+        variables: {
+          ...this.queryOptions,
+          eventId: this.event.id
+        }
+      }
+    },
     filteredMarkets () {
+      if (!this.markets) {
+        return []
+      }
+
       return this.markets.filter((market) => {
         return market.status !== CANCELLED_STATUS
       })
-    },
+    }
+  },
+  watch: {
     queryOptions () {
-      return {
-        ...this.queryOpts,
-        eventId: this.event.id
-      }
+      this.loadMarkets()
     }
   },
   created () {
     this.loadMarkets()
   },
   methods: {
-    ...mapActions('markets', [
-      'loadList',
-      'addMarket',
-      'updateMarket',
-      'updateOdd'
-    ]),
     loadMarkets () {
-      this.loading = true
-
+      this.$apollo.addSmartQuery('markets', this.query)
+    },
+    addMarket (id) {
       this
-        .loadList({ variables: this.queryOptions })
-        .finally(() => { this.loading = false })
+        .$apollo
+        .getClient()
+        .query({
+          query: MARKET_BY_ID_QUERY,
+          variables: { id },
+          fetchPolicy: 'network-only'
+        })
+        .then(({ data: { market } }) => {
+          this.updateApolloCache(this.query, (cache) => {
+            cache.markets.push({ ...market, __typename: 'Market' })
+          })
+        })
+        .catch((err) => {
+          console.log('ERROR', err)
+        })
+    },
+    updateMarket (id, changes) {
+      this.updateApolloCache(this.query, (cache) => {
+        const market = cache.markets.find(market => market.id === id)
+        if (market) {
+          Object.assign(market, changes)
+        }
+      })
+    },
+    updateOdd (id, marketId, changes) {
+      this.updateApolloCache(this.query, (cache) => {
+        const market = cache.markets.find(market => market.id === marketId)
+        if (!market) { return }
+
+        const odd = market.odds.find(odd => odd.id === id)
+        if (!odd) { return }
+
+        Object.assign(odd, changes)
+      })
     }
   }
 }
