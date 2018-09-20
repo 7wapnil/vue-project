@@ -8,3 +8,12 @@ export const TITLES_QUERY = gql`
     }
   }
 `
+
+export const TITLE_BY_ID_QUERY = gql`
+  query title($id: ID!) {
+    titles (id: $id) {
+      id
+      name
+    }
+  }
+`

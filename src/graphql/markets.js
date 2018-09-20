@@ -26,8 +26,8 @@ export const MARKETS_LIST_QUERY = gql`
 `
 
 export const MARKET_BY_ID_QUERY = gql`
-  query market ($id: ID!) {
-    market (id: $id) {
+  query market ($eventId: ID!, $id: ID!) {
+    markets (eventId: $eventId, id: $id) {
       ${MARKET_FIELDS}
     }
   }

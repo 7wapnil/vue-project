@@ -96,19 +96,19 @@ export default {
   data () {
     return {
       mainMenu: [{
-        path: 'esports',
+        path: '/esports',
         label: 'Esports'
       }, {
-        path: 'live',
+        path: '/live',
         label: 'Live'
       }, {
-        path: 'outright',
+        path: '/outright',
         label: 'Outrights'
       }, {
-        path: 'sports',
+        path: '/sports',
         label: 'Sports'
       }, {
-        path: 'live-casino',
+        path: '/live-casino',
         label: 'Live casino'
       }]
     }

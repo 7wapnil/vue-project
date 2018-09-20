@@ -4,6 +4,7 @@ import SignIn from '@/views/auth/SignIn.vue'
 import Esports from '@/views/esports/Page.vue'
 import Event from '@/views/event/Page.vue'
 import Account from '@/views/account/Page.vue'
+import NotImplemented from '@/views/common/NotImplemented'
 
 export default new Router({
   mode: 'history',
@@ -27,22 +28,22 @@ export default new Router({
     {
       path: '/live',
       name: 'live',
-      component: Esports,
+      component: NotImplemented,
     },
     {
       path: '/outright',
       name: 'outright',
-      component: Esports,
+      component: NotImplemented,
     },
     {
       path: '/sports',
       name: 'sports',
-      component: Esports,
+      component: NotImplemented,
     },
     {
       path: '/live-casino',
       name: 'live-casino',
-      component: Esports,
+      component: NotImplemented,
     },
     {
       path: '/sign-in',

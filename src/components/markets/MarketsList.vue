@@ -43,10 +43,10 @@ export default {
     }
   },
   sockets: {
-    marketAdded ({ eventId, id }) {
+    marketCreated ({ eventId, id }) {
       if (eventId !== this.event.id) { return }
-      this.$log.debug('Market created socket event', id)
-      this.addMarket(id)
+      this.$log.debug('Market created socket event', id, eventId)
+      this.addMarket(id, eventId)
     },
     marketUpdated ({ eventId, id, changes }) {
       if (eventId !== this.event.id) { return }
@@ -91,23 +91,23 @@ export default {
     loadMarkets () {
       this.$apollo.addSmartQuery('markets', this.query)
     },
-    addMarket (id) {
+    addMarket (id, eventId) {
       this
         .$apollo
         .getClient()
         .query({
           query: MARKET_BY_ID_QUERY,
-          variables: { id },
+          variables: { id, eventId },
           fetchPolicy: 'network-only'
         })
-        .then(({ data: { market } }) => {
-          this.updateApolloCache(this.query, (cache) => {
-            cache.markets.push({ ...market, __typename: 'Market' })
-          })
+        .then(({ data: { markets } }) => {
+          if (markets.length === 1) {
+            this.updateApolloCache(this.query, (cache) => {
+              cache.markets.push({ ...markets[0], __typename: 'Market' })
+            })
+          }
         })
-        .catch((err) => {
-          console.log('ERROR', err)
-        })
+        .catch(this.$log.error)
     },
     updateMarket (id, changes) {
       this.updateApolloCache(this.query, (cache) => {
