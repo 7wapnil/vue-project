@@ -42,7 +42,7 @@ export default {
     return {
       items: [{
         id: 'personal-id',
-        name: 'personal_ids',
+        name: 'personal_id',
         accept: 'image/jpeg, image/png, image/gif, application/pdf',
         label: 'Passport or Identity card',
         file: null,
@@ -50,7 +50,7 @@ export default {
       },
       {
         id: 'utility-bill',
-        name: 'utility_bills',
+        name: 'utility_bill',
         accept: 'image/jpeg, image/png, image/gif, application/pdf',
         label: 'Utility Bill',
         file: null,
@@ -58,7 +58,7 @@ export default {
       },
       {
         id: 'bank-statement',
-        name: 'bank_statements',
+        name: 'bank_statement',
         accept: 'image/jpeg, image/png, image/gif, application/pdf',
         label: 'Bank statement',
         file: null,
@@ -66,7 +66,7 @@ export default {
       },
       {
         id: 'credit-card',
-        name: 'credit_cards',
+        name: 'credit_card',
         accept: 'image/jpeg, image/png, image/gif, application/pdf',
         label: 'Credit/Debit card',
         file: null,
@@ -74,7 +74,7 @@ export default {
       },
       {
         id: 'other-document',
-        name: 'other_documents',
+        name: 'other_document',
         accept: 'image/jpeg, image/png, image/gif, application/pdf',
         label: 'Other',
         file: null,
