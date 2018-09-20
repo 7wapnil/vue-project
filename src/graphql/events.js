@@ -24,8 +24,8 @@ export const EVENTS_LIST_QUERY = gql`
 `
 
 export const EVENT_BY_ID_QUERY = gql`
-  query event($id: ID!) {
-    event (id: $id) {
+  query event ($id: ID!, $withMarkets: Boolean = false) {
+    events (filter: { id: $id }) {
       ${EVENT_FIELDS}
     }
   }

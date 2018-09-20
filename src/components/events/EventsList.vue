@@ -91,10 +91,10 @@ export default {
           query: EVENT_BY_ID_QUERY,
           variables: { id }
         })
-        .then(({ data: { event } }) => {
-          if (event) {
+        .then(({ data: { events } }) => {
+          if (events.length === 1) {
             this.updateApolloCache(this.query, (cache) => {
-              cache.events.push({ ...event, __typename: 'Event' })
+              cache.events.push({ ...events[0], __typename: 'Event' })
             })
           }
         })

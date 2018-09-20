@@ -16,6 +16,7 @@
 </template>
 
 <script>
+import { EVENT_BY_ID_QUERY } from '@/graphql'
 import MarketsList from '@/components/markets/MarketsList'
 import { mapActions } from 'vuex'
 
@@ -28,17 +29,26 @@ export default {
       event: null
     }
   },
+  apollo: {
+    event () {
+      return {
+        query: EVENT_BY_ID_QUERY,
+        variables: {
+          id: this.eventId
+        },
+        update ({ events }) {
+          if (!events.length) {
+            return null
+          }
+          return events[0]
+        }
+      }
+    }
+  },
   computed: {
     eventId () {
       return this.$route.params.id
     }
-  },
-  created () {
-    this
-      .loadOne({ variables: { id: this.eventId } })
-      .then(({ data: { event } }) => {
-        this.event = event
-      })
   },
   methods: {
     ...mapActions('events', [
