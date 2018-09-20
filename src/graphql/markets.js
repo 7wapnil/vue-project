@@ -13,7 +13,7 @@ export const MARKET_FIELDS = `
   }
 `
 
-export const LOAD_MARKETS_QUERY = gql`
+export const MARKETS_LIST_QUERY = gql`
   query marketsList ($eventId: ID!, $priority: Int, $limit: Int) {
     markets (
       eventId: $eventId,
@@ -25,7 +25,7 @@ export const LOAD_MARKETS_QUERY = gql`
   }
 `
 
-export const LOAD_MARKET_BY_ID = gql`
+export const MARKET_BY_ID_QUERY = gql`
   query market ($id: ID!) {
     market (id: $id) {
       ${MARKET_FIELDS}

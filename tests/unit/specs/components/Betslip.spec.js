@@ -29,8 +29,6 @@ describe('Betslip component', () => {
       fetchWallets: sinon.stub()
     }
 
-    const loadEventsStub = sinon.stub().resolves({ data: { events: [] } });
-
     actions = {
       fetchWallets: sinon.stub(),
       placeBets: sinon.stub()
@@ -38,13 +36,7 @@ describe('Betslip component', () => {
 
     store = new Vuex.Store({
       modules: {
-        betslip,
-        events: {
-          namespaced: true,
-          actions: {
-            loadListWithMarkets: loadEventsStub
-          }
-        }
+        betslip
       },
       state,
       getters,
@@ -66,6 +58,8 @@ describe('Betslip component', () => {
       localVue,
       store
     })
+
+    wrapper.setData({ events: [] })
   })
 
   describe('Default state', () => {
@@ -108,6 +102,8 @@ describe('Betslip component', () => {
           { id: 1, markets: [{ id: 2, odds: [sampleOdd, { id: 4, value: 2.21 }] }] }
         ]
         const wallet = { id: 1, amount: sampleInitialWalletBalance, currency: { code: 'EUR' } }
+
+        wrapper.setData({ events })
 
         wrapper.vm.$store.hotUpdate({
           getters: {

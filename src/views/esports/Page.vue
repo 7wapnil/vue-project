@@ -10,7 +10,7 @@
 
         <markets-list
           :event="event"
-          :query-opts="{ limit: 1 }"/>
+          :query-options="{ limit: 1 }"/>
 
       </simple-event>
 
@@ -32,6 +32,7 @@ export default {
   },
   computed: {
     title () {
+      console.log(this.$route.params.title)
       return this.$route.params.title
     }
   }
