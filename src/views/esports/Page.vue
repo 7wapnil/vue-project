@@ -1,7 +1,7 @@
 <template>
   <main-layout>
     <events-list
-      :query-options="{ limit: 2, titleId: title }"
+      :query-options="queryOptions"
       header="Live events">
 
       <simple-event
@@ -31,9 +31,12 @@ export default {
     MarketsList
   },
   computed: {
-    title () {
-      console.log(this.$route.params.title)
-      return this.$route.params.title
+    queryOptions () {
+      const titleId = this.$route.params.title || null
+      return {
+        limit: !titleId ? 10 : null,
+        titleId
+      }
     }
   }
 }
