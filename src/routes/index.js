@@ -41,11 +41,6 @@ export default new Router({
       component: NotImplemented,
     },
     {
-      path: '/live-casino',
-      name: 'live-casino',
-      component: NotImplemented,
-    },
-    {
       path: '/sign-in',
       name: 'sign-in',
       component: SignIn,

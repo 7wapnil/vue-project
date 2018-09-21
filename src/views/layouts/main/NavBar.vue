@@ -107,9 +107,6 @@ export default {
       }, {
         path: '/sports',
         label: 'Sports'
-      }, {
-        path: '/live-casino',
-        label: 'Live casino'
       }]
     }
   },
