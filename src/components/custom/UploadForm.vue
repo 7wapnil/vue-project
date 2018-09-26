@@ -2,27 +2,74 @@
   <b-container>
     <b-row
       v-for="item in items"
-      :key="item.id">
-      <b-col>
-        <label :for="item.id">
+      :key="item.name">
+      <b-col
+        cols="8"
+        class="mb-3">
+        <label :for="item.name">
           {{ item.label }}
         </label>
-        <b-form-file
-          v-model="item.file"
-          :state="item.error.length === 0 ? null : false"
-          :id="item.id"
-          :name="item.name"
-          :accept="item.accept"
-          :placeholder="placeholder"
-          class="mb-3"
-          @input="onFileUpdate"/>
         <b-form-invalid-feedback force-show>
           {{ item.error }}
         </b-form-invalid-feedback>
       </b-col>
+      <b-col
+        cols="4"
+        class="text-right">
+        <label
+          v-if="item.status !== 'confirmed'"
+          class="btn btn-outline-secondary">
+          CHOOSE FILE
+          <b-form-file
+            v-model="item.file"
+            :state="item.error.length === 0 ? null : false"
+            :id="item.name"
+            :name="item.name"
+            :accept="item.accept"
+            hidden
+            @input="onFileUpdate(item)"/>
+        </label>
+      </b-col>
+      <b-col>
+        <b-collapse
+          id="collapse"
+          :visible="Boolean(item.file)"
+          class="mb-4">
+          <b-card :class="{'bg-danger': item.error}">
+            <b-row
+              v-if="item.file"
+              align-v="center">
+              <b-col cols="8">
+                {{ item.file.name }}
+                <p v-if="!item.id && !item.error">
+                  <b-badge variant="secondary">
+                    Waiting for upload
+                  </b-badge>
+                </p>
+                <p v-else>
+                  <b-badge
+                    v-if="!item.error"
+                    variant="primary">
+                    {{ item.status }}
+                  </b-badge>
+                </p>
+              </b-col>
+              <b-col
+                cols="4"
+                class="text-right">
+                <b-link
+                  v-if="item.status !== 'confirmed'"
+                  @click="removeItem(item)">
+                  Remove
+                </b-link>
+              </b-col>
+            </b-row>
+          </b-card>
+        </b-collapse>
+      </b-col>
     </b-row>
     <b-row>
-      <b-col class="col">
+      <b-col class="col text-right">
         <b-button
           :disabled="isSubmitDisabled"
           @click="submitFiles">
@@ -36,12 +83,13 @@
 <script>
 import axios from 'axios'
 import { mapGetters } from 'vuex'
+import { DOCUMENTS_QUERY } from '@/graphql'
 
 export default {
   data () {
     return {
       items: [{
-        id: 'personal-id',
+        id: null,
         name: 'personal_id',
         accept: 'image/jpeg, image/png, image/gif, application/pdf',
         label: 'Passport or Identity card',
@@ -49,7 +97,7 @@ export default {
         error: ''
       },
       {
-        id: 'utility-bill',
+        id: null,
         name: 'utility_bill',
         accept: 'image/jpeg, image/png, image/gif, application/pdf',
         label: 'Utility Bill',
@@ -57,7 +105,7 @@ export default {
         error: ''
       },
       {
-        id: 'bank-statement',
+        id: null,
         name: 'bank_statement',
         accept: 'image/jpeg, image/png, image/gif, application/pdf',
         label: 'Bank statement',
@@ -65,7 +113,7 @@ export default {
         error: ''
       },
       {
-        id: 'credit-card',
+        id: null,
         name: 'credit_card',
         accept: 'image/jpeg, image/png, image/gif, application/pdf',
         label: 'Credit/Debit card',
@@ -73,18 +121,18 @@ export default {
         error: ''
       },
       {
-        id: 'other-document',
+        id: null,
         name: 'other_document',
         accept: 'image/jpeg, image/png, image/gif, application/pdf',
         label: 'Other',
         file: null,
         error: ''
       }],
-      placeholder: 'Choose a file...',
       isSubmitDisabled: true,
       maxTypeSizes: {
         'image/jpeg': 2000 * 1000
-      }
+      },
+      documents: []
     }
   },
   computed: {
@@ -92,11 +140,30 @@ export default {
       'getToken'
     ])
   },
+  apollo: {
+    documents () {
+      return {
+        query: DOCUMENTS_QUERY,
+        result: this.mergeWithItems,
+        fetchPolicy: 'network-only'
+      }
+    },
+  },
   methods: {
+    mergeWithItems () {
+      this.documents.forEach((doc) => {
+        const item = this.items.find(item => item.name === doc.kind)
+        if (item) {
+          item.id = doc.id
+          item.file = { name: doc.filename }
+          item.status = doc.status
+        }
+      })
+    },
     submitFiles () {
       let formData = new FormData()
       this.items.forEach((item) => {
-        if (item.file) {
+        if (item.file && item.id === null) {
           formData.append(`attachments[${item.name}]`, item.file)
         }
       })
@@ -110,25 +177,20 @@ export default {
 
       axios.post(url, formData, { headers })
         .then(this.handleResult)
-        .catch(this.handleError)
+        .catch(() => {
+          this.$noty.error('Something went wrong')
+        })
     },
     handleResult ({ data }) {
       if (data.success) {
-        this.handleSuccess()
+        this.$noty.success('Your files has been submitted successfully')
+        this.refetch()
       } else {
-        this.handleError()
+        this.$noty.error(data.message)
       }
     },
-    handleSuccess () {
-      this.$noty.success('Your files has been submitted successfully')
-      this.items.forEach((item) => {
-        item.file = null
-      })
-    },
-    handleError () {
-      this.$noty.error('Something went wrong')
-    },
-    onFileUpdate () {
+    onFileUpdate (item) {
+      item.id = null
       const filledItems = this.items.filter(item => Boolean(item.file))
       this.isSubmitDisabled = !filledItems.length
       filledItems.forEach((item) => {
@@ -139,12 +201,22 @@ export default {
           const actual = this.formatFileSize(item.file.size)
           const maximum = this.formatFileSize(limit)
           item.error = `File is too big. Actual size is ${actual}, maximum ${maximum}`
+          this.isSubmitDisabled = true
         }
       })
     },
     formatFileSize (size) {
       const metric = Math.floor(Math.log(size) / Math.log(1024))
       return (size / Math.pow(1024, metric)).toFixed(2) * 1 + ' ' + ['B', 'kB', 'MB', 'GB', 'TB'][metric]
+    },
+    removeItem (item) {
+      item.file = null
+      item.error = ''
+      item.id = null
+      this.refetch()
+    },
+    refetch () {
+      this.$apollo.queries.documents.refetch()
     }
   }
 }
