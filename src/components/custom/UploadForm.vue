@@ -3,7 +3,9 @@
     <b-row
       v-for="item in items"
       :key="item.name">
-      <b-col cols="8" class="mb-3">
+      <b-col
+        cols="8"
+        class="mb-3">
         <label :for="item.name">
           {{ item.label }}
         </label>
@@ -11,43 +13,53 @@
           {{ item.error }}
         </b-form-invalid-feedback>
       </b-col>
-      <b-col cols="4" class="text-right">
-          <label class="btn btn-outline-secondary"
-                 v-if="item.status !== 'confirmed'">
-              CHOOSE FILE
-              <b-form-file
-                      v-model="item.file"
-                      :state="item.error.length === 0 ? null : false"
-                      :id="item.name"
-                      :name="item.name"
-                      :accept="item.accept"
-                      hidden
-                      @input="onFileUpdate(item)"/>
-          </label>
+      <b-col
+        cols="4"
+        class="text-right">
+        <label
+          v-if="item.status !== 'confirmed'"
+          class="btn btn-outline-secondary">
+          CHOOSE FILE
+          <b-form-file
+            v-model="item.file"
+            :state="item.error.length === 0 ? null : false"
+            :id="item.name"
+            :name="item.name"
+            :accept="item.accept"
+            hidden
+            @input="onFileUpdate(item)"/>
+        </label>
       </b-col>
       <b-col>
-        <b-collapse class="mb-4"
-                    id="collapse"
-                    :visible="Boolean(item.file)">
+        <b-collapse
+          id="collapse"
+          :visible="Boolean(item.file)"
+          class="mb-4">
           <b-card :class="{'bg-danger': item.error}">
-            <b-row v-if="item.file"
-                   align-v="center">
+            <b-row
+              v-if="item.file"
+              align-v="center">
               <b-col cols="8">
                 {{ item.file.name }}
-                <p class="text-muted" v-if="!item.id">
+                <p v-if="!item.id && !item.error">
                   <b-badge variant="secondary">
                     Waiting for upload
                   </b-badge>
                 </p>
                 <p v-else>
-                  <b-badge variant="primary">
+                  <b-badge
+                    v-if="!item.error"
+                    variant="primary">
                     {{ item.status }}
                   </b-badge>
                 </p>
               </b-col>
-              <b-col cols="4" class="text-right">
-                <b-link @click="removeItem(item)"
-                        v-if="item.status !== 'confirmed'">
+              <b-col
+                cols="4"
+                class="text-right">
+                <b-link
+                  v-if="item.status !== 'confirmed'"
+                  @click="removeItem(item)">
                   Remove
                 </b-link>
               </b-col>
@@ -129,7 +141,7 @@ export default {
     ])
   },
   apollo: {
-    documents() {
+    documents () {
       return {
         query: DOCUMENTS_QUERY,
         result: this.mergeWithItems,
@@ -165,21 +177,17 @@ export default {
 
       axios.post(url, formData, { headers })
         .then(this.handleResult)
-        .catch(this.handleError)
+        .catch(() => {
+          this.$noty.error('Something went wrong')
+        })
     },
     handleResult ({ data }) {
       if (data.success) {
-        this.handleSuccess()
+        this.$noty.success('Your files has been submitted successfully')
+        this.refetch()
       } else {
-        this.handleError()
+        this.$noty.error(data.message)
       }
-    },
-    handleSuccess () {
-      this.$noty.success('Your files has been submitted successfully')
-      this.$apollo.queries.documents.refetch()
-    },
-    handleError () {
-      this.$noty.error('Something went wrong')
     },
     onFileUpdate (item) {
       item.id = null
@@ -201,10 +209,14 @@ export default {
       const metric = Math.floor(Math.log(size) / Math.log(1024))
       return (size / Math.pow(1024, metric)).toFixed(2) * 1 + ' ' + ['B', 'kB', 'MB', 'GB', 'TB'][metric]
     },
-    removeItem(item){
+    removeItem (item) {
       item.file = null
       item.error = ''
       item.id = null
+      this.refetch()
+    },
+    refetch () {
+      this.$apollo.queries.documents.refetch()
     }
   }
 }
