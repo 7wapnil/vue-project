@@ -71,7 +71,7 @@
     <b-row>
       <b-col class="col text-right">
         <b-button
-          :disabled="isSubmitDisabled"
+          :disabled="!isSubmitEnabled"
           @click="submitFiles">
           Upload Files
         </b-button>
@@ -83,7 +83,7 @@
 <script>
 import axios from 'axios'
 import { mapGetters } from 'vuex'
-import { DOCUMENTS_QUERY } from '@/graphql'
+import { DOCUMENTS_QUERY, DELETE_FILE } from '@/graphql'
 
 export default {
   data () {
@@ -128,7 +128,6 @@ export default {
         file: null,
         error: ''
       }],
-      isSubmitDisabled: true,
       maxTypeSizes: {
         'image/jpeg': 2000 * 1000
       },
@@ -138,7 +137,13 @@ export default {
   computed: {
     ...mapGetters([
       'getToken'
-    ])
+    ]),
+    isSubmitEnabled() {
+      const haveFilesToUpload = this.items.find(item => item.file && !item.id)
+      const haveNoErrors = !this.items.find(item => item.error)
+
+      return haveFilesToUpload && haveNoErrors
+    }
   },
   apollo: {
     documents () {
@@ -192,7 +197,6 @@ export default {
     onFileUpdate (item) {
       item.id = null
       const filledItems = this.items.filter(item => Boolean(item.file))
-      this.isSubmitDisabled = !filledItems.length
       filledItems.forEach((item) => {
         item.error = ''
         const limit = this.maxTypeSizes[item.file.type]
@@ -201,7 +205,6 @@ export default {
           const actual = this.formatFileSize(item.file.size)
           const maximum = this.formatFileSize(limit)
           item.error = `File is too big. Actual size is ${actual}, maximum ${maximum}`
-          this.isSubmitDisabled = true
         }
       })
     },
@@ -209,14 +212,26 @@ export default {
       const metric = Math.floor(Math.log(size) / Math.log(1024))
       return (size / Math.pow(1024, metric)).toFixed(2) * 1 + ' ' + ['B', 'kB', 'MB', 'GB', 'TB'][metric]
     },
-    removeItem (item) {
-      item.file = null
-      item.error = ''
-      item.id = null
-      this.refetch()
-    },
     refetch () {
       this.$apollo.queries.documents.refetch()
+    },
+    removeItem (item) {
+      if(item.id === null) {
+        item.file = null
+        item.error = ''
+        return
+      }
+      item.file = null
+      this.$apollo.mutate({
+        mutation: DELETE_FILE,
+        variables: {
+            id: item.id
+        }
+      }).then(() => {
+        this.refetch()
+      }).catch((error) => {
+        console.log(error)
+      })
     }
   }
 }
