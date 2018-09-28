@@ -229,9 +229,7 @@ export default {
         }
       }).then(() => {
         this.refetch()
-      }).catch((error) => {
-        console.log(error)
-      })
+      }).catch(this.$log.error)
     }
   }
 }
