@@ -10,3 +10,9 @@ export const DOCUMENTS_QUERY = gql`
     }
   }
 `
+
+export const DELETE_FILE = gql`
+  mutation ($id: ID!) {
+        deleteFile(id: $id)
+  }
+`
