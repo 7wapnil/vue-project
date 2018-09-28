@@ -138,7 +138,7 @@ export default {
     ...mapGetters([
       'getToken'
     ]),
-    isSubmitEnabled() {
+    isSubmitEnabled () {
       const haveFilesToUpload = this.items.find(item => item.file && !item.id)
       const haveNoErrors = !this.items.find(item => item.error)
 
@@ -216,7 +216,7 @@ export default {
       this.$apollo.queries.documents.refetch()
     },
     removeItem (item) {
-      if(item.id === null) {
+      if (item.id === null) {
         item.file = null
         item.error = ''
         return
@@ -225,7 +225,7 @@ export default {
       this.$apollo.mutate({
         mutation: DELETE_FILE,
         variables: {
-            id: item.id
+          id: item.id
         }
       }).then(() => {
         this.refetch()
