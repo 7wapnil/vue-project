@@ -47,7 +47,7 @@
           </a>
           <div class="dropdown-menu">
             <router-link
-              :to="'account'"
+              :to="{ name: 'account' }"
               class="dropdown-item">
               Account
             </router-link>
