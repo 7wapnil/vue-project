@@ -1,8 +1,8 @@
 <template>
   <main-layout>
     <events-list
-        class="mb-3"
       :query-options="{ inPlay: true, limit: !titleId ? 10 : null, titleId }"
+      class="mb-3"
       header="Live events">
       <simple-event
         slot-scope="{ event }"
@@ -16,15 +16,15 @@
     </events-list>
 
     <events-list
-        :query-options="{ inPlay: false, limit: !titleId ? 10 : null, titleId }"
-        header="Upcoming events">
+      :query-options="{ inPlay: false, limit: !titleId ? 10 : null, titleId }"
+      header="Upcoming events">
       <simple-event
-          slot-scope="{ event }"
-          :event="event">
+        slot-scope="{ event }"
+        :event="event">
 
         <markets-list
-            :event="event"
-            :query-options="{ limit: 1 }"/>
+          :event="event"
+          :query-options="{ limit: 1 }"/>
 
       </simple-event>
     </events-list>
