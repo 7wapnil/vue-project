@@ -19,7 +19,7 @@
 
 <script>
 import MarketItem from './MatketItem'
-import { CANCELLED_STATUS } from '@/models/market'
+import { ACTIVE_STATUS, INACTIVE_STATUS, SUSPENDED_STATUS } from '@/models/market'
 import { MARKETS_LIST_QUERY, MARKET_BY_ID_QUERY } from '@/graphql'
 
 export default {
@@ -80,8 +80,14 @@ export default {
         return []
       }
 
+      const allowedStatuses = [
+        ACTIVE_STATUS,
+        INACTIVE_STATUS,
+        SUSPENDED_STATUS
+      ]
+
       return this.markets.filter((market) => {
-        return market.status !== CANCELLED_STATUS
+        return allowedStatuses.includes(market.status)
       })
     }
   },
