@@ -17,7 +17,7 @@
         cols="4"
         class="text-right">
         <label
-          v-if="item.status !== 'confirmed'"
+          v-if="!item.file"
           class="btn btn-outline-secondary">
           CHOOSE FILE
           <b-form-file
@@ -131,7 +131,8 @@ export default {
       maxTypeSizes: {
         'image/jpeg': 2000 * 1000
       },
-      documents: []
+      documents: [],
+      fileSendActive: false,
     }
   },
   computed: {
@@ -142,7 +143,7 @@ export default {
       const haveFilesToUpload = this.items.find(item => item.file && !item.id)
       const haveNoErrors = !this.items.find(item => item.error)
 
-      return haveFilesToUpload && haveNoErrors
+      return haveFilesToUpload && haveNoErrors && !this.fileSendActive
     }
   },
   apollo: {
@@ -166,9 +167,10 @@ export default {
       })
     },
     submitFiles () {
+      this.fileSendActive = true
       let formData = new FormData()
       this.items.forEach((item) => {
-        if (item.file && item.id === null) {
+        if (item.file && !item.id) {
           formData.append(`attachments[${item.name}]`, item.file)
         }
       })
@@ -190,8 +192,12 @@ export default {
       if (data.success) {
         this.$noty.success('Your files has been submitted successfully')
         this.refetch()
+          .then(() => {
+            this.fileSendActive = false
+          })
       } else {
         this.$noty.error(data.message)
+        this.fileSendActive = false
       }
     },
     onFileUpdate (item) {
@@ -213,7 +219,7 @@ export default {
       return (size / Math.pow(1024, metric)).toFixed(2) * 1 + ' ' + ['B', 'kB', 'MB', 'GB', 'TB'][metric]
     },
     refetch () {
-      this.$apollo.queries.documents.refetch()
+      return this.$apollo.queries.documents.refetch()
     },
     removeItem (item) {
       if (item.id === null) {
