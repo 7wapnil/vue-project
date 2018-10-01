@@ -45,6 +45,12 @@ export default {
   sockets: {
     marketCreated ({ eventId, id }) {
       if (eventId !== this.event.id) { return }
+
+      if (this.queryOptions.limit && this.markets.length >= this.queryOptions.limit) {
+        this.$log.debug(`Markets list is limited to ${this.queryOptions.limit}`)
+        return
+      }
+
       this.$log.debug('Market created socket event', id, eventId)
       this.addMarket(id, eventId)
     },

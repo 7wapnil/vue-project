@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import { EVENTS_LIST_QUERY, EVENT_BY_ID_QUERY } from '@/graphql'
+import { EVENTS_LIST_QUERY } from '@/graphql'
 
 export default {
   props: {
@@ -88,10 +88,14 @@ export default {
         .$apollo
         .getClinet()
         .query({
-          query: EVENT_BY_ID_QUERY,
-          variables: { id }
+          query: EVENTS_LIST_QUERY,
+          variables: {
+            ...this.queryOptions,
+            ...{ id }
+          }
         })
         .then(({ data: { events } }) => {
+          this.$log.debug('Received event response from API', events)
           if (events.length === 1) {
             this.updateApolloCache(this.query, (cache) => {
               cache.events.push({ ...events[0], __typename: 'Event' })
