@@ -1,9 +1,9 @@
 <template>
   <main-layout>
     <events-list
-      :query-options="queryOptions"
+      :query-options="{ inPlay: true, limit: !titleId ? 10 : null, titleId }"
+      class="mb-3"
       header="Live events">
-
       <simple-event
         slot-scope="{ event }"
         :event="event">
@@ -13,7 +13,20 @@
           :query-options="{ limit: 1 }"/>
 
       </simple-event>
+    </events-list>
 
+    <events-list
+      :query-options="{ inPlay: false, limit: !titleId ? 10 : null, titleId }"
+      header="Upcoming events">
+      <simple-event
+        slot-scope="{ event }"
+        :event="event">
+
+        <markets-list
+          :event="event"
+          :query-options="{ limit: 1 }"/>
+
+      </simple-event>
     </events-list>
 
   </main-layout>
@@ -31,12 +44,8 @@ export default {
     MarketsList
   },
   computed: {
-    queryOptions () {
-      const titleId = this.$route.params.title || null
-      return {
-        limit: !titleId ? 10 : null,
-        titleId
-      }
+    titleId () {
+      return this.$route.params.title || null
     }
   }
 }
