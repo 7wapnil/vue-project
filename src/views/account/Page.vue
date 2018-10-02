@@ -17,9 +17,10 @@
         </b-card>
       </div>
       <div class="col-xs-12 col-lg-9">
-        <b-card
-          class="mt-4"
-          header="Account">
+        <b-card class="mt-4">
+          <user-verification/>
+        </b-card>
+        <b-card class="mt-4 mb-4">
           <upload-form/>
         </b-card>
       </div>
@@ -29,10 +30,12 @@
 
 <script>
 import UploadForm from '@/components/custom/UploadForm.vue'
+import UserVerification from '@/components/custom/UserVerification.vue'
 
 export default {
   components: {
-    UploadForm
+    UploadForm,
+    UserVerification
   },
   data () {
     return {}
