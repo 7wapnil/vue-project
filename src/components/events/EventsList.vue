@@ -86,7 +86,7 @@ export default {
     addEvent (id) {
       this
         .$apollo
-        .getClinet()
+        .getClient()
         .query({
           query: EVENTS_LIST_QUERY,
           variables: {
