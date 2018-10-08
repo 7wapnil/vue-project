@@ -1,6 +1,22 @@
 <template>
   <b-container>
     <b-row
+      v-if="user"
+      class="mb-4">
+      <b-col>
+        <h1>Account status</h1>
+      </b-col>
+      <b-col class="d-flex align-items-center justify-content-end">
+        <span
+          :class="[ user.verified ? 'badge-success' : '', 'badge-secondary']"
+          class="badge">
+          <h5 class="p-1 mb-0">
+            {{ user.verified ? 'Verified' : 'Not Verified' }}
+          </h5>
+        </span>
+      </b-col>
+    </b-row>
+    <b-row
       v-for="item in items"
       :key="item.name">
       <b-col
@@ -83,7 +99,7 @@
 <script>
 import axios from 'axios'
 import { mapGetters } from 'vuex'
-import { DOCUMENTS_QUERY, DELETE_FILE } from '@/graphql'
+import { DOCUMENTS_QUERY, DELETE_FILE, USER_VERIFICATION_QUERY } from '@/graphql/index'
 
 export default {
   data () {
@@ -133,6 +149,7 @@ export default {
       },
       documents: [],
       fileSendActive: false,
+      user: null,
     }
   },
   computed: {
@@ -154,6 +171,12 @@ export default {
         fetchPolicy: 'network-only'
       }
     },
+    user () {
+      return {
+        query: USER_VERIFICATION_QUERY,
+        fetchPolicy: 'network-only',
+      }
+    }
   },
   methods: {
     mergeWithItems () {
