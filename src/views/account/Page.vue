@@ -7,21 +7,24 @@
           header="Menu">
           <b-nav
             vertical
-            class="nav-pills">
-            <b-nav-item disabled>Account Info</b-nav-item>
-            <b-nav-item disabled>Activity</b-nav-item>
-            <b-nav-item disabled>Deposit Funds</b-nav-item>
-            <b-nav-item disabled>Withdraw Funds</b-nav-item>
-            <b-nav-item active>Account Verification</b-nav-item>
+            pills>
+            <li
+              v-for="item in items"
+              :key="item.name"
+              class="nav-item">
+              <router-link
+                :to="{name: item.name}"
+                exact
+                class="nav-link">
+                {{ item.label }}
+              </router-link>
+            </li>
           </b-nav>
         </b-card>
       </div>
       <div class="col-xs-12 col-lg-9">
-        <b-card class="mt-4">
-          <user-verification/>
-        </b-card>
         <b-card class="mt-4 mb-4">
-          <upload-form/>
+          <router-view/>
         </b-card>
       </div>
     </div>
@@ -29,16 +32,13 @@
 </template>
 
 <script>
-import UploadForm from '@/components/custom/UploadForm.vue'
-import UserVerification from '@/components/custom/UserVerification.vue'
+import items from '@/routes/account.js'
 
 export default {
-  components: {
-    UploadForm,
-    UserVerification
-  },
   data () {
-    return {}
+    return {
+      items
+    }
   }
 }
 </script>
