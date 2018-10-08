@@ -1,6 +1,7 @@
 import Account from '@/views/account/Account.vue'
 import UploadForm from '@/views/account/UploadForm.vue'
 import NotImplemented from '@/views/account/NotImplemented.vue'
+import ChangePassword from '@/views/account/ChangePassword.vue'
 
 export default [
   {
@@ -29,5 +30,10 @@ export default [
     label: 'Account verification',
     name: 'verification',
     component: UploadForm
+  }, {
+    path: 'password',
+    label: 'Change password',
+    name: 'password',
+    component: ChangePassword
   },
 ]
