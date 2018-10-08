@@ -8,3 +8,18 @@ export const USER_VERIFICATION_QUERY = gql`
     }
   }
 `
+
+export const USER_QUERY = gql`
+  query {
+    user {
+      id
+      date_of_birth
+      email
+      first_name
+      last_name
+      gender
+      phone
+      username
+    }
+  }
+`
