@@ -62,7 +62,7 @@
 </template>
 
 <script>
-import { CHANGE_PASSWORD } from '@/graphql'
+import { CHANGE_USER_PASSWORD } from '@/graphql'
 
 export default {
   data () {
@@ -75,7 +75,7 @@ export default {
   methods: {
     changePassword () {
       this.$apollo.mutate({
-        mutation: CHANGE_PASSWORD,
+        mutation: CHANGE_USER_PASSWORD,
         variables: {
           existing_password: this.existing_password,
           new_password: this.new_password,
@@ -83,10 +83,7 @@ export default {
         }
       }).then(() => {
         this.$noty.success('Your password successfully changed')
-      }).catch((err) => {
-        console.log('Error: ', err)
-        this.$noty.error(err.message)
-      })
+      }).catch(this.$log.error)
     }
   }
 }
