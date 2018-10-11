@@ -57,9 +57,9 @@
     <b-row>
       <b-col class="text-right mt-3">
         <b-button
-                class="mr-2"
-                variant="outline-secondary"
-                @click="form.reset()">
+          class="mr-2"
+          variant="outline-secondary"
+          @click="form.reset()">
           Reset
         </b-button>
         <b-button

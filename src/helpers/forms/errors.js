@@ -15,7 +15,7 @@ export default class Errors {
     return Object.keys(this.errors).length > 0
   }
 
-  add(field, error) {
+  add (field, error) {
     this.errors[field] = error
   }
 
