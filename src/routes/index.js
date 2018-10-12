@@ -1,6 +1,7 @@
 import Router from 'vue-router'
 import SignUp from '@/views/auth/SignUp.vue'
 import SignIn from '@/views/auth/SignIn.vue'
+import Activation from '@/views/auth/Activation'
 import Esports from '@/views/esports/Page.vue'
 import Event from '@/views/event/Page.vue'
 import AccountPage from '@/views/account/Page.vue'
@@ -50,6 +51,11 @@ export default new Router({
       path: '/sign-up',
       name: 'sign-up',
       component: SignUp
+    },
+    {
+      path: '/activation/:token',
+      name: 'activation',
+      component: Activation
     },
     {
       path: '/event/:id',

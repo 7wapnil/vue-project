@@ -23,6 +23,13 @@ export const USER_QUERY = gql`
     }
   }
 `
+
+export const ACTIVATE_ACCOUNT = gql`
+  mutation ($token: String!) {
+    activate (token: $token)
+  }
+`
+
 export const CHANGE_USER_PASSWORD = gql`
   mutation ($existing_password: String!,
             $new_password: String!,
