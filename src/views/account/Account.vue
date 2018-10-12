@@ -1,8 +1,8 @@
 <template>
   <b-container>
     <b-row>
-      <b-col class="mb-4">
-        <h1 class="text-muted">
+      <b-col>
+        <h1 class="mb-4">
           {{ user.first_name }} {{ user.last_name }}
         </h1>
       </b-col>
@@ -27,7 +27,6 @@
             <b-form-input
               id="username"
               :value="user.username"
-              size="sm"
               disabled/>
           </b-form-group>
           <b-form-group
@@ -36,14 +35,10 @@
             label-size="sm"
             label-for="gender"
             label="Gender:">
-            <b-form-select
+            <b-form-input
               id="gender"
               :value="user.gender"
-              disabled>
-              <option selected>
-                {{ user.gender }}
-              </option>
-            </b-form-select>
+              disabled/>
           </b-form-group>
           <b-form-group
             :label-cols="2"

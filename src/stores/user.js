@@ -16,6 +16,7 @@ export default {
       context.commit('clearWalletsStorage')
       arcanebetSession.dropSession()
       componentContext.$apollo.getClient().cache.reset()
+      componentContext.$router.push({ name: 'home' })
     },
     authenticate (context, sessionData) {
       const response = graphqlClient.mutate({

@@ -63,7 +63,7 @@
           v-if="!isLoggedIn"
           class="nav-item">
           <router-link
-            :to="'sign-in'"
+            :to="{ name: 'sign-in' }"
             class="nav-link">
             Sign In
           </router-link>
@@ -72,7 +72,7 @@
           v-if="!isLoggedIn"
           class="nav-item">
           <router-link
-            :to="'sign-up'"
+            :to="{ name: 'sign-up' }"
             class="nav-link">
             Sign Up
           </router-link>
