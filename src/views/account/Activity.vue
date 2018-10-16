@@ -12,7 +12,7 @@
         v-for="tab in tabs"
         :key="tab.id"
         :title="tab.title">
-        Not Implemented
+          <b-table :items="tableItems"/>
       </b-tab>
     </b-tabs>
   </b-container>
@@ -31,7 +31,43 @@ export default {
       }, {
         id: 3,
         title: 'Casino'
-      }]
+      }],
+      tableItems: [{
+        Date: '20.07.2018',
+        Details: 'Match Winner',
+        Stake: 'Stake',
+        Odds: 'Odds',
+        Status: 'Status',
+        Number: '1222321'
+      },{
+        Date: '21.07.2018',
+        Details: 'Match Winner',
+        Stake: 'Stake',
+        Odds: 'Odds',
+        Status: 'Status',
+        Number: '1222322'
+      },{
+        Date: '22.07.2018',
+        Details: 'Match Winner',
+        Stake: 'Stake',
+        Odds: 'Odds',
+        Status: 'Status',
+        Number: '1222323'
+      },{
+        Date: '23.07.2018',
+        Details: 'Match Winner',
+        Stake: 'Stake',
+        Odds: 'Odds',
+        Status: 'Status',
+        Number: '1222324'
+        },{
+        Date: '24.07.2018',
+        Details: 'Match Winner',
+        Stake: 'Stake',
+        Odds: 'Odds',
+        Status: 'Status',
+        Number: '1222325'
+        }]
     }
   }
 }
