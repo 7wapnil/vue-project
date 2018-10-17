@@ -1,21 +1,40 @@
 <template>
   <div>
     <titles-list :query-options="queryOptions">
-      <ul
-        slot-scope="{ titles }"
-        class="nav flex-column">
-        <li
-          v-for="title in titles"
-          :key="title.id"
-          class="nav-item">
-          <router-link
-            :to="{ name: 'esports-title', params: { title: title.id } }"
-            :exact="true"
-            class="nav-link">
+
+      <nav slot-scope="{ titles }">
+        <b-nav vertical>
+          <b-nav-item
+            v-b-toggle="`title-${title.id}`"
+            v-for="title in titles"
+            :key="title.id">
+
             {{ title.name }}
-          </router-link>
-        </li>
-      </ul>
+
+            <b-collapse
+              :id="`title-${title.id}`"
+              :is-nav="true"
+              accordion="titles-menu">
+              <b-nav v-if="title.tournaments.length">
+                <b-nav-item
+                  :to="{ name: 'esports-title', params: { titleId: title.id } }"
+                  exact>
+                  All tournaments
+                </b-nav-item>
+                <b-nav-item
+                  v-for="tournament in title.tournaments"
+                  :key="tournament.id"
+                  :to="{ name: 'esports-tournament', params: { titleId: title.id, tournamentId: tournament.id } }"
+                  exact>
+                  {{ tournament.name }}
+                </b-nav-item>
+              </b-nav>
+            </b-collapse>
+
+          </b-nav-item>
+        </b-nav>
+      </nav>
+
     </titles-list>
   </div>
 </template>
@@ -29,10 +48,10 @@ export default {
   },
   computed: {
     queryOptions () {
-      return { kind: 'esports' }
+      return { kind: 'esports', withTournaments: true }
     },
     titleId () {
-      return this.$route.params.title
+      return this.$route.params.title_id
     }
   }
 }

@@ -22,9 +22,14 @@ export default new Router({
       name: 'esports',
       component: Esports,
       children: [{
-        path: ':title',
+        path: 'title/:titleId',
         name: 'esports-title',
         component: Esports,
+        children: [{
+          path: 'tour/:tournamentId',
+          name: 'esports-tournament',
+          component: Esports,
+        }]
       }]
     },
     {
