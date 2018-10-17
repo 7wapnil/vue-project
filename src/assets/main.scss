@@ -1,19 +1,25 @@
+$base-font-color: #2c3e50;
+
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: $base-font-color;
 }
 #nav {
   padding: 30px;
 }
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
+.nav a.nav-link {
+  color: $base-font-color;
+  cursor: pointer;
 }
 
-#nav a.router-link-exact-active {
+.nav a.nav-link.active {
+  color: #007bff;
+}
+
+a.router-link-exact-active {
   color: #42b983;
 }

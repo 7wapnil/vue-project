@@ -16,13 +16,16 @@
               :is-nav="true"
               accordion="titles-menu">
               <b-nav v-if="title.tournaments.length">
-                <b-nav-item :to="{ name: 'esports-title', params: { title: title.id } }">
+                <b-nav-item
+                  :to="{ name: 'esports-title', params: { titleId: title.id } }"
+                  exact>
                   All tournaments
                 </b-nav-item>
                 <b-nav-item
                   v-for="tournament in title.tournaments"
                   :key="tournament.id"
-                  :to="{ name: 'esports-title', params: { title: title.id } }">
+                  :to="{ name: 'esports-tournament', params: { titleId: title.id, tournamentId: tournament.id } }"
+                  exact>
                   {{ tournament.name }}
                 </b-nav-item>
               </b-nav>
@@ -48,7 +51,7 @@ export default {
       return { kind: 'esports', withTournaments: true }
     },
     titleId () {
-      return this.$route.params.title
+      return this.$route.params.title_id
     }
   }
 }
