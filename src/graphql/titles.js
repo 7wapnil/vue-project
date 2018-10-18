@@ -30,8 +30,7 @@ export const TITLE_BY_ID_QUERY = gql`
     $withTournaments: Boolean = false
   ) {
     titles (id: $id) {
-      id
-      name
+      ${TITLE_FIELDS}
     }
   }
 `
