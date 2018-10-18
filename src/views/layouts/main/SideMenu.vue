@@ -16,7 +16,9 @@
               :is-nav="true"
               :visible="title.id === titleId"
               accordion="titles-menu">
-              <b-nav v-if="title.tournaments.length">
+              <b-nav
+                v-if="title.tournaments.length"
+                vertical>
                 <b-nav-item
                   :to="{ name: 'esports-title', params: { titleId: title.id } }"
                   exact>
