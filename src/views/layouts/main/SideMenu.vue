@@ -14,6 +14,7 @@
             <b-collapse
               :id="`title-${title.id}`"
               :is-nav="true"
+              :visible="title.id === titleId"
               accordion="titles-menu">
               <b-nav v-if="title.tournaments.length">
                 <b-nav-item
@@ -51,7 +52,7 @@ export default {
       return { kind: 'esports', withTournaments: true }
     },
     titleId () {
-      return this.$route.params.title_id
+      return this.$route.params.titleId || null
     }
   }
 }
