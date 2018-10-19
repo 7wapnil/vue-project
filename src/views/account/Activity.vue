@@ -7,67 +7,113 @@
         </h1>
       </b-col>
     </b-row>
-    <b-tabs card>
+    <b-tabs
+      card
+      @input="loadBets">
       <b-tab
         v-for="tab in tabs"
         :key="tab.id"
         :title="tab.title">
-          <b-table :items="tableItems"/>
+
+        <loader v-if="loadingBets"/>
+
+        <b-table
+          v-if="!loadingBets"
+          :items="bets"
+          :fields="fields">
+          <template
+            slot="details"
+            slot-scope="data">
+            <b-row>
+              <b-col>
+                {{ data.item.market.name | capitalize }}
+              </b-col>
+            </b-row>
+            <b-row>
+              <b-col>
+                {{ data.item.event.name }}
+              </b-col>
+            </b-row>
+          </template>
+          <template
+            slot="status"
+            slot-scope="data">
+            <b-badge variant="secondary">
+              {{ data.item.status }}
+            </b-badge>
+          </template>
+        </b-table>
       </b-tab>
     </b-tabs>
   </b-container>
 </template>
 
 <script>
+import { BETS_LIST_QUERY } from '@/graphql/index'
+
 export default {
+  filters: {
+    capitalize (value) {
+      if (!value) {
+        return ''
+      }
+      return value.toUpperCase()
+    }
+  },
   data () {
     return {
+      bets: [],
+      loadingBets: true,
+      fields: [
+        {
+          key: 'created_at',
+          label: 'Date'
+        },
+        'details',
+        { key: 'amount',
+          label: 'Stake'
+        },
+        { key: 'oddValue',
+          label: 'Odds'
+        },
+        { key: 'status',
+          label: 'Status'
+        },
+        { key: 'id',
+          label: '#'
+        }
+      ],
       tabs: [{
+        id: 0,
+        title: 'All',
+        kind: null
+      }, {
         id: 1,
         title: 'Esport',
+        kind: 'esports'
       }, {
         id: 2,
-        title: 'Sport'
+        title: 'Sport',
+        kind: 'sport'
       }, {
         id: 3,
-        title: 'Casino'
+        title: 'Casino',
+        kind: 'casino'
       }],
-      tableItems: [{
-        Date: '20.07.2018',
-        Details: 'Match Winner',
-        Stake: 'Stake',
-        Odds: 'Odds',
-        Status: 'Status',
-        Number: '1222321'
-      },{
-        Date: '21.07.2018',
-        Details: 'Match Winner',
-        Stake: 'Stake',
-        Odds: 'Odds',
-        Status: 'Status',
-        Number: '1222322'
-      },{
-        Date: '22.07.2018',
-        Details: 'Match Winner',
-        Stake: 'Stake',
-        Odds: 'Odds',
-        Status: 'Status',
-        Number: '1222323'
-      },{
-        Date: '23.07.2018',
-        Details: 'Match Winner',
-        Stake: 'Stake',
-        Odds: 'Odds',
-        Status: 'Status',
-        Number: '1222324'
-        },{
-        Date: '24.07.2018',
-        Details: 'Match Winner',
-        Stake: 'Stake',
-        Odds: 'Odds',
-        Status: 'Status',
-        Number: '1222325'
-        }]
+    }
+  },
+  methods: {
+    loadBets (index = 0) {
+      this.loadingBets = true
+
+      const kind = this.tabs[index].kind
+      this.$apollo.addSmartQuery('bets', {
+        query: BETS_LIST_QUERY,
+        variables: { kind },
+        result () {
+          this.loadingBets = false
+        }
+      })
     }
   }
 }
