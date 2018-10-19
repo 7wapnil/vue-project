@@ -2,6 +2,7 @@ import Account from '@/views/account/Account.vue'
 import UploadForm from '@/views/account/UploadForm.vue'
 import NotImplemented from '@/views/account/NotImplemented.vue'
 import ChangePassword from '@/views/account/ChangePassword.vue'
+import Activity from '@/views/account/Activity.vue'
 
 export default [
   {
@@ -14,7 +15,7 @@ export default [
     path: 'activity',
     label: 'Activity',
     name: 'activity',
-    component: NotImplemented
+    component: Activity
   }, {
     path: 'deposit',
     label: 'Deposit funds',
