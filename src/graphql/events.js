@@ -8,6 +8,17 @@ export const EVENT_FIELDS = `
   title_name
   start_at
   end_at
+  details @include (if: $withDetails) {
+    competitors {
+      id
+      name
+    }
+  }
+  scopes @include (if: $withScopes) {
+    id
+    name
+    kind
+  }
   markets @include(if: $withMarkets) {
     ${MARKET_FIELDS}
   }
@@ -18,6 +29,8 @@ export const EVENTS_LIST_QUERY = gql`
     $limit: Int = null, 
     $titleId: ID = null, 
     $tournamentId: ID = null, 
+    $withDetails: Boolean = false,
+    $withScopes: Boolean = false,
     $withMarkets: Boolean = false
   ) {
     events (limit: $limit, filter: {
@@ -34,6 +47,8 @@ export const EVENT_BY_ID_QUERY = gql`
     $id: ID!, 
     $titleId: ID = null, 
     $tournamentId: ID = null, 
+    $withDetails: Boolean = false,
+    $withScopes: Boolean = false,
     $withMarkets: Boolean = false
   ) {
     events (filter: { 
