@@ -26,7 +26,7 @@ export const EVENT_FIELDS = `
 
 export const EVENTS_LIST_QUERY = gql`
   query eventList (
-    $limit: Int = null, 
+    $limit: Int = 5, 
     $titleId: ID = null, 
     $tournamentId: ID = null, 
     $withDetails: Boolean = false,
