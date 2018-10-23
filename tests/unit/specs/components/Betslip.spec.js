@@ -25,13 +25,13 @@ describe('Betslip component', () => {
     }
 
     mutations = {
-      freezeBets: sinon.stub(),
+      'betslip/freezeBets': sinon.stub(),
       fetchWallets: sinon.stub()
     }
 
     actions = {
       fetchWallets: sinon.stub(),
-      placeBets: sinon.stub()
+      'betslip/placeBets': sinon.stub()
     }
 
     store = new Vuex.Store({
@@ -58,8 +58,6 @@ describe('Betslip component', () => {
       localVue,
       store
     })
-
-    wrapper.setData({ events: [] })
   })
 
   describe('Default state', () => {
@@ -103,8 +101,6 @@ describe('Betslip component', () => {
         ]
         const wallet = { id: 1, amount: sampleInitialWalletBalance, currency: { code: 'EUR' } }
 
-        wrapper.setData({ events })
-
         wrapper.vm.$store.hotUpdate({
           getters: {
             getEvents: () => { return events },
@@ -114,12 +110,12 @@ describe('Betslip component', () => {
 
         })
 
-        wrapper.vm.$store.dispatch('addNewEmptyBet', sampleOdd)
+        wrapper.vm.$store.dispatch('betslip/pushBet', { event: {}, market: {}, odd: sampleOdd })
       })
 
       describe('initial bet state', () => {
         it('has correct odd id', () => {
-          expect(wrapper.vm.getBets[0].odd.id).to.eql(sampleOdd.id)
+          expect(wrapper.vm.getBets[0].oddId).to.eql(sampleOdd.id)
         })
 
         it('has approved value equals to currrent odd value', () => {
@@ -164,7 +160,7 @@ describe('Betslip component', () => {
 
       describe('with correct stake entered', () => {
         before(() => {
-          wrapper.vm.$store.commit('setBetStake', { oddId: sampleOdd.id, stakeValue: sampleStake })
+          wrapper.vm.$store.commit('betslip/setBetStake', { oddId: sampleOdd.id, stakeValue: sampleStake })
         })
 
         describe('betslip submitted', () => {
@@ -173,12 +169,12 @@ describe('Betslip component', () => {
           })
 
           it('freezes BetItems in Betslip', function () {
-            expect(mutations.freezeBets.calledOnce).to.equal(true)
+            expect(mutations['betslip/freezeBets'].calledOnce).to.equal(true)
           })
 
           it('calls bet placement API', () => {
-            expect(actions.placeBets.called).to.eq(true)
-            const fistCallArgs = actions.placeBets.firstCall.args[1][0]
+            expect(actions['betslip/placeBets'].called).to.eq(true)
+            const fistCallArgs = actions['betslip/placeBets'].firstCall.args[1][0]
             expect(fistCallArgs.amount).to.eq(sampleStake)
           })
         })

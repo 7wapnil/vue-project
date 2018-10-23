@@ -11,9 +11,18 @@
 
 <script>
 import { INACTIVE_STATUS as ODD_INACTIVE_STATUS } from '@/models/odd'
+import { mapActions } from 'vuex'
 
 export default {
   props: {
+    event: {
+      type: Object,
+      required: true
+    },
+    market: {
+      type: Object,
+      required: true
+    },
     odd: {
       type: Object,
       required: true
@@ -41,9 +50,16 @@ export default {
     }
   },
   methods: {
+    ...mapActions('betslip', [
+      'pushBet'
+    ]),
     obbButtonClick () {
       if (this.isDisabled) { return }
-      this.$store.dispatch('addNewEmptyBet', this.odd)
+      this.pushBet({
+        event: this.event,
+        market: this.market,
+        odd: this.odd
+      })
     }
   },
 }

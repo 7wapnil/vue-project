@@ -23,10 +23,9 @@
             class="mt-4">
             <div
               v-for="bet in getBets"
-              :key="bet.id">
+              :key="bet.oddId">
               <betslip-item
-                :row="getEventByOddId(bet.odd.id)"
-                :odd-id="bet.odd.id"
+                :bet="bet"
               />
             </div>
 
@@ -53,10 +52,10 @@
           <div class="mt-4">
             <button
               :class="{
-                'btn-danger': !betslipIsSubmittable,
-                'btn-success': betslipIsSubmittable
+                'btn-danger': !betslipSubmittable,
+                'btn-success': betslipSubmittable
               }"
-              :disabled="!betslipIsSubmittable"
+              :disabled="!betslipSubmittable"
               class="btn btn-lg btn-block btn-submit-bets"
               @click="submit"
             >Place bet
@@ -76,13 +75,10 @@
 
 <script>
 import BetslipItem from './BetslipItem.vue'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapMutations, mapActions } from 'vuex'
 import wallets from '@/mixins/wallets'
 import BetslipSerializer from '@/services/serializers/betslip'
 import Bet from '@/models/bet'
-import EventsLookup from '@/services/helpers/events-lookup'
-
-import { EVENTS_LIST_QUERY } from '@/graphql'
 
 const BET_DESTROY_TIMEOUT = 5000;
 
@@ -91,47 +87,42 @@ export default {
     BetslipItem
   },
   mixins: [ wallets ],
-  apollo: {
-    events () {
-      return {
-        query: EVENTS_LIST_QUERY,
-        variables: {
-          withMarkets: true
-        }
-      }
-    }
-  },
   data () {
     return {
-      events: [],
       messages: []
     }
   },
   computed: {
-    betslipIsSubmittable () {
-      return this.$store.getters.betslipSubmittable
-    },
-    ...mapGetters([
+    ...mapGetters('betslip', [
+      'betslipSubmittable',
       'getBets',
       'getBetsCount',
       'getTotalReturn',
-      'getTotalStakes',
+      'getTotalStakes'
+    ]),
+    ...mapGetters([
       'getActiveWallet'
     ])
   },
   methods: {
-    getEventByOddId: function (oddId) {
-      return EventsLookup.from(this.events).findOddMapRowById(oddId)
-    },
+    ...mapActions('betslip', [
+      'placeBets'
+    ]),
+    ...mapMutations('betslip', [
+      'freezeBets',
+      'updateBet',
+      'removeBetFromBetslip',
+      'clearBetslip',
+    ]),
     submit () {
-      this.$store.commit('freezeBets')
+      this.freezeBets()
 
       let betsPayload = BetslipSerializer.serialize({
         bets: this.getBets,
         currencyCode: this.getActiveWallet.currency.code
       })
 
-      this.$store.dispatch('placeBets', betsPayload)
+      this.placeBets(betsPayload)
         .then(this.processBetsPlacementResponse)
         .catch(this.handlePlacementFailure)
     },
@@ -144,23 +135,20 @@ export default {
 
       if (response.data && response.data.placeBets) {
         response.data.placeBets.forEach((betPayload) => {
-          let bet = bets.find(el => el.odd.id === betPayload.odd.id)
+          let bet = bets.find(el => el.oddId === betPayload.odd.id)
 
-          this.$store.commit(
-            'updateBet',
-            {
-              oddId: bet.odd.id,
-              payload: {
-                status: betPayload.status,
-                message: betPayload.message,
-                externalId: betPayload.id
-              }
+          this.updateBet({
+            oddId: bet.oddId,
+            payload: {
+              status: betPayload.status,
+              message: betPayload.message,
+              externalId: betPayload.id
             }
-          )
+          })
 
           if (betPayload.status === Bet.statuses.succeeded) {
             setTimeout(() => {
-              this.$store.commit('removeBetFromBetslip', bet.odd)
+              this.removeBetFromBetslip(bet.oddId)
             }, BET_DESTROY_TIMEOUT)
           }
         })
@@ -168,7 +156,7 @@ export default {
     },
     handlePlacementFailure (response) {
       this.$noty.error(response.message, { timeout: 3000 })
-      this.$store.commit('clearBetslip')
+      this.clearBetslip()
     }
   },
 }

@@ -14,6 +14,7 @@
           <odd-button
             :odd="odd"
             :disabled="isDisabled"
+            :event="event"
             :market="market"/>
         </div>
       </div>
@@ -36,6 +37,10 @@ export default {
     OddButton
   },
   props: {
+    event: {
+      type: Object,
+      required: true
+    },
     market: {
       type: Object,
       required: true

@@ -2,37 +2,11 @@ import { expect } from 'chai'
 import Bet from '@//models/bet'
 
 describe('Bet', () => {
-  describe('constructor', () => {
-    it('sets status according to statuses map', () => {
-      const newBet = new Bet(
-        { odd: { id: 1 },
-          stake: 2,
-          status: 'initial',
-          message: 'zoo',
-          externalId: '3',
-          approvedValue: 12.22,
-          currentOddValue: 12.22
-        })
-      expect(newBet.odd).to.eql({ id: 1 })
-      expect(newBet.stake).to.eql(2)
-      expect(newBet.status).to.eql('initial')
-      expect(newBet.message).to.eql('zoo')
-      expect(newBet.externalId).to.eql('3')
-      expect(newBet.approvedOddValue).to.eql(12.22)
-      expect(newBet.currentOddValue).to.eql(12.22)
-    })
-
-    it('sets initial status for invalid status', () => {
-      const newBet = new Bet({ status: 'boo' })
-      expect(newBet.status).to.eql('initial')
-    })
-  })
-
   describe('initial', () => {
     it('creates new Bet from odd', () => {
-      const newBet = Bet.initial({ odd: { id: 1, value: 23.22 } })
+      const newBet = Bet.initial({}, {}, { id: 1, value: 23.22 })
 
-      expect(newBet.odd).to.eql({ id: 1, value: 23.22 })
+      expect(newBet.oddId).to.eql(1)
       expect(newBet.stake).to.eql(0)
       expect(newBet.status).to.eql('initial')
       expect(newBet.message).to.eql(null)

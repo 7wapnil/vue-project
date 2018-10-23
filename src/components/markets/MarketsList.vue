@@ -6,6 +6,7 @@
         <market-item
           v-for="market in filteredMarkets"
           :key="market.id"
+          :event="event"
           :market="market"/>
       </div>
       <div
