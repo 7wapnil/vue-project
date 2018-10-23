@@ -3,7 +3,7 @@ class BetslipSerializer {
     return bets.map((bet) => {
       return {
         amount: parseFloat(bet.stake),
-        oddId: bet.odd.id,
+        oddId: bet.oddId,
         oddValue: bet.approvedOddValue,
         currencyCode: currencyCode
       }

@@ -7,28 +7,29 @@ const STATUSES = {
 }
 
 export default class Bet {
-  constructor ({ odd, stake, status, message, externalId, approvedValue, currentOddValue }) {
-    this.odd = odd
-    this.stake = stake
-    this.status = STATUSES[status] || STATUSES.initial
-    this.message = message
-    this.externalId = externalId
-    this.approvedOddValue = approvedValue
-    this.currentOddValue = currentOddValue
+  constructor (attributes = {}) {
+    Object.keys(attributes).forEach((key) => {
+      this[key] = attributes[key]
+    })
   }
 
   static get statuses () {
     return STATUSES
   }
 
-  static initial ({ odd }) {
-    return new this({
-      odd: odd,
+  static initial (event, market, odd) {
+    return new Bet({
+      eventId: event.id,
+      eventName: event.name,
+      marketId: market.id,
+      marketName: market.name,
+      oddId: odd.id,
+      oddName: odd.name,
       stake: 0,
       status: STATUSES.initial,
       message: null,
       externalId: null,
-      approvedValue: odd.value,
+      approvedOddValue: odd.value,
       currentOddValue: odd.value
     })
   }

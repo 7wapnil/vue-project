@@ -2,11 +2,11 @@
   <div>
     <b-card :bg-variant="cardVariant">
       <div slot="header">
-        {{ row.event.name }}
+        {{ bet.eventName }}
         <button
           class="close"
           aria-label="Close"
-          @click="removeOdd(row.odd)">
+          @click="removeOdd(bet.oddId)">
           <span
             v-show="!bet.frozen"
             aria-hidden="true">
@@ -15,10 +15,10 @@
         </button>
       </div>
       <div class="row m-2">
-        <p>{{ row.market.name }}</p>
+        <p>{{ bet.marketName }}</p>
       </div>
       <div class="row m-2">
-        <p>Outcome {{ row.odd.name }} with value {{ bet.currentOddValue }}</p>
+        <p>Outcome {{ bet.oddName }} with value {{ bet.currentOddValue }}</p>
       </div>
       <div class="row mt-4 text-right">
         <div class="col-12">
@@ -77,27 +77,20 @@ export default {
   },
   sockets: {
     oddChange (data) {
-      if (data.id !== this.bet.odd.id) { return }
-      this.updateBet({ oddId: this.bet.odd.id, payload: { currentOddValue: data.value } })
+      if (data.id !== this.bet.oddId) { return }
+      this.updateBet({ oddId: this.bet.oddId, payload: { currentOddValue: data.value } })
     }
   },
   props: {
-    row: {
-      type: Object,
-      required: true
-    },
-    oddId: {
-      type: String,
+    bet: {
+      type: Bet,
       required: true
     },
   },
   computed: {
-    bet () {
-      return this.getBets.find((bet) => bet.odd.id === this.oddId)
-    },
     potentialReturn: function () {
       const stake = this.bet.stake > 0 ? this.bet.stake : 0
-      return stake * this.row.odd.value
+      return stake * this.bet.approvedOddValue
     },
     betStake: {
       get () {
@@ -105,7 +98,7 @@ export default {
       },
       set (value) {
         let stakeValue = value > 0 ? value : 0
-        this.$store.commit('setBetStake', { oddId: this.bet.odd.id, stakeValue })
+        this.setBetStake({ oddId: this.bet.oddId, stakeValue })
       }
     },
     displayUnconfirmedOddValueDialog () {
@@ -134,25 +127,22 @@ export default {
     hasMessage () {
       return this.bet.message !== null
     },
-    ...mapGetters([
+    ...mapGetters('betslip', [
       'getBets'
     ])
   },
   methods: {
-    loadEvents () {
-      this.$store.dispatch('loadEvents').then(({ data: { events } }) => {
-        this.events = events
-      })
-    },
+    ...mapMutations('betslip', [
+      'setBetStake',
+      'updateBet',
+      'removeBetFromBetslip',
+    ]),
     confirmValue () {
-      this.$store.commit('updateBet', { oddId: this.bet.odd.id, payload: { approvedOddValue: this.bet.currentOddValue } })
+      this.updateBet({ oddId: this.bet.oddId, payload: { approvedOddValue: this.bet.currentOddValue } })
     },
-    removeOdd (odd) {
-      this.$store.commit('removeBetFromBetslip', odd)
+    removeOdd (oddId) {
+      this.removeBetFromBetslip(oddId)
     },
-    ...mapMutations([
-      'updateBet'
-    ])
   }
 }
 </script>

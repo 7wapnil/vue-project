@@ -1,5 +1,5 @@
 import { expect } from 'chai'
-import { mutations, getters } from '@/stores/betslip'
+import { mutations, getters, actions } from '@/stores/betslip'
 
 describe('wallets store', () => {
   describe('mutations', () => {
@@ -14,34 +14,24 @@ describe('wallets store', () => {
         expect(state.bets).to.eql([{ status: 'submitting' }, { status: 'submitting' }])
       })
     })
-    describe('pushNewBetToBetslip', () => {
+    describe('pushBet', () => {
       it('adds new bet to empty betslip based on odd', () => {
         const state = {
           bets: []
         }
 
-        mutations.pushNewBetToBetslip(state, { id: 1, value: 2 })
+        actions.pushBet({ state }, { event: {}, market: {}, odd: { id: 1, value: 2 } })
 
         expect(state.bets.length).to.eql(1)
-        expect(state.bets[0].odd.id).to.eql(1)
+        expect(state.bets[0].oddId).to.eql(1)
       })
 
       it('does not add new bet when one exists in bets store', () => {
         const state = {
-          bets: [{ odd: { id: 1 } }]
+          bets: [{ oddId: 1 }]
         }
 
-        mutations.pushNewBetToBetslip(state, { id: 1, value: 2 })
-
-        expect(state.bets.length).to.eql(1)
-      })
-
-      it('does not add new bet when one exists in bets store and id provided in string', () => {
-        const state = {
-          bets: [{ odd: { id: 1 } }]
-        }
-
-        mutations.pushNewBetToBetslip(state, { id: '1', value: 2 })
+        actions.pushBet({ state }, { event: {}, market: {}, odd: { id: 1, value: 2 } })
 
         expect(state.bets.length).to.eql(1)
       })
@@ -49,68 +39,75 @@ describe('wallets store', () => {
     describe('updateBet', () => {
       it('updates bet with correct id according to payload', () => {
         const state = {
-          bets: [ { odd: { id: 1 } }, { odd: { id: 2 }, status: 'xxx' } ]
+          bets: [ { oddId: 1 }, { oddId: 2, status: 'xxx' } ]
         }
 
         mutations.updateBet(state, { oddId: 2, payload: { status: 'foo' } })
 
-        expect(state.bets).to.eql([{ odd: { id: 1 } }, { odd: { id: 2 }, status: 'foo' }])
+        expect(state.bets).to.eql([{ oddId: 1 }, { oddId: 2, status: 'foo' }])
       })
     })
   })
   describe('getters', () => {
     describe('betslipSubmittable', () => {
+      const rootGetters = {
+        getActiveWallet: { amount: 2 }
+      }
+
       const validGettersState = {
         getTotalStakes: 2,
-        getActiveWallet: { amount: 2 },
         anyInitialBet: true,
         betslipValuesConfirmed: true
       }
 
       it('is submittable when all rules valid', () => {
         const state = {}
-        expect(getters.betslipSubmittable(state, validGettersState)).to.eql(true)
+        expect(getters.betslipSubmittable(state, validGettersState, {}, rootGetters)).to.eql(true)
       })
 
       describe('fails', () => {
         it('with zero stakes', () => {
           const state = {}
 
-          const invalidGetters = {}
-          Object.assign(invalidGetters, validGettersState)
-          invalidGetters.getTotalStakes = 0
+          const invalidGetters = {
+            ...validGettersState,
+            getTotalStakes: 0
+          }
 
-          expect(getters.betslipSubmittable(state, invalidGetters)).to.eql(false)
+          expect(getters.betslipSubmittable(state, invalidGetters, {}, rootGetters)).to.eql(false)
         })
 
         it('with unconfirmed odd values in betslip', () => {
           const state = {}
 
-          const invalidGetters = {}
-          Object.assign(invalidGetters, validGettersState)
-          invalidGetters.betslipValuesConfirmed = false
+          const invalidGetters = {
+            ...validGettersState,
+            betslipValuesConfirmed: false
+          }
 
-          expect(getters.betslipSubmittable(state, invalidGetters)).to.eql(false)
+          expect(getters.betslipSubmittable(state, invalidGetters, {}, rootGetters)).to.eql(false)
         })
 
         it('fails without enough balance in active wallet', () => {
           const state = {}
 
-          const invalidGetters = {}
-          Object.assign(invalidGetters, validGettersState)
-          invalidGetters.getActiveWallet = { amount: 1 }
+          const invalidRootGetters = {
+            ...rootGetters,
+            getActiveWallet: { amount: 1 }
+          }
 
-          expect(getters.betslipSubmittable(state, invalidGetters)).to.eql(false)
+          expect(getters.betslipSubmittable(state, validGettersState, {}, invalidRootGetters)).to.eql(false)
         })
 
         it('fails without any intial bet in betslip', () => {
           const state = {}
 
-          const invalidGetters = {}
-          Object.assign(invalidGetters, validGettersState)
-          invalidGetters.anyInitialBet = false
+          const invalidGetters = {
+            ...validGettersState,
+            anyInitialBet: false
+          }
 
-          expect(getters.betslipSubmittable(state, invalidGetters)).to.eql(false)
+          expect(getters.betslipSubmittable(state, invalidGetters, {}, rootGetters)).to.eql(false)
         })
       })
     })

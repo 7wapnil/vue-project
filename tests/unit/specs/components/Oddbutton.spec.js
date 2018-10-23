@@ -2,6 +2,7 @@ import { expect } from 'chai'
 import { createLocalVue, shallowMount } from '@vue/test-utils'
 import Vuex from 'vuex'
 import OddButton from '@/components/markets/OddButton.vue'
+import betslip from '@/stores/betslip'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
@@ -11,20 +12,32 @@ describe('OddButton component', () => {
   let actions
   let odd
   let wrapper
+  let event
+  let market
 
   beforeEach(() => {
+    event = {}
+    market = {}
     odd = { id: 1, name: 'foo', value: 1.22 }
 
     actions = {
-      addNewEmptyBet: sinon.stub()
+      'betslip/pushBet': sinon.stub()
     }
 
     store = new Vuex.Store({
+      modules: {
+        betslip
+      },
       actions
     })
 
     wrapper = shallowMount(OddButton, {
-      propsData: { odd, disabled: false },
+      propsData: {
+        event,
+        market,
+        odd,
+        disabled: false
+      },
       store,
       localVue
     })
@@ -32,11 +45,15 @@ describe('OddButton component', () => {
 
   describe('methods', () => {
     describe('obbButtonClick', () => {
-      it('dispatches addNewEmptyBet event with current odd object', () => {
-        wrapper.findAll('.btn').at(0).trigger('click')
+      it('dispatches pushBet event with current odd object', () => {
+        wrapper.vm.obbButtonClick()
 
-        expect(actions.addNewEmptyBet.calledOnce).to.equal(true)
-        expect(actions.addNewEmptyBet.firstCall.args[1]).to.eq(odd);
+        expect(actions['betslip/pushBet'].calledOnce).to.equal(true)
+        expect(actions['betslip/pushBet'].firstCall.args[1]).to.deep.eq({
+          event,
+          market,
+          odd
+        })
       })
 
       it('restricts new bets when odd disabled', () => {
@@ -45,7 +62,7 @@ describe('OddButton component', () => {
 
         expect(wrapper.vm.isDisabled).to.eq(true)
         wrapper.vm.obbButtonClick()
-        expect(actions.addNewEmptyBet.calledOnce).to.equal(false)
+        expect(actions['betslip/pushBet'].calledOnce).to.equal(false)
       })
     })
   })

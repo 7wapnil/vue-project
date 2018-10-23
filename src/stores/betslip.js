@@ -8,23 +8,18 @@ import graphqlClient from '@/libs/apollo'
 import { BETSLIP_PLACEMENT_QUERY } from './queries/betslip'
 
 export const mutations = {
-  pushNewBetToBetslip (state, odd) {
-    const exists =
-    state.bets.find(bet => bet.odd.id.toString() === odd.id.toString())
-    if (exists === undefined) { state.bets.push(Bet.initial({ odd })) }
-  },
   updateBet (state, { oddId, payload }) {
-    let bet = state.bets.find(el => el.odd.id === oddId)
-    if (!bet) return;
+    let bet = state.bets.find(el => el.oddId === oddId)
+    if (!bet) return
     bet = Object.assign(bet, payload)
   },
   setBetStake (state, { oddId, stakeValue }) {
-    let bet = state.bets.find(bet => bet.odd.id === oddId)
+    let bet = state.bets.find(bet => bet.oddId === oddId)
     if (!bet) { return }
     bet.stake = stakeValue
   },
-  removeBetFromBetslip (state, odd) {
-    state.bets = state.bets.filter(e => e.odd.id !== odd.id)
+  removeBetFromBetslip (state, oddId) {
+    state.bets = state.bets.filter(e => e.oddId !== oddId)
   },
   resetBetslipStakes (state) {
     state.bets.forEach(function (bet) {
@@ -43,14 +38,16 @@ export const mutations = {
 }
 
 export const getters = {
-  betslipSubmittable: (state, getters) => {
-    if (getters.getActiveWallet === undefined) {
+  betslipSubmittable: (state, getters, rootState, rootGetters) => {
+    const activeWallet = rootGetters.getActiveWallet
+    if (activeWallet === undefined) {
       return false
     }
     let enabled = false
+
     if (getters.betslipValuesConfirmed &&
       getters.getTotalStakes > 0 &&
-      getters.getTotalStakes <= getters.getActiveWallet.amount &&
+      getters.getTotalStakes <= activeWallet.amount &&
       getters.anyInitialBet
     ) {
       enabled = true
@@ -78,26 +75,27 @@ export const getters = {
     return state.bets.map(el => el.stake > 0 ? el.stake : 0).reduce((a, b) => +a + +b, 0)
   },
   getTotalReturn (state) {
-    return state.bets.map(el => (el.stake > 0 ? el.stake : 0) * el.odd.value).reduce((a, b) => +a + +b, 0)
+    return state.bets.map(el => (el.stake > 0 ? el.stake : 0) * el.approvedOddValue).reduce((a, b) => +a + +b, 0)
   }
 }
 
 export const actions = {
-  addNewEmptyBet (context, odd) {
-    context.commit('pushNewBetToBetslip', odd)
+  pushBet ({ state }, { event, market, odd }) {
+    if (state.bets.find(bet => bet.oddId === odd.id)) { return }
+    state.bets.push(Bet.initial(event, market, odd))
   },
   placeBets (context, betsPayload) {
-    const response = graphqlClient.mutate({
+    return graphqlClient.mutate({
       mutation: BETSLIP_PLACEMENT_QUERY,
       variables: {
         bets: betsPayload
       }
     })
-    return response
   }
 }
 
 export default {
+  namespaced: true,
   state: {
     bets: []
   },
