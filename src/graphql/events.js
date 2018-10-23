@@ -26,16 +26,18 @@ export const EVENT_FIELDS = `
 
 export const EVENTS_LIST_QUERY = gql`
   query eventList (
-    $limit: Int = null, 
-    $titleId: ID = null, 
-    $tournamentId: ID = null, 
+    $limit: Int = null,
+    $titleId: ID = null,
+    $tournamentId: ID = null,
+    $inPlay: Boolean = false
     $withDetails: Boolean = false,
     $withScopes: Boolean = false,
     $withMarkets: Boolean = false
   ) {
     events (limit: $limit, filter: {
       titleId: $titleId,
-      tournamentId: $tournamentId
+      tournamentId: $tournamentId,
+      inPlay: $inPlay
     }) {
       ${EVENT_FIELDS}
     }
@@ -44,14 +46,14 @@ export const EVENTS_LIST_QUERY = gql`
 
 export const EVENT_BY_ID_QUERY = gql`
   query event (
-    $id: ID!, 
-    $titleId: ID = null, 
-    $tournamentId: ID = null, 
+    $id: ID!,
+    $titleId: ID = null,
+    $tournamentId: ID = null,
     $withDetails: Boolean = false,
     $withScopes: Boolean = false,
     $withMarkets: Boolean = false
   ) {
-    events (filter: { 
+    events (filter: {
       id: $id,
       titleId: $titleId,
       tournamentId: $tournamentId
