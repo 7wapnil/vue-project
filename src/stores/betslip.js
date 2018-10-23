@@ -7,33 +7,54 @@ import Bet from '@/models/bet'
 import graphqlClient from '@/libs/apollo'
 import { BETSLIP_PLACEMENT_QUERY } from './queries/betslip'
 
+const getBetsFromStorage = () => {
+  const json = localStorage.getItem('bets')
+  if (!json) {
+    return []
+  }
+
+  return JSON.parse(json).map((betAttributes) => {
+    return new Bet(betAttributes)
+  })
+}
+
+const setBetsToStorage = (bets) => {
+  localStorage.setItem('bets', JSON.stringify(bets))
+}
+
 export const mutations = {
   updateBet (state, { oddId, payload }) {
     let bet = state.bets.find(el => el.oddId === oddId)
     if (!bet) return
     bet = Object.assign(bet, payload)
+    setBetsToStorage(state.bets)
   },
   setBetStake (state, { oddId, stakeValue }) {
     let bet = state.bets.find(bet => bet.oddId === oddId)
     if (!bet) { return }
     bet.stake = stakeValue
+    setBetsToStorage(state.bets)
   },
   removeBetFromBetslip (state, oddId) {
     state.bets = state.bets.filter(e => e.oddId !== oddId)
+    setBetsToStorage(state.bets)
   },
   resetBetslipStakes (state) {
     state.bets.forEach(function (bet) {
       bet.stake = 0
     })
+    setBetsToStorage(state.bets)
   },
   clearBetslip (state) {
     state.bets = []
+    setBetsToStorage(state.bets)
   },
   freezeBets (state) {
     state.bets = state.bets.map((bet) => {
       bet.status = Bet.statuses.submitting
       return bet
     })
+    setBetsToStorage(state.bets)
   }
 }
 
@@ -83,6 +104,7 @@ export const actions = {
   pushBet ({ state }, { event, market, odd }) {
     if (state.bets.find(bet => bet.oddId === odd.id)) { return }
     state.bets.push(Bet.initial(event, market, odd))
+    setBetsToStorage(state.bets)
   },
   placeBets (context, betsPayload) {
     return graphqlClient.mutate({
@@ -97,7 +119,7 @@ export const actions = {
 export default {
   namespaced: true,
   state: {
-    bets: []
+    bets: getBetsFromStorage()
   },
   actions,
   mutations,
