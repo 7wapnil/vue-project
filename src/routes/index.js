@@ -8,7 +8,6 @@ import LivePage from '@/views/live/Page.vue'
 import OutrightPage from '@/views/outrights/Page.vue'
 import Event from '@/views/event/Page.vue'
 import AccountPage from '@/views/account/Page.vue'
-import NotImplemented from '@/views/common/NotImplemented'
 import accountRoutes from './account'
 
 export default new Router({

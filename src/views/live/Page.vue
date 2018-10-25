@@ -1,12 +1,12 @@
 <template>
-    <main-layout class="live">
+  <main-layout class="live">
 
-        <h2>Live</h2>
-        <hr>
+    <h2>Live</h2>
+    <hr>
 
-    </main-layout>
+  </main-layout>
 </template>
 
 <script>
-  export default {}
+export default {}
 </script>
