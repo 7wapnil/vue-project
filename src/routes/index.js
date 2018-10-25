@@ -3,6 +3,9 @@ import SignUp from '@/views/auth/SignUp.vue'
 import SignIn from '@/views/auth/SignIn.vue'
 import Activation from '@/views/auth/Activation'
 import Esports from '@/views/esports/Page.vue'
+import SportsPage from '@/views/sports/Page.vue'
+import LivePage from '@/views/live/Page.vue'
+import OutrightPage from '@/views/outrights/Page.vue'
 import Event from '@/views/event/Page.vue'
 import AccountPage from '@/views/account/Page.vue'
 import NotImplemented from '@/views/common/NotImplemented'
@@ -35,17 +38,17 @@ export default new Router({
     {
       path: '/live',
       name: 'live',
-      component: NotImplemented,
+      component: LivePage,
     },
     {
       path: '/outright',
       name: 'outright',
-      component: NotImplemented,
+      component: OutrightPage,
     },
     {
       path: '/sports',
       name: 'sports',
-      component: NotImplemented,
+      component: SportsPage,
     },
     {
       path: '/sign-in',

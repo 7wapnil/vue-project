@@ -1,5 +1,5 @@
 <template>
-  <main-layout>
+  <main-layout class="esports">
 
     <h2>{{ tournament ? tournament.name : 'All tournaments' }}</h2>
     <hr>
