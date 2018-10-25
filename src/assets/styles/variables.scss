@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=IBM+Plex+Sans');
 
-//Colors
-$green: #1B6945;
+// Colors
+$green: #1F572E;
 $green-light: #47D469;
 $green-dark: #16593A;
 
@@ -38,8 +38,18 @@ $brown-dark: #352516;
 $red: #FF5066;
 $red-light: #FF8D8D;
 
-//Fonts
+// Fonts
 $font-family-sans-serif: 'IBM Plex Sans', sans-serif;
 $font-family-base: $font-family-sans-serif;
 
-$primary: $purple;
+// Background
+$body-bg: $black-light;
+$body-color: $white;
+
+// Cards
+$card-bg: $black-lightest;
+
+// Navbars
+$navbar-height: 80px;
+$navbar-dark-color: $yellow;
+$navbar-dark-hover-color: $white;

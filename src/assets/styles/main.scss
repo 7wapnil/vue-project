@@ -1,0 +1,17 @@
+.esports {
+  @import "themes/purple-theme";
+}
+
+.sports {
+  @import "themes/green-theme";
+}
+
+.live {
+  @import "themes/blue-theme";
+}
+
+.outrights {
+  @import "themes/orange-theme";
+}
+
+@import "components/navbar";

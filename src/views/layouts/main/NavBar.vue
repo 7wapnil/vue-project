@@ -1,88 +1,62 @@
 <template>
-  <div class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <router-link
-      :to="{ name: 'home' }"
-      class="navbar-brand">
+  <b-navbar
+    toggleable="md"
+    type="dark"
+    class="py-md-0">
+    <b-navbar-brand
+      href="/"
+      tag="h1">
       ArcaneBet
-    </router-link>
-    <button
-      class="navbar-toggler"
-      type="button"
-      aria-controls="navbar-content"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-      aria-target="#navbar-content"
-      aria-toggle="collapse">
-      <span class="navbar-toggler-icon"/>
-    </button>
-    <div
-      id="navbar-content"
-      class="collapse navbar-collapse">
-      <ul class="navbar-nav mr-auto">
-        <li
+    </b-navbar-brand>
+    <b-navbar-toggle target="collapsableMenu"/>
+    <b-collapse
+      id="collapsableMenu"
+      is-nav>
+      <b-navbar-nav>
+        <b-nav-item
           v-for="item in mainMenu"
           :key="item.path"
-          class="nav-item">
-          <router-link
-            :to="item.path"
-            class="nav-link">
-            {{ item.label }}
-          </router-link>
-        </li>
-      </ul>
-      <balances-list v-if="isLoggedIn"/>
-      <ul class="navbar-nav">
-        <li
-          v-if="isLoggedIn && user"
-          class="nav-item dropleft">
-          <a
-            id="username-dropdown"
-            class="nav-link dropdown-toggle"
-            href="#"
-            role="button"
-            data-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false">
-            {{ user.username }}
-          </a>
-          <div class="dropdown-menu">
-            <router-link
-              :to="{ name: 'account' }"
-              class="dropdown-item">
-              Account
-            </router-link>
-            <a
-              class="dropdown-item"
-              href="#"
-              @click.prevent="logout">
-              Sign Out
-            </a>
-          </div>
-        </li>
-        <li
-          v-if="!isLoggedIn"
-          class="nav-item">
-          <router-link
-            :to="{ name: 'sign-in' }"
-            class="nav-link">
-            Sign In
-          </router-link>
-        </li>
-        <li
-          v-if="!isLoggedIn"
-          class="nav-item">
-          <router-link
-            :to="{ name: 'sign-up' }"
-            class="nav-link">
-            Sign Up
-          </router-link>
-        </li>
-        <li class="socket">
-          <div :class="{'online': socketConnected}"/>
-        </li>
-      </ul>
-    </div>
-  </div>
+          :to="item.path">
+          {{ item.label }}
+        </b-nav-item>
+      </b-navbar-nav>
+      <b-navbar-nav
+        v-if="!isLoggedIn"
+        class="ml-auto">
+        <b-button
+          :to="{ name: 'sign-in' }"
+          variant="outline-warning"
+          class="m-2">
+          Login
+        </b-button>
+        <b-button
+          :to="{ name: 'sign-up' }"
+          variant="warning"
+          class="m-2">
+          Sign Up
+        </b-button>
+      </b-navbar-nav>
+      <b-navbar-nav
+        v-if="isLoggedIn && user"
+        class="ml-auto">
+        <balances-list v-if="isLoggedIn"/>
+        <b-dropdown
+          id="username-dropdown"
+          :text="`${user.username}`"
+          class="ml-2"
+          variant="warning"
+          right>
+          <b-dropdown-item :to="{ name: 'account' }">
+            Profile
+          </b-dropdown-item>
+          <b-dropdown-divider/>
+          <b-dropdown-item @click.prevent="logout">
+            Logout
+          </b-dropdown-item>
+        </b-dropdown>
+      </b-navbar-nav>
+    </b-collapse>
+  </b-navbar>
 </template>
 
 <script>
@@ -97,16 +71,16 @@ export default {
     return {
       mainMenu: [{
         path: '/esports',
-        label: 'Esports'
+        label: 'ESPORTS'
       }, {
         path: '/live',
-        label: 'Live'
+        label: 'LIVE'
       }, {
         path: '/outright',
-        label: 'Outrights'
+        label: 'OUTRIGHTS'
       }, {
         path: '/sports',
-        label: 'Sports'
+        label: 'SPORTS'
       }]
     }
   },
