@@ -1,7 +1,13 @@
+// Top navigation
 .navbar {
   background-color: $navbar-background;
 }
-.nav-item > .active {
+#top-navigation > .nav-item > .active {
   background-color: $nav-item-active-background;
   box-shadow: inset 0 4px 0 0 $nav-item-active-shadow;
+}
+
+// Sidebar navigation
+.sidebar-collapsed-title {
+  background-color: $nav-item-active-background;
 }
