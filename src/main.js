@@ -25,7 +25,7 @@ Vue.use(VueNoty, {
   layout: 'topRight'
 })
 
-Vue.use(WebSocket, process.env.VUE_APP_WEB_SOCKET_URL)
+Vue.use(WebSocket, process.env.VUE_APP_WEB_SOCKET_URL, Store)
 Vue.use(VueApollo)
 Vue.use(VueLogger, {
   logLevel: isProduction ? 'error' : 'debug'
