@@ -1,15 +1,15 @@
 <template>
   <div>
-    <nav-bar class="mb-4"/>
+    <nav-bar/>
     <div class="container-fluid">
       <div class="row">
-        <div class="col-2">
+        <div class="col-2 p-0">
           <side-menu/>
         </div>
-        <div class="col">
+        <div class="col p-0">
           <slot/>
         </div>
-        <div class="col-3">
+        <div class="col-3 p-0">
           <betslip/>
         </div>
       </div>

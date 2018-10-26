@@ -12,7 +12,7 @@
     <b-collapse
       id="collapsableMenu"
       is-nav>
-      <b-navbar-nav>
+      <b-navbar-nav id="top-navigation">
         <b-nav-item
           v-for="item in mainMenu"
           :key="item.path"
