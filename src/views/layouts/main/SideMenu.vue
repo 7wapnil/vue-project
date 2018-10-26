@@ -1,6 +1,8 @@
 <template>
   <titles-list :query-options="queryOptions">
-    <b-nav slot-scope="{ titles }" vertical>
+    <b-nav
+      slot-scope="{ titles }"
+      vertical>
       <b-nav-item
         v-b-toggle="`title-${title.id}`"
         v-for="title in titles"
