@@ -14,7 +14,7 @@ export default {
     },
     'header-bg-variant': {
       type: String,
-      default: 'primary'
+      default: 'black-lighter'
     },
     'header-border-variant': {
       type: String,

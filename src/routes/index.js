@@ -5,8 +5,6 @@ import SportsPage from '@/views/sports/Page.vue'
 import LivePage from '@/views/live/Page.vue'
 import OutrightPage from '@/views/outrights/Page.vue'
 import Event from '@/views/event/Page.vue'
-import AccountPage from '@/views/account/Page.vue'
-import accountRoutes from './account'
 
 export default new Router({
   mode: 'history',
@@ -57,11 +55,6 @@ export default new Router({
       name: 'event',
       component: Event,
       props: true
-    },
-    {
-      path: '/account',
-      component: AccountPage,
-      children: accountRoutes
     }
   ],
 });

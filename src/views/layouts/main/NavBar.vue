@@ -24,16 +24,14 @@
         v-if="!isLoggedIn"
         class="ml-auto">
         <b-btn
-          v-b-modal.authModal
+          v-b-modal.AuthModal
           variant="outline-warning"
           class="m-2">
           Login
         </b-btn>
 
-        <auth-modal/>
-
         <b-btn
-          v-b-modal.authModal
+          v-b-modal.AuthModal
           variant="warning"
           class="m-2">
           Sign Up
@@ -49,9 +47,10 @@
           class="ml-2"
           variant="warning"
           right>
-          <b-dropdown-item :to="{ name: 'account' }">
+          <b-dropdown-item v-b-modal.AccountModal>
             Profile
           </b-dropdown-item>
+
           <b-dropdown-divider/>
           <b-dropdown-item @click.prevent="logout">
             Logout
@@ -59,18 +58,22 @@
         </b-dropdown>
       </b-navbar-nav>
     </b-collapse>
+    <auth-modal/>
+    <account-modal/>
   </b-navbar>
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
 import BalancesList from '@/components/custom/BalancesList.vue'
-import authModal from '@/views/auth/authModal'
+import AuthModal from '@/views/auth/AuthModal'
+import AccountModal from '@/views/account/AccountModal'
 
 export default {
   components: {
     BalancesList,
-    authModal
+    AuthModal,
+    AccountModal
   },
   data () {
     return {
