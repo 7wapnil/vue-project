@@ -1,7 +1,7 @@
 <template>
   <simple-layout>
     <div class="row">
-      <div class="col-6 offset-3">
+      <div class="col">
         <form @submit.prevent="submit">
           <h2>Sign In</h2>
           <hr>
