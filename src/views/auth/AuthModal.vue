@@ -1,6 +1,6 @@
 <template>
   <modal
-    id="authModal"
+    id="AuthModal"
     title="Welcome to ArcaneBet">
     <b-tabs>
       <b-tab
