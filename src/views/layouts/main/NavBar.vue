@@ -23,17 +23,19 @@
       <b-navbar-nav
         v-if="!isLoggedIn"
         class="ml-auto">
-        <b-btn v-b-modal.authModal
-               variant="outline-warning"
-               class="m-2">
+        <b-btn
+          v-b-modal.authModal
+          variant="outline-warning"
+          class="m-2">
           Login
         </b-btn>
 
         <auth-modal/>
 
-        <b-btn v-b-modal.authModal
-               variant="warning"
-               class="m-2">
+        <b-btn
+          v-b-modal.authModal
+          variant="warning"
+          class="m-2">
           Sign Up
         </b-btn>
       </b-navbar-nav>
