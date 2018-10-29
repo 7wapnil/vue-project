@@ -23,18 +23,19 @@
       <b-navbar-nav
         v-if="!isLoggedIn"
         class="ml-auto">
-        <b-button
-          :to="{ name: 'sign-in' }"
-          variant="outline-warning"
-          class="m-2">
+        <b-btn v-b-modal.authModal
+               variant="outline-warning"
+               class="m-2">
           Login
-        </b-button>
-        <b-button
-          :to="{ name: 'sign-up' }"
-          variant="warning"
-          class="m-2">
+        </b-btn>
+
+        <auth-modal/>
+
+        <b-btn v-b-modal.authModal
+               variant="warning"
+               class="m-2">
           Sign Up
-        </b-button>
+        </b-btn>
       </b-navbar-nav>
       <b-navbar-nav
         v-if="isLoggedIn && user"
@@ -62,10 +63,12 @@
 <script>
 import { mapGetters, mapActions } from 'vuex'
 import BalancesList from '@/components/custom/BalancesList.vue'
+import authModal from '@/views/auth/authModal'
 
 export default {
   components: {
-    BalancesList
+    BalancesList,
+    authModal
   },
   data () {
     return {

@@ -1,8 +1,6 @@
 <template>
-  <titles-list :query-options="queryOptions">
     <b-nav
-      slot-scope="{ titles }"
-      vertical>
+      vertical v-if="titles">
       <b-nav-item
         v-b-toggle="`title-${title.id}`"
         v-for="title in titles"
@@ -34,15 +32,26 @@
         </b-collapse>
       </b-nav-item>
     </b-nav>
-  </titles-list>
 </template>
 
 <script>
 import TitlesList from '@/components/TitlesList'
+import { TITLES_QUERY } from '@/graphql'
 
 export default {
   components: {
     TitlesList
+  },
+  apollo: {
+    titles () {
+      return {
+        query: TITLES_QUERY,
+        variables: { kind: 'esports', withTournaments: true },
+        result() {
+          console.log('GOT TITLES')
+        }
+      }
+    }
   },
   computed: {
     queryOptions () {
