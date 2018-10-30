@@ -23,6 +23,7 @@ $black: #191919;
 $black-light: #1E1E1E;
 $black-lighter: #2F2F2F;
 $black-lightest: #3E3E3E;
+$black-secondary: #232323;
 
 $yellow: #FFB960;
 $yellow-light: #FFC460;
@@ -50,12 +51,22 @@ $body-color: $white;
 // Cards
 $card-bg: $black-lightest;
 
-// Navbars
+// Navs
+$nav-tabs-border-radius: 0;
+$nav-tabs-border-width: 0;
+
+// Navbar
 $navbar-height: 80px;
 $navbar-dark-color: $yellow;
 $navbar-dark-hover-color: $white;
 
-// Temp settings
-$primary: $black-lighter;
+// Forms
+$input-border-color: $black-secondary;
+$input-border-width: 1px;
+$input-border-radius: 0 6px 0 6px;
 
-$theme-colors: ("black-lighter": $black-lightest);
+// Temp settings
+$primary: $white;
+
+$theme-colors: ("black-lighter": $black-lightest,
+                "black-secondary": $black-secondary);

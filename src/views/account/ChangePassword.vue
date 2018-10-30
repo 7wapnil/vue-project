@@ -1,5 +1,5 @@
 <template>
-  <b-container>
+  <div>
     <b-row>
       <b-col>
         <h1 class="mb-4">Change Password</h1>
@@ -70,7 +70,7 @@
         </b-button>
       </b-col>
     </b-row>
-  </b-container>
+  </div>
 </template>
 
 <script>

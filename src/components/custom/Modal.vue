@@ -14,15 +14,15 @@ export default {
     },
     'header-bg-variant': {
       type: String,
-      default: 'black-lighter'
+      default: 'black-secondary'
     },
     'header-border-variant': {
       type: String,
-      default: 'primary'
+      default: 'black-secondary'
     },
     'body-bg-variant': {
       type: String,
-      default: 'primary'
+      default: 'black-lighter'
     }
   }
 }
