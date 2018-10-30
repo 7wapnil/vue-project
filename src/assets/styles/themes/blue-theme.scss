@@ -1,7 +1,14 @@
 @import '../variables';
 
+// Navbar
 $navbar-background: $blue-dark;
 $nav-item-active-background: $blue;
 $nav-item-active-shadow: $blue-light;
+
+// Buttons
+$primary-button-background: $blue-light;
+$primary-button-border-color: $blue-lightest;
+$primary-button-inset-boxshadow-color: rgba(255,60,229,0.35);
+$primary-button-boxshadow-color: rgba(0,0,0,0.5);
 
 @import 'theme_schema';

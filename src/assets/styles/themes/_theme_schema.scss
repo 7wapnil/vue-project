@@ -11,3 +11,10 @@
 .sidebar-collapsed-title {
   background-color: $nav-item-active-background;
 }
+
+// Buttons
+.btn {
+  background-color: $primary-button-background;
+  border: 1px solid $primary-button-border-color;
+  box-shadow: inset 0 0 10px 0 $primary-button-inset-boxshadow-color, 0 2px 0 0 $primary-button-boxshadow-color;
+}

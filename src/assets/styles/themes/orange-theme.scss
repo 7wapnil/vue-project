@@ -4,4 +4,10 @@ $navbar-background: $black-light;
 $nav-item-active-background: $orange;
 $nav-item-active-shadow: $orange-light;
 
+// Buttons
+$primary-button-background: $orange-light;
+$primary-button-border-color: rgba(71,212,105,0.5);
+$primary-button-inset-boxshadow-color: rgba(255,60,229,0.35);
+$primary-button-boxshadow-color: rgba(0,0,0,0.5);
+
 @import 'theme_schema';
