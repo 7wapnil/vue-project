@@ -3,15 +3,27 @@
     id="AccountModal"
     :title="`${user.username}` + ' Profile'"
     size="lg"
+    header-class="d-flex align-items-center"
     body-class="p-0">
     <b-tabs
+      v-model="tabIndex"
       vertical
-      nav-wrapper-class="col-3">
+      nav-wrapper-class="col-3 pr-0">
       <b-tab
-        v-for="tab in tabs"
-        :title="tab.title"
+        v-for="(tab, index) in tabs"
+        :title-link-class="profileNavigation(index)"
         :key="tab.id">
-        <component :is="tab.component"/>
+        <template slot="title">
+          <span class="nav-icon">
+            {{ tab.icon }}
+          </span>
+          <span class="nav-title">
+            {{ tab.title }}
+          </span>
+        </template>
+        <component
+          :is="tab.component"
+          class="m-4"/>
       </b-tab>
     </b-tabs>
   </modal>
@@ -35,38 +47,47 @@ export default {
   },
   data () {
     return {
+      tabIndex: 0,
       tabs: [{
         id: 0,
         title: 'Account info & settings',
-        component: 'account'
+        component: 'account',
+        icon: 'i'
       }, {
         id: 1,
         title: 'Bonus',
-        component: 'not-implemented'
+        component: 'not-implemented',
+        icon: 'i'
       }, {
         id: 2,
         title: 'Promotions',
-        component: 'not-implemented'
+        component: 'not-implemented',
+        icon: 'i'
       }, {
         id: 3,
         title: 'Activity',
-        component: 'activity'
+        component: 'activity',
+        icon: 'i'
       }, {
         id: 4,
         title: 'Deposit funds',
-        component: 'not-implemented'
+        component: 'not-implemented',
+        icon: 'i'
       }, {
         id: 5,
         title: 'Withdraw funds',
-        component: 'not-implemented'
+        component: 'not-implemented',
+        icon: 'i'
       }, {
         id: 6,
         title: 'Account verification',
-        component: 'account-verification'
+        component: 'account-verification',
+        icon: 'i'
       }, {
         id: 7,
         title: 'Change password',
-        component: 'change-password'
+        component: 'change-password',
+        icon: 'i'
       }]
     }
   },
@@ -74,6 +95,15 @@ export default {
     ...mapGetters({
       user: 'getUser'
     })
+  },
+  methods: {
+    profileNavigation (index) {
+      if (this.tabIndex === index) {
+        return 'activeNav'
+      } else {
+        return 'profileNav'
+      }
+    }
   }
 }
 </script>

@@ -1,8 +1,8 @@
 <template>
-  <b-container>
+  <div>
     <b-row>
       <b-col>
-        <h1 class="mb-4 ml-4">
+        <h1 class="mb-4">
           My activity
         </h1>
       </b-col>
@@ -45,7 +45,7 @@
         </b-table>
       </b-tab>
     </b-tabs>
-  </b-container>
+  </div>
 </template>
 
 <script>

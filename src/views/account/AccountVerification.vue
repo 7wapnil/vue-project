@@ -1,5 +1,5 @@
 <template>
-  <b-container>
+  <div>
     <b-row
       v-if="user"
       class="mb-4">
@@ -93,7 +93,7 @@
         </b-button>
       </b-col>
     </b-row>
-  </b-container>
+  </div>
 </template>
 
 <script>

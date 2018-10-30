@@ -1,9 +1,7 @@
 <template>
-  <b-container>
-    <b-row>
-      <b-col>
-        <h1>Not Implemented</h1>
-      </b-col>
-    </b-row>
-  </b-container>
+  <b-row>
+    <b-col>
+      <h1>Not Implemented</h1>
+    </b-col>
+  </b-row>
 </template>
