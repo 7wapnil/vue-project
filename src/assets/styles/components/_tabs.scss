@@ -8,7 +8,7 @@
   font-size: 14px !important;
 }
 .profileNav {
-  background-color: #1E1E1E;
+  background-color: $black-light;
   height: 56px;
   padding: 16px 0 !important;
   letter-spacing: 0.2px;
@@ -20,4 +20,29 @@
 }
 
 // Betslip Tabs
+.betslipActiveTab {
+  background-color: $black-lighter !important;
+  color: #E5E5E5 !important;
+  padding: 14px 43px 14px 42px !important;
+  font-size: 14px !important;
+  font-weight: bold;
+  letter-spacing: 0.2px !important;
+  line-height: 18px !important;
+}
+.betslipTab {
+  padding: 14px 43px 14px 42px !important;
+  background-color: $black;
 
+  font-size: 14px !important;
+  font-weight: bold;
+  letter-spacing: 0.2px !important;
+  line-height: 18px !important;
+}
+.betslip-tabs-wrapper {
+  background-color: $black-light !important;
+  padding: 0 6px;
+}
+
+.betslip-header {
+  padding: 16px 24px 15px 20px;
+}

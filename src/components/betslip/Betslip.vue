@@ -1,80 +1,98 @@
 <template>
-  <b-card id="betslip">
-    <div slot="header">
-      Betslip
-      <transition name="fade">
-        <span v-show="getBets.length > 0">
-          ({{ getBets.length }})
-        </span>
-      </transition>
-    </div>
-    <b-tabs class="mt-2">
-      <b-tab
-        id="betslipSingleTab"
-        class="p-2 px-2"
-        title="Single"
-        active="">
-        <div v-if="getBets.length == 0">
-          <p class="m-3">Place your bets</p>
-        </div>
-        <div v-if="getBets.length > 0">
-          <div
-            id="markets-in-betslip"
-            class="mt-4">
-            <div
-              v-for="bet in getBets"
-              :key="bet.oddId">
-              <betslip-item
-                :bet="bet"
-              />
-            </div>
+  <div>
+  <b-container class="m-0 p-0"
+               v-if="getBets.length > 0">
+      <b-row no-gutters
+             class="betslip-header">
+        <b-col class="p-0">
+          <b>Betslip</b>
+          <span v-show="getBets.length > 0">
+            {{ getBets.length }}
+          </span>
+        </b-col>
+        <b-col class="p-0"
+               align="right">
+          <span @click="clearBetslip">
+            Clear all
+          </span>
+        </b-col>
+      </b-row>
 
-          </div>
-          <div class="mt-4 text-right">
-            <div class="row my-2 total-stake">
-              <div class="col text-nowrap text-right">
-                Total stake:
+    <b-card no-body bg-variant="black-light">
+      <b-tabs
+        v-model="tabIndex"
+        nav-wrapper-class="betslip-tabs-wrapper">
+
+        <b-tab
+          :title-link-class="changeStyleTab(0)"
+          title="Single"
+          no-body>
+          <b-row no-gutters>
+            <b-col>
+              <div
+                v-for="bet in getBets"
+                :key="bet.oddId">
+                <betslip-item :bet="bet"/>
               </div>
-              <div class="col-4 total-stake-value">
-                {{ parseFloat(getTotalStakes.toFixed(2)) }}
-              </div>
-            </div>
-            <div class="row my-2 total-return">
-              <div class="col text-nowrap text-right">
-                Total return:
-              </div>
-              <div class="col-4 total-return-value">
-                {{ parseFloat(getTotalReturn.toFixed(2)) }}
-              </div>
-            </div>
-            <div class="row"/>
-          </div>
-          <div class="mt-4">
-            <button
-              :class="{
-                'btn-danger': !betslipSubmittable,
-                'btn-success': betslipSubmittable
-              }"
-              :disabled="!betslipSubmittable"
-              class="btn btn-lg btn-block btn-submit-bets"
-              @click="submit"
-            >Place bet
-            </button>
-          </div>
-        </div>
-      </b-tab>
-      <b-tab title="Accumulator">
-        <p class="m-3">To be implemented</p>
-      </b-tab>
-      <b-tab title="System">
-        <p class="m-3">To be implemented</p>
-      </b-tab>
-    </b-tabs>
-  </b-card>
+            </b-col>
+          </b-row>
+        </b-tab>
+
+        <b-tab
+          :title-link-class="changeStyleTab(1)"
+          title="Combo"
+          no-body>
+          <p class="m-3 text-center">
+            To be implemented
+          </p>
+        </b-tab>
+
+      </b-tabs>
+    </b-card>
+
+
+    <b-card bg-variant="black-light" no-body>
+      <b-row class="px-3">
+        <b-col cols="8">
+          <p>Total stake:</p>
+        </b-col>
+        <b-col cols="4" class="text-right">
+          {{ parseFloat(getTotalStakes.toFixed(2)) }}
+        </b-col>
+        <b-col cols="8">
+          <p>Total return:</p>
+        </b-col>
+        <b-col cols="4" class="text-right">
+          <b>{{ parseFloat(getTotalReturn.toFixed(2)) }}</b>
+        </b-col>
+      </b-row>
+    </b-card>
+
+
+
+
+    <b-card bg-variant="black-light" class="p-2" no-body>
+      <b-button
+        :class="{
+          'btn-danger': !betslipSubmittable,
+          'btn-success': betslipSubmittable }"
+        :disabled="!betslipSubmittable"
+        size="lg"
+        block
+        @click="submit">
+        PLACE BET
+      </b-button>
+    </b-card>
+
+  </b-container>
+
+  <no-bets-block/>
+  </div>
 </template>
 
 <script>
-import BetslipItem from './BetslipItem.vue'
+import BetslipItem from './BetslipItem'
+import NoBetsBlock from './NoBetsBlock'
 import { mapGetters, mapMutations, mapActions } from 'vuex'
 import wallets from '@/mixins/wallets'
 import BetslipSerializer from '@/services/serializers/betslip'
@@ -84,12 +102,14 @@ const BET_DESTROY_TIMEOUT = 5000;
 
 export default {
   components: {
-    BetslipItem
+    BetslipItem,
+    NoBetsBlock
   },
   mixins: [ wallets ],
   data () {
     return {
-      messages: []
+      messages: [],
+      tabIndex: 0
     }
   },
   computed: {
@@ -101,7 +121,7 @@ export default {
       'getTotalStakes'
     ]),
     ...mapGetters([
-      'getActiveWallet'
+      'getActiveWallet',
     ])
   },
   methods: {
@@ -157,6 +177,13 @@ export default {
     handlePlacementFailure (response) {
       this.$noty.error(response.message, { timeout: 3000 })
       this.clearBetslip()
+    },
+    changeStyleTab (index) {
+      if (this.tabIndex === index) {
+        return 'betslipActiveTab'
+      } else {
+        return 'betslipTab'
+      }
     }
   },
 }

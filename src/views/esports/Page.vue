@@ -1,8 +1,8 @@
 <template>
   <main-layout class="esports">
 
-    <h2>{{ tournament ? tournament.name : 'All tournaments' }}</h2>
-    <hr>
+    <!--<h2>{{ tournament ? tournament.name : 'All tournaments' }}</h2>-->
+    <!--<hr>-->
 
     <events-list
       :query-options="liveQuery"

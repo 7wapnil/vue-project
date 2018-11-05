@@ -68,5 +68,10 @@ $input-border-radius: 0 6px 0 6px;
 // Temp settings
 $primary: $white;
 
-$theme-colors: ("black-lighter": $black-lightest,
-                "black-secondary": $black-secondary);
+$theme-colors: ("black-lightest": $black-lightest,
+                "black-lighter": $black-lighter,
+                "black-secondary": $black-secondary,
+                "black-light": $black-light,
+                "black": $black);
+$enable-rounded: false;
+$card-border-width: 0;

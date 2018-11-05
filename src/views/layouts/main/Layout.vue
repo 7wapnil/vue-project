@@ -1,19 +1,35 @@
 <template>
   <div>
+  <b-container fluid class="p-0">
     <nav-bar/>
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-2 p-0">
+  </b-container>
+    <b-container class="p-0"
+                 style="max-width: 1440px">
+      <b-row class="m-0">
+        <b-col cols="12"
+               md="12"
+               lg="3"
+               style="max-width: 268px"
+               class="p-0">
           <side-menu/>
-        </div>
-        <div class="col p-0">
+        </b-col>
+        <b-col cols="12"
+               md="12"
+               lg="8"
+               style="max-width: 904px"
+               class="p-0">
           <slot/>
-        </div>
-        <div class="col-3 p-0">
+        </b-col>
+        <b-col cols="12"
+               md="12"
+               lg="3"
+               style="max-width: 268px"
+               class="p-0">
+          <promotional-item/>
           <betslip/>
-        </div>
-      </div>
-    </div>
+        </b-col>
+      </b-row>
+    </b-container>
   </div>
 </template>
 
@@ -21,12 +37,14 @@
 import NavBar from './NavBar'
 import SideMenu from './SideMenu'
 import Betslip from '@/components/betslip/Betslip.vue'
+import PromotionalItem from '@/components/promotional/PromotionalItem'
 
 export default {
   components: {
     SideMenu,
     NavBar,
-    Betslip
+    Betslip,
+    PromotionalItem
   }
 }
 </script>
