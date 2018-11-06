@@ -1,4 +1,6 @@
 // Profile Modal Tabs
+@import '../variables';
+
 .activeNav {
   background-color: #1B6945 !important;
   color: #E5E5E5 !important;
@@ -23,18 +25,15 @@
 .betslipActiveTab {
   background-color: $black-lighter !important;
   color: #E5E5E5 !important;
-  padding: 14px 43px 14px 42px !important;
-  font-size: 14px !important;
-  font-weight: bold;
+  padding: 14px 29px !important;
+  font-size: $font-size-base;
   letter-spacing: 0.2px !important;
   line-height: 18px !important;
 }
 .betslipTab {
   padding: 14px 43px 14px 42px !important;
   background-color: $black;
-
-  font-size: 14px !important;
-  font-weight: bold;
+  font-size: $font-size-base;
   letter-spacing: 0.2px !important;
   line-height: 18px !important;
 }
@@ -45,4 +44,24 @@
 
 .betslip-header {
   padding: 16px 24px 15px 20px;
+}
+.market-name {
+  padding-top: 16px;
+  padding-bottom: 10px
+}
+.close {
+  height: 12px;
+  width: 12px;
+  padding: 8px 10px !important;
+  display: inline-flex;
+  text-shadow: none !important;
+}
+.betslip-bet-count-round {
+  height: 24px;
+  width: 24px;
+  border-radius: 50px;
+  background-color: $black;
+  padding: 2px 8px;
+  margin-left: 6px;
+  display: inline-flex;
 }

@@ -12,5 +12,10 @@ $primary-button-boxshadow-color: rgba(0,0,0,0.5);
 
 // Betslip
 $betslip-active-tab-border-color: $green;
+$betslip-bet-count-color: $green;
+
+// Close
+$close-color: $green;
+$close-text-shadow: none;
 
 @import 'theme_schema';

@@ -1,77 +1,102 @@
 <template>
   <div>
-  <b-container class="m-0 p-0"
-               v-if="getBets.length > 0">
-      <b-row no-gutters
-             class="betslip-header">
+    <no-bets-block/>
+
+    <b-container
+      v-if="getBets.length > 0"
+      class="m-0 p-0">
+      <b-row
+        no-gutters
+        class="betslip-header">
         <b-col class="p-0">
-          <b>Betslip</b>
-          <span v-show="getBets.length > 0">
-            {{ getBets.length }}
+          <strong>Betslip</strong>
+          <span
+            v-show="getBets.length > 0"
+            class="betslip-bet-count-round">
+            <small>
+              <b>
+                {{ getBets.length }}
+              </b>
+            </small>
           </span>
         </b-col>
-        <b-col class="p-0"
-               align="right">
-          <span @click="clearBetslip">
+        <b-col
+          class="p-0"
+          align="right">
+          <b-link @click="clearBetslip">
             Clear all
-          </span>
+          </b-link>
         </b-col>
       </b-row>
 
-    <b-card no-body bg-variant="black-light">
-      <b-tabs
-        v-model="tabIndex"
-        nav-wrapper-class="betslip-tabs-wrapper">
+      <b-card
+        no-body
+        bg-variant="black-light">
+        <b-tabs
+          v-model="tabIndex"
+          nav-wrapper-class="betslip-tabs-wrapper">
 
-        <b-tab
-          :title-link-class="changeStyleTab(0)"
-          title="Single"
-          no-body>
-          <b-row no-gutters>
-            <b-col>
-              <div
-                v-for="bet in getBets"
-                :key="bet.oddId">
-                <betslip-item :bet="bet"/>
-              </div>
-            </b-col>
-          </b-row>
-        </b-tab>
+          <b-tab
+            :title-link-class="changeStyleTab(0)"
+            title="Single"
+            no-body>
+            <b-row no-gutters>
+              <b-col>
+                <div
+                  v-for="bet in getBets"
+                  :key="bet.oddId">
+                  <betslip-item :bet="bet"/>
+                </div>
+              </b-col>
+            </b-row>
+          </b-tab>
 
-        <b-tab
-          :title-link-class="changeStyleTab(1)"
-          title="Combo"
-          no-body>
-          <p class="m-3 text-center">
-            To be implemented
-          </p>
-        </b-tab>
+          <b-tab
+            :title-link-class="changeStyleTab(1)"
+            title="Combo"
+            no-body>
+            <p class="m-3 text-center">
+              To be implemented
+            </p>
+          </b-tab>
 
-      </b-tabs>
-    </b-card>
+        </b-tabs>
+      </b-card>
 
+      <b-card
+        v-if="getBets.length > 0"
+        bg-variant="black-light"
+        no-body>
+        <b-row class="px-3">
+          <b-col cols="8">
+            <p>Total stake:</p>
+          </b-col>
+          <b-col
+            cols="4"
+            class="text-right">
+            {{ parseFloat(getTotalStakes.toFixed(2)) }}
+          </b-col>
+          <b-col cols="8">
+            <h5>Total return:</h5>
+          </b-col>
+          <b-col
+            cols="4"
+            class="text-right">
+            <h5>
+              <strong>
+                {{ parseFloat(getTotalReturn.toFixed(2)) }}
+              </strong>
+            </h5>
+          </b-col>
+        </b-row>
+      </b-card>
 
-    <b-card bg-variant="black-light" no-body>
-      <b-row class="px-3">
-        <b-col cols="8">
-          <p>Total stake:</p>
-        </b-col>
-        <b-col cols="4" class="text-right">
-          {{ parseFloat(getTotalStakes.toFixed(2)) }}
-        </b-col>
-        <b-col cols="8">
-          <p>Total return:</p>
-        </b-col>
-        <b-col cols="4" class="text-right">
-          <b>{{ parseFloat(getTotalReturn.toFixed(2)) }}</b>
-        </b-col>
-      </b-row>
-    </b-card>
+    </b-container>
 
-
-
-
-    <b-card bg-variant="black-light" class="p-2" no-body>
+    <b-card
+      bg-variant="black-light"
+      class="p-2"
+      no-body>
       <b-button
         :class="{
           'btn-danger': !betslipSubmittable,
@@ -84,9 +109,6 @@
       </b-button>
     </b-card>
 
-  </b-container>
-
-  <no-bets-block/>
   </div>
 </template>
 

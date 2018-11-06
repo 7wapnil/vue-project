@@ -1,3 +1,5 @@
+@import '../variables';
+
 // Top navigation
 .navbar {
   background-color: $navbar-background;
@@ -22,4 +24,7 @@
 // Betslip
 .betslipActiveTab {
   box-shadow: inset 0 2px 0 0 $betslip-active-tab-border-color;
+}
+.betslip-bet-count-round {
+  color: $betslip-bet-count-color;
 }

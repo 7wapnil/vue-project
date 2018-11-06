@@ -1,32 +1,35 @@
 <template>
-  <b-card no-body
+  <b-card
     :bg-variant="cardVariant"
+    no-body
     class="px-2 pb-3 mb-2">
 
-    <b-row>
-      <b-col cols="12">
-        <span class="mt-3 text-center">
-          {{ bet.eventName }}
+    <b-row no-gutters>
+      <b-col
+        cols="10"
+        class="d-flex justify-content-center market-name">
+        <small>{{ bet.eventName }}</small>
+      </b-col>
+      <b-col
+        cols="2"
+        class="d-flex justify-content-center">
+        <span
+          v-show="!bet.frozen"
+          class="close"
+          @click="removeOdd(bet.oddId)">
+          ×
         </span>
-
-          <span class="close mt-1 mr-1"
-                v-show="!bet.frozen"
-                @click="removeOdd(bet.oddId)"
-                aria-hidden="true">
-            ×
-          </span>
-
       </b-col>
     </b-row>
 
-    <b-row>
-      <b-col class="m-2" align="center">
-        <b>{{ bet.marketName }}</b>
+    <b-row no-gutters>
+      <b-col class="d-flex justify-content-center">
+        <strong>{{ bet.marketName }}</strong>
       </b-col>
     </b-row>
 
     <b-row class="m-2">
-      <p>Outcome {{ bet.oddName }} with value {{ bet.currentOddValue }}</p>
+      <small>Outcome {{ bet.oddName }} with value {{ bet.currentOddValue }}</small>
     </b-row>
 
     <b-col class="row mt-2 text-right">
@@ -40,39 +43,45 @@
               :show="displayUnconfirmedOddValueDialog"
               variant="danger">
               This bet odd value changed from {{ bet.approvedOddValue }} to {{ bet.currentOddValue }}.
-              <button
-                class="btn"
+              <b-button
                 @click="confirmValue">
                 Accept new value
-              </button>
+              </b-button>
             </b-alert>
           </div>
         </div>
       </b-row>
     </b-col>
 
-        <b-row class="my-2 pl-2 pr-1">
-          <b-col class="text-left align-items-start d-flex">
-            <b>STAKE:</b>
-          </b-col>
-          <b-col cols="4">
-            <b-input
-              v-model="betStake"
-              type="number"
-              name="odd-value"
-              min="0"/>
-          </b-col>
-        </b-row>
+    <b-row class="my-2 pl-2 pr-1">
+      <b-col class="text-left align-items-start d-flex">
+        <small>
+          <strong>
+            STAKE:
+          </strong>
+        </small>
+      </b-col>
+      <b-col cols="4">
+        <b-input
+          v-model="betStake"
+          type="number"
+          name="odd-value"
+          min="0"/>
+      </b-col>
+    </b-row>
 
-        <b-row class="pl-2 pr-1">
-          <b-col cols="8">
-            Potential Return:
-          </b-col>
-          <b-col cols="4" align="right">
-            {{ parseFloat(potentialReturn.toFixed(2)) }}
-          </b-col>
-        </b-row>
-
+    <b-row class="pl-2 pr-1">
+      <b-col cols="8">
+        <small>Potential Return:</small>
+      </b-col>
+      <b-col
+        cols="4"
+        align="right">
+        <small>
+          {{ parseFloat(potentialReturn.toFixed(2)) }}
+        </small>
+      </b-col>
+    </b-row>
 
   </b-card>
 </template>
