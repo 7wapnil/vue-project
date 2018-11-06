@@ -4,7 +4,7 @@
     :data-id="odd.id"
     :class="{'btn-outline-success': raised, 'btn-outline-danger': !raised}"
     class="btn btn-block btn-outline-primary mb-2"
-    @click="obbButtonClick">
+    @click="addOdd">
     {{ odd.name }} {{ odd.value }} ({{ diff > 0 ? '+' : '' }}{{ diff }})
   </button>
 </template>
@@ -53,7 +53,7 @@ export default {
     ...mapActions('betslip', [
       'pushBet'
     ]),
-    obbButtonClick () {
+    addOdd () {
       if (this.isDisabled) { return }
       this.pushBet({
         event: this.event,

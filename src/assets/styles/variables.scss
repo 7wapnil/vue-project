@@ -43,8 +43,20 @@ $red-light: #FF8D8D;
 // Fonts
 $font-family-sans-serif: 'IBM Plex Sans', sans-serif;
 $font-family-base: $font-family-sans-serif;
+$font-size-base: 1rem;
+$h1-font-size: $font-size-base * 4.571;
+$h2-font-size: $font-size-base * 3.429;
+$h3-font-size: $font-size-base * 2.143;
+$h4-font-size: $font-size-base * 1.5;
+$h5-font-size: $font-size-base * 1.286;
 
-// Background
+$small-font-size: $font-size-base * 0.8571;
+
+$font-weight-light: light;
+$font-weight-normal: normal;
+$font-weight-bold: bold;
+
+  // Background
 $body-bg: $black-light;
 $body-color: $white;
 
@@ -68,5 +80,27 @@ $input-border-radius: 0 6px 0 6px;
 // Temp settings
 $primary: $white;
 
-$theme-colors: ("black-lighter": $black-lightest,
-                "black-secondary": $black-secondary);
+$theme-colors: ("black-lightest": $black-lightest,
+                "black-lighter": $black-lighter,
+                "black-secondary": $black-secondary,
+                "black-light": $black-light,
+                "black": $black);
+$enable-rounded: false;
+$card-border-width: 0;
+
+// Grid containers
+
+$container-max-widths: (
+        sm: 540px,
+        md: 720px,
+        lg: 960px,
+        xl: 1440px
+);
+$grid-breakpoints: (
+        xs: 0,
+        sm: 576px,
+        md: 768px,
+        lg: 992px,
+        xl: 1024px
+) !default;
+
