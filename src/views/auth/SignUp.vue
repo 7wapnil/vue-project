@@ -5,177 +5,181 @@
         <form @submit.prevent="submit">
           <h2>Sign Up</h2>
           <hr>
-          <div class="step" v-show="isCurrentStep(1)">
+          <div
+            v-show="isCurrentStep(1)"
+            class="step">
             <b-form-group
-                    :state="getState('username')"
-                    :invalid-feedback="errors.username"
-                    label="Username"
-                    required="required">
+              :state="getState('username')"
+              :invalid-feedback="errors.username"
+              label="Username"
+              required="required">
               <b-form-input
-                      id="username"
-                      v-model="fields.username"
-                      :state="getState('username')"
-                      required="required"/>
+                id="username"
+                v-model="fields.username"
+                :state="getState('username')"
+                required="required"/>
             </b-form-group>
             <b-form-group
-                    :state="getState('email')"
-                    :invalid-feedback="errors.email"
-                    label="Email">
+              :state="getState('email')"
+              :invalid-feedback="errors.email"
+              label="Email">
               <b-form-input
-                      id="email"
-                      v-model="fields.email"
-                      :state="getState('email')"
-                      required="required"/>
+                id="email"
+                v-model="fields.email"
+                :state="getState('email')"
+                required="required"/>
             </b-form-group>
             <b-form-group
-                    :state="getState('date_of_birth')"
-                    :invalid-feedback="errors.date_of_birth"
-                    label="Birth Date">
+              :state="getState('date_of_birth')"
+              :invalid-feedback="errors.date_of_birth"
+              label="Birth Date">
               <flat-pickr
-                      id="date_of_birth"
-                      v-model="fields.date_of_birth"
-                      :config="datePickerConfig"
-                      :class="{'is-invalid': getState('date_of_birth') === false}"
-                      class="form-control"/>
+                id="date_of_birth"
+                v-model="fields.date_of_birth"
+                :config="datePickerConfig"
+                :class="{'is-invalid': getState('date_of_birth') === false}"
+                class="form-control"/>
             </b-form-group>
             <b-form-group
-                    :state="getState('password')"
-                    :invalid-feedback="errors.password"
-                    label="Password">
+              :state="getState('password')"
+              :invalid-feedback="errors.password"
+              label="Password">
               <b-form-input
-                      id="password"
-                      v-model="fields.password"
-                      :state="getState('password')"
-                      type="password"
-                      required="required"/>
+                id="password"
+                v-model="fields.password"
+                :state="getState('password')"
+                type="password"
+                required="required"/>
             </b-form-group>
             <b-form-group
-                    :state="getState('password_confirmation')"
-                    :invalid-feedback="errors.password_confirmation"
-                    label="Password confirmation">
+              :state="getState('password_confirmation')"
+              :invalid-feedback="errors.password_confirmation"
+              label="Password confirmation">
               <b-form-input
-                      id="password_confirmation"
-                      v-model="fields.password_confirmation"
-                      :state="getState('password_confirmation')"
-                      type="password"
-                      required="required"/>
+                id="password_confirmation"
+                v-model="fields.password_confirmation"
+                :state="getState('password_confirmation')"
+                type="password"
+                required="required"/>
             </b-form-group>
 
             <b-form-group
-                    :state="getState('country')"
-                    :invalid-feedback="errors.country"
-                    label="Country">
+              :state="getState('country')"
+              :invalid-feedback="errors.country"
+              label="Country">
               <b-form-select
-                      id="country"
-                      :options="countries"
-                      v-model="fields.country"
-                      :state="getState('country')"
-                      required="required"/>
+                id="country"
+                :options="countries"
+                v-model="fields.country"
+                :state="getState('country')"
+                required="required"/>
             </b-form-group>
             <button
-                    :disabled="uncompletedStep"
-                    @click="nextStep"
-                    class="btn btn-dark btn-block">
+              :disabled="uncompletedStep"
+              class="btn btn-dark btn-block"
+              @click="nextStep">
               Continue
             </button>
           </div>
-          <div class="step" v-show="isCurrentStep(2)">
+          <div
+            v-show="isCurrentStep(2)"
+            class="step">
             <b-form-group
-                    :state="getState('first_name')"
-                    :invalid-feedback="errors.first_name"
-                    label="First name">
+              :state="getState('first_name')"
+              :invalid-feedback="errors.first_name"
+              label="First name">
               <b-form-input
-                      id="first_name"
-                      v-model="fields.first_name"
-                      :state="getState('first_name')"
-                      required="required"/>
+                id="first_name"
+                v-model="fields.first_name"
+                :state="getState('first_name')"
+                required="required"/>
             </b-form-group>
             <b-form-group
-                    :state="getState('last_name')"
-                    :invalid-feedback="errors.last_name"
-                    label="Last name">
+              :state="getState('last_name')"
+              :invalid-feedback="errors.last_name"
+              label="Last name">
               <b-form-input
-                      id="last_name"
-                      v-model="fields.last_name"
-                      :state="getState('last_name')"
-                      required="required"/>
+                id="last_name"
+                v-model="fields.last_name"
+                :state="getState('last_name')"
+                required="required"/>
             </b-form-group>
 
             <b-form-group
-                    :state="getState('gender')"
-                    :invalid-feedback="errors.gender"
-                    label="Gender">
+              :state="getState('gender')"
+              :invalid-feedback="errors.gender"
+              label="Gender">
               <b-form-select
-                      id="gender"
-                      :options="genders"
-                      v-model="fields.gender"
-                      :state="getState('gender')"
-                      required="required"/>
+                id="gender"
+                :options="genders"
+                v-model="fields.gender"
+                :state="getState('gender')"
+                required="required"/>
             </b-form-group>
 
             <b-form-group
-                    :state="getState('phone')"
-                    :invalid-feedback="errors.phone"
-                    label="Phone number">
+              :state="getState('phone')"
+              :invalid-feedback="errors.phone"
+              label="Phone number">
               <b-form-input
-                      id="phone"
-                      v-model="fields.phone"
-                      :state="getState('phone')"
-                      required="required"/>
+                id="phone"
+                v-model="fields.phone"
+                :state="getState('phone')"
+                required="required"/>
             </b-form-group>
 
             <b-form-group
-                    :state="getState('city')"
-                    :invalid-feedback="errors.city"
-                    label="City">
+              :state="getState('city')"
+              :invalid-feedback="errors.city"
+              label="City">
               <b-form-input
-                      id="city"
-                      v-model="fields.city"
-                      :state="getState('city')"
-                      required="required"/>
+                id="city"
+                v-model="fields.city"
+                :state="getState('city')"
+                required="required"/>
             </b-form-group>
 
             <b-form-group
-                    :state="getState('street_address')"
-                    :invalid-feedback="errors.street_address"
-                    label="Address">
+              :state="getState('street_address')"
+              :invalid-feedback="errors.street_address"
+              label="Address">
               <b-form-input
-                      id="street_address"
-                      v-model="fields.street_address"
-                      :state="getState('street_address')"
-                      required="required"/>
+                id="street_address"
+                v-model="fields.street_address"
+                :state="getState('street_address')"
+                required="required"/>
             </b-form-group>
 
             <b-form-group
-                    :state="getState('state')"
-                    :invalid-feedback="errors.state"
-                    label="Province">
+              :state="getState('state')"
+              :invalid-feedback="errors.state"
+              label="Province">
               <b-form-input
-                      id="state"
-                      v-model="fields.state"
-                      :state="getState('state')"/>
+                id="state"
+                v-model="fields.state"
+                :state="getState('state')"/>
             </b-form-group>
 
             <b-form-group
-                    :state="getState('zip_code')"
-                    :invalid-feedback="errors.zip_code"
-                    label="ZIP Code">
+              :state="getState('zip_code')"
+              :invalid-feedback="errors.zip_code"
+              label="ZIP Code">
               <b-form-input
-                      id="zip_code"
-                      v-model="fields.zip_code"
-                      :state="getState('zip_code')"/>
+                id="zip_code"
+                v-model="fields.zip_code"
+                :state="getState('zip_code')"/>
             </b-form-group>
 
             <button
-                    :disabled="submitting"
-                    @click="previousStep"
-                    class="btn btn-dark btn-block">
+              :disabled="submitting"
+              class="btn btn-dark btn-block"
+              @click="previousStep">
               Back
             </button>
             <button
-                    :disabled="submitting"
-                    type="submit"
-                    class="btn btn-dark btn-block">
+              :disabled="submitting"
+              type="submit"
+              class="btn btn-dark btn-block">
               Register
             </button>
           </div>
@@ -205,7 +209,10 @@ export default {
   data () {
     return {
       countries: [],
-      genders: [{ value: 0, text: 'Male' }, { value: 1, text: 'Female' } ],
+      genders: [
+        { value: 0, text: 'Male' },
+        { value: 1, text: 'Female' }
+      ],
       fields: {
         username: '',
         email: '',
@@ -225,11 +232,11 @@ export default {
       },
       step: 1,
       steps: {
-        1 : {
+        1: {
           fields: ['username', 'email', 'date_of_birth',
-                    'password', 'password_confirmation', 'country'],
+            'password', 'password_confirmation', 'country'],
         },
-        2 : {
+        2: {
           fields: ['first_name', 'last_name', 'gender', 'phone', 'street_address', 'city']
         }
       },
@@ -242,27 +249,30 @@ export default {
     }
   },
   computed: {
-    uncompletedStep(){
+    uncompletedStep () {
       const requiredFields = this.steps[this.step].fields
 
       return requiredFields.some(fieldName => !this.fields[fieldName])
     }
   },
+  created () {
+    this.getCountriesList()
+  },
 
   methods: {
-    getCountriesList() {
+    getCountriesList () {
       axios.get(COUNTRIES_URL).then((response) => {
         this.countries = response.data.map(e => e.name)
       })
     },
 
-    nextStep(){
+    nextStep () {
       this.step++
     },
-    previousStep(){
+    previousStep () {
       this.step--
     },
-    isCurrentStep(stepNumber){
+    isCurrentStep (stepNumber) {
       return this.step === stepNumber
     },
 
@@ -286,8 +296,5 @@ export default {
         })
     }
   },
-  created(){
-    this.getCountriesList()
-  }
 }
 </script>
