@@ -198,8 +198,7 @@ import flatPickr from 'vue-flatpickr-component'
 import 'flatpickr/dist/flatpickr.css'
 import moment from 'moment'
 import formsMixin from '@/mixins/forms'
-import axios from 'axios'
-import { COUNTRIES_URL } from '../../libs/constants'
+import { countries } from 'countries-list'
 
 export default {
   components: {
@@ -208,7 +207,7 @@ export default {
   mixins: [formsMixin],
   data () {
     return {
-      countries: [],
+      countries: Object.values(countries).map(country => country.name),
       genders: [
         { value: 0, text: 'Male' },
         { value: 1, text: 'Female' }
@@ -255,17 +254,8 @@ export default {
       return requiredFields.some(fieldName => !this.fields[fieldName])
     }
   },
-  created () {
-    this.getCountriesList()
-  },
 
   methods: {
-    getCountriesList () {
-      axios.get(COUNTRIES_URL).then((response) => {
-        this.countries = response.data.map(e => e.name)
-      })
-    },
-
     nextStep () {
       this.step++
     },
