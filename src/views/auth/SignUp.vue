@@ -74,8 +74,9 @@
                 :state="getState('country')"
                 required="required"/>
             </b-form-group>
+            <span v-if="tooYoung">You should be adult to continue signing up.</span>
             <button
-              :disabled="uncompletedStep"
+              :disabled="uncompletedStep || tooYoung"
               class="btn btn-dark btn-block"
               @click="nextStep">
               Continue
@@ -252,6 +253,10 @@ export default {
       const requiredFields = this.steps[this.step].fields
 
       return requiredFields.some(fieldName => !this.fields[fieldName])
+    },
+
+    tooYoung () {
+      return moment().diff(this.fields.date_of_birth, 'years') < 18
     }
   },
 
