@@ -78,7 +78,7 @@
             <button
               :disabled="uncompletedStep || tooYoung"
               class="btn btn-dark btn-block"
-              @click="nextStep">
+              @click.prevent="nextStep">
               Continue
             </button>
           </div>
@@ -123,12 +123,13 @@
               :invalid-feedback="errors.phone"
               label="Phone number">
               <b-form-input
+                v-mask="'+# ### ### #####'"
                 id="phone"
                 v-model="fields.phone"
                 :state="getState('phone')"
                 required="required"/>
             </b-form-group>
-
+            <span v-show="!isValidPhone">Invalid phone number.</span>
             <b-form-group
               :state="getState('city')"
               :invalid-feedback="errors.city"
@@ -174,7 +175,7 @@
             <button
               :disabled="submitting"
               class="btn btn-dark btn-block"
-              @click="previousStep">
+              @click.prevent="previousStep">
               Back
             </button>
             <button
@@ -200,11 +201,17 @@ import 'flatpickr/dist/flatpickr.css'
 import moment from 'moment'
 import formsMixin from '@/mixins/forms'
 import { countries } from 'countries-list'
+import { mask } from 'vue-the-mask'
+import { isValidNumber } from 'libphonenumber-js'
 
 export default {
   components: {
     flatPickr
   },
+  directives: {
+    mask
+  },
+
   mixins: [formsMixin],
   data () {
     return {
@@ -257,6 +264,17 @@ export default {
 
     tooYoung () {
       return moment().diff(this.fields.date_of_birth, 'years') < 18
+    },
+
+    isValidPhone () {
+      return isValidNumber(this.fields.phone)
+    }
+  },
+
+  watch: {
+    'fields.country': function (countryName) {
+      const country = Object.values(countries).find(country => country.name === countryName)
+      this.fields.phone = country ? country.phone : ''
     }
   },
 
