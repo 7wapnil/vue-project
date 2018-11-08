@@ -1,46 +1,42 @@
 <template>
-  <simple-layout>
-    <div class="row">
-      <div class="col">
-        <form @submit.prevent="submit">
-          <h2>Sign In</h2>
-          <hr>
-          <b-form-group
+      <form @submit.prevent="submit">
+        <b-form-group
+          horizontal
+          :state="getState('login')"
+          :invalid-feedback="errors.username"
+          label="Username"
+          label-text-align="right"
+          label-class="form-label"
+          required="required">
+          <b-form-input
+            id="login-username"
+            v-model="fields.login"
             :state="getState('login')"
-            :invalid-feedback="errors.username"
-            label="Username or email"
-            required="required">
-            <b-form-input
-              id="username"
-              v-model="fields.login"
-              :state="getState('login')"
-              required="required"/>
-          </b-form-group>
-          <b-form-group
+            required="required"/>
+        </b-form-group>
+        <b-form-group
+          horizontal
+          label="Password"
+          label-text-align="right"
+          label-class="form-label"
+          :state="getState('password')"
+          :invalid-feedback="errors.password">
+          <b-form-input
+            id="login-password"
+            v-model="fields.password"
             :state="getState('password')"
-            :invalid-feedback="errors.password"
-            label="Password">
-            <b-form-input
-              id="password"
-              v-model="fields.password"
-              :state="getState('password')"
-              type="password"
-              required="required"/>
-          </b-form-group>
-          <button
-            :disabled="submitting"
-            class="btn btn-dark btn-block"
-            type="submit">
-            Sign In
-          </button>
-          <hr>
-          <router-link :to="'sign-up'">
-            Have no account yet? Sign up here
-          </router-link>
-        </form>
-      </div>
-    </div>
-  </simple-layout>
+            type="password"
+            required="required"/>
+        </b-form-group>
+        <b-button :disabled="submitting"
+                  block
+                  type="submit">
+          Sign in
+        </b-button>
+        <b-link :to="'sign-up'">
+          Have no account yet? Sign up here
+        </b-link>
+      </form>
 </template>
 
 <script>
