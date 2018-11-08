@@ -170,7 +170,13 @@
                 v-model="fields.zip_code"
                 :state="getState('zip_code')"/>
             </b-form-group>
-
+            <b-form-group>
+              <b-form-checkbox
+                v-model="agree"
+                plain>
+                Confirm I am not underage, agree with T&C, agree with privacy policy
+              </b-form-checkbox>
+            </b-form-group>
             <button
               :disabled="submitting"
               class="btn btn-dark btn-block"
@@ -178,7 +184,7 @@
               Back
             </button>
             <button
-              :disabled="submitting"
+              :disabled="submitting || ! agree"
               type="submit"
               class="btn btn-dark btn-block">
               Register
@@ -208,6 +214,7 @@ export default {
   mixins: [formsMixin],
   data () {
     return {
+      agree: false,
       countries: Object.values(countries).map(country => country.name),
       genders: [
         { value: 0, text: 'Male' },
