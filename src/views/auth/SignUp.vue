@@ -123,7 +123,7 @@
               :invalid-feedback="errors.phone"
               label="Phone number">
               <b-form-input
-                v-mask="'+# ### ### #####'"
+                v-mask="'+############'"
                 id="phone"
                 v-model="fields.phone"
                 :state="getState('phone')"
