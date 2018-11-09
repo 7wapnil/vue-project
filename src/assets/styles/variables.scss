@@ -1,91 +1,105 @@
 @import url('https://fonts.googleapis.com/css?family=IBM+Plex+Sans');
 
 // Colors
-$green: #1F572E;
-$green-light: #47D469;
-$green-dark: #16593A;
+$green-dark: #16593A; //Temp
+$arc-clr-sport-bg: #1B6945;
+$arc-clr-sport-glow: #47D469;
 
-$purple: #3A3774;
-$purple-light: #484499;
-$purple-dark: #23214C;
+$blue: #335BBA; //Temp
+$blue-lightest: #3E81E6; //Temp
 
-$blue: #335BBA;
-$blue-light: #4290FF;
-$blue-lightest: #3E81E6;
-$blue-dark: #2D4686;
-$blue-darkest: #263B72;
+$arc-clr-esport-bg: #2D4686;
+$arc-clr-esport-glow: #4290FF;
 
-$orange: #592A15;
-$orange-light: #E54700;
-$orange-dark: #95360B;
+$orange: #592A15; //Temp
+$arc-clr-inplay-bg: #281A12;
+$arc-clr-inplay-glow: #E54700;
 
-$black: #191919;
-$black-light: #1E1E1E;
-$black-lighter: #2F2F2F;
-$black-lightest: #3E3E3E;
-$black-secondary: #232323;
+$arc-clr-soil-light: #3D3D3D;
+$arc-clr-soil-dark: #2F2F2F;
+$arc-clr-soil-darker: #232323;
+$arc-clr-soil-black: #1E1E1E;
+$arc-clr-soil-cover: rgba(0, 0, 0, 0.3);
 
-$yellow: #FFB960;
-$yellow-light: #FFC460;
-$yellow-lightest: #FFC67E;
-$yellow-dark: #FBB761;
+$arc-clr-gold: #FFB960;
+$arc-clr-gold-light: #FFC67E;
 
-$white: #FFFFFF;
-$white-darker: #C1C1C1;
-$white-darkest: #9A9A9A;
+$arc-clr-white: #FFFFFF;
+$arc-clr-iron: #C1C1C1;
+$arc-clr-iron-light: #E5E5E5;
 
-$brown: #483624;
-$brown-dark: #352516;
-
-$red: #FF5066;
-$red-light: #FF8D8D;
+$wp-clr-notif-yellow: #FF4C4C;
+$wp-clr-notif-red: #FFE27A;
 
 // Fonts
 $font-family-sans-serif: 'IBM Plex Sans', sans-serif;
 $font-family-base: $font-family-sans-serif;
-$font-size-base: 1rem;
-$h1-font-size: $font-size-base * 4.571;
-$h2-font-size: $font-size-base * 3.429;
-$h3-font-size: $font-size-base * 2.143;
-$h4-font-size: $font-size-base * 1.5;
-$h5-font-size: $font-size-base * 1.286;
+$font-size-base: 1rem; // 14px
+$h1-font-size: $font-size-base * 4.571; // 64px
+$h2-font-size: $font-size-base * 3.429; // 48px
+$h3-font-size: $font-size-base * 2.143; // 30px
+$h4-font-size: $font-size-base * 1.5; // 21px
+$h5-font-size: $font-size-base * 1.286; // 18px
+$h6-font-size: $font-size-base * 1.143; // 16px
 
-$small-font-size: $font-size-base * 0.8571;
+$small-font-size: $font-size-base * 0.8571; // 12px
 
 $font-weight-light: light;
 $font-weight-normal: normal;
 $font-weight-bold: bold;
 
-  // Background
-$body-bg: $black-light;
-$body-color: $white;
+// Backgrounds
+$body-bg: $arc-clr-soil-black;
+$body-color: $arc-clr-white;
 
 // Cards
-$card-bg: $black-lightest;
+$card-bg: $arc-clr-soil-light;
+$card-border-radius: 0;
+$card-inner-border-radius: 0;
 
 // Navs
 $nav-tabs-border-radius: 0;
 $nav-tabs-border-width: 0;
+$nav-tabs-link-active-bg: $arc-clr-soil-dark;
+$nav-tabs-link-active-color: $arc-clr-white;
 
 // Navbar
 $navbar-height: 80px;
-$navbar-dark-color: $yellow;
-$navbar-dark-hover-color: $white;
+$navbar-dark-color: $arc-clr-gold;
+$navbar-dark-hover-color: $arc-clr-white;
 
 // Forms
-$input-border-color: $black-secondary;
-$input-border-width: 1px;
+$input-border-color: $arc-clr-soil-darker;
 $input-border-radius: 0 6px 0 6px;
+$input-color: $arc-clr-soil-light;
+$input-border-radius-lg: $input-border-radius;
+$input-border-radius-sm: $input-border-radius;
+$input-line-height: 18px;
+$input-padding-x: 12px;
+$input-padding-y: 9px;
+
 
 // Temp settings
-$primary: $white;
+$primary: $arc-clr-white;
 
-$theme-colors: ("black-lightest": $black-lightest,
-                "black-lighter": $black-lighter,
-                "black-secondary": $black-secondary,
-                "black-light": $black-light,
-                "black": $black);
-$enable-rounded: false;
+$theme-colors: ("arc-clr-soil-light": $arc-clr-soil-light,
+                "arc-clr-soil-dark": $arc-clr-soil-dark,
+                "arc-clr-soil-darker": $arc-clr-soil-darker,
+                "arc-clr-soil-black": $arc-clr-soil-black,
+                "arc-clr-iron": $arc-clr-iron,
+                "arc-clr-iron-light": $arc-clr-iron-light,
+                "arc-clr-gold": $arc-clr-gold,
+                "arc-clr-gold-light": $arc-clr-gold-light,
+                "arc-clr-white": $arc-clr-white,
+                "arc-clr-esport-bg": $arc-clr-esport-bg,
+                "arc-clr-esport-glow": $arc-clr-esport-glow,
+                "arc-clr-sport-bg": $arc-clr-sport-bg,
+                "arc-clr-sport-glow": $arc-clr-sport-glow,
+                "arc-clr-inplay-bg": $arc-clr-inplay-bg,
+                "arc-clr-inplay-glow": $arc-clr-inplay-glow,
+                "wp-clr-notif-yellow": $wp-clr-notif-yellow,
+                "wp-clr-notif-red": $wp-clr-notif-red,
+                );
 $card-border-width: 0;
 
 // Grid containers
@@ -104,3 +118,16 @@ $grid-breakpoints: (
         xl: 1024px
 ) !default;
 
+// Modals
+$modal-inner-padding: 0 10px 10px 10px;
+$modal-content-border-radius: 0;
+
+// Components
+$border-radius: 0;
+$border-radius-lg: 0;
+$border-radius-sm: 0;
+
+// Buttons
+$btn-border-radius: 6px 0 12px 0;
+$btn-border-radius-lg: $btn-border-radius;
+$btn-border-radius-sm: $btn-border-radius;

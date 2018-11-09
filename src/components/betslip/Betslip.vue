@@ -31,11 +31,10 @@
 
       <b-card
         no-body
-        bg-variant="black-light">
+        bg-variant="arc-clr-soil-black">
         <b-tabs
           v-model="tabIndex"
           nav-wrapper-class="betslip-tabs-wrapper">
-
           <b-tab
             :title-link-class="changeStyleTab(0)"
             title="Single"
@@ -65,7 +64,7 @@
 
       <b-card
         v-if="getBets.length > 0"
-        bg-variant="black-light"
+        bg-variant="arc-clr-soil-black"
         no-body>
         <b-row class="px-3">
           <b-col cols="8">
@@ -94,7 +93,7 @@
     </b-container>
 
     <b-card
-      bg-variant="black-light"
+      bg-variant="arc-clr-soil-black"
       class="p-2"
       no-body>
       <b-button

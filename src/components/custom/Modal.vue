@@ -14,15 +14,15 @@ export default {
     },
     'header-bg-variant': {
       type: String,
-      default: 'black-secondary'
+      default: 'arc-clr-soil-light'
     },
     'header-border-variant': {
       type: String,
-      default: 'black-secondary'
+      default: 'arc-clr-soil-light'
     },
     'body-bg-variant': {
       type: String,
-      default: 'black-lighter'
+      default: 'arc-clr-soil-light'
     }
   }
 }
