@@ -129,7 +129,7 @@ export default {
     },
     cardVariant () {
       const variantMapping = {
-        initial: 'black-lighter',
+        initial: 'arc-clr-soil-dark',
         submitting: 'light',
         pending: 'light',
         succeeded: 'success',

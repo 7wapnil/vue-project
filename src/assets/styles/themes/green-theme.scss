@@ -1,21 +1,21 @@
 @import '../variables';
 
-$navbar-background: $green;
+$navbar-background: $arc-clr-sport-bg;
 $nav-item-active-background: $green-dark;
-$nav-item-active-shadow: $green-light;
+$nav-item-active-shadow: $arc-clr-sport-glow;
 
 // Buttons
-$primary-button-background: $green-light;
+$primary-button-background: $arc-clr-sport-glow;
 $primary-button-border-color: rgba(71,212,105,0.5);
 $primary-button-inset-boxshadow-color: rgba(255,60,229,0.35);
 $primary-button-boxshadow-color: rgba(0,0,0,0.5);
 
 // Betslip
-$betslip-active-tab-border-color: $green;
-$betslip-bet-count-color: $green;
+$betslip-active-tab-border-color: $arc-clr-sport-glow;
+$betslip-bet-count-color: $arc-clr-sport-glow;
 
 // Close
-$close-color: $green;
+$close-color: $arc-clr-sport-glow;
 $close-text-shadow: none;
 
 @import 'theme_schema';

@@ -1,5 +1,5 @@
 .esports {
-  @import "themes/purple-theme";
+  @import "themes/blue-theme";
 }
 
 .sports {
@@ -7,10 +7,6 @@
 }
 
 .live {
-  @import "themes/blue-theme";
-}
-
-.outrights {
   @import "themes/orange-theme";
 }
 
@@ -19,4 +15,4 @@
 @import "components/modal";
 @import "components/buttons";
 @import "components/tabs";
-@import "components/inputs";
+@import "components/forms";

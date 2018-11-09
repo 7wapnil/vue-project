@@ -77,19 +77,20 @@ export default {
   },
   data () {
     return {
-      mainMenu: [{
-        path: '/esports',
-        label: 'ESPORTS'
-      }, {
-        path: '/live',
-        label: 'LIVE'
-      }, {
-        path: '/outright',
-        label: 'OUTRIGHTS'
-      }, {
-        path: '/sports',
-        label: 'SPORTS'
-      }]
+      mainMenu: [
+        {
+          path: '/esports',
+          label: 'ESPORTS'
+        },
+        {
+          path: '/sports',
+          label: 'SPORTS'
+        },
+        {
+          path: '/live',
+          label: 'LIVE'
+        }
+      ]
     }
   },
   computed: {

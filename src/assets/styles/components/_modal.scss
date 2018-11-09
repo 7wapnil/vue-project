@@ -1,16 +1,26 @@
-.modal-header {
-  height: 80px;
-}
-
 #AccountModal .modal-dialog {
   height: 90%;
 }
 #AccountModal .modal-content {
   height: 100%;
 }
-
+#AuthModal .header {
+  padding: 30px;
+  border: none;
+}
+#AuthModal .content {
+  padding: 40px;
+}
+#AuthModal .modal-content {
+  border: none;
+}
 @media (min-width: 992px) {
   .modal-lg {
     max-width: 1179px !important;
+  }
+}
+@media (min-width: 576px) {
+  #AuthModal .modal-dialog {
+    max-width: 564px;
   }
 }
