@@ -79,16 +79,16 @@ export default {
     return {
       mainMenu: [
         {
-        path: '/esports',
-        label: 'ESPORTS'
+          path: '/esports',
+          label: 'ESPORTS'
         },
         {
-        path: '/sports',
-        label: 'SPORTS'
+          path: '/sports',
+          label: 'SPORTS'
         },
         {
-        path: '/live',
-        label: 'LIVE'
+          path: '/live',
+          label: 'LIVE'
         }
       ]
     }

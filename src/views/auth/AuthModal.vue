@@ -1,26 +1,30 @@
 <template>
-  <modal id="AuthModal"
-         title="Welcome to ArcaneBet"
-         title-tag="h4"
-         header-class="header">
+  <modal
+    id="AuthModal"
+    title="Welcome to ArcaneBet"
+    title-tag="h4"
+    header-class="header">
     <div slot="modal-header-close">
       X <!-- Add custom icon -->
     </div>
 
-    <b-card no-body
-            bg-variant="arc-clr-soil-dark">
-      <b-tabs v-model="tabIndex"
-              content-class="content">
+    <b-card
+      no-body
+      bg-variant="arc-clr-soil-dark">
+      <b-tabs
+        v-model="tabIndex"
+        content-class="content">
         <b-tab
           :title-link-class="changeStyleTab(0)"
           title-item-class="w-50 text-center"
           title="Sign in">
-          <login/>
+          <login @tab-changed="changeTab"/>
         </b-tab>
-        <b-tab :title-link-class="changeStyleTab(1)"
-               title-item-class="w-50 text-center"
-               title="Sign up">
-          <sign-up/>
+        <b-tab
+          :title-link-class="changeStyleTab(1)"
+          title-item-class="w-50 text-center"
+          title="Sign up">
+          <sign-up @tab-changed="changeTab"/>
         </b-tab>
       </b-tabs>
     </b-card>
@@ -32,14 +36,14 @@ import Login from './Login'
 import SignUp from './SignUp'
 
 export default {
-  data() {
-    return {
-      tabIndex: 0
-    }
-  },
   components: {
     SignUp,
     Login
+  },
+  data () {
+    return {
+      tabIndex: 0
+    }
   },
   methods: {
     changeStyleTab (index) {
@@ -48,6 +52,9 @@ export default {
       } else {
         return 'authTab'
       }
+    },
+    changeTab (tab) {
+      this.tabIndex = tab
     }
   }
 }

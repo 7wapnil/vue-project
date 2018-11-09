@@ -41,7 +41,8 @@
             no-body>
             <b-row no-gutters>
               <b-col>
-                <div v-for="bet in getBets"
+                <div
+                  v-for="bet in getBets"
                   :key="bet.oddId">
                   <betslip-item :bet="bet"/>
                 </div>
