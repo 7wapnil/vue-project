@@ -1,160 +1,176 @@
 <template>
   <form @submit.prevent="submit">
-    <div v-show="isCurrentStep(1)" class="step">
+    <div
+      v-show="isCurrentStep(1)"
+      class="step">
       <b-row no-gutters>
         <b-col
-                sm="3"
-                align="right"
-                class="mt-2 mr-3">
+          sm="3"
+          align="right"
+          class="mt-2 mr-3">
           <label for="signup-username">
             Username
           </label>
         </b-col>
         <b-col cols="6">
           <b-form-input
-                  id="signup-username"
-                  v-model="fields.username"
-                  :state="getState('username')"
-                  type="text"
-                  aria-describedby="inputFeedbackUsername"
-                  required/>
+            id="signup-username"
+            v-model="fields.username"
+            :state="getState('username')"
+            type="text"
+            aria-describedby="inputFeedbackUsername"
+            required/>
           <b-form-invalid-feedback
-                  id="inputFeedbackUsername"
-                  :invalid-feedback="errors.username"/>
+            id="inputFeedbackUsername"
+            :invalid-feedback="errors.username"/>
         </b-col>
       </b-row>
-      <b-row no-gutters class="mt-4">
+      <b-row
+        no-gutters
+        class="mt-4">
         <b-col
-                sm="3"
-                align="right"
-                class="mt-2 mr-3">
+          sm="3"
+          align="right"
+          class="mt-2 mr-3">
           <label for="signup-email">
             Email
           </label>
         </b-col>
         <b-col cols="6">
           <b-form-input
-                  id="signup-email"
-                  v-model="fields.email"
-                  :state="getState('email')"
-                  type="text"
-                  aria-describedby="inputFeedbackEmail"
-                  required/>
+            id="signup-email"
+            v-model="fields.email"
+            :state="getState('email')"
+            type="text"
+            aria-describedby="inputFeedbackEmail"
+            required/>
           <b-form-invalid-feedback
-                  id="inputFeedbackEmail"
-                  :invalid-feedback="errors.email"/>
+            id="inputFeedbackEmail"
+            :invalid-feedback="errors.email"/>
         </b-col>
       </b-row>
-      <b-row no-gutters class="mt-4">
+      <b-row
+        no-gutters
+        class="mt-4">
         <b-col
-                sm="3"
-                align="right"
-                class="mt-2 mr-3">
+          sm="3"
+          align="right"
+          class="mt-2 mr-3">
           <label for="signup-date_of_birth">
             Birth Date
           </label>
         </b-col>
         <b-col cols="6">
           <flat-pickr
-                  id="signup-date_of_birth"
-                  v-model="fields.date_of_birth"
-                  :config="datePickerConfig"
-                  :class="{'is-invalid': getState('date_of_birth') === false}"
-                  class="form-control"/>
+            id="signup-date_of_birth"
+            v-model="fields.date_of_birth"
+            :config="datePickerConfig"
+            :class="{'is-invalid': getState('date_of_birth') === false}"
+            class="form-control"/>
           <b-form-invalid-feedback
-                  id="inputFeedbackBirthday"
-                  :invalid-feedback="errors.date_of_birth"/>
+            id="inputFeedbackBirthday"
+            :invalid-feedback="errors.date_of_birth"/>
         </b-col>
       </b-row>
-      <b-row no-gutters class="mt-4">
+      <b-row
+        no-gutters
+        class="mt-4">
         <b-col
-                sm="3"
-                align="right"
-                class="mt-2 mr-3">
+          sm="3"
+          align="right"
+          class="mt-2 mr-3">
           <label for="signup-password">
             Password
           </label>
         </b-col>
         <b-col cols="6">
           <b-form-input
-                  id="signup-password"
-                  v-model="fields.password"
-                  :state="getState('password')"
-                  type="password"
-                  aria-describedby="inputFeedbackPassword"
-                  required/>
+            id="signup-password"
+            v-model="fields.password"
+            :state="getState('password')"
+            type="password"
+            aria-describedby="inputFeedbackPassword"
+            required/>
           <b-form-invalid-feedback
-                  id="inputFeedbackPassword"
-                  :invalid-feedback="errors.password"/>
+            id="inputFeedbackPassword"
+            :invalid-feedback="errors.password"/>
         </b-col>
       </b-row>
-      <b-row no-gutters class="mt-4">
+      <b-row
+        no-gutters
+        class="mt-4">
         <b-col
-                sm="3"
-                align="right"
-                class="mt-2 mr-3">
+          sm="3"
+          align="right"
+          class="mt-2 mr-3">
           <label for="signup-password-confirmation">
             Password confirmation
           </label>
         </b-col>
         <b-col cols="6">
           <b-form-input
-                  id="signup-password-confirmation"
-                  v-model="fields.password_confirmation"
-                  :state="getState('password_confirmation')"
-                  type="password"
-                  aria-describedby="inputFeedbackPasswordConfirmation"
-                  required/>
+            id="signup-password-confirmation"
+            v-model="fields.password_confirmation"
+            :state="getState('password_confirmation')"
+            type="password"
+            aria-describedby="inputFeedbackPasswordConfirmation"
+            required/>
           <b-form-invalid-feedback
-                  id="inputFeedbackPasswordConfirmation"
-                  :invalid-feedback="errors.password_confirmation"/>
+            id="inputFeedbackPasswordConfirmation"
+            :invalid-feedback="errors.password_confirmation"/>
         </b-col>
       </b-row>
 
-      <b-row no-gutters class="mt-4">
+      <b-row
+        no-gutters
+        class="mt-4">
         <b-col
-                sm="3"
-                align="right"
-                class="mt-2 mr-3">
+          sm="3"
+          align="right"
+          class="mt-2 mr-3">
           <label for="signup-country">
             Country
           </label>
         </b-col>
         <b-col cols="6">
           <b-form-select
-                  id="signup-country"
-                  :options="countries"
-                  v-model="fields.country"
-                  aria-describedby="inputFeedbackPasswordConfirmation"
-                  :state="getState('country')"
-                  required/>
+            id="signup-country"
+            :options="countries"
+            v-model="fields.country"
+            :state="getState('country')"
+            aria-describedby="inputFeedbackPasswordConfirmation"
+            required/>
           <b-form-invalid-feedback
-                  id="inputFeedbackCountry"
-                  :invalid-feedback="errors.country"/>
+            id="inputFeedbackCountry"
+            :invalid-feedback="errors.country"/>
         </b-col>
       </b-row>
 
       <b-row v-if="tooYoung">
-        <b-col align="center" class="my-4">
+        <b-col
+          align="center"
+          class="my-4">
           You should be adult to continue signing up
         </b-col>
       </b-row>
 
       <b-row no-gutters>
         <b-col
-                cols="6"
-                class="mr-auto ml-auto">
-      <b-button
-        :disabled="uncompletedStep || tooYoung"
-        class="ml-3"
-        block
-        @click.prevent="nextStep">
-        Continue
-      </b-button>
+          cols="6"
+          class="mr-auto ml-auto">
+          <b-button
+            :disabled="uncompletedStep || tooYoung"
+            class="ml-3"
+            block
+            @click.prevent="nextStep">
+            Continue
+          </b-button>
         </b-col>
       </b-row>
     </div>
-    <div v-show="isCurrentStep(2)" class="step">
+    <div
+      v-show="isCurrentStep(2)"
+      class="step">
       <b-form-group
         :state="getState('first_name')"
         :invalid-feedback="errors.first_name"
@@ -262,10 +278,12 @@
       </button>
     </div>
     <b-row no-gutters>
-      <b-col align="center" class="mt-4">
-    <b-link @click="$emit('tab-changed', 0)">
-      Have account already? Sign in here
-    </b-link>
+      <b-col
+        align="center"
+        class="mt-4">
+        <b-link @click="$emit('tab-changed', 0)">
+          Have account already? Sign in here
+        </b-link>
       </b-col>
     </b-row>
   </form>
