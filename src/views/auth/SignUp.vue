@@ -12,12 +12,12 @@
               :state="getState('username')"
               :invalid-feedback="errors.username"
               label="Username"
-              required="required">
+              required>
               <b-form-input
                 id="username"
                 v-model="fields.username"
                 :state="getState('username')"
-                required="required"/>
+                required/>
             </b-form-group>
             <b-form-group
               :state="getState('email')"
@@ -27,7 +27,7 @@
                 id="email"
                 v-model="fields.email"
                 :state="getState('email')"
-                required="required"/>
+                required/>
             </b-form-group>
             <b-form-group
               :state="getState('date_of_birth')"
@@ -49,7 +49,7 @@
                 v-model="fields.password"
                 :state="getState('password')"
                 type="password"
-                required="required"/>
+                required/>
             </b-form-group>
             <b-form-group
               :state="getState('password_confirmation')"
@@ -60,7 +60,7 @@
                 v-model="fields.password_confirmation"
                 :state="getState('password_confirmation')"
                 type="password"
-                required="required"/>
+                required/>
             </b-form-group>
 
             <b-form-group
@@ -72,7 +72,7 @@
                 :options="countries"
                 v-model="fields.country"
                 :state="getState('country')"
-                required="required"/>
+                required/>
             </b-form-group>
             <span v-if="tooYoung">You should be adult to continue signing up.</span>
             <button
@@ -93,7 +93,7 @@
                 id="first_name"
                 v-model="fields.first_name"
                 :state="getState('first_name')"
-                required="required"/>
+                required/>
             </b-form-group>
             <b-form-group
               :state="getState('last_name')"
@@ -103,7 +103,7 @@
                 id="last_name"
                 v-model="fields.last_name"
                 :state="getState('last_name')"
-                required="required"/>
+                required/>
             </b-form-group>
 
             <b-form-group
@@ -115,7 +115,7 @@
                 :options="genders"
                 v-model="fields.gender"
                 :state="getState('gender')"
-                required="required"/>
+                required/>
             </b-form-group>
 
             <b-form-group
@@ -127,7 +127,7 @@
                 id="phone"
                 v-model="fields.phone"
                 :state="getState('phone')"
-                required="required"/>
+                required/>
             </b-form-group>
             <span v-show="!isValidPhone">Invalid phone number.</span>
 
@@ -139,7 +139,7 @@
                 id="street_address"
                 v-model="fields.street_address"
                 :state="getState('street_address')"
-                required="required"/>
+                required/>
             </b-form-group>
 
             <b-form-group
@@ -160,7 +160,7 @@
                 id="city"
                 v-model="fields.city"
                 :state="getState('city')"
-                required="required"/>
+                required/>
             </b-form-group>
 
             <b-form-group
