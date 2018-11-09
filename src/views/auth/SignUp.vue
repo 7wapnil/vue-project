@@ -171,6 +171,15 @@
                 v-model="fields.zip_code"
                 :state="getState('zip_code')"/>
             </b-form-group>
+
+            <b-form-group>
+              <b-form-checkbox
+                v-model="fields.agreed_with_promotional"
+                plain>
+                I agree to receive promotional content
+              </b-form-checkbox>
+            </b-form-group>
+
             <b-form-group>
               <b-form-checkbox
                 v-model="agree"
@@ -178,6 +187,7 @@
                 Confirm I am not underage, agree with T&C, agree with privacy policy
               </b-form-checkbox>
             </b-form-group>
+
             <button
               :disabled="submitting"
               class="btn btn-dark btn-block"
@@ -241,8 +251,8 @@ export default {
         street_address: '',
         city: '',
         state: '',
-        zip_code: ''
-
+        zip_code: '',
+        agreed_with_promotional: true,
       },
       step: 1,
       steps: {
