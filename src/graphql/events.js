@@ -22,6 +22,16 @@ export const EVENT_FIELDS = `
   markets @include(if: $withMarkets) {
     ${MARKET_FIELDS}
   }
+  event_status {
+    score
+    time
+    period_scores {
+      score
+      status_code
+      status
+    }
+    finished
+  }
 `
 
 export const EVENTS_LIST_QUERY = gql`
