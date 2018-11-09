@@ -130,6 +130,28 @@
                 required="required"/>
             </b-form-group>
             <span v-show="!isValidPhone">Invalid phone number.</span>
+
+            <b-form-group
+              :state="getState('street_address')"
+              :invalid-feedback="errors.street_address"
+              label="Street address">
+              <b-form-input
+                id="street_address"
+                v-model="fields.street_address"
+                :state="getState('street_address')"
+                required="required"/>
+            </b-form-group>
+
+            <b-form-group
+              :state="getState('zip_code')"
+              :invalid-feedback="errors.zip_code"
+              label="ZIP Code">
+              <b-form-input
+                id="zip_code"
+                v-model="fields.zip_code"
+                :state="getState('zip_code')"/>
+            </b-form-group>
+
             <b-form-group
               :state="getState('city')"
               :invalid-feedback="errors.city"
@@ -142,17 +164,6 @@
             </b-form-group>
 
             <b-form-group
-              :state="getState('street_address')"
-              :invalid-feedback="errors.street_address"
-              label="Address">
-              <b-form-input
-                id="street_address"
-                v-model="fields.street_address"
-                :state="getState('street_address')"
-                required="required"/>
-            </b-form-group>
-
-            <b-form-group
               :state="getState('state')"
               :invalid-feedback="errors.state"
               label="Province">
@@ -160,16 +171,6 @@
                 id="state"
                 v-model="fields.state"
                 :state="getState('state')"/>
-            </b-form-group>
-
-            <b-form-group
-              :state="getState('zip_code')"
-              :invalid-feedback="errors.zip_code"
-              label="ZIP Code">
-              <b-form-input
-                id="zip_code"
-                v-model="fields.zip_code"
-                :state="getState('zip_code')"/>
             </b-form-group>
 
             <b-form-group>
