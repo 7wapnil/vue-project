@@ -29,7 +29,8 @@ export const EVENTS_LIST_QUERY = gql`
     $limit: Int = 5,
     $titleId: ID = null,
     $tournamentId: ID = null,
-    $inPlay: Boolean = false
+    $inPlay: Boolean = false,
+    $upcoming: Boolean = false,
     $withDetails: Boolean = false,
     $withScopes: Boolean = false,
     $withMarkets: Boolean = false
@@ -37,7 +38,8 @@ export const EVENTS_LIST_QUERY = gql`
     events (limit: $limit, filter: {
       titleId: $titleId,
       tournamentId: $tournamentId,
-      inPlay: $inPlay
+      inPlay: $inPlay,
+      upcoming: $upcoming
     }) {
       ${EVENT_FIELDS}
     }
