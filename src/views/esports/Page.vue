@@ -69,7 +69,7 @@ export default {
     upcomingQuery () {
       return {
         ...this.baseQuery,
-        inPlay: false
+        upcoming: true
       }
     },
     titleId () {
