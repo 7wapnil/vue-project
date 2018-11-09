@@ -253,7 +253,7 @@ export default {
         city: '',
         state: '',
         zip_code: '',
-        agreed_with_promotional: true,
+        agreed_with_promotional: false,
       },
       step: 1,
       steps: {
