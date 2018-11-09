@@ -20,6 +20,11 @@ export const USER_QUERY = gql`
       gender
       phone
       username
+      country
+      city
+      zip_code
+      street_address
+      state
     }
   }
 `
