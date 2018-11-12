@@ -11,7 +11,7 @@
 
     <b-row>
       <b-col class="text-center">
-        <b-btn variant="primary">Discover more</b-btn>
+        <b-button>Discover more</b-button>
       </b-col>
     </b-row>
 
