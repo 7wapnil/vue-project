@@ -189,7 +189,7 @@
           id="last_name"
           v-model="fields.last_name"
           :state="getState('last_name')"
-          required="required"/>
+          required/>
       </b-form-group>
 
       <b-form-group
@@ -201,7 +201,7 @@
           :options="genders"
           v-model="fields.gender"
           :state="getState('gender')"
-          required="required"/>
+          required/>
       </b-form-group>
 
       <b-form-group
@@ -213,9 +213,31 @@
           id="phone"
           v-model="fields.phone"
           :state="getState('phone')"
-          required="required"/>
+          required/>
       </b-form-group>
       <span v-show="!isValidPhone">Invalid phone number.</span>
+
+      <b-form-group
+        :state="getState('street_address')"
+        :invalid-feedback="errors.street_address"
+        label="Street address">
+        <b-form-input
+          id="street_address"
+          v-model="fields.street_address"
+          :state="getState('street_address')"
+          required/>
+      </b-form-group>
+
+      <b-form-group
+        :state="getState('zip_code')"
+        :invalid-feedback="errors.zip_code"
+        label="ZIP Code">
+        <b-form-input
+          id="zip_code"
+          v-model="fields.zip_code"
+          :state="getState('zip_code')"/>
+      </b-form-group>
+
       <b-form-group
         :state="getState('city')"
         :invalid-feedback="errors.city"
@@ -224,18 +246,7 @@
           id="city"
           v-model="fields.city"
           :state="getState('city')"
-          required="required"/>
-      </b-form-group>
-
-      <b-form-group
-        :state="getState('street_address')"
-        :invalid-feedback="errors.street_address"
-        label="Address">
-        <b-form-input
-          id="street_address"
-          v-model="fields.street_address"
-          :state="getState('street_address')"
-          required="required"/>
+          required/>
       </b-form-group>
 
       <b-form-group
@@ -248,15 +259,14 @@
           :state="getState('state')"/>
       </b-form-group>
 
-      <b-form-group
-        :state="getState('zip_code')"
-        :invalid-feedback="errors.zip_code"
-        label="ZIP Code">
-        <b-form-input
-          id="zip_code"
-          v-model="fields.zip_code"
-          :state="getState('zip_code')"/>
+      <b-form-group>
+        <b-form-checkbox
+          v-model="fields.agreed_with_promotional"
+          plain>
+          I agree to receive promotional content
+        </b-form-checkbox>
       </b-form-group>
+
       <b-form-group>
         <b-form-checkbox
           v-model="agree"
@@ -329,8 +339,8 @@ export default {
         street_address: '',
         city: '',
         state: '',
-        zip_code: ''
-
+        zip_code: '',
+        agreed_with_promotional: false,
       },
       step: 1,
       steps: {
