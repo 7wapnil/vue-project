@@ -2,7 +2,7 @@
 
 $navbar-background: $arc-clr-inplay-bg;
 $nav-item-active-glow: $arc-clr-inplay-glow;
-$nav-item-active-background: rgba($nav-item-active-glow, $arc-clr-soil-cover);
+$nav-item-active-background: rgba($nav-item-active-glow, $arc-clr-soil-cover-opacity);
 
 // Buttons
 $primary-button-background: $arc-clr-inplay-glow;

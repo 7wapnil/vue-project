@@ -14,7 +14,8 @@ $arc-clr-soil-light: #3D3D3D;
 $arc-clr-soil-dark: #2F2F2F;
 $arc-clr-soil-darker: #232323;
 $arc-clr-soil-black: #1E1E1E;
-$arc-clr-soil-cover: .3;
+$arc-clr-soil-cover-opacity: .3;
+$arc-clr-soil-cover: rgba(0, 0, 0, .3);
 
 $arc-clr-gold: #FFB960;
 $arc-clr-gold-light: #FFC67E;
@@ -83,6 +84,7 @@ $theme-colors: ("arc-clr-soil-light": $arc-clr-soil-light,
                 "arc-clr-soil-dark": $arc-clr-soil-dark,
                 "arc-clr-soil-darker": $arc-clr-soil-darker,
                 "arc-clr-soil-black": $arc-clr-soil-black,
+                "arc-clr-soil-cover": $arc-clr-soil-cover,
                 "arc-clr-iron": $arc-clr-iron,
                 "arc-clr-iron-light": $arc-clr-iron-light,
                 "arc-clr-gold": $arc-clr-gold,
