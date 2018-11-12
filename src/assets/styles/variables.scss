@@ -4,8 +4,6 @@
 $arc-clr-sport-bg: #1B6945;
 $arc-clr-sport-glow: #47D469;
 
-$blue-lightest: #3E81E6; //Temp
-
 $arc-clr-esport-bg: #2D4686;
 $arc-clr-esport-glow: #4290FF;
 
@@ -38,6 +36,8 @@ $h3-font-size: $font-size-base * 2.143; // 30px
 $h4-font-size: $font-size-base * 1.5; // 21px
 $h5-font-size: $font-size-base * 1.286; // 18px
 $h6-font-size: $font-size-base * 1.143; // 16px
+
+$font-size-lg: $font-size-base * 1.143;
 
 $small-font-size: $font-size-base * 0.8571; // 12px
 
@@ -78,7 +78,6 @@ $input-padding-y: 9px;
 
 
 // Custom Colors
-$primary: $arc-clr-white; // Temp
 
 $theme-colors: ("arc-clr-soil-light": $arc-clr-soil-light,
                 "arc-clr-soil-dark": $arc-clr-soil-dark,
@@ -129,12 +128,15 @@ $btn-border-radius-lg: $btn-border-radius;
 $btn-border-radius-sm: $btn-border-radius;
 
 $btn-padding-y: 9px;
+$btn-padding-x: 25px;
 $btn-line-height: 18px;
 
 $btn-padding-y-sm: 9px;
+$btn-padding-x-sm: 25px;
 $btn-line-height-sm: 18px;
 
 $btn-padding-y-lg: 12px;
+$btn-padding-x-lg: 25px;
 $btn-line-height-lg: 24px;
 
 $btn-border-width: 1px;
