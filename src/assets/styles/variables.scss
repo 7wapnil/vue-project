@@ -131,6 +131,30 @@ $btn-border-radius: 6px 0 12px 0;
 $btn-border-radius-lg: $btn-border-radius;
 $btn-border-radius-sm: $btn-border-radius;
 
+$btn-padding-y: 9px;
+$btn-line-height: 18px;
+
+$btn-padding-y-sm: 9px;
+$btn-line-height-sm: 18px;
+
+$btn-padding-y-lg: 12px;
+$btn-line-height-lg: 24px;
+
+$btn-border-width: 1px;
+$btn-font-weight: $font-weight-bold;
+$btn-focus-width: 0;
+
+$arc-button-box-shadow: inset 0 0 10px 0 rgba(255,60,229,0.35), 0 2px 0 0 rgba(0,0,0,0.5);
+$btn-box-shadow: $arc-button-box-shadow;
+$btn-focus-box-shadow: $arc-button-box-shadow;
+$btn-active-box-shadow: $arc-button-box-shadow;
+
+$btn-link-disabled-color: $arc-clr-soil-darker;
+
+$btn-transition: color .15s ease-in-out,
+                 background-color .3s ease-in-out,
+                 border-color .15s ease-in-out,
+                 box-shadow .15s ease-in-out;
 // Links
 $link-color: $arc-clr-iron-light;
 $link-hover-color: $arc-clr-white;
