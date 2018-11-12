@@ -25,13 +25,14 @@
         class="ml-auto">
         <b-btn
           v-b-modal.AuthModal
-          variant="outline-warning"
+          variant="arc-secondary"
           class="m-2">
           Login
         </b-btn>
 
         <b-btn
           v-b-modal.AuthModal
+          variant="arc-primary"
           class="m-2">
           Sign Up
         </b-btn>

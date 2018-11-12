@@ -97,6 +97,7 @@
       class="p-2"
       no-body>
       <b-button
+        variant="arc-primary"
         :disabled="!betslipSubmittable"
         size="lg"
         block
