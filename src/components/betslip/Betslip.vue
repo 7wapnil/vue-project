@@ -98,8 +98,8 @@
       no-body>
       <b-button
         :class="{
-          'btn-danger': !betslipSubmittable,
-          'btn-success': betslipSubmittable }"
+          'btn-disabled': !betslipSubmittable,
+          'btn-secondary': betslipSubmittable }"
         :disabled="!betslipSubmittable"
         size="lg"
         block
