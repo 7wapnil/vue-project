@@ -1,8 +1,8 @@
 @import '../variables';
 
 $navbar-background: $arc-clr-inplay-bg;
-$nav-item-active-background: $orange;
 $nav-item-active-shadow: $arc-clr-inplay-glow;
+$nav-item-active-background: rgba($nav-item-active-shadow, $arc-clr-soil-cover);
 
 // Buttons
 $primary-button-background: $arc-clr-inplay-glow;
