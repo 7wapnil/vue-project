@@ -32,7 +32,6 @@
 
         <b-btn
           v-b-modal.AuthModal
-          variant="warning"
           class="m-2">
           Sign Up
         </b-btn>
