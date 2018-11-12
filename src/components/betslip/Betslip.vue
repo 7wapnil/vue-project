@@ -97,13 +97,13 @@
       class="p-2"
       no-body>
       <b-button
-        variant="arc-primary"
         :disabled="!betslipSubmittable"
+        variant="arc-primary"
         size="lg"
         block
         @click="submit">
         <span class="text-uppercase">
-            Place bet
+          Place bet
         </span>
       </b-button>
     </b-card>
