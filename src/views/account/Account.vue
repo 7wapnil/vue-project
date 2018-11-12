@@ -72,7 +72,7 @@
             label="Country:">
             <b-form-input
               id="country"
-              :value="user.country"
+              :value="user.address_country"
               disabled/>
           </b-form-group>
           <b-form-group
@@ -83,7 +83,7 @@
             label="Street address:">
             <b-form-input
               id="street_address"
-              :value="user.street_address"
+              :value="user.address_street_address"
               disabled/>
           </b-form-group>
           <b-form-group
@@ -94,7 +94,7 @@
             label="ZIP:">
             <b-form-input
               id="zip_code"
-              :value="user.zip_code"
+              :value="user.address_zip_code"
               disabled/>
           </b-form-group>
           <b-form-group
@@ -105,7 +105,7 @@
             label="City:">
             <b-form-input
               id="city"
-              :value="user.city"
+              :value="user.address_city"
               disabled/>
           </b-form-group>
           <b-form-group
@@ -116,7 +116,7 @@
             label="Province:">
             <b-form-input
               id="province"
-              :value="user.state"
+              :value="user.address_state"
               disabled/>
           </b-form-group>
         </b-form>
