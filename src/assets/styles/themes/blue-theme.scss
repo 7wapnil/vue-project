@@ -2,8 +2,8 @@
 
 // Navbar
 $navbar-background: $arc-clr-esport-bg;
-$nav-item-active-shadow: $arc-clr-esport-glow;
-$nav-item-active-background: rgba($nav-item-active-shadow, $arc-clr-soil-cover);
+$nav-item-active-glow: $arc-clr-esport-glow;
+$nav-item-active-background: rgba($nav-item-active-glow, $arc-clr-soil-cover);
 
 // Buttons
 $primary-button-background: $arc-clr-esport-glow;
