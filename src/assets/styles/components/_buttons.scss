@@ -1,19 +1,25 @@
 // Buttons
+.btn:focus {
+  box-shadow: none !important;
+}
 .btn-arc-secondary {
   border-radius: 4px 4px 0 4px !important;
   background-color: rgba(0,0,0,0.15);
-  box-shadow: 1px 1px 0 0 rgba(0,0,0,0.5);
+  box-shadow: $arc-secondary-button-box-shadow;
   color: $arc-clr-iron-light;
 }
 .btn-arc-secondary:hover {
   color: $arc-clr-white;
   background-color: rgba(0,0,0,0.3);
+  box-shadow: $arc-secondary-button-box-shadow;
 }
 .btn-arc-secondary:not(:disabled):not(.disabled):active {
   background-color: rgba(0,0,0,0.5);
   color: $arc-clr-white;
+  box-shadow: $arc-secondary-button-box-shadow;
 }
 .btn-arc-secondary.disabled {
   background-color: rgba(0,0,0,0.15);
   color: rgba(193,193,193,0.3);
+  box-shadow: $arc-secondary-button-box-shadow;
 }
