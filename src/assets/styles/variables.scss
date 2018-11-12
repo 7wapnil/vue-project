@@ -56,6 +56,7 @@ $body-color: $arc-clr-white;
 $card-bg: $arc-clr-soil-light;
 $card-border-radius: 0;
 $card-inner-border-radius: 0;
+$card-border-width: 0;
 
 // Navs
 $nav-tabs-border-radius: 0;
@@ -79,8 +80,8 @@ $input-padding-x: 12px;
 $input-padding-y: 9px;
 
 
-// Temp settings
-$primary: $arc-clr-white;
+// Custom Colors
+$primary: $arc-clr-white; // Temp
 
 $theme-colors: ("arc-clr-soil-light": $arc-clr-soil-light,
                 "arc-clr-soil-dark": $arc-clr-soil-dark,
@@ -100,10 +101,8 @@ $theme-colors: ("arc-clr-soil-light": $arc-clr-soil-light,
                 "wp-clr-notif-yellow": $wp-clr-notif-yellow,
                 "wp-clr-notif-red": $wp-clr-notif-red,
                 );
-$card-border-width: 0;
 
 // Grid containers
-
 $container-max-widths: (
         sm: 540px,
         md: 720px,
@@ -131,3 +130,8 @@ $border-radius-sm: 0;
 $btn-border-radius: 6px 0 12px 0;
 $btn-border-radius-lg: $btn-border-radius;
 $btn-border-radius-sm: $btn-border-radius;
+
+// Links
+$link-color: $arc-clr-iron-light;
+$link-hover-color: $arc-clr-white;
+$link-hover-decoration: none;
