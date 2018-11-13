@@ -38,7 +38,7 @@
           id="login-password"
           v-model="fields.password"
           :state="getState('password')"
-          type="text"
+          type="password"
           aria-describedby="inputFeedbackPassword"
           required/>
         <b-form-invalid-feedback
