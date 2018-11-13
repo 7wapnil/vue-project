@@ -64,6 +64,61 @@
               disabled
               type="tel"/>
           </b-form-group>
+          <b-form-group
+            :label-cols="2"
+            horizontal
+            label-size="sm"
+            label-for="country"
+            label="Country:">
+            <b-form-input
+              id="country"
+              :value="user.address_country"
+              disabled/>
+          </b-form-group>
+          <b-form-group
+            :label-cols="2"
+            horizontal
+            label-size="sm"
+            label-for="street_address"
+            label="Street address:">
+            <b-form-input
+              id="street_address"
+              :value="user.address_street_address"
+              disabled/>
+          </b-form-group>
+          <b-form-group
+            :label-cols="2"
+            horizontal
+            label-size="sm"
+            label-for="zip_code"
+            label="ZIP:">
+            <b-form-input
+              id="zip_code"
+              :value="user.address_zip_code"
+              disabled/>
+          </b-form-group>
+          <b-form-group
+            :label-cols="2"
+            horizontal
+            label-size="sm"
+            label-for="city"
+            label="City:">
+            <b-form-input
+              id="city"
+              :value="user.address_city"
+              disabled/>
+          </b-form-group>
+          <b-form-group
+            :label-cols="2"
+            horizontal
+            label-size="sm"
+            label-for="province"
+            label="Province:">
+            <b-form-input
+              id="province"
+              :value="user.address_state"
+              disabled/>
+          </b-form-group>
         </b-form>
       </b-col>
     </b-row>
