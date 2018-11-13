@@ -1,17 +1,12 @@
 @import url('https://fonts.googleapis.com/css?family=IBM+Plex+Sans');
 
 // Colors
-$green-dark: #16593A; //Temp
 $arc-clr-sport-bg: #1B6945;
 $arc-clr-sport-glow: #47D469;
-
-$blue: #335BBA; //Temp
-$blue-lightest: #3E81E6; //Temp
 
 $arc-clr-esport-bg: #2D4686;
 $arc-clr-esport-glow: #4290FF;
 
-$orange: #592A15; //Temp
 $arc-clr-inplay-bg: #281A12;
 $arc-clr-inplay-glow: #E54700;
 
@@ -19,7 +14,8 @@ $arc-clr-soil-light: #3D3D3D;
 $arc-clr-soil-dark: #2F2F2F;
 $arc-clr-soil-darker: #232323;
 $arc-clr-soil-black: #1E1E1E;
-$arc-clr-soil-cover: rgba(0, 0, 0, 0.3);
+$arc-clr-soil-cover-opacity: .3;
+$arc-clr-soil-cover: rgba(0, 0, 0, .3);
 
 $arc-clr-gold: #FFB960;
 $arc-clr-gold-light: #FFC67E;
@@ -42,6 +38,8 @@ $h4-font-size: $font-size-base * 1.5; // 21px
 $h5-font-size: $font-size-base * 1.286; // 18px
 $h6-font-size: $font-size-base * 1.143; // 16px
 
+$font-size-lg: $font-size-base * 1.143;
+
 $small-font-size: $font-size-base * 0.8571; // 12px
 
 $font-weight-light: light;
@@ -56,6 +54,7 @@ $body-color: $arc-clr-white;
 $card-bg: $arc-clr-soil-light;
 $card-border-radius: 0;
 $card-inner-border-radius: 0;
+$card-border-width: 0;
 
 // Navs
 $nav-tabs-border-radius: 0;
@@ -79,13 +78,13 @@ $input-padding-x: 12px;
 $input-padding-y: 9px;
 
 
-// Temp settings
-$primary: $arc-clr-white;
+// Custom Colors
 
 $theme-colors: ("arc-clr-soil-light": $arc-clr-soil-light,
                 "arc-clr-soil-dark": $arc-clr-soil-dark,
                 "arc-clr-soil-darker": $arc-clr-soil-darker,
                 "arc-clr-soil-black": $arc-clr-soil-black,
+                "arc-clr-soil-cover": $arc-clr-soil-cover,
                 "arc-clr-iron": $arc-clr-iron,
                 "arc-clr-iron-light": $arc-clr-iron-light,
                 "arc-clr-gold": $arc-clr-gold,
@@ -100,10 +99,8 @@ $theme-colors: ("arc-clr-soil-light": $arc-clr-soil-light,
                 "wp-clr-notif-yellow": $wp-clr-notif-yellow,
                 "wp-clr-notif-red": $wp-clr-notif-red,
                 );
-$card-border-width: 0;
 
 // Grid containers
-
 $container-max-widths: (
         sm: 540px,
         md: 720px,
@@ -131,3 +128,36 @@ $border-radius-sm: 0;
 $btn-border-radius: 6px 0 12px 0;
 $btn-border-radius-lg: $btn-border-radius;
 $btn-border-radius-sm: $btn-border-radius;
+
+$btn-padding-y: 9px;
+$btn-padding-x: 25px;
+$btn-line-height: 18px;
+
+$btn-padding-y-sm: 9px;
+$btn-padding-x-sm: 25px;
+$btn-line-height-sm: 18px;
+
+$btn-padding-y-lg: 12px;
+$btn-padding-x-lg: 25px;
+$btn-line-height-lg: 24px;
+
+$btn-border-width: 1px;
+$btn-font-weight: $font-weight-bold;
+$btn-focus-width: 0;
+
+$arc-button-box-shadow: inset 0 0 10px 0 rgba(255,60,229,0.35), 0 2px 0 0 rgba(0,0,0,0.5);
+$arc-secondary-button-box-shadow: 1px 1px 0 0 rgba(0,0,0,0.5);
+$btn-box-shadow: $arc-button-box-shadow;
+$btn-focus-box-shadow: $arc-button-box-shadow;
+$btn-active-box-shadow: $arc-button-box-shadow;
+
+$btn-link-disabled-color: $arc-clr-soil-darker;
+
+$btn-transition: color .15s ease-in-out,
+                 background-color .3s ease-in-out,
+                 border-color .15s ease-in-out,
+                 box-shadow .15s ease-in-out;
+// Links
+$link-color: $arc-clr-iron-light;
+$link-hover-color: $arc-clr-white;
+$link-hover-decoration: none;
