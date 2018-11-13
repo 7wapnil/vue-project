@@ -231,7 +231,7 @@
       <b-form-group
         :state="getState('zip_code')"
         :invalid-feedback="errors.zip_code"
-        label="ZIP Code">
+        label="Postal Code">
         <b-form-input
           id="zip_code"
           v-model="fields.zip_code"
