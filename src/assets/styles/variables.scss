@@ -107,13 +107,6 @@ $container-max-widths: (
         lg: 960px,
         xl: 1440px
 );
-$grid-breakpoints: (
-        xs: 0,
-        sm: 576px,
-        md: 768px,
-        lg: 992px,
-        xl: 1024px
-) !default;
 
 // Modals
 $modal-inner-padding: 0 10px 10px 10px;

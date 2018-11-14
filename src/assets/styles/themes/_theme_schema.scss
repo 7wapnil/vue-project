@@ -3,6 +3,8 @@
 // Top navigation
 .navbar {
   background-color: $navbar-background;
+  box-shadow: 0 2px 0 0 rgba(0,0,0,0.5);
+  z-index: 1;
 }
 #top-navigation > .nav-item > .active {
   background-color: $nav-item-active-background;
@@ -42,4 +44,10 @@
 }
 .betslip-bet-count-round {
   color: $betslip-bet-count-color;
+}
+.navbar-brand {
+  background: url(#{$nav-logo-link}) no-repeat 50% 50%;
+  width: 268px;
+  height: 42px;
+  margin-right: 0;
 }

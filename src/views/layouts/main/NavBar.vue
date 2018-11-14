@@ -1,63 +1,66 @@
 <template>
   <b-navbar
-    toggleable="md"
+    toggleable="lg"
     type="dark"
-    class="py-md-0">
-    <b-navbar-brand
-      href="/"
-      tag="h1">
-      ArcaneBet
-    </b-navbar-brand>
-    <b-navbar-toggle target="collapsableMenu"/>
-    <b-collapse
-      id="collapsableMenu"
-      is-nav>
-      <b-navbar-nav id="top-navigation">
-        <b-nav-item
-          v-for="item in mainMenu"
-          :key="item.path"
-          :to="item.path">
-          {{ item.label }}
-        </b-nav-item>
-      </b-navbar-nav>
-      <b-navbar-nav
-        v-if="!isLoggedIn"
-        class="ml-auto">
-        <b-btn
-          v-b-modal.AuthModal
-          variant="arc-secondary"
-          class="m-2">
-          Login
-        </b-btn>
+    class="py-md-0 px-0">
+    <b-container
+      fluid
+      style="max-width: 1440px"
+      class="p-0">
+      <b-navbar-brand/>
+      <b-navbar-toggle
+        class="mr-2"
+        target="collapsableMenu"/>
+      <b-collapse
+        id="collapsableMenu"
+        is-nav>
+        <b-navbar-nav id="top-navigation">
+          <b-nav-item
+            v-for="item in mainMenu"
+            :key="item.path"
+            :to="item.path">
+            {{ item.label }}
+          </b-nav-item>
+        </b-navbar-nav>
+        <b-navbar-nav
+          v-if="!isLoggedIn"
+          class="ml-auto">
+          <b-btn
+            v-b-modal.AuthModal
+            variant="arc-secondary"
+            class="m-2">
+            Login
+          </b-btn>
 
-        <b-btn
-          v-b-modal.AuthModal
-          variant="arc-primary"
-          class="m-2">
-          Sign Up
-        </b-btn>
-      </b-navbar-nav>
-      <b-navbar-nav
-        v-if="isLoggedIn && user"
-        class="ml-auto">
-        <balances-list v-if="isLoggedIn"/>
-        <b-dropdown
-          id="username-dropdown"
-          :text="`${user.username}`"
-          class="ml-2"
-          variant="warning"
-          right>
-          <b-dropdown-item v-b-modal.AccountModal>
-            Profile
-          </b-dropdown-item>
+          <b-btn
+            v-b-modal.AuthModal
+            variant="arc-primary"
+            class="m-2 mr-4">
+            Sign Up
+          </b-btn>
+        </b-navbar-nav>
+        <b-navbar-nav
+          v-if="isLoggedIn && user"
+          class="ml-auto">
+          <balances-list v-if="isLoggedIn"/>
+          <b-dropdown
+            id="username-dropdown"
+            :text="`${user.username}`"
+            class="ml-2 mr-4"
+            variant="warning"
+            right>
+            <b-dropdown-item v-b-modal.AccountModal>
+              Profile
+            </b-dropdown-item>
 
-          <b-dropdown-divider/>
-          <b-dropdown-item @click.prevent="logout">
-            Logout
-          </b-dropdown-item>
-        </b-dropdown>
-      </b-navbar-nav>
-    </b-collapse>
+            <b-dropdown-divider/>
+            <b-dropdown-item @click.prevent="logout">
+              Logout
+            </b-dropdown-item>
+          </b-dropdown>
+        </b-navbar-nav>
+      </b-collapse>
+    </b-container>
     <auth-modal/>
     <account-modal/>
   </b-navbar>
