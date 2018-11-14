@@ -1,6 +1,12 @@
 <template>
-  <b-card
-    :header="header">
+  <b-card body-class="events-card-body">
+    <b-card-header
+      header-bg-variant="arc-clr-soil-light"
+      header-text-variant="arc-clr-iron"
+      header-class="events-header">
+      <h4>{{ header }}</h4>
+    </b-card-header>
+
     <loader v-if="loading"/>
 
     <div v-if="!loading">

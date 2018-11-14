@@ -6,8 +6,8 @@
 
     <events-list
       :query-options="liveQuery"
-      class="mb-3"
-      header="Live events">
+      header="Live events"
+    >
       <simple-event
         slot-scope="{ event }"
         :event="event">
@@ -21,7 +21,7 @@
 
     <events-list
       :query-options="upcomingQuery"
-      header="Upcoming events">
+      header="Upcoming in 24 hours">
       <simple-event
         slot-scope="{ event }"
         :event="event">
