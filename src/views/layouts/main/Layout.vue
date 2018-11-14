@@ -5,27 +5,22 @@
       class="p-0">
       <nav-bar/>
     </b-container>
-    <b-container class="p-0">
-      <b-row class="m-0">
+    <b-container fluid style="max-width: 1440px" class="p-0">
+      <b-row no-gutters>
         <b-col
           cols="12"
-          lg="3"
-          style="max-width: 268px"
-          class="p-0">
+          md="3"
+          style="max-width: 268px">
           <side-menu/>
         </b-col>
         <b-col
-          cols="12"
-          lg="8"
-          style="max-width: 904px"
-          class="p-0">
+          style="max-width: 904px">
           <slot/>
         </b-col>
         <b-col
           cols="12"
-          lg="3"
-          style="max-width: 268px"
-          class="p-0">
+          md="3"
+          style="max-width: 268px">
           <promotional-item/>
           <betslip/>
         </b-col>

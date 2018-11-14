@@ -1,14 +1,11 @@
 <template>
   <b-navbar
-    toggleable="md"
+    toggleable="lg"
     type="dark"
-    class="py-md-0">
-    <b-navbar-brand
-      href="/"
-      tag="h1">
-      ArcaneBet
-    </b-navbar-brand>
-    <b-navbar-toggle target="collapsableMenu"/>
+    class="py-md-0 px-0">
+    <b-container fluid style="max-width: 1440px" class="p-0">
+    <b-navbar-brand/>
+    <b-navbar-toggle class="mr-2" target="collapsableMenu"/>
     <b-collapse
       id="collapsableMenu"
       is-nav>
@@ -33,7 +30,7 @@
         <b-btn
           v-b-modal.AuthModal
           variant="arc-primary"
-          class="m-2">
+          class="m-2 mr-4">
           Sign Up
         </b-btn>
       </b-navbar-nav>
@@ -44,7 +41,7 @@
         <b-dropdown
           id="username-dropdown"
           :text="`${user.username}`"
-          class="ml-2"
+          class="ml-2 mr-4"
           variant="warning"
           right>
           <b-dropdown-item v-b-modal.AccountModal>
@@ -58,6 +55,7 @@
         </b-dropdown>
       </b-navbar-nav>
     </b-collapse>
+    </b-container>
     <auth-modal/>
     <account-modal/>
   </b-navbar>
