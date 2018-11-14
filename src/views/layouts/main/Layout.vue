@@ -5,7 +5,10 @@
       class="p-0">
       <nav-bar/>
     </b-container>
-    <b-container fluid style="max-width: 1440px" class="p-0">
+    <b-container
+      fluid
+      style="max-width: 1440px"
+      class="p-0">
       <b-row no-gutters>
         <b-col
           cols="12"
