@@ -43,3 +43,9 @@
 .betslip-bet-count-round {
   color: $betslip-bet-count-color;
 }
+.navbar-brand {
+  background: url(#{$nav-logo-link}) no-repeat 50% 50%;
+  width: 268px;
+  height: 42px;
+  margin-right: 0;
+}
