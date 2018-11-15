@@ -35,7 +35,6 @@
             <dd class="col-sm-9">{{ scope.name }}</dd>
           </dl>
 
-
           <div v-if="event.event_status">
             <dl
               v-if="event.event_status.status_code"
@@ -65,7 +64,8 @@
               <dd class="col-sm-9"/>
             </dl>
 
-            <dl v-for="period in event.event_status.period_scores"
+            <dl
+              v-for="period in event.event_status.period_scores"
               :key="period.status_code"
               class="row">
               <dt class="col-sm-3">{{ period.status }}</dt>
