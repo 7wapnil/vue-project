@@ -70,9 +70,7 @@
     <b-row no-gutters>
       <b-col align="center">
         <b-collapse
-
           :id="'upcoming' + `${event.id}`"
-          visible
           accordion="my-accordion"
           role="tabpanel">
           <b-card
