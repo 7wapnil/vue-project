@@ -6,8 +6,8 @@
 
     <events-list
       :query-options="liveQuery"
-      class="mb-3"
-      header="Live events">
+      header="Live events"
+    >
       <simple-event
         slot-scope="{ event }"
         :event="event">
@@ -21,8 +21,8 @@
 
     <events-list
       :query-options="upcomingQuery"
-      header="Upcoming events">
-      <simple-event
+      header="Upcoming in 24 hours">
+      <upcoming-event
         slot-scope="{ event }"
         :event="event">
 
@@ -30,7 +30,7 @@
           :event="event"
           :query-options="{ limit: 1 }"/>
 
-      </simple-event>
+      </upcoming-event>
     </events-list>
 
   </main-layout>
@@ -41,9 +41,11 @@ import { TITLE_BY_ID_QUERY } from '@/graphql'
 import EventsList from '@/components/events/EventsList'
 import SimpleEvent from '@/components/events/SimpleEvent'
 import MarketsList from '@/components/markets/MarketsList'
+import UpcomingEvent from '@/components/events/UpcomingEvent';
 
 export default {
   components: {
+    UpcomingEvent,
     SimpleEvent,
     EventsList,
     MarketsList

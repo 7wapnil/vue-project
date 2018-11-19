@@ -1,22 +1,19 @@
 <template>
-  <b-card
-    :header="header">
+  <b-card body-class="events-card-body">
+    <b-card-header
+      header-bg-variant="arc-clr-soil-light"
+      header-text-variant="arc-clr-iron"
+      header-class="events-header">
+      <h4>{{ header }}</h4>
+    </b-card-header>
+
     <loader v-if="loading"/>
 
     <div v-if="!loading">
       <b-card
         v-for="event in events"
         :key="event.id"
-        class="mt-2">
-        <div class="row">
-          <div class="col">
-            <h5 class="card-title">
-              <router-link :to="{ name: 'event', params: { id: event.id } }">
-                {{ event.description }}
-              </router-link>
-            </h5>
-          </div>
-        </div>
+        no-body>
 
         <slot :event="event"/>
 

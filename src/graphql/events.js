@@ -6,6 +6,11 @@ export const EVENT_FIELDS = `
   name
   description
   title_name
+  tournament {
+    id
+    kind
+    name
+  }
   start_at
   end_at
   details @include (if: $withDetails) {

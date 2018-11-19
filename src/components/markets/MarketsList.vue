@@ -1,6 +1,6 @@
 <template>
-  <div class="row">
-    <div class="col">
+  <b-row no-gutters>
+    <b-col>
       <loader v-if="loading"/>
       <div v-if="!loading">
         <market-item
@@ -14,8 +14,8 @@
         class="text-center">
         <small>No markets for this event</small>
       </div>
-    </div>
-  </div>
+    </b-col>
+  </b-row>
 </template>
 
 <script>
