@@ -35,41 +35,43 @@
             <dd class="col-sm-9">{{ scope.name }}</dd>
           </dl>
 
-          <dl
-            v-if="event.event_status.status_code"
-            class="row">
-            <dt class="col-sm-3">Status</dt>
-            <dd class="col-sm-9">{{ event.event_status.status }}</dd>
-          </dl>
+          <div v-if="event.event_status">
+            <dl
+              v-if="event.event_status.status_code"
+              class="row">
+              <dt class="col-sm-3">Status</dt>
+              <dd class="col-sm-9">{{ event.event_status.status }}</dd>
+            </dl>
 
-          <dl
-            v-if="event.event_status.score"
-            class="row">
-            <dt class="col-sm-3">Score</dt>
-            <dd class="col-sm-9">{{ event.event_status.score }}</dd>
-          </dl>
+            <dl
+              v-if="event.event_status.score"
+              class="row">
+              <dt class="col-sm-3">Score</dt>
+              <dd class="col-sm-9">{{ event.event_status.score }}</dd>
+            </dl>
 
-          <dl
-            v-if="event.event_status.time"
-            class="row">
-            <dt class="col-sm-3">Time</dt>
-            <dd class="col-sm-9">{{ event.event_status.time }}</dd>
-          </dl>
+            <dl
+              v-if="event.event_status.time"
+              class="row">
+              <dt class="col-sm-3">Time</dt>
+              <dd class="col-sm-9">{{ event.event_status.time }}</dd>
+            </dl>
 
-          <dl
-            v-if="event.event_status.period_scores.length > 0"
-            class="row">
-            <dt class="col-sm-3">Period Scores</dt>
-            <dd class="col-sm-9"/>
-          </dl>
+            <dl
+              v-if="event.event_status.period_scores.length > 0"
+              class="row">
+              <dt class="col-sm-3">Period Scores</dt>
+              <dd class="col-sm-9"/>
+            </dl>
 
-          <dl
-            v-for="period in event.event_status.period_scores"
-            :key="period.status_code"
-            class="row">
-            <dt class="col-sm-3">{{ period.status }}</dt>
-            <dd class="col-sm-9">{{ period.score }}</dd>
-          </dl>
+            <dl
+              v-for="period in event.event_status.period_scores"
+              :key="period.status_code"
+              class="row">
+              <dt class="col-sm-3">{{ period.status }}</dt>
+              <dd class="col-sm-9">{{ period.score }}</dd>
+            </dl>
+          </div>
 
           <hr>
 
