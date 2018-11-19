@@ -15,5 +15,15 @@ module.exports = {
         `
       }
     }
+  },
+
+  chainWebpack: config => {
+    config.module
+      .rule('custom-webfont')
+      .test(/\.font\.js/)
+      .use('webfonts-loader', 'sass-loader')
+        .loader('webfonts-loader', 'sass-loader')
+          .end()
   }
+
 }

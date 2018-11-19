@@ -4,7 +4,7 @@
     class="mb-2">
     <b-row
       no-gutters
-      class=" upcoming-event-card"
+      class="upcoming-event-card"
       role="tab">
 
       <b-col
