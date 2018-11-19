@@ -1,12 +1,11 @@
 <template>
-  <button
+  <b-button
     :disabled="isDisabled"
     :data-id="odd.id"
-    :class="{'btn-outline-success': raised, 'btn-outline-danger': !raised}"
-    class="btn btn-block btn-outline-primary mb-2"
+    variant="arc-clr-soil-cover"
     @click="addOdd">
-    {{ odd.name }} {{ odd.value }} ({{ diff > 0 ? '+' : '' }}{{ diff }})
-  </button>
+    {{ odd.value }}
+  </b-button>
 </template>
 
 <script>

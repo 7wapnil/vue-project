@@ -1,6 +1,13 @@
-.events-card-body {
+// Upcoming events section
+.events-section-body {
   padding: 24px 16px !important;
 }
 .events-header {
   padding: 20px !important;
+}
+
+// Upcoming events cards
+.upcoming-event-card {
+  max-height: 93px;
+  width: 100%;
 }

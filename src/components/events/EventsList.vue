@@ -13,16 +13,7 @@
       <b-card
         v-for="event in events"
         :key="event.id"
-        class="mt-2">
-        <div class="row">
-          <div class="col">
-            <h5 class="card-title">
-              <router-link :to="{ name: 'event', params: { id: event.id } }">
-                {{ event.description }}
-              </router-link>
-            </h5>
-          </div>
-        </div>
+        no-body>
 
         <slot :event="event"/>
 
