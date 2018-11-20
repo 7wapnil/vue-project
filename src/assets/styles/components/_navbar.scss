@@ -3,17 +3,12 @@
 .navbar {
   min-height: $navbar-height;
 }
-.navbar-nav {
-  display: flex;
-  align-items: center;
-}
 .navbar-nav > .nav-item > a {
-  font-size: 13px;
-  font-weight: bold;
-  letter-spacing: 0.22px;
-  line-height: 17px;
-  text-align: center;
-  padding: 34px 60px 29px !important;
+  font-size: $font-size-base;
+  font-weight: $font-weight-bold;
+  letter-spacing: 0.23px;
+  line-height: $btn-line-height-sm;
+  padding: 31px 60px !important;
 }
 .navbar-nav > .nav-item > a:active {
   color: $arc-clr-white;
