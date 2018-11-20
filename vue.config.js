@@ -17,13 +17,19 @@ module.exports = {
     }
   },
 
-  chainWebpack: config => {
-    config.module
-      .rule('custom-webfont')
-      .test(/\.font\.js/)
-      .use('webfonts-loader', 'sass-loader')
-        .loader('webfonts-loader', 'sass-loader')
-          .end()
-  }
+  configureWebpack: {
+    module: {
+      rules: [
+        {
+          test: /\.font\.js/,
+          use: [
+            'style-loader',
+            'css-loader',
+            'webfonts-loader'
+          ]
+        }
+      ]
+    }
+  },
 
 }

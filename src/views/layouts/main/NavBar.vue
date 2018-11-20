@@ -29,7 +29,6 @@
             v-b-modal.AuthModal
             variant="arc-secondary"
             class="m-2">
-            <i class="arc-chevron-down"></i>
             Login
           </b-btn>
 
