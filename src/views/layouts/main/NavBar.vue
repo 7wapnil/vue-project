@@ -1,5 +1,6 @@
 <template>
   <b-navbar
+    fixed="top"
     toggleable="lg"
     type="dark"
     class="py-md-0 px-0">
@@ -83,15 +84,15 @@ export default {
       mainMenu: [
         {
           path: '/esports',
-          label: 'ESPORTS'
+          label: 'Esport'
         },
         {
           path: '/sports',
-          label: 'SPORTS'
+          label: 'Sport'
         },
         {
           path: '/live',
-          label: 'LIVE'
+          label: 'Live'
         }
       ]
     }
