@@ -5,23 +5,8 @@
     <!--<hr>-->
 
     <events-list
-      :query-options="liveQuery"
-      header="Live events"
-    >
-      <simple-event
-        slot-scope="{ event }"
-        :event="event">
-
-        <markets-list
-          :event="event"
-          :query-options="{ limit: 1 }"/>
-
-      </simple-event>
-    </events-list>
-
-    <events-list
-      :query-options="upcomingQuery"
-      header="Upcoming in 24 hours">
+      :query-options="baseQuery"
+      header="Events">
       <upcoming-event
         slot-scope="{ event }"
         :event="event">
@@ -32,6 +17,35 @@
 
       </upcoming-event>
     </events-list>
+
+    <!--<events-list-->
+    <!--:query-options="liveQuery"-->
+    <!--header="Live events"-->
+    <!--&gt;-->
+    <!--<simple-event-->
+    <!--slot-scope="{ event }"-->
+    <!--:event="event">-->
+
+    <!--<markets-list-->
+    <!--:event="event"-->
+    <!--:query-options="{ limit: 1 }"/>-->
+
+    <!--</simple-event>-->
+    <!--</events-list>-->
+
+    <!--<events-list-->
+    <!--:query-options="upcomingQuery"-->
+    <!--header="Upcoming in 24 hours">-->
+    <!--<upcoming-event-->
+    <!--slot-scope="{ event }"-->
+    <!--:event="event">-->
+
+    <!--<markets-list-->
+    <!--:event="event"-->
+    <!--:query-options="{ limit: 1 }"/>-->
+
+    <!--</upcoming-event>-->
+    <!--</events-list>-->
 
   </main-layout>
 </template>
