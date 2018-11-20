@@ -8,7 +8,7 @@
       fluid
       style="max-width: 1440px"
       class="p-0">
-      <b-navbar-brand/>
+      <b-navbar-brand :to="{ name: 'home' }"/>
       <b-navbar-toggle
         class="mr-2"
         target="collapsableMenu"/>
