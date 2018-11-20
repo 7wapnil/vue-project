@@ -86,6 +86,7 @@ export default {
         .getClient()
         .query({
           query: EVENTS_LIST_QUERY,
+          fetchPolicy: 'network-only',
           variables: {
             ...this.queryOptions,
             ...{ id }
