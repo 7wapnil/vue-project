@@ -74,7 +74,7 @@ export default {
       return {
         titleId: this.titleId,
         tournamentId: this.tournamentId,
-        limit: 1000
+        limit: 20
       }
     },
     liveQuery () {
