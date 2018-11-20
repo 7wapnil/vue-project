@@ -73,7 +73,8 @@ export default {
     baseQuery () {
       return {
         titleId: this.titleId,
-        tournamentId: this.tournamentId
+        tournamentId: this.tournamentId,
+        limit: 1000
       }
     },
     liveQuery () {
