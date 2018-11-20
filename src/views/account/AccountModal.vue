@@ -1,5 +1,6 @@
 <template>
   <modal
+    v-if="user"
     id="AccountModal"
     :title="`${user.username}` + ' Profile'"
     size="lg"
