@@ -91,6 +91,7 @@ export default {
 
       this.$store.dispatch('authenticate', input)
         .then(({ data: { signIn } }) => {
+          this.$emit('close-modal', true)
           this.$store.dispatch('login', signIn)
           this.$noty.success('Signed in successfully')
           this.$router.push({ name: 'home' })
