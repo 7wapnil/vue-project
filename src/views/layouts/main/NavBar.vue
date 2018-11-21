@@ -19,6 +19,7 @@
         is-nav>
         <b-navbar-nav id="top-navigation">
           <b-nav-item
+            class="navbar-menu-item"
             v-for="item in mainMenu"
             :key="item.path"
             :to="item.path">
@@ -26,6 +27,7 @@
           </b-nav-item>
         </b-navbar-nav>
         <b-navbar-nav
+          style="max-width: 268px"
           v-if="!isLoggedIn"
           class="ml-auto">
           <b-btn
@@ -45,11 +47,11 @@
         <b-navbar-nav
           v-if="isLoggedIn && user"
           class="ml-auto">
-          <balances-list v-if="isLoggedIn"/>
+          <balances-list/>
           <b-dropdown
             id="username-dropdown"
             :text="`${user.username}`"
-            class="ml-2 mr-4"
+            class="ml-2"
             variant="warning"
             right>
             <b-dropdown-item v-b-modal.AccountModal>

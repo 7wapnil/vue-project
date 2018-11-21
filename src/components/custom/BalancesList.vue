@@ -1,36 +1,29 @@
 <template>
-  <ul class="navbar-nav ml-auto">
-    <li
-      v-if="activeWallet"
-      class="nav-item dropdown">
-      <a
-        id="wallets-dropdown"
-        class="nav-link dropdown-toggle"
-        href="#"
-        role="button"
-        data-toggle="dropdown"
-        aria-haspopup="true"
-        aria-expanded="false">
-        {{ displayAmount(activeWallet) }}
-      </a>
-      <div
-        v-if="inactiveWalletsList.length"
-        class="dropdown-menu">
-        <a
-          v-for="wallet in inactiveWalletsList"
-          :key="wallet.currency.code"
-          class="dropdown-item"
-          href="#"
-          @click.prevent="selectWallet(wallet)">
+    <b-nav-item-dropdown id="wallet-button"
+                         v-if="activeWallet"
+                         no-caret>
+      <template slot="button-content" class="p-0">
+        <small>
+          <b>
+            {{ displayAmount(activeWallet) }}
+          </b>
+        </small>
+        <p class="m-0">
+          <small>
+            View my wallet
+          </small>
+        </p>
+      </template>
+        <b-dropdown-item extra-toggle-classes="yoyo"
+                          v-for="wallet in inactiveWalletsList"
+                         :key="wallet.currency.code"
+                         @click.prevent="selectWallet(wallet)">
           {{ displayAmount(wallet) }}
-        </a>
-      </div>
-    </li>
-  </ul>
+        </b-dropdown-item>
+    </b-nav-item-dropdown>
 </template>
 
 <script>
-
 export default {
   computed: {
     inactiveWalletsList () {
@@ -62,3 +55,8 @@ export default {
   }
 }
 </script>
+<style>
+  .yoyo {
+    background-color: red;
+  }
+</style>

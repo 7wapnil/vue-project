@@ -3,13 +3,23 @@
 .navbar {
   min-height: $navbar-height;
 }
-.navbar-nav > .nav-item > a {
+#top-navigation > .nav-item > a {
   font-size: $font-size-base;
   font-weight: $font-weight-bold;
   letter-spacing: 0.23px;
   line-height: $btn-line-height-sm;
-  padding: 31px 60px !important;
+  padding: 31px 60px;
 }
 .navbar-nav > .nav-item > a:active {
   color: $arc-clr-white;
+}
+
+// Navbar wallet
+#wallet-button {
+  background-color: $arc-clr-soil-cover;
+  padding: 13px 11px 10px 15px;
+  max-height: $navbar-height;
+}
+#wallet-button > a{
+  padding: 0;
 }
