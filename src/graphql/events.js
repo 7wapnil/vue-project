@@ -28,9 +28,11 @@ export const EVENT_FIELDS = `
     ${MARKET_FIELDS}
   }
   event_status {
+    id
     score
     time
     period_scores {
+      id
       score
       status_code
       status

@@ -23,3 +23,6 @@ yarn-error.log*
 
 # project files
 docker-compose.yml
+
+# icon generator
+output.js
