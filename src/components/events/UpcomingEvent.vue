@@ -4,7 +4,7 @@
     class="mb-2">
     <b-row
       no-gutters
-      class=" upcoming-event-card"
+      class="upcoming-event-card"
       role="tab">
 
       <b-col
@@ -70,9 +70,7 @@
     <b-row no-gutters>
       <b-col align="center">
         <b-collapse
-
           :id="'upcoming' + `${event.id}`"
-          visible
           accordion="my-accordion"
           role="tabpanel">
           <b-card
