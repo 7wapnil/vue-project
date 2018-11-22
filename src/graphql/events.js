@@ -6,6 +6,7 @@ export const EVENT_FIELDS = `
   name
   description
   title_name
+  live
   tournament {
     id
     kind
