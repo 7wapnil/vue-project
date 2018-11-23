@@ -45,6 +45,7 @@
           </b-btn>
         </b-navbar-nav>
         <b-navbar-nav
+          v-if="isLoggedIn"
           class="ml-auto">
           <balances-list/>
           <user-profile-menu/>
