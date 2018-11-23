@@ -1,13 +1,17 @@
 import arcanebetSession from '@/services/local-storage/session'
 import graphqlClient from '@/libs/apollo'
 import { SIGN_IN_MUTATION, SIGN_UP_MUTATION } from '@/stores/queries/user'
+import { AUTH_INFO_QUERY } from '@/graphql/index'
 
 /**
  * User store module
  */
 export default {
   state: {
-    session: arcanebetSession.getSession() || {}
+    session: arcanebetSession.getSession() || {},
+    loginAttempts: 0,
+    maxLoginAttempts: null,
+    lastLogin: null
   },
   actions: {
     logout (context, componentContext) {
@@ -38,7 +42,28 @@ export default {
     },
     login (context, sessionData) {
       context.commit('storeSession', sessionData)
+      context.commit('updateLoginInfo', { login_attempts: 0, lastLogin: null })
       arcanebetSession.storeSession(sessionData)
+    },
+    unsuccessfulLogin ({ state, commit }, authData) {
+      let login = authData.login
+      let response
+
+      if (login && login === state.lastLogin) {
+        response = commit('updateLoginInfo', { login_attempts: state.loginAttempts + 1 })
+      } else {
+        response = graphqlClient
+          .query({
+            query: AUTH_INFO_QUERY,
+            variables: { login: login },
+            fetchPolicy: 'network-only'
+          })
+          .then(({ data: { authInfo } }) => {
+            commit('updateLoginInfo', { login: login, ...authInfo })
+          })
+      }
+
+      return response
     }
   },
   mutations: {
@@ -57,6 +82,17 @@ export default {
       }
       state.session = session
       arcanebetSession.storeSession(state.session)
+    },
+    updateLoginInfo (state, data) {
+      state.loginAttempts = data.login_attempts
+
+      if (!state.maxLoginAttempts) {
+        state.maxLoginAttempts = data.max_login_attempts
+      }
+
+      if (data.login) {
+        state.lastLogin = data.login
+      }
     }
   },
   getters: {
@@ -75,6 +111,12 @@ export default {
         return userData[attribute]
       }
       return null
+    },
+    getLastLogin (state) {
+      return state.lastLogin
+    },
+    isSuspectedLogin (state) {
+      return state.maxLoginAttempts && state.loginAttempts >= state.maxLoginAttempts
     }
   }
 }
