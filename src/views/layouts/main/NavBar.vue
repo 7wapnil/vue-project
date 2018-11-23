@@ -45,43 +45,27 @@
           </b-btn>
         </b-navbar-nav>
         <b-navbar-nav
-          v-if="isLoggedIn && user"
           class="ml-auto">
           <balances-list/>
-          <b-dropdown
-            id="username-dropdown"
-            :text="`${user.username}`"
-            class="ml-2"
-            variant="warning"
-            right>
-            <b-dropdown-item v-b-modal.AccountModal>
-              Profile
-            </b-dropdown-item>
-
-            <b-dropdown-divider/>
-            <b-dropdown-item @click.prevent="logout">
-              Logout
-            </b-dropdown-item>
-          </b-dropdown>
+          <user-profile-menu/>
         </b-navbar-nav>
       </b-collapse>
     </b-container>
     <auth-modal/>
-    <account-modal/>
   </b-navbar>
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
-import BalancesList from '@/components/custom/BalancesList.vue'
+import { mapGetters } from 'vuex'
+import BalancesList from '@/components/navbar/wallet/BalancesList.vue'
 import AuthModal from '@/views/auth/AuthModal'
-import AccountModal from '@/views/account/AccountModal'
+import UserProfileMenu from '@/components/navbar/profile/UserProfileMenu'
 
 export default {
   components: {
     BalancesList,
     AuthModal,
-    AccountModal
+    UserProfileMenu
   },
   data () {
     return {
@@ -104,19 +88,7 @@ export default {
   computed: {
     ...mapGetters([
       'isLoggedIn'
-    ]),
-    ...mapGetters({
-      user: 'getUser'
-    })
-  },
-  methods: {
-    ...mapActions({
-      dispatchLogout: 'logout'
-    }),
-    logout () {
-      this.dispatchLogout(this)
-      this.$noty.success('Signed out successfully')
-    }
+    ])
   }
 }
 </script>

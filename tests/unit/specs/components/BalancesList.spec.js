@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 import { createLocalVue, shallowMount } from '@vue/test-utils'
 import Vuex from 'vuex'
-import BalancesList from '@/components/custom/BalancesList.vue'
+import BalancesList from '@/components/navbar/wallet/BalancesList.vue'
 
 const wallets = [{
   id: 1,

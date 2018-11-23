@@ -15,11 +15,28 @@
 }
 
 // Navbar wallet
-#wallet-button {
-  background-color: $arc-clr-soil-cover;
-  padding: 13px 11px 10px 15px;
-  max-height: $navbar-height;
+#nav-wallet-wrapper {
+  padding: 22px 15px;
+  width: 198px;
+  height: $navbar-height;
 }
-#wallet-button > a{
+#nav-wallet-wrapper > a {
   padding: 0;
+  letter-spacing: 0.09px;
+  line-height: 14px;
+}
+.wallet-button {
+  width: 40px;
+  height: 36px;
+  padding: 6px 8px !important;
+  border: none !important;
+}
+.wallet-button > .arc-nav-wallet {
+  font-size: 24px !important;
+}
+#nav-wallet-wrapper > .dropdown-menu {
+  padding: 0;
+  margin: 0;
+  width: 198px;
+  box-shadow: 0 2px 0 0 rgba($black, .5);
 }
