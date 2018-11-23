@@ -9,8 +9,8 @@
       style="max-width: 1440px"
       class="p-0">
       <b-navbar-brand
-              class="mr-0"
-              :to="{ name: 'home' }"/>
+        :to="{ name: 'home' }"
+        class="mr-0"/>
       <b-navbar-toggle
         class="mr-2"
         target="collapsableMenu"/>
@@ -19,16 +19,16 @@
         is-nav>
         <b-navbar-nav id="top-navigation">
           <b-nav-item
-            class="navbar-menu-item"
             v-for="item in mainMenu"
             :key="item.path"
-            :to="item.path">
+            :to="item.path"
+            class="navbar-menu-item">
             {{ item.label }}
           </b-nav-item>
         </b-navbar-nav>
         <b-navbar-nav
-          style="max-width: 268px"
           v-if="!isLoggedIn"
+          style="max-width: 268px"
           class="ml-auto">
           <b-btn
             v-b-modal.AuthModal
