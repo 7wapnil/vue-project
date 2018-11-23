@@ -19,14 +19,12 @@ const fixSocketActionName = (eventName) => {
 }
 
 const actions = {
-  loadState ({ state }) {
+  loadState ({ state, commit }) {
     graphqlClient.query({
       query: APP_STATE_QUERY,
       fetchPolicy: 'network-only'
     }).then(({ data: { app } }) => {
-      state.app = {
-        ...app
-      }
+      commit(UPDATE_STATE, app)
     })
   },
   [fixSocketActionName('appStateUpdated')] ({ commit }, message) {
