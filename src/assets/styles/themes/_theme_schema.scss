@@ -45,9 +45,45 @@
 .betslip-bet-count-round {
   color: $betslip-bet-count-color;
 }
+
+// Logo
 .navbar-brand {
   background: url(#{$nav-logo-link}) no-repeat 50% 50%;
   width: 268px;
   height: 42px;
-  margin-right: 0;
+}
+
+// Nav Wallet
+.wallet-button {
+  background-color: $nav-wallet-button-background;
+  box-shadow: inset 0 0 10px 0 rgba(255,60,229,0.35), 0 2px 0 0 rgba(0,0,0,0.5);
+  border: 1px solid rgba(66,144,255,0.5);
+}
+#nav-wallet-wrapper > .dropdown-menu,
+#nav-wallet-wrapper .dropdown-item:focus {
+  background-color: $nav-wallet-dropdown-background;
+}
+#nav-wallet-wrapper {
+  background-color: $nav-wallet-wrapper-background;
+}
+.currency-code {
+  color: $nav-wallet-currency-color;
+}
+
+// Icons
+.arc-triangle-down {
+  color: $nav-wallet-triangle-down-icon;
+}
+.arc-profile-button {
+  background-color: $nav-profile-button;
+}
+
+// Progress bar
+.progress-bar {
+  background-color: $nav-wallet-progress-bar-bg;
+}
+
+// User profile menu
+.nav-profile-button > .dropdown-menu {
+  background-color: $nav-profile-dropdown-background;
 }

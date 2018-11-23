@@ -1,13 +1,16 @@
 .esports {
   @import "themes/blue-theme";
+  margin-top: 80px;
 }
 
 .sports {
   @import "themes/green-theme";
+  margin-top: 80px;
 }
 
 .live {
   @import "themes/orange-theme";
+  margin-top: 80px;
 }
 
 @import "components/navbar";
@@ -18,3 +21,4 @@
 @import "components/buttons";
 @import "components/cards";
 @import "components/icons";
+@import "components/progress_bars";

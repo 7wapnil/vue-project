@@ -2,6 +2,8 @@
 .btn:focus {
   box-shadow: none !important;
 }
+
+// Secondary button
 .btn-arc-secondary {
   border-radius: 4px 4px 0 4px !important;
   background-color: rgba(0,0,0,0.15);
@@ -22,4 +24,15 @@
   background-color: rgba(0,0,0,0.15);
   color: rgba(193,193,193,0.3);
   box-shadow: $arc-secondary-button-box-shadow;
+}
+
+// User profile button
+.arc-profile-button {
+  border-radius: 50px !important;
+  width: 42px !important;
+  height: 42px !important;
+  border: 3px solid rgba(0,0,0,0.3) !important;
+}
+.nav-profile-button {
+  padding: 20px 7px 18px 5px;
 }

@@ -47,10 +47,7 @@ export default {
     titles () {
       return {
         query: TITLES_QUERY,
-        variables: { kind: 'esports', withTournaments: true },
-        result () {
-          console.log('GOT TITLES')
-        }
+        variables: { kind: 'esports', withTournaments: true }
       }
     }
   },

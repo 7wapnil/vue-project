@@ -6,6 +6,8 @@ $nav-item-active-background: rgba($nav-item-active-glow, $arc-clr-soil-cover-opa
 
 // Buttons
 $primary-button-background: $arc-clr-inplay-glow;
+$nav-wallet-wrapper-background: $arc-clr-inplay-opacity-like;
+$nav-wallet-button-background: $arc-clr-inplay-glow;
 
 // Betslip
 $betslip-active-tab-border-color: $arc-clr-inplay-glow;
@@ -17,5 +19,19 @@ $close-text-shadow: none;
 
 // Logo
 $nav-logo-link: '~@/assets/logo/arc-logo-esport.svg';
+
+// Dropdowns
+$nav-wallet-dropdown-background: $arc-clr-inplay-opacity-like;
+$nav-profile-dropdown-background: $arc-clr-inplay-opacity-like;
+
+// Icons
+$nav-wallet-triangle-down-icon: $arc-clr-inplay-glow;
+$nav-profile-button: $arc-clr-inplay-glow;
+
+// Progress bars
+$nav-wallet-progress-bar-bg: $arc-clr-inplay-glow;
+
+// Wallet
+$nav-wallet-currency-color: $arc-clr-inplay-glow;
 
 @import 'theme_schema';

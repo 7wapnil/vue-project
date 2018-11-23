@@ -1,5 +1,6 @@
 <template>
   <b-navbar
+    fixed="top"
     toggleable="lg"
     type="dark"
     class="py-md-0 px-0">
@@ -7,7 +8,9 @@
       fluid
       style="max-width: 1440px"
       class="p-0">
-      <b-navbar-brand/>
+      <b-navbar-brand
+        :to="{ name: 'home' }"
+        class="mr-0"/>
       <b-navbar-toggle
         class="mr-2"
         target="collapsableMenu"/>
@@ -18,12 +21,14 @@
           <b-nav-item
             v-for="item in mainMenu"
             :key="item.path"
-            :to="item.path">
+            :to="item.path"
+            class="navbar-menu-item">
             {{ item.label }}
           </b-nav-item>
         </b-navbar-nav>
         <b-navbar-nav
           v-if="!isLoggedIn"
+          style="max-width: 268px"
           class="ml-auto">
           <b-btn
             v-b-modal.AuthModal
@@ -40,58 +45,42 @@
           </b-btn>
         </b-navbar-nav>
         <b-navbar-nav
-          v-if="isLoggedIn && user"
           class="ml-auto">
-          <balances-list v-if="isLoggedIn"/>
-          <b-dropdown
-            id="username-dropdown"
-            :text="`${user.username}`"
-            class="ml-2 mr-4"
-            variant="warning"
-            right>
-            <b-dropdown-item v-b-modal.AccountModal>
-              Profile
-            </b-dropdown-item>
-
-            <b-dropdown-divider/>
-            <b-dropdown-item @click.prevent="logout">
-              Logout
-            </b-dropdown-item>
-          </b-dropdown>
+          <balances-list/>
+          <user-profile-menu/>
         </b-navbar-nav>
       </b-collapse>
     </b-container>
     <auth-modal/>
-    <account-modal/>
   </b-navbar>
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
-import BalancesList from '@/components/custom/BalancesList.vue'
+import { mapGetters } from 'vuex'
+import BalancesList from '@/components/navbar/wallet/BalancesList.vue'
 import AuthModal from '@/views/auth/AuthModal'
-import AccountModal from '@/views/account/AccountModal'
+import UserProfileMenu from '@/components/navbar/profile/UserProfileMenu'
 
 export default {
   components: {
     BalancesList,
     AuthModal,
-    AccountModal
+    UserProfileMenu
   },
   data () {
     return {
       mainMenu: [
         {
           path: '/esports',
-          label: 'ESPORTS'
+          label: 'Esport'
         },
         {
           path: '/sports',
-          label: 'SPORTS'
+          label: 'Sport'
         },
         {
           path: '/live',
-          label: 'LIVE'
+          label: 'Live'
         }
       ]
     }
@@ -99,19 +88,7 @@ export default {
   computed: {
     ...mapGetters([
       'isLoggedIn'
-    ]),
-    ...mapGetters({
-      user: 'getUser'
-    })
-  },
-  methods: {
-    ...mapActions({
-      dispatchLogout: 'logout'
-    }),
-    logout () {
-      this.dispatchLogout(this)
-      this.$noty.success('Signed out successfully')
-    }
+    ])
   }
 }
 </script>
