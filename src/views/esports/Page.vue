@@ -73,6 +73,7 @@ export default {
     baseQuery () {
       return {
         titleId: this.titleId,
+        titleKind: 'esports',
         tournamentId: this.tournamentId,
         limit: 20
       }
