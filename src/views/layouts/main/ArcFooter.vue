@@ -7,7 +7,7 @@
                     <b-col v-for="(topicon, index) in topicons"
                            :key="index"
                            class="px-3 py-5 d-flex justify-content-center">
-                        <b-img :src="'~@/assets/images/footer/' +`${topicon}`"/>
+                        <b-img :src="require('@/assets/images/footer/' + `${topicon}`)"/>
                     </b-col>
                 </b-row>
             </b-container>
@@ -20,7 +20,7 @@
                                        :key="index"
                                        cols="12"
                                        class="p-4 d-flex justify-content-center">
-                                    <b-img :src="'~@/assets/images/footer/' +`${lefticon}`"
+                                    <img :src="require('@/assets/images/footer/' + `${lefticon}`)"
                                            class="d-flex align-items-center"/>
                                 </b-col>
                             </b-row>
@@ -94,7 +94,7 @@
                         <b-col style="max-width: 268px"
                                cols="4"
                                class="d-flex justify-content-center">
-                            <b-img src="~@/assets/images/footer/footer-logo.svg"/>
+                            <img src="~@/assets/images/footer/footer-logo.svg"/>
                         </b-col>
                         <b-col cols="8">
                             <p class="text-left pl-3 footer-text">
