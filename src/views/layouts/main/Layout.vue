@@ -29,6 +29,7 @@
         </b-col>
       </b-row>
     </b-container>
+      <arc-footer/>
   </div>
 </template>
 
@@ -37,13 +38,15 @@ import NavBar from './NavBar'
 import SideMenu from './SideMenu'
 import Betslip from '@/components/betslip/Betslip.vue'
 import PromotionalItem from '@/components/promotional/PromotionalItem'
+import ArcFooter from './ArcFooter'
 
 export default {
   components: {
     SideMenu,
     NavBar,
     Betslip,
-    PromotionalItem
+    PromotionalItem,
+    ArcFooter
   }
 }
 </script>
