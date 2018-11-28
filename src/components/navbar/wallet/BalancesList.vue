@@ -25,9 +25,10 @@
             <b-col
               cols="12"
               class="d-flex ">
-                <icon name="triangle-down"
-                      class="mt-1 mr-2"
-                      size="6px"/>
+              <icon
+                name="triangle-down"
+                class="mt-1 mr-2"
+                size="6px"/>
               <small>
                 View my wallet
               </small>

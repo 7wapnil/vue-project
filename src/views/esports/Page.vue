@@ -19,32 +19,32 @@
     </events-list>
 
     <events-list
-    :query-options="liveQuery"
-    header="Live events"
+      :query-options="liveQuery"
+      header="Live events"
     >
-    <simple-event
-    slot-scope="{ event }"
-    :event="event">
+      <simple-event
+        slot-scope="{ event }"
+        :event="event">
 
-    <markets-list
-    :event="event"
-    :query-options="{ limit: 1 }"/>
+        <markets-list
+          :event="event"
+          :query-options="{ limit: 1 }"/>
 
-    </simple-event>
+      </simple-event>
     </events-list>
 
     <events-list
-    :query-options="upcomingQuery"
-    header="Upcoming in 24 hours">
-    <upcoming-event
-    slot-scope="{ event }"
-    :event="event">
+      :query-options="upcomingQuery"
+      header="Upcoming in 24 hours">
+      <upcoming-event
+        slot-scope="{ event }"
+        :event="event">
 
-    <markets-list
-    :event="event"
-    :query-options="{ limit: 1 }"/>
+        <markets-list
+          :event="event"
+          :query-options="{ limit: 1 }"/>
 
-    </upcoming-event>
+      </upcoming-event>
     </events-list>
 
   </main-layout>

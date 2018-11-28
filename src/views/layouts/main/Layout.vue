@@ -29,7 +29,7 @@
         </b-col>
       </b-row>
     </b-container>
-      <arc-footer/>
+    <arc-footer/>
   </div>
 </template>
 
