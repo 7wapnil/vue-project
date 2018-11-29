@@ -7,7 +7,25 @@
       v-for="title in titles"
       :key="title.id">
 
-      <div class="sidebar-collapsed-title">{{ title.name }}</div>
+      <b-row
+        class="sidebar-collapsed-title"
+        no-gutters>
+        <b-col
+          cols="auto pr-3"
+          class="sidemenu-main-logo d-flex align-items-center justify-content-center">
+          <icon
+            name="sidemenu-game-icon"
+            size="24px"/>
+        </b-col>
+        <b-col class="d-flex align-items-center justify-content-start">
+          {{ title.name }}
+        </b-col>
+        <b-col
+          cols="auto"
+          class="sidemenu-chevron d-flex align-items-center justify-content-end">
+          <icon name="sidemenu-chevron-down"/>
+        </b-col>
+      </b-row>
 
       <b-collapse
         :id="`title-${title.id}`"
