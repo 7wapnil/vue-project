@@ -209,8 +209,8 @@
         :invalid-feedback="errors.phone"
         label="Phone number">
         <b-form-input
-          v-mask="'+############'"
           id="phone"
+          :v-mask="'+############'"
           v-model="fields.phone"
           :state="getState('phone')"
           required/>
