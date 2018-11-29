@@ -49,6 +49,7 @@ export const AUTH_INFO_QUERY = gql`
   query($login: String!) {
     authInfo(login: $login) {
       is_suspected
+      max_attempts
     }
   }
 `

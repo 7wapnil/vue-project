@@ -118,7 +118,7 @@ export default {
   computed: {
     ...mapGetters({
       isSuspected: 'isSuspected',
-      lastLogin: 'getLastLogin'
+      isNewLogin: 'isNewLogin'
     })
   },
   methods: {
@@ -133,7 +133,7 @@ export default {
       this.clearErrors()
       this.submitting = true
 
-      if (this.lastLogin !== this.fields.login) this.removeCaptcha()
+      if (this.isNewLogin) this.removeCaptcha()
 
       this.authenticate(this.fields)
         .then(this.onSuccess)
