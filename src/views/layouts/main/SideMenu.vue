@@ -65,17 +65,34 @@ export default {
     titles () {
       return {
         query: TITLES_QUERY,
-        variables: { kind: 'esports', withTournaments: true }
+        variables: { kind: this.titlesKind, withTournaments: true }
       }
     }
   },
   computed: {
-    queryOptions () {
-      return { kind: 'esports', withTournaments: true }
-    },
     titleId () {
       return this.$route.params.titleId || null
+    },
+    titlesKind () {
+      const DEFAULT_KIND = 'esports';
+      const currentRouteName = this.$route.name;
+
+      if (this.isOneOfValidKinds(currentRouteName)) {
+        return currentRouteName;
+      }
+
+      return DEFAULT_KIND;
+    },
+  },
+  methods: {
+    isOneOfValidKinds (kind) {
+      const VALID_KINDS = [
+        'esports',
+        'sports',
+      ];
+
+      return VALID_KINDS.findIndex((validKind) => kind === validKind) >= 0;
     }
-  }
+  },
 }
 </script>
