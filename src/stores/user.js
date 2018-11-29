@@ -9,8 +9,7 @@ import { AUTH_INFO_QUERY } from '@/graphql/index'
 export default {
   state: {
     session: arcanebetSession.getSession() || {},
-    loginAttempts: 0,
-    maxLoginAttempts: null,
+    isSuspected: null,
     lastLogin: null
   },
   actions: {
@@ -42,33 +41,27 @@ export default {
     },
     login (context, sessionData) {
       context.commit('storeSession', sessionData)
-      context.commit('updateLoginInfo', { login_attempts: 0, lastLogin: null })
       arcanebetSession.storeSession(sessionData)
     },
     unsuccessfulLogin ({ state, commit }, authData) {
       let login = authData.login
-      let response
 
-      if (login && login === state.lastLogin) {
-        response = commit('updateLoginInfo', { login_attempts: state.loginAttempts + 1 })
-      } else {
-        response = graphqlClient
-          .query({
-            query: AUTH_INFO_QUERY,
-            variables: { login: login },
-            fetchPolicy: 'network-only'
-          })
-          .then(({ data: { authInfo } }) => {
-            commit('updateLoginInfo', { login: login, ...authInfo })
-          })
-      }
-
-      return response
+      return graphqlClient
+        .query({
+          query: AUTH_INFO_QUERY,
+          variables: { login: login },
+          fetchPolicy: 'network-only'
+        })
+        .then(({ data: { authInfo } }) => {
+          commit('updateLoginInfo', { login: login, ...authInfo })
+        })
     }
   },
   mutations: {
     storeSession (state, sessionData) {
       state.session = sessionData
+      state.isSuspected = null
+      state.lastLogin = null
     },
     clearSession (state) {
       state.session = {}
@@ -84,15 +77,8 @@ export default {
       arcanebetSession.storeSession(state.session)
     },
     updateLoginInfo (state, data) {
-      state.loginAttempts = data.login_attempts
-
-      if (!state.maxLoginAttempts) {
-        state.maxLoginAttempts = data.max_login_attempts
-      }
-
-      if (data.login) {
-        state.lastLogin = data.login
-      }
+      state.isSuspected = data.is_suspected
+      state.lastLogin = data.login
     }
   },
   getters: {
@@ -115,8 +101,8 @@ export default {
     getLastLogin (state) {
       return state.lastLogin
     },
-    isSuspectedLogin (state) {
-      return state.maxLoginAttempts && state.loginAttempts >= state.maxLoginAttempts
+    isSuspected (state) {
+      return state.isSuspected
     }
   }
 }

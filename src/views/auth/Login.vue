@@ -47,7 +47,7 @@
       </b-col>
     </b-row>
     <b-row
-      v-if="isSuspectedLogin"
+      v-if="isSuspected"
       class="mt-4"
       no-gutters>
       <b-col
@@ -117,7 +117,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      isSuspectedLogin: 'isSuspectedLogin',
+      isSuspected: 'isSuspected',
       lastLogin: 'getLastLogin'
     })
   },
@@ -155,7 +155,7 @@ export default {
       this.$noty.warning(err.graphQLErrors[0].message)
       this.unsuccessfulLogin({ login: this.fields.login })
         .then(() => {
-          if (this.isSuspectedLogin) this.resetCaptcha()
+          if (this.isSuspected) this.resetCaptcha()
         })
     },
     done () {
