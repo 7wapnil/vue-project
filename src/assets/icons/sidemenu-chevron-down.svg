@@ -1,0 +1,9 @@
+<svg width="12px" height="8px" viewBox="0 0 12 8" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+    <g id="menu/sub/Sport-Closed" transform="translate(-256.000000, -24.000000)" fill="#47D469">
+      <g id="ICN/M/Arrow-in-Row-SPORT" transform="translate(256.000000, 22.000000)">
+        <path d="M6,9.50028126 L0.292881102,3.72716098 C-0.0976270339,3.33215275 -0.0976270339,2.6911394 0.292881102,2.29663118 C0.682889227,1.90112294 1.31690244,1.90112294 1.70691056,2.29663118 L6,6.63872164 L10.2930894,2.29663118 C10.6830976,1.90112294 11.3171108,1.90112294 11.7071189,2.29663118 C12.097627,2.6911394 12.097627,3.33215275 11.7071189,3.72716098 L6,9.50028126 Z" id="ICN/M/Arrow-in-Row"></path>
+      </g>
+    </g>
+  </g>
+</svg>

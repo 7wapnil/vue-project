@@ -12,10 +12,17 @@
 }
 
 // Sidebar navigation
-.sidebar-collapsed-title {
+.sidebar-collapsed-title { //active
   background-color: $navbar-background;
 }
+.sidemenu-chevron {
+  color: $sidemenu-chevron-color;
+}
+.sidemenu-main-logo {
+  color: $sidemenu-main-logo-color;
+}
 
+// Buttons
 .btn-arc-primary {
   background-color: rgba($primary-button-background, .6);
   border: $btn-border-width solid rgba($primary-button-background, .5);
