@@ -1,21 +1,33 @@
 <template>
-  <b-jumbotron
-    v-if="!isLoggedIn"
-    bg-variant="dark"
-    class="p-4 m-2 mb-4">
-    <p class="p-4 text-center">Sign up now and <br> get bonuses!</p>
-
-    <p class="my-4">
-      Promotional area with interesting things
-    </p>
-
-    <b-row>
-      <b-col class="text-center">
-        <b-button variant="arc-primary">Discover more</b-button>
-      </b-col>
-    </b-row>
-
-  </b-jumbotron>
+  <div>
+    <div class="px-2 py-4 text-center text-arc-clr-iron">
+      Sign up now and get bonuses!
+    </div>
+    <b-jumbotron
+      v-if="!isLoggedIn"
+      bg-variant="dark"
+      class="p-3 mx-2 mb-4 promotional-area">
+      <p class="my-4 text-center">
+        Promotional area with interesting things
+      </p>
+      <b-row>
+        <b-col>
+          <b-button
+            block
+            variant="arc-secondary">
+            <b-row no-gutters>
+              <b-col class="text-left">
+                Discover more
+              </b-col>
+              <b-col class="d-inline-flex align-items-center justify-content-end">
+                <icon name="arrow-right"/>
+              </b-col>
+            </b-row>
+          </b-button>
+        </b-col>
+      </b-row>
+    </b-jumbotron>
+  </div>
 </template>
 <script>
 import { mapGetters } from 'vuex'
