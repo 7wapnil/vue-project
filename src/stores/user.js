@@ -11,7 +11,7 @@ const FIRST_ATTEMPT = 1
 export default {
   state: {
     session: arcanebetSession.getSession() || {},
-    isSuspected: null,
+    isSuspicious: null,
     lastLogin: null,
     attempts: FIRST_ATTEMPT,
     maxAttempts: null
@@ -64,7 +64,7 @@ export default {
   mutations: {
     storeSession (state, sessionData) {
       state.session = sessionData
-      state.isSuspected = null
+      state.isSuspicious = null
       state.lastLogin = null
       state.attempts = 0
     },
@@ -82,7 +82,7 @@ export default {
       arcanebetSession.storeSession(state.session)
     },
     updateLoginInfo (state, data) {
-      state.isSuspected = data.is_suspected
+      state.isSuspicious = data.is_suspicious
       state.attempts = (state.lastLogin === data.login) ? state.attempts + 1 : FIRST_ATTEMPT
 
       if (!state.maxAttempts) state.maxAttempts = data.max_attempts
@@ -107,8 +107,8 @@ export default {
       }
       return null
     },
-    isSuspected (state) {
-      return state.isSuspected || (state.maxAttempts && state.attempts >= state.maxAttempts)
+    isSuspicious (state) {
+      return state.isSuspicious || (state.maxAttempts && state.attempts >= state.maxAttempts)
     },
     isNewLogin (state) {
       return state.attempts === FIRST_ATTEMPT
