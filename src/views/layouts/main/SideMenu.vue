@@ -84,6 +84,13 @@ export default {
       return DEFAULT_KIND;
     },
   },
+  watch: {
+    '$route.name' () {
+      this.$apollo.queries.titles.refetch({
+        kind: this.titlesKind,
+      });
+    }
+  },
   methods: {
     isOneOfValidKinds (kind) {
       const VALID_KINDS = [
