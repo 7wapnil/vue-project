@@ -44,3 +44,11 @@ export const CHANGE_USER_PASSWORD = gql`
                      new_password_confirmation: $new_password_confirmation)
     }
 `
+
+export const AUTH_INFO_QUERY = gql`
+  query($login: String!) {
+    authInfo(login: $login) {
+      is_suspicious
+    }
+  }
+`

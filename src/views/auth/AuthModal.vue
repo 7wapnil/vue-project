@@ -1,7 +1,6 @@
 <template>
   <modal
     id="AuthModal"
-    ref="authModalRef"
     title="Welcome to ArcaneBet"
     title-tag="h4"
     header-class="header">
@@ -20,8 +19,8 @@
           title-item-class="w-50 text-center"
           title="Sign in">
           <login
-            @tab-changed="changeTab"
-            @close-modal="closeModal"/>
+            modal-name="AuthModal"
+            @tab-changed="changeTab"/>
         </b-tab>
         <b-tab
           :title-link-class="changeStyleTab(1)"
@@ -58,9 +57,6 @@ export default {
     },
     changeTab (tab) {
       this.tabIndex = tab
-    },
-    closeModal () {
-      this.$refs.authModalRef.hide()
     }
   }
 }
