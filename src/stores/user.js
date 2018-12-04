@@ -43,7 +43,7 @@ export default {
       context.commit('storeSession', sessionData)
       arcanebetSession.storeSession(sessionData)
     },
-    unsuccessfulLogin ({ state, commit }, authData) {
+    rejectLogin ({ state, commit }, authData) {
       let login = authData.login
 
       return graphqlClient

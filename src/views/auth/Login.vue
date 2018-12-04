@@ -153,7 +153,7 @@ export default {
       if (!err.graphQLErrors && err.graphQLErrors.length) return
 
       this.$noty.warning(err.graphQLErrors[0].message)
-      this.unsuccessfulLogin({ login: this.fields.login })
+      this.rejectLogin({ login: this.fields.login })
         .then(() => {
           if (this.isSuspicious) this.resetCaptcha()
         })
@@ -167,7 +167,7 @@ export default {
     ...mapActions([
       'authenticate',
       'login',
-      'unsuccessfulLogin'
+      'rejectLogin'
     ]),
   }
 }
