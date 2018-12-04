@@ -6,7 +6,7 @@
     <b-jumbotron
       v-if="!isLoggedIn"
       bg-variant="dark"
-      class="p-3 mx-2 mb-4 promotional-area">
+      class="p-3 mb-0 mx-2 promotional-area">
       <p class="my-4 text-center">
         Promotional area with interesting things
       </p>

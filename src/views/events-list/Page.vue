@@ -1,5 +1,5 @@
 <template>
-  <main-layout class="esports">
+  <main-layout :class="titlesKind">
 
     <!--<h2>{{ tournament ? tournament.name : 'All tournaments' }}</h2>-->
     <!--<hr>-->
@@ -73,6 +73,7 @@ export default {
     baseQuery () {
       return {
         titleId: this.titleId,
+        titleKind: this.titlesKind,
         tournamentId: this.tournamentId,
         limit: 20
       }
@@ -94,7 +95,17 @@ export default {
     },
     tournamentId () {
       return this.$route.params.tournamentId || null
-    }
+    },
+    titlesKind () {
+      const DEFAULT_KIND = 'esports';
+      const currentRouteName = this.$route.name;
+
+      if (this.isOneOfValidKinds(currentRouteName)) {
+        return currentRouteName;
+      }
+
+      return DEFAULT_KIND;
+    },
   },
   watch: {
     tournamentId () {
@@ -127,7 +138,15 @@ export default {
             }
           })
       }
-    }
+    },
+    isOneOfValidKinds (kind) {
+      const VALID_KINDS = [
+        'esports',
+        'sports',
+      ];
+
+      return VALID_KINDS.findIndex((validKind) => kind === validKind) >= 0;
+    },
   },
 }
 </script>
