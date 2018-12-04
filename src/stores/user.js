@@ -3,8 +3,6 @@ import graphqlClient from '@/libs/apollo'
 import { SIGN_IN_MUTATION, SIGN_UP_MUTATION } from '@/stores/queries/user'
 import { AUTH_INFO_QUERY } from '@/graphql/index'
 
-const FIRST_ATTEMPT = 1
-
 /**
  * User store module
  */
@@ -12,9 +10,7 @@ export default {
   state: {
     session: arcanebetSession.getSession() || {},
     isSuspicious: null,
-    lastLogin: null,
-    attempts: FIRST_ATTEMPT,
-    maxAttempts: null
+    lastLogin: null
   },
   actions: {
     logout (context, componentContext) {
@@ -66,7 +62,6 @@ export default {
       state.session = sessionData
       state.isSuspicious = null
       state.lastLogin = null
-      state.attempts = 0
     },
     clearSession (state) {
       state.session = {}
@@ -83,10 +78,6 @@ export default {
     },
     updateLoginInfo (state, data) {
       state.isSuspicious = data.is_suspicious
-      state.attempts = (state.lastLogin === data.login) ? state.attempts + 1 : FIRST_ATTEMPT
-
-      if (!state.maxAttempts) state.maxAttempts = data.max_attempts
-
       state.lastLogin = data.login
     }
   },
@@ -108,10 +99,10 @@ export default {
       return null
     },
     isSuspicious (state) {
-      return state.isSuspicious || (state.maxAttempts && state.attempts >= state.maxAttempts)
+      return state.isSuspicious
     },
-    isNewLogin (state) {
-      return state.attempts === FIRST_ATTEMPT
+    getLastLogin (state) {
+      return state.lastLogin
     }
   }
 }
