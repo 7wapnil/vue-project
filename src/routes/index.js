@@ -4,6 +4,7 @@ import EventsList from '@/views/events-list/Page.vue'
 import LivePage from '@/views/live/Page.vue'
 import OutrightPage from '@/views/outrights/Page.vue'
 import Event from '@/views/event/Page.vue'
+import arcanebetSession from '@/services/local-storage/session'
 
 export default new Router({
   mode: 'history',
@@ -54,6 +55,14 @@ export default new Router({
       name: 'event',
       component: Event,
       props: true
+    },
+    {
+      path: '/impersonate/:token',
+      beforeEnter: (to, from, next) => {
+        const customerAttrs = JSON.parse(to.query.customer)
+        arcanebetSession.storeImpersonatedSession(to.params.token, customerAttrs)
+        next({ path: '/' })
+      }
     }
-  ],
-});
+  ]
+})
