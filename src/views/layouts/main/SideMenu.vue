@@ -36,14 +36,14 @@
           v-if="title.tournaments.length"
           vertical>
           <b-nav-item
-            :to="{ name: 'esports-title', params: { titleId: title.id } }"
+            :to="{ name: 'title', params: { titleId: title.id } }"
             exact>
             All tournaments
           </b-nav-item>
           <b-nav-item
             v-for="tournament in title.tournaments"
             :key="tournament.id"
-            :to="{ name: 'esports-tournament', params: { titleId: title.id, tournamentId: tournament.id } }"
+            :to="{ name: 'tournament', params: { titleId: title.id, tournamentId: tournament.id } }"
             exact>
             {{ tournament.name }}
           </b-nav-item>
@@ -75,17 +75,17 @@ export default {
     },
     titlesKind () {
       const DEFAULT_KIND = 'esports';
-      const currentRouteName = this.$route.name;
+      const currentTitleKind = this.$route.params.titleKind;
 
-      if (this.isOneOfValidKinds(currentRouteName)) {
-        return currentRouteName;
+      if (this.isOneOfValidKinds(currentTitleKind)) {
+        return currentTitleKind;
       }
 
       return DEFAULT_KIND;
     },
   },
   watch: {
-    '$route.name' () {
+    '$route' () {
       this.$apollo.queries.titles.refetch({
         kind: this.titlesKind,
       });
