@@ -1,10 +1,20 @@
 <template>
   <span v-if="!getBets.length">
-    <h6 class="ml-4 mt-3">Betslip</h6>
+    <div class="m-3">
+      <small class="text-arc-clr-iron">
+        <strong>
+          Betslip
+        </strong>
+      </small>
+    </div>
     <b-card
-      class="mx-2 py-4"
+      bg-variant="transparent"
+      class="mx-2 mb-2 pb-4 betslip-empty-card"
       no-body>
-      <p class="text-center m-2">Your betslip is currently empty<br>
+      <img
+        class="p-4"
+        src="~@/assets/images/betslip/arc-logo-black.svg">
+      <p class="text-center text-arc-clr-iron px-2 mb-0">Your betslip is currently empty<br>
         Click on any odds to add them<br>
         to betslip.
       </p>

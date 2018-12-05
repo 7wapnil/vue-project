@@ -1,13 +1,16 @@
 import arcanebetSession from '@/services/local-storage/session'
 import graphqlClient from '@/libs/apollo'
 import { SIGN_IN_MUTATION, SIGN_UP_MUTATION } from '@/stores/queries/user'
+import { AUTH_INFO_QUERY } from '@/graphql/index'
 
 /**
  * User store module
  */
 export default {
   state: {
-    session: arcanebetSession.getSession() || {}
+    session: arcanebetSession.getSession() || {},
+    isSuspicious: null,
+    lastLogin: null
   },
   actions: {
     logout (context, componentContext) {
@@ -39,11 +42,26 @@ export default {
     login (context, sessionData) {
       context.commit('storeSession', sessionData)
       arcanebetSession.storeSession(sessionData)
+    },
+    rejectLogin ({ state, commit }, authData) {
+      let login = authData.login
+
+      return graphqlClient
+        .query({
+          query: AUTH_INFO_QUERY,
+          variables: { login: login },
+          fetchPolicy: 'network-only'
+        })
+        .then(({ data: { authInfo } }) => {
+          commit('updateLoginInfo', { login: login, ...authInfo })
+        })
     }
   },
   mutations: {
     storeSession (state, sessionData) {
       state.session = sessionData
+      state.isSuspicious = null
+      state.lastLogin = null
     },
     clearSession (state) {
       state.session = {}
@@ -57,6 +75,10 @@ export default {
       }
       state.session = session
       arcanebetSession.storeSession(state.session)
+    },
+    updateLoginInfo (state, data) {
+      state.isSuspicious = data.is_suspicious
+      state.lastLogin = data.login
     }
   },
   getters: {
@@ -75,6 +97,12 @@ export default {
         return userData[attribute]
       }
       return null
+    },
+    isSuspicious (state) {
+      return state.isSuspicious
+    },
+    getLastLogin (state) {
+      return state.lastLogin
     }
   }
 }

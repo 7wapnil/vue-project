@@ -1,10 +1,10 @@
 import Router from 'vue-router'
 import Activation from '@/views/auth/Activation'
-import Esports from '@/views/esports/Page.vue'
-import SportsPage from '@/views/sports/Page.vue'
+import EventsList from '@/views/events-list/Page.vue'
 import LivePage from '@/views/live/Page.vue'
 import OutrightPage from '@/views/outrights/Page.vue'
 import Event from '@/views/event/Page.vue'
+import arcanebetSession from '@/services/local-storage/session'
 
 export default new Router({
   mode: 'history',
@@ -13,20 +13,20 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      component: Esports,
+      component: EventsList,
     },
     {
       path: '/esports',
       name: 'esports',
-      component: Esports,
+      component: EventsList,
       children: [{
         path: 'title/:titleId',
         name: 'esports-title',
-        component: Esports,
+        component: EventsList,
         children: [{
           path: 'tour/:tournamentId',
           name: 'esports-tournament',
-          component: Esports,
+          component: EventsList,
         }]
       }]
     },
@@ -43,7 +43,7 @@ export default new Router({
     {
       path: '/sports',
       name: 'sports',
-      component: SportsPage,
+      component: EventsList,
     },
     {
       path: '/activation/:token',
@@ -55,6 +55,14 @@ export default new Router({
       name: 'event',
       component: Event,
       props: true
+    },
+    {
+      path: '/impersonate/:token',
+      beforeEnter: (to, from, next) => {
+        const customerAttrs = JSON.parse(to.query.customer)
+        arcanebetSession.storeImpersonatedSession(to.params.token, customerAttrs)
+        next({ path: '/' })
+      }
     }
-  ],
-});
+  ]
+})
