@@ -65,6 +65,12 @@
           theme="dark"
           @verify="onCaptchaVerified"
           @expired="resetCaptcha"/>
+        <div
+          v-if="isCaptchaMissing"
+          role="alert"
+          class="invalid-feedback d-block">
+          Please, pass Captcha verification!
+        </div>
       </b-col>
     </b-row>
     <b-row no-gutters>
@@ -112,7 +118,8 @@ export default {
         captcha: null
       },
       recaptchaSiteKey: process.env.VUE_APP_RECAPTCHA_SITE_KEY,
-      submitting: false
+      submitting: false,
+      isCaptchaMissing: false
     }
   },
   computed: {
@@ -122,8 +129,12 @@ export default {
     })
   },
   methods: {
+    isCaptchaEmpty () {
+      return this.isSuspicious && this.fields.captcha === ''
+    },
     onCaptchaVerified (token) {
       this.fields.captcha = token
+      this.isCaptchaMissing = false
     },
     resetCaptcha () {
       this.$refs.recaptcha.reset();
@@ -131,6 +142,12 @@ export default {
     },
     submit () {
       this.clearErrors()
+
+      if (this.isCaptchaEmpty()) {
+        this.isCaptchaMissing = true;
+        return
+      }
+
       this.submitting = true
 
       if (this.lastLogin !== this.fields.login) this.removeCaptcha()
