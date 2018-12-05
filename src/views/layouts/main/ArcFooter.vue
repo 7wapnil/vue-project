@@ -5,12 +5,14 @@
     <b-container
       fluid
       class="p-0 footer-section">
-      <b-container class="px-2">
-        <b-row class="px-5">
+      <b-container
+              class="mx-5 py-3"
+              style="max-width: 1920px">
+        <b-row>
           <b-col
             v-for="(topicon, index) in topicons"
             :key="index"
-            class="px-3 py-5 d-flex justify-content-center">
+            class="py-5 d-flex justify-content-center">
             <b-img :src="require('@/assets/images/footer/' + `${topicon}`)"/>
           </b-col>
         </b-row>
@@ -18,18 +20,20 @@
       <b-container
         fluid
         class="p-0 footer-section">
-        <b-container>
+        <b-container
+                class="p-0 mx-5"
+                style="max-width: 1920px"
+                fluid>
           <b-row no-gutters>
             <b-col
-              cols="12"
-              style="max-width: 268px"
-              class="p-5">
+              class="py-4"
+              style="max-width: 268px">
               <b-row no-gutters>
                 <b-col
                   v-for="(lefticon, index) in lefticons"
                   :key="index"
                   cols="12"
-                  class="p-4 d-flex justify-content-center">
+                  class="py-4 my-3 d-flex justify-content-center">
                   <img
                     :src="require('@/assets/images/footer/' + `${lefticon}`)"
                     class="d-flex align-items-center">
@@ -113,20 +117,22 @@
       <b-container
         fluid
         class="p-0 footer-section">
-        <b-container>
+        <b-container
+                style="max-width: 1920px"
+                class="mx-5"
+                fluid>
           <b-row class="py-5">
             <b-col
               style="max-width: 268px"
-              cols="4"
               class="d-flex justify-content-center">
               <img src="~@/assets/images/footer/footer-logo.svg">
             </b-col>
-            <b-col cols="8">
+            <b-col>
               <p class="text-left pl-3 footer-text">
-                TH Gambling N.V. E-Commerce Park Vredenberg, Curacao, Ara Hill Top Building Unit A-2 Pletterijweg Oost 1.
-                License and regulation is provided by the Government of Curacao, license #365/JAZ.
-                All video streaming is provided by various third parties and we do not carry any responsibility for actual content, stream quality, or streaming rights.
-                For customer support related questions, you can reach us through <a href="mailto:contact@arcanebet.com">contact@arcanebet.com</a> or by phone: + 31 6 44 28 36 07
+                TH Gambling N.V. E-Commerce Park Vredenberg, Curacao, Ara Hill Top Building Unit A-2 Pletterijweg Oost 1.<br>
+                License and regulation is provided by the Government of Curacao, license #365/JAZ.<br>
+                All video streaming is provided by various third parties and we do not carry any responsibility for actual content, stream quality, or streaming rights.<br>
+                For customer support related questions, you can reach us through <a href="mailto:contact@arcanebet.com">contact@arcanebet.com</a> or by phone: + 31 6 44 28 36 07<br>
                 © Copyrights 2018 All rights reserved. Gambling can be addictive. Please gamble responsibly.
               </p>
             </b-col>

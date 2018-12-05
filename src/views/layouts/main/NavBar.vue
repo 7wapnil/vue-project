@@ -6,7 +6,7 @@
     class="py-md-0 px-0">
     <b-container
       fluid
-      style="max-width: 1440px"
+      style="max-width: 1920px"
       class="p-0">
       <b-navbar-brand
         :to="{ name: 'home' }"
