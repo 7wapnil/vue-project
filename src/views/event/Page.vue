@@ -35,37 +35,37 @@
             <dd class="col-sm-9">{{ scope.name }}</dd>
           </dl>
 
-          <div v-if="event.event_status">
+          <div v-if="event.state">
             <dl
-              v-if="event.event_status.status_code"
+              v-if="event.state.status_code"
               class="row">
               <dt class="col-sm-3">Status</dt>
-              <dd class="col-sm-9">{{ event.event_status.status }}</dd>
+              <dd class="col-sm-9">{{ event.state.status }}</dd>
             </dl>
 
             <dl
-              v-if="event.event_status.score"
+              v-if="event.state.score"
               class="row">
               <dt class="col-sm-3">Score</dt>
-              <dd class="col-sm-9">{{ event.event_status.score }}</dd>
+              <dd class="col-sm-9">{{ event.state.score }}</dd>
             </dl>
 
             <dl
-              v-if="event.event_status.time"
+              v-if="event.state.time"
               class="row">
               <dt class="col-sm-3">Time</dt>
-              <dd class="col-sm-9">{{ event.event_status.time }}</dd>
+              <dd class="col-sm-9">{{ event.state.time }}</dd>
             </dl>
 
             <dl
-              v-if="event.event_status.period_scores.length > 0"
+              v-if="event.state.period_scores.length > 0"
               class="row">
               <dt class="col-sm-3">Period Scores</dt>
               <dd class="col-sm-9"/>
             </dl>
 
             <dl
-              v-for="period in event.event_status.period_scores"
+              v-for="period in event.state.period_scores"
               :key="period.status_code"
               class="row">
               <dt class="col-sm-3">{{ period.status }}</dt>
@@ -95,6 +95,15 @@ export default {
   data () {
     return {
       event: null
+    }
+  },
+  sockets: {
+    eventUpdated (data) {
+      if (data.id !== this.event.id) { return }
+      this.event = {
+        ...this.event,
+        ...data.changes,
+      }
     }
   },
   apollo: {

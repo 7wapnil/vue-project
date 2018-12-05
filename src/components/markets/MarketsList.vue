@@ -64,6 +64,14 @@ export default {
       if (eventId !== this.event.id) { return }
       this.$log.debug('Odd updated socket event', id, changes)
       this.updateOdd(id, marketId, changes)
+    },
+    marketsUpdated ({ id, data }) {
+      if (id !== this.event.id) { return }
+      data.forEach(market => this.updateMarket(market.id, market))
+    },
+    oddsUpdated ({ id, data }) {
+      if (id !== this.event.id) { return }
+      data.forEach(odd => this.updateOdd(odd.id, odd.marketId, odd))
     }
   },
   computed: {
