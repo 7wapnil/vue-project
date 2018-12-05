@@ -6,8 +6,8 @@
       fluid
       class="p-0 footer-section">
       <b-container
-              class="mx-5 py-3"
-              style="max-width: 1920px">
+        class="mx-5 py-3"
+        style="max-width: 1920px">
         <b-row>
           <b-col
             v-for="(topicon, index) in topicons"
@@ -21,9 +21,9 @@
         fluid
         class="p-0 footer-section">
         <b-container
-                class="p-0 mx-5"
-                style="max-width: 1920px"
-                fluid>
+          class="p-0 mx-5"
+          style="max-width: 1920px"
+          fluid>
           <b-row no-gutters>
             <b-col
               class="py-4"
@@ -118,9 +118,9 @@
         fluid
         class="p-0 footer-section">
         <b-container
-                style="max-width: 1920px"
-                class="mx-5"
-                fluid>
+          style="max-width: 1920px"
+          class="mx-5"
+          fluid>
           <b-row class="py-5">
             <b-col
               style="max-width: 268px"
