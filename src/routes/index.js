@@ -16,16 +16,16 @@ export default new Router({
       component: EventsList,
     },
     {
-      path: '/esports',
-      name: 'esports',
+      path: '/:titleKind',
+      name: 'title-kind',
       component: EventsList,
       children: [{
         path: 'title/:titleId',
-        name: 'esports-title',
+        name: 'title',
         component: EventsList,
         children: [{
           path: 'tour/:tournamentId',
-          name: 'esports-tournament',
+          name: 'tournament',
           component: EventsList,
         }]
       }]
@@ -39,11 +39,6 @@ export default new Router({
       path: '/outright',
       name: 'outright',
       component: OutrightPage,
-    },
-    {
-      path: '/sports',
-      name: 'sports',
-      component: EventsList,
     },
     {
       path: '/activation/:token',

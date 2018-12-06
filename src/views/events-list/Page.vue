@@ -98,10 +98,10 @@ export default {
     },
     titlesKind () {
       const DEFAULT_KIND = 'esports';
-      const currentRouteName = this.$route.name;
+      const currentTitleKind = this.$route.params.titleKind;
 
-      if (this.isOneOfValidKinds(currentRouteName)) {
-        return currentRouteName;
+      if (this.isOneOfValidKinds(currentTitleKind)) {
+        return currentTitleKind;
       }
 
       return DEFAULT_KIND;
