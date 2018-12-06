@@ -7,7 +7,7 @@
     </b-container>
     <b-container
       fluid
-      style="max-width: 1440px"
+      style="max-width: 1920px"
       class="p-0">
       <b-row no-gutters>
         <b-col
@@ -16,8 +16,7 @@
           style="max-width: 268px">
           <side-menu/>
         </b-col>
-        <b-col
-          style="max-width: 904px">
+        <b-col>
           <slot/>
         </b-col>
         <b-col
