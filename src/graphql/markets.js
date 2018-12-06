@@ -14,7 +14,7 @@ export const MARKET_FIELDS = `
 `
 
 export const MARKETS_LIST_QUERY = gql`
-  query marketsList ($id: ID = null, $eventId: ID!, $priority: Int, $limit: Int = 5) {
+  query marketsList ($id: ID = null, $eventId: ID!, $priority: Int, $limit: Int) {
     markets (
       id: $id,
       eventId: $eventId,
@@ -33,3 +33,5 @@ export const MARKET_BY_ID_QUERY = gql`
     }
   }
 `
+
+export const ALL_MARKETS = 1000
