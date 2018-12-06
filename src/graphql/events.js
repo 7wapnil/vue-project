@@ -28,8 +28,10 @@ export const EVENT_FIELDS = `
   markets @include(if: $withMarkets) {
     ${MARKET_FIELDS}
   }
-  event_status {
+  state {
     id
+    status_code
+    status
     score
     time
     period_scores {
