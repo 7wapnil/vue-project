@@ -11,9 +11,7 @@
         slot-scope="{ event }"
         :event="event">
 
-        <markets-list
-          :event="event"
-          :query-options="{ limit: 1 }"/>
+        <markets-list :event="event" />
 
       </upcoming-event>
     </events-list>
@@ -26,9 +24,7 @@
         slot-scope="{ event }"
         :event="event">
 
-        <markets-list
-          :event="event"
-          :query-options="{ limit: 1 }"/>
+        <markets-list :event="event" />
 
       </simple-event>
     </events-list>
@@ -40,9 +36,7 @@
         slot-scope="{ event }"
         :event="event">
 
-        <markets-list
-          :event="event"
-          :query-options="{ limit: 1 }"/>
+        <markets-list :event="event" />
 
       </upcoming-event>
     </events-list>
