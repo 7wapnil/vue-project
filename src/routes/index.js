@@ -16,6 +16,11 @@ export default new Router({
       component: EventsList,
     },
     {
+      path: '/live',
+      name: 'live',
+      component: LivePage,
+    },
+    {
       path: '/:titleKind',
       name: 'title-kind',
       component: EventsList,
@@ -29,11 +34,6 @@ export default new Router({
           component: EventsList,
         }]
       }]
-    },
-    {
-      path: '/live',
-      name: 'live',
-      component: LivePage,
     },
     {
       path: '/outright',
