@@ -2,3 +2,24 @@
   border: 1px solid $arc-clr-soil-light !important;
   border-radius: 6px 6px 0 6px !important;
 }
+.betslip-input {
+  border-radius: 0 0 6px 0 !important;
+  text-align: center;
+  font-weight: bold;
+  font-size: $h6-font-size !important;
+}
+.betslip-bet-count-round {
+  height: 24px;
+  width: 24px;
+  border-radius: 50px;
+  background-color: $arc-clr-soil-cover;
+  justify-content: center;
+  align-items: center;
+  display: inline-flex;
+}
+.arc-betslip-stake {
+  line-height: unset;
+}
+.arc:hover {
+  cursor: pointer;
+}

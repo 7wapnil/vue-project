@@ -9,21 +9,27 @@
         no-gutters
         class="betslip-header">
         <b-col class="p-0">
-          <strong>Betslip</strong>
+          <small>
+            <strong class="mr-3 text-arc-clr-iron">
+              Betslip
+            </strong>
+          </small>
           <span
             v-show="getBets.length > 0"
             class="betslip-bet-count-round">
             <small>
-              <b>
+              <strong>
                 {{ getBets.length }}
-              </b>
+              </strong>
             </small>
           </span>
         </b-col>
         <b-col
           class="p-0"
           align="right">
-          <b-link @click="clearBetslip">
+          <b-link
+            class="text-arc-clr-iron-light"
+            @click="clearBetslip">
             Clear all
           </b-link>
         </b-col>
@@ -54,7 +60,7 @@
             :title-link-class="changeStyleTab(1)"
             title="Combo"
             no-body>
-            <p class="m-3 text-center">
+            <p class="p-5 text-center bg-arc-clr-soil-dark">
               To be implemented
             </p>
           </b-tab>

@@ -6,7 +6,7 @@
       fluid
       class="p-0 footer-section">
       <b-container
-        class="mx-5 py-3"
+        class="py-3"
         style="max-width: 1920px">
         <b-row>
           <b-col
@@ -119,7 +119,6 @@
         class="p-0 footer-section">
         <b-container
           style="max-width: 1920px"
-          class="mx-5"
           fluid>
           <b-row class="py-5">
             <b-col
