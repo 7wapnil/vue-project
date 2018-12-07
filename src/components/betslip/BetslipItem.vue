@@ -23,11 +23,11 @@
 
     <b-row no-gutters>
       <b-col class="mt-2 d-flex justify-content-center">
-          <h6>
-            <strong>
-              {{ bet.marketName }}
-            </strong>
-          </h6>
+        <h6>
+          <strong>
+            {{ bet.marketName }}
+          </strong>
+        </h6>
       </b-col>
     </b-row>
 
@@ -35,9 +35,9 @@
       <b-col>
         <b-row no-gutters>
           <b-col class="p-2">
-          <small>
-            {{ bet.oddName }}
-          </small>
+            <small>
+              {{ bet.oddName }}
+            </small>
           </b-col>
         </b-row>
 
@@ -85,23 +85,28 @@
                 </strong>
               </small>
             </b-col>
-            <div class="w-100"></div>
+            <div class="w-100"/>
             <b-col>
-              <icon name="betslip-stake" class="mr-1"/>
-              <small class="text-arc-clr-iron-light"
-                     style="vertical-align: top">
+              <icon
+                name="betslip-stake"
+                class="mr-1"/>
+              <small
+                class="text-arc-clr-iron-light"
+                style="vertical-align: top">
                 Bet max
               </small>
             </b-col>
           </b-row>
         </b-col>
-        <b-col class="d-flex align-items-center" style="max-width: 79px">
+        <b-col
+          class="d-flex align-items-center"
+          style="max-width: 79px">
           <b-input
-          v-model="betStake"
-          class="betslip-input"
-          type="number"
-          name="odd-value"
-          min="0"/>
+            v-model="betStake"
+            class="betslip-input"
+            type="number"
+            name="odd-value"
+            min="0"/>
         </b-col>
       </b-row>
     </b-container>

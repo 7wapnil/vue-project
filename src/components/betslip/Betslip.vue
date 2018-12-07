@@ -27,7 +27,9 @@
         <b-col
           class="p-0"
           align="right">
-          <b-link class="text-arc-clr-iron-light" @click="clearBetslip">
+          <b-link
+            class="text-arc-clr-iron-light"
+            @click="clearBetslip">
             Clear all
           </b-link>
         </b-col>
@@ -59,7 +61,7 @@
             title="Combo"
             no-body>
             <p class="p-5 text-center bg-arc-clr-soil-dark">
-                To be implemented
+              To be implemented
             </p>
           </b-tab>
 
