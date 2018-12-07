@@ -1,10 +1,9 @@
 <template>
-  <div>
+  <div v-if="!isLoggedIn">
     <div class="px-2 py-4 text-center text-arc-clr-iron">
       Sign up now and get bonuses!
     </div>
     <b-jumbotron
-      v-if="!isLoggedIn"
       bg-variant="dark"
       class="p-3 mb-0 mx-2 promotional-area">
       <p class="my-4 text-center">
