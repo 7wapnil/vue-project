@@ -24,18 +24,21 @@
 // Betslip Tabs
 .betslipActiveTab {
   background-color: $arc-clr-soil-dark !important;
-  color: #E5E5E5 !important;
-  padding: 14px 29px !important;
-  font-size: $font-size-base;
+  padding: 14px 42px !important;
+  font-size: $h6-font-size;
   letter-spacing: 0.2px !important;
   line-height: 18px !important;
 }
 .betslipTab {
-  padding: 14px 43px 14px 42px !important;
+  padding: 14px 42px !important;
   background-color: $arc-clr-soil-cover;
-  font-size: $font-size-base;
+  font-size: $h6-font-size;
   letter-spacing: 0.2px !important;
   line-height: 18px !important;
+}
+.betslipTab:hover {
+  background-color: #1A1A1A;
+  transition: background-color 0.2s;
 }
 .betslip-tabs-wrapper {
   background-color: $arc-clr-soil-black !important;
@@ -45,18 +48,8 @@
 .betslip-header {
   padding: 16px 24px 15px 20px;
 }
-.market-name {
-  padding-top: 16px;
-  padding-bottom: 10px
-}
-.betslip-bet-count-round {
-  height: 24px;
-  width: 24px;
-  border-radius: 50px;
-  background-color: $arc-clr-soil-cover;
-  padding: 2px 8px;
-  margin-left: 6px;
-  display: inline-flex;
+.betslip-header a{
+  font-size: $h6-font-size;
 }
 
 // Auth Tabs

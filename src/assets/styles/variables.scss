@@ -64,7 +64,7 @@ $card-border-width: 0;
 $nav-tabs-border-radius: 0;
 $nav-tabs-border-width: 0;
 $nav-tabs-link-active-bg: $arc-clr-soil-dark;
-$nav-tabs-link-active-color: $arc-clr-white;
+$nav-tabs-link-active-color: $arc-clr-iron-light;
 
 // Navbar
 $navbar-height: 80px;
@@ -80,7 +80,10 @@ $input-border-radius-sm: $input-border-radius;
 $input-line-height: 18px;
 $input-padding-x: 12px;
 $input-padding-y: 9px;
-
+$input-btn-focus-width: 0;
+$input-btn-focus-color: none;
+$input-btn-focus-box-shadow: none;
+$input-btn-border-width: 0;
 
 // Custom Colors
 $theme-colors: ("arc-clr-soil-light": $arc-clr-soil-light,
@@ -133,7 +136,7 @@ $btn-border-width: 1px;
 $btn-font-weight: $font-weight-bold;
 $btn-focus-width: 0;
 
-$arc-button-box-shadow: inset 0 0 10px 0 rgba(255,60,229,0.35), 0 2px 0 0 rgba($black, .5);
+$arc-button-box-shadow: 0 2px 0 0 rgba($black, .5);
 $arc-secondary-button-box-shadow: 1px 1px 0 0 rgba($black, .5);
 $btn-box-shadow: $arc-button-box-shadow;
 $btn-focus-box-shadow: $arc-button-box-shadow;
