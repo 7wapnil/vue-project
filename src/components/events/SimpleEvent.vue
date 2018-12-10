@@ -6,7 +6,7 @@
           <p class="card-text font-weight-bold">{{ event.title_name }}</p>
         </div>
         <div class="col">
-          <p class="card-text">{{ fromNow }}</p>
+          <p class="card-text">{{ event.start_at | dateFormat }}</p>
         </div>
       </div>
       <hr>
@@ -23,15 +23,15 @@
 import moment from 'moment'
 
 export default {
+  filters: {
+    dateFormat (date) {
+      return moment(date).format('MMMM DD HH:mm')
+    }
+  },
   props: {
     event: {
       type: Object,
       required: true
-    }
-  },
-  computed: {
-    fromNow () {
-      return moment(this.event.start_at).fromNow()
     }
   }
 }

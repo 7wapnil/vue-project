@@ -13,7 +13,7 @@
         <b-row no-gutters>
           <b-col class="p-2">
             <p class="card-text">
-              {{ fromNow }}
+              {{ event.start_at | dateFormat }}
             </p>
           </b-col>
         </b-row>
@@ -88,15 +88,15 @@
 import moment from 'moment'
 
 export default {
+  filters: {
+    dateFormat (date) {
+      return moment(date).format('MMMM DD HH:mm')
+    }
+  },
   props: {
     event: {
       type: Object,
       required: true
-    }
-  },
-  computed: {
-    fromNow () {
-      return moment(this.event.start_at).fromNow()
     }
   }
 }
