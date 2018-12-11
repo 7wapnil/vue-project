@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import { APP_STATE_QUERY } from '@/graphql'
+import { NO_CACHE } from '@/constants/graphql/fetch-policy'
 import graphqlClient from '@/libs/apollo'
 
 export const UPDATE_STATE = 'UPDATE'
@@ -22,7 +23,7 @@ const actions = {
   loadState ({ state, commit }) {
     graphqlClient.query({
       query: APP_STATE_QUERY,
-      fetchPolicy: 'network-only'
+      fetchPolicy: NO_CACHE
     }).then(({ data: { app } }) => {
       commit(UPDATE_STATE, app)
     })

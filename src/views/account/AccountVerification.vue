@@ -100,6 +100,7 @@
 import axios from 'axios'
 import { mapGetters } from 'vuex'
 import { DOCUMENTS_QUERY, DELETE_FILE, USER_VERIFICATION_QUERY } from '@/graphql/index'
+import { NO_CACHE } from '@/constants/graphql/fetch-policy'
 
 export default {
   data () {
@@ -168,13 +169,13 @@ export default {
       return {
         query: DOCUMENTS_QUERY,
         result: this.mergeWithItems,
-        fetchPolicy: 'network-only'
+        fetchPolicy: NO_CACHE
       }
     },
     user () {
       return {
         query: USER_VERIFICATION_QUERY,
-        fetchPolicy: 'network-only',
+        fetchPolicy: NO_CACHE,
       }
     }
   },

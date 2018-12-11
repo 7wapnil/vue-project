@@ -75,6 +75,7 @@ export default {
         titleId: this.titleId,
         titleKind: this.titlesKind,
         tournamentId: this.tournamentId,
+        withMarkets: true,
         limit: 20
       }
     },
