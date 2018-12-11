@@ -75,7 +75,9 @@
 
           <hr>
 
-          <markets-list :event="event"/>
+          <markets-list
+            :event="event"
+            :query-options="{limit: marketsLimit}"/>
 
         </b-card>
       </div>
@@ -84,7 +86,7 @@
 </template>
 
 <script>
-import { EVENT_BY_ID_QUERY } from '@/graphql'
+import { EVENT_BY_ID_QUERY, ALL_MARKETS } from '@/graphql'
 import MarketsList from '@/components/markets/MarketsList'
 import moment from 'moment'
 
@@ -94,7 +96,8 @@ export default {
   },
   data () {
     return {
-      event: null
+      event: null,
+      marketsLimit: ALL_MARKETS,
     }
   },
   sockets: {

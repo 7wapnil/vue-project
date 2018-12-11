@@ -33,3 +33,5 @@ export const MARKET_BY_ID_QUERY = gql`
     }
   }
 `
+
+export const ALL_MARKETS = 1000
