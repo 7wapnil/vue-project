@@ -3,6 +3,7 @@
     :data-id="market.id"
     no-gutters>
     <b-col>
+      <div>{market.name}</div>
       <b-row no-gutters>
         <b-col
           v-for="odd in market.odds"
