@@ -196,7 +196,7 @@
         :state="getState('gender')"
         :invalid-feedback="errors.gender"
         label="Gender">
-        <b-form-select
+        <b-form-radio-group
           id="gender"
           :options="genders"
           v-model="fields.gender"
@@ -335,7 +335,7 @@ export default {
         password: '',
         password_confirmation: '',
         country: '',
-        gender: '',
+        gender: '0',
         phone: '',
         street_address: '',
         city: '',
