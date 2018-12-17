@@ -320,7 +320,8 @@ export default {
   data () {
     return {
       agree: false,
-      countries: Object.values(countries).map(country => country.name),
+      countries:
+        Object.values(countries).map(country => country.name).sort(this.sortAlphabetically),
       genders: [
         { value: 0, text: 'Male' },
         { value: 1, text: 'Female' }
@@ -393,7 +394,11 @@ export default {
     isCurrentStep (stepNumber) {
       return this.step === stepNumber
     },
-
+    sortAlphabetically (a, b) {
+      if (a < b) return -1
+      if (a > b) return 1
+      return 0
+    },
     submit () {
       this.clearErrors()
       const input = this.fields
