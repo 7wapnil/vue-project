@@ -1,23 +1,5 @@
 <template>
   <main-layout :class="titlesKind">
-
-    <!--<h2>{{ tournament ? tournament.name : 'All tournaments' }}</h2>-->
-    <!--<hr>-->
-
-    <events-list
-      :query-options="baseQuery"
-      header="Events">
-      <upcoming-event
-        slot-scope="{ event }"
-        :event="event">
-
-        <markets-list
-          :event="event"
-          :query-options="{ limit: 1 }" />
-
-      </upcoming-event>
-    </events-list>
-
     <events-list
       :query-options="liveQuery"
       header="Live events"
