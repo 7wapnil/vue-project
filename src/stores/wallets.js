@@ -1,4 +1,5 @@
 import graphqlClient from '@/libs/apollo'
+import { NO_CACHE } from '@/constants/graphql/fetch-policy'
 import { WALLETS_LIST_QUERY } from './queries/wallets'
 
 /**
@@ -17,7 +18,7 @@ export default {
     fetchWallets: async function ({ commit }, activeWallet = undefined) {
       const response = await graphqlClient.query({
         query: WALLETS_LIST_QUERY,
-        fetchPolicy: 'network-only'
+        fetchPolicy: NO_CACHE
       })
 
       const wallets = response.data.wallets

@@ -21,7 +21,7 @@
 <script>
 import MarketItem from './MatketItem'
 import { ACTIVE_STATUS, INACTIVE_STATUS, SUSPENDED_STATUS } from '@/models/market'
-import { MARKETS_LIST_QUERY, MARKET_BY_ID_QUERY } from '@/graphql'
+import { MARKETS_LIST_QUERY } from '@/graphql'
 
 export default {
   components: {
@@ -44,27 +44,6 @@ export default {
     }
   },
   sockets: {
-    marketCreated ({ eventId, id }) {
-      if (eventId !== this.event.id) { return }
-
-      if (this.queryOptions.limit && this.markets.length >= this.queryOptions.limit) {
-        this.$log.debug(`Markets list is limited to ${this.queryOptions.limit}`)
-        return
-      }
-
-      this.$log.debug('Market created socket event', id, eventId)
-      this.addMarket(id, eventId)
-    },
-    marketUpdated ({ eventId, id, changes }) {
-      if (eventId !== this.event.id) { return }
-      this.$log.debug('Market updated socket event', id, changes)
-      this.updateMarket(id, changes)
-    },
-    oddUpdated ({ id, marketId, eventId, changes }) {
-      if (eventId !== this.event.id) { return }
-      this.$log.debug('Odd updated socket event', id, changes)
-      this.updateOdd(id, marketId, changes)
-    },
     marketsUpdated ({ id, data }) {
       if (id !== this.event.id) { return }
       data.forEach(market => this.updateMarket(market.id, market))
@@ -111,24 +90,6 @@ export default {
   methods: {
     loadMarkets () {
       this.$apollo.addSmartQuery('markets', this.query)
-    },
-    addMarket (id, eventId) {
-      this
-        .$apollo
-        .getClient()
-        .query({
-          query: MARKET_BY_ID_QUERY,
-          variables: { id, eventId },
-          fetchPolicy: 'network-only'
-        })
-        .then(({ data: { markets } }) => {
-          if (markets.length === 1) {
-            this.updateApolloCache(this.query, (cache) => {
-              cache.markets.push({ ...markets[0], __typename: 'Market' })
-            })
-          }
-        })
-        .catch(this.$log.error)
     },
     updateMarket (id, changes) {
       this.updateApolloCache(this.query, (cache) => {

@@ -77,7 +77,7 @@
 
           <markets-list
             :event="event"
-            :query-options="{limit: marketsLimit}"/>
+            :query-options="{limit: marketsLimit}" />
 
         </b-card>
       </div>
@@ -86,7 +86,9 @@
 </template>
 
 <script>
-import { EVENT_BY_ID_QUERY, ALL_MARKETS } from '@/graphql'
+import { EVENT_BY_ID_QUERY } from '@/graphql'
+import { ALL_MARKETS } from '@/constants/graphql/limits'
+import { NO_CACHE } from '@/constants/graphql/fetch-policy'
 import MarketsList from '@/components/markets/MarketsList'
 import moment from 'moment'
 
@@ -118,6 +120,7 @@ export default {
           withDetails: true,
           withScopes: true
         },
+        fetchPolicy: NO_CACHE,
         update ({ events }) {
           if (!events.length) {
             return null
