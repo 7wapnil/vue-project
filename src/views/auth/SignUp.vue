@@ -179,7 +179,8 @@
           id="first_name"
           v-model="fields.first_name"
           :state="getState('first_name')"
-          required="required"/>
+          required
+          @keypress.native="filterAllowedKeys"/>
       </b-form-group>
       <b-form-group
         :state="getState('last_name')"
@@ -189,7 +190,8 @@
           id="last_name"
           v-model="fields.last_name"
           :state="getState('last_name')"
-          required/>
+          required
+          @keypress.native="filterAllowedKeys"/>
       </b-form-group>
 
       <b-form-group
@@ -399,6 +401,12 @@ export default {
       if (a > b) return 1
       return 0
     },
+    filterAllowedKeys (event) {
+      const inputValue = event.which
+      if (!(inputValue >= 65 && inputValue <= 120)) {
+        event.preventDefault()
+      }
+    },
     submit () {
       this.clearErrors()
       const input = this.fields
@@ -408,6 +416,7 @@ export default {
         .then(({ data: { signUp } }) => {
           this.$store.dispatch('login', signUp)
           this.$router.push({ name: 'home' })
+          this.close()
         })
         .catch((err) => {
           if (err.graphQLErrors && err.graphQLErrors.length) {
