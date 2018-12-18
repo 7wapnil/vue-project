@@ -33,14 +33,16 @@
           <b-btn
             v-b-modal.AuthModal
             variant="arc-secondary"
-            class="m-2">
+            class="m-2"
+            @mousedown="authTab = 0">
             Login
           </b-btn>
 
           <b-btn
             v-b-modal.AuthModal
             variant="arc-primary"
-            class="m-2 mr-4">
+            class="m-2 mr-4"
+            @mousedown="authTab = 1">
             Sign Up
           </b-btn>
         </b-navbar-nav>
@@ -52,7 +54,7 @@
         </b-navbar-nav>
       </b-collapse>
     </b-container>
-    <auth-modal/>
+    <auth-modal :tab="authTab"/>
   </b-navbar>
 </template>
 
@@ -83,7 +85,8 @@ export default {
           path: '/live',
           label: 'Live'
         }
-      ]
+      ],
+      authTab: 0
     }
   },
   computed: {
