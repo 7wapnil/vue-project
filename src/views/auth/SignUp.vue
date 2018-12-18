@@ -331,7 +331,7 @@ export default {
         email: '',
         first_name: '',
         last_name: '',
-        date_of_birth: moment().format('YYYY-MM-DD'),
+        date_of_birth: this.dateOfBirthMax(),
         password: '',
         password_confirmation: '',
         country: '',
@@ -356,7 +356,8 @@ export default {
       datePickerConfig: {
         altInput: true,
         dateFormat: 'Y-m-d',
-        altFormat: 'j F Y'
+        altFormat: 'j F Y',
+        maxDate: this.dateOfBirthMax()
       },
       submitting: false
     }
@@ -385,6 +386,9 @@ export default {
   },
 
   methods: {
+    dateOfBirthMax () {
+      return moment().subtract(18, 'years').format('YYYY-MM-DD')
+    },
     nextStep () {
       this.step++
     },
