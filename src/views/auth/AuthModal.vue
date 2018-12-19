@@ -42,9 +42,21 @@ export default {
     SignUp,
     Login
   },
+  props: {
+    tab: {
+      type: Number,
+      default: 0,
+      required: false
+    },
+  },
   data () {
     return {
-      tabIndex: 0
+      tabIndex: this.tab
+    }
+  },
+  watch: {
+    tab: function (newTab) {
+      this.tabIndex = newTab
     }
   },
   methods: {
