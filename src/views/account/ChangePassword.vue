@@ -89,12 +89,38 @@ export default {
     }
   },
   computed: {
-    isSubmitDisabled () {
-      if (this.sending) { return true }
-
+    hasEmptyFields () {
       return Object.keys(this.form.values()).filter((field) => {
         return this.form[field].trim().length === 0
       }).length > 0
+    },
+    isRepeatCorrect () {
+      const values = this.form.values()
+      return values.new_password === values.new_password_confirmation
+    },
+    isReallyNewPassword () {
+      const values = this.form.values()
+      return values.existing_password !== values.new_password
+    },
+    isLocalValidationSucceeded () {
+      const errors = {}
+      if (this.hasEmptyFields) return false
+      if (!this.isRepeatCorrect) {
+        errors['new_password_confirmation'] = 'Password confirmation is not equal'
+      }
+      if (!this.isReallyNewPassword) {
+        errors['new_password'] = 'New password must be not equal to existing'
+      }
+      if (Object.keys(errors).length) {
+        this.form.setErrors(errors)
+        return false
+      } else {
+        this.form.clearErrors()
+        return true
+      }
+    },
+    isSubmitDisabled () {
+      return !this.isLocalValidationSucceeded || this.sending
     }
   },
   methods: {
@@ -119,7 +145,6 @@ export default {
         graphQLErrors.forEach((error) => {
           errors[error.path] = error.message
         })
-
         this.form.setErrors(errors)
       }).finally(() => {
         this.sending = false
