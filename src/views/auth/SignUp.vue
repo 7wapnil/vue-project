@@ -413,7 +413,7 @@ export default {
     },
     filterAllowedKeys (event) {
       const inputValue = event.which
-      if (!(inputValue >= 65 && inputValue <= 120)) {
+      if (!(inputValue >= 65 && inputValue <= 122) && (inputValue !== 32 && inputValue !== 0)) {
         event.preventDefault()
       }
     },
