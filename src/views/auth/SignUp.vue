@@ -323,8 +323,8 @@ export default {
       countries:
         Object.values(countries).map(country => country.name).sort(this.sortAlphabetically),
       genders: [
-        { value: 0, text: 'Male' },
-        { value: 1, text: 'Female' }
+        { value: 'male', text: 'Male' },
+        { value: 'female', text: 'Female' }
       ],
       fields: {
         username: '',
@@ -335,7 +335,7 @@ export default {
         password: '',
         password_confirmation: '',
         country: '',
-        gender: '0',
+        gender: 'male',
         phone: '',
         street_address: '',
         city: '',
