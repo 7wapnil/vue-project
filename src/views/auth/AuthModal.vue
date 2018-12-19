@@ -26,7 +26,9 @@
           :title-link-class="changeStyleTab(1)"
           title-item-class="w-50 text-center"
           title="Sign up">
-          <sign-up @tab-changed="changeTab"/>
+          <sign-up
+            modal-name="AuthModal"
+            @tab-changed="changeTab"/>
         </b-tab>
       </b-tabs>
     </b-card>

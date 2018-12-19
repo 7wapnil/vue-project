@@ -317,6 +317,12 @@ export default {
   },
 
   mixins: [formsMixin],
+  props: {
+    modalName: {
+      type: String,
+      required: true
+    }
+  },
   data () {
     return {
       agree: false,
@@ -403,6 +409,9 @@ export default {
       if (a > b) return 1
       return 0
     },
+    close () {
+      this.$root.$emit('bv::hide::modal', this.modalName)
+    },
     submit () {
       this.clearErrors()
       const input = this.fields
@@ -412,6 +421,7 @@ export default {
         .then(({ data: { signUp } }) => {
           this.$store.dispatch('login', signUp)
           this.$router.push({ name: 'home' })
+          this.close()
         })
         .catch((err) => {
           if (err.graphQLErrors && err.graphQLErrors.length) {
