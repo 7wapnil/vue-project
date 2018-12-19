@@ -198,7 +198,7 @@
         :state="getState('gender')"
         :invalid-feedback="errors.gender"
         label="Gender">
-        <b-form-select
+        <b-form-radio-group
           id="gender"
           :options="genders"
           v-model="fields.gender"
@@ -319,25 +319,31 @@ export default {
   },
 
   mixins: [formsMixin],
+  props: {
+    modalName: {
+      type: String,
+      required: true
+    }
+  },
   data () {
     return {
       agree: false,
       countries:
         Object.values(countries).map(country => country.name).sort(this.sortAlphabetically),
       genders: [
-        { value: 0, text: 'Male' },
-        { value: 1, text: 'Female' }
+        { value: 'male', text: 'Male' },
+        { value: 'female', text: 'Female' }
       ],
       fields: {
         username: '',
         email: '',
         first_name: '',
         last_name: '',
-        date_of_birth: moment().format('YYYY-MM-DD'),
+        date_of_birth: this.dateOfBirthMax(),
         password: '',
         password_confirmation: '',
         country: '',
-        gender: '',
+        gender: 'male',
         phone: '',
         street_address: '',
         city: '',
@@ -358,7 +364,8 @@ export default {
       datePickerConfig: {
         altInput: true,
         dateFormat: 'Y-m-d',
-        altFormat: 'j F Y'
+        altFormat: 'j F Y',
+        maxDate: this.dateOfBirthMax()
       },
       submitting: false
     }
@@ -387,6 +394,9 @@ export default {
   },
 
   methods: {
+    dateOfBirthMax () {
+      return moment().subtract(18, 'years').format('YYYY-MM-DD')
+    },
     nextStep () {
       this.step++
     },
@@ -406,6 +416,9 @@ export default {
       if (!(inputValue >= 65 && inputValue <= 120)) {
         event.preventDefault()
       }
+    },
+    close () {
+      this.$root.$emit('bv::hide::modal', this.modalName)
     },
     submit () {
       this.clearErrors()

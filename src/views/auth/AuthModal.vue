@@ -26,7 +26,9 @@
           :title-link-class="changeStyleTab(1)"
           title-item-class="w-50 text-center"
           title="Sign up">
-          <sign-up @tab-changed="changeTab"/>
+          <sign-up
+            modal-name="AuthModal"
+            @tab-changed="changeTab"/>
         </b-tab>
       </b-tabs>
     </b-card>
@@ -42,9 +44,21 @@ export default {
     SignUp,
     Login
   },
+  props: {
+    tab: {
+      type: Number,
+      default: 0,
+      required: false
+    },
+  },
   data () {
     return {
-      tabIndex: 0
+      tabIndex: this.tab
+    }
+  },
+  watch: {
+    tab: function (newTab) {
+      this.tabIndex = newTab
     }
   },
   methods: {
