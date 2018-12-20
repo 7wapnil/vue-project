@@ -308,7 +308,7 @@ import moment from 'moment'
 import formsMixin from '@/mixins/forms'
 import { countries } from 'countries-list'
 import { mask } from 'vue-the-mask'
-import { isValidNumber } from 'libphonenumber-js'
+import { parsePhoneNumber } from 'libphonenumber-js'
 
 export default {
   components: {
@@ -382,14 +382,21 @@ export default {
     },
 
     isValidPhone () {
-      return isValidNumber(this.fields.phone)
+      let number = this.fields.phone
+      if (number.indexOf('+') === -1) number = `+${number}`
+      try {
+        const phoneNumber = parsePhoneNumber(number)
+        return phoneNumber.isValid()
+      } catch (err) {
+        return false
+      }
     }
   },
 
   watch: {
     'fields.country': function (countryName) {
       const country = Object.values(countries).find(country => country.name === countryName)
-      this.fields.phone = country ? country.phone : ''
+      if (!this.isValidPhone) this.fields.phone = country ? country.phone : ''
     }
   },
 
