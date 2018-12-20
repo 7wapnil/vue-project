@@ -413,7 +413,8 @@ export default {
     },
     filterAllowedKeys (event) {
       const inputValue = event.which
-      if (!(inputValue >= 65 && inputValue <= 122) && (inputValue !== 32 && inputValue !== 0)) {
+      // Prevent all except [A..Za..z -.]
+      if (!(inputValue >= 65 && inputValue <= 122) && (inputValue !== 32 && inputValue !== 45 && inputValue !== 46)) {
         event.preventDefault()
       }
     },
