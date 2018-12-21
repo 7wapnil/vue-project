@@ -5,7 +5,7 @@
     variant="arc-clr-soil-cover"
     class="mb-2"
     @click="addOdd">
-    {{odd.name}}: {{ odd.value }} {{ event.live ? '+' : '-' }}
+    {{ odd.name }}: {{ odd.value }} {{ event.live ? '+' : '-' }}
   </b-button>
 </template>
 
