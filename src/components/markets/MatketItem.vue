@@ -4,11 +4,14 @@
     no-gutters>
     <b-col>
       <div>{{ market.name }}</div>
-      <b-row no-gutters>
+      <b-row
+        no-gutters
+        class="px-1">
         <b-col
           v-for="odd in market.odds"
           :key="odd.id"
-          align="center">
+          align="center"
+          class="px-1">
           <odd-button
             :odd="odd"
             :disabled="isDisabled"

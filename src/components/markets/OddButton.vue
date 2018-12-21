@@ -3,7 +3,7 @@
     :disabled="isDisabled"
     :data-id="odd.id"
     variant="arc-clr-soil-cover"
-    class="mb-2"
+    class="mb-2 mx-1 col"
     @click="addOdd">
     {{ odd.value }} {{ event.live ? '+' : '-' }}
   </b-button>
