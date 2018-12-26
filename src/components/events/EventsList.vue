@@ -1,7 +1,8 @@
 <template>
-  <b-card no-body
-          class="pt-4"
-          body-class="events-card-body">
+  <b-card
+    no-body
+    class="pt-4"
+    body-class="events-card-body">
 
     <loader v-if="loading"/>
 

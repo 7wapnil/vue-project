@@ -13,10 +13,12 @@ export default {
     },
     size: {
       type: String,
+      default: '',
       required: false
     },
     color: {
       type: String,
+      default: '',
       required: false
     }
   }

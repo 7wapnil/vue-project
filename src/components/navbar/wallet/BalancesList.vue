@@ -41,20 +41,23 @@
           <b-button
             variant="arc-secondary"
             class="wallet-button">
-            <icon name="nav-wallet" size="24px"/>
+            <icon
+              name="nav-wallet"
+              size="24px"/>
           </b-button>
         </b-col>
       </b-row>
     </template>
 
-    <div v-for="wallet in inactiveWalletsList"
-         :key="wallet.currency.code">
+    <div
+      v-for="wallet in inactiveWalletsList"
+      :key="wallet.currency.code">
 
       <b-dropdown-divider class="border-arc-dropdown-divider mx-3 my-0"/>
 
       <b-dropdown-item
-              class="wallet-dropdown text-right px-3 py-2"
-              @click.prevent="selectWallet(wallet)">
+        class="wallet-dropdown text-right px-3 py-2"
+        @click.prevent="selectWallet(wallet)">
         <balance-amount :wallet="wallet"/>
       </b-dropdown-item>
     </div>

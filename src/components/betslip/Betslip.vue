@@ -73,8 +73,9 @@
         bg-variant="arc-clr-soil-black"
         class="px-4 py-3"
         no-body>
-        <b-row no-gutters
-               class="mb-2">
+        <b-row
+          no-gutters
+          class="mb-2">
           <b-col cols="8">
             <h6 class="m-0 text-arc-clr-iron">
               Total stake:

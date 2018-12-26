@@ -2,18 +2,20 @@
   <b-nav
     vertical>
     <b-nav-item
-      class="sidemenu"
-      v-if="title"
       v-b-toggle="`title-${title.id}`"
       v-for="title in titles"
-      :key="title.id">
+      v-if="title"
+      :key="title.id"
+      class="sidemenu">
       <b-row
         class="sidemenu-collapsed-title"
         no-gutters>
         <b-col
           cols="auto"
           class="px-4 py-3 sidemenu-main-logo d-flex align-items-center justify-content-center">
-          <icon name="sidemenu-game-icon" size="24px"/>
+          <icon
+            name="sidemenu-game-icon"
+            size="24px"/>
         </b-col>
         <b-col class="py-4 d-flex align-items-center justify-content-start">
           <h6 class="mb-0">
@@ -23,7 +25,9 @@
         <b-col
           cols="auto"
           class="bg-arc-clr-esport-opacity-like px-4 sidemenu-chevron d-flex align-items-center justify-content-center">
-          <icon name="sidemenu-chevron-down" size="8px"/>
+          <icon
+            name="sidemenu-chevron-down"
+            size="8px"/>
         </b-col>
       </b-row>
 
@@ -33,8 +37,8 @@
         :visible="title.id === titleId"
         accordion="titles-menu">
         <b-nav
-          class="px-2 py-3"
           v-if="title.tournaments.length"
+          class="px-2 py-3"
           vertical>
           <b-nav-item
             :to="{ name: 'title', params: { titleId: title.id } }"
@@ -46,7 +50,7 @@
             :key="tournament.id"
             :to="{ name: 'tournament', params: { titleId: title.id, tournamentId: tournament.id } }"
             exact>
-              {{ tournament.name }}
+            {{ tournament.name }}
           </b-nav-item>
         </b-nav>
       </b-collapse>

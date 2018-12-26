@@ -8,14 +8,14 @@
       <sorting-panel>
         <template slot="live">
           <events-list
-                  :query-options="liveQuery">
+            :query-options="liveQuery">
             <simple-event
-                    slot-scope="{ event }"
-                    :event="event">
+              slot-scope="{ event }"
+              :event="event">
 
               <markets-list
-                      :event="event"
-                      :query-options="{ limit: 1 }" />
+                :event="event"
+                :query-options="{ limit: 1 }" />
 
             </simple-event>
           </events-list>
@@ -24,12 +24,12 @@
         <template slot="upcoming">
           <events-list :query-options="upcomingQuery">
             <upcoming-event
-                    slot-scope="{ event }"
-                    :event="event">
+              slot-scope="{ event }"
+              :event="event">
 
               <markets-list
-                      :event="event"
-                      :query-options="{ limit: 1 }" />
+                :event="event"
+                :query-options="{ limit: 1 }" />
 
             </upcoming-event>
           </events-list>
