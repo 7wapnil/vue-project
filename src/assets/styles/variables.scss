@@ -20,6 +20,7 @@ $arc-clr-soil-black: #1E1E1E;
 $black: #000000;
 $arc-clr-soil-cover-opacity: .3;
 $arc-clr-soil-cover: rgba($black, .3);
+$arc-dropdown-divider: rgba($black, .15);
 
 $arc-clr-gold: #FFB960;
 $arc-clr-gold-light: #FFC67E;
@@ -28,8 +29,8 @@ $arc-clr-white: #FFFFFF;
 $arc-clr-iron: #C1C1C1;
 $arc-clr-iron-light: #E5E5E5;
 
-$wp-clr-notif-yellow: #FF4C4C;
-$wp-clr-notif-red: #FFE27A;
+$wp-clr-notif-yellow: #FFE27A;
+$wp-clr-notif-red: #FF4C4C;
 
 // Fonts
 $font-family-sans-serif: 'IBM Plex Sans', sans-serif;
@@ -104,6 +105,7 @@ $theme-colors: ("arc-clr-soil-light": $arc-clr-soil-light,
                 "arc-clr-inplay-glow": $arc-clr-inplay-glow,
                 "wp-clr-notif-yellow": $wp-clr-notif-yellow,
                 "wp-clr-notif-red": $wp-clr-notif-red,
+                "arc-dropdown-divider": $arc-dropdown-divider
                 );
 
 // Modals
@@ -148,6 +150,11 @@ $btn-transition: color .15s ease-in-out,
                  background-color .3s ease-in-out,
                  border-color .15s ease-in-out,
                  box-shadow .15s ease-in-out;
+
+$input-btn-focus-width:       0;
+$input-btn-focus-color:       transparent;
+$input-btn-focus-box-shadow:  0 0 0 $input-btn-focus-width $input-btn-focus-color !default;
+
 // Links
 $link-color: $arc-clr-iron-light;
 $link-hover-color: $arc-clr-white;

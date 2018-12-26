@@ -1,6 +1,11 @@
 // Profile Modal Tabs
 @import '../variables';
 
+.nav:focus {
+  box-shadow: none !important;
+  outline: none !important;
+}
+
 .activeNav {
   background-color: #1B6945 !important;
   color: #E5E5E5 !important;
@@ -65,4 +70,17 @@
   background-color: $arc-clr-soil-cover;
   letter-spacing: 0.2px !important;
   line-height: 18px !important;
+}
+
+// Category Tabs
+.category-tabs .nav-link.active {
+  background-color: $arc-clr-soil-light !important;
+}
+
+// Sorting Panel
+.sorting-panel > ul {
+  border-bottom: 1px solid $arc-clr-soil-cover;
+}
+.sorting-panel .nav-link.active {
+  color: $arc-clr-white !important;
 }
