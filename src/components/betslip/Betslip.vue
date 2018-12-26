@@ -71,23 +71,29 @@
       <b-card
         v-if="getBets.length > 0"
         bg-variant="arc-clr-soil-black"
+        class="px-4 py-3"
         no-body>
-        <b-row class="px-3">
+        <b-row no-gutters
+               class="mb-2">
           <b-col cols="8">
-            <p>Total stake:</p>
+            <h6 class="m-0 text-arc-clr-iron">
+              Total stake:
+            </h6>
           </b-col>
-          <b-col
-            cols="4"
-            class="text-right">
-            {{ parseFloat(getTotalStakes.toFixed(2)) }}
+          <b-col class="text-right mr-1">
+            <h6 class="m-0 text-arc-clr-white">
+              {{ parseFloat(getTotalStakes.toFixed(2)) }}
+            </h6>
           </b-col>
+        </b-row>
+        <b-row no-gutters>
           <b-col cols="8">
-            <h5>Total return:</h5>
+            <h5 class="m-0 text-arc-clr-iron">
+              Total return:
+            </h5>
           </b-col>
-          <b-col
-            cols="4"
-            class="text-right">
-            <h5>
+          <b-col class="text-right mr-1">
+            <h5 class="m-0 text-arc-clr-white">
               <strong>
                 {{ parseFloat(getTotalReturn.toFixed(2)) }}
               </strong>
@@ -100,7 +106,7 @@
 
     <b-card
       bg-variant="arc-clr-soil-black"
-      class="p-2"
+      class="px-2 py-2"
       no-body>
       <b-button
         :disabled="!betslipSubmittable"
