@@ -1,0 +1,9 @@
+<svg width="18px" height="10px" viewBox="0 0 18 10" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+    <g id="BTN/Secondary-with-M-ICN-right" transform="translate(-76.000000, -13.000000)" fill="#47D469" fill-rule="nonzero">
+      <g id="ICN/S/Arrow-SPORT" transform="translate(76.000000, 9.000000)">
+        <path d="M1,8.04061018 L11.7814471,8.04061018 C12.3337318,8.04061018 12.7814471,8.48832543 12.7814471,9.04061018 L12.7814471,9.06091527 C12.7814471,9.61320002 12.3337318,10.0609153 11.7814471,10.0609153 L1,10.0609153 C0.44771525,10.0609153 6.76353751e-17,9.61320002 0,9.06091527 L0,9.04061018 C-6.76353751e-17,8.48832543 0.44771525,8.04061018 1,8.04061018 Z M12.7279221,6.85714286 L12.7279221,4 L18,9 L12.7279221,14 L12.7279221,11.1428571 L14.987384,9 L12.7279221,6.85714286 Z" id="Combined-Shape"></path>
+      </g>
+    </g>
+  </g>
+</svg>
