@@ -14,7 +14,7 @@
         Profile
       </b-dropdown-item>
 
-      <b-dropdown-divider/>
+      <b-dropdown-divider class="border-arc-dropdown-divider m-0"/>
 
       <b-dropdown-item @click.prevent="logout">
         Logout

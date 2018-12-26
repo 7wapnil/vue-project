@@ -2,21 +2,28 @@
   <b-row
     :data-id="market.id"
     no-gutters>
-    <b-col>
-      <div>{{ market.name }}</div>
-      <b-row no-gutters>
-        <b-col
-          v-for="odd in market.odds"
-          :key="odd.id"
-          align="center">
-          <odd-button
-            :odd="odd"
-            :disabled="isDisabled"
-            :event="event"
-            :market="market"/>
-        </b-col>
-      </b-row>
-    </b-col>
+      <b-col
+        cols="4"
+        class="mr-2"
+        v-for="odd in market.odds"
+        :key="odd.id">
+        <b-row no-gutters>
+            <b-col class="d-flex justify-content-center align-items-center">
+                <small class="mb-1 text-arc-clr-iron">
+                    {{ odd.name }}
+                </small>
+            </b-col>
+        </b-row>
+        <b-row no-gutters>
+            <b-col>
+                <odd-button
+                        :odd="odd"
+                        :disabled="isDisabled"
+                        :event="event"
+                        :market="market"/>
+            </b-col>
+        </b-row>
+      </b-col>
   </b-row>
 </template>
 

@@ -2,10 +2,15 @@
   <b-button
     :disabled="isDisabled"
     :data-id="odd.id"
-    variant="arc-clr-soil-cover"
-    class="mb-2"
+    variant="arc-odd"
+    class="text-arc-clr-gold bg-arc-clr-soil-cover"
     @click="addOdd">
-    {{ odd.value }} {{ event.live ? '+' : '-' }}
+    <h6>
+      <strong>
+        {{ odd.value }}
+      </strong>
+    </h6>
+    <!--{{ event.live ? '+' : '-' }}-->
   </b-button>
 </template>
 

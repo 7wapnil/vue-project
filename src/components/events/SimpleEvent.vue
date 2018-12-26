@@ -6,7 +6,7 @@
           <p class="card-text font-weight-bold">{{ event.title_name }}</p>
         </div>
         <div class="col">
-          <p class="card-text">{{ event.start_at | dateFormat }}</p>
+          <p class="card-text">{{ event.start_at | asFormattedDate }}</p>
         </div>
       </div>
       <hr>
@@ -20,14 +20,7 @@
 </template>
 
 <script>
-import moment from 'moment'
-
 export default {
-  filters: {
-    dateFormat (date) {
-      return moment(date).format('MMMM DD HH:mm')
-    }
-  },
   props: {
     event: {
       type: Object,
