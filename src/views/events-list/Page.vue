@@ -1,34 +1,43 @@
 <template>
   <main-layout :class="titlesKind">
-    <events-list
-      :query-options="liveQuery"
-      header="Live events"
-    >
-      <simple-event
-        slot-scope="{ event }"
-        :event="event">
 
-        <markets-list
-          :event="event"
-          :query-options="{ limit: 1 }" />
+    <introduction-area/>
 
-      </simple-event>
-    </events-list>
+    <category-tabs>
 
-    <events-list
-      :query-options="upcomingQuery"
-      header="Upcoming in 24 hours">
-      <upcoming-event
-        slot-scope="{ event }"
-        :event="event">
+      <sorting-panel>
+        <template slot="live">
+          <events-list
+                  :query-options="liveQuery">
+            <simple-event
+                    slot-scope="{ event }"
+                    :event="event">
 
-        <markets-list
-          :event="event"
-          :query-options="{ limit: 1 }" />
+              <markets-list
+                      :event="event"
+                      :query-options="{ limit: 1 }" />
 
-      </upcoming-event>
-    </events-list>
+            </simple-event>
+          </events-list>
+        </template>
 
+        <template slot="upcoming">
+          <events-list :query-options="upcomingQuery">
+            <upcoming-event
+                    slot-scope="{ event }"
+                    :event="event">
+
+              <markets-list
+                      :event="event"
+                      :query-options="{ limit: 1 }" />
+
+            </upcoming-event>
+          </events-list>
+        </template>
+
+      </sorting-panel>
+
+    </category-tabs>
   </main-layout>
 </template>
 
@@ -37,14 +46,20 @@ import { TITLE_BY_ID_QUERY } from '@/graphql'
 import EventsList from '@/components/events/EventsList'
 import SimpleEvent from '@/components/events/SimpleEvent'
 import MarketsList from '@/components/markets/MarketsList'
-import UpcomingEvent from '@/components/events/UpcomingEvent';
+import UpcomingEvent from '@/components/events/UpcomingEvent'
+import IntroductionArea from '@/components/custom/IntroductionArea'
+import CategoryTabs from '@/components/custom/CategoryTabs'
+import SortingPanel from '@/components/custom/SortingPanel'
 
 export default {
   components: {
     UpcomingEvent,
     SimpleEvent,
     EventsList,
-    MarketsList
+    MarketsList,
+    IntroductionArea,
+    CategoryTabs,
+    SortingPanel,
   },
   data () {
     return {
@@ -70,7 +85,8 @@ export default {
     upcomingQuery () {
       return {
         ...this.baseQuery,
-        upcoming: true
+        upcoming: true,
+        withDetails: true
       }
     },
     titleId () {
