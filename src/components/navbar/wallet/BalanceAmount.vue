@@ -2,7 +2,7 @@
   <div>
     <small v-if="wallet">
       <b>
-        {{ wallet.amount | fix }}
+        {{ wallet.amount | round }}
         <span class="currency-code">
           {{ wallet.currency.code }}
         </span>
@@ -19,19 +19,14 @@
 
 <script>
 export default {
-  filters: {
-    fix: (value) => {
-      return value.toFixed(2)
-    }
-  },
   props: {
     wallet: {
       type: Object,
       required: true
     }
   },
-  data () {
-    return {}
-  },
+  created() {
+    console.log(this.wallet)
+  }
 }
 </script>

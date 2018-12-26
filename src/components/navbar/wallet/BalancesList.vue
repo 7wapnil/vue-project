@@ -12,7 +12,7 @@
             <b-col class="d-inline-flex pb-2">
               <small>
                 <b>
-                  {{ activeWallet.amount | fix }}
+                  {{ activeWallet.amount | round }}
 
                   <span class="currency-code">
                     {{ activeWallet.currency.code }}
@@ -24,12 +24,12 @@
           <b-row no-gutters>
             <b-col
               cols="12"
-              class="d-flex ">
+              class="d-flex">
               <icon
-                name="triangle-down"
-                class="mr-2"
+                name="wallet-triangle-down"
+                class="mr-2 d-flex justify-content-center align-items-center"
                 size="6px"/>
-              <small>
+              <small class="text-arc-clr-iron-light">
                 View my wallet
               </small>
             </b-col>
@@ -41,25 +41,25 @@
           <b-button
             variant="arc-secondary"
             class="wallet-button">
-            <i class="arc arc-nav-wallet"/>
+            <icon name="nav-wallet" size="24px"/>
           </b-button>
         </b-col>
       </b-row>
     </template>
 
-    <b-dropdown-divider class="mx-3 my-0"/>
+    <div v-for="wallet in inactiveWalletsList"
+         :key="wallet.currency.code">
 
-    <b-dropdown-item
-      v-for="wallet in inactiveWalletsList"
-      :key="wallet.currency.code"
-      class="wallet-dropdown text-right px-3 py-2"
-      @click.prevent="selectWallet(wallet)">
+      <b-dropdown-divider class="border-arc-dropdown-divider mx-3 my-0"/>
 
-      <balance-amount :wallet="wallet"/>
+      <b-dropdown-item
+              class="wallet-dropdown text-right px-3 py-2"
+              @click.prevent="selectWallet(wallet)">
+        <balance-amount :wallet="wallet"/>
+      </b-dropdown-item>
+    </div>
 
-    </b-dropdown-item>
-
-    <b-dropdown-divider class="my-0"/>
+    <b-dropdown-divider class="border-arc-dropdown-divider my-0"/>
 
     <bonus-section/>
 
@@ -74,16 +74,6 @@ export default {
   components: {
     BalanceAmount,
     BonusSection
-  },
-  filters: {
-    fix: (value) => {
-      return value.toFixed(2)
-    }
-  },
-  data () {
-    return {
-      menuOpened: false
-    }
   },
   computed: {
     inactiveWalletsList () {
