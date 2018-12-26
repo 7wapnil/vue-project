@@ -1,5 +1,6 @@
 import gql, { disableFragmentWarnings } from 'graphql-tag'
 import client from '@/libs/apollo';
+import filters from './filters'
 
 disableFragmentWarnings()
 
@@ -34,5 +35,6 @@ export default {
       callback(data)
       client.writeQuery({ ...query, data })
     }
-  }
+  },
+  filters
 }
