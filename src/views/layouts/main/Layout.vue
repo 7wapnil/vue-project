@@ -16,7 +16,7 @@
           style="max-width: 268px">
           <side-menu/>
         </b-col>
-        <b-col>
+        <b-col class="bg-arc-clr-soil-light">
           <slot/>
         </b-col>
         <b-col
