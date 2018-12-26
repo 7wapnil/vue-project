@@ -1,7 +1,7 @@
 <template>
   <i
     :style="{ 'font-size': size }"
-    :class="'arc ' + 'arc-' + `${ name }`"/>
+    :class="'arc ' + 'arc-' + `${ name }` + `${ color ? ' text-' + `${ color }` : ''}`"/>
 </template>
 
 <script>
@@ -13,8 +13,12 @@ export default {
     },
     size: {
       type: String,
-      default: '12px'
+      required: false
     },
+    color: {
+      type: String,
+      required: false
+    }
   }
 }
 </script>
