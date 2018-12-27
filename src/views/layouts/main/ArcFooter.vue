@@ -4,6 +4,7 @@
     variant="arc-clr-soil-darker">
     <b-container
       fluid
+      style="max-width: 1920px"
       class="p-0 footer-section">
       <b-container
         class="py-3"
@@ -21,8 +22,7 @@
         fluid
         class="p-0 footer-section">
         <b-container
-          class="p-0 mx-5"
-          style="max-width: 1920px"
+          class="p-0"
           fluid>
           <b-row no-gutters>
             <b-col
