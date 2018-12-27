@@ -1,5 +1,6 @@
 <template>
   <b-nav
+    v-if="titles"
     vertical>
     <b-nav-item
       v-b-toggle="`title-${title.id}`"
@@ -8,7 +9,7 @@
       :key="title.id"
       class="sidemenu">
       <b-row
-        class="sidemenu-collapsed-title"
+        class="sidebar-collapsed-title"
         no-gutters>
         <b-col
           cols="auto"

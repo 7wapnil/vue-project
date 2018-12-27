@@ -18,7 +18,7 @@
 }
 .collapsed .sidebar-collapsed-title {
   background-color: $arc-clr-soil-dark;
-  box-shadow: none; // Need to test
+  box-shadow: inset 0 -1px 0 0 rgba(0,0,0,0.3);
   transition: background-color 0.35s;
 }
 .sidebar-collapsed-title > .sidemenu-chevron {
