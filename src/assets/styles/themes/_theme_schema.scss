@@ -10,8 +10,8 @@
   box-shadow: inset 0 4px 0 0 $nav-item-active-glow;
 }
 
-// Sidebar navigation
-.sidebar-collapsed-title { //active
+// Sidemenu navigation
+.sidemenu-collapsed-title {
   background-color: $navbar-background;
 }
 .sidemenu-chevron {
@@ -19,6 +19,10 @@
 }
 .sidemenu-main-logo {
   color: $sidemenu-main-logo-color;
+}
+.sidemenu .nav-link a:hover{
+  background-color: $navbar-background;
+  border-radius: 2px;
 }
 
 // Buttons
@@ -36,11 +40,11 @@
 .btn-arc-primary:not(:disabled):not(.disabled):active {
   background-color: rgba($primary-button-background, .9);
   border: $btn-border-width solid $primary-button-background;
-  box-shadow: inset 0 0 10px 0 rgba(255,60,229,0.35), 0 0 0 0 rgba(0,0,0,0.5);
+  box-shadow: inset 0 0 10px 0 rgba(255,60,229,0.35), 0 0 0 0 rgba($black, .5);
 }
 .btn-arc-primary.disabled {
   background-color: rgba(151,151,151,0.6);
-  box-shadow: 0 0 0 0 rgba(0,0,0,0.5);
+  box-shadow: 0 0 0 0 rgba($black, .5);
   border: $btn-border-width solid rgba(193,193,193,0.3);
 }
 
@@ -62,7 +66,7 @@
 // Nav Wallet
 .wallet-button {
   background-color: $nav-wallet-button-background;
-  box-shadow: 0 2px 0 0 rgba(0,0,0,0.5);
+  box-shadow: 0 2px 0 0 rgba($black, .5);
   border: 1px solid rgba(66,144,255,0.5);
   border-radius: 6px 0 6px 0 !important;
 }
@@ -76,30 +80,44 @@
 .currency-code {
   color: $nav-wallet-currency-color;
 }
+#nav-wallet-wrapper .arc-wallet-triangle-down {
+  transform: rotateX(0deg);
+  transition: transform 0.8s;
+}
+#nav-wallet-wrapper.show .arc-wallet-triangle-down{
+  transform: rotateX(180deg);
+  transition: transform 0.8s;
+}
 
 // Icons
-.arc-triangle-down {
+.arc-wallet-triangle-down,
+.arc-wallet-arrow-right,
+.arc-arrow-right,
+.arc-betslip-close,
+.arc-betslip-stake {
   color: $icon-section-color;
 }
 .arc-profile-button {
   background-color: $icon-section-color;
 }
-.arc-arrow-right {
-  color: $icon-section-color;
-}
-.arc-betslip-close {
-  color: $icon-section-color;
-}
-.arc-betslip-stake {
+.category-tabs .nav-link.active i{
   color: $icon-section-color;
 }
 
 // Progress bar
 .progress-bar {
-  background-color: $nav-wallet-progress-bar-bg;
+  background-image: linear-gradient(90deg, $nav-wallet-progress-bar-bg 0%, #65A5FF 100%);
+}
+.progress-bar-percent {
+  color: $nav-wallet-currency-color;
 }
 
 // User profile menu
 .nav-profile-button > .dropdown-menu {
   background-color: $nav-profile-dropdown-background;
+}
+
+// Sorting panel
+.sorting-panel .nav-link.active {
+  border-bottom: 3px solid $icon-section-color !important;
 }

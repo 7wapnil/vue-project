@@ -1,3 +1,5 @@
+@import '../variables';
+
 .betslip-empty-card  {
   border: 1px solid $arc-clr-soil-light !important;
   border-radius: 6px 6px 0 6px !important;
@@ -16,10 +18,4 @@
   justify-content: center;
   align-items: center;
   display: inline-flex;
-}
-.arc-betslip-stake {
-  line-height: unset;
-}
-.arc:hover {
-  cursor: pointer;
 }

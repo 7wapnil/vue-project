@@ -1,12 +1,6 @@
 // Upcoming events section
-.events-section-body {
-  padding: 24px 16px !important;
-}
-.events-header {
-  padding: 20px !important;
-}
+@import '../variables';
 
-// Upcoming events cards
-.upcoming-event-card {
-  width: 100%;
+.upcoming-card {
+  border-radius: 4px !important;
 }

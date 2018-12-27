@@ -1,11 +1,8 @@
 <template>
-  <b-card body-class="events-card-body">
-    <b-card-header
-      header-bg-variant="arc-clr-soil-light"
-      header-text-variant="arc-clr-iron"
-      header-class="events-header">
-      <h4>{{ header }}</h4>
-    </b-card-header>
+  <b-card
+    no-body
+    class="pt-4"
+    body-class="events-card-body">
 
     <loader v-if="loading"/>
 
@@ -23,7 +20,7 @@
     <div
       v-if="!loading && !events.length"
       class="text-center">
-      <small>No events found</small>
+      <h6>No events found</h6>
     </div>
   </b-card>
 </template>

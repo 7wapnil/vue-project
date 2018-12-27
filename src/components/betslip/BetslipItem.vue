@@ -1,130 +1,145 @@
 <template>
-  <b-card
-    :bg-variant="cardVariant"
-    no-body
-    class="p-2 mb-2">
+  <div>
+    <b-card
+      :bg-variant="cardVariant"
+      no-body
+      class="p-2 mb-1">
 
-    <b-row no-gutters>
-      <b-col
-        class="d-flex justify-content-center market-name">
-        <small class="pt-1 text-arc-clr-iron-light">
-          {{ bet.eventName }}
-        </small>
-      </b-col>
-      <b-col
-        cols="auto"
-        class="d-flex justify-content-center"
-        @click="removeOdd(bet.oddId)">
-        <icon
-          v-show="!bet.frozen"
-          name="betslip-close"/>
-      </b-col>
-    </b-row>
-
-    <b-row no-gutters>
-      <b-col class="mt-2 d-flex justify-content-center">
-        <h6>
-          <strong>
-            {{ bet.marketName }}
-          </strong>
-        </h6>
-      </b-col>
-    </b-row>
-
-    <b-row no-gutters>
-      <b-col>
-        <b-row no-gutters>
-          <b-col class="p-2">
-            <small>
-              {{ bet.oddName }}
-            </small>
-          </b-col>
-        </b-row>
-
-        <b-row no-gutters>
-          <b-col>
-            <b-button variant="arc-secondary">
-              {{ bet.currentOddValue }}
-            </b-button>
-          </b-col>
-        </b-row>
-
-      </b-col>
-
-    </b-row>
-
-    <b-col class="row mt-2 text-right">
-      <b-row class="col-12">
-        <div class="row my-2">
-          <div class="col-12">
-            <b-alert :show="hasMessage">
-              {{ bet.message }}
-            </b-alert>
-            <b-alert
-              :show="displayUnconfirmedOddValueDialog"
-              variant="danger">
-              This bet odd value changed from {{ bet.approvedOddValue }} to {{ bet.currentOddValue }}.
-              <b-button
-                @click="confirmValue">
-                Accept new value
-              </b-button>
-            </b-alert>
-          </div>
-        </div>
-      </b-row>
-    </b-col>
-
-    <b-container class="pl-2 pr-0">
       <b-row no-gutters>
-        <b-col>
+        <b-col
+          class="d-flex justify-content-center market-name">
+          <small class="pt-1 text-arc-clr-iron-light">
+            {{ bet.eventName }}
+          </small>
+        </b-col>
+        <b-col
+          cols="auto"
+          class="d-flex justify-content-center"
+          @click="removeOdd(bet.oddId)">
+          <icon
+            v-show="!bet.frozen"
+            size="12px"
+            name="betslip-close"/>
+        </b-col>
+      </b-row>
+
+      <b-row no-gutters>
+        <b-col class="mt-2 d-flex justify-content-center">
+          <h6>
+            <strong>
+              {{ bet.marketName }}
+            </strong>
+          </h6>
+        </b-col>
+      </b-row>
+
+      <b-row no-gutters>
+        <b-col cols="4">
           <b-row no-gutters>
-            <b-col class="mb-1">
-              <small class="text-arc-clr-iron">
-                <strong>
-                  STAKE:
-                </strong>
-              </small>
-            </b-col>
-            <div class="w-100"/>
-            <b-col>
-              <icon
-                name="betslip-stake"
-                class="mr-1"/>
-              <small
-                class="text-arc-clr-iron-light"
-                style="vertical-align: top">
-                Bet max
+            <b-col
+              align="center"
+              class="p-2">
+              <small>
+                {{ bet.oddName }}
               </small>
             </b-col>
           </b-row>
+
+          <b-row no-gutters>
+            <b-col>
+              <b-button
+                class="text-arc-clr-gold bg-arc-clr-soil-cover d-flex justify-content-center align-items-center p-0"
+                variant="arc-betslip-odd">
+                <small>
+                  <strong>
+                    {{ bet.currentOddValue }}
+                  </strong>
+                </small>
+              </b-button>
+            </b-col>
+          </b-row>
+
+        </b-col>
+
+      </b-row>
+
+      <b-col class="row mt-2 text-right">
+        <b-row class="col-12">
+          <div class="row my-2">
+            <div class="col-12">
+              <b-alert :show="hasMessage">
+                {{ bet.message }}
+              </b-alert>
+              <b-alert
+                :show="displayUnconfirmedOddValueDialog"
+                variant="danger">
+                This bet odd value changed from {{ bet.approvedOddValue }} to {{ bet.currentOddValue }}.
+                <b-button
+                  @click="confirmValue">
+                  Accept new value
+                </b-button>
+              </b-alert>
+            </div>
+          </div>
+        </b-row>
+      </b-col>
+
+      <b-row class="pl-2 pr-1">
+        <b-col cols="8">
+          <small>Potential Return:</small>
         </b-col>
         <b-col
-          class="d-flex align-items-center"
-          style="max-width: 79px">
-          <b-input
-            v-model="betStake"
-            class="betslip-input"
-            type="number"
-            name="odd-value"
-            min="0"/>
+          cols="4"
+          align="right">
+          <small>
+            {{ parseFloat(potentialReturn.toFixed(2)) }}
+          </small>
         </b-col>
       </b-row>
-    </b-container>
+    </b-card>
 
-    <b-row class="pl-2 pr-1">
-      <b-col cols="8">
-        <small>Potential Return:</small>
-      </b-col>
-      <b-col
-        cols="4"
-        align="right">
-        <small>
-          {{ parseFloat(potentialReturn.toFixed(2)) }}
-        </small>
-      </b-col>
-    </b-row>
-
-  </b-card>
+    <b-card
+      :bg-variant="cardVariant"
+      class="mb-1"
+      no-body>
+      <b-container class="py-3 pl-4 pr-2">
+        <b-row no-gutters>
+          <b-col>
+            <b-row no-gutters>
+              <b-col class="mb-1">
+                <small class="text-arc-clr-iron">
+                  <strong class="text-uppercase">
+                    Stake:
+                  </strong>
+                </small>
+              </b-col>
+            </b-row>
+            <b-row no-gutters>
+              <b-col class="d-flex align-items-center">
+                <icon
+                  name="betslip-stake"
+                  size="12px"
+                  class="mr-1"/>
+                <small class="text-arc-clr-iron-light">
+                  Bet max
+                </small>
+              </b-col>
+            </b-row>
+          </b-col>
+          <b-col
+            class="d-flex align-items-center"
+            style="max-width: 79px">
+            <b-input
+              v-model="betStake"
+              class="betslip-input"
+              type="number"
+              name="odd-value"
+              min="0"/>
+          </b-col>
+        </b-row>
+      </b-container>
+    </b-card>
+  </div>
 </template>
 
 <script>
