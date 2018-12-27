@@ -21,7 +21,6 @@ build:
       name: cleanup
       code: |
         rm -rf ./node_modules
-        rm ./yarn.lock
 
 deploy:
   steps:
