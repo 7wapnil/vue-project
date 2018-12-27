@@ -47,6 +47,7 @@ export const EVENT_FIELDS = `
 export const EVENTS_LIST_QUERY = gql`
   query eventList (
     $limit: Int = 5,
+    $offset: Int = 0,
     $titleId: ID = null,
     $titleKind: String = null,
     $tournamentId: ID = null,
@@ -56,12 +57,15 @@ export const EVENTS_LIST_QUERY = gql`
     $withScopes: Boolean = false,
     $withMarkets: Boolean = false
   ) {
-    events (limit: $limit, filter: {
-      titleId: $titleId,
-      titleKind: $titleKind,
-      tournamentId: $tournamentId,
-      inPlay: $inPlay,
-      upcoming: $upcoming
+    events (
+      limit: $limit,
+      offset: $offset,
+      filter: {
+        titleId: $titleId,
+        titleKind: $titleKind,
+        tournamentId: $tournamentId,
+        inPlay: $inPlay,
+        upcoming: $upcoming
     }) {
       ${EVENT_FIELDS}
     }

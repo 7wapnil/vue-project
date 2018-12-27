@@ -73,7 +73,7 @@ export default {
         titleKind: this.titlesKind,
         tournamentId: this.tournamentId,
         withMarkets: true,
-        limit: 20
+        limit: 10
       }
     },
     liveQuery () {
