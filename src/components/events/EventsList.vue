@@ -25,7 +25,7 @@
     <button
       v-if="events.length"
       :disabled="!canLoadMore"
-      class="btn btn-arc-clr-soil-cover col mb-2 mx-1"
+      class="btn btn-arc-clr-soil-cover mb-2 mx-1"
       @click="loadMore">
       {{ canLoadMore ? 'Load More' : 'Nothing to Load' }}
     </button>
