@@ -36,15 +36,15 @@
         <b-row
           no-gutters
           class="h-100">
-          <b-col cols="10">
-            <small class="text-truncate">
+          <b-col cols="10" class="text-truncate">
+            <small>
               <b-link :to="{ name: 'event', params: { id: event.id } }">
                 {{ event.tournament.name }}
               </b-link>
             </small>
             <br>
           </b-col>
-          <b-col cols="2">
+          <b-col class="ml-3">
             <b-row
               no-gutters
               class="h-50 w-100 mb-1">
@@ -77,8 +77,8 @@
             <slot/>
           </b-col>
           <b-col
-            cols="2"
-            class="px-3">
+            cols="auto"
+            class="ml-2 mr-4">
             <b-row
               no-gutters
               class="h-50 w-100">
@@ -137,6 +137,10 @@
 
         </b-row>
       </b-col>
+
+      <!--<b-link :to="{ name: 'event', params: { id: event.id } }">-->
+        <!--{{ event.tournament.name }}-->
+      <!--</b-link>-->
 
     </b-row>
     <b-row
