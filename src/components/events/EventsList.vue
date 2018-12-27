@@ -4,9 +4,7 @@
     class="pt-4"
     body-class="events-card-body">
 
-    <loader v-if="loading"/>
-
-    <div v-if="!loading">
+    <div>
       <b-card
         v-for="event in events"
         :key="event.id"
@@ -17,11 +15,20 @@
       </b-card>
     </div>
 
+    <loader v-if="loading"/>
+
     <div
       v-if="!loading && !events.length"
       class="text-center">
       <h6>No events found</h6>
     </div>
+    <button
+      v-if="events.length"
+      class="btn btn-arc-clr-soil-cover col mb-2 mx-1"
+      :disabled="!canLoadMore"
+      @click="loadMore">
+      {{canLoadMore ? 'Load More' : 'Nothing to Load'}}
+    </button>
   </b-card>
 </template>
 
@@ -43,7 +50,8 @@ export default {
   data () {
     return {
       loading: 0,
-      events: []
+      events: [],
+      canLoadMore: true
     }
   },
   computed: {
@@ -78,6 +86,27 @@ export default {
       this
         .$apollo
         .addSmartQuery('events', this.query)
+    },
+    loadMore () {
+      this
+        .$apollo
+        .queries
+        .events
+        .fetchMore({
+          variables: {
+            offset: this.events.length
+          },
+          updateQuery: (prevResult, {fetchMoreResult: { events }}) => {
+            this.updateApolloCache(this.query, (cache) => {
+              if (events.length < this.query.variables.limit) {
+                this.canLoadMore = false
+              }
+              events.forEach(event => 
+                cache.events.push({ ...event, __typename: 'Event' })
+              )
+            })
+          }
+        })
     },
     addEvent (id) {
       this
