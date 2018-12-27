@@ -24,10 +24,10 @@
     </div>
     <button
       v-if="events.length"
-      class="btn btn-arc-clr-soil-cover col mb-2 mx-1"
       :disabled="!canLoadMore"
+      class="btn btn-arc-clr-soil-cover col mb-2 mx-1"
       @click="loadMore">
-      {{canLoadMore ? 'Load More' : 'Nothing to Load'}}
+      {{ canLoadMore ? 'Load More' : 'Nothing to Load' }}
     </button>
   </b-card>
 </template>
@@ -96,12 +96,12 @@ export default {
           variables: {
             offset: this.events.length
           },
-          updateQuery: (prevResult, {fetchMoreResult: { events }}) => {
+          updateQuery: (prevResult, { fetchMoreResult: { events } }) => {
             this.updateApolloCache(this.query, (cache) => {
               if (events.length < this.query.variables.limit) {
                 this.canLoadMore = false
               }
-              events.forEach(event => 
+              events.forEach(event =>
                 cache.events.push({ ...event, __typename: 'Event' })
               )
             })
