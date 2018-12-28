@@ -61,8 +61,6 @@
 import TitlesList from '@/components/TitlesList'
 import { TITLES_QUERY } from '@/graphql'
 
-const POLL_INTERVAL = 10000
-
 export default {
   components: {
     TitlesList
@@ -71,8 +69,7 @@ export default {
     titles () {
       return {
         query: TITLES_QUERY,
-        variables: { kind: this.titlesKind, withTournaments: true },
-        pollInterval: POLL_INTERVAL
+        variables: { kind: this.titlesKind, withTournaments: true }
       }
     }
   },
