@@ -59,7 +59,7 @@ export default {
     MarketsList,
     IntroductionArea,
     CategoryTabs,
-    SortingPanel,
+    SortingPanel
   },
   data () {
     return {

@@ -121,3 +121,8 @@
 .sorting-panel .nav-link.active {
   border-bottom: 3px solid $icon-section-color !important;
 }
+
+// Toggle switch
+.toggle-slider:before {
+  background-color: $nav-item-active-glow;
+}
