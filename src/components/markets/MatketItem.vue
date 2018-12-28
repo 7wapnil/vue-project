@@ -5,10 +5,9 @@
     <b-col
       v-for="odd in market.odds"
       :key="odd.id"
-      cols="4"
       class="mr-2">
       <b-row no-gutters>
-        <b-col class="d-flex justify-content-center align-items-center">
+        <b-col class="d-flex justify-content-center align-items-center text-truncate">
           <small class="mb-1 text-arc-clr-iron">
             {{ odd.name }}
           </small>
