@@ -4,3 +4,31 @@
 .upcoming-card {
   border-radius: 4px !important;
 }
+.upcoming-statistics {
+
+}
+.upcoming-statistics:hover {
+  background-color: $arc-clr-soil-darker;
+  cursor: pointer;
+  border-radius: 0 4px 4px 0;
+  position: relative;
+  display: inline-block;
+  transition: background-color 0.3s ease-in-out;
+
+  &:after {
+    content: '';
+    box-shadow: 0 0 4px 0 $arc-clr-soil-cover;
+    border-radius: 0 4px 4px 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 888;
+    opacity: 0;
+    transition: all 0.3s ease-in-out;
+  }
+  &:hover:after {
+    opacity: 1;
+  }
+}

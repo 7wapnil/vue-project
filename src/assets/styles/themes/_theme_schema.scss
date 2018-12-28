@@ -103,6 +103,10 @@
 .category-tabs .nav-link.active i{
   color: $icon-section-color;
 }
+.upcoming-statistics:hover .arc-upcoming-event-arrow-right {
+  color: $icon-section-color !important;
+  transition: color 0.3s ease-in-out;
+}
 
 // Progress bar
 .progress-bar {
