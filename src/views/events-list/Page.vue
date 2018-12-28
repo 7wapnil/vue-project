@@ -150,10 +150,10 @@ export default {
       return VALID_KINDS.findIndex((validKind) => kind === validKind) >= 0;
     },
     generateKey (queryName) {
-      return (this.titleId || '')
-        + (this.titlesKind || '')
-        + (this.tournamentId || '')
-        + (queryName || Math.random().toString(16))
+      return (this.titleId || '') +
+        (this.titlesKind || '') +
+        (this.tournamentId || '') +
+        (queryName || Math.random().toString(16))
     }
   },
 }
