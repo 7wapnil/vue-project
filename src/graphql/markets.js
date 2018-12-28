@@ -5,6 +5,7 @@ export const MARKET_FIELDS = `
   name
   priority
   status
+  category
   odds {
     id
     name
@@ -14,12 +15,13 @@ export const MARKET_FIELDS = `
 `
 
 export const MARKETS_LIST_QUERY = gql`
-  query marketsList ($id: ID = null, $eventId: ID!, $priority: Int, $limit: Int) {
+  query marketsList ($id: ID = null, $eventId: ID!, $priority: Int, $limit: Int, $category: String) {
     markets (
       id: $id,
       eventId: $eventId,
       priority: $priority,
-      limit: $limit
+      limit: $limit,
+      category: $category
     ) {
       ${MARKET_FIELDS}
     }

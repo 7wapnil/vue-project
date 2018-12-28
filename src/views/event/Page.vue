@@ -75,7 +75,7 @@
 
           <hr>
 
-          <markets-list
+          <markets-categories
             :event="event"
             :query-options="{limit: marketsLimit}" />
 
@@ -87,19 +87,18 @@
 
 <script>
 import { EVENT_BY_ID_QUERY } from '@/graphql'
-import { ALL_MARKETS } from '@/constants/graphql/limits'
 import { NO_CACHE } from '@/constants/graphql/fetch-policy'
-import MarketsList from '@/components/markets/MarketsList'
+import MarketsCategories from '@/components/markets/MarketsCategories'
 import moment from 'moment'
 
 export default {
   components: {
-    MarketsList
+    MarketsCategories
   },
   data () {
     return {
       event: null,
-      marketsLimit: ALL_MARKETS,
+      marketsLimit: 10,
     }
   },
   sockets: {
