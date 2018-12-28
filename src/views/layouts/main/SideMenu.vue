@@ -1,7 +1,5 @@
 <template>
-  <b-nav
-    v-if="titles"
-    vertical>
+  <b-nav vertical>
     <b-nav-item
       v-b-toggle="`title-${title.id}`"
       v-for="title in titles"
