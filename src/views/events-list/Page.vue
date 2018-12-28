@@ -8,7 +8,8 @@
       <sorting-panel>
         <template slot="live">
           <events-list
-            :query-options="liveQuery">
+            :query-options="liveQuery"
+            :key="generateKey('liveQuery')">
             <simple-event
               slot-scope="{ event }"
               :event="event">
@@ -22,7 +23,9 @@
         </template>
 
         <template slot="upcoming">
-          <events-list :query-options="upcomingQuery">
+          <events-list
+            :query-options="upcomingQuery"
+            :key="generateKey('upcomingQuery')">
             <upcoming-event
               slot-scope="{ event }"
               :event="event">
@@ -146,6 +149,12 @@ export default {
 
       return VALID_KINDS.findIndex((validKind) => kind === validKind) >= 0;
     },
+    generateKey (queryName) {
+      return (this.titleId || '')
+        + (this.titlesKind || '')
+        + (this.tournamentId || '')
+        + (queryName || Math.random().toString(16))
+    }
   },
 }
 </script>

@@ -34,7 +34,7 @@
 
 <script>
 import { EVENTS_LIST_QUERY } from '@/graphql'
-import { CACHE_AND_NETWORK, NO_CACHE } from '@/constants/graphql/fetch-policy'
+import { NO_CACHE } from '@/constants/graphql/fetch-policy'
 
 export default {
   props: {
@@ -58,8 +58,7 @@ export default {
     query () {
       return {
         query: EVENTS_LIST_QUERY,
-        variables: this.queryOptions,
-        fetchPolicy: CACHE_AND_NETWORK
+        variables: this.queryOptions
       }
     }
   },
