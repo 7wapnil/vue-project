@@ -15,7 +15,11 @@
         <b-row no-gutters>
           <b-col class="d-flex align-items-center justify-content-center">
             <small>
-              Today
+              <strong>
+                {{ event.start_at | asCalendarDate({
+                                      sameDay: '[Today]',
+                                      nextDay: '[Tomorrow]'}) }}
+              </strong>
             </small>
           </b-col>
 
@@ -23,7 +27,9 @@
 
           <b-col class="d-flex align-items-center justify-content-center">
             <small>
-              {{ event.start_at | asFormattedDate('HH:mm') }}
+              <strong>
+                {{ event.start_at | asFormattedDate('HH:mm') }}
+              </strong>
             </small>
           </b-col>
         </b-row>
