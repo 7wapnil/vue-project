@@ -4,6 +4,7 @@ import app from './app'
 import user from './user'
 import betslip from './betslip'
 import wallets from './wallets'
+import titleFilters from './title-filters'
 
 Vue.use(Vuex)
 
@@ -12,6 +13,7 @@ export default new Vuex.Store({
     app,
     user,
     betslip,
-    wallets
+    wallets,
+    titleFilters
   }
 })
