@@ -5,8 +5,9 @@ import LivePage from '@/views/live/Page.vue'
 import OutrightPage from '@/views/outrights/Page.vue'
 import Event from '@/views/event/Page.vue'
 import arcanebetSession from '@/services/local-storage/session'
+import store from '@/stores'
 
-export default new Router({
+const router = new Router({
   mode: 'history',
   linkActiveClass: 'active',
   routes: [
@@ -61,3 +62,10 @@ export default new Router({
     }
   ]
 })
+
+router.beforeEach((to, from, next) => {
+  store.dispatch('updateTitleFiltersFromRouteParams', to.params)
+  next()
+})
+
+export default router
