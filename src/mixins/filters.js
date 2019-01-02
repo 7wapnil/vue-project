@@ -4,7 +4,7 @@ export default {
   asFormattedDate (date, format = 'HH:mm MMMM DD') {
     return moment(date).format(format)
   },
-  asCalendarDate(date, format){
+  asCalendarDate (date, format) {
     return moment(date).calendar(null, format)
   },
   asDate (date) {

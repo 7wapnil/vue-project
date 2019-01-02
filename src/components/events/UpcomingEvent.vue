@@ -17,8 +17,8 @@
             <small>
               <strong>
                 {{ event.start_at | asCalendarDate({
-                                      sameDay: '[Today]',
-                                      nextDay: '[Tomorrow]'}) }}
+                  sameDay: '[Today]',
+                  nextDay: '[Tomorrow]'}) }}
               </strong>
             </small>
           </b-col>
