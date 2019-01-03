@@ -7,7 +7,8 @@
           v-for="market in filteredMarkets"
           :key="market.id"
           :event="event"
-          :market="market"/>
+          :market="market"
+          :display-market-name="displayMarketsNames"/>
       </div>
       <div
         v-if="!loading && !filteredMarkets.length"
@@ -35,6 +36,10 @@ export default {
     queryOptions: {
       type: Object,
       default () { return {} }
+    },
+    displayMarketsNames: {
+      type: Boolean,
+      default: false
     }
   },
   data () {
