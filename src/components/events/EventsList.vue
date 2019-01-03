@@ -34,6 +34,7 @@
 <script>
 import { EVENTS_LIST_QUERY } from '@/graphql'
 import { NO_CACHE } from '@/constants/graphql/fetch-policy'
+import CachedEvent from '@/models/cache/event'
 
 export default {
   props: {
@@ -131,8 +132,12 @@ export default {
     updateEvent (id, changes) {
       this.updateApolloCache(this.query, (cache) => {
         const event = cache.events.find(event => event.id === id)
+
         if (event) {
-          Object.assign(event, changes)
+          // If you've added something to be cached in Event
+          // add those changes to cache models
+
+          Object.assign(event, new CachedEvent(changes))
         }
       })
     }
