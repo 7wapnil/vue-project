@@ -1,16 +1,19 @@
 <template>
-  <b-row class="h-100 w-100"
-         no-gutters>
+  <b-row
+    class="h-100 w-100"
+    no-gutters>
     <b-col>
       <loader v-if="loading"/>
-      <market-item
-        v-if="!loading"
-        v-for="market in filteredMarkets"
-        :key="market.id"
-        :event="event"
-        :market="market"/>
-      <small class="my-4 d-flex justify-content-center"
-             v-if="!loading && !filteredMarkets.length">
+      <div v-if="!loading">
+        <market-item
+          v-for="market in filteredMarkets"
+          :key="market.id"
+          :event="event"
+          :market="market"/>
+      </div>
+      <small
+        v-if="!loading && !filteredMarkets.length"
+        class="my-4 d-flex justify-content-center">
         No markets for this event
       </small>
     </b-col>
