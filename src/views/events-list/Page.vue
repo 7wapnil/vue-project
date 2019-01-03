@@ -9,7 +9,7 @@
         <template slot="live">
           <events-list
             :query-options="liveQuery">
-            <simple-event
+            <live-event
               slot-scope="{ event }"
               :event="event">
 
@@ -17,7 +17,7 @@
                 :event="event"
                 :query-options="{ limit: 1 }" />
 
-            </simple-event>
+            </live-event>
           </events-list>
         </template>
 
@@ -44,22 +44,22 @@
 <script>
 import { TITLE_BY_ID_QUERY } from '@/graphql'
 import EventsList from '@/components/events/EventsList'
-import SimpleEvent from '@/components/events/SimpleEvent'
 import MarketsList from '@/components/markets/MarketsList'
 import UpcomingEvent from '@/components/events/UpcomingEvent'
 import IntroductionArea from '@/components/custom/IntroductionArea'
 import CategoryTabs from '@/components/custom/CategoryTabs'
 import SortingPanel from '@/components/custom/SortingPanel'
+import LiveEvent from '@/components/events/LiveEvent'
 
 export default {
   components: {
     UpcomingEvent,
-    SimpleEvent,
     EventsList,
     MarketsList,
     IntroductionArea,
     CategoryTabs,
-    SortingPanel
+    SortingPanel,
+    LiveEvent
   },
   data () {
     return {
@@ -79,7 +79,8 @@ export default {
     liveQuery () {
       return {
         ...this.baseQuery,
-        inPlay: true
+        inPlay: true,
+        withDetails: true
       }
     },
     upcomingQuery () {

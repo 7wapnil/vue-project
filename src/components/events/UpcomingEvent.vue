@@ -11,75 +11,83 @@
       style="height: 76px">
       <b-col
         class="p-4 h-100"
-        style="max-width: 80px; border-right: 1px solid #232323">
+        style="max-width: 80px">
         <b-row no-gutters>
           <b-col class="d-flex align-items-center justify-content-center">
-            <small>
-              <strong>
+              <strong style="font-size: 10px" class="text-center text-arc-clr-iron">
                 {{ event.start_at | asCalendarDate({
                   sameDay: '[Today]',
                   nextDay: '[Tomorrow]',
                   nextWeek: 'DD.MM',
                   sameElse: 'DD.MM'}) }}
               </strong>
-            </small>
           </b-col>
 
           <div class="w-100"/>
 
           <b-col class="d-flex align-items-center justify-content-center">
-            <small>
-              <strong>
+            <strong style="font-size: 10px" class="text-center text-arc-clr-iron">
                 {{ event.start_at | asFormattedDate('HH:mm') }}
-              </strong>
-            </small>
+            </strong>
           </b-col>
         </b-row>
       </b-col>
 
       <b-col
-        class="p-3"
-        style="max-width: 247px; border-right: 1px solid #232323">
+              class="pt-2 pr-3 pb-2 pl-3 event-card-inside-border"
+              style="max-width: 247px">
         <b-row
-          no-gutters
-          class="h-100">
-          <b-col
-            cols="10"
-            class="text-truncate">
-            <small>
-              {{ event.tournament.name }}
-            </small>
-            <br>
+                no-gutters
+                class="h-100">
+          <b-col style="line-height: 14px"
+                 cols="10">
+            <p class="mb-2 text-truncate">
+              <small class="text-arc-clr-iron">
+                {{ event.tournament.name }}
+              </small>
+            </p>
+            <b-row v-for="competitor in event.details.competitors"
+                   :key="competitor.id"
+                   no-gutters>
+              <b-col class="text-truncate">
+                <small>
+                  <strong class="text-arc-clr-iron" style="line-height: 14px">
+                    {{ competitor.name }}
+                  </strong>
+                </small>
+              </b-col>
+            </b-row>
           </b-col>
-          <b-col class="ml-3">
+
+
+          <b-col class="ml-3 mt-1">
             <b-row
-              no-gutters
-              class="h-50 w-100 mb-1">
-              <b-col class="d-flex align-items-center justify-content-end">
+                    no-gutters
+                    class="h-50 w-100">
+              <b-col class="d-flex align-items-start justify-content-end">
                 <icon
-                  name="upcoming-event-replay"
-                  size="16px"
-                  color="arc-clr-soil-light"/>
+                        name="upcoming-event-replay"
+                        size="16px"
+                        color="arc-clr-soil-light"/>
               </b-col>
             </b-row>
             <b-row
-              no-gutters
-              class="h-50 w-100">
-              <b-col class="d-flex align-items-center justify-content-end">
+                    no-gutters
+                    class="h-50 w-100">
+              <b-col class="d-flex align-items-end justify-content-end">
                 <icon
-                  name="upcoming-event-statistic"
-                  size="18px"
-                  color="arc-clr-soil-light"/>
+                        name="upcoming-event-statistic"
+                        size="18px"
+                        color="arc-clr-soil-light"/>
               </b-col>
             </b-row>
           </b-col>
         </b-row>
       </b-col>
 
-      <b-col style="border-right: 1px solid #232323">
+      <b-col class="event-card-inside-border">
         <b-row
-          no-gutters
-          class="h-100">
+          no-gutters>
           <b-col class="pl-3 py-2">
             <slot/>
           </b-col>
@@ -115,7 +123,7 @@
       </b-col>
 
       <b-col
-        class="upcoming-statistics"
+        class="upcoming-statistics event-card-inside-border"
         style="max-width: 70px"
         @click="goToEventPage">
         <b-row

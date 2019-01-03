@@ -7,7 +7,7 @@
       :key="odd.id"
       class="mr-2">
       <b-row no-gutters>
-        <b-col class="d-flex justify-content-center align-items-center text-truncate">
+        <b-col class="px-2 d-flex justify-content-center align-items-center text-truncate">
           <small class="mb-1 text-arc-clr-iron">
             {{ odd.name }}
           </small>

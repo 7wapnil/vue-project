@@ -3,7 +3,6 @@
     no-body
     class="pt-4"
     body-class="events-card-body">
-
     <div>
       <b-card
         v-for="event in events"
