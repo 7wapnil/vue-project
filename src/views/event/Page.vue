@@ -1,5 +1,5 @@
 <template>
-  <main-layout>
+  <main-layout :class="titlesKind">
     <div class="row">
       <div class="col">
         <b-card
@@ -140,6 +140,9 @@ export default {
       const endTime = this.event.end_at ? moment(this.event.end_at).format('HH:mm') : '...'
 
       return `${startTime} - ${endTime}`
+    },
+    titlesKind () {
+      return this.$store.state.titleFilters.titleKind
     }
   }
 }
