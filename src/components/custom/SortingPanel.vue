@@ -26,10 +26,6 @@
           </b-col>
         </b-row>
       </template>
-      <toggle-switch
-        label-left="By Time"
-        label-right="By Event"
-        event-name="sort-upcoming"/>
       <slot name="upcoming"/>
     </b-tab>
     <b-tab title-link-class="mx-4 pb-4 pt-2 bg-transparent">
@@ -46,13 +42,9 @@
     </b-tab>
   </b-tabs>
 </template>
-<script>
-import ToggleSwitch from '@/components/custom/ToggleSwitch'
 
+<script>
 export default {
-  components: {
-    ToggleSwitch
-  },
   data () {
     return {
       tabIndex: 1
