@@ -10,28 +10,24 @@
       role="tab"
       style="height: 76px">
       <b-col
-        class="p-4 h-100"
+        class="p-2 h-100 d-flex align-items-center justify-content-center"
         style="max-width: 80px">
         <b-row no-gutters>
-          <b-col class="d-flex align-items-center justify-content-center">
+          <b-col class="d-flex align-items-center justify-content-center text-uppercase">
             <strong
               style="font-size: 10px"
               class="text-center text-arc-clr-iron">
-              {{ event.start_at | asCalendarDate({
-                sameDay: '[Today]',
-                nextDay: '[Tomorrow]',
-                nextWeek: 'DD.MM',
-                sameElse: 'DD.MM'}) }}
+              {{ event.state.time }}
             </strong>
           </b-col>
 
           <div class="w-100"/>
 
-          <b-col class="d-flex align-items-center justify-content-center">
+          <b-col class="d-flex align-items-center justify-content-center text-uppercase">
             <strong
               style="font-size: 10px"
               class="text-center text-arc-clr-iron">
-              {{ event.start_at | asFormattedDate('HH:mm') }}
+              {{ event.state.status }}
             </strong>
           </b-col>
         </b-row>
@@ -46,6 +42,7 @@
           <b-col
             style="line-height: 14px"
             cols="10">
+
             <p class="mb-2 text-truncate">
               <small class="text-arc-clr-iron">
                 {{ event.tournament.name }}
@@ -55,7 +52,9 @@
               v-for="competitor in event.details.competitors"
               :key="competitor.id"
               no-gutters>
-              <b-col class="text-truncate">
+              <b-col
+                cols="8"
+                class="text-truncate">
                 <small>
                   <strong
                     class="text-arc-clr-iron"
@@ -64,7 +63,17 @@
                   </strong>
                 </small>
               </b-col>
+              <b-col
+                cols="4"
+                class="text-right">
+                <small>
+                  <strong class="text-arc-clr-iron">
+                    0
+                  </strong>
+                </small>
+              </b-col>
             </b-row>
+
           </b-col>
 
           <b-col class="ml-3 mt-1">
@@ -93,8 +102,7 @@
       </b-col>
 
       <b-col class="event-card-inside-border">
-        <b-row
-          no-gutters>
+        <b-row no-gutters>
           <b-col class="pl-3 py-2">
             <slot/>
           </b-col>
@@ -131,8 +139,7 @@
 
       <b-col
         class="upcoming-statistics event-card-inside-border"
-        style="max-width: 70px"
-        @click="goToEventPage">
+        style="max-width: 70px">
         <b-row
           no-gutters
           class="text-center h-100">
@@ -186,11 +193,6 @@ export default {
     event: {
       type: Object,
       required: true
-    }
-  },
-  methods: {
-    goToEventPage () {
-      this.$router.push({ name: 'event', params: { id: this.event.id } })
     }
   }
 }

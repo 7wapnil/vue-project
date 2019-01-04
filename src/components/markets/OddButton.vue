@@ -5,12 +5,11 @@
     variant="arc-odd"
     class="text-arc-clr-gold bg-arc-clr-soil-cover"
     @click="addOdd">
-    <h6>
+    <h6 class="m-0">
       <strong>
         {{ odd.value }}
       </strong>
     </h6>
-    <!--{{ event.live ? '+' : '-' }}-->
   </b-button>
 </template>
 

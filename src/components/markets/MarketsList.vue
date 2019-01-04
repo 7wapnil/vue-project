@@ -1,5 +1,7 @@
 <template>
-  <b-row no-gutters>
+  <b-row
+    class="h-100 w-100"
+    no-gutters>
     <b-col>
       <loader v-if="loading"/>
       <div v-if="!loading">
@@ -10,11 +12,11 @@
           :market="market"
           :display-market-name="displayMarketsNames"/>
       </div>
-      <div
+      <small
         v-if="!loading && !filteredMarkets.length"
-        class="text-center">
-        <small>No markets for this event</small>
-      </div>
+        class="my-4 d-flex justify-content-center">
+        No markets for this event
+      </small>
     </b-col>
   </b-row>
 </template>
