@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import { APP_STATE_QUERY } from '@/graphql'
 import { NO_CACHE } from '@/constants/graphql/fetch-policy'
-import graphqlClient from '@/libs/apollo'
+import graphqlClient from '@/libs/apollo/'
 
 export const UPDATE_STATE = 'UPDATE'
 

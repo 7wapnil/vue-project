@@ -4,7 +4,7 @@
 
 import Bet from '@/models/bet'
 
-import graphqlClient from '@/libs/apollo'
+import graphqlClient from '@/libs/apollo/'
 import { BETSLIP_PLACEMENT_QUERY } from './queries/betslip'
 
 const getBetsFromStorage = () => {
