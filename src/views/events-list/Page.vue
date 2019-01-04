@@ -8,14 +8,9 @@
       <sorting-panel>
         <template slot="live">
           <events-list
-<<<<<<< HEAD
-            :query-options="liveQuery">
-            <live-event
-=======
             :query-options="liveQuery"
             :key="generateKey('liveQuery')">
-            <simple-event
->>>>>>> master
+            <live-event
               slot-scope="{ event }"
               :event="event">
 
