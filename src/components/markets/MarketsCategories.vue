@@ -8,7 +8,8 @@
 
       <markets-list
         :event="event"
-        :query-options="getQueryOptionsWithCategory(category.slug)" />
+        :query-options="getQueryOptionsWithCategory(category.slug)"
+        display-markets-names />
 
     </b-tab>
   </b-tabs>

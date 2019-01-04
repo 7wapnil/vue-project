@@ -2,6 +2,11 @@
   <b-row
     :data-id="market.id"
     no-gutters>
+    <small
+      v-if="displayMarketName"
+      class="text-arc-clr-gold-light">
+      {{ market.name }}
+    </small>
     <b-col
       v-for="odd in market.odds"
       :key="odd.id"
@@ -47,6 +52,10 @@ export default {
     market: {
       type: Object,
       required: true
+    },
+    displayMarketName: {
+      type: Boolean,
+      default: false
     }
   },
   computed: {

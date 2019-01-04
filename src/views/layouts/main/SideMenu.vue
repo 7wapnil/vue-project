@@ -40,14 +40,14 @@
           class="px-2 py-3"
           vertical>
           <b-nav-item
-            :to="{ name: 'title', params: { titleId: title.id } }"
+            :to="{ name: 'title', params: { titleKind: titlesKind, titleId: title.id } }"
             exact>
             All tournaments
           </b-nav-item>
           <b-nav-item
             v-for="tournament in title.tournaments"
             :key="tournament.id"
-            :to="{ name: 'tournament', params: { titleId: title.id, tournamentId: tournament.id } }"
+            :to="{ name: 'tournament', params: { titleKind: titlesKind, titleId: title.id, tournamentId: tournament.id } }"
             exact>
             {{ tournament.name }}
           </b-nav-item>
@@ -61,6 +61,8 @@
 import TitlesList from '@/components/TitlesList'
 import { TITLES_QUERY } from '@/graphql'
 
+const POLL_INTERVAL = 10000
+
 export default {
   components: {
     TitlesList
@@ -69,7 +71,8 @@ export default {
     titles () {
       return {
         query: TITLES_QUERY,
-        variables: { kind: this.titlesKind, withTournaments: true }
+        variables: { kind: this.titlesKind, withTournaments: true },
+        pollInterval: POLL_INTERVAL
       }
     }
   },
@@ -79,7 +82,9 @@ export default {
     },
     titlesKind () {
       const DEFAULT_KIND = 'esports';
-      const currentTitleKind = this.$route.params.titleKind;
+      const currentTitleKind =
+        this.$route.params.titleKind ||
+        this.$store.state.titleFilters.titleKind;
 
       if (this.isOneOfValidKinds(currentTitleKind)) {
         return currentTitleKind;
