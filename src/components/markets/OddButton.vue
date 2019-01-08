@@ -15,7 +15,7 @@
 
 <script>
 import { INACTIVE_STATUS as ODD_INACTIVE_STATUS } from '@/models/odd'
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions } from 'vuex'
 
 export default {
   props: {
@@ -43,15 +43,8 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('app', [
-      'appState'
-    ]),
     isDisabled () {
-      const isFeedConnected = this.event.live
-        ? this.appState.live_connected
-        : this.appState.pre_live_connected
-
-      return this.disabled || !isFeedConnected || this.odd.status === ODD_INACTIVE_STATUS
+      return this.disabled || this.odd.status === ODD_INACTIVE_STATUS
     }
   },
   watch: {
