@@ -3,44 +3,42 @@
 
     <introduction-area/>
 
-    <category-tabs>
+    <category-tabs :key="titlesKind" />
 
-      <sorting-panel>
-        <template slot="live">
-          <events-list
-            :query-options="liveQuery"
-            :key="generateKey('liveQuery')">
-            <live-event
-              slot-scope="{ event }"
-              :event="event">
+    <sorting-panel>
+      <template slot="live">
+        <events-list
+          :query-options="liveQuery"
+          :key="generateKey('liveQuery')">
+          <live-event
+            slot-scope="{ event }"
+            :event="event">
 
-              <markets-list
-                :event="event"
-                :query-options="{ limit: 1 }" />
+            <markets-list
+              :event="event"
+              :query-options="{ limit: 1 }" />
 
-            </live-event>
-          </events-list>
-        </template>
+          </live-event>
+        </events-list>
+      </template>
 
-        <template slot="upcoming">
-          <events-list
-            :query-options="upcomingQuery"
-            :key="generateKey('upcomingQuery')">
-            <upcoming-event
-              slot-scope="{ event }"
-              :event="event">
+      <template slot="upcoming">
+        <events-list
+          :query-options="upcomingQuery"
+          :key="generateKey('upcomingQuery')">
+          <upcoming-event
+            slot-scope="{ event }"
+            :event="event">
 
-              <markets-list
-                :event="event"
-                :query-options="{ limit: 1 }" />
+            <markets-list
+              :event="event"
+              :query-options="{ limit: 1 }" />
 
-            </upcoming-event>
-          </events-list>
-        </template>
+          </upcoming-event>
+        </events-list>
+      </template>
 
-      </sorting-panel>
-
-    </category-tabs>
+    </sorting-panel>
   </main-layout>
 </template>
 
