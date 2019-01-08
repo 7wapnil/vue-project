@@ -1,5 +1,5 @@
 import gql, { disableFragmentWarnings } from 'graphql-tag'
-import client from '@/libs/apollo';
+import client from '@/libs/apollo/';
 import filters from './filters'
 
 disableFragmentWarnings()

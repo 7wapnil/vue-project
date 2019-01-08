@@ -1,4 +1,4 @@
-import graphqlClient from '@/libs/apollo'
+import graphqlClient from '@/libs/apollo/'
 import { NO_CACHE } from '@/constants/graphql/fetch-policy'
 import { WALLETS_LIST_QUERY } from './queries/wallets'
 
