@@ -60,12 +60,22 @@ export default {
   },
   computed: {
     isDisabled () {
-      return [
+      const appState = this.$store.getters['app/appState']
+
+      console.log(appState)
+
+      const isDisabledByAPI = [
         SUSPENDED_STATUS,
         MARKET_INACTIVE_STATUS,
         SETTLED_STATUS,
         HANDED_OVER_STATUS
       ].includes(this.market.status)
+
+      const isDisabledByAppState = this.event.live
+        ? !appState.live_connected
+        : !appState.pre_live_connected
+
+      return isDisabledByAPI || isDisabledByAppState
     }
   }
 }
