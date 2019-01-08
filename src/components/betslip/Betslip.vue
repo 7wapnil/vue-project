@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="betslip-block">
     <no-bets-block/>
 
     <b-container
@@ -40,6 +40,7 @@
         bg-variant="arc-clr-soil-black">
         <b-tabs
           v-model="tabIndex"
+          nav-class="flex-nowrap"
           nav-wrapper-class="betslip-tabs-wrapper">
           <b-tab
             :title-link-class="changeStyleTab(0)"
