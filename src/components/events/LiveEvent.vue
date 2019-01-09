@@ -115,33 +115,34 @@
             <b-col class="pl-3 pt-1">
               <slot/>
             </b-col>
-            <b-col
-              cols="auto"
-              class="ml-2 mr-4 mt-1">
-              <b-row
-                no-gutters
-                class="h-50 w-100">
-                <b-col class="d-flex align-items-center justify-content-end">
-                  <icon
-                    v-b-toggle="'upcoming-event-' + event.id"
-                    role="button"
-                    color="arc-clr-soil-light"
-                    tabindex="0"
-                    size="7.5px"
-                    name="upcoming-event-chevron-down"/>
-                </b-col>
-              </b-row>
-              <b-row
-                no-gutters
-                class="h-50 w-100">
-                <b-col class="d-flex align-items-center justify-content-end">
-                  <h6 class="mb-0">
-                    <strong>
-                      +3
-                    </strong>
-                  </h6>
-                </b-col>
-              </b-row>
+          </b-row>
+        </b-col>
+
+        <b-col
+          v-b-toggle="'upcoming-event-' + event.id"
+          cols="auto"
+          class="px-3 event-card-toggle-button">
+          <b-row
+            no-gutters
+            class="h-50 w-100">
+            <b-col class="d-flex align-items-center justify-content-center">
+              <icon
+                role="button"
+                color="arc-clr-soil-light"
+                tabindex="0"
+                size="7.5px"
+                name="upcoming-event-chevron-down"/>
+            </b-col>
+          </b-row>
+          <b-row
+            no-gutters
+            class="h-50 w-100">
+            <b-col class="d-flex align-items-start justify-content-center">
+              <h6 class="mb-0 mt-1">
+                <strong>
+                  +3
+                </strong>
+              </h6>
             </b-col>
           </b-row>
         </b-col>

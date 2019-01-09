@@ -107,6 +107,10 @@
   color: $icon-section-color !important;
   transition: color 0.3s ease-in-out;
 }
+.event-card-toggle-button:hover .arc-upcoming-event-chevron-down {
+  color: $icon-section-color !important;
+  transition: color 0.3s ease-in-out;
+}
 
 // Progress bar
 .progress-bar {
