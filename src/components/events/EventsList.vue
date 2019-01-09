@@ -1,7 +1,7 @@
 <template>
   <b-card
     no-body
-    class="pt-4"
+    class="p-4"
     body-class="events-card-body">
     <div>
       <b-card
