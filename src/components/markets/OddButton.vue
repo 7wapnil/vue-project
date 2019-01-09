@@ -2,9 +2,9 @@
   <b-button
     :disabled="isDisabled"
     :data-id="odd.id"
+    :pressed.sync="toggleButton"
     variant="arc-odd"
     class="text-arc-clr-gold"
-    :pressed.sync="toggleButton"
     @click="addOdd">
     <h6 class="m-0">
       <strong>
