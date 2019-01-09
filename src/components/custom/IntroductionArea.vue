@@ -1,5 +1,6 @@
 <template>
   <b-container
+    fluid
     class="d-flex align-items-center justify-content-center bg-arc-clr-soil-darker"
     style="height: 202px">
     <b-row>
