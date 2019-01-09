@@ -3,6 +3,7 @@
     id="AuthModal"
     title="Welcome to ArcaneBet"
     title-tag="h4"
+    :lazy="false"
     header-class="header">
     <div slot="modal-header-close">
       X <!-- Add custom icon -->
