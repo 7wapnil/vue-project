@@ -1,5 +1,7 @@
 <template>
-  <b-nav vertical>
+  <b-nav
+    class="side-menu flex-nowrap"
+    vertical>
     <b-nav-item
       v-b-toggle="`title-${title.id}`"
       v-for="title in titles"

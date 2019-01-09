@@ -1,5 +1,12 @@
 @import '../variables';
 
+.side-menu {
+  position: sticky;
+  top: 80px;
+  max-height: calc(100vh - 80px);
+  overflow-y: auto;
+}
+
 .nav-item > a {
   padding: 0;
 }

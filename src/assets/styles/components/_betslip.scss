@@ -1,5 +1,13 @@
 @import '../variables';
 
+.betslip-block {
+  position: sticky;
+  top: 80px;
+  max-height: calc(100vh - 80px);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
 .betslip-empty-card  {
   border: 1px solid $arc-clr-soil-light !important;
   border-radius: 6px 6px 0 6px !important;
