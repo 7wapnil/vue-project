@@ -3,7 +3,8 @@
     :disabled="isDisabled"
     :data-id="odd.id"
     variant="arc-odd"
-    class="text-arc-clr-gold bg-arc-clr-soil-cover"
+    class="text-arc-clr-gold"
+    :pressed.sync="toggleButton"
     @click="addOdd">
     <h6 class="m-0">
       <strong>
@@ -38,6 +39,7 @@ export default {
   },
   data () {
     return {
+      toggleButton: false,
       raised: null,
       diff: 0
     }
