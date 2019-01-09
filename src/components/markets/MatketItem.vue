@@ -10,10 +10,10 @@
     <b-col
       v-for="odd in market.odds"
       :key="odd.id"
-      class="mr-2">
+      class="mr-2 text-truncate">
       <b-row no-gutters>
-        <b-col class="px-2 d-flex justify-content-center align-items-center text-truncate">
-          <small class="mb-1 text-arc-clr-iron">
+        <b-col class="px-1 mb-1 text-center text-truncate">
+          <small class="text-arc-clr-iron">
             {{ odd.name }}
           </small>
         </b-col>
