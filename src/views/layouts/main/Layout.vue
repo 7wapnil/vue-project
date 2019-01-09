@@ -12,7 +12,7 @@
       <b-row no-gutters>
         <b-col
           cols="12"
-          md="3"
+          class="d-none d-lg-block"
           style="max-width: 268px">
           <side-menu/>
         </b-col>
@@ -21,7 +21,7 @@
         </b-col>
         <b-col
           cols="12"
-          md="3"
+          class="d-none d-lg-block"
           style="max-width: 268px">
           <promotional-item/>
           <betslip/>
