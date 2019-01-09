@@ -9,24 +9,24 @@
 // Secondary button
 .btn-arc-secondary {
   border-radius: 4px 4px 0 4px !important;
-  background-color: rgba(0,0,0,0.15);
+  background-color: rgba($black, .15);
   box-shadow: $arc-secondary-button-box-shadow;
   color: $arc-clr-iron-light;
-}
-.btn-arc-secondary:hover {
-  color: $arc-clr-white;
-  background-color: rgba(0,0,0,0.3);
-  box-shadow: $arc-secondary-button-box-shadow;
-}
-.btn-arc-secondary:not(:disabled):not(.disabled):active {
-  background-color: rgba(0,0,0,0.5);
-  color: $arc-clr-white;
-  box-shadow: $arc-secondary-button-box-shadow;
-}
-.btn-arc-secondary.disabled {
-  background-color: rgba(0,0,0,0.15);
-  color: rgba(193,193,193,0.3);
-  box-shadow: $arc-secondary-button-box-shadow;
+  &:hover {
+    color: $arc-clr-white;
+    background-color: $arc-clr-soil-cover;
+    box-shadow: $arc-secondary-button-box-shadow;
+  }
+  &:not(:disabled):not(.disabled):active {
+    background-color: rgba($black, .5);
+    color: $arc-clr-white;
+    box-shadow: $arc-secondary-button-box-shadow;
+  }
+  &.disabled {
+    background-color: rgba($black, .15);
+    color: rgba(193, 193, 193, 0.3);
+    box-shadow: $arc-secondary-button-box-shadow;
+  }
 }
 
 // User profile button
@@ -34,7 +34,7 @@
   border-radius: 50px !important;
   width: 42px !important;
   height: 42px !important;
-  border: 3px solid rgba(0,0,0,0.3) !important;
+  border: 3px solid rgba($black, .3) !important;
 }
 .nav-profile-button {
   padding: 20px 7px 18px 5px;
@@ -45,6 +45,7 @@
   height: 36px;
   width: 100%;
   border-radius: 8px 0 8px 8px !important;
+  background-color: rgba($black, .3) !important;
   position: relative;
   display: inline-block;
   &:after {
@@ -62,12 +63,26 @@
   }
   &:hover {
     border: 1px solid rgba(255,185,96, .6);
+    background-color: rgba($black, .5) !important;
   }
   &:hover:after {
     opacity: 1;
   }
   &:disabled {
     pointer-events: none;
+    background-color: $black !important;
+  }
+  &:disabled h6{
+    color: $arc-clr-iron !important;
+  }
+  &.active {
+    background-color: $arc-clr-gold !important;
+    color: $arc-clr-soil-black !important;
+    border: 1px solid $arc-clr-gold-light;
+    box-shadow: 0 0 6px 0 rgba(255,185,96,0.70), 0 2px 0 0 rgba(0,0,0,0.30);
+  }
+  &:focus {
+    background-color: $arc-clr-gold;
   }
 }
 
