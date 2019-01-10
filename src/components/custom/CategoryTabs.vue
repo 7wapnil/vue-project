@@ -1,6 +1,7 @@
 <template>
   <b-tabs
     :lazy="lazy"
+    v-model="tabIndex"
     card
     class="category-tabs"
     nav-class="bg-transparent px-4 py-0"
@@ -8,7 +9,6 @@
     <b-tab
       v-for="(tab, index) in tabs"
       :key="index"
-      active
       title-link-class="category-tab px-4 py-3 bg-transparent">
       <template slot="title">
         <b-row no-gutters>

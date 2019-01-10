@@ -7,24 +7,36 @@
 </template>
 
 <script>
+import { TITLES_QUERY } from '@/graphql'
 import FilterTabs from './FilterTabs'
 
 export default {
   components: {
     FilterTabs
   },
+  apollo: {
+    titles () {
+      return {
+        query: TITLES_QUERY
+      }
+    }
+  },
   data () {
     return {
-      tabIndex: 0,
-      tabs: [{
-        id: null,
-        title: 'All',
-        icon: 'sidemenu-game-icon'
-      }, {
-        id: '1',
-        title: 'Football',
-        icon: 'sidemenu-game-icon'
-      }]
+      titles: []
+    }
+  },
+  computed: {
+    tabs () {
+      /**
+       * @todo Need to define algorithm of icon selection depends on sport
+       */
+      return [
+        { id: null, title: 'All', icon: 'sidemenu-game-icon' },
+        ...this.titles.map((title) => {
+          return { id: title.id, title: title.name, icon: 'sidemenu-game-icon' }
+        })
+      ]
     }
   }
 }
