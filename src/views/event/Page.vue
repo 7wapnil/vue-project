@@ -1,5 +1,4 @@
 <template>
-  <main-layout :class="titlesKind">
     <div class="row">
       <div class="col">
         <b-card
@@ -80,7 +79,6 @@
         </b-card>
       </div>
     </div>
-  </main-layout>
 </template>
 
 <script>
