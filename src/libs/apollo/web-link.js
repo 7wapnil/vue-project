@@ -6,7 +6,7 @@ import ActionCable from 'actioncable'
 import ActionCableLink from 'graphql-ruby-client/subscriptions/ActionCableLink'
 
 const httpLink = new HttpLink({
-  uri: 'https://backend.arcanedemo.com/graphql' || '',
+  uri: process.env.VUE_APP_API_URL || '',
   fetch: fetch
 })
 
