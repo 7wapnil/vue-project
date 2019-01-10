@@ -147,10 +147,11 @@
           </b-row>
         </b-col>
 
-        <b-col
-          class="upcoming-statistics event-card-inside-border"
-          style="max-width: 70px; min-height: 100%; position:relative"
-          @click="goToEventPage">
+        <b-link
+          :to="{ name: 'event', params: { id: event.id } }"
+          class="col upcoming-statistics event-card-inside-border"
+          style="max-width: 70px; min-height: 100%; position:relative">
+
           <b-row
             no-gutters
             class="text-center h-100">
@@ -178,7 +179,8 @@
               </b-col>
             </b-row>
           </b-row>
-        </b-col>
+
+        </b-link>
       </b-row>
     </b-card-body>
     <b-row
@@ -207,11 +209,6 @@ export default {
     event: {
       type: Object,
       required: true
-    }
-  },
-  methods: {
-    goToEventPage () {
-      this.$router.push({ name: 'event', params: { id: this.event.id } })
     }
   }
 }
