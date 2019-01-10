@@ -25,7 +25,13 @@ export default [
         path: 'title/:titleId/tour/:tournamentId',
         name: 'tournament',
         component: EventsList
-      }
+      },
+      {
+        path: 'event/:id',
+        name: 'event',
+        component: () => import('@/views/event/Page'),
+        props: true
+      },
     ]
   },
   {
@@ -37,12 +43,6 @@ export default [
     path: 'activation/:token',
     name: 'activation',
     component: () => import('@/views/auth/Activation')
-  },
-  {
-    path: 'event/:id',
-    name: 'event',
-    component: () => import('@/views/event/Page'),
-    props: true
   },
   {
     path: 'impersonate/:token',
