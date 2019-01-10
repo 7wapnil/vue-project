@@ -1,17 +1,5 @@
 import gql from 'graphql-tag'
-
-export const TOURNAMENT_FIELDS = `
-  id
-  name
-`
-
-export const TITLE_FIELDS = `
-  id
-  name
-  tournaments @include (if: $withTournaments) {
-    ${TOURNAMENT_FIELDS}
-  }
-`
+import { TITLE_FIELDS, SCOPE_FIELDS } from './fields'
 
 export const TITLES_QUERY = gql`
   query titlesList(
@@ -20,6 +8,9 @@ export const TITLES_QUERY = gql`
   ) {
     titles (kind: $kind) {
       ${TITLE_FIELDS}
+      tournaments @include (if: $withTournaments) {
+        ${SCOPE_FIELDS}
+      }
     }
   }
 `
@@ -31,6 +22,9 @@ export const TITLE_BY_ID_QUERY = gql`
   ) {
     titles (id: $id) {
       ${TITLE_FIELDS}
+      tournaments @include (if: $withTournaments) {
+        ${SCOPE_FIELDS}
+      }
     }
   }
 `

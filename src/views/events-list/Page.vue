@@ -1,159 +1,32 @@
 <template>
-  <main-layout :class="titlesKind">
+  <main-layout :class="$route.params.titleKind">
 
     <introduction-area/>
 
-    <category-tabs :key="titlesKind" />
+    <sport-tabs v-if="showTitles" />
 
-    <sorting-panel>
-      <template slot="live">
-        <events-list
-          :query-options="liveQuery"
-          :key="generateKey('liveQuery')">
-          <live-event
-            slot-scope="{ event }"
-            :event="event">
+    <filter-tabs
+      v-if="!showTitles"
+      :title-id="$route.params.titleId"/>
 
-            <markets-list
-              :event="event"
-              :query-options="{ limit: 1 }" />
-
-          </live-event>
-        </events-list>
-      </template>
-
-      <template slot="upcoming">
-        <events-list
-          :query-options="upcomingQuery"
-          :key="generateKey('upcomingQuery')">
-          <upcoming-event
-            slot-scope="{ event }"
-            :event="event">
-
-            <markets-list
-              :event="event"
-              :query-options="{ limit: 1 }" />
-
-          </upcoming-event>
-        </events-list>
-      </template>
-
-    </sorting-panel>
   </main-layout>
 </template>
 
 <script>
-import { TITLE_BY_ID_QUERY } from '@/graphql'
-import EventsList from '@/components/events/EventsList'
-import MarketsList from '@/components/markets/MarketsList'
-import UpcomingEvent from '@/components/events/UpcomingEvent'
 import IntroductionArea from '@/components/custom/IntroductionArea'
-import CategoryTabs from '@/components/custom/CategoryTabs'
-import SortingPanel from '@/components/custom/SortingPanel'
-import LiveEvent from '@/components/events/LiveEvent'
+import SportTabs from './SportTabs'
+import FilterTabs from './FilterTabs'
 
 export default {
   components: {
-    UpcomingEvent,
-    EventsList,
-    MarketsList,
     IntroductionArea,
-    CategoryTabs,
-    SortingPanel,
-    LiveEvent
-  },
-  data () {
-    return {
-      tournament: null
-    }
+    SportTabs,
+    FilterTabs
   },
   computed: {
-    baseQuery () {
-      return {
-        titleId: this.titleId,
-        titleKind: this.titlesKind,
-        tournamentId: this.tournamentId,
-        withMarkets: true,
-        limit: 10
-      }
-    },
-    liveQuery () {
-      return {
-        ...this.baseQuery,
-        inPlay: true,
-        withDetails: true
-      }
-    },
-    upcomingQuery () {
-      return {
-        ...this.baseQuery,
-        upcoming: true,
-        withDetails: true
-      }
-    },
-    titleId () {
-      return this.$route.params.titleId || null
-    },
-    tournamentId () {
-      return this.$route.params.tournamentId || null
-    },
-    titlesKind () {
-      const DEFAULT_KIND = 'esports';
-      const currentTitleKind = this.$route.params.titleKind;
-
-      if (this.isOneOfValidKinds(currentTitleKind)) {
-        return currentTitleKind;
-      }
-
-      return DEFAULT_KIND;
-    },
-  },
-  watch: {
-    tournamentId () {
-      this.loadTournament()
+    showTitles () {
+      return this.$route.name === 'title-kind'
     }
-  },
-  created () {
-    this.loadTournament()
-  },
-  methods: {
-    loadTournament () {
-      if (!this.tournamentId) {
-        this.tournament = null
-      } else {
-        this
-          .$apollo
-          .getClient()
-          .query({
-            query: TITLE_BY_ID_QUERY,
-            variables: {
-              id: this.titleId,
-              withTournaments: true
-            }
-          })
-          .then(({ data: { titles } }) => {
-            if (titles.length) {
-              this.tournament = titles[0].tournaments.find((item) => {
-                return item.id === this.tournamentId
-              })
-            }
-          })
-      }
-    },
-    isOneOfValidKinds (kind) {
-      const VALID_KINDS = [
-        'esports',
-        'sports',
-      ];
-
-      return VALID_KINDS.findIndex((validKind) => kind === validKind) >= 0;
-    },
-    generateKey (queryName) {
-      return (this.titleId || '') +
-        (this.titlesKind || '') +
-        (this.tournamentId || '') +
-        (queryName || Math.random().toString(16))
-    }
-  },
+  }
 }
 </script>
