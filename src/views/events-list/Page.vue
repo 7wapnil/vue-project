@@ -1,15 +1,17 @@
 <template>
-  <main-layout :class="$route.params.titleKind">
+  <b-row>
+    <b-col>
 
-    <introduction-area/>
+      <introduction-area/>
 
-    <sport-tabs v-if="showTitles" />
+      <sport-tabs v-if="showTitles" />
 
-    <filter-tabs
-      v-if="!showTitles"
-      :title-id="$route.params.titleId"/>
+      <filter-tabs
+        v-if="!showTitles"
+        :title-id="$route.params.titleId"/>
 
-  </main-layout>
+    </b-col>
+  </b-row>
 </template>
 
 <script>

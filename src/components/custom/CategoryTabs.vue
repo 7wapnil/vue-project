@@ -9,6 +9,7 @@
     <b-tab
       v-for="(tab, index) in tabs"
       :key="index"
+      no-body
       title-link-class="category-tab px-4 py-3 bg-transparent">
       <template slot="title">
         <b-row no-gutters>

@@ -8,6 +8,7 @@
     <b-tab
       v-for="(tab, index) in tabs"
       :key="index"
+      no-body
       title-link-class="mx-4 pb-4 pt-2 bg-transparent">
 
       <template slot="title">
