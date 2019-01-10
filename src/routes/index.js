@@ -8,6 +8,7 @@ const router = new Router({
   routes: [
     {
       path: '/',
+      redirect: '/esports',
       name: 'home',
       component: () => import('@/views/layouts/main/Layout'),
       children: mainRoutes
