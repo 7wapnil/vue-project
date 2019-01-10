@@ -33,8 +33,6 @@
 
 <script>
 import { EVENTS_LIST_QUERY } from '@/graphql'
-import { NO_CACHE } from '@/constants/graphql/fetch-policy'
-import CachedEvent from '@/models/cache/event'
 
 export default {
   props: {
@@ -42,9 +40,22 @@ export default {
       type: String,
       default: 'Events'
     },
-    queryOptions: {
-      type: Object,
-      default () { return {} }
+    titleId: {
+      type: String,
+      default: null
+    },
+    tournamentId: {
+      type: String,
+      default: null
+    },
+    live: {
+      type: Boolean,
+      default: true
+    }
+  },
+  apollo: {
+    events () {
+      return this.query
     }
   },
   data () {
@@ -58,34 +69,20 @@ export default {
     query () {
       return {
         query: EVENTS_LIST_QUERY,
-        variables: this.queryOptions
+        variables: {
+          titleKind: this.$route.params.titleKind,
+          titleId: this.titleId,
+          tournamentId: this.tournamentId,
+          inPlay: this.live,
+          upcoming: !this.live,
+          withMarkets: true,
+          marketsLimit: 1,
+          limit: 10
+        }
       }
     }
   },
-  sockets: {
-    eventCreated ({ id }) {
-      this.$log.debug('Event created socket event', id)
-      this.addEvent(id)
-    },
-    eventUpdated ({ id, changes }) {
-      this.$log.debug('Event updated socket event', id, changes)
-      this.updateEvent(id, changes)
-    }
-  },
-  watch: {
-    queryOptions () {
-      this.loadEvents()
-    }
-  },
-  created () {
-    this.loadEvents()
-  },
   methods: {
-    loadEvents () {
-      this
-        .$apollo
-        .addSmartQuery('events', this.query)
-    },
     loadMore () {
       this
         .$apollo
@@ -106,40 +103,6 @@ export default {
             })
           }
         })
-    },
-    addEvent (id) {
-      this
-        .$apollo
-        .getClient()
-        .query({
-          query: EVENTS_LIST_QUERY,
-          fetchPolicy: NO_CACHE,
-          variables: {
-            ...this.queryOptions,
-            ...{ id }
-          }
-        })
-        .then(({ data: { events } }) => {
-          this.$log.debug('Received event response from API', events)
-          if (events.length === 1) {
-            this.updateApolloCache(this.query, (cache) => {
-              cache.events.push({ ...events[0], __typename: 'Event' })
-            })
-          }
-        })
-        .catch(this.$log.error)
-    },
-    updateEvent (id, changes) {
-      this.updateApolloCache(this.query, (cache) => {
-        const event = cache.events.find(event => event.id === id)
-
-        if (event) {
-          // If you've added something to be cached in Event
-          // add those changes to cache models
-
-          Object.assign(event, new CachedEvent(changes))
-        }
-      })
     }
   }
 }

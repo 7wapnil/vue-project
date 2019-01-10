@@ -22,7 +22,7 @@ export const EVENT_FIELDS = `
   }
   start_at
   end_at
-  details @include (if: $withDetails) {
+  details {
     competitors {
       id
       name
@@ -41,5 +41,19 @@ export const EVENT_FIELDS = `
       status
     }
     finished
+  }
+`
+
+export const MARKET_FIELDS = `
+  id
+  name
+  priority
+  status
+  category
+  odds {
+    id
+    name
+    value
+    status
   }
 `

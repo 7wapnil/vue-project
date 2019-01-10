@@ -28,8 +28,8 @@
           </dl>
 
           <dl
-            v-for="scope in event.scopes"
-            :key="scope.id"
+            v-for="(scope, index) in event.scopes"
+            :key="index"
             class="row">
             <dt class="col-sm-3 text-capitalize">{{ scope.kind }}</dt>
             <dd class="col-sm-9">{{ scope.name }}</dd>
@@ -75,9 +75,7 @@
 
           <hr>
 
-          <markets-categories
-            :event="event"
-            :query-options="{limit: marketsLimit}" />
+          <markets-categories :event="event"/>
 
         </b-card>
       </div>
@@ -87,7 +85,6 @@
 
 <script>
 import { EVENT_BY_ID_QUERY } from '@/graphql'
-import { NO_CACHE } from '@/constants/graphql/fetch-policy'
 import MarketsCategories from '@/components/markets/MarketsCategories'
 import moment from 'moment'
 
@@ -101,25 +98,13 @@ export default {
       marketsLimit: 10,
     }
   },
-  sockets: {
-    eventUpdated (data) {
-      if (data.id !== this.event.id) { return }
-      this.event = {
-        ...this.event,
-        ...data.changes,
-      }
-    }
-  },
   apollo: {
     event () {
       return {
         query: EVENT_BY_ID_QUERY,
         variables: {
-          id: this.eventId,
-          withDetails: true,
-          withScopes: true
+          id: this.eventId
         },
-        fetchPolicy: NO_CACHE,
         update ({ events }) {
           if (!events.length) {
             return null
