@@ -1,6 +1,5 @@
 import { expect } from 'chai'
 import { createLocalVue, shallowMount } from '@vue/test-utils'
-import { MARKETS_LIST_QUERY } from '@/graphql'
 import {
   ACTIVE_STATUS,
   INACTIVE_STATUS,
@@ -43,27 +42,9 @@ describe('MarketsList component', () => {
 
   before(() => {
     wrapper = shallowMount(MarketsList, {
-      methods: {
-        loadMarkets: sinon.stub()
-      },
+      propsData: { event, markets },
       localVue
     })
-
-    wrapper.setProps({ event })
-    wrapper.setData({ markets })
-  })
-
-  it('builds list query', () => {
-    wrapper.setProps({
-      queryOptions: { filter: 1, limit: 10 }
-    })
-    expect(wrapper.vm.query)
-      .to
-      .deep
-      .eq({
-        query: MARKETS_LIST_QUERY,
-        variables: { filter: 1, limit: 10, eventId: 1 }
-      })
   })
 
   it('filters out specified markets by status', () => {
