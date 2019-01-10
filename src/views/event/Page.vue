@@ -84,6 +84,7 @@
 </template>
 
 <script>
+import { UNLIMITED_QUERY } from '@/constants/graphql/limits'
 import { EVENT_BY_ID_QUERY } from '@/graphql'
 import MarketsCategories from '@/components/markets/MarketsCategories'
 import moment from 'moment'
@@ -95,7 +96,7 @@ export default {
   data () {
     return {
       event: null,
-      marketsLimit: 10,
+      marketsLimit: UNLIMITED_QUERY,
     }
   },
   apollo: {
