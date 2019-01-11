@@ -1,6 +1,7 @@
 <template>
   <modal
     id="AuthModal"
+    :lazy="false"
     title="Welcome to ArcaneBet"
     title-tag="h4"
     header-class="header">
