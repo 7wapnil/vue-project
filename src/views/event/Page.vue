@@ -8,7 +8,7 @@
 
         <dl class="row">
           <dt class="col-sm-3">Sport</dt>
-          <dd class="col-sm-9">{{ event.title_name }}</dd>
+          <dd class="col-sm-9">{{ event.title.name }}</dd>
           <dt class="col-sm-3">Time</dt>
           <dd class="col-sm-9">{{ eventTime }}</dd>
         </dl>
