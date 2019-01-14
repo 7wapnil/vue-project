@@ -1,0 +1,82 @@
+@mixin stepSwitcher($main-color, $text-color){
+  .progressbar {
+    width: 80%;
+    margin: 0 auto;
+    text-align: center;
+    counter-reset: step;
+  }
+
+  .progressbar button.step-one, button.step-two {
+    cursor: pointer;
+    outline: none;
+    list-style-type: none;
+    border: none;
+    width: 50%;
+    display: inline-block;
+    font-size: 12px;
+    background-color: transparent;
+    position: relative;
+    text-align: center;
+    text-transform: uppercase;
+    color: #7d7d7d;
+  }
+
+  .progressbar button.step-one:before, button.step-two:before {
+    width: 35px;
+    height: 35px;
+    content: counter(step);
+    counter-increment: step;
+    line-height: 31px;
+    border: 3px solid #7d7d7d;
+    display: block;
+    text-align: center;
+    margin: 0 auto 10px auto;
+    border-radius: 50%;
+    background-color: white;
+  }
+
+  .progressbar button.step-two.active:after {
+    width: 70%;
+    height: 2px;
+    content: '';
+    position: absolute;
+    -webkit-transition: width 2s;
+    transition: width 2s;
+    -webkit-transition-timing-function: linear;
+    transition-timing-function: linear;
+    top: 15px;
+    left: -35%;
+    background-color: #47D469;
+  }
+
+  .progressbar button.step-two:after {
+    width: 70%;
+    height: 2px;
+    content: '';
+    position: absolute;
+    -webkit-transition: width 2s;
+    transition: width 2s;
+    -webkit-transition-timing-function: linear;
+    transition-timing-function: linear;
+    top: 15px;
+    left: -35%;
+    background-color: #7d7d7d;
+  }
+
+  .progressbar button.steps:first-child:after {
+    content: none;
+  }
+
+  .progressbar button.active.step-one, button.active.step-two {
+    color: #47D469 !important;
+  }
+
+  .progressbar button.active.step-one:before, button.active.step-two:before {
+    border-color: #47D469 !important;
+  }
+
+  .progressbar button.active.step-two + button:after {
+
+    background-color: #47D469;
+  }
+}

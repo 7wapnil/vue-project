@@ -1,0 +1,208 @@
+@import '../variables';
+
+@mixin regularInput(){
+  .input-group {
+    position: relative;
+    margin-bottom: 5px;
+
+    input {
+      display: block;
+      width: 100%;
+      height: 36px;
+      padding: 9px 12px;
+      font-size: 1rem;
+      line-height: 18px;
+      color: #3D3D3D;
+      background-color: #fff;
+      border-radius: 0 6px 0 6px !important;
+    }
+
+    input:focus {
+      outline: none;
+    }
+
+    label.text-input {
+      color: #999;
+      font-size: 1rem;
+      font-weight: normal;
+      position: absolute;
+      vertical-align: middle;
+      pointer-events: none;
+      left: 6px;
+      top: 5px;
+      transition: 0.2s ease all;
+      -moz-transition: 0.2s ease all;
+      -webkit-transition: 0.2s ease all;
+    }
+
+    input:focus ~ label.text-input, input:valid ~ label.text-input {
+      top: -20px;
+      font-size: 12px;
+      color: #FFFFFF;
+    }
+
+    .bar {
+      position: relative;
+      display: block;
+      width: 300px;
+    }
+
+    .bar:before, .bar:after {
+      content: '';
+      height: 2px;
+      width: 0;
+      bottom: 1px;
+      position: absolute;
+      background: #6c757d;
+      transition: 0.2s ease all;
+      -moz-transition: 0.2s ease all;
+      -webkit-transition: 0.2s ease all;
+    }
+
+    .bar:before {
+      left: 50%;
+    }
+
+    .bar:after {
+      right: 50%;
+    }
+
+    input:focus ~ .bar:before, input:focus ~ .bar:after {
+      width: 50%;
+    }
+
+    .highlight {
+      position: absolute;
+      height: 60%;
+      width: 100px;
+      top: 25%;
+      left: 0;
+      pointer-events: none;
+      opacity: 0.5;
+    }
+
+    /* active state */
+    input:focus ~ .highlight {
+      -webkit-animation: inputHighlighter 0.3s ease;
+      -moz-animation: inputHighlighter 0.3s ease;
+      animation: inputHighlighter 0.3s ease;
+    }
+
+    @-webkit-keyframes inputHighlighter {
+      from {
+        background: #6c757d;
+      }
+      to {
+        width: 0;
+        background: transparent;
+      }
+    }
+    @-moz-keyframes inputHighlighter {
+      from {
+        background: #6c757d;
+      }
+      to {
+        width: 0;
+        background: transparent;
+      }
+    }
+    @keyframes inputHighlighter {
+      from {
+        background: #6c757d;
+      }
+      to {
+        width: 0;
+        background: transparent;
+      }
+    }
+  }
+}
+
+@mixin selectInput(){
+  .input-group-select {
+    position: relative;
+    margin-bottom: 5px;
+
+    &.day{
+      @media (max-width: 600px) {
+        margin-bottom: 25px;
+        margin-right: 0 !important;
+      }
+
+      margin-right: 10px;
+    }
+    &.month{
+      @media (max-width: 600px) {
+        margin-right: 0 !important;
+        margin-bottom: 25px;
+      }
+      margin-right: 10px;
+    }
+  }
+  .multiselect {
+    display: block;
+    width: 100%;
+    height: 36px;
+    font-size: 1rem;
+    line-height: 18px;
+    position: relative;
+    color: #3D3D3D;
+    background-color: #fff;
+    border-radius: 0 6px 0 6px;
+
+    .multiselect__placeholder {
+      display: none;
+    }
+
+    .multiselect__option, .multiselect__input {
+      color: #3D3D3D !important;
+
+      &.multiselect__option--highlight {
+        color: #ffffff !important;
+        background: #999;
+      }
+    }
+
+    &.multiselect--active .multiselect__input {
+      width: 100% !important;
+    }
+
+    &.multiselect--active .multiselect__input:-ms-input-placeholder {
+      color: transparent;
+    }
+
+    &.multiselect--active .multiselect__input::placeholder {
+      color: transparent;
+      display: none;
+    }
+
+    .multiselect__tags {
+      font-size: 16px;
+      border: none;
+    }
+  }
+
+  .multiselect:focus {
+    outline: none;
+  }
+
+  label.select {
+    color: #999;
+    font-size: 1rem;
+    font-weight: normal;
+    position: absolute;
+    vertical-align: middle;
+    pointer-events: none;
+    left: 6px;
+    top: 8px;
+    transition: 0.2s ease all;
+    -moz-transition: 0.2s ease all;
+    -webkit-transition: 0.2s ease all;
+
+    &.up {
+      top: -20px;
+      font-size: 12px;
+      color: #FFFFFF;
+    }
+  }
+}
