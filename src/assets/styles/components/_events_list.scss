@@ -1,0 +1,27 @@
+// Events list section
+@import '../variables';
+
+.events-list-title {
+  font-size: $h4-font-size;
+}
+
+.events-list-upcoming-events-hint {
+  font-size: $small-font-size;
+  justify-self: flex-end;
+  margin-left: auto;
+  margin-right: 40px;
+}
+
+.events-list-upcoming-events-kind-btn {
+  border-radius: 4px 4px 0 4px !important;
+  background: $arc-dropdown-divider;
+  color: $arc-clr-white;
+  font-size: $h6-font-size;
+  &:hover {
+    background: $arc-clr-soil-cover;
+  }
+}
+
+.events-list-tornament {
+  font-size: $h6-font-size;
+}

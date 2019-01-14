@@ -28,11 +28,13 @@ export default {
   },
   computed: {
     titleKind () {
+      const DEFAULT_KIND = 'esports'
+
       if (this.$route.name === 'live') {
         return 'live'
       }
 
-      return this.$route.params.titleKind
+      return this.$route.params.titleKind || DEFAULT_KIND
     }
   }
 }
