@@ -12,7 +12,7 @@ const SUBSCRIPTION_FIELDS = `
 `
 
 export const EVENTS_UPDATED = gql`
-  subscription eventUpdated {
+  subscription eventsUpdated {
     events_updated {
       ${SUBSCRIPTION_FIELDS}
     }
@@ -39,6 +39,17 @@ export const TOURNAMENT_EVENT_UPDATED = gql`
   subscription tournamentEventUpdated ($tournament: ID, $live: Boolean = false) {
     tournament_event_updated (tournament: $tournament, live: $live) {
       ${SUBSCRIPTION_FIELDS}
+    }
+  }
+`
+
+export const EVENT_UPDATED = gql`
+  subscription eventUpdated ($id: ID) {
+    event_updated (id: $id) {
+      ${EVENT_FIELDS}
+      scopes {
+        ${SCOPE_FIELDS}
+      }
     }
   }
 `
