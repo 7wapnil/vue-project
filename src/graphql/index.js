@@ -1,6 +1,7 @@
 export * from './app'
 export * from './titles'
 export * from './events'
+export * from './events-subscriptions'
 export * from './markets'
 export * from './documents'
 export * from './user'

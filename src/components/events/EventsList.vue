@@ -32,7 +32,13 @@
 </template>
 
 <script>
-import { EVENTS_LIST_QUERY } from '@/graphql'
+import {
+  EVENTS_LIST_QUERY,
+  KIND_EVENT_UPDATED,
+  SPORT_EVENT_UPDATED,
+  TOURNAMENT_EVENT_UPDATED
+} from '@/graphql'
+import { updateCacheList } from '@/helpers/graphql'
 
 export default {
   props: {
@@ -55,7 +61,35 @@ export default {
   },
   apollo: {
     events () {
-      return this.query
+
+      let subscription = null
+      let variables = { live: this.live }
+
+      if (this.tournamentId) {
+        subscription = TOURNAMENT_EVENT_UPDATED
+        variables.tournament = this.tournamentId
+      } else if (this.titleId) {
+        subscription = SPORT_EVENT_UPDATED
+        variables.title = this.titleId
+      } else {
+        subscription = KIND_EVENT_UPDATED
+        variables.kind = this.$route.params.titleKind
+      }
+
+      return {
+        ...this.query,
+        subscribeToMore: {
+          document: subscription,
+          variables,
+          updateQuery ({ events }, { subscriptionData }) {
+            const endpoint = Object.keys(subscriptionData.data)[0]
+
+            return {
+              events: updateCacheList(events, subscriptionData.data[endpoint])
+            }
+          }
+        }
+      }
     }
   },
   data () {
