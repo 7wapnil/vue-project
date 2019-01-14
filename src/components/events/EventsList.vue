@@ -61,7 +61,6 @@ export default {
   },
   apollo: {
     events () {
-
       let subscription = null
       let variables = { live: this.live }
 
