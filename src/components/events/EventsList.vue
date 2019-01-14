@@ -4,14 +4,52 @@
     class="p-4"
     body-class="events-card-body">
     <div>
-      <b-card
-        v-for="event in events"
-        :key="event.id"
-        no-body>
+      <div
+        v-for="title in groupedEvents"
+        :key="title.name"
+        class="mb-4">
+        <header
+          v-if="!titleId"
+          class="d-flex pl-2">
+          <h2 class="events-list-title font-weight-light">
+            <icon
+              class="text-arc-clr-esport-glow px-3"
+              name="sidemenu-game-icon"
+              size="24px"/>
+            {{ title.name }}
+          </h2>
+          <span class="align-self-center events-list-upcoming-events-hint">
+            1 event starts in 20min
+          </span>
+          <button class="btn border-0 d-flex events-list-upcoming-events-kind-btn">
+            {{ title.name }} upcoming
+            <icon
+              class="align-self-center text-arc-clr-esport-glow pl-4"
+              name="arrow-right"
+              size="12px"/>
+          </button>
+        </header>
 
-        <slot :event="event"/>
+        <div
+          v-for="tournament in title.tournaments"
+          :key="tournament.id"
+          class="pt-4">
+          <h3
+            v-if="!tournamentId"
+            class="pl-4 text-arc-clr-gold events-list-tornament">
+            {{ tournament.name }}
+          </h3>
+          <div>
+            <b-card
+              v-for="event in tournament.events"
+              :key="event.id"
+              no-body>
+              <slot :event="event"/>
+            </b-card>
+          </div>
+        </div>
 
-      </b-card>
+      </div>
     </div>
 
     <loader v-if="loading"/>
@@ -21,13 +59,13 @@
       class="text-center">
       <h6>No events found</h6>
     </div>
-    <button
+    <!-- <button
       v-if="events.length"
       :disabled="!canLoadMore"
       class="btn btn-arc-clr-soil-cover mb-2 mx-1"
       @click="loadMore">
       {{ canLoadMore ? 'Load More' : 'Nothing to Load' }}
-    </button>
+    </button> -->
   </b-card>
 </template>
 
@@ -62,7 +100,7 @@ export default {
     return {
       loading: 0,
       events: [],
-      canLoadMore: true
+      // canLoadMore: true
     }
   },
   computed: {
@@ -80,30 +118,65 @@ export default {
           limit: 10
         }
       }
+    },
+    groupedEvents () {
+      const groupedEvents = [];
+
+      this.events.forEach(event => {
+        const currentTitleIndex = groupedEvents.findIndex(title => title.name === event.title.name);
+
+        if (currentTitleIndex > -1) {
+          const currentTournamentIndex = groupedEvents[currentTitleIndex]
+            .tournaments
+            .findIndex(tournament => tournament.id === event.tournament.id);
+
+          if (currentTournamentIndex > -1) {
+            groupedEvents[currentTitleIndex]
+              .tournaments[currentTournamentIndex]
+              .events.push(event)
+          } else {
+            groupedEvents[currentTitleIndex]
+              .tournaments.push({
+                ...event.tournament,
+                events: [event]
+              })
+          }
+        } else {
+          groupedEvents.push({
+            ...event.title,
+            tournaments: [{
+              ...event.tournament,
+              events: [event]
+            }]
+          })
+        }
+      })
+
+      return groupedEvents
     }
   },
-  methods: {
-    loadMore () {
-      this
-        .$apollo
-        .queries
-        .events
-        .fetchMore({
-          variables: {
-            offset: this.events.length
-          },
-          updateQuery: (prevResult, { fetchMoreResult: { events } }) => {
-            this.updateApolloCache(this.query, (cache) => {
-              if (events.length < this.query.variables.limit) {
-                this.canLoadMore = false
-              }
-              events.forEach(event =>
-                cache.events.push({ ...event, __typename: 'Event' })
-              )
-            })
-          }
-        })
-    }
-  }
+  // methods: {
+  //   loadMore () {
+  //     this
+  //       .$apollo
+  //       .queries
+  //       .events
+  //       .fetchMore({
+  //         variables: {
+  //           offset: this.events.length
+  //         },
+  //         updateQuery: (prevResult, { fetchMoreResult: { events } }) => {
+  //           this.updateApolloCache(this.query, (cache) => {
+  //             if (events.length < this.query.variables.limit) {
+  //               this.canLoadMore = false
+  //             }
+  //             events.forEach(event =>
+  //               cache.events.push({ ...event, __typename: 'Event' })
+  //             )
+  //           })
+  //         }
+  //       })
+  //   }
+  // }
 }
 </script>
