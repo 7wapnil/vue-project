@@ -29,12 +29,12 @@
       <!-- UPCOMING EVENTS LINK END-->
     </header>
     <!-- SPORT GROUP HEADER END -->
-    
+
     <!-- TOURNAMENTS LIST -->
     <tournament-group
       v-for="x in 2"
-      :key="x"/>
-    <!-- TOURNAMENTS END -->
+      :key="x" />
+      <!-- TOURNAMENTS END -->
   </div>
 </template>
 <script>
@@ -46,4 +46,3 @@ export default {
   }
 }
 </script>
-

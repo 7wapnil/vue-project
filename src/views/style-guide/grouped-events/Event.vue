@@ -105,14 +105,14 @@
 import EventMarkets from './EventMarkets.vue'
 
 export default {
+  components: {
+    EventMarkets
+  },
   props: {
     withDraw: {
       type: Boolean,
       default: false,
     }
-  },
-  components: {
-    EventMarkets
   }
 }
 </script>

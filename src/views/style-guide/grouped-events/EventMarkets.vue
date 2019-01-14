@@ -36,7 +36,9 @@
         class="mr-2 text-truncate market-odd">
         <b-row no-gutters>
           <b-col class="px-1 mb-1 text-center text-truncate">
-            <small class="text-arc-clr-iron" style="opacity: .4">
+            <small
+              class="text-arc-clr-iron"
+              style="opacity: .4">
               <strong>Draw</strong>
             </small>
           </b-col>
