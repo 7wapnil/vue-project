@@ -21,13 +21,15 @@
           <span class="align-self-center events-list-upcoming-events-hint">
             1 event starts in 20min
           </span>
-          <button class="btn border-0 d-flex events-list-upcoming-events-kind-btn">
+          <b-button
+            variant="arc-events-list-upcoming"
+            class="border-0 d-flex">
             {{ title.name }} upcoming
             <icon
               class="align-self-center text-arc-clr-esport-glow pl-4"
               name="arrow-right"
               size="12px"/>
-          </button>
+          </b-button>
         </header>
 
         <div
