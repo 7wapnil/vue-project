@@ -9,7 +9,7 @@
       md="12"
       class="mr-auto ml-auto ml-3"
       block>
-      <div class="p-2 mt-2 mb-2 text-center bg-arc-clr-soil-light"> {{ responseText }}</div>
+      <div class="p-2 my-2 text-center bg-arc-clr-soil-light"> {{ responseText }}</div>
     </b-col>
   </b-row>
 </template>
