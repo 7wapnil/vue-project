@@ -9,7 +9,7 @@
     </span>
 
     <b-link
-      v-if="!hasChildren"
+      v-if="!hasChildren && item.to"
       :to="item.to">
       <item-content
         :item="item"

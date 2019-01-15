@@ -1,12 +1,14 @@
 export const TITLE_FIELDS = `
   id
   name
+  show_category_in_navigation
 `
 
 export const SCOPE_FIELDS = `
   id
   name
   kind
+  event_scope_id
 `
 
 export const EVENT_FIELDS = `
