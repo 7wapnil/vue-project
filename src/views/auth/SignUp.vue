@@ -453,10 +453,3 @@ export default {
   },
 }
 </script>
-<style lang="scss">
-    @import "../../assets/styles/components/step_switcher";
-    @include stepSwitcher(#47D469,#7d7d7d)
-    .form-check-label {
-        margin-left: 10px;
-    }
-</style>

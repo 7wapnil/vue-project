@@ -7,16 +7,14 @@
       lg="10"
       class="mr-auto ml-auto ml-3"
       block>
-      <div class="input-group">
+      <div class="input-group-custom">
         <b-form-input
-          id=""
           :type="type"
           v-model="content"
+          class="bg-arc-clr-white"
           required
           autocomplete="off"
           @input="handleInput"/>
-        <span
-          class="highlight"/>
         <span
           v-if="bottomBar"
           class="bar"/>
@@ -85,6 +83,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "../../assets/styles/components/input";
 @include regularInput();
 </style>

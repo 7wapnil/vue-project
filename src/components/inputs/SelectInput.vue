@@ -8,6 +8,7 @@
       :type="type"
       v-model="content"
       :show-labels="false"
+      class="bg-arc-clr-white"
       required
       open-direction="bottom"
       autocomplete="off"
@@ -90,6 +91,5 @@ export default {
 
 <style lang="scss">
 @import "../../../node_modules/vue-multiselect/dist/vue-multiselect.min.css";
-@import "../../assets/styles/components/input";
 @include selectInput();
 </style>

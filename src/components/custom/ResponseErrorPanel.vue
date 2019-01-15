@@ -9,7 +9,7 @@
       md="12"
       class="mr-auto ml-auto ml-3"
       block>
-      <div class="main-body-error"> {{ responseText }}</div>
+      <div class="p-2 mt-2 mb-2 text-center bg-arc-clr-soil-light"> {{ responseText }}</div>
     </b-col>
   </b-row>
 </template>
@@ -25,12 +25,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss">
-.main-body-error {
-    background-color: #7d7d7d;
-    border-radius: 4px;
-    padding: 10px;
-    margin: 10px 0;
-}
-</style>

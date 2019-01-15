@@ -76,7 +76,7 @@
 import InputComponent from '@/components/inputs/RegularInput.vue'
 import VueRecaptcha from 'vue-recaptcha'
 import { mapGetters, mapActions } from 'vuex'
-import ResponseErrorPanel from '../../components/custom/ResponseErrorPanel.vue'
+import ResponseErrorPanel from '@/components/custom/ResponseErrorPanel.vue'
 
 export default {
   components: {
