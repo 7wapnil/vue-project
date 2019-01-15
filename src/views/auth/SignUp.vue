@@ -1,295 +1,261 @@
 <template>
-  <form @submit.prevent="submit">
+  <form @submit.prevent="submit()">
     <div
       v-show="isCurrentStep(1)"
-      class="step">
-      <b-row no-gutters>
+      class="step"
+    >
+      <input-component
+        id="signup-username"
+        :feedback="inputFeedback['username']"
+        v-model="fieldsStepOne.username"
+        type="text"
+        label="Username"
+        bottom-bar
+        aria-describedby="inputFeedbackUsername"
+        feedback-id="inputFeedbackUsername"
+      />
+      <input-component
+        id="signup-email"
+        :feedback="inputFeedback['email']"
+        v-model="fieldsStepOne.email"
+        type="text"
+        label="Email"
+        bottom-bar
+        aria-describedby="inputFeedbackEmail"
+        feedback-id="inputFeedbackEmail"
+      />
+      <b-row
+        align-h="center"
+        no-gutters
+        class="mt-4">
         <b-col
-          sm="3"
-          align="right"
-          class="mt-2 mr-3">
-          <label for="signup-username">
-            Username
-          </label>
+          lg="3"
+          md="1">
+          <select-component
+            id="signup-day"
+            :options="getDays()"
+            :feedback="inputFeedback['date_of_birth']"
+            v-model="helpFields.day"
+            class-name="day"
+            type="select"
+            label="Day"
+            bottom-bar
+            aria-describedby="inputFeedbackDateOfBirth"
+            feedback-id="inputFeedbackDateOfBirth"
+          />
         </b-col>
-        <b-col cols="6">
-          <b-form-input
-            id="signup-username"
-            v-model="fields.username"
-            :state="getState('username')"
-            type="text"
-            aria-describedby="inputFeedbackUsername"
-            required/>
-          <b-form-invalid-feedback
-            id="inputFeedbackUsername"
-            :invalid-feedback="errors.username"/>
+        <b-col lg="4">
+          <select-component
+            id="signup-month"
+            :options="getMonths()"
+            v-model="helpFields.month"
+            type="select"
+            class-name="month"
+            label="Month"
+            bottom-bar
+            aria-describedby="inputFeedbackDateOfBirth"
+            feedback-id="inputFeedbackDateOfBirth"
+          />
+        </b-col>
+        <b-col
+          md="2"
+          lg="3">
+          <select-component
+            id="signup-year"
+            :options="getYears()"
+            v-model="helpFields.year"
+            type="select"
+            class-name="year"
+            label="Year"
+            bottom-bar
+            aria-describedby="inputFeedbackDateOfBirth"
+            feedback-id="inputFeedbackDateOfBirth"
+          />
         </b-col>
       </b-row>
+      <input-component
+        id="signup-password"
+        :feedback="inputFeedback['password']"
+        v-model="fieldsStepOne.password"
+        type="password"
+        label="Password"
+        bottom-bar
+        aria-describedby="inputFeedbackPassword"
+        feedback-id="inputFeedbackPassword"
+      />
+      <input-component
+        id="signup-password-confirmation"
+        :feedback="inputFeedback['password_confirmation']"
+        v-model="fieldsStepOne.password_confirmation"
+        type="password"
+        label="Password Confirmation"
+        bottom-bar
+        aria-describedby="inputFeedbackPasswordConfirmation"
+        feedback-id="inputFeedbackPasswordConfirmation"
+      />
       <b-row
         no-gutters
         class="mt-4">
         <b-col
-          sm="3"
-          align="right"
-          class="mt-2 mr-3">
-          <label for="signup-email">
-            Email
-          </label>
-        </b-col>
-        <b-col cols="6">
-          <b-form-input
-            id="signup-email"
-            v-model="fields.email"
-            :state="getState('email')"
-            type="text"
-            aria-describedby="inputFeedbackEmail"
-            required/>
-          <b-form-invalid-feedback
-            id="inputFeedbackEmail"
-            :invalid-feedback="errors.email"/>
-        </b-col>
-      </b-row>
-      <b-row
-        no-gutters
-        class="mt-4">
-        <b-col
-          sm="3"
-          align="right"
-          class="mt-2 mr-3">
-          <label for="signup-date_of_birth">
-            Birth Date
-          </label>
-        </b-col>
-        <b-col cols="6">
-          <flat-pickr
-            id="signup-date_of_birth"
-            v-model="fields.date_of_birth"
-            :config="datePickerConfig"
-            :class="{'is-invalid': getState('date_of_birth') === false}"
-            class="form-control"/>
-          <b-form-invalid-feedback
-            id="inputFeedbackBirthday"
-            :invalid-feedback="errors.date_of_birth"/>
-        </b-col>
-      </b-row>
-      <b-row
-        no-gutters
-        class="mt-4">
-        <b-col
-          sm="3"
-          align="right"
-          class="mt-2 mr-3">
-          <label for="signup-password">
-            Password
-          </label>
-        </b-col>
-        <b-col cols="6">
-          <b-form-input
-            id="signup-password"
-            v-model="fields.password"
-            :state="getState('password')"
-            type="password"
-            aria-describedby="inputFeedbackPassword"
-            required/>
-          <b-form-invalid-feedback
-            id="inputFeedbackPassword"
-            :invalid-feedback="errors.password"/>
-        </b-col>
-      </b-row>
-      <b-row
-        no-gutters
-        class="mt-4">
-        <b-col
-          sm="3"
-          align="right"
-          class="mt-2 mr-3">
-          <label for="signup-password-confirmation">
-            Password confirmation
-          </label>
-        </b-col>
-        <b-col cols="6">
-          <b-form-input
-            id="signup-password-confirmation"
-            v-model="fields.password_confirmation"
-            :state="getState('password_confirmation')"
-            type="password"
-            aria-describedby="inputFeedbackPasswordConfirmation"
-            required/>
-          <b-form-invalid-feedback
-            id="inputFeedbackPasswordConfirmation"
-            :invalid-feedback="errors.password_confirmation"/>
-        </b-col>
-      </b-row>
-
-      <b-row
-        no-gutters
-        class="mt-4">
-        <b-col
-          sm="3"
-          align="right"
-          class="mt-2 mr-3">
-          <label for="signup-country">
-            Country
-          </label>
-        </b-col>
-        <b-col cols="6">
-          <b-form-select
+          lg="10"
+          md="12"
+          class="mr-auto ml-auto ml-3"
+          block>
+          <select-component
             id="signup-country"
-            :options="countries"
-            v-model="fields.country"
-            :state="getState('country')"
-            aria-describedby="inputFeedbackPasswordConfirmation"
-            required/>
-          <b-form-invalid-feedback
-            id="inputFeedbackCountry"
-            :invalid-feedback="errors.country"/>
+            :options="getCountries()"
+            :feedback="inputFeedback['country']"
+            v-model="fieldsStepOne.country"
+            type="select"
+            label="Country"
+            bottom-bar
+            aria-describedby="inputFeedbackCountry"
+            feedback-id="inputFeedbackCountry"
+          />
         </b-col>
       </b-row>
-
-      <b-row v-if="tooYoung">
-        <b-col
-          align="center"
-          class="my-4">
-          You should be adult to continue signing up
-        </b-col>
-      </b-row>
-
-      <b-row no-gutters>
-        <b-col
-          cols="6"
-          class="mr-auto ml-auto">
-          <b-button
-            :disabled="uncompletedStep || tooYoung"
-            class="ml-3"
-            block
-            @click.prevent="nextStep">
-            Continue
-          </b-button>
-        </b-col>
-      </b-row>
+      <response-panel :response-text="feedback"/>
     </div>
     <div
       v-show="isCurrentStep(2)"
-      class="step">
-      <b-form-group
-        :state="getState('first_name')"
-        :invalid-feedback="errors.first_name"
-        label="First name">
-        <b-form-input
-          id="first_name"
-          v-model="fields.first_name"
-          :state="getState('first_name')"
-          required
-          @keypress.native="filterAlphabeticalCharacters"/>
-      </b-form-group>
-      <b-form-group
-        :state="getState('last_name')"
-        :invalid-feedback="errors.last_name"
-        label="Last name">
-        <b-form-input
-          id="last_name"
-          v-model="fields.last_name"
-          :state="getState('last_name')"
-          required
-          @keypress.native="filterAlphabeticalCharacters"/>
-      </b-form-group>
+      class="step"
+    >
+      <input-component
+        id="signup-first_name"
+        :feedback="inputFeedback['first_name']"
+        v-model="fieldsStepTwo.first_name"
+        type="text"
+        label="First Name"
+        bottom-bar
+        aria-describedby="inputFeedbackFirstName"
+        feedback-id="inputFeedbackFirstName"
+      />
+      <input-component
+        id="signup-last_name"
+        :feedback="inputFeedback['last_name']"
+        v-model="fieldsStepTwo.last_name"
+        type="text"
+        label="Last Name"
+        bottom-bar
+        aria-describedby="inputFeedbackLastName"
+        feedback-id="inputFeedbackLastName"
+      />
+      <radio-button
+        id="gender"
+        :options="genders"
+        v-model="fieldsStepTwo.gender"
+        label="Gender"
+        required/>
 
-      <b-form-group
-        :state="getState('gender')"
-        :invalid-feedback="errors.gender"
-        label="Gender">
-        <b-form-radio-group
-          id="gender"
-          :options="genders"
-          v-model="fields.gender"
-          :state="getState('gender')"
-          required/>
-      </b-form-group>
+      <input-component
+        v-mask="'+############'"
+        id="signup-phone"
+        :feedback="inputFeedback['phone']"
+        v-model="fieldsStepTwo.phone"
+        :value-init="fieldsStepTwo.phone"
+        type="tel"
+        label="Phone Number"
+        bottom-bar
+        aria-describedby="inputFeedbackPhone"
+        feedback-id="inputFeedbackPhone"
+      />
+      <input-component
+        id="signup-street_address"
+        :feedback="inputFeedback['street_address']"
+        v-model="fieldsStepTwo.street_address"
+        type="text"
+        label="Street address"
+        bottom-bar
+      />
+      <input-component
+        id="signup-zip_code"
+        :feedback="inputFeedback['zip_code']"
+        v-model="fieldsStepTwo.zip_code"
+        type="text"
+        label="Postal Code"
+        bottom-bar/>
+      <input-component
+        id="signup-city"
+        :feedback="inputFeedback['city']"
+        v-model="fieldsStepTwo.city"
+        type="text"
+        label="City"
+        bottom-bar/>
 
-      <b-form-group
-        :state="getState('phone')"
-        :invalid-feedback="errors.phone"
-        label="Phone number">
-        <b-form-input
-          id="phone"
-          :v-mask="'+############'"
-          v-model="fields.phone"
-          :state="getState('phone')"
-          required
-          @keypress.native="filterPhoneNumberCharacters"/>
-      </b-form-group>
-      <span v-show="!isValidPhone">Invalid phone number.</span>
-
-      <b-form-group
-        :state="getState('street_address')"
-        :invalid-feedback="errors.street_address"
-        label="Street address">
-        <b-form-input
-          id="street_address"
-          v-model="fields.street_address"
-          :state="getState('street_address')"
-          required/>
-      </b-form-group>
-
-      <b-form-group
-        :state="getState('zip_code')"
-        :invalid-feedback="errors.zip_code"
-        label="Postal Code">
-        <b-form-input
-          id="zip_code"
-          v-model="fields.zip_code"
-          :state="getState('zip_code')"/>
-      </b-form-group>
-
-      <b-form-group
-        :state="getState('city')"
-        :invalid-feedback="errors.city"
-        label="City">
-        <b-form-input
-          id="city"
-          v-model="fields.city"
-          :state="getState('city')"
-          required/>
-      </b-form-group>
-
-      <b-form-group
-        :state="getState('state')"
-        :invalid-feedback="errors.state"
-        label="Province">
-        <b-form-input
-          id="state"
-          v-model="fields.state"
-          :state="getState('state')"/>
-      </b-form-group>
-
-      <b-form-group>
-        <b-form-checkbox
-          v-model="fields.agreed_with_promotional"
-          plain>
-          I agree to receive promotional content
-        </b-form-checkbox>
-      </b-form-group>
-
-      <b-form-group>
-        <b-form-checkbox
-          v-model="agree"
-          plain>
-          Confirm I am not underage, agree with T&C, agree with privacy policy
-        </b-form-checkbox>
-      </b-form-group>
-      <button
-        :disabled="submitting"
-        class="btn btn-dark btn-block"
-        @click.prevent="previousStep">
-        Back
-      </button>
+      <input-component
+        id="signup-state"
+        :feedback="inputFeedback['state']"
+        v-model="fieldsStepTwo.state"
+        type="text"
+        label="Province"
+        bottom-bar
+      />
+      <b-row
+        no-gutters
+        class="mt-4">
+        <b-col
+          md="12"
+          lg="10"
+          class="mr-auto ml-auto ml-3"
+          block>
+          <b-form-group>
+            <b-form-checkbox
+              v-model="fieldsStepTwo.agreed_with_promotional"
+              plain>
+              I agree to receive promotional content
+            </b-form-checkbox>
+          </b-form-group>
+        </b-col>
+      </b-row>
+      <b-row
+        no-gutters
+        class="mt-4">
+        <b-col
+          md="12"
+          lg="10"
+          class="mr-auto ml-auto ml-3"
+          block>
+          <b-form-group>
+            <b-form-checkbox
+              v-model="agree"
+              plain>
+              Confirm I am not underage, agree with T&C, agree with privacy policy
+            </b-form-checkbox>
+          </b-form-group>
+        </b-col>
+      </b-row>
       <button
         :disabled="submitting || ! agree"
         type="submit"
-        class="btn btn-dark btn-block">
+        class="btn btn-dark btn-block"
+        @click.prevent="submit()">
         Register
       </button>
+      <response-panel :response-text="feedback"/>
     </div>
+    <b-row
+      class="mt-4 mr-auto ml-auto"
+      no-gutters>
+      <b-col
+        lg="8"
+        class="mr-auto ml-auto">
+        <div class="progressbar">
+          <button
+            :class="{'active' : isCurrentStep(1) || isCurrentStep(2)}"
+            class="step-one"
+            block
+            @click="previousStep()">Personal Information
+          </button>
+          <button
+            :class="{'active' : isCurrentStep(2)}"
+            class="step-two"
+            @click="nextStep()">Contact
+            Information
+          </button>
+        </div>
+      </b-col>
+    </b-row>
+
     <b-row no-gutters>
       <b-col
         align="center"
@@ -300,26 +266,26 @@
       </b-col>
     </b-row>
   </form>
+
 </template>
 
 <script>
-import flatPickr from 'vue-flatpickr-component'
-import 'flatpickr/dist/flatpickr.css'
 import moment from 'moment'
-import formsMixin from '@/mixins/forms'
-import { countries } from 'countries-list'
 import { mask } from 'vue-the-mask'
-import { parsePhoneNumber } from 'libphonenumber-js'
+import { countries } from 'countries-list'
+import RegularInput from '@/components/inputs/RegularInput.vue'
+import SelectInput from '@/components/inputs/SelectInput.vue'
+import RadioButton from '@/components/inputs/RadioButton.vue'
+import ResponseErrorPanel from '@/components/custom/ResponseErrorPanel.vue'
 
 export default {
   components: {
-    flatPickr
+    'input-component': RegularInput,
+    'select-component': SelectInput,
+    'radio-button': RadioButton,
+    'response-panel': ResponseErrorPanel
   },
-  directives: {
-    mask
-  },
-
-  mixins: [formsMixin],
+  directives: { mask },
   props: {
     modalName: {
       type: String,
@@ -329,21 +295,21 @@ export default {
   data () {
     return {
       agree: false,
-      countries:
-        Object.values(countries).map(country => country.name).sort(this.sortAlphabetically),
       genders: [
         { value: 'male', text: 'Male' },
         { value: 'female', text: 'Female' }
       ],
-      fields: {
-        username: '',
-        email: '',
+      errorMessages: {
+        emptyFieldsError: 'Please fill all the fields.',
+        ageError: 'You must be 18 years old to proceed.',
+        passwordsNotMatchingError: 'Password does not match the confirm password.',
+        dateError: 'Please provide valid date.'
+      },
+      inputFeedback: {},
+      feedback: '',
+      fieldsStepTwo: {
         first_name: '',
         last_name: '',
-        date_of_birth: this.dateOfBirthMax(),
-        password: '',
-        password_confirmation: '',
-        country: '',
         gender: 'male',
         phone: '',
         street_address: '',
@@ -351,6 +317,19 @@ export default {
         state: '',
         zip_code: '',
         agreed_with_promotional: false,
+      },
+      fieldsStepOne: {
+        username: '',
+        email: '',
+        date_of_birth: '',
+        password: '',
+        password_confirmation: '',
+        country: '',
+      },
+      helpFields: {
+        day: '',
+        month: '',
+        year: '',
       },
       step: 1,
       steps: {
@@ -362,90 +341,96 @@ export default {
           fields: ['first_name', 'last_name', 'gender', 'phone', 'street_address', 'city']
         }
       },
-      datePickerConfig: {
-        altInput: true,
-        dateFormat: 'Y-m-d',
-        altFormat: 'j F Y',
-        maxDate: this.dateOfBirthMax()
-      },
       submitting: false
     }
   },
   computed: {
-    uncompletedStep () {
-      const requiredFields = this.steps[this.step].fields
-
-      return requiredFields.some(fieldName => !this.fields[fieldName])
-    },
-
     tooYoung () {
-      return moment().diff(this.fields.date_of_birth, 'years') < 18
+      let dateOfBirth = this.helpFields.year + '-' + this.helpFields.month + '-' + this.helpFields.day
+      return moment().diff(dateOfBirth, 'years') < 18
     },
-
-    isValidPhone () {
-      let number = this.fields.phone
-      if (number.indexOf('+') === -1) number = `+${number}`
-      try {
-        const phoneNumber = parsePhoneNumber(number)
-        return phoneNumber.isValid()
-      } catch (err) {
-        return false
+  },
+  watch: {
+    'fieldsStepOne.country': function (countryName) {
+      const country = Object.values(countries).find(country => country.name === countryName)
+      this.fieldsStepTwo.phone = country ? `+${country.phone}` : '+'
+    },
+    'fieldsStepTwo.phone': function (phoneNumber) {
+      if (phoneNumber.indexOf('+') !== 0) {
+        this.fieldsStepTwo.phone = `+${this.fieldsStepTwo.phone}`
+        return this.fieldsStepTwo.phone
       }
     }
   },
-
-  watch: {
-    'fields.country': function (countryName) {
-      const country = Object.values(countries).find(country => country.name === countryName)
-      if (!this.isValidPhone) this.fields.phone = country ? `+${country.phone}` : '+'
-    },
-    'fields.phone': function (phoneNumber) {
-      if (phoneNumber.indexOf('+') !== 0) this.fields.phone = `+${this.fields.phone}`
-    }
-  },
-
   methods: {
-    dateOfBirthMax () {
-      return moment().subtract(18, 'years').format('YYYY-MM-DD')
+    getMonths () {
+      return moment.months()
+    },
+    getYears () {
+      let eighteenYearsAgo = moment().subtract(18, 'years').format('YYYY')
+      let startYear = moment().subtract(100, 'years').format('YYYY')
+      let years = []
+      while (startYear <= eighteenYearsAgo) {
+        years.push(startYear++)
+      }
+      return years.reverse()
+    },
+    getDays () {
+      return Array.from({ length: moment().daysInMonth() }, (v, k) => k + 1)
+    },
+    composeDOB () {
+      for (let key in this.helpFields) {
+        if (this.helpFields[key] === null || this.helpFields[key] === '') { return false }
+      }
+
+      this.fieldsStepOne.date_of_birth = this.helpFields.year + '-' +
+          '0' + moment().month(this.helpFields.month).format('M') + '-' +
+          this.helpFields.day
+      return this.fieldsStepOne.date_of_birth
+    },
+    getCountries () {
+      return Object.values(countries).map(country => country.name).sort()
+    },
+    errorHandling () {
+      if (this.steps[this.step].fields.some(fieldName => !this.fieldsStepOne[fieldName])) {
+        this.feedback = this.errorMessages.emptyFieldsError
+        return false
+      } else if (this.tooYoung) {
+        this.feedback = this.errorMessages.ageError
+        return false
+      } else if (this.fieldsStepOne.password !== this.fieldsStepOne.password_confirmation) {
+        this.feedback = this.errorMessages.passwordsNotMatchingError
+        return false
+      } else if (!moment(this.fieldsStepOne.date_of_birth).isValid()) {
+        this.feedback = this.errorMessages.dateError
+        return false
+      } else {
+        return true
+      }
     },
     nextStep () {
-      this.step++
+      this.composeDOB()
+      if (this.errorHandling()) {
+        this.feedback = ''
+        this.step++
+      }
     },
     previousStep () {
-      this.step--
+      if (!this.isCurrentStep(1)) {
+        this.step--
+      }
     },
     isCurrentStep (stepNumber) {
       return this.step === stepNumber
-    },
-    sortAlphabetically (a, b) {
-      if (a < b) return -1
-      if (a > b) return 1
-      return 0
-    },
-    filterPhoneNumberCharacters (event) {
-      const inputValue = event.which
-      const allowedSpecChars = [32, 40, 41, 45];
-      // Prevent all except [0..9()+- ]
-      if (!(inputValue >= 48 && inputValue <= 57) && (allowedSpecChars.indexOf(inputValue) === -1)) {
-        event.preventDefault()
-      }
-    },
-    filterAlphabeticalCharacters (event) {
-      const inputValue = event.which
-      const allowedSpecChars = [32, 45, 46];
-      // Prevent all except [A..Za..z -.]
-      if (!(inputValue >= 65 && inputValue <= 122) && (allowedSpecChars.indexOf(inputValue) === -1)) {
-        event.preventDefault()
-      }
     },
     close () {
       this.$root.$emit('bv::hide::modal', this.modalName)
     },
     submit () {
-      this.clearErrors()
-      const input = this.fields
+      this.inputFeedback = {}
+      this.feedback = ''
+      const input = { ...this.fieldsStepOne, ...this.fieldsStepTwo }
       this.submitting = true
-
       this.$store.dispatch('registerNewUser', input)
         .then(({ data: { signUp } }) => {
           this.$store.dispatch('login', signUp)
@@ -454,7 +439,11 @@ export default {
         })
         .catch((err) => {
           if (err.graphQLErrors && err.graphQLErrors.length) {
-            this.$noty.warning(err.graphQLErrors[0].message)
+            if (this.fieldsStepOne[err.graphQLErrors[0].path]) {
+              this.previousStep()
+            }
+            this.inputFeedback[err.graphQLErrors[0].path] = err.graphQLErrors[0].message
+            this.feedback = err.graphQLErrors[0].message
           }
         })
         .finally(() => {

@@ -1,51 +1,26 @@
 <template>
   <form @submit.prevent="submit">
-    <b-row no-gutters>
-      <b-col
-        sm="3"
-        align="right"
-        class="mt-2 mr-3">
-        <label for="login-username">
-          Username
-        </label>
-      </b-col>
-      <b-col cols="6">
-        <b-form-input
-          id="login-username"
-          v-model="fields.login"
-          :state="getState('login')"
-          type="text"
-          aria-describedby="inputFeedbackUser"
-          required/>
-        <b-form-invalid-feedback
-          id="inputFeedbackUser"
-          :invalid-feedback="errors.username"/>
-      </b-col>
-    </b-row>
-    <b-row
-      class="mt-4"
-      no-gutters>
-      <b-col
-        sm="3"
-        align="right"
-        class="mt-2 mr-3">
-        <label for="login-password">
-          Password
-        </label>
-      </b-col>
-      <b-col cols="6">
-        <b-form-input
-          id="login-password"
-          v-model="fields.password"
-          :state="getState('password')"
-          type="password"
-          aria-describedby="inputFeedbackPassword"
-          required/>
-        <b-form-invalid-feedback
-          id="inputFeedbackPassword"
-          :invalid-feedback="errors.password"/>
-      </b-col>
-    </b-row>
+    <input-component
+      id="login-username"
+      :feedback="inputFeedback['username']"
+      v-model="fields.username"
+      class-name="username"
+      type="text"
+      label="Username"
+      bottom-bar
+      aria-describedby="inputFeedbackUsername"
+      feedback-id="inputFeedbackUser"
+    />
+    <input-component
+      id="login-password"
+      :feedback="inputFeedback['password']"
+      v-model="fields.password"
+      type="password"
+      label="Password"
+      bottom-bar
+      aria-describedby="inputFeedbackPassword"
+      feedback-id="inputFeedbackPassword"
+    />
     <b-row
       v-if="isSuspicious"
       class="mt-4"
@@ -73,13 +48,14 @@
         </div>
       </b-col>
     </b-row>
+    <response-panel :response-text="feedback"/>
     <b-row no-gutters>
       <b-col
         cols="6"
         class="mr-auto ml-auto">
         <b-button
           :disabled="submitting"
-          class="my-4 ml-3"
+          class="my-4"
           block
           type="submit">
           Sign in
@@ -97,13 +73,17 @@
 </template>
 
 <script>
-import formsMixin from '@/mixins/forms'
+import InputComponent from '@/components/inputs/RegularInput.vue'
 import VueRecaptcha from 'vue-recaptcha'
 import { mapGetters, mapActions } from 'vuex'
+import ResponseErrorPanel from '@/components/custom/ResponseErrorPanel.vue'
 
 export default {
-  components: { VueRecaptcha },
-  mixins: [formsMixin],
+  components: {
+    VueRecaptcha,
+    'input-component': InputComponent,
+    'response-panel': ResponseErrorPanel
+  },
   props: {
     modalName: {
       type: String,
@@ -112,6 +92,8 @@ export default {
   },
   data () {
     return {
+      inputFeedback: {},
+      feedback: '',
       fields: {
         login: '',
         password: '',
@@ -141,8 +123,6 @@ export default {
       this.fields.captcha = ''
     },
     submit () {
-      this.clearErrors()
-
       if (this.isCaptchaEmpty()) {
         this.isCaptchaMissing = true;
         return
@@ -168,8 +148,7 @@ export default {
     },
     onError (err) {
       if (!err.graphQLErrors && err.graphQLErrors.length) return
-
-      this.$noty.warning(err.graphQLErrors[0].message)
+      this.feedback = err.graphQLErrors[0].message
       this.rejectLogin({ login: this.fields.login })
         .then(() => {
           if (this.isSuspicious) this.resetCaptcha()
