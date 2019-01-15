@@ -2,8 +2,8 @@
   <form @submit.prevent="submit">
     <input-component
       id="login-username"
-      :feedback="inputFeedback['username']"
-      v-model="fields.username"
+      :feedback="inputFeedback['login']"
+      v-model="fields.login"
       class-name="username"
       type="text"
       label="Username"
@@ -127,7 +127,6 @@ export default {
         this.isCaptchaMissing = true;
         return
       }
-
       this.submitting = true
 
       if (this.lastLogin !== this.fields.login) this.removeCaptcha()
