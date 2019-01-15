@@ -13,5 +13,10 @@ export default [
     path: 'typography',
     name: 'styleguide-typography',
     component: () => import('@/views/styleguide/Pages/Typography/Page')
+  },
+  {
+    path: 'betslip',
+    name: 'styleguide-betslip',
+    component: () => import('@/views/styleguide/Pages/Betslip/Page')
   }
 ]
