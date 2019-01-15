@@ -15,7 +15,7 @@
   </b-row>
 </template>
 <script>
-import GroupedEvents from './grouped-events/GroupedEvents.vue'
+import GroupedEvents from './components/GroupedEvents.vue'
 export default {
   components: {
     GroupedEvents,
