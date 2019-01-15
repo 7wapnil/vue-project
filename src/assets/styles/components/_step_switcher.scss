@@ -18,7 +18,7 @@
     position: relative;
     text-align: center;
     text-transform: uppercase;
-    color: #7d7d7d;
+    color: $text-color;
   }
 
   .progressbar button.step-one:before, button.step-two:before {
@@ -27,7 +27,7 @@
     content: counter(step);
     counter-increment: step;
     line-height: 31px;
-    border: 3px solid #7d7d7d;
+    border: 3px solid $text-color;
     display: block;
     text-align: center;
     margin: 0 auto 10px auto;
@@ -46,7 +46,7 @@
     transition-timing-function: linear;
     top: 15px;
     left: -35%;
-    background-color: #47D469;
+    background-color: $main-color;
   }
 
   .progressbar button.step-two:after {
@@ -60,7 +60,7 @@
     transition-timing-function: linear;
     top: 15px;
     left: -35%;
-    background-color: #7d7d7d;
+    background-color: $text-color;
   }
 
   .progressbar button.steps:first-child:after {
@@ -68,15 +68,15 @@
   }
 
   .progressbar button.active.step-one, button.active.step-two {
-    color: #47D469 !important;
+    color: $main-color !important;
   }
 
   .progressbar button.active.step-one:before, button.active.step-two:before {
-    border-color: #47D469 !important;
+    border-color:$main-color !important;
   }
 
   .progressbar button.active.step-two + button:after {
 
-    background-color: #47D469;
+    background-color: $main-color;
   }
 }

@@ -1,12 +1,11 @@
 <template>
-  <form @submit.prevent="submit">
+  <form @submit.prevent="submit()">
     <div
       v-show="isCurrentStep(1)"
       class="step"
     >
       <input-component
         id="signup-username"
-        :state="getState('username')"
         :feedback="inputFeedback['username']"
         v-model="fieldsStepOne.username"
         type="text"
@@ -17,7 +16,6 @@
       />
       <input-component
         id="signup-email"
-        :state="getState('email')"
         :feedback="inputFeedback['email']"
         v-model="fieldsStepOne.email"
         type="text"
@@ -36,7 +34,6 @@
           <select-component
             id="signup-day"
             :options="getDays()"
-            :state="getState('date_of_birth')"
             :feedback="inputFeedback['date_of_birth']"
             v-model="helpFields.day"
             class-name="day"
@@ -51,7 +48,6 @@
           <select-component
             id="signup-month"
             :options="getMonths()"
-            :state="getState('date_of_birth')"
             v-model="helpFields.month"
             type="select"
             class-name="month"
@@ -67,7 +63,6 @@
           <select-component
             id="signup-year"
             :options="getYears()"
-            :state="getState('date_of_birth')"
             v-model="helpFields.year"
             type="select"
             class-name="year"
@@ -80,7 +75,6 @@
       </b-row>
       <input-component
         id="signup-password"
-        :state="getState('password')"
         :feedback="inputFeedback['password']"
         v-model="fieldsStepOne.password"
         type="password"
@@ -91,7 +85,6 @@
       />
       <input-component
         id="signup-password-confirmation"
-        :state="getState('password_confirmation')"
         :feedback="inputFeedback['password_confirmation']"
         v-model="fieldsStepOne.password_confirmation"
         type="password"
@@ -111,7 +104,6 @@
           <select-component
             id="signup-country"
             :options="getCountries()"
-            :state="getState('country')"
             :feedback="inputFeedback['country']"
             v-model="fieldsStepOne.country"
             type="select"
@@ -130,7 +122,6 @@
     >
       <input-component
         id="signup-first_name"
-        :state="getState('first_name')"
         :feedback="inputFeedback['first_name']"
         v-model="fieldsStepTwo.first_name"
         type="text"
@@ -141,7 +132,6 @@
       />
       <input-component
         id="signup-last_name"
-        :state="getState('last_name')"
         :feedback="inputFeedback['last_name']"
         v-model="fieldsStepTwo.last_name"
         type="text"
@@ -154,34 +144,23 @@
         id="gender"
         :options="genders"
         v-model="fieldsStepTwo.gender"
-        :state="getState('gender')"
         label="Gender"
         required/>
 
       <input-component
+        v-mask="'+############'"
         id="signup-phone"
-        :state="getState('phone')"
         :feedback="inputFeedback['phone']"
         v-model="fieldsStepTwo.phone"
+        :value-init="fieldsStepTwo.phone"
         type="tel"
         label="Phone Number"
         bottom-bar
         aria-describedby="inputFeedbackPhone"
         feedback-id="inputFeedbackPhone"
-        @input="validatePhoneNumber()"
       />
-
-      <!--<b-form-input-->
-      <!--id="phone"-->
-      <!--:v-mask="'+############'"-->
-      <!--v-model="fields.phone"-->
-      <!--:state="getState('phone')"-->
-      <!--required-->
-      <!--@keypress.native="filterPhoneNumberCharacters"/>-->
-      <!--<span v-show="!isValidPhone">Invalid phone number.</span>-->
       <input-component
         id="signup-street_address"
-        :state="getState('street_address')"
         :feedback="inputFeedback['street_address']"
         v-model="fieldsStepTwo.street_address"
         type="text"
@@ -190,7 +169,6 @@
       />
       <input-component
         id="signup-zip_code"
-        :state="getState('zip_code')"
         :feedback="inputFeedback['zip_code']"
         v-model="fieldsStepTwo.zip_code"
         type="text"
@@ -198,7 +176,6 @@
         bottom-bar/>
       <input-component
         id="signup-city"
-        :state="getState('city')"
         :feedback="inputFeedback['city']"
         v-model="fieldsStepTwo.city"
         type="text"
@@ -207,7 +184,6 @@
 
       <input-component
         id="signup-state"
-        :state="getState('state')"
         :feedback="inputFeedback['state']"
         v-model="fieldsStepTwo.state"
         type="text"
@@ -251,7 +227,8 @@
       <button
         :disabled="submitting || ! agree"
         type="submit"
-        class="btn btn-dark btn-block">
+        class="btn btn-dark btn-block"
+        @click.prevent="submit()">
         Register
       </button>
       <response-panel :response-text="feedback"/>
@@ -294,7 +271,7 @@
 
 <script>
 import moment from 'moment'
-import formsMixin from '@/mixins/forms'
+import { mask } from 'vue-the-mask'
 import { countries } from 'countries-list'
 import RegularInput from '@/components/inputs/RegularInput.vue'
 import SelectInput from '@/components/inputs/SelectInput.vue'
@@ -308,7 +285,7 @@ export default {
     'radio-button': RadioButton,
     'response-panel': ResponseErrorPanel
   },
-  mixins: [formsMixin],
+  directives: { mask },
   props: {
     modalName: {
       type: String,
@@ -322,7 +299,13 @@ export default {
         { value: 'male', text: 'Male' },
         { value: 'female', text: 'Female' }
       ],
+      errorMessages: {
+        emptyFieldsError: 'Please fill all the fields.',
+        ageError: 'You must be 18 years old to proceed.',
+        passwordsNotMatchingError: 'Password does not match the confirm password.'
+      },
       inputFeedback: {},
+      feedback: '',
       fieldsStepTwo: {
         first_name: '',
         last_name: '',
@@ -342,13 +325,12 @@ export default {
         password_confirmation: '',
         country: '',
       },
-      feedback: '',
       helpFields: {
         day: '',
         month: '',
         year: '',
       },
-      step: 2,
+      step: 1,
       steps: {
         1: {
           fields: ['username', 'email', 'date_of_birth',
@@ -372,8 +354,11 @@ export default {
       const country = Object.values(countries).find(country => country.name === countryName)
       this.fieldsStepTwo.phone = country ? `+${country.phone}` : '+'
     },
-    'fieldStepTwo.phone': function (phoneNumber) {
-      if (phoneNumber.indexOf('+') !== 0) this.fieldsStepTwo.phone = `+${this.fieldsStepTwo.phone}`
+    'fieldsStepTwo.phone': function (phoneNumber) {
+      if (phoneNumber.indexOf('+') !== 0) {
+        this.fieldsStepTwo.phone = `+${this.fieldsStepTwo.phone}`
+        return this.fieldsStepTwo.phone
+      }
     }
   },
   methods: {
@@ -407,13 +392,13 @@ export default {
     },
     errorHandling () {
       if (this.steps[this.step].fields.some(fieldName => !this.fieldsStepOne[fieldName])) {
-        this.feedback = 'Please fill all the fields'
+        this.feedback = this.errorMessages.emptyFieldsError
         return false
       } else if (this.tooYoung) {
-        this.feedback = 'You must be 18 years old to proceed'
+        this.feedback = this.errorMessages.ageError
         return false
       } else if (this.fieldsStepOne.password !== this.fieldsStepOne.password_confirmation) {
-        this.feedback = 'Password does not match the confirm password.'
+        this.feedback = this.errorMessages.passwordsNotMatchingError
         return false
       } else {
         return true
@@ -437,11 +422,9 @@ export default {
     close () {
       this.$root.$emit('bv::hide::modal', this.modalName)
     },
-    validatePhoneNumber (e) {
-      // let regexp = RegExp(/^[\\+]?[(]?[0-9]{3}[)]?[-\\s\\.]?[0-9]{3}[-\\s\\.]?[0-9]{4,6}$/im)
-    },
     submit () {
-      this.clearErrors()
+      this.inputFeedback = {}
+      this.feedback = ''
       const input = { ...this.fieldsStepOne, ...this.fieldsStepTwo }
       this.submitting = true
       this.$store.dispatch('registerNewUser', input)
@@ -456,6 +439,7 @@ export default {
               this.previousStep()
             }
             this.inputFeedback[err.graphQLErrors[0].path] = err.graphQLErrors[0].message
+            this.feedback = err.graphQLErrors[0].message
           }
         })
         .finally(() => {

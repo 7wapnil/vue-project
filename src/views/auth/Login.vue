@@ -2,7 +2,6 @@
   <form @submit.prevent="submit">
     <input-component
       id="login-username"
-      :state="getState('username')"
       :feedback="inputFeedback['username']"
       v-model="fields.username"
       class-name="username"
@@ -14,7 +13,6 @@
     />
     <input-component
       id="login-password"
-      :state="getState('password')"
       :feedback="inputFeedback['password']"
       v-model="fields.password"
       type="password"
@@ -75,7 +73,6 @@
 </template>
 
 <script>
-import formsMixin from '@/mixins/forms'
 import InputComponent from '@/components/inputs/RegularInput.vue'
 import VueRecaptcha from 'vue-recaptcha'
 import { mapGetters, mapActions } from 'vuex'
@@ -87,7 +84,6 @@ export default {
     'input-component': InputComponent,
     'response-panel': ResponseErrorPanel
   },
-  mixins: [formsMixin],
   props: {
     modalName: {
       type: String,
@@ -127,9 +123,6 @@ export default {
       this.fields.captcha = ''
     },
     submit () {
-      console.log(this.fields)
-      this.clearErrors()
-
       if (this.isCaptchaEmpty()) {
         this.isCaptchaMissing = true;
         return

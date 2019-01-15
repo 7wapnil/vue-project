@@ -31,6 +31,7 @@
 </template>
 
 <script>
+
 export default {
   name: 'RegularInput',
   props: {
@@ -57,11 +58,22 @@ export default {
     value: {
       type: String,
       default: ''
+    },
+    mask: {
+      type: String,
+      default: ''
     }
   },
   data () {
     return {
       content: this.value
+    }
+  },
+  watch: {
+    'value' (testVal) {
+      if (testVal) {
+        this.content = testVal
+      }
     }
   },
   methods: {
