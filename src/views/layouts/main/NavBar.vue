@@ -23,7 +23,9 @@
             :key="item.path"
             :to="item.path"
             class="navbar-menu-item">
-            {{ item.label }}
+            <h6 class="m-0 font-weight-bold">
+              {{ item.label }}
+            </h6>
           </b-nav-item>
         </b-navbar-nav>
         <b-navbar-nav
@@ -35,7 +37,9 @@
             variant="arc-secondary"
             class="m-2"
             @mousedown="authTab = 0">
-            Login
+            <h6 class="m-0 font-weight-bold">
+              Login
+            </h6>
           </b-btn>
 
           <b-btn
@@ -43,7 +47,9 @@
             variant="arc-primary"
             class="m-2 mr-4"
             @mousedown="authTab = 1">
-            Sign Up
+            <h6 class="m-0 font-weight-bold">
+              Sign Up
+            </h6>
           </b-btn>
         </b-navbar-nav>
         <b-navbar-nav
