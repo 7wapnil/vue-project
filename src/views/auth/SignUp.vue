@@ -370,7 +370,6 @@ export default {
   watch: {
     'fieldsStepOne.country': function (countryName) {
       const country = Object.values(countries).find(country => country.name === countryName)
-      console.log(country)
       this.fieldsStepTwo.phone = country ? `+${country.phone}` : '+'
     },
     'fieldStepTwo.phone': function (phoneNumber) {
@@ -439,9 +438,7 @@ export default {
       this.$root.$emit('bv::hide::modal', this.modalName)
     },
     validatePhoneNumber (e) {
-      let regexp = RegExp(/^[\\+]?[(]?[0-9]{3}[)]?[-\\s\\.]?[0-9]{3}[-\\s\\.]?[0-9]{4,6}$/im)
-      console.log(this.fieldsStepTwo.phone)
-      console.log(regexp.test(this.fieldsStepTwo.phone))
+      // let regexp = RegExp(/^[\\+]?[(]?[0-9]{3}[)]?[-\\s\\.]?[0-9]{3}[-\\s\\.]?[0-9]{4,6}$/im)
     },
     submit () {
       this.clearErrors()
