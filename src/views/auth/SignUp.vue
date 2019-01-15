@@ -302,7 +302,8 @@ export default {
       errorMessages: {
         emptyFieldsError: 'Please fill all the fields.',
         ageError: 'You must be 18 years old to proceed.',
-        passwordsNotMatchingError: 'Password does not match the confirm password.'
+        passwordsNotMatchingError: 'Password does not match the confirm password.',
+        dateError: 'Please provide valid date.'
       },
       inputFeedback: {},
       feedback: '',
@@ -399,6 +400,9 @@ export default {
         return false
       } else if (this.fieldsStepOne.password !== this.fieldsStepOne.password_confirmation) {
         this.feedback = this.errorMessages.passwordsNotMatchingError
+        return false
+      } else if (!moment(this.fieldsStepOne.date_of_birth).isValid()) {
+        this.feedback = this.errorMessages.dateError
         return false
       } else {
         return true
