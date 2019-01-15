@@ -59,13 +59,6 @@
       class="text-center">
       <h6>No events found</h6>
     </div>
-    <!-- <button
-      v-if="events.length"
-      :disabled="!canLoadMore"
-      class="btn btn-arc-clr-soil-cover mb-2 mx-1"
-      @click="loadMore">
-      {{ canLoadMore ? 'Load More' : 'Nothing to Load' }}
-    </button> -->
   </b-card>
 </template>
 
@@ -99,8 +92,7 @@ export default {
   data () {
     return {
       loading: 0,
-      events: [],
-      // canLoadMore: true
+      events: []
     }
   },
   computed: {
@@ -154,29 +146,6 @@ export default {
 
       return groupedEvents
     }
-  },
-  // methods: {
-  //   loadMore () {
-  //     this
-  //       .$apollo
-  //       .queries
-  //       .events
-  //       .fetchMore({
-  //         variables: {
-  //           offset: this.events.length
-  //         },
-  //         updateQuery: (prevResult, { fetchMoreResult: { events } }) => {
-  //           this.updateApolloCache(this.query, (cache) => {
-  //             if (events.length < this.query.variables.limit) {
-  //               this.canLoadMore = false
-  //             }
-  //             events.forEach(event =>
-  //               cache.events.push({ ...event, __typename: 'Event' })
-  //             )
-  //           })
-  //         }
-  //       })
-  //   }
-  // }
+  }
 }
 </script>
