@@ -3,10 +3,6 @@ import arcanebetSession from '@/services/local-storage/session'
 
 export default [
   {
-    path: 'style-guide',
-    component: () => import('@/views/style-guide/Page')
-  },
-  {
     path: 'live',
     name: 'live',
     component: () => import('@/views/live/Page')

@@ -13,5 +13,10 @@ export default [
     path: 'typography',
     name: 'styleguide-typography',
     component: () => import('@/views/styleguide/Pages/Typography/Page')
+  },
+  {
+    path: 'grouped-events',
+    name: 'styleguide-grouped-events',
+    component: () => import('@/views/styleguide/Pages/GroupedEvents/Page')
   }
 ]
