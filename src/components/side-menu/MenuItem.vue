@@ -10,7 +10,9 @@
 
     <b-link
       v-if="!hasChildren && item.to"
-      :to="item.to">
+      :to="item.to"
+      exact
+      class="item-link">
       <item-content
         :item="item"
         :level="level"/>

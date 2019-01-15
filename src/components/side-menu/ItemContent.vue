@@ -5,7 +5,7 @@
     <b-col
       v-if="item.icon"
       cols="auto"
-      class="px-4 py-3 sidemenu-main-logo d-flex align-items-center justify-content-center">
+      class="px-4 py-3 sport-icon d-flex align-items-center justify-content-center">
       <icon
         :name="item.icon"
         size="24px"/>

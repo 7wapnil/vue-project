@@ -10,6 +10,14 @@
     padding: 0;
   }
 
+  .item-link {
+    display: block;
+  }
+
+  .items-level-2 {
+    padding-left: 20px;
+  }
+
   .item-label {
     font-weight: $font-weight-normal;
     color: $arc-clr-iron-light;
@@ -17,6 +25,13 @@
     letter-spacing: .1px;
     line-height: 30px;
     font-size: $h6-font-size;
+  }
+
+  .item-title {
+    .arc-sidemenu-triangle-down {
+      transition: transform 0.5s ease-in-out;
+      transform: rotateX(180deg);
+    }
   }
 
   .item-title-0 {
@@ -29,49 +44,25 @@
     transition: transform .8s;
   }
 
-  .collapsed .item-title-0 {
-    background-color: $arc-clr-soil-dark;
-    box-shadow: inset 0 -1px 0 0 rgba($black, .3);
-    transition: background-color .35s;
+  .collapsed {
+    .arc-sidemenu-triangle-down {
+      transform: rotateX(0deg);
+      transition: transform 0.5s ease-in-out;
+    }
+
+    .item-title-0 {
+      background-color: $arc-clr-soil-dark;
+      box-shadow: inset 0 -1px 0 0 rgba($black, .3);
+      transition: background-color .35s;
+    }
+
+    .item-title-0 > .sport-icon {
+      color: $arc-clr-soil-black;
+      transition: color .35s;
+    }
+
+    .item-title-0 > .sidemenu-chevron {
+      transform: rotateX(0deg);
+    }
   }
 }
-//
-//.nav-item > a {
-//  padding: 0;
-//}
-//.nav-link a{
-//  font-weight: $font-weight-normal;
-//  color: $arc-clr-iron-light;
-//  padding: 0 15px;
-//  letter-spacing: .1px;
-//  line-height: 30px;
-//  font-size: $h6-font-size;
-//}
-//.sidebar-collapsed-title {
-//  max-height: 56px;
-//  box-shadow: 0 2px 0 0 rgba($black, .5);
-//}
-//.collapsed .sidebar-collapsed-title {
-//  background-color: $arc-clr-soil-dark;
-//  box-shadow: inset 0 -1px 0 0 rgba($black, .3);
-//  transition: background-color .35s;
-//}
-//.sidebar-collapsed-title > .sidemenu-chevron {
-//  transform: rotateX(180deg);
-//  transition: transform .8s;
-//}
-//.collapsed .sidebar-collapsed-title > .sidemenu-chevron {
-//  transform: rotateX(0deg);
-//}
-//.collapsed .sidebar-collapsed-title > .sidemenu-main-logo {
-//  color: $arc-clr-soil-black;
-//  transition: color .35s;
-//}
-//.topmenu + .collapsed .arc-sidemenu-triangle-down {
-//  transform: rotateX(0deg);
-//  transition: transform 0.5s ease-in-out;
-//}
-//.topmenu .arc-sidemenu-triangle-down {
-//  transition: transform 0.5s ease-in-out;
-//  transform: rotateX(180deg);
-//}
