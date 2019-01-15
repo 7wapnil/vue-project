@@ -3,14 +3,14 @@
 // Top navigation
 .navbar {
   background-color: $navbar-background;
-  box-shadow: 0 2px 0 0 rgba(0,0,0,0.5);
+  box-shadow: 0 2px 0 0 rgba($black, .5);
 }
 #top-navigation > .nav-item > .active {
   background-color: $nav-item-active-background;
   box-shadow: inset 0 4px 0 0 $nav-item-active-glow;
 }
 
-// Sidebar navigation
+// Sidemenu
 .sidebar-collapsed-title {
   background-color: $navbar-background;
 }
@@ -20,7 +20,7 @@
 .sidemenu-main-logo {
   color: $sidemenu-main-logo-color;
 }
-.sidemenu .nav-link a:hover{
+.sidemenu .submenu:hover{
   background-color: $navbar-background;
   border-radius: 2px;
 }
@@ -31,21 +31,21 @@
   border: $btn-border-width solid rgba($primary-button-background, .5);
   box-shadow: $arc-button-box-shadow;
   color: $arc-clr-white;
-}
-.btn-arc-primary:hover {
-  background-color: rgba($primary-button-background, .8);
-  border: $btn-border-width solid $primary-button-background;
-  box-shadow: $arc-button-box-shadow;
-}
-.btn-arc-primary:not(:disabled):not(.disabled):active {
-  background-color: rgba($primary-button-background, .9);
-  border: $btn-border-width solid $primary-button-background;
-  box-shadow: inset 0 0 10px 0 rgba(255,60,229,0.35), 0 0 0 0 rgba($black, .5);
-}
-.btn-arc-primary.disabled {
-  background-color: rgba(151,151,151,0.6);
-  box-shadow: 0 0 0 0 rgba($black, .5);
-  border: $btn-border-width solid rgba(193,193,193,0.3);
+  &:hover {
+    background-color: rgba($primary-button-background, .8);
+    border: $btn-border-width solid $primary-button-background;
+    box-shadow: $arc-button-box-shadow;
+  }
+  &:not(:disabled):not(.disabled):active {
+    background-color: rgba($primary-button-background, .9);
+    border: $btn-border-width solid $primary-button-background;
+    box-shadow: inset 0 0 10px 0 rgba(255,60,229,0.35), 0 0 0 0 rgba($black, .5);
+  }
+  &.disabled {
+    background-color: rgba(151, 151, 151, .6);
+    box-shadow: 0 0 0 0 rgba($black, .5);
+    border: $btn-border-width solid rgba(193, 193, 193, .3);
+  }
 }
 
 // Betslip
@@ -67,7 +67,7 @@
 .wallet-button {
   background-color: $nav-wallet-button-background;
   box-shadow: 0 2px 0 0 rgba($black, .5);
-  border: 1px solid rgba(66,144,255,0.5);
+  border: 1px solid rgba(66,144,255, .5);
   border-radius: 6px 0 6px 0 !important;
 }
 #nav-wallet-wrapper > .dropdown-menu,
@@ -94,7 +94,8 @@
 .arc-wallet-arrow-right,
 .arc-arrow-right,
 .arc-betslip-close,
-.arc-betslip-stake {
+.arc-betslip-stake,
+.arc-sidemenu-triangle-down {
   color: $icon-section-color;
 }
 .arc-profile-button {
@@ -104,6 +105,10 @@
   color: $icon-section-color;
 }
 .upcoming-statistics:hover .arc-upcoming-event-arrow-right {
+  color: $icon-section-color !important;
+  transition: color 0.3s ease-in-out;
+}
+.event-card-toggle-button:hover .arc-upcoming-event-chevron-down {
   color: $icon-section-color !important;
   transition: color 0.3s ease-in-out;
 }

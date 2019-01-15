@@ -1,93 +1,89 @@
 <template>
-  <main-layout :class="titlesKind">
-    <div class="row">
-      <div class="col">
-        <b-card
-          v-if="event"
-          class="mt-4">
-          <div slot="header">{{ event.description }}</div>
+  <div class="row">
+    <div class="col">
+      <b-card
+        v-if="event"
+        class="mt-4">
+        <div slot="header">{{ event.description }}</div>
 
-          <dl class="row">
-            <dt class="col-sm-3">Sport</dt>
-            <dd class="col-sm-9">{{ event.title_name }}</dd>
+        <dl class="row">
+          <dt class="col-sm-3">Sport</dt>
+          <dd class="col-sm-9">{{ event.title.name }}</dd>
+          <dt class="col-sm-3">Time</dt>
+          <dd class="col-sm-9">{{ eventTime }}</dd>
+        </dl>
+
+        <dl
+          v-if="event.details.competitors"
+          class="row">
+          <dt class="col-sm-3">Competitors</dt>
+          <dd class="col-sm-9">
+            <p
+              v-for="competitor in event.details.competitors"
+              :key="competitor.id">
+              {{ competitor.name }}
+            </p>
+          </dd>
+        </dl>
+
+        <dl
+          v-for="(scope, index) in event.scopes"
+          :key="index"
+          class="row">
+          <dt class="col-sm-3 text-capitalize">{{ scope.kind }}</dt>
+          <dd class="col-sm-9">{{ scope.name }}</dd>
+        </dl>
+
+        <div v-if="event.state">
+          <dl
+            v-if="event.state.status_code"
+            class="row">
+            <dt class="col-sm-3">Status</dt>
+            <dd class="col-sm-9">{{ event.state.status }}</dd>
+          </dl>
+
+          <dl
+            v-if="event.state.score"
+            class="row">
+            <dt class="col-sm-3">Score</dt>
+            <dd class="col-sm-9">{{ event.state.score }}</dd>
+          </dl>
+
+          <dl
+            v-if="event.state.time"
+            class="row">
             <dt class="col-sm-3">Time</dt>
-            <dd class="col-sm-9">{{ eventTime }}</dd>
+            <dd class="col-sm-9">{{ event.state.time }}</dd>
           </dl>
 
           <dl
-            v-if="event.details.competitors"
+            v-if="event.state.period_scores.length > 0"
             class="row">
-            <dt class="col-sm-3">Competitors</dt>
-            <dd class="col-sm-9">
-              <p
-                v-for="competitor in event.details.competitors"
-                :key="competitor.id">
-                {{ competitor.name }}
-              </p>
-            </dd>
+            <dt class="col-sm-3">Period Scores</dt>
+            <dd class="col-sm-9"/>
           </dl>
 
           <dl
-            v-for="scope in event.scopes"
-            :key="scope.id"
+            v-for="period in event.state.period_scores"
+            :key="period.status_code"
             class="row">
-            <dt class="col-sm-3 text-capitalize">{{ scope.kind }}</dt>
-            <dd class="col-sm-9">{{ scope.name }}</dd>
+            <dt class="col-sm-3">{{ period.status }}</dt>
+            <dd class="col-sm-9">{{ period.score }}</dd>
           </dl>
+        </div>
 
-          <div v-if="event.state">
-            <dl
-              v-if="event.state.status_code"
-              class="row">
-              <dt class="col-sm-3">Status</dt>
-              <dd class="col-sm-9">{{ event.state.status }}</dd>
-            </dl>
+        <hr>
 
-            <dl
-              v-if="event.state.score"
-              class="row">
-              <dt class="col-sm-3">Score</dt>
-              <dd class="col-sm-9">{{ event.state.score }}</dd>
-            </dl>
+        <markets-categories :event="event"/>
 
-            <dl
-              v-if="event.state.time"
-              class="row">
-              <dt class="col-sm-3">Time</dt>
-              <dd class="col-sm-9">{{ event.state.time }}</dd>
-            </dl>
-
-            <dl
-              v-if="event.state.period_scores.length > 0"
-              class="row">
-              <dt class="col-sm-3">Period Scores</dt>
-              <dd class="col-sm-9"/>
-            </dl>
-
-            <dl
-              v-for="period in event.state.period_scores"
-              :key="period.status_code"
-              class="row">
-              <dt class="col-sm-3">{{ period.status }}</dt>
-              <dd class="col-sm-9">{{ period.score }}</dd>
-            </dl>
-          </div>
-
-          <hr>
-
-          <markets-categories
-            :event="event"
-            :query-options="{limit: marketsLimit}" />
-
-        </b-card>
-      </div>
+      </b-card>
     </div>
-  </main-layout>
+  </div>
 </template>
 
 <script>
+import { UNLIMITED_QUERY } from '@/constants/graphql/limits'
 import { EVENT_BY_ID_QUERY } from '@/graphql'
-import { NO_CACHE } from '@/constants/graphql/fetch-policy'
 import MarketsCategories from '@/components/markets/MarketsCategories'
 import moment from 'moment'
 
@@ -98,16 +94,7 @@ export default {
   data () {
     return {
       event: null,
-      marketsLimit: 10,
-    }
-  },
-  sockets: {
-    eventUpdated (data) {
-      if (data.id !== this.event.id) { return }
-      this.event = {
-        ...this.event,
-        ...data.changes,
-      }
+      marketsLimit: UNLIMITED_QUERY,
     }
   },
   apollo: {
@@ -115,11 +102,8 @@ export default {
       return {
         query: EVENT_BY_ID_QUERY,
         variables: {
-          id: this.eventId,
-          withDetails: true,
-          withScopes: true
+          id: this.eventId
         },
-        fetchPolicy: NO_CACHE,
         update ({ events }) {
           if (!events.length) {
             return null

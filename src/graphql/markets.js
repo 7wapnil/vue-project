@@ -1,18 +1,5 @@
 import gql from 'graphql-tag'
-
-export const MARKET_FIELDS = `
-  id
-  name
-  priority
-  status
-  category
-  odds {
-    id
-    name
-    value
-    status
-  }
-`
+import { MARKET_FIELDS } from './fields'
 
 export const MARKETS_LIST_QUERY = gql`
   query marketsList ($id: ID = null, $eventId: ID!, $priority: Int, $limit: Int, $category: String) {

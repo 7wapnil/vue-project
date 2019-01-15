@@ -1,48 +1,5 @@
 import gql from 'graphql-tag'
-import { MARKET_FIELDS } from './markets'
-
-export const EVENT_FIELDS = `
-  id
-  name
-  description
-  title_name
-  live
-  tournament {
-    id
-    kind
-    name
-  }
-  start_at
-  end_at
-  details @include (if: $withDetails) {
-    competitors {
-      id
-      name
-    }
-  }
-  scopes @include (if: $withScopes) {
-    id
-    name
-    kind
-  }
-  markets @include(if: $withMarkets) {
-    ${MARKET_FIELDS}
-  }
-  state {
-    id
-    status_code
-    status
-    score
-    time
-    period_scores {
-      id
-      score
-      status_code
-      status
-    }
-    finished
-  }
-`
+import { EVENT_FIELDS, MARKET_FIELDS, SCOPE_FIELDS } from './fields'
 
 export const EVENTS_LIST_QUERY = gql`
   query eventList (
@@ -53,9 +10,9 @@ export const EVENTS_LIST_QUERY = gql`
     $tournamentId: ID = null,
     $inPlay: Boolean = false,
     $upcoming: Boolean = false,
-    $withDetails: Boolean = false,
     $withScopes: Boolean = false,
-    $withMarkets: Boolean = false
+    $withMarkets: Boolean = false,
+    $marketsLimit: Int = 10
   ) {
     events (
       limit: $limit,
@@ -68,6 +25,12 @@ export const EVENTS_LIST_QUERY = gql`
         upcoming: $upcoming
     }) {
       ${EVENT_FIELDS}
+      scopes @include (if: $withScopes) {
+        ${SCOPE_FIELDS}
+      }
+      markets (limit: $marketsLimit) @include(if: $withMarkets) {
+        ${MARKET_FIELDS}
+      }
     }
   }
 `
@@ -77,9 +40,7 @@ export const EVENT_BY_ID_QUERY = gql`
     $id: ID!,
     $titleId: ID = null,
     $tournamentId: ID = null,
-    $withDetails: Boolean = false,
-    $withScopes: Boolean = false,
-    $withMarkets: Boolean = false
+    $withScopes: Boolean = true
   ) {
     events (filter: {
       id: $id,
@@ -87,6 +48,9 @@ export const EVENT_BY_ID_QUERY = gql`
       tournamentId: $tournamentId
     }) {
       ${EVENT_FIELDS}
+      scopes @include (if: $withScopes) {
+        ${SCOPE_FIELDS}
+      }
     }
   }
 `
