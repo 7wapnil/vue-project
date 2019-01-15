@@ -42,6 +42,7 @@ export default {
         { name: 'Typography', page: 'styleguide-typography' },
         { name: 'Buttons', page: 'styleguide-buttons' },
         { name: 'Tabs', page: 'styleguide-tabs' },
+        { name: 'Betslip', page: 'styleguide-betslip' },
       ]
     }
   }
