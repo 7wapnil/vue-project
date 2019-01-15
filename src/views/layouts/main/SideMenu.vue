@@ -19,10 +19,8 @@
               size="24px"/>
           </b-col>
           <b-col class="py-4 d-flex align-items-center justify-content-start">
-            <h6 class="mb-0">
-              <b>
-                {{ title.name }}
-              </b>
+            <h6 class="mb-0 font-weight-bold">
+              {{ title.name }}
             </h6>
           </b-col>
           <b-col
