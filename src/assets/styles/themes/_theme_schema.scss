@@ -108,6 +108,9 @@
   color: $icon-section-color !important;
   transition: color 0.3s ease-in-out;
 }
+.events-list-title i {
+  color: $icon-section-color;
+}
 .event-card-toggle-button:hover .arc-upcoming-event-chevron-down {
   color: $icon-section-color !important;
   transition: color 0.3s ease-in-out;
