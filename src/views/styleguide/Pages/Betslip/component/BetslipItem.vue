@@ -61,7 +61,7 @@
 
       </b-row>
 
-      <b-row class="pl-2 pr-1">
+      <b-row class="mt-2 pl-2 pr-1">
         <b-col cols="8">
           <small>Potential Return:</small>
         </b-col>

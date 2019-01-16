@@ -2,7 +2,7 @@
   <b-row no-gutters>
     <b-col
       cols="12"
-      class="d-none d-lg-block"
+      class="d-none d-lg-block bg-arc-clr-soil-black"
       style="max-width: 268px">
       <side-menu :items="menuItems"/>
     </b-col>
@@ -13,7 +13,7 @@
     </b-col>
     <b-col
       cols="12"
-      class="d-none d-lg-block"
+      class="d-none d-lg-block bg-arc-clr-soil-black"
       style="max-width: 268px">
       <promotional-item/>
       <betslip/>

@@ -3,7 +3,7 @@
     fixed="top"
     toggleable="lg"
     type="dark"
-    class="py-md-0 px-0">
+    class="py-0 px-0">
     <b-container
       fluid
       style="max-width: 1920px"

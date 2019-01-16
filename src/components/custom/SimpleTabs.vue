@@ -36,7 +36,7 @@ export default {
     },
     activeIndex: {
       type: Number,
-      default: 0
+      default: 1
     },
     lazy: {
       type: Boolean,
