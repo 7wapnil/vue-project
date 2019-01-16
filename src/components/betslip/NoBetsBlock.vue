@@ -12,12 +12,12 @@
       class="mx-2 mb-2 pb-4 betslip-empty-card"
       no-body>
       <img
-        class="p-4"
+        class="p-4 mt-2"
         src="~@/assets/images/betslip/arc-logo-black.svg">
-      <p class="text-center text-arc-clr-iron px-2 mb-0">Your betslip is currently empty<br>
+      <h6 class="text-center text-arc-clr-iron my-2 px-2">Your betslip is currently empty.<br>
         Click on any odds to add them<br>
         to betslip.
-      </p>
+      </h6>
     </b-card>
   </span>
 </template>
