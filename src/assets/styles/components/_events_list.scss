@@ -1,0 +1,17 @@
+// Events list section
+@import '../variables';
+
+.events-list-title {
+  font-size: $h4-font-size;
+}
+
+.events-list-upcoming-events-hint {
+  font-size: $small-font-size;
+  justify-self: flex-end;
+  margin-left: auto;
+  margin-right: 40px;
+}
+
+.events-list-tornament {
+  font-size: $h6-font-size;
+}

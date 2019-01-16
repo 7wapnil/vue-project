@@ -3,7 +3,7 @@
     <div class="col">
       <div class="row">
         <div class="col">
-          <p class="card-text font-weight-bold">{{ event.title_name }}</p>
+          <p class="card-text font-weight-bold">{{ event.title.name }}</p>
         </div>
         <div class="col">
           <p class="card-text">{{ event.start_at | asFormattedDate }}</p>

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=IBM+Plex+Sans');
+@import url('https://fonts.googleapis.com/css?family=IBM+Plex+Sans:300,400,700');
 
 // Colors
 $arc-clr-sport-bg: #1B6945;
@@ -21,7 +21,8 @@ $black: #000000;
 $arc-clr-soil-cover-opacity: .3;
 $arc-clr-soil-cover: rgba($black, .3);
 $arc-dropdown-divider: rgba($black, .15);
-
+$arc-input-effect: #6c757d;
+$arc-dropdown-bg: #7d7d7d;
 $arc-clr-gold: #FFB960;
 $arc-clr-gold-light: #FFC67E;
 
@@ -47,7 +48,7 @@ $font-size-lg: $font-size-base * 1.125;
 
 $small-font-size: $font-size-base * 0.75; // 12px
 
-$font-weight-light: light;
+$font-weight-light: 300;
 $font-weight-normal: normal;
 $font-weight-bold: bold;
 

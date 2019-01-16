@@ -44,14 +44,14 @@
 .btn-arc-odd {
   height: 36px;
   width: 100%;
-  border-radius: 8px 0 8px 8px !important;
+  border-radius: 0 0 8px 8px !important;
   background-color: rgba($black, .3) !important;
   position: relative;
   display: inline-block;
   &:after {
     content: '';
     box-shadow: 0 0 4px 0 rgba(255,185,96, .7);
-    border-radius: 8px 0 8px 8px !important;
+    border-radius: 0 0 8px 8px !important;
     position: absolute;
     width: 100%;
     height: 100%;
@@ -84,6 +84,18 @@
   &:focus {
     background-color: $arc-clr-gold;
   }
+  .market-odds .market-odd:first-of-type & {
+    border-radius: 8px 0 8px 8px !important;
+    &::after {
+      border-radius: 8px 0 8px 8px !important;
+    }
+  }
+  .market-odds .market-odd:last-of-type & {
+    border-radius: 0 8px 8px 8px !important;
+    &::after {
+      border-radius: 0 8px 8px 8px !important;
+    }
+  }
 }
 
 .btn-arc-betslip-odd {
@@ -113,5 +125,15 @@
   }
   &:disabled {
     pointer-events: none;
+  }
+}
+
+.btn-arc-events-list-upcoming {
+  border-radius: 4px 4px 0 4px !important;
+  background: $arc-dropdown-divider;
+  color: $arc-clr-white;
+  font-size: $h6-font-size;
+  &:hover {
+    background: $arc-clr-soil-cover;
   }
 }
