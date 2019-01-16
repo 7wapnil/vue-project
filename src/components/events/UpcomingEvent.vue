@@ -31,7 +31,7 @@
                 </b-col>
               </b-row>
               <b-row
-                v-for="competitor in event.details.competitors"
+                v-for="competitor in event.competitors"
                 :key="competitor.id"
                 no-gutters>
                 <b-col class="text-truncate">
