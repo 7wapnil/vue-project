@@ -1,7 +1,7 @@
 <template>
   <div>
     <h3 class="m-4">
-      > Typography
+      Typography
     </h3>
     <b-card class="pl-2">
       <h1>Heading H1 - 64pt</h1>

@@ -2,9 +2,8 @@
   <div :class="titleKind">
     <b-container
       fluid
-      style="margin-top: -80px"
       class="p-0">
-      <top-nav/>
+      <top-nav @changeColor="titleKind = $event"/>
     </b-container>
     <b-container
       fluid
