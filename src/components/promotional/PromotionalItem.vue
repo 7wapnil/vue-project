@@ -23,8 +23,9 @@
                 </h6>
               </b-col>
               <b-col class="d-inline-flex align-items-center justify-content-end">
-                <icon name="arrow-right"
-                      size="10px"/>
+                <icon
+                  name="arrow-right"
+                  size="10px"/>
               </b-col>
             </b-row>
           </b-button>

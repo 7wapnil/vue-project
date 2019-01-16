@@ -15,7 +15,7 @@
             class="betslip-bet-count-round">
             <small>
               <strong>
-                 10
+                10
               </strong>
             </small>
           </span>
