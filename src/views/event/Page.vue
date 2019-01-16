@@ -83,7 +83,8 @@
 
 <script>
 import { UNLIMITED_QUERY } from '@/constants/graphql/limits'
-import { EVENT_BY_ID_QUERY } from '@/graphql'
+import { EVENT_BY_ID_QUERY, EVENT_UPDATED } from '@/graphql'
+import { updateCacheList } from '@/helpers/graphql'
 import MarketsCategories from '@/components/markets/MarketsCategories'
 import moment from 'moment'
 
@@ -109,6 +110,17 @@ export default {
             return null
           }
           return events[0]
+        },
+        subscribeToMore: {
+          document: EVENT_UPDATED,
+          variables: {
+            id: this.eventId
+          },
+          updateQuery ({ events }, { subscriptionData }) {
+            return {
+              events: updateCacheList(events, subscriptionData.data.event_updated, false)
+            }
+          }
         }
       }
     }
