@@ -6,7 +6,7 @@ const SUBSCRIPTION_FIELDS = `
   scopes {
     ${SCOPE_FIELDS}
   }
-  markets {
+  markets (limit: 1) {
     ${MARKET_FIELDS}
   }
 `
