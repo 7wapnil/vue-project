@@ -18,5 +18,10 @@ export default [
     path: 'betslip',
     name: 'styleguide-betslip',
     component: () => import('@/views/styleguide/Pages/Betslip/Page')
+  },
+  {
+    path: 'grouped-events',
+    name: 'styleguide-grouped-events',
+    component: () => import('@/views/styleguide/Pages/GroupedEvents/Page')
   }
 ]

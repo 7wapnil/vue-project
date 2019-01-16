@@ -17,7 +17,10 @@ export default {
   apollo: {
     titles () {
       return {
-        query: TITLES_QUERY
+        query: TITLES_QUERY,
+        variables: {
+          kind: this.$route.params.titleKind
+        }
       }
     }
   },

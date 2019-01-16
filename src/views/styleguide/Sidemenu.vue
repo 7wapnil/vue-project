@@ -43,6 +43,7 @@ export default {
         { name: 'Buttons', page: 'styleguide-buttons' },
         { name: 'Tabs', page: 'styleguide-tabs' },
         { name: 'Betslip', page: 'styleguide-betslip' },
+        { name: 'Grouped Events', page: 'styleguide-grouped-events' },
       ]
     }
   }
