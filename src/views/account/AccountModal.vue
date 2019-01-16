@@ -37,6 +37,7 @@ import NotImplemented from './NotImplemented'
 import Activity from './Activity'
 import ChangePassword from './ChangePassword'
 import AccountVerification from './AccountVerification'
+import DepositFunds from './DepositFunds'
 
 export default {
   components: {
@@ -44,7 +45,8 @@ export default {
     Activity,
     ChangePassword,
     AccountVerification,
-    NotImplemented
+    NotImplemented,
+    DepositFunds
   },
   data () {
     return {
@@ -72,7 +74,7 @@ export default {
       }, {
         id: 4,
         title: 'Deposit funds',
-        component: 'not-implemented',
+        component: 'deposit-funds',
         icon: 'i'
       }, {
         id: 5,
