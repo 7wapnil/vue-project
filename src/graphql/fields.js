@@ -26,11 +26,9 @@ export const EVENT_FIELDS = `
   }
   start_at
   end_at
-  details {
-    competitors {
-      id
-      name
-    }
+  competitors {
+    id
+    name
   }
   state {
     id

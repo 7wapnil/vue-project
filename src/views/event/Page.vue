@@ -14,12 +14,12 @@
         </dl>
 
         <dl
-          v-if="event.details.competitors"
+          v-if="event.competitors"
           class="row">
           <dt class="col-sm-3">Competitors</dt>
           <dd class="col-sm-9">
             <p
-              v-for="competitor in event.details.competitors"
+              v-for="competitor in event.competitors"
               :key="competitor.id">
               {{ competitor.name }}
             </p>
