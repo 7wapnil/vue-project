@@ -1,5 +1,5 @@
 <template>
   <h3 class="m-4">
-    > Tabs
+    Tabs
   </h3>
 </template>
