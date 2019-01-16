@@ -8,7 +8,7 @@
     </b-col>
     <b-col class="bg-arc-clr-soil-light">
 
-      <router-view/>
+      <router-view :key="$route.fullPath"/>
 
     </b-col>
     <b-col
