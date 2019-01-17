@@ -129,8 +129,10 @@ export default {
   },
   methods: {
     activeWalletCurrency () {
-      this.walletExists = true
-      this.fields.currency = this.$store.getters.getActiveWallet.currency.code
+      if (this.$store.getters.getActiveWallet) {
+        this.walletExists = true
+        this.fields.currency = this.$store.getters.getActiveWallet.currency.code
+      }
     },
     getCurrencyList () {
       return ['EUR', 'USD', 'SEK', 'NOK', 'AUD', 'CAD']
