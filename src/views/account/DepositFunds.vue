@@ -156,7 +156,6 @@ export default {
     },
     submitDeposit () {
       const input = this.fields
-      console.log(input)
       this.$store.dispatch('submitDepositFunds', input)
         .then((res) => {
           // do something
