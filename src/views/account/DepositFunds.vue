@@ -116,8 +116,7 @@ export default {
       fields: {
         amount: '',
         currency: '',
-        bonusCode: '',
-        type: 'crypto === false'
+        bonusCode: ''
       },
       walletExists: false,
       totalValue: '',
@@ -137,6 +136,7 @@ export default {
       return ['EUR', 'USD', 'SEK', 'NOK', 'AUD', 'CAD']
     },
     calculateBonus () {
+      // mock
       if (this.fields.bonusCode) {
         this.calculatedBonus = '25'
       }
@@ -153,7 +153,18 @@ export default {
       }
     },
     submitDeposit () {
-
+      const input = this.fields
+      console.log(input)
+      this.$store.dispatch('submitDepositFunds', input)
+        .then((res) => {
+          // do something
+        })
+        .catch(() => {
+          // do something
+        })
+        .finally(() => {
+          // do something
+        })
     }
   }
 }
