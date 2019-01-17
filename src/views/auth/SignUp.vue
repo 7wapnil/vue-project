@@ -76,23 +76,23 @@
         </b-col>
       </b-row>
       <input-component
-        id="signup-password"
+        id="password"
         :feedback="inputFeedback['password']"
         v-model="fieldsStepOne.password"
         type="password"
         label="Password"
         bottom-bar
-        aria-describedby="inputFeedbackPassword"
+        autocomplete="new-password"
         feedback-id="inputFeedbackPassword"
       />
       <input-component
-        id="signup-password-confirmation"
+        id="confirm_password"
         :feedback="inputFeedback['password_confirmation']"
         v-model="fieldsStepOne.password_confirmation"
         type="password"
         label="Password Confirmation"
         bottom-bar
-        aria-describedby="inputFeedbackPasswordConfirmation"
+        autocomplete="new-password"
         feedback-id="inputFeedbackPasswordConfirmation"
       />
       <b-row
@@ -288,6 +288,7 @@ export default {
     'response-panel': ResponseErrorPanel
   },
   directives: { mask },
+
   props: {
     modalName: {
       type: String,
@@ -347,6 +348,7 @@ export default {
     }
   },
   computed: {
+
     tooYoung () {
       let dateOfBirth = this.helpFields.year + '-' + this.helpFields.month + '-' + this.helpFields.day
       return moment().diff(dateOfBirth, 'years') < 18
