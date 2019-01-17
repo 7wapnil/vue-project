@@ -174,11 +174,12 @@ export default {
     button.inside {
         right: 20px;
         top: 20px;
-        border: none;
         outline: none;
         text-align: center;
         font-weight: bold;
         padding: 6px;
+        border-top-right-radius: 6px;
+        border: 0.2px #1B6945;
 
         &:hover {
             cursor: pointer;
