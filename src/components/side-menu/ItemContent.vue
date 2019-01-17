@@ -5,18 +5,20 @@
     <b-col
       v-if="item.icon"
       cols="auto"
-      class="px-4 py-3 sport-icon d-flex align-items-center justify-content-center">
+      class="px-4 py-3 sidemenu-main-logo d-flex align-items-center justify-content-center">
       <icon
         :name="item.icon"
         size="24px"/>
     </b-col>
-    <b-col class="d-flex align-items-center justify-content-start text-truncate">
-      <span class="item-label">{{ item.label }}</span>
+    <b-col class="py-2 d-flex align-items-center justify-content-start">
+      <span class="text-truncate">
+        {{ item.label }}
+      </span>
     </b-col>
     <b-col
       v-if="item.children && item.children.length"
       cols="auto"
-      class="bg-arc-clr-esport-opacity-like px-4 sidemenu-chevron d-flex align-items-center justify-content-center">
+      class="sidemenu-chevron d-flex align-items-center justify-content-center">
       <icon
         v-if="level === 0"
         name="sidemenu-chevron-down"
