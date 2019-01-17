@@ -11,9 +11,10 @@
         <b-form-input
           :type="type"
           v-model="content"
+          :disabled="disabled"
           class="bg-arc-clr-white"
           required
-          autocomplete="off"
+          @blur.native="handleBlur"
           @input="handleInput"/>
         <span
           v-if="bottomBar"
@@ -35,7 +36,7 @@ export default {
   props: {
     label: {
       type: String,
-      default: 'Name'
+      default: ''
     },
     bottomBar: {
       type: Boolean,
@@ -60,7 +61,11 @@ export default {
     mask: {
       type: String,
       default: ''
-    }
+    },
+    disabled: {
+      type: Boolean,
+      default: false
+    },
   },
   data () {
     return {
@@ -77,6 +82,9 @@ export default {
   methods: {
     handleInput (e) {
       this.$emit('input', this.content)
+    },
+    handleBlur (e) {
+      this.$emit('blur')
     }
   }
 }

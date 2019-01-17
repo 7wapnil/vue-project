@@ -73,7 +73,7 @@
     margin-bottom: 5px;
 
     &.day {
-      @media (max-width: 600px) {
+      @media (max-width: 767px) {
         margin-bottom: 25px;
         margin-right: 0 !important;
       }
@@ -81,7 +81,7 @@
     }
 
     &.month {
-      @media (max-width: 600px) {
+      @media (max-width: 767px) {
         margin-right: 0 !important;
         margin-bottom: 25px;
       }

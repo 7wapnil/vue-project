@@ -37,57 +37,51 @@ import NotImplemented from './NotImplemented'
 import Activity from './Activity'
 import ChangePassword from './ChangePassword'
 import AccountVerification from './AccountVerification'
+import DepositFunds from './DepositFunds'
 
 export default {
-  components: {
-    Account,
-    Activity,
-    ChangePassword,
-    AccountVerification,
-    NotImplemented
-  },
   data () {
     return {
       tabIndex: 0,
       tabs: [{
         id: 0,
         title: 'Account info & settings',
-        component: 'account',
+        component: Account,
         icon: 'i'
       }, {
         id: 1,
         title: 'Bonus',
-        component: 'not-implemented',
+        component: NotImplemented,
         icon: 'i'
       }, {
         id: 2,
         title: 'Promotions',
-        component: 'not-implemented',
+        component: NotImplemented,
         icon: 'i'
       }, {
         id: 3,
         title: 'Activity',
-        component: 'activity',
+        component: Activity,
         icon: 'i'
       }, {
         id: 4,
         title: 'Deposit funds',
-        component: 'not-implemented',
+        component: DepositFunds,
         icon: 'i'
       }, {
         id: 5,
         title: 'Withdraw funds',
-        component: 'not-implemented',
+        component: NotImplemented,
         icon: 'i'
       }, {
         id: 6,
         title: 'Account verification',
-        component: 'account-verification',
+        component: AccountVerification,
         icon: 'i'
       }, {
         id: 7,
         title: 'Change password',
-        component: 'change-password',
+        component: ChangePassword,
         icon: 'i'
       }]
     }
