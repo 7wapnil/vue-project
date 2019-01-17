@@ -30,7 +30,7 @@
         class="mt-4">
         <b-col
           lg="3"
-          md="1">
+          md="4">
           <select-component
             id="signup-day"
             :options="getDays()"
@@ -44,7 +44,9 @@
             feedback-id="inputFeedbackDateOfBirth"
           />
         </b-col>
-        <b-col lg="4">
+        <b-col
+          md="4"
+          lg="4">
           <select-component
             id="signup-month"
             :options="getMonths()"
@@ -58,7 +60,7 @@
           />
         </b-col>
         <b-col
-          md="2"
+          md="4"
           lg="3">
           <select-component
             id="signup-year"

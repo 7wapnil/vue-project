@@ -14,7 +14,7 @@
       <b-col
         class="ml-5"
         lg="4">
-        <input-component
+        <RegularInput
           id="deposit-amount"
           v-model="fields.amount"
           type="text"
@@ -30,7 +30,7 @@
           <b-col
             lg="10"
             md="1">
-            <select-component
+            <SelectInput
               id="deposit-currency"
               :options="getCurrencyList()"
               v-model="fields.currency"
@@ -42,7 +42,7 @@
             />
           </b-col>
         </b-row>
-        <input-component
+        <RegularInput
           v-if="walletExists"
           v-model="fields.currency"
           :disabled="true"
@@ -50,7 +50,7 @@
           bottom-bar
         />
         <div class="position-relative d-flex">
-          <input-component
+          <RegularInput
             id="deposit-bonus-code"
             v-model="fields.bonusCode"
             style=" flex: 1;"
@@ -108,8 +108,8 @@ import SelectInput from '@/components/inputs/SelectInput.vue'
 export default {
   name: 'DepositFunds',
   components: {
-    'input-component': RegularInput,
-    'select-component': SelectInput
+    RegularInput,
+    SelectInput
   },
   data () {
     return {

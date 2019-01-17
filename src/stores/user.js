@@ -1,7 +1,6 @@
 import arcanebetSession from '@/services/local-storage/session'
 import graphqlClient from '@/libs/apollo/'
-import { SIGN_IN_MUTATION, SIGN_UP_MUTATION } from '@/stores/queries/user'
-import { AUTH_INFO_QUERY } from '@/graphql/index'
+import { AUTH_INFO_QUERY, SIGN_IN_MUTATION, SIGN_UP_MUTATION } from '@/graphql/index'
 import { NO_CACHE } from '@/constants/graphql/fetch-policy'
 
 /**

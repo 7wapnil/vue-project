@@ -14,7 +14,6 @@
           :disabled="disabled"
           class="bg-arc-clr-white"
           required
-          autocomplete="off"
           @blur.native="handleBlur"
           @input="handleInput"/>
         <span

@@ -5,7 +5,7 @@
 import Bet from '@/models/bet'
 
 import graphqlClient from '@/libs/apollo/'
-import { BETSLIP_PLACEMENT_QUERY } from './queries/betslip'
+import { BETSLIP_PLACEMENT_QUERY } from '@/graphql/index'
 
 const getBetsFromStorage = () => {
   const json = localStorage.getItem('bets')
