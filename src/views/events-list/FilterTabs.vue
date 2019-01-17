@@ -5,8 +5,7 @@
       <events-list
         :title-id="titleId"
         :tournament-id="tournamentId"
-        :live="tab.live"
-        :key="eventsListKey">
+        :live="tab.live">
         <template slot-scope="{ event }">
 
           <live-event
@@ -69,9 +68,6 @@ export default {
   computed: {
     tournamentId () {
       return this.$route.params.tournamentId
-    },
-    eventsListKey () {
-      return Object.values(this.$store.state.titleFilters).join('_')
     }
   }
 }
