@@ -17,7 +17,7 @@ export const EVENT_FIELDS = `
   description
   live
   title {
-    name
+    ${TITLE_FIELDS}
   }
   tournament {
     id

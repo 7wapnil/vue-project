@@ -13,23 +13,11 @@
           class="d-flex pl-2">
           <h2 class="events-list-title font-weight-light">
             <icon
-              class="text-arc-clr-esport-glow px-3"
+              class="px-3"
               name="sidemenu-game-icon"
               size="24px"/>
             {{ title.name }}
           </h2>
-          <span class="align-self-center events-list-upcoming-events-hint">
-            1 event starts in 20min
-          </span>
-          <b-button
-            variant="arc-events-list-upcoming"
-            class="border-0 d-flex">
-            {{ title.name }} upcoming
-            <icon
-              class="align-self-center text-arc-clr-esport-glow pl-4"
-              name="arrow-right"
-              size="12px"/>
-          </b-button>
         </header>
 
         <div
