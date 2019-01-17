@@ -14,7 +14,8 @@
 </template>
 
 <script>
-import { MARKETS_LIST_QUERY } from '@/graphql'
+import { MARKETS_LIST_QUERY, CATEGORY_MARKET_UPDATED } from '@/graphql'
+import { updateCacheList } from '@/helpers/graphql'
 import MarketsList from './MarketsList'
 
 export default {
@@ -39,6 +40,18 @@ export default {
           eventId: this.event.id,
           category: this.category.slug,
           limit: 1000
+        },
+        subscribeToMore: {
+          document: CATEGORY_MARKET_UPDATED,
+          variables: {
+            eventId: this.event.id,
+            category: this.category.slug,
+          },
+          updateQuery ({ markets }, { subscriptionData }) {
+            return {
+              markets: updateCacheList(markets, subscriptionData.data.category_market_updated)
+            }
+          }
         }
       }
     }
