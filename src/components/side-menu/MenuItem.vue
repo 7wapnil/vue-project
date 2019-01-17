@@ -22,7 +22,8 @@
       v-if="hasChildren"
       :id="`item-${level}-${index}`"
       :is-nav="true"
-      :accordion="`${level}-menu`">
+      :accordion="`${level}-menu`"
+      class="sidemenu-collapse">
 
       <b-nav vertical>
         <b-nav-item
