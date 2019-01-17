@@ -11,7 +11,6 @@ export default {
   // placeholders, not a real functionality
   actions: {
     submitDepositFunds (context, depositData) {
-      console.log(depositData)
       const response = graphqlClient.mutate({
         mutation: DEPOSIT_FUNDS_MUTATION,
         variables: {
@@ -21,7 +20,7 @@ export default {
       return response
     },
     calculateBonus (context, bonusData) {
-      const response = graphqlClient.query({
+      const response = graphqlClient.mutate({
         query: CALCULATE_BONUS,
         variables: {
           input: bonusData
