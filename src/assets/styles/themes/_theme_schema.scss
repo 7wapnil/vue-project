@@ -3,7 +3,7 @@
 // Top navigation
 .navbar {
   background-color: $navbar-background;
-  box-shadow: 0 2px 0 0 rgba($black, .5);
+  box-shadow: $arc-button-box-shadow;
 }
 #top-navigation > .nav-item > .active {
   background-color: $nav-item-active-background;
@@ -11,7 +11,7 @@
 }
 
 // Sidemenu
-.sidebar-collapsed-title {
+.item-title-0 {
   background-color: $navbar-background;
 }
 .sidemenu-chevron {
@@ -20,10 +20,17 @@
 .sidemenu-main-logo {
   color: $sidemenu-main-logo-color;
 }
-.sidemenu .submenu:hover{
+.items-level-1 .item-title-1:hover {
   background-color: $navbar-background;
   border-radius: 2px;
+  transition: all .3s ease-in;
 }
+.items-level-2:hover {
+  background-color: $navbar-background;
+  border-radius: 2px;
+  transition: all .3s ease-in;
+}
+
 
 // Buttons
 .btn-arc-primary {
@@ -66,7 +73,7 @@
 // Nav Wallet
 .wallet-button {
   background-color: $nav-wallet-button-background;
-  box-shadow: 0 2px 0 0 rgba($black, .5);
+  box-shadow: $arc-button-box-shadow;
   border: 1px solid rgba(66,144,255, .5);
   border-radius: 6px 0 6px 0 !important;
 }
@@ -82,11 +89,11 @@
 }
 #nav-wallet-wrapper .arc-wallet-triangle-down {
   transform: rotateX(0deg);
-  transition: transform 0.8s;
+  transition: transform .8s;
 }
 #nav-wallet-wrapper.show .arc-wallet-triangle-down{
   transform: rotateX(180deg);
-  transition: transform 0.8s;
+  transition: transform .8s;
 }
 
 // Icons
@@ -106,11 +113,14 @@
 }
 .upcoming-statistics:hover .arc-upcoming-event-arrow-right {
   color: $icon-section-color !important;
-  transition: color 0.3s ease-in-out;
+  transition: color .3s ease-in-out;
+}
+.events-list-title i {
+  color: $icon-section-color;
 }
 .event-card-toggle-button:hover .arc-upcoming-event-chevron-down {
   color: $icon-section-color !important;
-  transition: color 0.3s ease-in-out;
+  transition: color .3s ease-in-out;
 }
 
 // Progress bar

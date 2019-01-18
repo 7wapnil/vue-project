@@ -17,7 +17,7 @@ export const EVENT_FIELDS = `
   description
   live
   title {
-    name
+    ${TITLE_FIELDS}
   }
   tournament {
     id
@@ -26,11 +26,9 @@ export const EVENT_FIELDS = `
   }
   start_at
   end_at
-  details {
-    competitors {
-      id
-      name
-    }
+  competitors {
+    id
+    name
   }
   state {
     id

@@ -14,12 +14,12 @@
         </dl>
 
         <dl
-          v-if="event.details.competitors"
+          v-if="event.competitors"
           class="row">
           <dt class="col-sm-3">Competitors</dt>
           <dd class="col-sm-9">
             <p
-              v-for="competitor in event.details.competitors"
+              v-for="competitor in event.competitors"
               :key="competitor.id">
               {{ competitor.name }}
             </p>
@@ -83,7 +83,8 @@
 
 <script>
 import { UNLIMITED_QUERY } from '@/constants/graphql/limits'
-import { EVENT_BY_ID_QUERY } from '@/graphql'
+import { EVENT_BY_ID_QUERY, EVENT_UPDATED } from '@/graphql'
+import { updateCacheList } from '@/helpers/graphql'
 import MarketsCategories from '@/components/markets/MarketsCategories'
 import moment from 'moment'
 
@@ -109,6 +110,17 @@ export default {
             return null
           }
           return events[0]
+        },
+        subscribeToMore: {
+          document: EVENT_UPDATED,
+          variables: {
+            id: this.eventId
+          },
+          updateQuery ({ events }, { subscriptionData }) {
+            return {
+              events: updateCacheList(events, subscriptionData.data.event_updated, false)
+            }
+          }
         }
       }
     }

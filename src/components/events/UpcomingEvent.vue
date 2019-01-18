@@ -22,16 +22,7 @@
             no-gutters>
             <b-col style="line-height: 14px; min-width: 40px">
               <b-row
-                class="mb-2"
-                no-gutters>
-                <b-col class="text-truncate">
-                  <small class="text-arc-clr-iron">
-                    {{ event.tournament.name }}
-                  </small>
-                </b-col>
-              </b-row>
-              <b-row
-                v-for="competitor in event.details.competitors"
+                v-for="competitor in event.competitors"
                 :key="competitor.id"
                 no-gutters>
                 <b-col class="text-truncate">

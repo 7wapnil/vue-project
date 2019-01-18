@@ -8,7 +8,7 @@
     @click="addOdd">
     <h6 class="m-0">
       <strong>
-        {{ odd.value }}
+        {{ value }}
       </strong>
     </h6>
   </b-button>
@@ -47,6 +47,9 @@ export default {
   computed: {
     isDisabled () {
       return this.disabled || this.odd.status === ODD_INACTIVE_STATUS
+    },
+    value () {
+      return Number(this.odd.value).toFixed(2)
     }
   },
   watch: {
