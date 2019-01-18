@@ -53,12 +53,11 @@
             label="Bonus code"
             bottom-bar
             @blur="showButton()"
-            @Enter="showButton()"
+            @enter="showButton()"
           />
           <button
             v-if="isVisible"
             class="inside bg-arc-clr-sport-bg position-absolute text-arc-clr-white"
-            style="width: 15%"
             @click="calculateBonus()">+
           </button>
         </div>
@@ -82,14 +81,12 @@
               <h6 class="text-arc-clr-iron text-right pt-2">
                 Total to be added:
               </h6>
-
             </b-col>
             <b-col class="col-6">
               <h6 class="text-left"> {{ fields.amount }} {{ fields.currency }}</h6>
               <h6 class="text-lef"> {{ calculatedBonus }} {{ fields.currency }}</h6>
               <h6 class="text-left">0.00</h6>
               <h6 class="text-left pt-2 font-weight-bold"> {{ getTotal() }} {{ fields.currency }}</h6>
-
             </b-col>
           </b-row>
           <b-button
@@ -178,6 +175,7 @@ export default {
 
 <style lang="scss" scoped>
     button.inside {
+        width: 15%;
         right: 20px;
         top: 20px;
         outline: none;

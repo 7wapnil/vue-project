@@ -99,7 +99,7 @@ export default {
       this.$emit('blur')
     },
     handleEnter (e) {
-      this.$emit(e.key)
+      this.$emit('enter')
     }
   }
 }

@@ -348,7 +348,6 @@ export default {
     }
   },
   computed: {
-
     tooYoung () {
       let dateOfBirth = this.helpFields.year + '-' + this.helpFields.month + '-' + this.helpFields.day
       return moment().diff(dateOfBirth, 'years') < 18
