@@ -45,6 +45,7 @@
             <b-card
               v-for="event in tournament.events"
               :key="event.id"
+              :class="{disabled: !isEventAvailable(event)}"
               no-body>
               <slot :event="event"/>
             </b-card>

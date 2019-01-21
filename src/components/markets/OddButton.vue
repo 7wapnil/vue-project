@@ -46,7 +46,9 @@ export default {
   },
   computed: {
     isDisabled () {
-      return this.disabled || this.odd.status === ODD_INACTIVE_STATUS
+      return this.disabled ||
+        this.odd.status === ODD_INACTIVE_STATUS ||
+        !this.isEventAvailable(this.event)
     },
     value () {
       return Number(this.odd.value).toFixed(2)
