@@ -14,23 +14,25 @@
 .item-title-0 {
   background-color: $navbar-background;
 }
+.side-menu a .active > .item-title {
+  background-color: $navbar-background;
+  border-radius: 2px;
+}
 .sidemenu-chevron {
   color: $sidemenu-chevron-color;
 }
 .sidemenu-main-logo {
   color: $sidemenu-main-logo-color;
 }
-.items-level-1 .item-title-1:hover {
+.items-level-1 a:hover {
   background-color: $navbar-background;
   border-radius: 2px;
   transition: all .3s ease-in;
 }
-.items-level-2:hover {
+.item-title-1:hover {
   background-color: $navbar-background;
   border-radius: 2px;
-  transition: all .3s ease-in;
 }
-
 
 // Buttons
 .btn-arc-primary {

@@ -1,5 +1,5 @@
 <template>
-  <b-row>
+  <b-row no-gutters>
     <b-col>
 
       <introduction-area/>
