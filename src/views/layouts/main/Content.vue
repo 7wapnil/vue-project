@@ -11,7 +11,7 @@
 
     </b-col>
     <b-col
-      class="d-none d-lg-block bg-arc-clr-soil-black"
+      class="d-none d-lg-block bg-arc-clr-soil-black betslip-block"
       style="max-width: 268px">
       <promotional-item/>
       <betslip/>

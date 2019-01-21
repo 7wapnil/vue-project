@@ -1,5 +1,5 @@
 <template>
-  <div class="betslip-block">
+  <div>
     <no-bets-block/>
 
     <b-container
