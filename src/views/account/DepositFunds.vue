@@ -5,9 +5,15 @@
       <b-col>
         <h3>Deposit Funds</h3>
         <hr class="border-arc-clr-iron">
-        <p>The money will be transferred directly in to your Arcanebet account.
+        <p class="my-2">The money will be transferred directly in to your Arcanebet account.
         When you have won some bets you can look forward to easy and fast
         withdrawals without fees!</p>
+        <div
+          v-if="getDepositState()"
+          :class="getDepositState()"
+          class="message my-4 mx-auto text-center w-50 justify-content-center p-4">
+          {{ getMessage() }}
+        </div>
       </b-col>
     </b-row>
     <b-row>
@@ -15,7 +21,6 @@
         class="ml-5"
         lg="4">
         <RegularInput
-
           id="deposit-amount"
           v-model="fields.amount"
           type="text"
@@ -23,7 +28,7 @@
           bottom-bar
         />
         <b-row
-          v-if="!walletExists"
+          v-if="walletExists === false"
           align-h="center"
           no-gutters
           class="mt-4">
@@ -84,8 +89,8 @@
             </b-col>
             <b-col class="col-6">
               <h6 class="text-left"> {{ fields.amount }} {{ fields.currency }}</h6>
-              <h6 class="text-lef"> {{ calculatedBonus }} {{ fields.currency }}</h6>
-              <h6 class="text-left">0.00</h6>
+              <h6 class="text-left"> {{ calculatedBonus }} {{ fields.currency }}</h6>
+              <h6 class="text-left">0.00 {{ fields.currency }}</h6>
               <h6 class="text-left pt-2 font-weight-bold"> {{ getTotal() }} {{ fields.currency }}</h6>
             </b-col>
           </b-row>
@@ -103,6 +108,7 @@
 <script>
 import RegularInput from '@/components/inputs/RegularInput.vue'
 import SelectInput from '@/components/inputs/SelectInput.vue'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'DepositFunds',
@@ -117,22 +123,28 @@ export default {
         currency: '',
         bonusCode: ''
       },
-      walletExists: false,
+      walletExists: null,
       totalValue: '',
       calculatedBonus: '',
-      isVisible: false
+      isVisible: null
     }
   },
+  computed: {
+    ...mapGetters({
+      walletActive: 'getActiveWallet'
+    })
+  },
   created () {
-    this.activeWalletCurrency()
+    this.$store.dispatch('fetchWallets').then(() => {
+      if (this.walletActive) {
+        this.walletExists = true
+        this.fields.currency = this.walletActive.currency.code
+      } else {
+        this.walletExists = false
+      }
+    })
   },
   methods: {
-    activeWalletCurrency () {
-      if (this.$store.getters.getActiveWallet) {
-        this.walletExists = true
-        this.fields.currency = this.$store.getters.getActiveWallet.currency.code
-      }
-    },
     getCurrencyList () {
       return ['EUR', 'USD', 'SEK', 'NOK', 'AUD', 'CAD']
     },
@@ -151,13 +163,24 @@ export default {
       if (this.fields.amount.includes(',')) {
         this.fields.amount = this.fields.amount.replace(',', '.')
       }
-      this.totalValue = parseFloat(this.fields.amount) + parseFloat(this.calculatedBonus)
+      this.totalValue = parseFloat(this.fields.amount)
+      if (this.calculatedBonus) {
+        this.totalValue += parseFloat(this.calculatedBonus)
+      }
       if (!isNaN(this.totalValue)) {
         return parseFloat(this.totalValue).toFixed(2)
       }
     },
+    getMessage () {
+      return this.$route.query.depositStateMessage
+    },
+    getDepositState () {
+      return this.$route.query.depositState
+    },
     submitDeposit () {
       const input = this.fields
+      // test
+      window.location.href = '?depositState=success&depositStateMessage=Here goes success 123'
       this.$store.dispatch('submitDepositFunds', input)
         .then((res) => {
           // do something
@@ -174,6 +197,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+    @import "../../assets/styles/variables";
+    button {
+      &:hover {
+        cursor: pointer;
+      }
+    }
+
     button.inside {
         width: 15%;
         right: 20px;
@@ -184,13 +214,26 @@ export default {
         padding: 6px;
         border-top-right-radius: 6px;
         border: 0.2px #1B6945;
-        &:hover {
-            cursor: pointer;
+    }
+
+    .message {
+        border-radius: 6px 0 12px 0;
+
+        &.success {
+            background-color: $arc-clr-sport-bg;
+        }
+
+        &.fail {
+            background-color: $arc-clr-inplay-glow;
+        }
+
+        &.pending {
+            background-color: $arc-clr-gold-light;
         }
     }
 
-  h6.currency{
-    right: 45px;
-    top: 30px;
-  }
+    h6.currency {
+        right: 45px;
+        top: 30px;
+    }
 </style>

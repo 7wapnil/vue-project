@@ -1,12 +1,13 @@
 import graphqlClient from '@/libs/apollo/'
-import { DEPOSIT_FUNDS_MUTATION, CALCULATE_BONUS } from '@/stores/queries/account'
+import { DEPOSIT_FUNDS_MUTATION, CALCULATE_BONUS } from '@/graphql/account'
 
 /**
  * Account store module
  */
 export default {
   state: {
-    deposit: null
+    deposit: null,
+    tab: null
   },
   // placeholders, not a real functionality
   actions: {

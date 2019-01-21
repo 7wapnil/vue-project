@@ -40,9 +40,10 @@ import AccountVerification from './AccountVerification'
 import DepositFunds from './DepositFunds'
 
 export default {
+  name: 'AccountModal',
   data () {
     return {
-      tabIndex: 0,
+      tabIndex: this.$store.state.account.tab || 0,
       tabs: [{
         id: 0,
         title: 'Account info & settings',
