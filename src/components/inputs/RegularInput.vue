@@ -9,12 +9,15 @@
       block>
       <div class="input-group-custom">
         <b-form-input
+          :id="id"
           :type="type"
           v-model="content"
           :disabled="disabled"
+          :autocomplete="autocomplete"
           class="bg-arc-clr-white"
           required
           @blur.native="handleBlur"
+          @keydown.enter.native="handleEnter"
           @input="handleInput"/>
         <span
           v-if="bottomBar"
@@ -54,6 +57,7 @@ export default {
       type: String,
       default: ''
     },
+
     value: {
       type: String,
       default: ''
@@ -65,6 +69,14 @@ export default {
     disabled: {
       type: Boolean,
       default: false
+    },
+    id: {
+      type: String,
+      default: ''
+    },
+    autocomplete: {
+      type: String,
+      default: ''
     },
   },
   data () {
@@ -85,6 +97,9 @@ export default {
     },
     handleBlur (e) {
       this.$emit('blur')
+    },
+    handleEnter (e) {
+      this.$emit('enter')
     }
   }
 }

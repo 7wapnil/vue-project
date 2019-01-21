@@ -15,6 +15,7 @@
         class="ml-5"
         lg="4">
         <RegularInput
+
           id="deposit-amount"
           v-model="fields.amount"
           type="text"
@@ -26,7 +27,6 @@
           align-h="center"
           no-gutters
           class="mt-4">
-
           <b-col
             lg="10"
             md="1">
@@ -34,7 +34,6 @@
               id="deposit-currency"
               :options="getCurrencyList()"
               v-model="fields.currency"
-              :disabled="walletExists"
               class-name="currency"
               type="select"
               label="Choose currency"
@@ -42,13 +41,9 @@
             />
           </b-col>
         </b-row>
-        <RegularInput
+        <h6
           v-if="walletExists"
-          v-model="fields.currency"
-          :disabled="true"
-          type="text"
-          bottom-bar
-        />
+          class="currency position-absolute text-arc-clr-soil-light mb-0">{{ fields.currency }}</h6>
         <div class="position-relative d-flex">
           <RegularInput
             id="deposit-bonus-code"
@@ -58,11 +53,11 @@
             label="Bonus code"
             bottom-bar
             @blur="showButton()"
+            @enter="showButton()"
           />
           <button
             v-if="isVisible"
             class="inside bg-arc-clr-sport-bg position-absolute text-arc-clr-white"
-            style="width: 15%"
             @click="calculateBonus()">+
           </button>
         </div>
@@ -80,6 +75,9 @@
               <h6 class="text-arc-clr-iron text-right">
                 Bonus:
               </h6>
+              <h6 class="text-arc-clr-iron text-right">
+                Fee:
+              </h6>
               <h6 class="text-arc-clr-iron text-right pt-2">
                 Total to be added:
               </h6>
@@ -87,6 +85,7 @@
             <b-col class="col-6">
               <h6 class="text-left"> {{ fields.amount }} {{ fields.currency }}</h6>
               <h6 class="text-lef"> {{ calculatedBonus }} {{ fields.currency }}</h6>
+              <h6 class="text-left">0.00</h6>
               <h6 class="text-left pt-2 font-weight-bold"> {{ getTotal() }} {{ fields.currency }}</h6>
             </b-col>
           </b-row>
@@ -149,9 +148,12 @@ export default {
       }
     },
     getTotal () {
-      this.totalValue = parseInt(this.fields.amount) + parseInt(this.calculatedBonus)
+      if (this.fields.amount.includes(',')) {
+        this.fields.amount = this.fields.amount.replace(',', '.')
+      }
+      this.totalValue = parseFloat(this.fields.amount) + parseFloat(this.calculatedBonus)
       if (!isNaN(this.totalValue)) {
-        return this.totalValue
+        return parseFloat(this.totalValue).toFixed(2)
       }
     },
     submitDeposit () {
@@ -173,6 +175,7 @@ export default {
 
 <style lang="scss" scoped>
     button.inside {
+        width: 15%;
         right: 20px;
         top: 20px;
         outline: none;
@@ -181,9 +184,13 @@ export default {
         padding: 6px;
         border-top-right-radius: 6px;
         border: 0.2px #1B6945;
-
         &:hover {
             cursor: pointer;
         }
     }
+
+  h6.currency{
+    right: 45px;
+    top: 30px;
+  }
 </style>
