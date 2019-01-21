@@ -1,3 +1,4 @@
+import gql from 'graphql-tag'
 import { NOT_STARTED, STARTED } from '@/constants/event-statuses'
 import { mapGetters } from 'vuex'
 import client from '@/libs/apollo/';
@@ -37,7 +38,7 @@ export default {
       callback(data)
       client.writeQuery({ ...query, data })
     },
-    isEventAvailable(event) {
+    isEventAvailable (event) {
       if (this.appState.live_connected === false && event.live) {
         return false
       }
