@@ -11,7 +11,6 @@ import apolloClient from '@/libs/apollo/'
 import Store from '@/stores/index'
 import globalMixin from '@/mixins/global'
 import '@/components/global-components'
-import WebSocket from 'vue-socket.io'
 import VueApollo from 'vue-apollo'
 import VueLogger from 'vuejs-logger'
 
@@ -26,7 +25,6 @@ Vue.use(VueNoty, {
   layout: 'topRight'
 })
 
-Vue.use(WebSocket, process.env.VUE_APP_WEB_SOCKET_URL, Store)
 Vue.use(VueApollo)
 Vue.use(VueLogger, {
   logLevel: isProduction ? 'error' : 'debug'
