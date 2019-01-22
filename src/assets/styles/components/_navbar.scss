@@ -10,8 +10,8 @@
   line-height: $btn-line-height-sm;
   padding: 31px 60px;
 }
-.navbar-nav > .nav-item > a:active {
-  color: $arc-clr-white;
+.nav-item-active > h6 {
+  color: $arc-clr-white !important;
 }
 
 // Navbar wallet
