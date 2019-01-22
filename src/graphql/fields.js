@@ -1,3 +1,8 @@
+export const APP_FIELDS = `
+  live_connected
+  pre_live_connected
+`
+
 export const TITLE_FIELDS = `
   id
   name
@@ -15,6 +20,7 @@ export const EVENT_FIELDS = `
   id
   name
   description
+  status
   live
   title {
     ${TITLE_FIELDS}
