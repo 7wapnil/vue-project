@@ -11,8 +11,7 @@
     <b-link
       v-if="!hasChildren && item.to"
       :to="item.to"
-      exact
-      class="item-link">
+      exact>
       <item-content
         :item="item"
         :level="level"/>
@@ -22,8 +21,7 @@
       v-if="hasChildren"
       :id="`item-${level}-${index}`"
       :is-nav="true"
-      :accordion="`${level}-menu`"
-      class="sidemenu-collapse">
+      :accordion="`${level}-menu`">
 
       <b-nav vertical>
         <b-nav-item

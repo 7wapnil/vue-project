@@ -1,6 +1,10 @@
 // Upcoming events section
 @import '../variables';
 
+.card.disabled {
+  opacity: .5;
+}
+
 .upcoming-card {
   border-radius: 4px !important;
   & .card-body {
