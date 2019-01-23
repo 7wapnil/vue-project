@@ -1,10 +1,12 @@
 <template>
-  <div>
+  <div
+    :class="{'success' : getClass, 'fail' : getClass == false}"
+    class="main-card">
     <b-card
       :bg-variant="cardVariant"
+      :class="{'success' : getClass, 'fail' : getClass == false}"
       no-body
-      class="p-2 mb-1">
-
+      class="mx-2 my-2 p-2 mb-1">
       <b-row no-gutters>
         <b-col
           class="d-flex justify-content-center market-name">
@@ -22,7 +24,6 @@
             name="betslip-close"/>
         </b-col>
       </b-row>
-
       <b-row no-gutters>
         <b-col class="mt-2 d-flex justify-content-center">
           <h6>
@@ -67,9 +68,6 @@
         <b-row class="col-12">
           <div class="row my-2">
             <div class="col-12">
-              <b-alert :show="hasMessage">
-                {{ bet.message }}
-              </b-alert>
               <b-alert
                 :show="displayUnconfirmedOddValueDialog"
                 variant="danger">
@@ -100,7 +98,7 @@
 
     <b-card
       :bg-variant="cardVariant"
-      class="mb-1"
+      class="main-card mx-2 my-2 mb-1"
       no-body>
       <b-container class="py-3 pl-4 pr-2">
         <b-row no-gutters>
@@ -137,6 +135,13 @@
               min="0"/>
           </b-col>
         </b-row>
+        <b-alert
+          :show="hasMessage"
+          class="mt-3 p-2 text-center"
+          style="font-size: 14px"
+          variant="danger">
+          {{ bet.message }}
+        </b-alert>
       </b-container>
     </b-card>
   </div>
@@ -173,6 +178,11 @@ export default {
     potentialReturn: function () {
       const stake = this.bet.stake > 0 ? this.bet.stake : 0
       return stake * this.bet.approvedOddValue
+    },
+    getClass () {
+      console.log(this.bet.success)
+      console.log(this.bet.message)
+      return this.bet.success
     },
     betStake: {
       get () {

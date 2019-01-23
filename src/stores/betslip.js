@@ -73,6 +73,7 @@ export const getters = {
     ) {
       enabled = true
     }
+
     return enabled
   },
   betslipValuesConfirmed: (state) => {

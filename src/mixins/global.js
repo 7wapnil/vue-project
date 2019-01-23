@@ -47,7 +47,6 @@ export default {
         return false
       }
 
-      console.log(this.appState)
       return [
         NOT_STARTED,
         STARTED
