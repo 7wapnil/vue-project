@@ -6,10 +6,8 @@
     variant="arc-odd"
     class="text-arc-clr-gold"
     @click="addOdd">
-    <h6 class="m-0">
-      <strong>
-        {{ value }}
-      </strong>
+    <h6 class="m-0 font-weight-bold">
+      {{ value }}
     </h6>
   </b-button>
 </template>

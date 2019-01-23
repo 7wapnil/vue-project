@@ -20,6 +20,9 @@
 }
 .event-card-inside-border {
   box-shadow: inset 1px 0 0 0 rgba($black, .3);
+  &-top {
+    box-shadow: inset 0 1px 0 0 rgba($black, .3);
+  }
 }
 
 .upcoming-statistics:hover {
