@@ -1,6 +1,7 @@
 export const APP_FIELDS = `
   live_connected
   pre_live_connected
+  upcoming_events_duration
 `
 
 export const TITLE_FIELDS = `

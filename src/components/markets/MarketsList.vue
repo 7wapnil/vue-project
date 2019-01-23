@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import MarketItem from './MatketItem'
+import MarketItem from './MarketItem'
 import { ACTIVE_STATUS, INACTIVE_STATUS, SUSPENDED_STATUS } from '@/models/market'
 
 export default {
