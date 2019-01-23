@@ -8,12 +8,12 @@
         <p class="my-2">The money will be transferred directly in to your Arcanebet account.
         When you have won some bets you can look forward to easy and fast
         withdrawals without fees!</p>
-        <div
-          v-if="getDepositState()"
-          :class="getDepositState()"
-          class="message my-4 mx-auto text-center w-50 justify-content-center p-4">
+        <b-alert
+          :show="getDepositState()"
+          :variant="getDepositState()"
+          class="my-4 mx-auto text-center w-50 justify-content-center p-4">
           {{ getMessage() }}
-        </div>
+        </b-alert>
       </b-col>
     </b-row>
     <b-row>
@@ -46,9 +46,12 @@
             />
           </b-col>
         </b-row>
-        <h6
+        <span
           v-if="walletExists"
-          class="currency position-absolute text-arc-clr-soil-light mb-0">{{ fields.currency }}</h6>
+          style="font-size: 0.875rem;
+            right: 45px;
+            top: 30px;"
+          class="currency position-absolute text-arc-clr-soil-light mb-0">{{ fields.currency }}</span>
         <div class="position-relative d-flex">
           <RegularInput
             id="deposit-bonus-code"
@@ -60,11 +63,11 @@
             @blur="showButton()"
             @enter="showButton()"
           />
-          <button
+          <b-btn
             v-if="isVisible"
-            class="inside bg-arc-clr-sport-bg position-absolute text-arc-clr-white"
+            class="inside bg-arc-clr-sport-bg text-arc-clr-white"
             @click="calculateBonus()">+
-          </button>
+          </b-btn>
         </div>
       </b-col>
       <b-col class="ml-2">
@@ -72,26 +75,22 @@
           class="square bg-arc-clr-soil-dark w-90 p-5"
           style="width: 90%;">
           <h4 class="text-center pt-1 pb-2 text-arc-clr-iron">Deposit Summary</h4>
-          <b-row>
+          <b-row style="font-size: 0.875rem">
             <b-col class="col-6">
-              <h6 class="text-arc-clr-iron text-right">
-                Deposit:
-              </h6>
-              <h6 class="text-arc-clr-iron text-right">
-                Bonus:
-              </h6>
-              <h6 class="text-arc-clr-iron text-right">
-                Fee:
-              </h6>
-              <h6 class="text-arc-clr-iron text-right pt-2">
-                Total to be added:
-              </h6>
+              <ul class="list-unstyled list-group">
+                <li class="text-arc-clr-iron text-right">Deposit:</li>
+                <li class="text-arc-clr-iron text-right"> Bonus:</li>
+                <li class="text-arc-clr-iron text-right">Fee:</li>
+                <li class="text-arc-clr-iron text-right pt-2">Total to be added:</li>
+              </ul>
             </b-col>
             <b-col class="col-6">
-              <h6 class="text-left"> {{ fields.amount }} {{ fields.currency }}</h6>
-              <h6 class="text-left"> {{ calculatedBonus }} {{ fields.currency }}</h6>
-              <h6 class="text-left">0.00 {{ fields.currency }}</h6>
-              <h6 class="text-left pt-2 font-weight-bold"> {{ getTotal() }} {{ fields.currency }}</h6>
+              <ul class="list-unstyled list-group">
+                <li class=" text-left">{{ fields.amount }} {{ fields.currency }}</li>
+                <li class=" text-left"> {{ calculatedBonus }} {{ fields.currency }}</li>
+                <li class=" text-left">0.00 {{ fields.currency }}</li>
+                <li class=" text-left pt-2">{{ getTotal() }} {{ fields.currency }}</li>
+              </ul>
             </b-col>
           </b-row>
           <b-button
@@ -195,45 +194,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-    @import "../../assets/styles/variables";
-    button {
-      &:hover {
-        cursor: pointer;
-      }
-    }
-
-    button.inside {
-        width: 15%;
-        right: 20px;
-        top: 20px;
-        outline: none;
-        text-align: center;
-        font-weight: bold;
-        padding: 6px;
-        border-top-right-radius: 6px;
-        border: 0.2px #1B6945;
-    }
-
-    .message {
-        border-radius: 6px 0 12px 0;
-
-        &.success {
-            background-color: $arc-clr-sport-bg;
-        }
-
-        &.fail {
-            background-color: $arc-clr-inplay-glow;
-        }
-
-        &.pending {
-            background-color: $arc-clr-gold-light;
-        }
-    }
-
-    h6.currency {
-        right: 45px;
-        top: 30px;
-    }
-</style>

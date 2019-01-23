@@ -1,0 +1,19 @@
+@import "../variables";
+
+.alert-fail{
+  background-color: $wp-clr-notif-red;
+  border: $wp-clr-notif-red;
+  color: $arc-clr-white;
+}
+
+.alert-success{
+  background-color: $arc-clr-sport-bg;
+  border:$arc-clr-sport-bg;
+  color: $arc-clr-white;
+}
+
+.alert-pending{
+  background-color: $arc-clr-gold-light;
+  border:$arc-clr-gold-light;
+  color: $arc-clr-white;
+}
