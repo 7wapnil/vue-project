@@ -3,7 +3,7 @@ import { EVENT_FIELDS, MARKET_FIELDS, SCOPE_FIELDS } from './fields'
 
 export const EVENTS_LIST_QUERY = gql`
   query eventList (
-    $limit: Int = 5,
+    $limit: Int = null,
     $offset: Int = 0,
     $titleId: ID = null,
     $titleKind: String = null,
