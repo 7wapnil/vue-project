@@ -11,7 +11,8 @@ export const EVENTS_LIST_QUERY = gql`
     $inPlay: Boolean = false,
     $upcoming: Boolean = false,
     $withScopes: Boolean = false,
-    $withMarkets: Boolean = false
+    $withMarkets: Boolean = false,
+    $marketsLimit: Int = 10
   ) {
     events (
       limit: $limit,
@@ -27,7 +28,7 @@ export const EVENTS_LIST_QUERY = gql`
       scopes @include (if: $withScopes) {
         ${SCOPE_FIELDS}
       }
-      markets @include(if: $withMarkets) {
+      markets (limit: $marketsLimit) @include(if: $withMarkets) {
         ${MARKET_FIELDS}
       }
     }
