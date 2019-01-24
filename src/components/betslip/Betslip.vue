@@ -187,7 +187,6 @@ export default {
       if (response.data && response.data.placeBets) {
         response.data.placeBets.forEach((betPayload) => {
           let bet = bets.find(el => el.oddId === betPayload.id)
-          console.log(betPayload)
 
           this.updateBet({
             oddId: bet.oddId,

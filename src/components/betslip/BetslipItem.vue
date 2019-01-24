@@ -160,14 +160,6 @@ export default {
       required: true
     },
   },
-  data () {
-    return {
-      value: {
-        type: Number,
-        default: null
-      }
-    }
-  },
   sockets: {
     oddUpdated (data) {
       if (data.id !== this.bet.oddId || data.changes.value == null) { return }
