@@ -9,7 +9,7 @@
         When you have won some bets you can look forward to easy and fast
         withdrawals without fees!</p>
         <b-alert
-          :show="getDepositState()"
+          :show="showAlert"
           :variant="getDepositState()"
           class="my-4 mx-auto text-center w-50 justify-content-center p-4">
           {{ getMessage() }}
@@ -28,7 +28,7 @@
           bottom-bar
         />
         <b-row
-          v-if="walletExists === false"
+          v-if="!fields.currency"
           align-h="center"
           no-gutters
           class="mt-4">
@@ -47,11 +47,8 @@
           </b-col>
         </b-row>
         <span
-          v-if="walletExists"
-          style="font-size: 0.875rem;
-            right: 45px;
-            top: 30px;"
-          class="currency position-absolute text-arc-clr-soil-light mb-0">{{ fields.currency }}</span>
+          v-if="fields.currency"
+          class="currency inline-input-label text-arc-clr-soil-light mb-0">{{ fields.currency }}</span>
         <div class="position-relative d-flex">
           <RegularInput
             id="deposit-bonus-code"
@@ -66,7 +63,7 @@
           <b-btn
             v-if="isVisible"
             class="inside bg-arc-clr-sport-bg text-arc-clr-white"
-            @click="calculateBonus()">+
+            @click.prevent="calculateBonus()">+
           </b-btn>
         </div>
       </b-col>
@@ -89,7 +86,7 @@
                 <li class=" text-left">{{ fields.amount }} {{ fields.currency }}</li>
                 <li class=" text-left"> {{ calculatedBonus }} {{ fields.currency }}</li>
                 <li class=" text-left">0.00 {{ fields.currency }}</li>
-                <li class=" text-left pt-2">{{ getTotal() }} {{ fields.currency }}</li>
+                <li class=" text-left pt-2">{{ getTotal }} {{ fields.currency }}</li>
               </ul>
             </b-col>
           </b-row>
@@ -107,7 +104,7 @@
 <script>
 import RegularInput from '@/components/inputs/RegularInput.vue'
 import SelectInput from '@/components/inputs/SelectInput.vue'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'DepositFunds',
@@ -122,24 +119,42 @@ export default {
         currency: '',
         bonusCode: ''
       },
+      redirectUrl: 'https://backend.arcanedemo.com/redirect/deposits/initiate?',
       walletExists: null,
-      totalValue: '',
       calculatedBonus: '',
-      isVisible: null
+      isVisible: null,
+      showAlert: false
     }
   },
   computed: {
     ...mapGetters({
       walletActive: 'getActiveWallet'
-    })
+    }),
+    ...mapActions({
+      loadWallets: 'fetchWallets'
+    }),
+    ...mapGetters({
+      token: 'getToken'
+    }),
+    getTotal () {
+      let totalValue
+      if (this.fields.amount.includes(',')) {
+        this.fields.amount.replace(',', '.')
+      }
+      totalValue = parseFloat(this.fields.amount)
+      if (this.calculatedBonus) {
+        parseFloat(this.calculatedBonus)
+        totalValue += this.calculatedBonus
+      }
+      if (!isNaN(totalValue)) {
+        return parseFloat(totalValue).toFixed(2)
+      }
+    }
   },
   created () {
-    this.$store.dispatch('fetchWallets').then(() => {
+    this.loadWallets.then(() => {
       if (this.walletActive) {
-        this.walletExists = true
         this.fields.currency = this.walletActive.currency.code
-      } else {
-        this.walletExists = false
       }
     })
   },
@@ -158,38 +173,27 @@ export default {
         this.isVisible = true
       }
     },
-    getTotal () {
-      if (this.fields.amount.includes(',')) {
-        this.fields.amount = this.fields.amount.replace(',', '.')
-      }
-      this.totalValue = parseFloat(this.fields.amount)
-      if (this.calculatedBonus) {
-        this.totalValue += parseFloat(this.calculatedBonus)
-      }
-      if (!isNaN(this.totalValue)) {
-        return parseFloat(this.totalValue).toFixed(2)
-      }
-    },
     getMessage () {
       return this.$route.query.depositStateMessage
     },
     getDepositState () {
+      if (this.$route.query.depositState) {
+        this.showAlert = true
+      }
       return this.$route.query.depositState
     },
     submitDeposit () {
-      const input = this.fields
-      // test
-      window.location.href = '?depositState=success&depositStateMessage=Here goes success 123'
-      this.$store.dispatch('submitDepositFunds', input)
-        .then((res) => {
-          // do something
-        })
-        .catch(() => {
-          // do something
-        })
-        .finally(() => {
-          // do something
-        })
+      let queryParams = {
+        token: this.token,
+        currency_code: this.fields.currency,
+        amount: this.fields.amount,
+        bonus_code: this.fields.bonusCode
+      };
+
+      let query = Object.keys(queryParams)
+        .map(param => param + '=' + queryParams[param])
+        .join('&');
+      window.location.href = this.redirectUrl += query
     }
   }
 }
