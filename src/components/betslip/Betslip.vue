@@ -1,7 +1,6 @@
 <template>
-  <div>
+  <div class="mx-2 my-2">
     <no-bets-block/>
-
     <b-container
       v-if="getBets.length > 0"
       class="m-0 p-0">
@@ -178,7 +177,6 @@ export default {
 
       this.placeBets(betsPayload)
         .then(this.processBetsPlacementResponse)
-        .catch(this.handlePlacementFailure)
     },
     processBetsPlacementResponse (response) {
       this.updateBetsFromResponse(response)
@@ -207,10 +205,6 @@ export default {
           }
         })
       }
-    },
-    handlePlacementFailure (response) {
-      this.$noty.error(response.message, { timeout: 3000 })
-      this.clearBetslip()
     },
     changeStyleTab (index) {
       if (this.tabIndex === index) {

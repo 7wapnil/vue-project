@@ -6,7 +6,7 @@
       :bg-variant="cardVariant"
       :class="{'success' : getClass, 'fail' : getClass == false}"
       no-body
-      class="mx-2 my-2 p-2 mb-1">
+      class="p-2 mb-1">
       <b-row no-gutters>
         <b-col
           class="d-flex justify-content-center market-name">
@@ -70,7 +70,7 @@
             <div class="col-12">
               <b-alert
                 :show="displayUnconfirmedOddValueDialog"
-                variant="danger">
+                variant="fail">
                 This bet odd value changed from {{ bet.approvedOddValue }} to {{ bet.currentOddValue }}.
                 <b-button
                   @click="confirmValue">
@@ -98,7 +98,7 @@
 
     <b-card
       :bg-variant="cardVariant"
-      class="main-card mx-2 my-2 mb-1"
+      class="main-card mb-1"
       no-body>
       <b-container class="py-3 pl-4 pr-2">
         <b-row no-gutters>
@@ -180,17 +180,17 @@ export default {
       return stake * this.bet.approvedOddValue
     },
     getClass () {
-      console.log(this.bet.success)
-      console.log(this.bet.message)
       return this.bet.success
     },
     betStake: {
       get () {
+        console.log('1', this.bet.stake)
         return this.bet.stake
       },
       set (value) {
         let stakeValue = value > 0 ? value : 0
         this.setBetStake({ oddId: this.bet.oddId, stakeValue })
+        console.log('2', stakeValue)
       }
     },
     displayUnconfirmedOddValueDialog () {
