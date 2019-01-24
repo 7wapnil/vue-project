@@ -130,8 +130,7 @@ export default {
           inPlay: this.live,
           upcoming: !this.live,
           withMarkets: true,
-          marketsLimit: 1,
-          limit: 10
+          marketsLimit: 1
         }
       }
     },
