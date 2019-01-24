@@ -1,12 +1,9 @@
 <template>
-  <div
-    :class="{'success' : getClass, 'fail' : getClass == false}"
-    class="main-card">
+  <div>
     <b-card
       :bg-variant="cardVariant"
-      :class="{'success' : getClass, 'fail' : getClass == false}"
       no-body
-      class="p-2 mb-1">
+      class="px-2 py-3 mb-1">
       <b-row no-gutters>
         <b-col
           class="d-flex justify-content-center market-name">
@@ -98,9 +95,9 @@
 
     <b-card
       :bg-variant="cardVariant"
-      class="main-card mb-1"
+      class="mb-1"
       no-body>
-      <b-container class="py-3 pl-4 pr-2">
+      <b-container class="py-3 px-2">
         <b-row no-gutters>
           <b-col>
             <b-row no-gutters>
@@ -124,6 +121,7 @@
               </b-col>
             </b-row>
           </b-col>
+
           <b-col
             class="d-flex align-items-center"
             style="max-width: 79px">
@@ -137,7 +135,7 @@
         </b-row>
         <b-alert
           :show="hasMessage"
-          class="mt-3 p-2 text-center"
+          class="mt-3 mx-auto p-2 text-center"
           style="font-size: 14px"
           variant="danger">
           {{ bet.message }}
@@ -156,6 +154,20 @@ export default {
   components: {
     OddButton
   },
+  props: {
+    bet: {
+      type: Bet,
+      required: true
+    },
+  },
+  data () {
+    return {
+      value: {
+        type: Number,
+        default: null
+      }
+    }
+  },
   sockets: {
     oddUpdated (data) {
       if (data.id !== this.bet.oddId || data.changes.value == null) { return }
@@ -168,29 +180,18 @@ export default {
       this.updateBet({ oddId: this.bet.oddId, payload: { currentOddValue: currentOdd.value } })
     }
   },
-  props: {
-    bet: {
-      type: Bet,
-      required: true
-    },
-  },
   computed: {
     potentialReturn: function () {
       const stake = this.bet.stake > 0 ? this.bet.stake : 0
       return stake * this.bet.approvedOddValue
     },
-    getClass () {
-      return this.bet.success
-    },
     betStake: {
       get () {
-        console.log('1', this.bet.stake)
         return this.bet.stake
       },
       set (value) {
         let stakeValue = value > 0 ? value : 0
         this.setBetStake({ oddId: this.bet.oddId, stakeValue })
-        console.log('2', stakeValue)
       }
     },
     displayUnconfirmedOddValueDialog () {
