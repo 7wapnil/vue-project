@@ -160,18 +160,6 @@ export default {
       required: true
     },
   },
-  sockets: {
-    oddUpdated (data) {
-      if (data.id !== this.bet.oddId || data.changes.value == null) { return }
-      this.updateBet({ oddId: this.bet.oddId, payload: { currentOddValue: data.changes.value } })
-    },
-    oddsUpdated (data) {
-      if (data.id !== this.bet.eventId) { return }
-      const currentOdd = data.data.find(odd => odd.id === this.bet.oddId)
-      if (!currentOdd) { return }
-      this.updateBet({ oddId: this.bet.oddId, payload: { currentOddValue: currentOdd.value } })
-    }
-  },
   computed: {
     potentialReturn: function () {
       const stake = this.bet.stake > 0 ? this.bet.stake : 0

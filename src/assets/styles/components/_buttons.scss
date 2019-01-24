@@ -1,6 +1,6 @@
 @import '../variables';
 
-// Buttons
+// Buttons general
 .btn:focus {
   box-shadow: none !important;
   outline: none !important;
@@ -24,7 +24,7 @@
   }
   &.disabled {
     background-color: rgba($black, .15);
-    color: rgba(193, 193, 193, 0.3);
+    color: rgba(193, 193, 193, .3);
     box-shadow: $arc-secondary-button-box-shadow;
   }
 }
@@ -37,7 +37,7 @@
   border: 3px solid rgba($black, .3) !important;
 }
 .nav-profile-button {
-  padding: 20px 7px 18px 5px;
+  padding: 12px 7px 10px 5px;
 }
 
 // Odd buttons
@@ -79,7 +79,7 @@
     background-color: $arc-clr-gold !important;
     color: $arc-clr-soil-black !important;
     border: 1px solid $arc-clr-gold-light;
-    box-shadow: 0 0 6px 0 rgba(255,185,96,0.70), 0 2px 0 0 rgba(0,0,0,0.30);
+    box-shadow: 0 0 6px 0 rgba(255,185,96, .7), 0 2px 0 0 rgba($black, .3);
   }
   &:focus {
     background-color: $arc-clr-gold;
@@ -118,7 +118,7 @@
     transition: all 0.3s ease-in-out;
   }
   &:hover {
-    border: 1px solid rgba(255, 185, 96, 0.60) !important;
+    border: 1px solid rgba(255, 185, 96, .6) !important;
   }
   &:hover:after {
     opacity: 1;
