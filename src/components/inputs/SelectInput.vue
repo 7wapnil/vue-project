@@ -17,16 +17,11 @@
       @change="handleInput()"
       @input="handleInput()"/>
     <span
-      class="highlight"/>
-    <span
       v-if="bottomBar"
       class="bar"/>
     <label
       :class="{'up' : lift}"
       class="select">{{ label }}</label>
-    <b-form-invalid-feedback
-      v-if="feedback"
-      :id="feedbackId"> {{ feedback }}</b-form-invalid-feedback>
   </div>
 </template>
 
@@ -53,11 +48,7 @@ export default {
     },
     feedback: {
       type: String,
-      default: 'default-feedback-value'
-    },
-    feedbackId: {
-      type: String,
-      default: 'default-feedback-id'
+      default: ''
     },
     className: {
       type: String,
