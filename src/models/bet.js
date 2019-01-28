@@ -30,7 +30,8 @@ export default class Bet {
       message: null,
       externalId: null,
       approvedOddValue: odd.value,
-      currentOddValue: odd.value
+      currentOddValue: odd.value,
+      success: null
     })
   }
 

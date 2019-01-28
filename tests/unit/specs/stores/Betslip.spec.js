@@ -99,7 +99,7 @@ describe('wallets store', () => {
           expect(getters.betslipSubmittable(state, validGettersState, {}, invalidRootGetters)).to.eql(false)
         })
 
-        it('fails without any intial bet in betslip', () => {
+        it('does not fail without any intial bet in betslip', () => {
           const state = {}
 
           const invalidGetters = {
@@ -107,7 +107,7 @@ describe('wallets store', () => {
             anyInitialBet: false
           }
 
-          expect(getters.betslipSubmittable(state, invalidGetters, {}, rootGetters)).to.eql(false)
+          expect(getters.betslipSubmittable(state, invalidGetters, {}, rootGetters)).to.eql(true)
         })
       })
     })
