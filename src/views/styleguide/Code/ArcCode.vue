@@ -2,7 +2,7 @@
   <b-card
     no-body
     style="border-radius: 4px; border: 1px solid #FFB960"
-    class="my-2 bg-arc-clr-soil-dark">
+    class="my-3 bg-arc-clr-soil-dark">
     <b-row no-gutters>
       <b-col
         cols="auto"
