@@ -5,18 +5,21 @@ import filters from './filters'
 
 export default {
   computed: {
-    ...mapGetters('app', ['appState'])
+    ...mapGetters('providers', [
+      'isLiveConnected',
+      'isPreLiveConnected'
+    ])
   },
   methods: {
     gql (query) {
       return gql`${query}`
     },
     isEventAvailable (event) {
-      if (this.appState.live_connected === false && event.live) {
+      if (event.live && !this.isLiveConnected) {
         return false
       }
 
-      if (this.appState.pre_live_connected === false && !event.live) {
+      if (!event.live && !this.isPreLiveConnected) {
         return false
       }
 
