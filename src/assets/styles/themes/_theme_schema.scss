@@ -114,16 +114,28 @@
 .category-tabs .nav-link.active i{
   color: $icon-section-color;
 }
-.upcoming-statistics:hover .arc-upcoming-event-arrow-right {
-  color: $icon-section-color !important;
-  transition: color .3s ease-in-out;
-}
-.events-list-title i {
+.events-list-title i{
   color: $icon-section-color;
 }
-.event-card-toggle-button:hover .arc-upcoming-event-chevron-down {
-  color: $icon-section-color !important;
-  transition: color .3s ease-in-out;
+
+// Cards
+.upcoming-card,
+.esport-card {
+    .arc-upcoming-event-chevron-down {
+      transform: rotateX(180deg);
+      transition: transform .3s ease;
+    }
+    &:hover {
+      .arc-upcoming-event-chevron-down,
+      .arc-upcoming-event-arrow-right {
+        color: $icon-section-color !important;
+        transition: all .3s ease;
+      }
+      .team-name {
+        color: $arc-clr-white !important;
+        transition: all .3s ease;
+      }
+    }
 }
 
 // Progress bar
