@@ -9,7 +9,7 @@ export const PROVIDERS_QUERY = gql`
   }
 `
 
-export const PROVIDERS_SUBSCRIPTION = gql`
+export const PROVIDER_SUBSCRIPTION = gql`
   subscription providerUpdated {
     provider_updated {
       ${PROVIDER_FIELDS}
