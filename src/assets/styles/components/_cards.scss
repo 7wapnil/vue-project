@@ -6,9 +6,6 @@
   :hover {
     cursor: pointer;
   }
-  .disabled {
-    opacity: .5;
-  }
   .collapsed {
     .arc-upcoming-event-chevron-down {
       transform: rotateX(0deg) !important;
@@ -39,7 +36,6 @@
   &:hover {
     background-color: $arc-clr-soil-darker;
     transition: background-color .35s ease-in-out;
-    cursor: pointer;
   }
   &-esport {
     &:hover {
