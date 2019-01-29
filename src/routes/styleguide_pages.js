@@ -21,7 +21,7 @@ export default [
   },
   {
     path: 'grouped-events',
-    name: 'styleguide-grouped-events',
-    component: () => import('@/views/styleguide/Pages/GroupedEvents/Page')
+    name: 'styleguide-cards',
+    component: () => import('@/views/styleguide/Pages/Cards/Page')
   }
 ]

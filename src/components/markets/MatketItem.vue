@@ -33,7 +33,6 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 import {
   SUSPENDED_STATUS,
   INACTIVE_STATUS as MARKET_INACTIVE_STATUS,
@@ -61,9 +60,6 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('app', [
-      'appState'
-    ]),
     isDisabled () {
       const isDisabledByAPI = [
         SUSPENDED_STATUS,
@@ -73,8 +69,8 @@ export default {
       ].includes(this.market.status)
 
       const isDisabledByAppState = this.event.live
-        ? !this.appState.live_connected
-        : !this.appState.pre_live_connected
+        ? !this.isLiveConnected
+        : !this.isPreLiveConnected
 
       return isDisabledByAPI || isDisabledByAppState
     }

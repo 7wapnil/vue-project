@@ -7,7 +7,7 @@
       no-gutters
       role="tab"
       class="align-items-stretch h-100">
-      <!-- EVENT DATE AND REPLAY/STATISTIC -->
+
       <b-col
         cols="2"
         class="d-flex justify-content-between p-3">
@@ -34,9 +34,7 @@
             color="arc-clr-soil-light"/>
         </div>
       </b-col>
-      <!-- EVENT DATE AND REPLAY/STATISTIC END -->
 
-      <!-- EVENT MARKETS AND SHOW MORE MARKETS BUTTON -->
       <b-col
         cols="9"
         class="event-card-inside-border">
@@ -63,9 +61,7 @@
           </b-col>
         </b-row>
       </b-col>
-      <!-- EVENT MARKETS AND SHOW MORE MARKETS BUTTON END -->
 
-      <!-- GO TO EVENT LINK -->
       <b-col
         cols="1"
         class="upcoming-statistics event-card-inside-border"
@@ -96,7 +92,7 @@
           </b-row>
         </b-row>
       </b-col>
-      <!-- GO TO EVENT LINK END -->
+
     </b-row>
   </b-card>
 </template>

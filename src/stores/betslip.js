@@ -68,11 +68,11 @@ export const getters = {
 
     if (getters.betslipValuesConfirmed &&
       getters.getTotalStakes > 0 &&
-      getters.getTotalStakes <= activeWallet.amount &&
-      getters.anyInitialBet
+      getters.getTotalStakes <= activeWallet.amount
     ) {
       enabled = true
     }
+
     return enabled
   },
   betslipValuesConfirmed: (state) => {

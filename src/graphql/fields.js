@@ -1,6 +1,7 @@
-export const APP_FIELDS = `
-  live_connected
-  pre_live_connected
+export const PROVIDER_FIELDS = `
+  id
+  code
+  state
 `
 
 export const TITLE_FIELDS = `

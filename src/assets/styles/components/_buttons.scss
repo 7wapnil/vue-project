@@ -10,8 +10,9 @@
 .btn-arc-secondary {
   border-radius: 4px 4px 0 4px !important;
   background-color: rgba($black, .15);
-  box-shadow: $arc-secondary-button-box-shadow;
   color: $arc-clr-iron-light;
+  font-weight: $font-weight-bold;
+  font-size: $h6-font-size;
   &:hover {
     color: $arc-clr-white;
     background-color: $arc-clr-soil-cover;
@@ -48,6 +49,9 @@
   background-color: rgba($black, .3) !important;
   position: relative;
   display: inline-block;
+  font-size: $h6-font-size;
+  font-weight: $font-weight-bold;
+  color: $arc-clr-gold;
   &:after {
     content: '';
     box-shadow: 0 0 4px 0 rgba(255,185,96, .7);
@@ -125,15 +129,5 @@
   }
   &:disabled {
     pointer-events: none;
-  }
-}
-
-.btn-arc-events-list-upcoming {
-  border-radius: 4px 4px 0 4px !important;
-  background: $arc-dropdown-divider;
-  color: $arc-clr-white;
-  font-size: $h6-font-size;
-  &:hover {
-    background: $arc-clr-soil-cover;
   }
 }
