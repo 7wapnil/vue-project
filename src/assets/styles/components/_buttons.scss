@@ -14,19 +14,16 @@
   font-weight: $font-weight-bold;
   font-size: $h6-font-size;
   &:hover {
-    color: $arc-clr-white;
     background-color: $arc-clr-soil-cover;
-    box-shadow: $arc-secondary-button-box-shadow;
+    color: $arc-clr-white;
   }
-  &:not(:disabled):not(.disabled):active {
+  &:active {
     background-color: rgba($black, .5);
     color: $arc-clr-white;
-    box-shadow: $arc-secondary-button-box-shadow;
   }
   &.disabled {
     background-color: rgba($black, .15);
-    color: rgba(193, 193, 193, .3);
-    box-shadow: $arc-secondary-button-box-shadow;
+    color: rgba($arc-clr-iron, .3);
   }
 }
 
