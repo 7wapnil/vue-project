@@ -1,39 +1,32 @@
-import gql, { disableFragmentWarnings } from 'graphql-tag'
-import client from '@/libs/apollo/';
+import gql from 'graphql-tag'
+import { NOT_STARTED, STARTED } from '@/constants/event-statuses'
+import { mapGetters } from 'vuex'
 import filters from './filters'
 
-disableFragmentWarnings()
-
 export default {
-  sockets: {
-    connect () {
-      console.log('Socket connected')
-      this.socketConnected = true
-    },
-    disconnect () {
-      console.log('Socket disconnected')
-      this.socketConnected = false
-    }
-  },
-  data () {
-    return {
-      socketConnected: false
-    }
+  computed: {
+    ...mapGetters('providers', [
+      'isLiveConnected',
+      'isPreLiveConnected'
+    ])
   },
   methods: {
     gql (query) {
       return gql`${query}`
     },
-    updateApolloCache (query, callback) {
-      let data
-      try {
-        data = client.readQuery(query)
-      } catch (err) {
-        console.log('Query not found in cache', query)
-        return
+    isEventAvailable (event) {
+      if (event.live && !this.isLiveConnected) {
+        return false
       }
-      callback(data)
-      client.writeQuery({ ...query, data })
+
+      if (!event.live && !this.isPreLiveConnected) {
+        return false
+      }
+
+      return [
+        NOT_STARTED,
+        STARTED
+      ].includes(event.status)
     }
   },
   filters

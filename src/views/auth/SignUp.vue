@@ -12,7 +12,6 @@
         label="Username"
         bottom-bar
         aria-describedby="inputFeedbackUsername"
-        feedback-id="inputFeedbackUsername"
       />
       <input-component
         id="signup-email"
@@ -22,7 +21,6 @@
         label="Email"
         bottom-bar
         aria-describedby="inputFeedbackEmail"
-        feedback-id="inputFeedbackEmail"
       />
       <b-row
         align-h="center"
@@ -41,7 +39,6 @@
             label="Day"
             bottom-bar
             aria-describedby="inputFeedbackDateOfBirth"
-            feedback-id="inputFeedbackDateOfBirth"
           />
         </b-col>
         <b-col
@@ -56,7 +53,6 @@
             label="Month"
             bottom-bar
             aria-describedby="inputFeedbackDateOfBirth"
-            feedback-id="inputFeedbackDateOfBirth"
           />
         </b-col>
         <b-col
@@ -71,30 +67,60 @@
             label="Year"
             bottom-bar
             aria-describedby="inputFeedbackDateOfBirth"
-            feedback-id="inputFeedbackDateOfBirth"
           />
         </b-col>
       </b-row>
-      <input-component
-        id="password"
-        :feedback="inputFeedback['password']"
-        v-model="fieldsStepOne.password"
-        type="password"
-        label="Password"
-        bottom-bar
-        autocomplete="new-password"
-        feedback-id="inputFeedbackPassword"
-      />
-      <input-component
-        id="confirm_password"
-        :feedback="inputFeedback['password_confirmation']"
-        v-model="fieldsStepOne.password_confirmation"
-        type="password"
-        label="Password Confirmation"
-        bottom-bar
-        autocomplete="new-password"
-        feedback-id="inputFeedbackPasswordConfirmation"
-      />
+      <b-row
+        no-gutters
+        class="mt-4">
+        <b-col
+          md="12"
+          lg="10"
+          class="mr-auto ml-auto ml-3"
+          block>
+          <div class="input-group-custom">
+            <b-form-input
+              id="signup-password"
+              v-model="fieldsStepOne.password"
+              type="password"
+              autocomplete="new-password"
+              aria-describedby="inputFeedbackPassword"
+              required/>
+            <span class="bar"/>
+            <label
+              class="text-input"
+              for="signup-password">
+              Password
+            </label>
+          </div>
+        </b-col>
+      </b-row>
+
+      <b-row
+        no-gutters
+        class="mt-4">
+        <b-col
+          md="12"
+          lg="10"
+          class="mr-auto ml-auto ml-3"
+          block>
+          <div class="input-group-custom">
+            <b-form-input
+              id="signup-password-confirmation"
+              v-model="fieldsStepOne.password_confirmation"
+              type="password"
+              autocomplete="new-password"
+              aria-describedby="inputFeedbackPassword"
+              required/>
+            <span class="bar"/>
+            <label
+              class="text-input"
+              for="signup-password-confirmation">
+              Password Confirmation
+            </label>
+          </div>
+        </b-col>
+      </b-row>
       <b-row
         no-gutters
         class="mt-4">
@@ -112,7 +138,6 @@
             label="Country"
             bottom-bar
             aria-describedby="inputFeedbackCountry"
-            feedback-id="inputFeedbackCountry"
           />
         </b-col>
       </b-row>
@@ -130,7 +155,6 @@
         label="First Name"
         bottom-bar
         aria-describedby="inputFeedbackFirstName"
-        feedback-id="inputFeedbackFirstName"
       />
       <input-component
         id="signup-last_name"
@@ -140,7 +164,6 @@
         label="Last Name"
         bottom-bar
         aria-describedby="inputFeedbackLastName"
-        feedback-id="inputFeedbackLastName"
       />
       <radio-button
         id="gender"
@@ -159,7 +182,6 @@
         label="Phone Number"
         bottom-bar
         aria-describedby="inputFeedbackPhone"
-        feedback-id="inputFeedbackPhone"
       />
       <input-component
         id="signup-street_address"

@@ -13,6 +13,7 @@
           :type="type"
           v-model="content"
           :disabled="disabled"
+          :name="id"
           :autocomplete="autocomplete"
           class="bg-arc-clr-white"
           required
@@ -25,9 +26,6 @@
         <label class="text-input">{{ label }}</label>
       </div>
       {{ feedback }}
-      <b-form-invalid-feedback
-        v-if="feedback"
-        :id="feedbackId">{{ feedback }}</b-form-invalid-feedback>
     </b-col>
   </b-row>
 </template>
@@ -53,11 +51,6 @@ export default {
       type: String,
       default: ''
     },
-    feedbackId: {
-      type: String,
-      default: ''
-    },
-
     value: {
       type: String,
       default: ''
@@ -85,9 +78,9 @@ export default {
     }
   },
   watch: {
-    'value' (testVal) {
-      if (testVal) {
-        this.content = testVal
+    'value' (val) {
+      if (val) {
+        this.content = val
       }
     }
   },
@@ -105,6 +98,6 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @include regularInput();
 </style>

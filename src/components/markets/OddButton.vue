@@ -4,13 +4,8 @@
     :data-id="odd.id"
     :pressed.sync="toggleButton"
     variant="arc-odd"
-    class="text-arc-clr-gold"
     @click="addOdd">
-    <h6 class="m-0">
-      <strong>
-        {{ value }}
-      </strong>
-    </h6>
+    {{ value }}
   </b-button>
 </template>
 
@@ -45,8 +40,21 @@ export default {
     }
   },
   computed: {
+    isEventAvailable () {
+      if (this.event.live && !this.isLiveConnected) {
+        return false
+      }
+
+      if (!this.event.live && !this.isPreLiveConnected) {
+        return false
+      }
+
+      return true
+    },
     isDisabled () {
-      return this.disabled || this.odd.status === ODD_INACTIVE_STATUS
+      return this.disabled ||
+        this.odd.status === ODD_INACTIVE_STATUS ||
+       !this.isEventAvailable
     },
     value () {
       return Number(this.odd.value).toFixed(2)

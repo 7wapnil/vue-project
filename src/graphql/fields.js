@@ -1,3 +1,9 @@
+export const PROVIDER_FIELDS = `
+  id
+  code
+  state
+`
+
 export const TITLE_FIELDS = `
   id
   name
@@ -15,6 +21,7 @@ export const EVENT_FIELDS = `
   id
   name
   description
+  status
   live
   title {
     ${TITLE_FIELDS}

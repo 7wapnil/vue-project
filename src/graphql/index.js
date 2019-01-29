@@ -1,4 +1,4 @@
-export * from './app'
+export * from './providers'
 export * from './titles'
 export * from './events'
 export * from './events-subscriptions'

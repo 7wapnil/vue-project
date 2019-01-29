@@ -3,15 +3,33 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { PROVIDERS_QUERY, PROVIDER_SUBSCRIPTION } from '@/graphql'
+import { SET_PROVIDERS, UPDATE_PROVIDER } from '@/stores/providers'
+import { mapMutations } from 'vuex'
 
 export default {
-  created () {
-    this.loadAppState()
+  apollo: {
+    providers () {
+      return {
+        query: PROVIDERS_QUERY,
+        result ({ data: { providers } }) {
+          this.setProviders(providers)
+        }
+      }
+    },
+    $subscribe: {
+      providerUpdated: {
+        query: PROVIDER_SUBSCRIPTION,
+        result ({ data }) {
+          this.updateProvider(data.provider_updated)
+        }
+      }
+    }
   },
   methods: {
-    ...mapActions('app', {
-      loadAppState: 'loadState'
+    ...mapMutations('providers', {
+      setProviders: SET_PROVIDERS,
+      updateProvider: UPDATE_PROVIDER
     })
   }
 }

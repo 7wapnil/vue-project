@@ -13,8 +13,10 @@
     <b-col
       class="d-none d-lg-block bg-arc-clr-soil-black"
       style="max-width: 268px">
-      <promotional-item/>
-      <betslip/>
+      <div class="betslip-block">
+        <promotional-item/>
+        <betslip/>
+      </div>
     </b-col>
   </b-row>
 </template>
