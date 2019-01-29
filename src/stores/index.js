@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import app from './app'
+import providers from './providers'
 import user from './user'
 import betslip from './betslip'
 import wallets from './wallets'
@@ -10,7 +10,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   modules: {
-    app,
+    providers,
     user,
     betslip,
     wallets,
