@@ -24,6 +24,7 @@
   &.disabled {
     background-color: rgba($black, .15);
     color: rgba($arc-clr-iron, .3);
+    pointer-events: none;
   }
 }
 
@@ -38,7 +39,7 @@
   padding: 12px 7px 10px 5px;
 }
 
-// Odd buttons
+// Event cards odd button
 .btn-arc-odd {
   height: 36px;
   width: 100%;
@@ -72,8 +73,6 @@
   &:disabled {
     pointer-events: none;
     background-color: $black !important;
-  }
-  &:disabled h6{
     color: $arc-clr-iron !important;
   }
   &.active {
@@ -99,6 +98,7 @@
   }
 }
 
+// Betslip odd button
 .btn-arc-betslip-odd {
   height: 26px;
   width: 100%;
