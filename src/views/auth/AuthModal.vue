@@ -5,10 +5,6 @@
     title="Welcome to ArcaneBet"
     title-tag="h4"
     header-class="header">
-    <div slot="modal-header-close">
-      X <!-- Add custom icon -->
-    </div>
-
     <b-card
       no-body
       bg-variant="arc-clr-soil-dark">

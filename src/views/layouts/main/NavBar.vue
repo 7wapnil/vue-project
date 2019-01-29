@@ -3,7 +3,7 @@
     fixed="top"
     toggleable="lg"
     type="dark"
-    class="py-0 px-0">
+    class="p-0">
     <b-container
       fluid
       style="max-width: 1920px"
@@ -22,8 +22,9 @@
             v-for="item in mainMenu"
             :key="item.path"
             :to="item.path"
-            class="navbar-menu-item">
-            <h6 class="m-0 font-weight-bold">
+            class="navbar-menu-item"
+            active-class="nav-item-active">
+            <h6 class="m-0 font-weight-bold text-arc-clr-iron-light">
               {{ item.label }}
             </h6>
           </b-nav-item>

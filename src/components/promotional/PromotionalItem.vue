@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!isLoggedIn">
+  <div v-if="!isLoggedIn || isLoggedIn && !getBetsCount">
     <div class="px-2 py-4 text-center text-arc-clr-iron">
       <h6 class="m-0">Sign up now and get bonuses!</h6>
     </div>
@@ -40,7 +40,7 @@ import { mapGetters } from 'vuex'
 export default {
   computed: {
     ...mapGetters('betslip', [
-      'getBets'
+      'getBetsCount'
     ]),
     ...mapGetters([
       'isLoggedIn'

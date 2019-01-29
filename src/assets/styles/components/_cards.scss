@@ -1,10 +1,38 @@
-// Upcoming events section
+// Cards styles
 @import '../variables';
 
-.upcoming-card {
+%card {
   border-radius: 4px !important;
+  :hover {
+    cursor: pointer;
+  }
+  .disabled {
+    opacity: .5;
+  }
+  .collapsed {
+    .arc-upcoming-event-chevron-down {
+      transform: rotateX(0deg) !important;
+      transition: all .3s ease-in-out;
+    }
+  }
+}
+.upcoming-card {
+  @extend %card;
   & .card-body {
     height: 80px;
+  }
+}
+.esport-card {
+  @extend %card;
+  transition: box-shadow .3s ease;
+  &:hover {
+    transition: box-shadow .3s ease;
+    box-shadow: 0 0 20px 0 $black;
+    .arc-upcoming-event-replay,
+    .arc-upcoming-event-statistic {
+      transition: all 0.6s ease-in-out;
+      color: #9A9A9A !important;
+    }
   }
 }
 .event-card-toggle-button {
@@ -13,33 +41,27 @@
     transition: background-color .35s ease-in-out;
     cursor: pointer;
   }
+  &-esport {
+    &:hover {
+      background-color: $arc-clr-soil-darker;
+      transition: background-color .3s ease-in-out;
+      border-bottom-right-radius: 4px;
+    }
+  }
 }
 .event-card-inside-border {
-  box-shadow: inset 1px 0 0 0 rgba($black, .3);
+  box-shadow: inset 1px 0 0 0 $arc-clr-soil-cover;
+  &-top {
+    box-shadow: inset 0 1px 0 0 $arc-clr-soil-cover;
+  }
+  &-bottom {
+    box-shadow: inset 0 -1px 0 0 $arc-clr-soil-cover;
+  }
 }
-
 .upcoming-statistics:hover {
   background-color: $arc-clr-soil-darker;
-  cursor: pointer;
   border-radius: 0 4px 4px 0;
   position: relative;
   display: inline-block;
-  transition: background-color .35s ease-in-out;
-
-  &:after {
-    content: '';
-    box-shadow: 0 0 4px 0 $arc-clr-soil-cover;
-    border-radius: 0 4px 4px 0;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    z-index: 888;
-    opacity: 0;
-    transition: all 0.3s ease-in-out;
-  }
-  &:hover:after {
-    opacity: 1;
-  }
+  transition: background-color .3s ease-in-out;
 }

@@ -154,7 +154,7 @@
           accordion="my-accordion">
           <b-row
             no-gutters
-            class="bg-arc-clr-soil-black d-flex justify-content-center p-5">
+            class="bg-arc-clr-soil-darker d-flex justify-content-center p-5">
             More information here
           </b-row>
         </b-collapse>

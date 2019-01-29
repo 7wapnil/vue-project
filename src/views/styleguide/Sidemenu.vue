@@ -6,6 +6,7 @@
       v-for="(title, index) in titles"
       :to="{ name: `${ title.page }` }"
       :key="index"
+      active-class="bg-arc-clr-soil-dark"
       class="sidemenu">
       <b-row
         class="sidebar-collapsed-title"
@@ -18,8 +19,8 @@
             size="24px"/>
         </b-col>
         <b-col class="py-4 d-flex align-items-center justify-content-start">
-          <h6 class="mb-0">
-            <b>{{ title.name }}</b>
+          <h6 class="mb-0 font-weight-bold">
+            {{ title.name }}
           </h6>
         </b-col>
         <b-col
@@ -43,7 +44,7 @@ export default {
         { name: 'Buttons', page: 'styleguide-buttons' },
         { name: 'Tabs', page: 'styleguide-tabs' },
         { name: 'Betslip', page: 'styleguide-betslip' },
-        { name: 'Grouped Events', page: 'styleguide-grouped-events' },
+        { name: 'Cards', page: 'styleguide-cards' },
       ]
     }
   }
