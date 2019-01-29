@@ -1,9 +1,5 @@
 <template>
-  <div>
-    {{ isLiveConnected }} --- {{ isPreLiveConnected }}
-    <router-view/>
-  </div>
-
+  <router-view/>
 </template>
 
 <script>
