@@ -43,7 +43,7 @@ export default {
   name: 'AccountModal',
   data () {
     return {
-      tabIndex: this.$store.state.account.tab || 0,
+      tabIndex: 0,
       tabs: [{
         id: 0,
         title: 'Account info & settings',
@@ -92,6 +92,9 @@ export default {
       user: 'getUser'
     })
   },
+  mounted () {
+    this.tabIndex = this.$route.query.depositState ? 4 : 0
+  },
   methods: {
     profileNavigation (index) {
       if (this.tabIndex === index) {
@@ -99,7 +102,7 @@ export default {
       } else {
         return 'profileNav'
       }
-    }
+    },
   }
 }
 </script>

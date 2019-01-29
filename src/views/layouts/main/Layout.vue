@@ -37,11 +37,6 @@ export default {
       return this.$route.params.titleKind || DEFAULT_KIND
     }
   },
-  beforeCreate () {
-    if (this.$route.query.depositState) {
-      this.$store.state.account.tab = 4
-    }
-  },
   mounted () {
     if (this.$route.query.depositState) {
       this.$root.$emit('bv::show::modal', 'AccountModal')

@@ -1,6 +1,6 @@
 @import "../variables";
 
-.alert-fail{
+.alert-danger{
   background-color: $wp-clr-notif-red;
   border: $wp-clr-notif-red;
   color: $arc-clr-white;
@@ -12,7 +12,7 @@
   color: $arc-clr-white;
 }
 
-.alert-pending{
+.alert-warning{
   background-color: $arc-clr-gold-light;
   border:$arc-clr-gold-light;
   color: $arc-clr-white;

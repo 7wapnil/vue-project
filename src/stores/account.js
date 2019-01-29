@@ -3,7 +3,6 @@
  */
 export default {
   state: {
-    deposit: null,
-    tab: null
+    deposit: null
   }
 }
