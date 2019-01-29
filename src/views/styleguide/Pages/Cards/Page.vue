@@ -38,9 +38,9 @@
       </b-col>
     </b-row>
 
-    <sport-card/>
+    <sport-card-live/>
 
-    <arc-code code-text="<sport-card/>"/>
+    <arc-code code-text="<sport-card-live/>"/>
 
     <h3 class="my-4 text-arc-clr-iron-light">
       Esport card
@@ -54,13 +54,13 @@
 </template>
 
 <script>
-import SportCard from './components/SportCard'
+import SportCardLive from './components/SportCardLive'
 import ArcCode from '../../Code/ArcCode'
 import EsportCard from './components/EsportCard'
 
 export default {
   components: {
-    SportCard,
+    SportCardLive,
     ArcCode,
     EsportCard
   }

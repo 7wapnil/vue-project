@@ -44,7 +44,7 @@
           </b-row>
         </b-col>
         <b-col
-          class="event-card-inside-border"
+          class="event-card-inside-border-left"
           style="min-width: 459px">
           <b-row
             no-gutters>
@@ -101,13 +101,13 @@
           </b-row>
         </b-col>
         <b-col
-          class="event-card-inside-border"
+          class="event-card-inside-border-left"
           style="max-width: 102px">
           <b-row
             no-gutters
             class="h-50 w-100">
             <b-link
-              class="col pt-3 upcoming-statistics">
+              class="col pt-3 event-card-statistics-button">
               <b-row
                 no-gutters
                 class="text-center h-100">

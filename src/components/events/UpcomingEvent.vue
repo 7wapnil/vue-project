@@ -16,7 +16,7 @@
         <time-block :event-start="event.start_at"/>
 
         <b-col
-          class="pt-2 pr-3 pb-2 pl-3 event-card-inside-border"
+          class="pt-2 pr-3 pb-2 pl-3 event-card-inside-border-left"
           style="max-width: 247px; min-width: 60px">
           <b-row
             no-gutters>
@@ -67,7 +67,7 @@
         </b-col>
 
         <b-col
-          class="event-card-inside-border"
+          class="event-card-inside-border-left"
           style="min-width: 459px">
           <b-row
             no-gutters>
@@ -108,7 +108,7 @@
 
         <b-link
           :to="{ name: 'event', params: { id: event.id } }"
-          class="col upcoming-statistics event-card-inside-border"
+          class="col event-card-statistics-button event-card-inside-border-left"
           style="min-width: 70px; max-width: 70px; min-height: 100%; position:relative">
 
           <b-row
