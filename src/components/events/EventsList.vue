@@ -3,41 +3,46 @@
     no-body
     class="p-4"
     body-class="events-card-body">
-    <div>
-      <div
-        v-for="title in groupedEvents"
-        :key="title.name"
-        class="mb-4">
-        <header
-          v-if="!titleId"
-          class="d-flex pl-2">
-          <h2 class="events-list-title font-weight-light">
-            <icon
-              class="px-3"
-              name="sidemenu-game-icon"
-              size="24px"/>
-            {{ title.name }}
-          </h2>
-        </header>
 
-        <div
-          v-for="tournament in title.tournaments"
-          :key="tournament.id"
-          class="pt-4">
-          <h3
-            v-if="!tournamentId"
-            class="pl-4 text-arc-clr-gold events-list-tornament">
-            {{ tournament.name }}
-          </h3>
-          <div>
-            <b-card
-              v-for="event in tournament.events"
-              :key="event.id"
-              no-body>
-              <slot :event="event"/>
-            </b-card>
-          </div>
-        </div>
+    <div
+      v-for="title in groupedEvents"
+      :key="title.name">
+      <b-row
+        v-if="!titleId"
+        no-gutters>
+        <b-col class="d-inline-flex px-4 pt-4 events-list-title">
+
+          <icon
+            class="ml-2"
+            name="sidemenu-game-icon"
+            size="24px"/>
+
+          <h4 class="ml-4 mb-0 text-arc-clr-white">
+            {{ title.name }}
+          </h4>
+
+        </b-col>
+      </b-row>
+
+      <div
+        v-for="tournament in title.tournaments"
+        :key="tournament.id">
+        <b-row no-gutters>
+          <b-col>
+            <h6
+              v-if="!tournamentId"
+              class="px-4 pt-4 pb-2 m-0 text-arc-clr-gold">
+              {{ tournament.name }}
+            </h6>
+          </b-col>
+        </b-row>
+
+        <b-card
+          v-for="event in tournament.events"
+          :key="event.id"
+          no-body>
+          <slot :event="event"/>
+        </b-card>
 
       </div>
     </div>

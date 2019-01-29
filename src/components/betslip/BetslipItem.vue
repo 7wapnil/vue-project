@@ -3,8 +3,7 @@
     <b-card
       :bg-variant="cardVariant"
       no-body
-      class="p-2 mb-1">
-
+      class="px-2 py-3 mb-1">
       <b-row no-gutters>
         <b-col
           class="d-flex justify-content-center market-name">
@@ -22,7 +21,6 @@
             name="betslip-close"/>
         </b-col>
       </b-row>
-
       <b-row no-gutters>
         <b-col class="mt-2 d-flex justify-content-center">
           <h6>
@@ -67,12 +65,9 @@
         <b-row class="col-12">
           <div class="row my-2">
             <div class="col-12">
-              <b-alert :show="hasMessage">
-                {{ bet.message }}
-              </b-alert>
               <b-alert
                 :show="displayUnconfirmedOddValueDialog"
-                variant="danger">
+                variant="fail">
                 This bet odd value changed from {{ bet.approvedOddValue }} to {{ bet.currentOddValue }}.
                 <b-button
                   @click="confirmValue">
@@ -102,7 +97,7 @@
       :bg-variant="cardVariant"
       class="mb-1"
       no-body>
-      <b-container class="py-3 pl-4 pr-2">
+      <b-container class="py-3 px-2">
         <b-row no-gutters>
           <b-col>
             <b-row no-gutters>
@@ -126,6 +121,7 @@
               </b-col>
             </b-row>
           </b-col>
+
           <b-col
             class="d-flex align-items-center"
             style="max-width: 79px">
@@ -137,6 +133,13 @@
               min="0"/>
           </b-col>
         </b-row>
+        <b-alert
+          :show="hasMessage"
+          class="mt-3 mx-auto p-2 text-center"
+          style="font-size: 14px"
+          variant="danger">
+          {{ bet.message }}
+        </b-alert>
       </b-container>
     </b-card>
   </div>

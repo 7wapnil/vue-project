@@ -4,13 +4,8 @@
     :data-id="odd.id"
     :pressed.sync="toggleButton"
     variant="arc-odd"
-    class="text-arc-clr-gold"
     @click="addOdd">
-    <h6 class="m-0">
-      <strong>
-        {{ value }}
-      </strong>
-    </h6>
+    {{ value }}
   </b-button>
 </template>
 
