@@ -72,6 +72,7 @@ const buildSubTree = (titleKind, title) => {
       return {
         id: category.id,
         label: category.name,
+        all: { label: 'All', id: category.id, to: { name: 'category-tournaments', params: { titleKind, categoryId: category.id, titleId: title.id } } },
         children: buildTournaments(titleKind, title, category.id)
       }
     })
@@ -85,6 +86,7 @@ const buildSubTree = (titleKind, title) => {
  * @returns {*}
  */
 export const buildTree = (titleKind, titles) => {
+
   return titles.map((title) => {
     return {
       id: title.id,

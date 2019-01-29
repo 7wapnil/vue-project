@@ -76,6 +76,10 @@ export default {
       type: String,
       default: null
     },
+    categoryId: {
+      type: String,
+      default: null
+    },
     live: {
       type: Boolean,
       default: true
