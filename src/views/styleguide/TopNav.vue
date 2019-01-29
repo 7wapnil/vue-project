@@ -13,13 +13,13 @@
         :to="{ name: 'home' }"
         class="mr-0"/>
 
-      <b-navbar-nav id="top-navigation">
+      <b-navbar-nav id="styleguide-top-navigation">
         <b-nav-item
           v-for="(siteColor, index) in siteColors"
           :key="index"
           :class="'navbar-menu-item ' + `${siteColor.background}`"
           style="height: 80px"
-          @click="changeSiteColor(siteColor.category)">
+          @click="$emit('changeColor', siteColor.category)">
           <h6 class="m-0 font-weight-bold">
             {{ siteColor.label }}
           </h6>
@@ -50,13 +50,8 @@ export default {
         { label: 'Orange',
           background: 'bg-arc-clr-inplay-glow',
           category: 'live'
-        },
+        }
       ]
-    }
-  },
-  methods: {
-    changeSiteColor (color) {
-      this.$emit('changeColor', color)
     }
   }
 }
