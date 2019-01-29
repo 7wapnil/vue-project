@@ -135,3 +135,13 @@
     pointer-events: none;
   }
 }
+
+.btn-arc-events-list-upcoming {
+  border-radius: 4px 4px 0 4px !important;
+  background: $arc-dropdown-divider;
+  color: $arc-clr-white;
+  font-size: $h6-font-size;
+  &:hover {
+    background: $arc-clr-soil-cover;
+  }
+}
