@@ -36,6 +36,11 @@ export default {
 
       return this.$route.params.titleKind || DEFAULT_KIND
     }
-  }
+  },
+  mounted () {
+    if (this.$route.query.depositState) {
+      this.$root.$emit('bv::show::modal', 'AccountModal')
+    }
+  },
 }
 </script>
