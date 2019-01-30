@@ -40,6 +40,7 @@ import AccountVerification from './AccountVerification'
 import DepositFunds from './DepositFunds'
 
 export default {
+  name: 'AccountModal',
   data () {
     return {
       tabIndex: 0,
@@ -91,6 +92,9 @@ export default {
       user: 'getUser'
     })
   },
+  mounted () {
+    this.tabIndex = this.$route.query.depositState ? 4 : 0
+  },
   methods: {
     profileNavigation (index) {
       if (this.tabIndex === index) {
@@ -98,7 +102,7 @@ export default {
       } else {
         return 'profileNav'
       }
-    }
+    },
   }
 }
 </script>

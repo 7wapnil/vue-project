@@ -5,9 +5,15 @@
       <b-col>
         <h3>Deposit Funds</h3>
         <hr class="border-arc-clr-iron">
-        <p>The money will be transferred directly in to your Arcanebet account.
+        <p class="my-2">The money will be transferred directly in to your Arcanebet account.
         When you have won some bets you can look forward to easy and fast
         withdrawals without fees!</p>
+        <b-alert
+          :show="!!depositState"
+          :variant="mapDepositState"
+          class="my-4 mx-auto text-center w-50 justify-content-center p-4">
+          {{ getMessage }}
+        </b-alert>
       </b-col>
     </b-row>
     <b-row>
@@ -15,7 +21,7 @@
         class="ml-5"
         lg="4">
         <RegularInput
-
+          v-if="!fields.currency"
           id="deposit-amount"
           v-model="fields.amount"
           type="text"
@@ -23,7 +29,7 @@
           bottom-bar
         />
         <b-row
-          v-if="!walletExists"
+          v-if="!fields.currency"
           align-h="center"
           no-gutters
           class="mt-4">
@@ -32,7 +38,7 @@
             md="1">
             <SelectInput
               id="deposit-currency"
-              :options="getCurrencyList()"
+              :options="currencyList"
               v-model="fields.currency"
               class-name="currency"
               type="select"
@@ -41,25 +47,56 @@
             />
           </b-col>
         </b-row>
-        <h6
-          v-if="walletExists"
-          class="currency position-absolute text-arc-clr-soil-light mb-0">{{ fields.currency }}</h6>
-        <div class="position-relative d-flex">
-          <RegularInput
-            id="deposit-bonus-code"
-            v-model="fields.bonusCode"
-            style=" flex: 1;"
-            type="text"
-            label="Bonus code"
-            bottom-bar
-            @blur="showButton()"
-            @enter="showButton()"
-          />
-          <button
-            v-if="isVisible"
-            class="inside bg-arc-clr-sport-bg position-absolute text-arc-clr-white"
-            @click="calculateBonus()">+
-          </button>
+
+        <div>
+          <b-row
+            v-if="fields.currency"
+            no-gutters
+            class="mt-4">
+            <b-col
+              md="12"
+              lg="10"
+              class="mr-auto ml-auto ml-3"
+              block>
+              <b-input-group :append="fields.currency">
+                <b-form-input
+                  id="deposit-amount-currency"
+                  v-model="fields.amount"
+                  class="bg-arc-clr-white"
+                  type="text"
+                  placeholder="Amount"
+                />
+              </b-input-group>
+            </b-col>
+          </b-row>
+          <b-row
+            v-if="fields.currency"
+            no-gutters
+            class="mt-4">
+            <b-col
+              md="12"
+              lg="10"
+              class="mr-auto ml-auto ml-3"
+              block>
+              <b-input-group>
+                <b-form-input
+                  id="deposit-bonus-code"
+                  v-model="fields.bonusCode"
+                  class="bg-arc-clr-white"
+                  type="text"
+                  placeholder="Bonus code"
+                  @blur.native="showButton()"
+                  @keydown.enter.native="showButton()"
+                />
+                <b-input-group-append>
+                  <b-btn
+                    v-if="isVisible"
+                    class="bg-arc-clr-sport-bg border-0"
+                    @click.prevent="calculateBonus()">+</b-btn>
+                </b-input-group-append>
+              </b-input-group>
+            </b-col>
+          </b-row>
         </div>
       </b-col>
       <b-col class="ml-2">
@@ -67,26 +104,22 @@
           class="square bg-arc-clr-soil-dark w-90 p-5"
           style="width: 90%;">
           <h4 class="text-center pt-1 pb-2 text-arc-clr-iron">Deposit Summary</h4>
-          <b-row>
+          <b-row style="font-size: 0.875rem">
             <b-col class="col-6">
-              <h6 class="text-arc-clr-iron text-right">
-                Deposit:
-              </h6>
-              <h6 class="text-arc-clr-iron text-right">
-                Bonus:
-              </h6>
-              <h6 class="text-arc-clr-iron text-right">
-                Fee:
-              </h6>
-              <h6 class="text-arc-clr-iron text-right pt-2">
-                Total to be added:
-              </h6>
+              <ul class="list-unstyled list-group">
+                <li class="text-arc-clr-iron text-right">Deposit:</li>
+                <li class="text-arc-clr-iron text-right"> Bonus:</li>
+                <li class="text-arc-clr-iron text-right">Fee:</li>
+                <li class="text-arc-clr-iron text-right pt-2">Total to be added:</li>
+              </ul>
             </b-col>
             <b-col class="col-6">
-              <h6 class="text-left"> {{ fields.amount }} {{ fields.currency }}</h6>
-              <h6 class="text-lef"> {{ calculatedBonus }} {{ fields.currency }}</h6>
-              <h6 class="text-left">0.00</h6>
-              <h6 class="text-left pt-2 font-weight-bold"> {{ getTotal() }} {{ fields.currency }}</h6>
+              <ul class="list-unstyled list-group">
+                <li class=" text-left">{{ fields.amount }} {{ fields.currency }}</li>
+                <li class=" text-left"> {{ calculatedBonus }} {{ fields.currency }}</li>
+                <li class=" text-left">0.00 {{ fields.currency }}</li>
+                <li class=" text-left pt-2">{{ getTotal }} {{ fields.currency }}</li>
+              </ul>
             </b-col>
           </b-row>
           <b-button
@@ -103,6 +136,7 @@
 <script>
 import RegularInput from '@/components/inputs/RegularInput.vue'
 import SelectInput from '@/components/inputs/SelectInput.vue'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'DepositFunds',
@@ -117,25 +151,57 @@ export default {
         currency: '',
         bonusCode: ''
       },
-      walletExists: false,
-      totalValue: '',
+      currencyList: ['EUR', 'USD', 'SEK', 'NOK', 'AUD', 'CAD'],
+      redirectUrl: process.env.VUE_APP_DEPOSIT_URL,
+      walletExists: null,
       calculatedBonus: '',
-      isVisible: false
+      isVisible: null,
+      depositState: this.$route.query.depositState
+    }
+  },
+  computed: {
+    ...mapGetters({
+      walletActive: 'getActiveWallet'
+    }),
+    ...mapActions({
+      loadWallets: 'fetchWallets'
+    }),
+    ...mapGetters({
+      token: 'getToken'
+    }),
+    getTotal () {
+      let totalValue
+      if (this.fields.amount.includes(',')) {
+        this.fields.amount.replace(',', '.')
+      }
+      totalValue = parseFloat(this.fields.amount)
+      if (this.calculatedBonus) {
+        totalValue += parseFloat(this.calculatedBonus)
+      }
+      if (!isNaN(totalValue)) {
+        return parseFloat(totalValue).toFixed(2)
+      }
+    },
+    getMessage () {
+      return this.$route.query.depositStateMessage
+    },
+    mapDepositState () {
+      const variantMap = {
+        pending: 'warning',
+        success: 'success',
+        fail: 'danger'
+      }
+      return variantMap[this.depositState]
     }
   },
   created () {
-    this.activeWalletCurrency()
+    this.loadWallets.then(() => {
+      if (this.walletActive) {
+        this.fields.currency = this.walletActive.currency.code
+      }
+    })
   },
   methods: {
-    activeWalletCurrency () {
-      if (this.$store.getters.getActiveWallet) {
-        this.walletExists = true
-        this.fields.currency = this.$store.getters.getActiveWallet.currency.code
-      }
-    },
-    getCurrencyList () {
-      return ['EUR', 'USD', 'SEK', 'NOK', 'AUD', 'CAD']
-    },
     calculateBonus () {
       // mock
       if (this.fields.bonusCode) {
@@ -147,50 +213,19 @@ export default {
         this.isVisible = true
       }
     },
-    getTotal () {
-      if (this.fields.amount.includes(',')) {
-        this.fields.amount = this.fields.amount.replace(',', '.')
-      }
-      this.totalValue = parseFloat(this.fields.amount) + parseFloat(this.calculatedBonus)
-      if (!isNaN(this.totalValue)) {
-        return parseFloat(this.totalValue).toFixed(2)
-      }
-    },
     submitDeposit () {
-      const input = this.fields
-      this.$store.dispatch('submitDepositFunds', input)
-        .then((res) => {
-          // do something
-        })
-        .catch(() => {
-          // do something
-        })
-        .finally(() => {
-          // do something
-        })
+      let queryParams = {
+        token: this.token,
+        currency_code: this.fields.currency,
+        amount: this.fields.amount,
+        bonus_code: this.fields.bonusCode
+      };
+
+      let query = Object.keys(queryParams)
+        .map(param => param + '=' + queryParams[param])
+        .join('&');
+      window.location.href = this.redirectUrl += query
     }
   }
 }
 </script>
-
-<style lang="scss" scoped>
-    button.inside {
-        width: 15%;
-        right: 20px;
-        top: 20px;
-        outline: none;
-        text-align: center;
-        font-weight: bold;
-        padding: 6px;
-        border-top-right-radius: 6px;
-        border: 0.2px #1B6945;
-        &:hover {
-            cursor: pointer;
-        }
-    }
-
-  h6.currency{
-    right: 45px;
-    top: 30px;
-  }
-</style>

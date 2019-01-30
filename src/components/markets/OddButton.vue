@@ -40,10 +40,21 @@ export default {
     }
   },
   computed: {
+    isEventAvailable () {
+      if (this.event.live && !this.isLiveConnected) {
+        return false
+      }
+
+      if (!this.event.live && !this.isPreLiveConnected) {
+        return false
+      }
+
+      return true
+    },
     isDisabled () {
       return this.disabled ||
         this.odd.status === ODD_INACTIVE_STATUS ||
-        !this.isEventAvailable(this.event)
+       !this.isEventAvailable
     },
     value () {
       return Number(this.odd.value).toFixed(2)
