@@ -133,8 +133,6 @@ export default {
           tournamentId: this.tournamentId,
           inPlay: this.live,
           upcoming: !this.live,
-          withMarkets: true,
-          marketsLimit: 1,
           limit: 10
         }
       }

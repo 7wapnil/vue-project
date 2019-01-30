@@ -13,7 +13,7 @@
             :event="event">
             <markets-list
               :event="event"
-              :markets="event.markets" />
+              :markets="[event.dashboard_market]" />
           </live-event>
 
           <upcoming-event
@@ -21,7 +21,7 @@
             :event="event">
             <markets-list
               :event="event"
-              :markets="event.markets" />
+              :markets="[event.dashboard_market]" />
 
           </upcoming-event>
         </template>
