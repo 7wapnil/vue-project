@@ -1,7 +1,8 @@
 <template>
   <b-tabs
     :lazy="lazy"
-    v-model="tabIndex"
+    :value="value"
+    @input="emitInput"
     card
     class="category-tabs"
     nav-class="bg-transparent px-4 py-0"
@@ -48,7 +49,7 @@ export default {
       type: Array,
       default () { return [] }
     },
-    activeIndex: {
+    value: {
       type: Number,
       default: 0
     },
@@ -57,9 +58,9 @@ export default {
       default: true
     }
   },
-  data () {
-    return {
-      tabIndex: this.activeIndex
+  methods: {
+    emitInput (value) {
+      this.$emit('input', value)
     }
   }
 }
