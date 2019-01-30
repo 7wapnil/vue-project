@@ -3,7 +3,7 @@
     class="pt-2"
     no-gutters>
     <b-col>
-      <EventsListCategory
+      <events-list-category
         :title-id="$route.params.titleId"
         :tournament-id="$route.params.tournamentId"
         :live="false">
@@ -25,7 +25,7 @@
 
           </upcoming-event>
         </template>
-      </EventsListCategory>
+      </events-list-category>
     </b-col>
   </b-row>
 </template>
