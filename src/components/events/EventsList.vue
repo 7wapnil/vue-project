@@ -191,7 +191,7 @@ export default {
     }
   },
   methods: {
-    emitTitleChange(titleId) {
+    emitTitleChange (titleId) {
       PubSub.publish(TITLE_CHANGED, titleId)
     }
   }

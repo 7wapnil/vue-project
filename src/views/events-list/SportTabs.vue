@@ -38,9 +38,6 @@ export default {
       activeTitleId: null
     }
   },
-  created () {
-    PubSub.subscribe(TITLE_CHANGED, titleId => this.activeTitleId = titleId)
-  },
   computed: {
     tabs () {
       /**
@@ -63,6 +60,9 @@ export default {
         this.activeTitleId = this.tabs[tabIndex].id
       }
     }
+  },
+  created () {
+    PubSub.subscribe(TITLE_CHANGED, titleId => { this.activeTitleId = titleId })
   }
 }
 </script>

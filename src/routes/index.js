@@ -1,5 +1,4 @@
 import Router from 'vue-router'
-import store from '@/stores'
 import mainRoutes from './main'
 import StyleGuidePages from './styleguide_pages'
 

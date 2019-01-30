@@ -2,11 +2,11 @@
   <b-tabs
     :lazy="lazy"
     :value="value"
-    @input="emitInput"
     card
     class="category-tabs"
     nav-class="bg-transparent px-4 py-0"
-    nav-wrapper-class="bg-arc-clr-soil-darker">
+    nav-wrapper-class="bg-arc-clr-soil-darker"
+    @input="emitInput">
     <b-tab
       v-for="(tab, index) in tabs"
       :key="index"
