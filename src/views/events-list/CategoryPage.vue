@@ -1,67 +1,73 @@
 <template>
-    <b-row no-gutters class="t-4">
+  <b-row
+    class="pt-2"
+    no-gutters>
+    <b-col>
+      <simple-tabs :tabs="tabs">
+        <template slot-scope="{ tab }">
+          <events-list-category
+            :title-id="$route.params.titleId"
+            :category-id="$route.params.categoryId"
+            :tournament-id="$route.params.tournamentId"
+            :live="tab.live">
+            <template slot-scope="{ event }">
 
-        <b-col>
-            <sport-tabs v-if="showTitles" />
-            <template slot-scope="{ tab }">
-                <events-list
-                        :title-id="$route.params.titleId"
-                        :category-id="$route.params.categoryId"
-                        :tournament-id="tournamentId"
-                        :live="true">
-                    <template slot-scope="{ event }">
-                        <live-event
-                                :event="event">
+              <live-event
+                v-if="tab.id === 'live'"
+                :event="event">
 
-                            <markets-list
-                                    :event="event"
-                                    :markets="event.markets" />
-                        </live-event>
-                        <upcoming-event
-                                :event="event">
-                            <markets-list
-                                    :event="event"
-                                    :markets="event.markets" />
+                <markets-list
+                  :event="event"
+                  :markets="event.markets" />
+              </live-event>
+              <upcoming-event
+                v-if="tab.id === 'upcoming'"
+                :event="event">
+                <markets-list
+                  :event="event"
+                  :markets="event.markets" />
 
-                        </upcoming-event>
-                    </template>
-                </events-list>
+              </upcoming-event>
             </template>
-            <filter-tabs
-                    v-if="!showTitles"
-                    :category-id="$route.params.categoryId"
-                    :title-id="$route.params.titleId"
-                    :tournament-id="tournamentId"
-                    :live="true"/>
-        </b-col>
-    </b-row>
+          </events-list-category>
+        </template>
+      </simple-tabs>
+    </b-col>
+  </b-row>
 </template>
 
 <script>
-  import SportTabs from './SportTabs'
-  import FilterTabs from './FilterTabs'
-  import EventsList from '@/components/events/EventsList'
-  import LiveEvent from '@/components/events/LiveEvent'
-  import UpcomingEvent from '@/components/events/UpcomingEvent'
-  import MarketsList from '@/components/markets/MarketsList'
+import LiveEvent from '@/components/events/LiveEvent'
+import UpcomingEvent from '@/components/events/UpcomingEvent'
+import MarketsList from '@/components/markets/MarketsList'
+import EventsListCategory from '@/components/events/EventsListCategory'
 
-  export default {
-    name: 'CategoryPage',
-    components: {
-      SportTabs,
-      FilterTabs,
-      EventsList,
-      LiveEvent,
-      UpcomingEvent,
-      MarketsList
-    },
-    computed: {
-      showTitles () {
-        return this.$route.name === 'title-kind'
-      },
-      tournamentId () {
-        return this.$route.params.tournamentId
-      }
+export default {
+  name: 'CategoryPage',
+  components: {
+    EventsListCategory,
+    LiveEvent,
+    UpcomingEvent,
+    MarketsList
+  },
+  data () {
+    return {
+      tabIndex: 1,
+      tabs: [{
+        id: 'live',
+        title: 'Live now',
+        live: true
+      }, {
+        id: 'upcoming',
+        title: 'Upcoming',
+        live: false
+      }]
+    }
+  },
+  computed: {
+    showTitles () {
+      return this.$route.name === 'title-kind'
     }
   }
+}
 </script>

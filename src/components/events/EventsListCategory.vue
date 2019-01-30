@@ -8,7 +8,6 @@
       v-for="title in groupedEvents"
       :key="title.name">
       <b-row
-        v-if="!titleId"
         no-gutters>
         <b-col class="d-inline-flex px-4 pt-4 events-list-title">
 
@@ -16,7 +15,6 @@
             class="ml-2"
             name="sidemenu-game-icon"
             size="24px"/>
-
           <h4 class="ml-4 mb-0 text-arc-clr-white">
             {{ title.name }}
           </h4>
@@ -30,7 +28,6 @@
         <b-row no-gutters>
           <b-col>
             <h6
-              v-if="!tournamentId"
               class="px-4 pt-4 pb-2 m-0 text-arc-clr-gold">
               {{ tournament.name }}
             </h6>
@@ -48,7 +45,6 @@
     </div>
 
     <loader v-if="loading"/>
-
     <div
       v-if="!loading && !events.length"
       class="text-center">
@@ -67,6 +63,7 @@ import {
 import { updateCacheList } from '@/helpers/graphql'
 
 export default {
+  name: 'EventsListCategory',
   props: {
     header: {
       type: String,
@@ -77,6 +74,10 @@ export default {
       default: null
     },
     tournamentId: {
+      type: String,
+      default: null
+    },
+    categoryId: {
       type: String,
       default: null
     },
@@ -171,7 +172,6 @@ export default {
           })
         }
       })
-
       return groupedEvents
     }
   }

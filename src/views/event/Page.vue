@@ -12,7 +12,6 @@
           <dt class="col-sm-3">Time</dt>
           <dd class="col-sm-9">{{ eventTime }}</dd>
         </dl>
-
         <dl
           v-if="event.competitors"
           class="row">
@@ -73,9 +72,7 @@
         </div>
 
         <hr>
-
         <markets-categories :event="event"/>
-
       </b-card>
     </div>
   </div>
