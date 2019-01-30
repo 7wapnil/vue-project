@@ -18,19 +18,17 @@
   font-weight: $font-weight-bold;
   font-size: $h6-font-size;
   &:hover {
-    color: $arc-clr-white;
     background-color: $arc-clr-soil-cover;
-    box-shadow: $arc-secondary-button-box-shadow;
+    color: $arc-clr-white;
   }
-  &:not(:disabled):not(.disabled):active {
+  &:active {
     background-color: rgba($black, .5);
     color: $arc-clr-white;
-    box-shadow: $arc-secondary-button-box-shadow;
   }
   &.disabled {
     background-color: rgba($black, .15);
-    color: rgba(193, 193, 193, .3);
-    box-shadow: $arc-secondary-button-box-shadow;
+    color: rgba($arc-clr-iron, .3);
+    pointer-events: none;
   }
 }
 
@@ -45,7 +43,7 @@
   padding: 12px 7px 10px 5px;
 }
 
-// Odd buttons
+// Event cards odd button
 .btn-arc-odd {
   height: 36px;
   width: 100%;
@@ -77,17 +75,15 @@
     opacity: 1;
   }
   &:disabled {
-    pointer-events: none;
+    cursor: no-drop !important;
     background-color: $black !important;
-  }
-  &:disabled h6{
     color: $arc-clr-iron !important;
   }
   &.active {
     background-color: $arc-clr-gold !important;
     color: $arc-clr-soil-black !important;
     border: 1px solid $arc-clr-gold-light;
-    box-shadow: 0 0 6px 0 rgba(255,185,96, .7), 0 2px 0 0 rgba($black, .3);
+    box-shadow: 0 0 6px 0 rgba(255,185,96, .7);
   }
   &:focus {
     background-color: $arc-clr-gold;
@@ -106,6 +102,7 @@
   }
 }
 
+// Betslip odd button
 .btn-arc-betslip-odd {
   height: 26px;
   width: 100%;
