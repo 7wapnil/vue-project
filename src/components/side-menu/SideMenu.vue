@@ -2,6 +2,11 @@
   <b-nav
     class="side-menu flex-nowrap"
     vertical>
+    <b-nav-item class="d-inline-flex align-items-center justify-content-start p-3 bg-arc-clr-soil-dark side-menu-categories">
+      <span class="text-arc-clr-iron">
+        CATEGORIES
+      </span>
+    </b-nav-item>
     <b-nav-item
       v-for="(item, index) in items"
       :key="index">
