@@ -5,20 +5,23 @@
     position: relative;
     margin-bottom: 5px;
 
-    input{
+    input {
       &:focus {
         outline: none;
-        ~ label.text-input{
+
+        ~ label.text-input {
           color: $arc-clr-white;
           top: -20px;
           font-size: 12px;
         }
-        ~ .bar:before,  ~ .bar:after{
+
+        ~ .bar:before, ~ .bar:after {
           width: 50%;
         }
       }
-      &:valid{
-        ~ label.text-input{
+
+      &:valid {
+        ~ label.text-input {
           color: $arc-clr-white;
           top: -20px;
           font-size: 12px;
@@ -26,7 +29,7 @@
       }
     }
 
-    label{
+    label {
       &.text-input {
         color: $arc-clr-soil-light;
         position: absolute;
@@ -90,11 +93,14 @@
   }
   .multiselect {
     border-radius: 0 6px 0 6px;
+
     .multiselect__placeholder {
       display: none;
     }
+
     .multiselect__option, .multiselect__input {
       color: $arc-clr-soil-light !important;
+
       &.multiselect__option--highlight {
         color: $arc-clr-white !important;
         background: $arc-dropdown-bg;
@@ -117,6 +123,7 @@
     .multiselect__tags {
       border: none;
     }
+
     &:focus {
       outline: none;
     }

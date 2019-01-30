@@ -10,10 +10,9 @@
           variant="arc-secondary"
           class="arc-profile-button p-0"/>
       </template>
-      <b-dropdown-item v-b-modal.AccountModal>
+      <b-dropdown-item @click="showModal">
         Profile
       </b-dropdown-item>
-
       <b-dropdown-divider class="border-arc-dropdown-divider m-0"/>
 
       <b-dropdown-item @click.prevent="logout">
@@ -47,6 +46,9 @@ export default {
     logout () {
       this.dispatchLogout(this)
       this.$noty.success('Signed out successfully')
+    },
+    showModal () {
+      this.$root.$emit('bv::show::modal', 'AccountModal')
     }
   }
 }
