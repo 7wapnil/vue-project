@@ -12,6 +12,9 @@
       transition: all $transition-speed ease-in-out;
       color: #9A9A9A !important;
     }
+    .event-card-date {
+      color: $arc-clr-white !important;
+    }
   }
   .collapsed {
     .arc-upcoming-event-chevron-down {
@@ -55,6 +58,9 @@
       transition: background-color $transition-speed ease-in-out;
     }
   }
+  &-date {
+    font-size: 10px;
+  }
 }
 .upcoming-card {
   @extend %event-card;
@@ -68,5 +74,10 @@
   &:hover {
     transition: box-shadow $transition-speed ease;
     box-shadow: 0 0 20px 0 $black;
+  }
+  .event-card-statistics-button {
+    &:hover {
+      border-bottom-right-radius: 0;
+    }
   }
 }

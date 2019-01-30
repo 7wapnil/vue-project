@@ -63,7 +63,9 @@
                 <span class="mx-4">:</span>
                 <span>0</span>
               </h5>
-              <small class="text-arc-clr-iron">
+              <small
+                style="opacity: .4"
+                class="text-arc-clr-iron">
                 Draw
               </small>
             </b-col>
