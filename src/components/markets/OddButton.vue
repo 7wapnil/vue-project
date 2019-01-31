@@ -3,15 +3,14 @@
     :disabled="isDisabled"
     :data-id="odd.id"
     :pressed.sync="toggleButton"
-    variant="arc-odd"
-    @click="addOdd">
+    variant="arc-odd">
     {{ value }}
   </b-button>
 </template>
 
 <script>
 import { INACTIVE_STATUS as ODD_INACTIVE_STATUS } from '@/models/odd'
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters, mapMutations } from 'vuex'
 
 export default {
   props: {
@@ -34,9 +33,7 @@ export default {
   },
   data () {
     return {
-      toggleButton: false,
-      raised: null,
-      diff: 0
+      raised: null
     }
   },
   computed: {
@@ -58,26 +55,39 @@ export default {
     },
     value () {
       return Number(this.odd.value).toFixed(2)
-    }
-  },
-  watch: {
-    odd (oldOdd, newOdd) {
-      this.diff = (newOdd.value - oldOdd.value).toFixed(2)
-      this.raised = oldOdd.value < newOdd.value
+    },
+    ...mapGetters('betslip', [
+      'getBets'
+    ]),
+    toggleButton: {
+      get () {
+        return this.isBetExists()
+      },
+      set () {
+        if (this.isBetExists()) {
+          return this.removeBetFromBetslip(this.odd.id)
+        }
+        this.pushBetToBetslip()
+      }
     }
   },
   methods: {
-    ...mapActions('betslip', [
-      'pushBet'
-    ]),
-    addOdd () {
-      if (this.isDisabled) { return }
+    isBetExists () {
+      return !!this.getBets.find(item => item.oddId === this.odd.id)
+    },
+    pushBetToBetslip () {
       this.pushBet({
         event: this.event,
         market: this.market,
         odd: this.odd
       })
-    }
-  },
+    },
+    ...mapActions('betslip', [
+      'pushBet'
+    ]),
+    ...mapMutations('betslip', [
+      'removeBetFromBetslip'
+    ])
+  }
 }
 </script>
