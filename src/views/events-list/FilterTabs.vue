@@ -37,11 +37,9 @@ import EventsList from '@/components/events/EventsList'
 import LiveEvent from '@/components/events/LiveEvent'
 import UpcomingEvent from '@/components/events/UpcomingEvent'
 import MarketsList from '@/components/markets/MarketsList'
-import EventsListCategory from '@/components/events/EventsListCategory'
 
 export default {
   components: {
-    EventsListCategory,
     EventsList,
     LiveEvent,
     UpcomingEvent,

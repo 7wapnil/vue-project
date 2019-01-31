@@ -23,17 +23,9 @@
       :is-nav="true"
       :accordion="`${level}-menu`">
       <b-nav vertical>
-        <b-link
-          v-if="item.children.length > 1 && item.allTournaments"
-          :to="item.allTournaments.to">
-          <item-content
-            :item="item.allTournaments"
-            :level="nextLevel"/>
-        </b-link>
         <b-nav-item
           v-for="(child, childIndex) in item.children"
           :key="childIndex">
-
           <menu-item
             :item="child"
             :index="childIndex"

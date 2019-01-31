@@ -5,7 +5,7 @@
     <b-col>
       <simple-tabs :tabs="tabs">
         <template slot-scope="{ tab }">
-          <events-list-category
+          <events-list
             :title-id="$route.params.titleId"
             :category-id="$route.params.categoryId"
             :tournament-id="$route.params.tournamentId"
@@ -29,7 +29,7 @@
 
               </upcoming-event>
             </template>
-          </events-list-category>
+          </events-list>
         </template>
       </simple-tabs>
     </b-col>
@@ -40,12 +40,11 @@
 import LiveEvent from '@/components/events/LiveEvent'
 import UpcomingEvent from '@/components/events/UpcomingEvent'
 import MarketsList from '@/components/markets/MarketsList'
-import EventsListCategory from '@/components/events/EventsListCategory'
+import EventsList from '@/components/events/EventsList'
 
 export default {
-  name: 'CategoryPage',
   components: {
-    EventsListCategory,
+    EventsList,
     LiveEvent,
     UpcomingEvent,
     MarketsList

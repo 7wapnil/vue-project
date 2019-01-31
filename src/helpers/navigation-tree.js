@@ -69,11 +69,14 @@ const buildSubTree = (titleKind, title) => {
       return scope.kind === 'category'
     })
     .map((category) => {
+      const tournamentList = buildTournaments(titleKind, title, category.id)
+      if (tournamentList.length > 1) {
+        tournamentList.unshift({ label: 'All', to: { name: 'category-tournaments', params: { titleKind, titleId: title.id, categoryId: category.id } } })
+      }
       return {
         id: category.id,
         label: category.name,
-        allTournaments: { label: 'All', to: { name: 'category-tournaments', params: { titleKind, titleId: title.id, categoryId: category.id } } },
-        children: buildTournaments(titleKind, title, category.id)
+        children: tournamentList
       }
     })
 }

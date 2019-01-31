@@ -3,7 +3,7 @@
     class="pt-2"
     no-gutters>
     <b-col>
-      <events-list-category
+      <events-list
         :title-id="$route.params.titleId"
         :tournament-id="$route.params.tournamentId"
         :live="false">
@@ -25,21 +25,20 @@
 
           </upcoming-event>
         </template>
-      </events-list-category>
+      </events-list>
     </b-col>
   </b-row>
 </template>
 
 <script>
-import EventsListCategory from '@/components/events/EventsListCategory'
+import EventsList from '@/components/events/EventsList'
 import LiveEvent from '@/components/events/LiveEvent'
 import UpcomingEvent from '@/components/events/UpcomingEvent'
 import MarketsList from '@/components/markets/MarketsList'
 
 export default {
-  name: 'TournamentPage',
   components: {
-    EventsListCategory,
+    EventsList,
     LiveEvent,
     UpcomingEvent,
     MarketsList
