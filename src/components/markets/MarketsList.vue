@@ -57,7 +57,7 @@ export default {
       ]
 
       return this.markets.filter((market) => {
-        return allowedStatuses.includes(market.status)
+        return market && allowedStatuses.includes(market.status)
       })
     }
   }
