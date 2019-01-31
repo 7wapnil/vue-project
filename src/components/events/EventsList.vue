@@ -20,6 +20,7 @@
           <h4
             tabindex="0"
             class="ml-4 mb-0 text-arc-clr-white"
+            style="cursor: pointer; outline: 0;"
             @click="() => emitTitleChange(title.id)">
             {{ title.name }}
           </h4>
@@ -71,7 +72,7 @@ import {
 } from '@/graphql'
 import { updateCacheList } from '@/helpers/graphql'
 import MoreButton from '@/components/custom/MoreButton'
-import { TITLE_CHANGED } from '@/constants/pubsub-channels'
+import { TITLE_CHANGED } from '@/constants/custom-events'
 
 export default {
   components: { MoreButton },
@@ -192,7 +193,7 @@ export default {
   },
   methods: {
     emitTitleChange (titleId) {
-      PubSub.publish(TITLE_CHANGED, titleId)
+      this.$root.$emit(TITLE_CHANGED, titleId)
     }
   }
 }

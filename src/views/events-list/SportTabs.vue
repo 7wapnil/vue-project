@@ -12,8 +12,7 @@
 
 <script>
 import { TITLES_QUERY } from '@/graphql'
-import PubSub from '@/services/pub-sub'
-import { TITLE_CHANGED } from '@/constants/pubsub-channels'
+import { TITLE_CHANGED } from '@/constants/custom-events'
 import FilterTabs from './FilterTabs'
 import { UPCOMING_FOR_TIME } from '@/constants/graphql/event-context'
 
@@ -62,7 +61,7 @@ export default {
     }
   },
   created () {
-    PubSub.subscribe(TITLE_CHANGED, titleId => { this.activeTitleId = titleId })
+    this.$root.$on(TITLE_CHANGED, titleId => { this.activeTitleId = titleId })
   }
 }
 </script>
