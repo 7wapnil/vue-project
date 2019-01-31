@@ -9,9 +9,11 @@ query betsHistory ($kind: String = null) {
     oddValue
     status
     market {
+      id
       name
     }
     event {
+      id
       name
     }
   }
