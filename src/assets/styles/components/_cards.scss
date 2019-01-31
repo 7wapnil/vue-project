@@ -1,67 +1,83 @@
 // Cards styles
 @import '../variables';
 
-%card {
+.event-card,
+%event-card {
   border-radius: 4px !important;
-  :hover {
+  user-select: none;
+  &:hover {
     cursor: pointer;
-  }
-  .disabled {
-    opacity: .5;
+    .arc-upcoming-event-replay,
+    .arc-upcoming-event-statistic {
+      transition: all $transition-speed ease-in-out;
+      color: #9A9A9A !important;
+    }
+    .event-card-date {
+      color: $arc-clr-white !important;
+    }
   }
   .collapsed {
     .arc-upcoming-event-chevron-down {
       transform: rotateX(0deg) !important;
-      transition: all .3s ease-in-out;
+      transition: all $transition-speed ease-in-out;
     }
+    .arc-upcoming-event-arrow-right {
+      transition: all $transition-speed ease-in-out;
+    }
+  }
+  &-toggle-button {
+    &:hover {
+      background-color: $arc-clr-soil-darker;
+      transition: background-color $transition-speed ease-in-out;
+    }
+    &-esport:hover {
+        background-color: $arc-clr-soil-darker;
+        border-bottom-right-radius: 4px;
+    }
+  }
+  &-inside-border {
+    &-left {
+      box-shadow: inset 1px 0 0 0 $arc-clr-soil-cover;
+    }
+    &-right {
+      box-shadow: inset -1px 0 0 0 $arc-clr-soil-cover;
+    }
+    &-top {
+      box-shadow: inset 0 1px 0 0 $arc-clr-soil-cover;
+    }
+    &-bottom {
+      box-shadow: inset 0 -1px 0 0 $arc-clr-soil-cover;
+    }
+  }
+  &-statistics-button {
+    &:hover {
+      background-color: $arc-clr-soil-darker;
+      border-radius: 0 4px 4px 0;
+      position: relative;
+      display: inline-block;
+      transition: background-color $transition-speed ease-in-out;
+    }
+  }
+  &-date {
+    font-size: 10px;
   }
 }
 .upcoming-card {
-  @extend %card;
+  @extend %event-card;
   & .card-body {
     height: 80px;
   }
 }
 .esport-card {
-  @extend %card;
-  transition: box-shadow .3s ease;
+  @extend %event-card;
+  transition: box-shadow $transition-speed ease;
   &:hover {
-    transition: box-shadow .3s ease;
+    transition: box-shadow $transition-speed ease;
     box-shadow: 0 0 20px 0 $black;
-    .arc-upcoming-event-replay,
-    .arc-upcoming-event-statistic {
-      transition: all 0.6s ease-in-out;
-      color: #9A9A9A !important;
-    }
   }
-}
-.event-card-toggle-button {
-  &:hover {
-    background-color: $arc-clr-soil-darker;
-    transition: background-color .35s ease-in-out;
-    cursor: pointer;
-  }
-  &-esport {
+  .event-card-statistics-button {
     &:hover {
-      background-color: $arc-clr-soil-darker;
-      transition: background-color .3s ease-in-out;
-      border-bottom-right-radius: 4px;
+      border-bottom-right-radius: 0;
     }
   }
-}
-.event-card-inside-border {
-  box-shadow: inset 1px 0 0 0 $arc-clr-soil-cover;
-  &-top {
-    box-shadow: inset 0 1px 0 0 $arc-clr-soil-cover;
-  }
-  &-bottom {
-    box-shadow: inset 0 -1px 0 0 $arc-clr-soil-cover;
-  }
-}
-.upcoming-statistics:hover {
-  background-color: $arc-clr-soil-darker;
-  border-radius: 0 4px 4px 0;
-  position: relative;
-  display: inline-block;
-  transition: background-color .3s ease-in-out;
 }
