@@ -3,6 +3,7 @@
     :class="className"
     class="input-group-select">
     <multiselect
+      ref="select"
       :placeholder="label"
       :options="options"
       :type="type"
@@ -14,7 +15,6 @@
       required
       open-direction="bottom"
       autocomplete="off"
-      ref="select"
       @open="toggleLabel()"
       @close="toggleLabel()"
       @change="handleInput()"
@@ -73,6 +73,9 @@ export default {
       lift: false
     }
   },
+  mounted () {
+    this.$refs.select.$el.setAttribute('tabindex', 0)
+  },
   methods: {
     handleInput (e) {
       this.$emit('input', this.content.value)
@@ -83,9 +86,6 @@ export default {
     setFocus () {
       this.$nextTick(() => this.$refs.select.$el.focus())
     }
-  },
-  mounted() {
-    this.$refs.select.$el.setAttribute('tabindex', 0)
   }
 }
 </script>
