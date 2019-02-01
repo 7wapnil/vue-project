@@ -4,9 +4,8 @@
   min-height: $navbar-height;
 }
 #top-navigation > .nav-item > a {
-  font-size: $font-size-base;
   font-weight: $font-weight-bold;
-  letter-spacing: 0.23px;
+  letter-spacing: .23px;
   line-height: $btn-line-height-sm;
   padding: 31px 60px;
 }
