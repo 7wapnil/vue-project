@@ -14,10 +14,12 @@
       required
       open-direction="bottom"
       autocomplete="off"
+      ref="select"
       @open="toggleLabel()"
       @close="toggleLabel()"
       @change="handleInput()"
-      @input="handleInput()"/>
+      @input="handleInput()"
+      @select="setFocus"/>
     <span
       v-if="bottomBar"
       class="bar"/>
@@ -77,7 +79,13 @@ export default {
     },
     toggleLabel () {
       this.lift = true;
+    },
+    setFocus () {
+      this.$nextTick(() => this.$refs.select.$el.focus())
     }
+  },
+  mounted() {
+    this.$refs.select.$el.setAttribute('tabindex', 0)
   }
 }
 </script>
