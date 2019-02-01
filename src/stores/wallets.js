@@ -21,7 +21,6 @@ export default {
       context.commit('resetBetslipStakes')
     },
     fetchWallets: async function ({ commit }) {
-
       // Load wallets
       const { data: { wallets } } = await graphqlClient.query({
         query: WALLETS_LIST_QUERY
