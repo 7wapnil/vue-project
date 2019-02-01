@@ -23,14 +23,12 @@
 
         </b-col>
       </b-row>
-
       <div
         v-for="tournament in title.tournaments"
         :key="tournament.id">
         <b-row no-gutters>
           <b-col>
             <h6
-              v-if="!tournamentId"
               class="px-4 pt-4 pb-2 m-0 text-arc-clr-gold">
               {{ tournament.name }}
             </h6>
@@ -41,9 +39,9 @@
           v-for="event in tournament.events"
           :key="event.id"
           no-body>
+
           <slot :event="event"/>
         </b-card>
-
       </div>
     </div>
 
@@ -76,6 +74,10 @@ export default {
       type: String,
       default: null
     },
+    categoryId: {
+      type: String,
+      default: null
+    },
     tournamentId: {
       type: String,
       default: null
@@ -93,9 +95,15 @@ export default {
       if (this.tournamentId) {
         subscription = TOURNAMENT_EVENT_UPDATED
         variables.tournament = this.tournamentId
+
       } else if (this.titleId) {
         subscription = SPORT_EVENT_UPDATED
         variables.title = this.titleId
+        variables.context = this.context.dailyEvents
+        if (this.categoryId) {
+          variables.category = this.categoryId
+          this.query.variables.context = this.context.limitedEvents
+        }
       } else {
         subscription = KIND_EVENT_UPDATED
         variables.kind = this.$route.params.titleKind
@@ -108,10 +116,7 @@ export default {
           variables,
           updateQuery ({ events }, { subscriptionData }) {
             const endpoint = Object.keys(subscriptionData.data)[0]
-
-            return {
-              events: updateCacheList(events, subscriptionData.data[endpoint])
-            }
+            return  { events: updateCacheList(events, subscriptionData.data[endpoint]) }
           }
         }
       }
@@ -120,7 +125,13 @@ export default {
   data () {
     return {
       loading: 0,
-      events: []
+      events: [],
+      context: {
+        limitedEvents: 'upcoming_limited',
+        dailyEvents: 'upcoming_for_time',
+        liveEvents: 'live'
+      },
+      status: ''
     }
   },
   computed: {
@@ -128,14 +139,15 @@ export default {
       return {
         query: EVENTS_LIST_QUERY,
         variables: {
+          context: this.context.dailyEvents,
           titleKind: this.$route.params.titleKind,
+          categoryId: this.categoryId,
           titleId: this.titleId,
           tournamentId: this.tournamentId,
           inPlay: this.live,
           upcoming: !this.live,
           withMarkets: true,
-          marketsLimit: 1,
-          limit: 10
+          marketsLimit: 1
         }
       }
     },

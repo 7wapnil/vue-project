@@ -3,6 +3,7 @@
     class="pt-2"
     no-gutters>
     <b-col>
+
       <events-list
         :title-id="$route.params.titleId"
         :tournament-id="$route.params.tournamentId"
@@ -11,13 +12,14 @@
         <template slot-scope="{ event }">
 
           <live-event
+            v-if="event.live"
             :event="event">
-
             <markets-list
               :event="event"
               :markets="event.markets" />
           </live-event>
           <upcoming-event
+                  v-if="!event.live"
             :event="event">
             <markets-list
               :event="event"

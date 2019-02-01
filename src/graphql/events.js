@@ -3,7 +3,6 @@ import { EVENT_FIELDS, MARKET_FIELDS, SCOPE_FIELDS } from './fields'
 
 export const EVENTS_LIST_QUERY = gql`
   query eventList (
-    $limit: Int = 5,
     $offset: Int = 0,
     $titleId: ID = null,
     $titleKind: String = null,
@@ -13,16 +12,19 @@ export const EVENTS_LIST_QUERY = gql`
     $withScopes: Boolean = false,
     $withMarkets: Boolean = false,
     $marketsLimit: Int = 10
+    $context: String = null
+    $categoryId: ID = null
   ) {
     events (
-      limit: $limit,
       offset: $offset,
+      context: $context,
       filter: {
         titleId: $titleId,
         titleKind: $titleKind,
         tournamentId: $tournamentId,
         inPlay: $inPlay,
-        upcoming: $upcoming
+        upcoming: $upcoming,
+        categoryId: $categoryId
     }) {
       ${EVENT_FIELDS}
       scopes @include (if: $withScopes) {
