@@ -20,7 +20,7 @@ export default [
     component: () => import('@/views/styleguide/Pages/Betslip/Page')
   },
   {
-    path: 'grouped-events',
+    path: 'cards',
     name: 'styleguide-cards',
     component: () => import('@/views/styleguide/Pages/Cards/Page')
   }
