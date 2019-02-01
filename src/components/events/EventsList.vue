@@ -29,6 +29,7 @@
         <b-row no-gutters>
           <b-col>
             <h6
+              v-if="!tournamentId"
               class="px-4 pt-4 pb-2 m-0 text-arc-clr-gold">
               {{ tournament.name }}
             </h6>
@@ -39,7 +40,6 @@
           v-for="event in tournament.events"
           :key="event.id"
           no-body>
-
           <slot :event="event"/>
         </b-card>
       </div>
@@ -85,6 +85,10 @@ export default {
     live: {
       type: Boolean,
       default: true
+    },
+    context: {
+      type: String,
+      default: null
     }
   },
   apollo: {
@@ -98,10 +102,8 @@ export default {
       } else if (this.titleId) {
         subscription = SPORT_EVENT_UPDATED
         variables.title = this.titleId
-        variables.context = this.context.dailyEvents
         if (this.categoryId) {
           variables.category = this.categoryId
-          this.query.variables.context = this.context.limitedEvents
         }
       } else {
         subscription = KIND_EVENT_UPDATED
@@ -124,13 +126,7 @@ export default {
   data () {
     return {
       loading: 0,
-      events: [],
-      context: {
-        limitedEvents: 'upcoming_limited',
-        dailyEvents: 'upcoming_for_time',
-        liveEvents: 'live'
-      },
-      status: ''
+      events: []
     }
   },
   computed: {
@@ -144,7 +140,7 @@ export default {
           inPlay: this.live,
           upcoming: !this.live,
           categoryId: this.categoryId,
-          context: this.context.dailyEvents,
+          context: this.context
         }
       }
     },

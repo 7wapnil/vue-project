@@ -1,7 +1,9 @@
 <template>
   <category-tabs :tabs="tabs">
     <template slot-scope="{ tab }">
-      <filter-tabs :title-id="tab.id"/>
+      <filter-tabs
+        :title-id="tab.id"
+        :context="context"/>
     </template>
   </category-tabs>
 </template>
@@ -26,7 +28,8 @@ export default {
   },
   data () {
     return {
-      titles: []
+      titles: [],
+      context: 'upcoming_for_time'
     }
   },
   computed: {
