@@ -8,6 +8,8 @@
       :type="type"
       v-model="content"
       :show-labels="false"
+      tracked-by="value"
+      label="label"
       class="bg-arc-clr-white"
       required
       open-direction="bottom"
@@ -71,7 +73,7 @@ export default {
   },
   methods: {
     handleInput (e) {
-      this.$emit('input', this.content)
+      this.$emit('input', this.content.value)
     },
     toggleLabel () {
       this.lift = true;

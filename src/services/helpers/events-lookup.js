@@ -17,21 +17,23 @@ class EventsLookup {
   oddsMap () {
     let tree = []
     this.events.forEach(function (event) {
-      event.markets.forEach(function (market) {
-        market.odds.forEach(function (odd) {
-          const displayEvent = Object.assign({}, event);
-          displayEvent.markets = {}
+      let market = event.dashboard_market
 
-          const displayMarket = Object.assign({}, market);
-          displayMarket.odds = {}
+      if (!market) return
 
-          tree.push({
-            event: displayEvent,
-            eventId: event.id,
-            market: displayMarket,
-            marketId: market.id,
-            odd: odd
-          })
+      market.odds.forEach(function (odd) {
+        const displayEvent = Object.assign({}, event)
+        displayEvent.dashboard_market = null
+
+        const displayMarket = Object.assign({}, market)
+        displayMarket.odds = {}
+
+        tree.push({
+          event: displayEvent,
+          eventId: event.id,
+          market: displayMarket,
+          marketId: market.id,
+          odd: odd
         })
       })
     })

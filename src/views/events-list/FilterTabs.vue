@@ -14,14 +14,14 @@
 
             <markets-list
               :event="event"
-              :markets="event.markets" />
+              :markets="[event.dashboard_market]" />
           </live-event>
           <upcoming-event
             v-if="tab.id === 'upcoming'"
             :event="event">
             <markets-list
               :event="event"
-              :markets="event.markets" />
+              :markets="[event.dashboard_market]" />
 
           </upcoming-event>
         </template>

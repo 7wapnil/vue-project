@@ -19,7 +19,7 @@
               :markets="event.markets" />
           </live-event>
           <upcoming-event
-                  v-if="!event.live"
+            v-if="!event.live"
             :event="event">
             <markets-list
               :event="event"

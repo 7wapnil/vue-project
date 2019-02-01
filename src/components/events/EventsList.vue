@@ -95,7 +95,6 @@ export default {
       if (this.tournamentId) {
         subscription = TOURNAMENT_EVENT_UPDATED
         variables.tournament = this.tournamentId
-
       } else if (this.titleId) {
         subscription = SPORT_EVENT_UPDATED
         variables.title = this.titleId
@@ -116,7 +115,7 @@ export default {
           variables,
           updateQuery ({ events }, { subscriptionData }) {
             const endpoint = Object.keys(subscriptionData.data)[0]
-            return  { events: updateCacheList(events, subscriptionData.data[endpoint]) }
+            return { events: updateCacheList(events, subscriptionData.data[endpoint]) }
           }
         }
       }
@@ -139,15 +138,13 @@ export default {
       return {
         query: EVENTS_LIST_QUERY,
         variables: {
-          context: this.context.dailyEvents,
           titleKind: this.$route.params.titleKind,
-          categoryId: this.categoryId,
           titleId: this.titleId,
           tournamentId: this.tournamentId,
           inPlay: this.live,
           upcoming: !this.live,
-          withMarkets: true,
-          marketsLimit: 1
+          categoryId: this.categoryId,
+          context: this.context.dailyEvents,
         }
       }
     },
