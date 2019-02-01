@@ -152,9 +152,6 @@ export default {
       'getBetsCount',
       'getTotalReturn',
       'getTotalStakes'
-    ]),
-    ...mapGetters([
-      'getActiveWallet',
     ])
   },
   methods: {
@@ -172,7 +169,7 @@ export default {
 
       let betsPayload = BetslipSerializer.serialize({
         bets: this.getBets,
-        currencyCode: this.getActiveWallet.currency.code
+        currencyCode: this.activeWallet.currency.code
       })
 
       this.placeBets(betsPayload)
@@ -180,7 +177,6 @@ export default {
     },
     processBetsPlacementResponse (response) {
       this.updateBetsFromResponse(response)
-      this.refetchWallets()
     },
     updateBetsFromResponse (response) {
       const bets = this.getBets
