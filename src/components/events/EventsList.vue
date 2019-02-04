@@ -23,7 +23,6 @@
 
         </b-col>
       </b-row>
-
       <div
         v-for="tournament in title.tournaments"
         :key="tournament.id">
@@ -44,6 +43,9 @@
           <slot :event="event"/>
         </b-card>
 
+        <more-button
+          v-if="categoryId"
+          :link="{ name: 'tournament', params: { titleKind: $route.params.titleKind, titleId: titleId, tournamentId: tournament.id } }"/>
       </div>
     </div>
 
@@ -65,14 +67,20 @@ import {
   TOURNAMENT_EVENT_UPDATED
 } from '@/graphql'
 import { updateCacheList } from '@/helpers/graphql'
+import MoreButton from '@/components/custom/MoreButton'
 
 export default {
+  components: { MoreButton },
   props: {
     header: {
       type: String,
       default: 'Events'
     },
     titleId: {
+      type: String,
+      default: null
+    },
+    categoryId: {
       type: String,
       default: null
     },
@@ -83,6 +91,10 @@ export default {
     live: {
       type: Boolean,
       default: true
+    },
+    context: {
+      type: String,
+      default: null
     }
   },
   apollo: {
@@ -96,6 +108,9 @@ export default {
       } else if (this.titleId) {
         subscription = SPORT_EVENT_UPDATED
         variables.title = this.titleId
+        if (this.categoryId) {
+          variables.category = this.categoryId
+        }
       } else {
         subscription = KIND_EVENT_UPDATED
         variables.kind = this.$route.params.titleKind
@@ -108,10 +123,7 @@ export default {
           variables,
           updateQuery ({ events }, { subscriptionData }) {
             const endpoint = Object.keys(subscriptionData.data)[0]
-
-            return {
-              events: updateCacheList(events, subscriptionData.data[endpoint])
-            }
+            return { events: updateCacheList(events, subscriptionData.data[endpoint]) }
           }
         }
       }
@@ -133,7 +145,8 @@ export default {
           tournamentId: this.tournamentId,
           inPlay: this.live,
           upcoming: !this.live,
-          limit: 10
+          categoryId: this.categoryId,
+          context: this.context
         }
       }
     },

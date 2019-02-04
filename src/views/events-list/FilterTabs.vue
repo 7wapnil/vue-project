@@ -4,7 +4,9 @@
       <events-list
         :title-id="titleId"
         :tournament-id="tournamentId"
-        :live="tab.live">
+        :category-id="categoryId"
+        :live="tab.live"
+        :context="context">
 
         <template slot-scope="{ event }">
 
@@ -51,6 +53,10 @@ export default {
       default: null
     },
     categoryId: {
+      type: String,
+      default: null
+    },
+    context: {
       type: String,
       default: null
     }

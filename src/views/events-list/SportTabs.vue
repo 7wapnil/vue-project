@@ -1,7 +1,9 @@
 <template>
   <category-tabs :tabs="tabs">
     <template slot-scope="{ tab }">
-      <filter-tabs :title-id="tab.id"/>
+      <filter-tabs
+        :title-id="tab.id"
+        :context="context"/>
     </template>
   </category-tabs>
 </template>
@@ -9,6 +11,7 @@
 <script>
 import { TITLES_QUERY } from '@/graphql'
 import FilterTabs from './FilterTabs'
+import { UPCOMING_FOR_TIME } from '@/constants/graphql/event-context'
 
 export default {
   components: {
@@ -26,7 +29,8 @@ export default {
   },
   data () {
     return {
-      titles: []
+      titles: [],
+      context: UPCOMING_FOR_TIME
     }
   },
   computed: {
