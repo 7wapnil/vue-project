@@ -130,7 +130,7 @@
             no-gutters
             class="h-50 w-100 event-card-inside-border-top">
             <b-col
-              v-b-toggle.esportcard
+              v-b-toggle.esportcardvs
               class="pt-3 event-card-toggle-button-esport">
               <b-row
                 no-gutters
@@ -167,7 +167,7 @@
         align="center"
         style="min-height: 0">
         <b-collapse
-          id="esportcard"
+          id="esportcardvs"
           style="border-radius: 0 0 4px 4px"
           accordion="my-accordion">
           <b-row no-gutters>

@@ -15,6 +15,9 @@
     .event-card-date {
       color: $arc-clr-white !important;
     }
+    .event-card-name {
+      color: $arc-clr-iron-light !important;
+    }
   }
   .collapsed {
     .arc-upcoming-event-chevron-down {
@@ -60,6 +63,29 @@
   }
   &-date {
     font-size: 10px;
+  }
+  &-name {
+    overflow: hidden;
+    position: relative;
+    line-height: 14px;
+    max-height: 28px;
+    margin-right: -1em;
+    padding-right: 1em;
+    &:before {
+      content: '...';
+      position: absolute;
+      right: 0;
+      bottom: 0;
+    }
+    &:after {
+      content: '';
+      position: absolute;
+      right: 0;
+      width: 1em;
+      height: 1em;
+      margin-top: .2em;
+      background: $arc-clr-soil-dark;
+    }
   }
 }
 .upcoming-card {
