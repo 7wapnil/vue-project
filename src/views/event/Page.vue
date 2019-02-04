@@ -100,7 +100,8 @@ export default {
       return {
         query: EVENT_BY_ID_QUERY,
         variables: {
-          id: this.eventId
+          id: this.eventId,
+          context: 'upcoming_for_time'
         },
         update ({ events }) {
           if (!events.length) {
@@ -111,7 +112,8 @@ export default {
         subscribeToMore: {
           document: EVENT_UPDATED,
           variables: {
-            id: this.eventId
+            id: this.eventId,
+            context: 'upcoming_for_time'
           },
           updateQuery ({ events }, { subscriptionData }) {
             return {
