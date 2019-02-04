@@ -4,13 +4,12 @@
   min-height: $navbar-height;
 }
 #top-navigation > .nav-item > a {
-  font-weight: $font-weight-bold;
   letter-spacing: .23px;
   line-height: $btn-line-height-sm;
-  padding: 32px 60px;
+  padding: 31px 60px;
 }
-.nav-item-active > h6 {
-  color: $arc-clr-white !important;
+.navbar-menu-item {
+  font-size: $h6-font-size;
 }
 
 // Navbar wallet
@@ -18,21 +17,15 @@
   padding: 22px 15px;
   width: 198px;
   height: $navbar-height;
-}
-#nav-wallet-wrapper > a {
-  padding: 0;
-  letter-spacing: 0.09px;
-  line-height: 14px;
-}
-.wallet-button {
-  width: 40px;
-  height: 36px;
-  padding: 6px 8px !important;
-  border: none !important;
-}
-#nav-wallet-wrapper > .dropdown-menu {
-  padding: 0;
-  margin: 0;
-  width: 198px;
-  box-shadow: 0 2px 0 0 rgba($black, .5);
+  & > a {
+    padding: 0;
+    letter-spacing: .09px;
+    line-height: 14px;
+  }
+  & > .dropdown-menu {
+    padding: 0;
+    margin: 0;
+    width: 198px;
+    box-shadow: 0 2px 0 0 rgba($black, .5);
+  }
 }
