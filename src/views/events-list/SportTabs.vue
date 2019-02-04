@@ -11,6 +11,7 @@
 <script>
 import { TITLES_QUERY } from '@/graphql'
 import FilterTabs from './FilterTabs'
+import { UPCOMING_FOR_TIME } from '@/constants/graphql/event-context'
 
 export default {
   components: {
@@ -29,7 +30,7 @@ export default {
   data () {
     return {
       titles: [],
-      context: 'upcoming_for_time'
+      context: UPCOMING_FOR_TIME
     }
   },
   computed: {

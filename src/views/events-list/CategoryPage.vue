@@ -15,6 +15,7 @@
 
 <script>
 import FilterTabs from '@/views/events-list/FilterTabs'
+import { UPCOMING_FOR_TIME } from '@/constants/graphql/event-context'
 
 export default {
   components: {
@@ -22,7 +23,7 @@ export default {
   },
   data () {
     return {
-      context: 'upcoming_for_time'
+      context: UPCOMING_FOR_TIME
     }
   },
   computed: {

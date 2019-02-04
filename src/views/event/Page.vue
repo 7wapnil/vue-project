@@ -84,6 +84,7 @@ import { EVENT_BY_ID_QUERY, EVENT_UPDATED } from '@/graphql'
 import { updateCacheList } from '@/helpers/graphql'
 import MarketsCategories from '@/components/markets/MarketsCategories'
 import moment from 'moment'
+import { UPCOMING_FOR_TIME } from '@/constants/graphql/event-context'
 
 export default {
   components: {
@@ -101,7 +102,7 @@ export default {
         query: EVENT_BY_ID_QUERY,
         variables: {
           id: this.eventId,
-          context: 'upcoming_for_time'
+          context: UPCOMING_FOR_TIME
         },
         update ({ events }) {
           if (!events.length) {
@@ -113,7 +114,7 @@ export default {
           document: EVENT_UPDATED,
           variables: {
             id: this.eventId,
-            context: 'upcoming_for_time'
+            context: UPCOMING_FOR_TIME
           },
           updateQuery ({ events }, { subscriptionData }) {
             return {
