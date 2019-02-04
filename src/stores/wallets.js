@@ -17,8 +17,8 @@ export default {
   },
   actions: {
     changeActiveWallet (context, walletId) {
-      context.commit('setActiveWalletId', walletId)
-      context.commit('resetBetslipStakes')
+      context.commit(SET_ACTIVE_WALLET, walletId)
+      context.commit(CLEAR_WALLETS)
     },
     fetchWallets: async function ({ commit }) {
       // Load wallets
