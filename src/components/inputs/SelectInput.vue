@@ -3,6 +3,7 @@
     :class="className"
     class="input-group-select">
     <multiselect
+      ref="select"
       :placeholder="label"
       :options="options"
       :type="type"
@@ -17,7 +18,8 @@
       @open="toggleLabel()"
       @close="toggleLabel()"
       @change="handleInput()"
-      @input="handleInput()"/>
+      @input="handleInput()"
+      @select="setFocus"/>
     <span
       v-if="bottomBar"
       class="bar"/>
@@ -71,12 +73,18 @@ export default {
       lift: false
     }
   },
+  mounted () {
+    this.$refs.select.$el.setAttribute('tabindex', 0)
+  },
   methods: {
     handleInput (e) {
       this.$emit('input', this.content.value)
     },
     toggleLabel () {
       this.lift = true;
+    },
+    setFocus () {
+      this.$nextTick(() => this.$refs.select.$el.focus())
     }
   }
 }
