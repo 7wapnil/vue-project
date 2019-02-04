@@ -42,6 +42,10 @@
           no-body>
           <slot :event="event"/>
         </b-card>
+
+        <MoreButton
+          v-if="categoryId"
+          :link="{ name: 'tournament', params: { titleKind: $route.params.titleKind, titleId: titleId, tournamentId: tournament.id } }"/>
       </div>
     </div>
 
@@ -63,8 +67,10 @@ import {
   TOURNAMENT_EVENT_UPDATED
 } from '@/graphql'
 import { updateCacheList } from '@/helpers/graphql'
+import MoreButton from '@/components/custom/MoreButton'
 
 export default {
+  components: { MoreButton },
   props: {
     header: {
       type: String,
