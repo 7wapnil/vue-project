@@ -213,3 +213,9 @@ $alert-border-radius: 6px 0 12px 0;
 // Animation & Transitions
 $transition-base: all .3s ease-in-out;
 $transition-speed: .3s;
+
+// Breadcrumbs
+$breadcrumb-bg: transparent;
+$breadcrumb-active-color: $arc-clr-iron;
+$breadcrumb-padding-y: $spacer * 1.25;
+$breadcrumb-padding-x: $spacer * 2.75;

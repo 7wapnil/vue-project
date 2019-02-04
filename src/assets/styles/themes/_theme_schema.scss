@@ -160,3 +160,12 @@
 .toggle-slider:before {
   background-color: $nav-item-active-glow;
 }
+
+.breadcrumb-item {
+  font-size: $small-font-size;
+  &:before {
+    color: $breadcrumb-divider-color;
+    font-weight: $font-weight-bold;
+    padding-right: $spacer * .625;
+  }
+}
