@@ -92,10 +92,6 @@ export default {
       type: String,
       default: null
     },
-    live: {
-      type: Boolean,
-      default: true
-    },
     context: {
       type: String,
       default: null
@@ -104,7 +100,7 @@ export default {
   apollo: {
     events () {
       let subscription = null
-      let variables = { live: this.live }
+      let variables = {}
 
       if (this.tournamentId) {
         subscription = TOURNAMENT_EVENT_UPDATED
@@ -147,8 +143,6 @@ export default {
           titleKind: this.$route.params.titleKind,
           titleId: this.titleId,
           tournamentId: this.tournamentId,
-          inPlay: this.live,
-          upcoming: !this.live,
           categoryId: this.categoryId,
           context: this.context
         }
