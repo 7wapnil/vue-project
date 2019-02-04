@@ -43,7 +43,7 @@
           <slot :event="event"/>
         </b-card>
 
-        <MoreButton
+        <more-button
           v-if="categoryId"
           :link="{ name: 'tournament', params: { titleKind: $route.params.titleKind, titleId: titleId, tournamentId: tournament.id } }"/>
       </div>
