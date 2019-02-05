@@ -27,30 +27,30 @@
 
         </b-col>
       </b-row>
-        <div
-          v-for="tournament in title.tournaments"
-          :key="tournament.id"
-          class="pt-4">
-          <router-link
-            v-if="!tournamentId"
-            :to="{name: 'tournament', params: {titleId: title.id, tournamentId: tournament.id}}"
-            class="pl-4 text-arc-clr-gold mb-2 d-block">
-            {{ tournament.name }}
-          </router-link>
-          <div>
-            <b-card
-              v-for="event in tournament.events"
-              :key="event.id"
-              :class="{disabled: !isEventAvailable(event)}"
-              no-body>
-              <slot :event="event"/>
-            </b-card>
-          </div>
+      <div
+        v-for="tournament in title.tournaments"
+        :key="tournament.id"
+        class="pt-4">
+        <router-link
+          v-if="!tournamentId"
+          :to="{name: 'tournament', params: {titleId: title.id, tournamentId: tournament.id}}"
+          class="pl-4 text-arc-clr-gold mb-2 d-block">
+          {{ tournament.name }}
+        </router-link>
+        <div>
+          <b-card
+            v-for="event in tournament.events"
+            :key="event.id"
+            :class="{disabled: !isEventAvailable(event)}"
+            no-body>
+            <slot :event="event"/>
+          </b-card>
         </div>
+      </div>
 
-        <more-button
-          v-if="categoryId"
-          :link="{ name: 'tournament', params: { titleKind: $route.params.titleKind, titleId: titleId, tournamentId: tournament.id } }"/>
+      <more-button
+        v-if="categoryId"
+        :link="{ name: 'tournament', params: { titleKind: $route.params.titleKind, titleId: titleId, tournamentId: tournament.id } }"/>
     </div>
 
     <loader v-if="loading"/>
