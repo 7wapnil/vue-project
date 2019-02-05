@@ -22,7 +22,7 @@
             :key="item.path"
             :to="item.path"
             class="navbar-menu-item font-weight-bold">
-              {{ item.label }}
+            {{ item.label }}
           </b-nav-item>
         </b-navbar-nav>
         <b-navbar-nav
@@ -34,7 +34,7 @@
             variant="arc-secondary"
             class="m-2"
             @mousedown="authTab = 0">
-              Login
+            Login
           </b-button>
 
           <b-button
@@ -42,7 +42,7 @@
             variant="arc-primary"
             class="m-2 mr-4"
             @mousedown="authTab = 1">
-              Sign Up
+            Sign Up
           </b-button>
         </b-navbar-nav>
         <b-navbar-nav
