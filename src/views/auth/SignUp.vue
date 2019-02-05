@@ -37,7 +37,6 @@
             class-name="day"
             type="select"
             label="Day"
-            bottom-bar
             aria-describedby="inputFeedbackDateOfBirth"
           />
         </b-col>
@@ -51,7 +50,6 @@
             type="select"
             class-name="month"
             label="Month"
-            bottom-bar
             aria-describedby="inputFeedbackDateOfBirth"
           />
         </b-col>
@@ -65,7 +63,6 @@
             type="select"
             class-name="year"
             label="Year"
-            bottom-bar
             aria-describedby="inputFeedbackDateOfBirth"
           />
         </b-col>
