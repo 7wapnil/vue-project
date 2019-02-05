@@ -1,5 +1,4 @@
 import Router from 'vue-router'
-import store from '@/stores'
 import mainRoutes from './main'
 import StyleGuidePages from './styleguide_pages'
 
@@ -21,11 +20,6 @@ const router = new Router({
       children: mainRoutes
     }
   ]
-})
-
-router.beforeEach((to, from, next) => {
-  store.dispatch('updateTitleFiltersFromRouteParams', to.params)
-  next()
 })
 
 export default router
