@@ -87,3 +87,10 @@
 .sorting-panel .nav-link.active {
   color: $arc-clr-white !important;
 }
+
+// Test Panel
+.sorting-panel-test .nav-link.active {
+  color: $arc-clr-white !important;
+  background-image: linear-gradient(-180deg, rgba($arc-clr-white, .1) 0%, transparent 100%);
+  box-shadow: inset 1px 0 0 0 rgba($black, .3);
+}

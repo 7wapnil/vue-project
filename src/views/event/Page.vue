@@ -1,14 +1,23 @@
 <template>
-  <b-row no-gutters>
-    <b-col style="height: 385px"
-           class="bg-arc-clr-soil-darker">
+    <div>
       <b-row no-gutters>
-        <b-col>
-          <b-breadcrumb :items="items"/>
+        <b-col style="height: 385px"
+               class="bg-arc-clr-soil-darker">
+          <b-row no-gutters>
+            <b-col>
+              <b-breadcrumb :items="items"/>
+            </b-col>
+          </b-row>
         </b-col>
       </b-row>
-    </b-col>
-  </b-row>
+        <b-row style="position: relative; top: -55px;" no-gutters>
+            <b-col>
+                <simple-tabs-test
+                        activeIndex="0"
+                        :tabs="tabs"/>
+            </b-col>
+        </b-row>
+    </div>
 </template>
 
 <script>
@@ -17,16 +26,26 @@ import { EVENT_BY_ID_QUERY, EVENT_UPDATED } from '@/graphql'
 import { updateCacheList } from '@/helpers/graphql'
 import MarketsCategories from '@/components/markets/MarketsCategories'
 import moment from 'moment'
+import SimpleTabsTest from '@/components/tabs/SimpleTabsTest'
 
 export default {
   components: {
-    MarketsCategories
+    MarketsCategories,
+    SimpleTabsTest
   },
   data () {
     return {
       event: null,
       marketsLimit: UNLIMITED_QUERY,
-      items: ['Basketball', 'Europe', 'Eurocup', 'Charlotte Hornets VS New Orleans Pelicans']
+      items: ['Basketball',
+              'Europe',
+              'Eurocup',
+              'Charlotte Hornets VS New Orleans Pelicans'],
+      tabs: [ {title: 'Main'},
+             { title:'Halves'},
+             { title:'Quaters'},
+             { title:'All Markets'}
+      ]
     }
   },
   apollo: {

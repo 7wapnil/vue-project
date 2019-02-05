@@ -169,3 +169,8 @@
     padding-right: $spacer * .625;
   }
 }
+
+// Test tabs
+.sorting-panel-test .nav-link.active {
+  border-top: 3px solid $icon-section-color;
+}
