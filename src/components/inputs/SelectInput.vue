@@ -30,10 +30,6 @@ export default {
       type: String,
       default: 'Name'
     },
-    bottomBar: {
-      type: Boolean,
-      default: true
-    },
     type: {
       type: String,
       default: 'text'
