@@ -16,10 +16,6 @@ export default {
     activeWalletId: null
   },
   actions: {
-    changeActiveWallet (context, walletId) {
-      context.commit(SET_ACTIVE_WALLET, walletId)
-      context.commit(CLEAR_WALLETS)
-    },
     fetchWallets: async function ({ commit }) {
       // Load wallets
       const { data: { wallets } } = await graphqlClient.query({
@@ -39,14 +35,10 @@ export default {
       observer.subscribe({
         next: ({ data }) => commit(UPDATE_WALLET, data.wallet_updated)
       })
-    },
-    refetchWallets () {
-
     }
   },
   mutations: {
     [STORE_WALLETS] (state, wallets) {
-      console.log('STORE WALLETS')
       state.wallets = wallets
       if (!state.activeWalletId && wallets.length) {
         state.activeWalletId = wallets[0].id
@@ -54,7 +46,6 @@ export default {
     },
     [UPDATE_WALLET] (state, wallet) {
       const index = state.wallets.findIndex(w => w.id === wallet.id)
-      console.log(index)
       if (index > -1) {
         state.wallets.splice(index, 1, wallet)
       } else {
