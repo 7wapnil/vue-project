@@ -9,6 +9,10 @@
 .btn:hover{
   cursor: pointer;
 }
+// Primary button
+.btn-arc-primary {
+  font-size: $h6-font-size;
+}
 
 // Secondary button
 .btn-arc-secondary {
@@ -141,4 +145,11 @@
   &:hover {
     background: $arc-clr-soil-cover;
   }
+}
+
+.wallet-button {
+  width: 40px;
+  height: 36px;
+  padding: 6px 8px !important;
+  border: none !important;
 }

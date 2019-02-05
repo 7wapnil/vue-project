@@ -2,21 +2,20 @@
   <b-tabs
     :lazy="lazy"
     v-model="tabIndex"
-    nav-class="mb-2 bg-transparent"
-    nav-wrapper-class="sorting-panel">
-
+    nav-wrapper-class="event-panel mx-4">
     <b-tab
       v-for="(tab, index) in tabs"
       :key="index"
       no-body
-      title-link-class="mx-4 pb-4 pt-2 bg-transparent">
+      card
+      title-link-class="pb-4 px-4 pt-3 bg-arc-dropdown-divider">
 
       <template slot="title">
         <b-row no-gutters>
           <b-col class="d-flex justify-content-center align-items-center">
-            <h5 class="m-0">
+            <span style="font-size: 16px;">
               {{ tab.title }}
-            </h5>
+            </span>
           </b-col>
         </b-row>
       </template>

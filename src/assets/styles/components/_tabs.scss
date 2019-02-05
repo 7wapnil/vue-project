@@ -43,7 +43,7 @@
 }
 .betslipTab:hover {
   background-color: #1A1A1A;
-  transition: background-color .2s;
+  transition: background-color .3s;
 }
 .betslip-tabs-wrapper {
   background-color: $arc-clr-soil-black !important;
@@ -86,4 +86,22 @@
 }
 .sorting-panel .nav-link.active {
   color: $arc-clr-white !important;
+}
+
+// Event Panel
+.event-panel {
+  border-bottom: 1px solid $arc-clr-soil-cover;
+  .nav-link.active {
+    color: $arc-clr-white !important;
+    background-image: linear-gradient(-180deg, rgba($arc-clr-white, .1) 0%, transparent 100%);
+    box-shadow: inset 1px 0 0 0 rgba($black, .3);
+  }
+  .nav-link {
+    margin-right: 1px !important;
+    height: 60px;
+    &:hover {
+      background-color: $arc-clr-soil-cover !important;
+      transition: background-color .2s;
+    }
+  }
 }
