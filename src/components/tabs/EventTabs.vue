@@ -4,51 +4,59 @@
     v-model="tabIndex"
     nav-wrapper-class="event-panel mx-4">
     <b-tab
-      v-for="(tab, index) in tabs"
-      :key="index"
-      no-body
-      card
+      v-for="category in categories"
+      :key="category.slug"
+      :title="category.name"
       title-link-class="pb-4 px-4 pt-3 bg-arc-dropdown-divider">
 
       <template slot="title">
         <b-row no-gutters>
           <b-col class="d-flex justify-content-center align-items-center">
             <span style="font-size: 16px;">
-              {{ tab.title }}
+              {{ category.name }}
             </span>
           </b-col>
         </b-row>
       </template>
 
-      <slot :tab="tab"/>
+      <markets-category
+        :event="event"
+        :category="category"/>
 
     </b-tab>
   </b-tabs>
 </template>
 
 <script>
+import MARKETS_CATEGORIES from '@/constants/markets/categories'
+import MarketsCategory from '@/components/markets/MarketCategory'
+
 export default {
+  components: {
+    MarketsCategory
+  },
   props: {
-    tabs: {
-      type: Array,
-      default () { return [] }
+    event: {
+      type: Object,
+      required: true
+    },
+    queryOptions: {
+      type: Object,
+      default () { return {} }
     },
     activeIndex: {
       type: Number,
-      default: 1
+      default: 0
     },
     lazy: {
       type: Boolean,
       default: true
-    },
-    variant: {
-      type: String,
-      default: ''
     }
   },
   data () {
     return {
-      tabIndex: this.activeIndex
+      tabIndex: this.activeIndex,
+      categories: MARKETS_CATEGORIES.slice(0, 7)
     }
   }
 }

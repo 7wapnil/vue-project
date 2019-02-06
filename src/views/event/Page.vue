@@ -1,95 +1,95 @@
 <template>
   <div>
     <b-row no-gutters>
-      <b-col
-        style="height: 385px"
-        class="bg-arc-clr-soil-light">
+      <b-col>
+        <b-breadcrumb :items="items"/>
+      </b-col>
+    </b-row>
+
+    <b-row
+      class="pt-4 pb-5"
+      no-gutters>
+      <b-col class="text-center pt-4">
         <b-row no-gutters>
-          <b-col>
-            <b-breadcrumb :items="items"/>
+          <b-col class="font-weight-bold my-4">
+            {{ event.competitors[0].name }}
+          </b-col>
+
+          <div class="w-100"/>
+
+          <b-col class="mt-1">
+            <icon
+              name="sidemenu-game-icon"
+              size="56px"/>
           </b-col>
         </b-row>
       </b-col>
+
+      <b-col class="text-center">
+        <b-row no-gutters>
+          <b-col class="mb-2">
+            {{ event.description }}
+          </b-col>
+
+          <div class="w-100"/>
+
+          <b-col class="mt-4">
+            <span
+              style="font-size: 11px"
+              class="text-arc-clr-iron text-uppercase">
+              Starts
+            </span>
+          </b-col>
+
+          <div class="w-100"/>
+
+          <b-col class="mb-4">
+            {{ event.start_at | asFormattedDate }}
+          </b-col>
+
+          <div class="w-100"/>
+
+          <b-col class="mt-1">
+            <span
+              style="font-size: 11px"
+              class="text-arc-clr-iron text-uppercase">
+              Match type
+            </span>
+          </b-col>
+
+          <div class="w-100"/>
+
+          <b-col>
+            Best of 3
+          </b-col>
+        </b-row>
+      </b-col>
+
+      <b-col class="text-center pt-4">
+        <b-row no-gutters>
+          <b-col class="font-weight-bold my-4">
+            {{ event.competitors[1].name }}
+          </b-col>
+        </b-row>
+        <b-row no-gutters>
+          <b-col class="mt-1">
+            <icon
+              name="sidemenu-game-icon"
+              size="56px"/>
+          </b-col>
+        </b-row>
+      </b-col>
+
     </b-row>
-    <b-row no-gutters>
+
+    <b-row
+      class="mt-4"
+      no-gutters>
       <b-col>
-        <event-tabs :tabs="tabs">
+        <event-tabs :event="event">
           <template slot-scope="{ tab }">
-            <b-card
-              v-if="event"
-              class="mt-4">
-              <div slot="header">{{ event.description }}</div>
-
-              <dl class="row">
-                <dt class="col-sm-3">Sport</dt>
-                <dd class="col-sm-9">{{ event.title.name }}</dd>
-                <dt class="col-sm-3">Time</dt>
-                <dd class="col-sm-9">{{ eventTime }}</dd>
-              </dl>
-
-              <dl
-                v-if="event.competitors"
-                class="row">
-                <dt class="col-sm-3">Competitors</dt>
-                <dd class="col-sm-9">
-                  <p
-                    v-for="competitor in event.competitors"
-                    :key="competitor.id">
-                    {{ competitor.name }}
-                  </p>
-                </dd>
-              </dl>
-
-              <dl
-                v-for="(scope, index) in event.scopes"
-                :key="index"
-                class="row">
-                <dt class="col-sm-3 text-capitalize">{{ scope.kind }}</dt>
-                <dd class="col-sm-9">{{ scope.name }}</dd>
-              </dl>
-
-              <div v-if="event.state">
-                <dl
-                  v-if="event.state.status_code"
-                  class="row">
-                  <dt class="col-sm-3">Status</dt>
-                  <dd class="col-sm-9">{{ event.state.status }}</dd>
-                </dl>
-
-                <dl
-                  v-if="event.state.score"
-                  class="row">
-                  <dt class="col-sm-3">Score</dt>
-                  <dd class="col-sm-9">{{ event.state.score }}</dd>
-                </dl>
-
-                <dl
-                  v-if="event.state.time"
-                  class="row">
-                  <dt class="col-sm-3">Time</dt>
-                  <dd class="col-sm-9">{{ event.state.time }}</dd>
-                </dl>
-
-                <dl
-                  v-if="event.state.period_scores.length > 0"
-                  class="row">
-                  <dt class="col-sm-3">Period Scores</dt>
-                  <dd class="col-sm-9"/>
-                </dl>
-
-                <dl
-                  v-for="period in event.state.period_scores"
-                  :key="period.status_code"
-                  class="row">
-                  <dt class="col-sm-3">{{ period.status }}</dt>
-                  <dd class="col-sm-9">{{ period.score }}</dd>
-                </dl>
-              </div>
-
-              <hr>
-
+            <b-card v-if="event">
               <markets-categories :event="event"/>
-
             </b-card>
           </template>
         </event-tabs>
@@ -132,7 +132,8 @@ export default {
       return {
         query: EVENT_BY_ID_QUERY,
         variables: {
-          id: this.eventId
+          id: this.eventId,
+          context: 'upcoming_for_time'
         },
         update ({ events }) {
           if (!events.length) {
