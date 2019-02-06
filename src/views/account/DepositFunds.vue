@@ -196,7 +196,6 @@ export default {
   },
   created () {
     this.loadWallets.then(() => {
-      console.log(this.walletActive)
       if (this.walletActive) {
         this.fields.currency = this.walletActive.currency.code
       }
