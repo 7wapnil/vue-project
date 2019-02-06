@@ -1,14 +1,18 @@
 import gql from 'graphql-tag'
+import { WALLET_FIELDS } from './fields'
 
 export const WALLETS_LIST_QUERY = gql`
     query WalletsList {
       wallets {
-        id
-        amount
-        currency {
-          code
-          id
-        }
+        ${WALLET_FIELDS}
       }
     }
+`
+
+export const WALLET_UPDATED_SUBSCRIPTION = gql`
+  subscription walletUpdated {
+    wallet_updated {
+      ${WALLET_FIELDS}
+    }
+  }
 `

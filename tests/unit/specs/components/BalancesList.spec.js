@@ -2,6 +2,7 @@ import { expect } from 'chai'
 import { createLocalVue, shallowMount } from '@vue/test-utils'
 import Vuex from 'vuex'
 import BalancesList from '@/components/navbar/wallet/BalancesList.vue'
+import { SET_ACTIVE_WALLET } from '@/stores/wallets'
 
 const wallets = [{
   id: 1,
@@ -34,6 +35,7 @@ describe('BalancesList component', () => {
 
   let getters
   let actions
+  let mutations
   let store
 
   before(() => {
@@ -42,27 +44,28 @@ describe('BalancesList component', () => {
     }
 
     getters = {
-      getActiveWallet: () => wallets[1],
-      getWallets: () => wallets
+      ativeWallet: () => wallets[1],
+      wallets: () => wallets
     }
 
     actions = {
-      changeActiveWallet: sinon.stub(),
       fetchWallets: sinon.stub()
     }
 
+    mutations = {
+      [SET_ACTIVE_WALLET]: sinon.stub()
+    }
+
     store = new Vuex.Store({
-      state,
-      getters,
-      actions
-    })
-  })
-
-  describe('Lifecycle', () => {
-    it('Created', () => {
-      wrapper = shallowMount(BalancesList, { localVue, store })
-
-      expect(actions.fetchWallets.called).to.eq(true)
+      modules: {
+        wallets: {
+          namespaced: true,
+          state,
+          getters,
+          actions,
+          mutations
+        }
+      }
     })
   })
 
@@ -71,56 +74,14 @@ describe('BalancesList component', () => {
       wrapper = shallowMount(BalancesList, { localVue, store })
     })
 
-    xit('displayAmount - should return wallet amount to fixed 2 and with currency code', done => {
-      const wallet = { amount: 12.22545, currency: { code: 'FOO' } }
-      const expectedDisplayText = '12.23 FOO'
-
-      const result = wrapper.vm.displayAmount(wallet)
-
-      expect(result).to.eq(expectedDisplayText)
-
-      done()
-    })
-
-    it('selectWallet - should dispatch action with active wallet id', () => {
+    it('selectWallet - should set active wallet id', () => {
       const walletId = 832
       const wallet = { id: walletId }
 
       wrapper.vm.selectWallet(wallet)
 
-      expect(actions.changeActiveWallet.calledOnce).to.equal(true)
-      expect(actions.changeActiveWallet.firstCall.args[1]).to.eq(walletId);
-    })
-  })
-
-  describe('Functional tests', () => {
-    let selectWalletStub
-
-    beforeEach(function () {
-      selectWalletStub = sinon.stub(BalancesList.methods, 'selectWallet').returns({})
-      wrapper = shallowMount(BalancesList, { localVue, store })
-    })
-
-    afterEach(function () {
-      selectWalletStub.restore()
-    })
-
-    describe('Setting active wallet', () => {
-      xit('should load active wallet ID from store', () => {
-        const text = wrapper.vm.displayAmount(wallets[1])
-        expect(wrapper.find('#wallets-dropdown').text()).to.eq(text)
-      })
-    })
-
-    describe('List of customer wallets', () => {
-      it('should exclude active wallet from a list', () => {
-        expect(wrapper.findAll('a.dropdown-item').length).to.eq(2)
-      })
-
-      it('should set other active wallet on select', () => {
-        wrapper.find('a.dropdown-item').trigger('click')
-        expect(selectWalletStub.calledOnce).to.equal(true)
-      })
+      expect(mutations[SET_ACTIVE_WALLET].calledOnce).to.equal(true)
+      expect(mutations[SET_ACTIVE_WALLET].firstCall.args[1]).to.eq(walletId);
     })
   })
 })

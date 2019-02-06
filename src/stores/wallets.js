@@ -1,44 +1,63 @@
 import graphqlClient from '@/libs/apollo/'
-import { NO_CACHE } from '@/constants/graphql/fetch-policy'
-import { WALLETS_LIST_QUERY } from '@/graphql/index'
+import { WALLETS_LIST_QUERY, WALLET_UPDATED_SUBSCRIPTION } from '@/graphql/index'
+
+export const STORE_WALLETS = 'STORE_WALLETS'
+export const UPDATE_WALLET = 'UPDATE_WALLET'
+export const SET_ACTIVE_WALLET = 'SET_ACTIVE_WALLET'
+export const CLEAR_WALLETS = 'CLEAR_WALLETS'
 
 /**
  * Wallets store module
  */
 export default {
+  namespaced: true,
   state: {
     wallets: [],
     activeWalletId: null
   },
   actions: {
-    changeActiveWallet (context, walletId) {
-      context.commit('setActiveWalletId', walletId)
-      context.commit('resetBetslipStakes')
-    },
-    fetchWallets: async function ({ commit }, activeWallet = undefined) {
-      const response = await graphqlClient.query({
-        query: WALLETS_LIST_QUERY,
-        fetchPolicy: NO_CACHE
+    fetchWallets: async function ({ commit }) {
+      // Load wallets
+      const { data: { wallets } } = await graphqlClient.query({
+        query: WALLETS_LIST_QUERY
       })
 
-      const wallets = response.data.wallets
+      commit(STORE_WALLETS, wallets)
+      if (wallets.length) {
+        commit(SET_ACTIVE_WALLET, wallets[0].id)
+      }
 
-      const activeWalletExists = activeWallet ? (wallets.find((wallet) => {
-        return wallet.id === activeWallet.id
-      })) : false
-      const defaultActiveWallet = wallets[0]
-      activeWallet = (activeWalletExists && activeWallet) ? activeWallet : defaultActiveWallet
+      // Subscribe to updates
+      const observer = graphqlClient.subscribe({
+        query: WALLET_UPDATED_SUBSCRIPTION
+      })
 
-      commit('storeWallets', { wallets: wallets, activeWallet: activeWallet })
+      observer.subscribe({
+        next: ({ data }) => commit(UPDATE_WALLET, data.wallet_updated)
+      })
     }
   },
   mutations: {
-    storeWallets (state, { wallets, activeWallet }) {
+    [STORE_WALLETS] (state, wallets) {
       state.wallets = wallets
-      state.activeWalletId = activeWallet.id
+      if (!state.activeWalletId && wallets.length) {
+        state.activeWalletId = wallets[0].id
+      }
     },
-    setActiveWalletId (state, id) {
+    [UPDATE_WALLET] (state, wallet) {
+      const index = state.wallets.findIndex(w => w.id === wallet.id)
+      if (index > -1) {
+        state.wallets.splice(index, 1, wallet)
+      } else {
+        state.wallets.push(wallet)
+      }
+    },
+    [SET_ACTIVE_WALLET] (state, id) {
       state.activeWalletId = id
+    },
+    [CLEAR_WALLETS] (state) {
+      state.activeWalletId = null
+      state.wallets = []
     },
     clearWalletsStorage (state) {
       state.activeWalletId = null
@@ -46,10 +65,10 @@ export default {
     }
   },
   getters: {
-    getActiveWallet (state) {
+    activeWallet (state) {
       return state.wallets.find(el => el.id === state.activeWalletId)
     },
-    getWallets (state) {
+    wallets (state) {
       return state.wallets
     }
   }
