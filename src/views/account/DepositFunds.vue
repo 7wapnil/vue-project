@@ -161,10 +161,10 @@ export default {
   },
   computed: {
     ...mapGetters({
-      walletActive: 'activeWallet'
+      walletActive: 'wallets/activeWallet'
     }),
     ...mapActions({
-      loadWallets: 'fetchWallets'
+      loadWallets: 'wallets/fetchWallets'
     }),
     ...mapGetters({
       token: 'getToken'
@@ -196,6 +196,7 @@ export default {
   },
   created () {
     this.loadWallets.then(() => {
+      console.log(this.walletActive)
       if (this.walletActive) {
         this.fields.currency = this.walletActive.currency.code
       }
