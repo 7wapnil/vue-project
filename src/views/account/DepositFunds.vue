@@ -161,7 +161,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      walletActive: 'getActiveWallet'
+      walletActive: 'activeWallet'
     }),
     ...mapActions({
       loadWallets: 'fetchWallets'

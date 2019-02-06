@@ -3,7 +3,6 @@
  */
 
 import Bet from '@/models/bet'
-
 import graphqlClient from '@/libs/apollo/'
 import { BETSLIP_PLACEMENT_QUERY } from '@/graphql/index'
 
@@ -59,16 +58,17 @@ export const mutations = {
 }
 
 export const getters = {
-  betslipSubmittable: (state, getters, rootState, rootGetters) => {
-    const activeWallet = rootGetters.getActiveWallet
+  betslipSubmittable: (store, state, getters, rootState, rootGetters) => {
+    const activeWallet = rootState['wallets/activeWallet']
+
     if (activeWallet === undefined) {
       return false
     }
     let enabled = false
 
-    if (getters.betslipValuesConfirmed &&
-      getters.getTotalStakes > 0 &&
-      getters.getTotalStakes <= activeWallet.amount
+    if (rootState['betslip/betslipValuesConfirmed'] &&
+      rootState['betslip/getTotalStakes'] > 0 &&
+      rootState['betslip/getTotalStakes'] <= activeWallet.amount
     ) {
       enabled = true
     }
