@@ -51,7 +51,7 @@ describe('wallets store', () => {
   describe('getters', () => {
     describe('betslipSubmittable', () => {
       const rootGetters = {
-        getActiveWallet: { amount: 2 }
+        'wallets/activeWallet': { amount: 2 }
       }
 
       const validGettersState = {
@@ -93,13 +93,13 @@ describe('wallets store', () => {
 
           const invalidRootGetters = {
             ...rootGetters,
-            getActiveWallet: { amount: 1 }
+            'wallets/activeWallet': { amount: 1 }
           }
 
           expect(getters.betslipSubmittable(state, validGettersState, {}, invalidRootGetters)).to.eql(false)
         })
 
-        it('does not fail without any intial bet in betslip', () => {
+        it('does not fail without any initial bet in betslip', () => {
           const state = {}
 
           const invalidGetters = {

@@ -58,17 +58,16 @@ export const mutations = {
 }
 
 export const getters = {
-  betslipSubmittable: (store, state, getters, rootState, rootGetters) => {
-    const activeWallet = rootState['wallets/activeWallet']
-
+  betslipSubmittable: (state, getters, rootState, rootGetters) => {
+    const activeWallet = rootGetters['wallets/activeWallet']
     if (activeWallet === undefined) {
       return false
     }
     let enabled = false
 
-    if (rootState['betslip/betslipValuesConfirmed'] &&
-      rootState['betslip/getTotalStakes'] > 0 &&
-      rootState['betslip/getTotalStakes'] <= activeWallet.amount
+    if (getters.betslipValuesConfirmed &&
+      getters.getTotalStakes > 0 &&
+      getters.getTotalStakes <= activeWallet.amount
     ) {
       enabled = true
     }
