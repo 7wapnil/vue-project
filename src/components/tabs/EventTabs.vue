@@ -9,16 +9,6 @@
       :title="category.name"
       title-link-class="pb-4 px-4 pt-3 bg-arc-dropdown-divider">
 
-      <template slot="title">
-        <b-row no-gutters>
-          <b-col class="d-flex justify-content-center align-items-center">
-            <span style="font-size: 16px;">
-              {{ category.name }}
-            </span>
-          </b-col>
-        </b-row>
-      </template>
-
       <markets-category
         :event="event"
         :category="category"/>

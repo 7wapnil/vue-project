@@ -1,16 +1,12 @@
 <template>
-  <b-row>
-    <b-col>
-
+  <div>
       <loader v-if="loading"/>
 
       <markets-list
         :event="event"
         :markets="markets"
         display-markets-names />
-
-    </b-col>
-  </b-row>
+  </div>
 </template>
 
 <script>
