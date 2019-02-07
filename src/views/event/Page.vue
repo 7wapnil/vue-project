@@ -88,7 +88,7 @@
         <event-tabs :event="event">
           <template slot-scope="{ tab }">
 
-              <markets-categories :event="event"/>
+            <markets-categories :event="event"/>
 
           </template>
         </event-tabs>
@@ -103,13 +103,11 @@ import { EVENT_BY_ID_QUERY, EVENT_UPDATED } from '@/graphql'
 import { updateCacheList } from '@/helpers/graphql'
 import MarketsCategories from '@/components/markets/MarketsCategories'
 import EventTabs from '@/components/tabs/EventTabs'
-import EventDetailsCard from '@/components/cards/EventDetailsCard'
 
 export default {
   components: {
     MarketsCategories,
-    EventTabs,
-    EventDetailsCard
+    EventTabs
   },
   data () {
     return {

@@ -7,11 +7,11 @@
       :market="market"
       :display-market-name="displayMarketsNames"/>
 
-  <small
-    v-if="!filteredMarkets.length"
-    class="my-4 d-flex justify-content-center">
-    No markets for this event
-  </small>
+    <small
+      v-if="!filteredMarkets.length"
+      class="my-4 d-flex justify-content-center">
+      No markets for this event
+    </small>
   </div>
 </template>
 

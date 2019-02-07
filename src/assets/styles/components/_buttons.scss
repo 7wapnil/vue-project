@@ -1,6 +1,7 @@
+// Buttons //
 @import '../variables';
 
-// Buttons general
+// Buttons general //
 .btn {
   &:focus {
     box-shadow: none !important;
@@ -11,12 +12,12 @@
   }
 }
 
-// Primary button
+// Primary button //
 .btn-arc-primary {
   font-size: $h6-font-size;
 }
 
-// Secondary button
+// Secondary button //
 .btn-arc-secondary {
   border-radius: 4px 4px 0 4px !important;
   background-color: rgba($black, .15);
@@ -38,7 +39,7 @@
   }
 }
 
-// User profile button
+// User profile button //
 .arc-profile-button {
   border-radius: 50px !important;
   width: 42px !important;
@@ -49,7 +50,7 @@
   padding: 12px 7px 10px 5px;
 }
 
-// Event cards odd button
+// Event cards odd button //
 .btn-arc-odd,
 %btn-arc-odd {
   height: 36px;
@@ -109,7 +110,7 @@
   }
 }
 
-// Event details page odd button
+// Event details page odd button //
 .btn-arc-event-page-odd {
   @extend %btn-arc-odd;
   border-radius: 0 6px 6px 6px !important;
@@ -119,7 +120,7 @@
   }
 }
 
-    // Betslip odd button
+// Betslip odd button //
 .btn-arc-betslip-odd {
   height: 26px;
   width: 100%;
@@ -150,6 +151,7 @@
   }
 }
 
+// Event list upcoming button //
 .btn-arc-events-list-upcoming {
   border-radius: 4px 4px 0 4px !important;
   background: $arc-dropdown-divider;
@@ -160,6 +162,7 @@
   }
 }
 
+// Wallet button //
 .wallet-button {
   width: 40px;
   height: 36px;
