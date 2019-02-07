@@ -72,7 +72,6 @@
             </b-col>
           </b-row>
           <b-row
-            v-if="currency"
             no-gutters
             class="mt-4">
             <b-col
@@ -150,10 +149,15 @@ export default {
     return {
       fields: {
         amount: '',
-        bonusCode: '',
-        currency: ''
+        bonusCode: ''
       },
-      currencyList: ['EUR', 'USD', 'SEK', 'NOK', 'AUD', 'CAD'],
+      dropdownCurrency: null,
+      currencyList: [{ label: 'EUR', value: 'EUR' },
+        { label: 'USD', value: 'USD' },
+        { label: 'SEK', value: 'SEK' },
+        { label: 'NOK', value: 'NOK' },
+        { label: 'CAD', value: 'CAD' },
+        { label: 'AUD', value: 'AUD' }],
       redirectUrl: process.env.VUE_APP_DEPOSIT_URL,
       walletExists: null,
       calculatedBonus: '',
@@ -183,14 +187,18 @@ export default {
     },
     currency: {
       get () {
-        return this.walletActive
-          ? this.walletActive.currency.code
-          : ''
+        if (this.dropdownCurrency) {
+          return this.dropdownCurrency
+        }
+
+        if (this.walletActive) {
+          return this.walletActive.currency.code
+        }
+
+        return null
       },
-      set () {
-        return this.walletActive
-          ? this.walletActive.currency.code
-          : ''
+      set (value) {
+        this.dropdownCurrency = value
       }
     },
     getMessage () {
