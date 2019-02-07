@@ -1,14 +1,16 @@
 @import '../variables';
 
 // Buttons general
-.btn:focus {
-  box-shadow: none !important;
-  outline: none !important;
+.btn {
+  &:focus {
+    box-shadow: none !important;
+    outline: none !important;
+  }
+  &:hover {
+    cursor: pointer;
+  }
 }
 
-.btn:hover{
-  cursor: pointer;
-}
 // Primary button
 .btn-arc-primary {
   font-size: $h6-font-size;
@@ -48,7 +50,8 @@
 }
 
 // Event cards odd button
-.btn-arc-odd {
+.btn-arc-odd,
+%btn-arc-odd {
   height: 36px;
   width: 100%;
   border-radius: 0 0 8px 8px !important;
@@ -106,7 +109,17 @@
   }
 }
 
-// Betslip odd button
+// Event details page odd button
+.btn-arc-event-page-odd {
+  @extend %btn-arc-odd;
+  border-radius: 0 6px 6px 6px !important;
+  width: 100%;
+  &:after {
+    border-radius: 0 6px 6px 6px !important;
+  }
+}
+
+    // Betslip odd button
 .btn-arc-betslip-odd {
   height: 26px;
   width: 100%;
