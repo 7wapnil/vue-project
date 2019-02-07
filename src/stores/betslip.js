@@ -3,7 +3,6 @@
  */
 
 import Bet from '@/models/bet'
-
 import graphqlClient from '@/libs/apollo/'
 import { BETSLIP_PLACEMENT_QUERY } from '@/graphql/index'
 
@@ -60,7 +59,7 @@ export const mutations = {
 
 export const getters = {
   betslipSubmittable: (state, getters, rootState, rootGetters) => {
-    const activeWallet = rootGetters.getActiveWallet
+    const activeWallet = rootGetters['wallets/activeWallet']
     if (activeWallet === undefined) {
       return false
     }
