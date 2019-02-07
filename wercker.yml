@@ -14,10 +14,6 @@ build:
       code: yarn test:unit
 
     - script:
-      name: deploy
-      code: yarn deploy
-
-    - script:
       name: cleanup
       code: |
         rm -rf ./node_modules
