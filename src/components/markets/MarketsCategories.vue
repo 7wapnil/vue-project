@@ -1,17 +1,7 @@
 <template>
-  <b-tabs lazy>
-    <b-tab
-      v-for="category in categories"
-      :key="category.slug"
-      :title="category.name"
-      title-link-class="p-2 border border-arc-clr-gold-light border-bottom-0 font-weight-bold">
-
-      <markets-category
-        :event="event"
-        :category="category"/>
-
-    </b-tab>
-  </b-tabs>
+  <markets-category
+    :event="event"
+    :category="category"/>
 </template>
 <script>
 import MARKETS_CATEGORIES from '@/constants/markets/categories'
