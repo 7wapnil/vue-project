@@ -57,7 +57,7 @@ export default {
   },
   computed: {
     menuItems () {
-      return buildTree(this.$route.params.titleKind, this.titles)
+      return buildTree(this.$route.params.titleKind, this.titles, this.$route)
     }
   }
 }
