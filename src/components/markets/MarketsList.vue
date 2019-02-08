@@ -16,6 +16,7 @@
 </template>
 
 <script>
+import MarketItem from '@/components/markets/MarketItem'
 import { ACTIVE_STATUS, INACTIVE_STATUS, SUSPENDED_STATUS } from '@/models/market'
 
 export default {
@@ -30,7 +31,7 @@ export default {
     },
     itemComponent: {
       type: [String, Object],
-      default: 'market-item'
+      default: () => { return MarketItem }
     }
   },
   computed: {

@@ -19,12 +19,12 @@
           lazy>
 
           <template slot-scope="{ markets }">
-            <event-details-card>
-              <markets-list
-                :event="event"
-                :markets="markets"
-                :item-component="itemComponent"/>
-            </event-details-card>
+
+            <markets-list
+              :event="event"
+              :markets="markets"
+              :item-component="itemComponent"/>
+
           </template>
 
         </markets-categories>

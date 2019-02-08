@@ -32,7 +32,8 @@
       <b-col style="min-height: 0">
         <b-collapse
           :id="'event-details-market-' + `${market.id}`"
-          accordion="eventdetails-accordion-3">
+          visible
+        >
           <b-row
             :data-id="market.id"
             no-gutters
