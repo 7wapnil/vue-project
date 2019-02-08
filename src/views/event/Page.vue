@@ -1,20 +1,33 @@
 <template>
   <div>
-    <b-breadcrumb :items="items"/>
+    <b-breadcrumb :items="breadcrumbsItems"/>
 
     <header-section :event="event"/>
 
     <b-row
+      v-if="event"
       class="mt-4"
       no-gutters>
       <b-col>
-        <event-tabs :event="event">
-          <template slot-scope="{ tab }">
+        <markets-categories
+          :event="event"
+          :active-index="0"
+          :number-of-tabs="7"
+          tabs-class="event-panel-tabs"
+          title-class="event-panel-titles"
+          content-class="event-panel-content"
+          lazy>
 
-            <markets-categories :event="event"/>
-
+          <template slot-scope="{ markets }">
+            <event-details-card>
+              <markets-list
+                :event="event"
+                :markets="markets"
+                :item-component="itemComponent"/>
+            </event-details-card>
           </template>
-        </event-tabs>
+
+        </markets-categories>
       </b-col>
     </b-row>
   </div>
@@ -25,20 +38,22 @@ import { UNLIMITED_QUERY } from '@/constants/graphql/limits'
 import { EVENT_BY_ID_QUERY, EVENT_UPDATED } from '@/graphql'
 import { updateCacheList } from '@/helpers/graphql'
 import MarketsCategories from '@/components/markets/MarketsCategories'
-import EventTabs from '@/components/tabs/EventTabs'
 import HeaderSection from './HeaderSection'
+import MarketsList from '@/components/markets/MarketsList'
+import EventDetailsCard from '@/components/cards/EventDetailsCard'
 
 export default {
   components: {
+    MarketsList,
     MarketsCategories,
-    EventTabs,
     HeaderSection
   },
   data () {
     return {
       event: null,
+      itemComponent: EventDetailsCard,
       marketsLimit: UNLIMITED_QUERY,
-      items: ['Basketball',
+      breadcrumbsItems: ['Basketball',
         'Europe',
         'Eurocup',
         'Charlotte Hornets VS New Orleans Pelicans'],
