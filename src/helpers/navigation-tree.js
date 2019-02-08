@@ -32,6 +32,7 @@ const getTitleIcon = (titleName) => {
  *
  * @param titleKind
  * @param title
+ * @param route
  * @param parentId
  * @returns {*}
  */
@@ -57,6 +58,7 @@ const buildTournaments = (titleKind, title, route, parentId = null) => {
  *
  * @param titleKind
  * @param title
+ * @param route
  * @returns {*}
  */
 const buildSubTree = (titleKind, title, route) => {
@@ -89,11 +91,10 @@ const buildSubTree = (titleKind, title, route) => {
  *
  * @param titleKind
  * @param titles
+ * @param route
  * @returns {*}
  */
 export const buildTree = (titleKind, titles, route) => {
-  console.log(route)
-
   return titles.map((title) => {
     const children = buildSubTree(titleKind, title, route)
 
