@@ -3,11 +3,7 @@
     :data-id="market.id"
     class="market-odds"
     no-gutters>
-    <small
-      v-if="displayMarketName"
-      class="text-arc-clr-gold-light">
-      {{ market.name }}
-    </small>
+
     <b-col
       v-for="odd in market.odds"
       :key="odd.id"
