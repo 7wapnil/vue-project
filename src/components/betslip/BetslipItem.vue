@@ -96,7 +96,7 @@
                 <icon
                   name="betslip-stake"
                   size="12px"
-                  class="mr-1"/>
+                  class="mr-2"/>
                 <small class="text-arc-clr-iron-light">
                   Bet max
                 </small>
@@ -107,12 +107,11 @@
           <b-col
             class="d-flex align-items-center"
             style="max-width: 79px">
-            <b-input
+            <b-form-input
               v-model="betStake"
               class="betslip-input"
               type="number"
-              name="odd-value"
-              min="0"/>
+              name="odd-value"/>
           </b-col>
         </b-row>
         <b-alert
