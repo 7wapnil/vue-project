@@ -122,7 +122,8 @@
 // Cards
 .upcoming-card,
 .esport-card {
-    .arc-upcoming-event-chevron-down {
+    .arc-upcoming-event-chevron-down,
+    .arc-event-details-chevron-down {
       transform: rotateX(180deg);
       transition: transform .3s ease;
     }
@@ -172,6 +173,6 @@
 }
 
 // Event tabs
-.event-panel .nav-link.active {
+.event-panel-tabs .nav-link.active {
   border-top: 3px solid $icon-section-color;
 }

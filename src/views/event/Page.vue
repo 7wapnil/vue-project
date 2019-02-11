@@ -1,97 +1,33 @@
 <template>
   <div>
-    <b-row no-gutters>
-      <b-col>
-        <b-breadcrumb :items="items"/>
-      </b-col>
-    </b-row>
+    <b-breadcrumb :items="breadcrumbsItems"/>
+
+    <header-section :event="event"/>
 
     <b-row
-      class="pt-4 pb-5"
-      no-gutters>
-      <b-col class="text-center pt-4">
-        <b-row no-gutters>
-          <b-col class="font-weight-bold my-4">
-            {{ event.competitors[0].name }}
-          </b-col>
-
-          <div class="w-100"/>
-
-          <b-col class="mt-1">
-            <icon
-              name="sidemenu-game-icon"
-              size="56px"/>
-          </b-col>
-        </b-row>
-      </b-col>
-
-      <b-col class="text-center">
-        <b-row no-gutters>
-          <b-col class="mb-2">
-            {{ event.description }}
-          </b-col>
-
-          <div class="w-100"/>
-
-          <b-col class="mt-4">
-            <span
-              style="font-size: 11px"
-              class="text-arc-clr-iron text-uppercase">
-              Starts
-            </span>
-          </b-col>
-
-          <div class="w-100"/>
-
-          <b-col class="mb-4">
-            {{ event.start_at | asFormattedDate }}
-          </b-col>
-
-          <div class="w-100"/>
-
-          <b-col class="mt-1">
-            <span
-              style="font-size: 11px"
-              class="text-arc-clr-iron text-uppercase">
-              Match type
-            </span>
-          </b-col>
-
-          <div class="w-100"/>
-
-          <b-col>
-            Best of 3
-          </b-col>
-        </b-row>
-      </b-col>
-
-      <b-col class="text-center pt-4">
-        <b-row no-gutters>
-          <b-col class="font-weight-bold my-4">
-            {{ event.competitors[1].name }}
-          </b-col>
-        </b-row>
-        <b-row no-gutters>
-          <b-col class="mt-1">
-            <icon
-              name="sidemenu-game-icon"
-              size="56px"/>
-          </b-col>
-        </b-row>
-      </b-col>
-    </b-row>
-
-    <b-row
+      v-if="event"
       class="mt-4"
       no-gutters>
       <b-col>
-        <event-tabs :event="event">
-          <template slot-scope="{ tab }">
+        <markets-categories
+          :event="event"
+          :active-index="0"
+          :number-of-tabs="7"
+          tabs-class="event-panel-tabs"
+          title-class="event-panel-titles"
+          content-class="event-panel-content"
+          lazy>
 
-            <markets-categories :event="event"/>
+          <template slot-scope="{ markets }">
+
+            <markets-list
+              :event="event"
+              :markets="markets"
+              :item-component="itemComponent"/>
 
           </template>
-        </event-tabs>
+
+        </markets-categories>
       </b-col>
     </b-row>
   </div>
@@ -102,18 +38,22 @@ import { UNLIMITED_QUERY } from '@/constants/graphql/limits'
 import { EVENT_BY_ID_QUERY, EVENT_UPDATED } from '@/graphql'
 import { updateCacheList } from '@/helpers/graphql'
 import MarketsCategories from '@/components/markets/MarketsCategories'
-import EventTabs from '@/components/tabs/EventTabs'
+import HeaderSection from './HeaderSection'
+import MarketsList from '@/components/markets/MarketsList'
+import EventDetailsCard from '@/components/cards/EventDetailsCard'
 
 export default {
   components: {
+    MarketsList,
     MarketsCategories,
-    EventTabs
+    HeaderSection
   },
   data () {
     return {
       event: null,
+      itemComponent: EventDetailsCard,
       marketsLimit: UNLIMITED_QUERY,
-      items: ['Basketball',
+      breadcrumbsItems: ['Basketball',
         'Europe',
         'Eurocup',
         'Charlotte Hornets VS New Orleans Pelicans'],

@@ -2,10 +2,9 @@
   <div>
     <loader v-if="loading"/>
 
-    <markets-list
-      :event="event"
-      :markets="markets"
-      display-markets-names />
+    <slot
+      v-if="!loading"
+      :markets="markets"/>
   </div>
 </template>
 
