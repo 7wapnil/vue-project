@@ -111,6 +111,7 @@
               v-model="betStake"
               class="betslip-input"
               type="number"
+              min="0"
               name="odd-value"/>
           </b-col>
         </b-row>
