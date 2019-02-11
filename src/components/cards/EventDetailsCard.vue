@@ -32,8 +32,7 @@
       <b-col style="min-height: 0">
         <b-collapse
           :id="'event-details-market-' + `${market.id}`"
-          visible
-        >
+          visible>
           <b-row
             :data-id="market.id"
             no-gutters
@@ -64,6 +63,7 @@
               </b-row>
             </b-col>
           </b-row>
+
         </b-collapse>
       </b-col>
     </b-row>

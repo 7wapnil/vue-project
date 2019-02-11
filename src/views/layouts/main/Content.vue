@@ -2,7 +2,7 @@
   <b-row no-gutters>
     <b-col
       class="d-none d-lg-block bg-arc-clr-soil-black"
-      style="max-width: 268px">
+      style="max-width: 268px;min-width: 268px;">
       <side-menu :items="menuItems"/>
     </b-col>
     <b-col class="bg-arc-clr-soil-light">
@@ -12,7 +12,7 @@
     </b-col>
     <b-col
       class="d-none d-lg-block bg-arc-clr-soil-black"
-      style="max-width: 268px">
+      style="max-width: 268px; min-width: 268px;">
       <div class="betslip-block">
         <promotional-item/>
         <betslip/>
