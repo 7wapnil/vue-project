@@ -45,6 +45,21 @@
 
         <b-col class="mt-1">
           <span
+            v-if="event.state.score"
+            style="font-size: 11px"
+            class="text-arc-clr-iron text-uppercase">
+            Score
+          </span>
+        </b-col>
+
+        <div class="w-100"/>
+
+        <b-col class="mb-4">
+          {{ event.state.score }}
+        </b-col>
+
+        <b-col class="mt-1">
+          <span
             style="font-size: 11px"
             class="text-arc-clr-iron text-uppercase">
             Match type

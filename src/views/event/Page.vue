@@ -3,7 +3,6 @@
     <b-breadcrumb :items="breadcrumbsItems"/>
 
     <header-section :event="event"/>
-
     <b-row
       v-if="event"
       class="mt-4"
