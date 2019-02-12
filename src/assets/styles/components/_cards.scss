@@ -1,4 +1,4 @@
-// Cards styles
+// Cards styles //
 @import '../variables';
 
 .event-card,
@@ -20,7 +20,8 @@
     }
   }
   .collapsed {
-    .arc-upcoming-event-chevron-down {
+    .arc-upcoming-event-chevron-down,
+    .arc-event-details-chevron-down {
       transform: rotateX(0deg) !important;
       transition: all $transition-speed ease-in-out;
     }

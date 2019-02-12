@@ -2,7 +2,6 @@
   <b-navbar
     fixed="top"
     toggleable="lg"
-    type="dark"
     class="p-0">
     <b-container
       fluid
@@ -22,36 +21,29 @@
             v-for="item in mainMenu"
             :key="item.path"
             :to="item.path"
-            class="navbar-menu-item"
-            active-class="nav-item-active">
-            <h6 class="m-0 font-weight-bold text-arc-clr-iron-light">
-              {{ item.label }}
-            </h6>
+            class="navbar-menu-item font-weight-bold">
+            {{ item.label }}
           </b-nav-item>
         </b-navbar-nav>
         <b-navbar-nav
           v-if="!isLoggedIn"
           style="max-width: 268px"
           class="ml-auto">
-          <b-btn
+          <b-button
             v-b-modal.AuthModal
             variant="arc-secondary"
             class="m-2"
             @mousedown="authTab = 0">
-            <h6 class="m-0 font-weight-bold">
-              Login
-            </h6>
-          </b-btn>
+            Login
+          </b-button>
 
-          <b-btn
+          <b-button
             v-b-modal.AuthModal
             variant="arc-primary"
             class="m-2 mr-4"
             @mousedown="authTab = 1">
-            <h6 class="m-0 font-weight-bold">
-              Sign Up
-            </h6>
-          </b-btn>
+            Sign Up
+          </b-button>
         </b-navbar-nav>
         <b-navbar-nav
           v-if="isLoggedIn"

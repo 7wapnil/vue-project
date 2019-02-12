@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=IBM+Plex+Sans:300,400,700');
 
-// Colors
+// Colors //
 $arc-clr-sport-bg: #1B6945;
 $arc-clr-sport-glow: #47D469;
 $arc-clr-sport-opacity-like: #004B2E;
@@ -33,7 +33,7 @@ $arc-clr-iron-light: #E5E5E5;
 $wp-clr-notif-yellow: #FFE27A;
 $wp-clr-notif-red: #FF4C4C;
 
-// Fonts
+// Fonts //
 $font-family-sans-serif: 'IBM Plex Sans', sans-serif;
 $font-family-base: $font-family-sans-serif;
 $font-size-base: 1rem; // 16px
@@ -47,33 +47,35 @@ $h6-font-size: $font-size-base * 0.875; // 14px
 $font-size-lg: $font-size-base * 1.125;
 
 $small-font-size: $font-size-base * 0.75; // 12px
+$extra-small-font-size: $font-size-base * 0.625; // 10px
 
 $font-weight-light: 300;
 $font-weight-normal: 400;
 $font-weight-bold: 700;
 
-// Backgrounds
+// Backgrounds //
 $body-bg: $black;
 $body-color: $arc-clr-white;
 
-// Cards
+// Cards //
 $card-bg: $arc-clr-soil-light;
 $card-border-radius: 0;
 $card-inner-border-radius: 0;
 $card-border-width: 0;
 
-// Navs
+// Navs //
 $nav-tabs-border-radius: 0;
 $nav-tabs-border-width: 0;
 $nav-tabs-link-active-bg: $arc-clr-soil-dark;
 $nav-tabs-link-active-color: $arc-clr-iron-light;
 
-// Navbar
+// Navbar //
 $navbar-height: 80px;
-$navbar-dark-color: $arc-clr-white;
-$navbar-dark-hover-color: $arc-clr-white;
+$navbar-light-color: $arc-clr-iron-light;
+$navbar-light-hover-color: $arc-clr-white;
+$navbar-light-active-color: $arc-clr-white;
 
-// Forms
+// Forms //
 $input-border-color: $arc-clr-soil-darker;
 $input-border-radius: 0 6px 0 6px;
 $input-color: $arc-clr-soil-light;
@@ -87,7 +89,7 @@ $input-btn-focus-color: none;
 $input-btn-focus-box-shadow: none;
 $input-btn-border-width: 0;
 
-// Custom Colors
+// Custom Colors //
 $theme-colors: ("arc-clr-soil-light": $arc-clr-soil-light,
                 "arc-clr-soil-dark": $arc-clr-soil-dark,
                 "arc-clr-soil-darker": $arc-clr-soil-darker,
@@ -109,16 +111,16 @@ $theme-colors: ("arc-clr-soil-light": $arc-clr-soil-light,
                 "arc-dropdown-divider": $arc-dropdown-divider
                 );
 
-// Modals
+// Modals //
 $modal-inner-padding: 0 10px 10px 10px;
 $modal-content-border-radius: 0;
 
-// Components
+// Components //
 $border-radius: 0;
 $border-radius-lg: 0;
 $border-radius-sm: 0;
 
-// Buttons
+// Buttons //
 $btn-border-radius: 6px 0 12px 0;
 $btn-border-radius-lg: $btn-border-radius;
 $btn-border-radius-sm: $btn-border-radius;
@@ -158,12 +160,12 @@ $input-btn-focus-width:       0;
 $input-btn-focus-color:       transparent;
 $input-btn-focus-box-shadow:  0 0 0 $input-btn-focus-width $input-btn-focus-color !default;
 
-// Links
+// Links //
 $link-color: $arc-clr-iron-light;
 $link-hover-color: $arc-clr-white;
 $link-hover-decoration: none;
 
-// Dropdowns
+// Dropdowns //
 $dropdown-border-width: none;
 $dropdown-box-shadow: 0 2px 0 0 rgba($black, .5);
 $dropdown-border-color: $black;
@@ -171,11 +173,11 @@ $dropdown-link-color: $arc-clr-white;
 $dropdown-link-hover-color: $arc-clr-white;
 $dropdown-link-hover-bg: transparent;
 
-// Progress bars
+// Progress bars //
 $progress-border-radius: 0 6px 0 6px;
 $progress-height: .8571rem;
 
-// Spacers
+// Spacers //
 $grid-gutter-width-base: 30px;
 $spacer: 1rem;
 $spacers: (
@@ -187,7 +189,7 @@ $spacers: (
         5: ($spacer * 3), // 48px
 );
 
-// Grid
+// Grid //
 $grid-breakpoints: (
         xs: 0,
         sm: 576px,
@@ -205,9 +207,16 @@ $container-max-widths: (
         xxl: 1620px
 );
 
-// Alert
+// Alert //
 $alert-border-radius: 6px 0 12px 0;
 
 
-// Animation
+// Animation & Transitions //
+$transition-base: all .3s ease-in-out;
 $transition-speed: .3s;
+
+// Breadcrumbs //
+$breadcrumb-bg: transparent;
+$breadcrumb-active-color: $arc-clr-iron;
+$breadcrumb-padding-y: $spacer * 1.25;
+$breadcrumb-padding-x: $spacer * 2.75;

@@ -1,8 +1,15 @@
 const storageKey = 'session'
+const nullStorage = {
+  setItem: function () {},
+  removeItem: function () {},
+  key: function () {},
+  getItem: function () {},
+  length: 0
+}
 
 class ArcanebetSession {
-  constructor (storage) {
-    this.storage = storage
+  constructor (storage = null) {
+    this.storage = storage || nullStorage
   }
 
   storeSession = (sessionData) => {
@@ -31,4 +38,4 @@ class ArcanebetSession {
    }
 }
 
-export default new ArcanebetSession(localStorage)
+export default new ArcanebetSession(typeof localStorage === 'undefined' ? null : localStorage)

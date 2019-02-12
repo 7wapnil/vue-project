@@ -1,7 +1,1 @@
-<svg width="24px" height="15px" viewBox="0 0 24 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-  <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-    <g id="ICN/M/Arrow-in-Row-SPORT" transform="translate(-5.000000, -9.000000)" fill="#47D469">
-      <path d="M17,24 L5.5857622,12.4541924 C4.80474593,11.6642056 4.80474593,10.382227 5.5857622,9.59324011 C6.36577845,8.8022533 7.63380487,8.8022533 8.41382112,9.59324011 L17,18.2770954 L25.5861789,9.59324011 C26.3661951,8.8022533 27.6342215,8.8022533 28.4142378,9.59324011 C29.1952541,10.382227 29.1952541,11.6642056 28.4142378,12.4541924 L17,24 Z" id="ICN/M/Arrow-in-Row" transform="translate(17.000000, 16.500000) rotate(180.000000) translate(-17.000000, -16.500000) "></path>
-    </g>
-  </g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 15"><path fill="#47D469" fill-rule="evenodd" d="M12 0l11.41 11.55c.79.79.79 2.07 0 2.86-.78.79-2.04.79-2.82 0L12 5.72l-8.59 8.69c-.78.79-2.04.79-2.82 0a2.04 2.04 0 0 1 0-2.86L12 0z"/></svg>

@@ -61,24 +61,6 @@
 
       </b-row>
 
-      <b-col class="row mt-2 text-right">
-        <b-row class="col-12">
-          <div class="row my-2">
-            <div class="col-12">
-              <b-alert
-                :show="displayUnconfirmedOddValueDialog"
-                variant="fail">
-                This bet odd value changed from {{ bet.approvedOddValue }} to {{ bet.currentOddValue }}.
-                <b-button
-                  @click="confirmValue">
-                  Accept new value
-                </b-button>
-              </b-alert>
-            </div>
-          </div>
-        </b-row>
-      </b-col>
-
       <b-row class="pl-2 pr-1">
         <b-col cols="8">
           <small>Potential Return:</small>
@@ -114,7 +96,7 @@
                 <icon
                   name="betslip-stake"
                   size="12px"
-                  class="mr-1"/>
+                  class="mr-2"/>
                 <small class="text-arc-clr-iron-light">
                   Bet max
                 </small>
@@ -125,18 +107,28 @@
           <b-col
             class="d-flex align-items-center"
             style="max-width: 79px">
-            <b-input
+            <b-form-input
               v-model="betStake"
               class="betslip-input"
               type="number"
-              name="odd-value"
-              min="0"/>
+              min="0"
+              name="odd-value"/>
           </b-col>
         </b-row>
         <b-alert
+          :show="displayUnconfirmedOddValueDialog"
+          variant="danger"
+          class="mt-3 mx-auto p-2 text-center">
+          This bet odd value changed from {{ bet.approvedOddValue }} to {{ bet.currentOddValue }}.
+          <b-button
+            class="mt-1 mx-auto p-2 text-center"
+            @click="confirmValue">
+            Accept new value
+          </b-button>
+        </b-alert>
+        <b-alert
           :show="hasMessage"
           class="mt-3 mx-auto p-2 text-center"
-          style="font-size: 14px"
           variant="danger">
           {{ bet.message }}
         </b-alert>
@@ -176,8 +168,8 @@ export default {
     },
     displayUnconfirmedOddValueDialog () {
       return (
-        this.bet.status === Bet.statuses.initial &&
-          this.bet.approvedOddValue !== this.bet.currentOddValue
+        this.bet.status !== Bet.statuses.succeeded &&
+              this.bet.approvedOddValue !== this.bet.currentOddValue
       )
     },
     cardVariant () {
@@ -189,7 +181,7 @@ export default {
         failed: 'danger'
       }
 
-      if (this.bet.status === Bet.statuses.initial &&
+      if (this.bet.status !== Bet.statuses.succeeded &&
           this.bet.approvedOddValue !== this.bet.currentOddValue
       ) {
         return 'warning'

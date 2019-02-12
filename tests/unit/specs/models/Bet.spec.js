@@ -7,7 +7,7 @@ describe('Bet', () => {
       const newBet = Bet.initial({}, {}, { id: 1, value: 23.22 })
 
       expect(newBet.oddId).to.eql(1)
-      expect(newBet.stake).to.eql(0)
+      expect(newBet.stake).to.eql(5)
       expect(newBet.status).to.eql('initial')
       expect(newBet.message).to.eql(null)
       expect(newBet.externalId).to.eql(null)

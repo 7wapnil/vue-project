@@ -41,6 +41,10 @@ export default {
     lazy: {
       type: Boolean,
       default: true
+    },
+    variant: {
+      type: String,
+      default: ''
     }
   },
   data () {

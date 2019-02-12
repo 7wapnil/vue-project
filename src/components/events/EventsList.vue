@@ -17,34 +17,39 @@
             name="sidemenu-game-icon"
             size="24px"/>
 
-          <h4 class="ml-4 mb-0 text-arc-clr-white">
+          <h4
+            tabindex="0"
+            class="ml-4 mb-0 text-arc-clr-white"
+            style="cursor: pointer; outline: 0;"
+            @click="() => emitTitleChange(title.id)">
             {{ title.name }}
           </h4>
 
         </b-col>
       </b-row>
-
       <div
         v-for="tournament in title.tournaments"
-        :key="tournament.id">
-        <b-row no-gutters>
-          <b-col>
-            <h6
-              v-if="!tournamentId"
-              class="px-4 pt-4 pb-2 m-0 text-arc-clr-gold">
-              {{ tournament.name }}
-            </h6>
-          </b-col>
-        </b-row>
-
-        <b-card
-          v-for="event in tournament.events"
-          :key="event.id"
-          no-body>
-          <slot :event="event"/>
-        </b-card>
-
+        :key="tournament.id"
+        class="pt-4">
+        <router-link
+          v-if="!tournamentId"
+          :to="{name: 'tournament', params: {titleId: title.id, tournamentId: tournament.id}}"
+          class="pl-4 text-arc-clr-gold mb-2 d-block">
+          {{ tournament.name }}
+        </router-link>
+        <div>
+          <b-card
+            v-for="event in tournament.events"
+            :key="event.id"
+            no-body>
+            <slot :event="event"/>
+          </b-card>
+        </div>
       </div>
+
+      <more-button
+        v-if="categoryId"
+        :link="{ name: 'tournament', params: { titleKind: $route.params.titleKind, titleId: titleId, tournamentId: tournament.id } }"/>
     </div>
 
     <loader v-if="loading"/>
@@ -65,14 +70,21 @@ import {
   TOURNAMENT_EVENT_UPDATED
 } from '@/graphql'
 import { updateCacheList } from '@/helpers/graphql'
+import MoreButton from '@/components/custom/MoreButton'
+import { TITLE_CHANGED } from '@/constants/custom-events'
 
 export default {
+  components: { MoreButton },
   props: {
     header: {
       type: String,
       default: 'Events'
     },
     titleId: {
+      type: String,
+      default: null
+    },
+    categoryId: {
       type: String,
       default: null
     },
@@ -83,6 +95,10 @@ export default {
     live: {
       type: Boolean,
       default: true
+    },
+    context: {
+      type: String,
+      default: null
     }
   },
   apollo: {
@@ -96,6 +112,9 @@ export default {
       } else if (this.titleId) {
         subscription = SPORT_EVENT_UPDATED
         variables.title = this.titleId
+        if (this.categoryId) {
+          variables.category = this.categoryId
+        }
       } else {
         subscription = KIND_EVENT_UPDATED
         variables.kind = this.$route.params.titleKind
@@ -108,10 +127,7 @@ export default {
           variables,
           updateQuery ({ events }, { subscriptionData }) {
             const endpoint = Object.keys(subscriptionData.data)[0]
-
-            return {
-              events: updateCacheList(events, subscriptionData.data[endpoint])
-            }
+            return { events: updateCacheList(events, subscriptionData.data[endpoint]) }
           }
         }
       }
@@ -133,7 +149,8 @@ export default {
           tournamentId: this.tournamentId,
           inPlay: this.live,
           upcoming: !this.live,
-          limit: 10
+          categoryId: this.categoryId,
+          context: this.context
         }
       }
     },
@@ -171,6 +188,11 @@ export default {
       })
 
       return groupedEvents
+    }
+  },
+  methods: {
+    emitTitleChange (titleId) {
+      this.$root.$emit(TITLE_CHANGED, titleId)
     }
   }
 }

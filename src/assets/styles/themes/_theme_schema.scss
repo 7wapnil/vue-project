@@ -105,7 +105,8 @@
 .arc-betslip-close,
 .arc-betslip-stake,
 .arc-event-list-demo,
-.arc-sidemenu-triangle-down {
+.arc-sidemenu-triangle-down,
+.arc-event-details-chevron-down {
   color: $icon-section-color;
 }
 .arc-profile-button {
@@ -121,7 +122,8 @@
 // Cards
 .upcoming-card,
 .esport-card {
-    .arc-upcoming-event-chevron-down {
+    .arc-upcoming-event-chevron-down,
+    .arc-event-details-chevron-down {
       transform: rotateX(180deg);
       transition: transform .3s ease;
     }
@@ -159,4 +161,18 @@
 // Toggle switch
 .toggle-slider:before {
   background-color: $nav-item-active-glow;
+}
+
+.breadcrumb-item {
+  font-size: $small-font-size;
+  &:before {
+    color: $breadcrumb-divider-color;
+    font-weight: $font-weight-bold;
+    padding-right: $spacer * .625;
+  }
+}
+
+// Event tabs
+.event-panel-tabs .nav-link.active {
+  border-top: 3px solid $icon-section-color;
 }

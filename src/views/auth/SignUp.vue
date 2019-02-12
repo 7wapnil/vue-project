@@ -31,13 +31,12 @@
           md="4">
           <select-component
             id="signup-day"
-            :options="getDays()"
+            :options="monthDays"
             :feedback="inputFeedback['date_of_birth']"
             v-model="helpFields.day"
             class-name="day"
             type="select"
             label="Day"
-            bottom-bar
             aria-describedby="inputFeedbackDateOfBirth"
           />
         </b-col>
@@ -46,12 +45,11 @@
           lg="4">
           <select-component
             id="signup-month"
-            :options="getMonths()"
+            :options="months"
             v-model="helpFields.month"
             type="select"
             class-name="month"
             label="Month"
-            bottom-bar
             aria-describedby="inputFeedbackDateOfBirth"
           />
         </b-col>
@@ -60,12 +58,11 @@
           lg="3">
           <select-component
             id="signup-year"
-            :options="getYears()"
+            :options="years"
             v-model="helpFields.year"
             type="select"
             class-name="year"
             label="Year"
-            bottom-bar
             aria-describedby="inputFeedbackDateOfBirth"
           />
         </b-col>
@@ -131,7 +128,7 @@
           block>
           <select-component
             id="signup-country"
-            :options="getCountries()"
+            :options="countries"
             :feedback="inputFeedback['country']"
             v-model="fieldsStepOne.country"
             type="select"
@@ -268,12 +265,12 @@
             :class="{'active' : isCurrentStep(1) || isCurrentStep(2)}"
             class="step-one"
             block
-            @click="previousStep()">Personal Information
+            @click="previousStep">Personal Information
           </button>
           <button
             :class="{'active' : isCurrentStep(2)}"
             class="step-two"
-            @click="nextStep()">Contact
+            @click="nextStep">Contact
             Information
           </button>
         </div>
@@ -324,6 +321,9 @@ export default {
         { value: 'male', text: 'Male' },
         { value: 'female', text: 'Female' }
       ],
+      years: [],
+      months: [],
+      countries: Object.values(countries).map(country => ({ value: country.name, label: country.name })).sort(),
       errorMessages: {
         emptyFieldsError: 'Please fill all the fields.',
         ageError: 'You must be 18 years old to proceed.',
@@ -374,6 +374,24 @@ export default {
       let dateOfBirth = this.helpFields.year + '-' + this.helpFields.month + '-' + this.helpFields.day
       return moment().diff(dateOfBirth, 'years') < 18
     },
+    monthDays () {
+      const days = []
+      const month = moment()
+
+      if (this.helpFields.month) {
+        month.month(parseInt(this.helpFields.month) - 1)
+      }
+
+      for (let i = 1; i <= month.daysInMonth(); ++i) {
+        days.push({
+          value: (i < 10 ? `0${i}` : `${i}`),
+          label: i
+        })
+      }
+
+      return days
+    },
+
   },
   watch: {
     'fieldsStepOne.country': function (countryName) {
@@ -387,34 +405,45 @@ export default {
       }
     }
   },
+  created () {
+    this.months = this.buildMonths()
+    this.years = this.buildYears()
+  },
   methods: {
-    getMonths () {
-      return moment.months()
+    buildMonths () {
+      const months = []
+      const m = moment()
+
+      for (let i = 0; i < 12; ++i) {
+        m.month(i)
+        months.push({
+          value: m.format('MM'),
+          label: m.format('MMMM')
+        })
+      }
+
+      return months
     },
-    getYears () {
+    buildYears () {
       let eighteenYearsAgo = moment().subtract(18, 'years').format('YYYY')
       let startYear = moment().subtract(100, 'years').format('YYYY')
       let years = []
       while (startYear <= eighteenYearsAgo) {
-        years.push(startYear++)
+        years.push({
+          value: startYear,
+          label: startYear
+        })
+
+        startYear++
       }
+
       return years.reverse()
-    },
-    getDays () {
-      return Array.from({ length: moment().daysInMonth() }, (v, k) => k + 1)
     },
     composeDOB () {
       for (let key in this.helpFields) {
         if (this.helpFields[key] === null || this.helpFields[key] === '') { return false }
       }
-
-      this.fieldsStepOne.date_of_birth = this.helpFields.year + '-' +
-          '0' + moment().month(this.helpFields.month).format('M') + '-' +
-          this.helpFields.day
-      return this.fieldsStepOne.date_of_birth
-    },
-    getCountries () {
-      return Object.values(countries).map(country => country.name).sort()
+      this.fieldsStepOne.date_of_birth = this.helpFields.year + '-' + this.helpFields.month + '-' + this.helpFields.day
     },
     errorHandling () {
       if (this.steps[this.step].fields.some(fieldName => !this.fieldsStepOne[fieldName])) {

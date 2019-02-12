@@ -1,21 +1,23 @@
 <template>
   <simple-tabs :tabs="tabs">
     <template slot-scope="{ tab }">
-
       <events-list
         :title-id="titleId"
         :tournament-id="tournamentId"
-        :live="tab.live">
+        :category-id="categoryId"
+        :live="tab.live"
+        :context="context">
+
         <template slot-scope="{ event }">
 
           <live-event
             v-if="tab.id === 'live'"
             :event="event">
+
             <markets-list
               :event="event"
               :markets="[event.dashboard_market]" />
           </live-event>
-
           <upcoming-event
             v-if="tab.id === 'upcoming'"
             :event="event">
@@ -47,6 +49,14 @@ export default {
   },
   props: {
     titleId: {
+      type: String,
+      default: null
+    },
+    categoryId: {
+      type: String,
+      default: null
+    },
+    context: {
       type: String,
       default: null
     }

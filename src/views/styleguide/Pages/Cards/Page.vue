@@ -25,6 +25,18 @@
 
     <arc-code code-text="<esport-card-upcoming/>"/>
 
+    <h3 class="my-4 text-arc-clr-iron-light">
+      Event details card
+    </h3>
+
+    <event-details-card/>
+    <event-details-card-secondary/>
+    <event-details-card-team/>
+
+    <arc-code
+      class="mb-4"
+      code-text="<event-details-card/>"/>
+
   </b-card>
 </template>
 
@@ -35,6 +47,9 @@ import EsportCard from './components/EsportCard'
 import EsportCardVS from './components/EsportCardVS'
 import EventListHeader from './components/EventListHeader'
 import EsportCardUpcoming from './components/EspordCardUpcoming'
+import EventDetailsCard from './components/EventDetailsCard'
+import EventDetailsCardSecondary from './components/EventDetailsCardSecondary'
+import EventDetailsCardTeam from './components/EventDetailsCardTeam'
 
 export default {
   components: {
@@ -43,7 +58,10 @@ export default {
     EsportCard,
     EsportCardVS,
     EventListHeader,
-    EsportCardUpcoming
+    EsportCardUpcoming,
+    EventDetailsCard,
+    EventDetailsCardSecondary,
+    EventDetailsCardTeam
   }
 }
 </script>

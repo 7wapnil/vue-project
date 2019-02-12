@@ -1,14 +1,20 @@
 <template>
-  <category-tabs :tabs="tabs">
+  <category-tabs
+    :tabs="tabs"
+    v-model="activeTabIndex">
     <template slot-scope="{ tab }">
-      <filter-tabs :title-id="tab.id"/>
+      <filter-tabs
+        :title-id="tab.id"
+        :context="context"/>
     </template>
   </category-tabs>
 </template>
 
 <script>
 import { TITLES_QUERY } from '@/graphql'
+import { TITLE_CHANGED } from '@/constants/custom-events'
 import FilterTabs from './FilterTabs'
+import { UPCOMING_FOR_TIME } from '@/constants/graphql/event-context'
 
 export default {
   components: {
@@ -26,7 +32,9 @@ export default {
   },
   data () {
     return {
-      titles: []
+      titles: [],
+      context: UPCOMING_FOR_TIME,
+      activeTitleId: null
     }
   },
   computed: {
@@ -40,7 +48,20 @@ export default {
           return { id: title.id, title: title.name, icon: 'sidemenu-game-icon' }
         })
       ]
+    },
+    activeTabIndex: {
+      get () {
+        return this.activeTitleId
+          ? this.tabs.findIndex(title => title.id === this.activeTitleId)
+          : 0
+      },
+      set (tabIndex) {
+        this.activeTitleId = this.tabs[tabIndex].id
+      }
     }
+  },
+  created () {
+    this.$root.$on(TITLE_CHANGED, titleId => { this.activeTitleId = titleId })
   }
 }
 </script>

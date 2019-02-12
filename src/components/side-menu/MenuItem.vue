@@ -21,13 +21,12 @@
       v-if="hasChildren"
       :id="`item-${level}-${index}`"
       :is-nav="true"
+      :visible="item.active"
       :accordion="`${level}-menu`">
-
       <b-nav vertical>
         <b-nav-item
           v-for="(child, childIndex) in item.children"
           :key="childIndex">
-
           <menu-item
             :item="child"
             :index="childIndex"

@@ -20,7 +20,7 @@
           :class="'navbar-menu-item ' + `${siteColor.background}`"
           style="height: 80px"
           @click="$emit('changeColor', siteColor.category)">
-          <h6 class="m-0 font-weight-bold">
+          <h6 class="m-0 font-weight-bold text-arc-clr-white">
             {{ siteColor.label }}
           </h6>
         </b-nav-item>

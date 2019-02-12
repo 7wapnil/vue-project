@@ -2,6 +2,7 @@ import fetch from 'unfetch'
 import { HttpLink } from 'apollo-link-http'
 import { split } from 'apollo-link'
 import { getMainDefinition } from 'apollo-utilities'
+import { fetchToken } from './helpers'
 import ActionCable from 'actioncable'
 import ActionCableLink from 'graphql-ruby-client/subscriptions/ActionCableLink'
 
@@ -10,7 +11,7 @@ const httpLink = new HttpLink({
   fetch: fetch
 })
 
-const wsClient = ActionCable.createConsumer(process.env.VUE_APP_WS_URL)
+const wsClient = ActionCable.createConsumer(`${process.env.VUE_APP_WS_URL}?token=${fetchToken()}`)
 const wsLink = new ActionCableLink({ cable: wsClient })
 
 /**

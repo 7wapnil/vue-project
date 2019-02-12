@@ -1,35 +1,25 @@
 <template>
-  <b-row
-    class="h-100 w-100"
-    no-gutters>
-    <b-col>
+  <div>
+    <component
+      v-for="market in filteredMarkets"
+      :is="itemComponent"
+      :key="market.id"
+      :event="event"
+      :market="market"/>
 
-      <div>
-        <market-item
-          v-for="market in filteredMarkets"
-          :key="market.id"
-          :event="event"
-          :market="market"
-          :display-market-name="displayMarketsNames"/>
-      </div>
-
-      <small
-        v-if="!filteredMarkets.length"
-        class="my-4 d-flex justify-content-center">
-        No markets for this event
-      </small>
-    </b-col>
-  </b-row>
+    <small
+      v-if="!filteredMarkets.length"
+      class="my-4 d-flex justify-content-center">
+      No markets for this event
+    </small>
+  </div>
 </template>
 
 <script>
-import MarketItem from './MatketItem'
+import MarketItem from '@/components/markets/MarketItem'
 import { ACTIVE_STATUS, INACTIVE_STATUS, SUSPENDED_STATUS } from '@/models/market'
 
 export default {
-  components: {
-    MarketItem
-  },
   props: {
     event: {
       type: Object,
@@ -39,9 +29,9 @@ export default {
       type: Array,
       required: true
     },
-    displayMarketsNames: {
-      type: Boolean,
-      default: false
+    itemComponent: {
+      type: [String, Object],
+      default: () => { return MarketItem }
     }
   },
   computed: {

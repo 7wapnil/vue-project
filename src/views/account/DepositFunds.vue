@@ -16,12 +16,14 @@
         </b-alert>
       </b-col>
     </b-row>
+
     <b-row>
       <b-col
         class="ml-5"
         lg="4">
+
         <RegularInput
-          v-if="!fields.currency"
+          v-if="!currency"
           id="deposit-amount"
           v-model="fields.amount"
           type="text"
@@ -29,7 +31,7 @@
           bottom-bar
         />
         <b-row
-          v-if="!fields.currency"
+          v-if="!currency"
           align-h="center"
           no-gutters
           class="mt-4">
@@ -39,7 +41,7 @@
             <SelectInput
               id="deposit-currency"
               :options="currencyList"
-              v-model="fields.currency"
+              v-model="currency"
               class-name="currency"
               type="select"
               label="Choose currency"
@@ -50,7 +52,7 @@
 
         <div>
           <b-row
-            v-if="fields.currency"
+            v-if="currency"
             no-gutters
             class="mt-4">
             <b-col
@@ -58,7 +60,7 @@
               lg="10"
               class="mr-auto ml-auto ml-3"
               block>
-              <b-input-group :append="fields.currency">
+              <b-input-group :append="currency">
                 <b-form-input
                   id="deposit-amount-currency"
                   v-model="fields.amount"
@@ -70,7 +72,6 @@
             </b-col>
           </b-row>
           <b-row
-            v-if="fields.currency"
             no-gutters
             class="mt-4">
             <b-col
@@ -115,10 +116,10 @@
             </b-col>
             <b-col class="col-6">
               <ul class="list-unstyled list-group">
-                <li class=" text-left">{{ fields.amount }} {{ fields.currency }}</li>
-                <li class=" text-left"> {{ calculatedBonus }} {{ fields.currency }}</li>
-                <li class=" text-left">0.00 {{ fields.currency }}</li>
-                <li class=" text-left pt-2">{{ getTotal }} {{ fields.currency }}</li>
+                <li class=" text-left">{{ fields.amount }} {{ currency }}</li>
+                <li class=" text-left"> {{ calculatedBonus }} {{ currency }}</li>
+                <li class=" text-left">0.00 {{ currency }}</li>
+                <li class=" text-left pt-2">{{ getTotal }} {{ currency }}</li>
               </ul>
             </b-col>
           </b-row>
@@ -136,7 +137,7 @@
 <script>
 import RegularInput from '@/components/inputs/RegularInput.vue'
 import SelectInput from '@/components/inputs/SelectInput.vue'
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'DepositFunds',
@@ -148,10 +149,15 @@ export default {
     return {
       fields: {
         amount: '',
-        currency: '',
         bonusCode: ''
       },
-      currencyList: ['EUR', 'USD', 'SEK', 'NOK', 'AUD', 'CAD'],
+      dropdownCurrency: null,
+      currencyList: [{ label: 'EUR', value: 'EUR' },
+        { label: 'USD', value: 'USD' },
+        { label: 'SEK', value: 'SEK' },
+        { label: 'NOK', value: 'NOK' },
+        { label: 'CAD', value: 'CAD' },
+        { label: 'AUD', value: 'AUD' }],
       redirectUrl: process.env.VUE_APP_DEPOSIT_URL,
       walletExists: null,
       calculatedBonus: '',
@@ -160,11 +166,8 @@ export default {
     }
   },
   computed: {
-    ...mapGetters({
-      walletActive: 'getActiveWallet'
-    }),
-    ...mapActions({
-      loadWallets: 'fetchWallets'
+    ...mapGetters('wallets', {
+      walletActive: 'activeWallet'
     }),
     ...mapGetters({
       token: 'getToken'
@@ -182,6 +185,22 @@ export default {
         return parseFloat(totalValue).toFixed(2)
       }
     },
+    currency: {
+      get () {
+        if (this.dropdownCurrency) {
+          return this.dropdownCurrency
+        }
+
+        if (this.walletActive) {
+          return this.walletActive.currency.code
+        }
+
+        return null
+      },
+      set (value) {
+        this.dropdownCurrency = value
+      }
+    },
     getMessage () {
       return this.$route.query.depositStateMessage
     },
@@ -193,13 +212,6 @@ export default {
       }
       return variantMap[this.depositState]
     }
-  },
-  created () {
-    this.loadWallets.then(() => {
-      if (this.walletActive) {
-        this.fields.currency = this.walletActive.currency.code
-      }
-    })
   },
   methods: {
     calculateBonus () {
@@ -216,7 +228,7 @@ export default {
     submitDeposit () {
       let queryParams = {
         token: this.token,
-        currency_code: this.fields.currency,
+        currency_code: this.currency,
         amount: this.fields.amount,
         bonus_code: this.fields.bonusCode
       };

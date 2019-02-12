@@ -4,6 +4,15 @@ export const PROVIDER_FIELDS = `
   state
 `
 
+export const WALLET_FIELDS = `
+  id
+  amount
+  currency {
+    code
+    id
+  }
+`
+
 export const TITLE_FIELDS = `
   id
   name

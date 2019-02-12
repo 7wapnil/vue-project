@@ -1,4 +1,6 @@
 import EventsList from '@/views/events-list/Page.vue'
+import CategoryPage from '@/views/events-list/CategoryPage.vue'
+import TournamentPage from '@/views/events-list/TournamentPage.vue'
 import arcanebetSession from '@/services/local-storage/session'
 
 export default [
@@ -24,7 +26,12 @@ export default [
       {
         path: 'title/:titleId/tour/:tournamentId',
         name: 'tournament',
-        component: EventsList
+        component: TournamentPage
+      },
+      {
+        path: 'title/:titleId/category/:categoryId/',
+        name: 'category-tournaments',
+        component: CategoryPage
       },
       {
         path: 'event/:id',

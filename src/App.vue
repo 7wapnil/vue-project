@@ -5,7 +5,7 @@
 <script>
 import { PROVIDERS_QUERY, PROVIDER_SUBSCRIPTION } from '@/graphql'
 import { SET_PROVIDERS, UPDATE_PROVIDER } from '@/stores/providers'
-import { mapMutations } from 'vuex'
+import { mapMutations, mapActions } from 'vuex'
 
 export default {
   apollo: {
@@ -26,11 +26,15 @@ export default {
       }
     }
   },
+  created () {
+    this.fetchWallets()
+  },
   methods: {
     ...mapMutations('providers', {
       setProviders: SET_PROVIDERS,
       updateProvider: UPDATE_PROVIDER
-    })
+    }),
+    ...mapActions('wallets', ['fetchWallets'])
   }
 }
 </script>
