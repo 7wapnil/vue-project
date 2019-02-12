@@ -22,6 +22,7 @@
     <arc-code code-text="<esport-card/>"/>
 
     <esport-card-upcoming/>
+    <esport-card-upcoming-v-s/>
 
     <arc-code code-text="<esport-card-upcoming/>"/>
 
@@ -46,7 +47,8 @@ import ArcCode from '../../Code/ArcCode'
 import EsportCard from './components/EsportCard'
 import EsportCardVS from './components/EsportCardVS'
 import EventListHeader from './components/EventListHeader'
-import EsportCardUpcoming from './components/EspordCardUpcoming'
+import EsportCardUpcoming from './components/EsportCardUpcoming'
+import EsportCardUpcomingVS from './components/EsportCardUpcomingVS'
 import EventDetailsCard from './components/EventDetailsCard'
 import EventDetailsCardSecondary from './components/EventDetailsCardSecondary'
 import EventDetailsCardTeam from './components/EventDetailsCardTeam'
@@ -59,6 +61,7 @@ export default {
     EsportCardVS,
     EventListHeader,
     EsportCardUpcoming,
+    EsportCardUpcomingVS,
     EventDetailsCard,
     EventDetailsCardSecondary,
     EventDetailsCardTeam
