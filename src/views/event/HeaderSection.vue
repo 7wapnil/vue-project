@@ -73,6 +73,24 @@
         <b-col>
           Best of 3
         </b-col>
+
+        <div class="w-100"/>
+
+        <b-col class="mt-1">
+          <span
+            v-if="event.state.time"
+            style="font-size: 11px"
+            class="text-arc-clr-iron text-uppercase">
+            Time
+          </span>
+        </b-col>
+
+        <div class="w-100"/>
+
+        <b-col>
+          {{ event.state.time }}
+        </b-col>
+
       </b-row>
     </b-col>
 
