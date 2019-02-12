@@ -3,7 +3,7 @@
 
     <event-list-header/>
 
-    <h3 class="my-4 text-arc-clr-iron-light">
+    <h3 class="my-3 text-arc-clr-iron-light">
       Sport cards
     </h3>
 
@@ -19,15 +19,11 @@
 
     <esport-card-v-s/>
 
-    <arc-code
-      class="mb-4"
-      code-text="<esport-card/>"/>
+    <arc-code code-text="<esport-card/>"/>
 
     <esport-card-upcoming/>
 
-    <arc-code
-      class="mb-4"
-      code-text="<esport-card-upcoming/>"/>
+    <arc-code code-text="<esport-card-upcoming/>"/>
 
   </b-card>
 </template>
