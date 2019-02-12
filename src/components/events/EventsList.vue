@@ -45,10 +45,9 @@
           </b-card>
         </div>
         <more-button
-                v-if="categoryId"
-                :link="{ name: 'tournament', params: { titleKind: $route.params.titleKind, titleId: titleId, tournamentId: tournament.id } }"/>
+          v-if="categoryId"
+          :link="{ name: 'tournament', params: { titleKind: $route.params.titleKind, titleId: titleId, tournamentId: tournament.id } }"/>
       </div>
-
 
     </div>
 
@@ -164,7 +163,6 @@ export default {
           const currentTournamentIndex = groupedEvents[currentTitleIndex]
             .tournaments
             .findIndex(tournament => tournament.id === event.tournament.id);
-
 
           if (currentTournamentIndex > -1) {
             groupedEvents[currentTitleIndex]

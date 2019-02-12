@@ -34,7 +34,6 @@
           </b-link>
         </b-col>
       </b-row>
-
       <b-card
         no-body
         bg-variant="arc-clr-soil-black">
@@ -104,10 +103,10 @@
         </b-row>
       </b-card>
       <b-form-group
-              class=“px-3”>
+        class="“px-3”">
         <b-form-checkbox
-                v-model="acceptAllOdds"
-                plain>
+          v-model="acceptAllOdds"
+          plain>
           Accept all odd changes.
         </b-form-checkbox>
       </b-form-group>
@@ -136,23 +135,24 @@
 import BetslipItem from './BetslipItem'
 import NoBetsBlock from './NoBetsBlock'
 import { mapGetters, mapMutations, mapActions } from 'vuex'
-import { MARKETS_LIST_QUERY, CATEGORY_MARKET_UPDATED } from '@/graphql'
 import wallets from '@/mixins/wallets'
 import BetslipSerializer from '@/services/serializers/betslip'
-import { updateCacheList } from '@/helpers/graphql'
-const BET_DESTROY_TIMEOUT = 5000;
+import { MARKETS_LIST_QUERY } from '@/graphql'
+
+const BET_DESTROY_TIMEOUT = 5000
 
 export default {
   components: {
     BetslipItem,
     NoBetsBlock
   },
-  mixins: [ wallets ],
+  mixins: [wallets],
   data () {
     return {
       messages: [],
       tabIndex: 0,
-      bets: []
+      marketIds: [],
+      markets: []
     }
   },
   computed: {
@@ -173,25 +173,24 @@ export default {
         this.updateAcceptAll(value)
       }
     },
-    eventIds() {
-      return this.getEventIds
+    marketId () {
+      return this.getBets.map(x => x.marketId)
     }
   },
-  apollo : {
+  apollo: {
     markets () {
       return {
         query: MARKETS_LIST_QUERY,
         variables: {
-          eventId: 3011,
+          eventId: 1576,
           limit: 1000
         },
         result ({ data: { markets } }) {
           this.updateOdds(markets)
         }
       }
-    },
+    }
   },
-
   methods: {
     ...mapActions('betslip', [
       'placeBets'
@@ -201,7 +200,8 @@ export default {
       'updateBet',
       'removeBetFromBetslip',
       'clearBetslip',
-      'updateAcceptAll'
+      'updateAcceptAll',
+      'updateOdds'
     ]),
     submit () {
       this.freezeBets()

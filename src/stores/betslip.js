@@ -5,7 +5,51 @@
 import Bet from '@/models/bet'
 import graphqlClient from '@/libs/apollo/'
 import { BETSLIP_PLACEMENT_QUERY } from '@/graphql/index'
-import { UPDATE_PROVIDER } from './providers'
+
+const testMarketsArray = [
+  {
+    odds: [
+      {
+        id: '3897271',
+        name: 'Hv 71',
+        status: 'active',
+        value: 2.79
+      }, {
+        id: '3905832',
+        name: 'Hv 71',
+        status: 'active',
+        value: 2.03
+      },
+      {
+        id: '8392981',
+        name: 'Hv 71',
+        status: 'active',
+        value: 2.03
+      }
+    ]
+  },
+  {
+    odds: [
+      {
+        id: '8392981',
+        name: 'Hv 71',
+        status: 'active',
+        value: 2.03
+      }, {
+        id: '3905831',
+        name: 'Hv 71',
+        status: 'active',
+        value: 2.03
+      },
+      {
+        id: '3897273',
+        name: 'Hv 71',
+        status: 'active',
+        value: 2.03
+      }
+    ]
+  }
+]
 
 const getBetsFromStorage = () => {
   const json = localStorage.getItem('bets')
@@ -22,24 +66,24 @@ const setBetsToStorage = (bets) => {
   localStorage.setItem('bets', JSON.stringify(bets))
 }
 
-export const UPDATE_ODDS = 'updateOdds'
-
 export const mutations = {
   updateOdds (state, markets) {
+    markets = testMarketsArray
     console.log(state.acceptAll)
-    console.log(state.bets)
-    console.log(markets)
     markets.forEach(function getOdds (market) {
       market.odds.forEach(function (odd) {
         let bet = state.bets.find(el => el.oddId === odd.id)
         if (!bet) return
-        // odd.value = 5.55
-        bet = Object.assign(bet, {
-          // only if checkbox is selected :)
-          approvedOddValue: odd.value,
+
+        Object.assign(bet, {
           currentOddValue: odd.value
         })
-        console.log(bet)
+
+        if (state.acceptAll) {
+          Object.assign(bet, {
+            approvedOddValue: odd.value
+          })
+        }
         setBetsToStorage(state.bets)
       })
     })
@@ -111,10 +155,6 @@ export const getters = {
   acceptAllChecked (state) {
     return state.acceptAll
   },
-  getEventIds (state) {
-    state.betEventIds = state.bets.map(el => el.eventId)
-    return state.betEventIds
-  },
   anyInitialBet (state) {
     return state.bets.some((bet) => {
       return bet.status === Bet.statuses.initial
@@ -128,7 +168,7 @@ export const getters = {
   },
   getTotalReturn (state) {
     return state.bets.map(el => (el.stake > 0 ? el.stake : 0) * el.approvedOddValue).reduce((a, b) => +a + +b, 0)
-  }
+  },
 }
 
 export const actions = {
@@ -151,8 +191,7 @@ export default {
   namespaced: true,
   state: {
     bets: getBetsFromStorage(),
-    acceptAll: false,
-    betEventIds: []
+    acceptAll: false
   },
   actions,
   mutations,

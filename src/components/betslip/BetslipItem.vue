@@ -116,7 +116,7 @@
           </b-col>
         </b-row>
         <b-alert
-          :show="displayUnconfirmedOddValueDialog"
+          :show="valuesUnconfirmed"
           variant="danger"
           class="mt-3 mx-auto p-2 text-center">
           This bet odd value changed from {{ bet.approvedOddValue }} to {{ bet.currentOddValue }}.
@@ -152,7 +152,22 @@ export default {
       required: true
     },
   },
+  data () {
+    return {
+      status: null,
+      variantMapping: {
+        initial: 'arc-clr-soil-dark',
+        submitting: 'light',
+        pending: 'light',
+        succeeded: 'success',
+        failed: 'danger'
+      }
+    }
+  },
   computed: {
+    ...mapGetters('betslip', [
+      'acceptAllChecked'
+    ]),
     potentialReturn: function () {
       const stake = this.bet.stake > 0 ? this.bet.stake : 0
       return stake * this.bet.approvedOddValue
@@ -166,28 +181,25 @@ export default {
         this.setBetStake({ oddId: this.bet.oddId, stakeValue })
       }
     },
-    displayUnconfirmedOddValueDialog () {
-      return (
-        this.bet.status !== Bet.statuses.succeeded &&
-              this.bet.approvedOddValue !== this.bet.currentOddValue
-      )
-    },
-    cardVariant () {
-      const variantMapping = {
-        initial: 'arc-clr-soil-dark',
-        submitting: 'light',
-        pending: 'light',
-        succeeded: 'success',
-        failed: 'danger'
+    valuesUnconfirmed () {
+      if (!this.acceptAllChecked) {
+        return (
+          this.bet.status !== Bet.statuses.succeeded &&
+                this.bet.approvedOddValue !== this.bet.currentOddValue
+        )
       }
 
-      if (this.bet.status !== Bet.statuses.succeeded &&
-          this.bet.approvedOddValue !== this.bet.currentOddValue
-      ) {
+      return false
+    },
+    betStatus () {
+      return this.bet.status
+    },
+    cardVariant () {
+      if (this.valuesUnconfirmed) {
         return 'warning'
       }
 
-      return variantMapping[this.bet.status]
+      return this.variantMapping[this.betStatus]
     },
     hasMessage () {
       return this.bet.message !== null
