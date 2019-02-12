@@ -58,6 +58,8 @@
           {{ event.state.score }}
         </b-col>
 
+        <div class="w-100"/>
+
         <b-col class="mt-1">
           <span
             style="font-size: 11px"
