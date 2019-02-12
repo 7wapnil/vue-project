@@ -139,6 +139,13 @@ export default {
     }
   },
   computed: {
+    getContext () {
+      if (this.live) {
+        return 'live'
+      }
+
+      return this.context
+    },
     query () {
       return {
         query: EVENTS_LIST_QUERY,
@@ -149,7 +156,7 @@ export default {
           inPlay: this.live,
           upcoming: !this.live,
           categoryId: this.categoryId,
-          context: this.context
+          context: this.getContext
         }
       }
     },
