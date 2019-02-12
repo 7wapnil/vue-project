@@ -36,18 +36,19 @@
           <b-row
             :data-id="market.id"
             no-gutters
-            class="pb-2 pl-3 market-odds"
+            class="pb-2 pl-3 market-odds d-flex justify-content-start"
             style="border-radius: 0 0 4px 4px">
             <b-col
+              :cols="computedCols"
               v-for="odd in market.odds"
               :key="odd.id"
-              class="mr-3 text-truncate market-odd">
+              class="pr-2 mb-2 text-truncate market-odd">
               <b-row
                 align-v="center"
-                class="bg-arc-clr-soil-darker"
+                class="bg-arc-clr-soil-darker super-duper"
                 style="border-radius: 0 6px 6px 6px"
                 no-gutters>
-                <b-col class="pl-3 mr-3 d-inline-block text-truncate text-arc-clr-iron-light font-size-md">
+                <b-col class="w-100 pl-3 mr-3 d-inline-block text-truncate text-arc-clr-iron-light font-size-md">
                   {{ odd.name }}
                 </b-col>
                 <b-col
@@ -79,6 +80,11 @@ import {
 import OddButton from '@/components/markets/OddButton'
 
 export default {
+  data() {
+    return {
+      cols: 6
+    }
+  },
   components: {
     OddButton
   },
@@ -93,6 +99,12 @@ export default {
     }
   },
   computed: {
+    computedCols() {
+      if (this.market.odds.length % 3 === 0) {
+        return 4
+      } else {
+        return 6 }
+    },
     isDisabled () {
       const isDisabledByAPI = [
         SUSPENDED_STATUS,
