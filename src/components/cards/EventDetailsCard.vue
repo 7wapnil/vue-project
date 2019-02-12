@@ -39,8 +39,8 @@
             class="pb-2 pl-3 market-odds d-flex justify-content-start"
             style="border-radius: 0 0 4px 4px">
             <b-col
-              :cols="computedCols"
               v-for="odd in market.odds"
+              :cols="computedCols"
               :key="odd.id"
               class="pr-2 mb-2 text-truncate market-odd">
               <b-row
@@ -80,11 +80,6 @@ import {
 import OddButton from '@/components/markets/OddButton'
 
 export default {
-  data() {
-    return {
-      cols: 6
-    }
-  },
   components: {
     OddButton
   },
@@ -98,12 +93,18 @@ export default {
       required: true
     }
   },
+  data () {
+    return {
+      cols: 6
+    }
+  },
   computed: {
-    computedCols() {
+    computedCols () {
       if (this.market.odds.length % 3 === 0) {
         return 4
       } else {
-        return 6 }
+        return 6
+      }
     },
     isDisabled () {
       const isDisabledByAPI = [
