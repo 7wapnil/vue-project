@@ -19,8 +19,9 @@
         </h5>
       </b-col>
     </b-row>
-    <b-row v-if="this.$slots.default"
-           no-gutters>
+    <b-row
+      v-if="this.$slots.default"
+      no-gutters>
       <b-col style="margin-left: 80px">
         <span class="font-weight-bold text-arc-clr-iron">Description:</span>
         <p>
