@@ -1,5 +1,6 @@
 <template>
-  <b-nav class="my-2"
+  <b-nav
+    class="my-2"
     vertical>
     <b-nav-item
       v-for="(title, index) in titles"

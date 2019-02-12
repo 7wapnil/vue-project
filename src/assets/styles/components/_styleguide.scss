@@ -1,9 +1,7 @@
 #styleguide-top-navigation {
   .nav-item > a {
-    font-weight: $font-weight-bold;
-    letter-spacing: .23px;
     line-height: $btn-line-height-sm;
-    padding: 32px 60px;
+    padding: 22px 60px;
     &:hover {
       background-color: $arc-clr-soil-cover;
       transition: background-color .3s;
