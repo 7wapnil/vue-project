@@ -4,6 +4,7 @@
     <b-container
       v-if="getBets.length > 0"
       class="m-0 p-0">
+
       <b-row
         no-gutters
         class="betslip-header">
@@ -102,7 +103,14 @@
           </b-col>
         </b-row>
       </b-card>
-
+      <b-form-group
+              class=“px-3”>
+        <b-form-checkbox
+                v-model="acceptAllOdds"
+                plain>
+          Accept all odd changes.
+        </b-form-checkbox>
+      </b-form-group>
     </b-container>
 
     <b-card
@@ -128,9 +136,10 @@
 import BetslipItem from './BetslipItem'
 import NoBetsBlock from './NoBetsBlock'
 import { mapGetters, mapMutations, mapActions } from 'vuex'
+import { MARKETS_LIST_QUERY, CATEGORY_MARKET_UPDATED } from '@/graphql'
 import wallets from '@/mixins/wallets'
 import BetslipSerializer from '@/services/serializers/betslip'
-
+import { updateCacheList } from '@/helpers/graphql'
 const BET_DESTROY_TIMEOUT = 5000;
 
 export default {
@@ -142,7 +151,8 @@ export default {
   data () {
     return {
       messages: [],
-      tabIndex: 0
+      tabIndex: 0,
+      bets: []
     }
   },
   computed: {
@@ -151,9 +161,37 @@ export default {
       'getBets',
       'getBetsCount',
       'getTotalReturn',
-      'getTotalStakes'
-    ])
+      'getTotalStakes',
+      'getEventIds',
+      'acceptAllChecked'
+    ]),
+    acceptAllOdds: {
+      get () {
+        return this.acceptAllChecked
+      },
+      set (value) {
+        this.updateAcceptAll(value)
+      }
+    },
+    eventIds() {
+      return this.getEventIds
+    }
   },
+  apollo : {
+    markets () {
+      return {
+        query: MARKETS_LIST_QUERY,
+        variables: {
+          eventId: 3011,
+          limit: 1000
+        },
+        result ({ data: { markets } }) {
+          this.updateOdds(markets)
+        }
+      }
+    },
+  },
+
   methods: {
     ...mapActions('betslip', [
       'placeBets'
@@ -163,6 +201,7 @@ export default {
       'updateBet',
       'removeBetFromBetslip',
       'clearBetslip',
+      'updateAcceptAll'
     ]),
     submit () {
       this.freezeBets()
@@ -180,6 +219,7 @@ export default {
     },
     updateBetsFromResponse (response) {
       const bets = this.getBets
+
       if (response.data && response.data.placeBets) {
         response.data.placeBets.forEach((betPayload) => {
           let bet = bets.find(el => el.oddId === betPayload.id)

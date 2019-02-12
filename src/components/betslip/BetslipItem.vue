@@ -191,10 +191,7 @@ export default {
     },
     hasMessage () {
       return this.bet.message !== null
-    },
-    ...mapGetters('betslip', [
-      'getBets'
-    ])
+    }
   },
   methods: {
     ...mapMutations('betslip', [

@@ -5,6 +5,7 @@
 import Bet from '@/models/bet'
 import graphqlClient from '@/libs/apollo/'
 import { BETSLIP_PLACEMENT_QUERY } from '@/graphql/index'
+import { UPDATE_PROVIDER } from './providers'
 
 const getBetsFromStorage = () => {
   const json = localStorage.getItem('bets')
@@ -21,7 +22,28 @@ const setBetsToStorage = (bets) => {
   localStorage.setItem('bets', JSON.stringify(bets))
 }
 
+export const UPDATE_ODDS = 'updateOdds'
+
 export const mutations = {
+  updateOdds (state, markets) {
+    console.log(state.acceptAll)
+    console.log(state.bets)
+    console.log(markets)
+    markets.forEach(function getOdds (market) {
+      market.odds.forEach(function (odd) {
+        let bet = state.bets.find(el => el.oddId === odd.id)
+        if (!bet) return
+        // odd.value = 5.55
+        bet = Object.assign(bet, {
+          // only if checkbox is selected :)
+          approvedOddValue: odd.value,
+          currentOddValue: odd.value
+        })
+        console.log(bet)
+        setBetsToStorage(state.bets)
+      })
+    })
+  },
   updateBet (state, { oddId, payload }) {
     let bet = state.bets.find(el => el.oddId === oddId)
     if (!bet) return
@@ -54,6 +76,9 @@ export const mutations = {
       return bet
     })
     setBetsToStorage(state.bets)
+  },
+  updateAcceptAll (state, acceptValue) {
+    state.acceptAll = acceptValue
   }
 }
 
@@ -82,6 +107,13 @@ export const getters = {
   },
   getBets (state) {
     return state.bets
+  },
+  acceptAllChecked (state) {
+    return state.acceptAll
+  },
+  getEventIds (state) {
+    state.betEventIds = state.bets.map(el => el.eventId)
+    return state.betEventIds
   },
   anyInitialBet (state) {
     return state.bets.some((bet) => {
@@ -118,7 +150,9 @@ export const actions = {
 export default {
   namespaced: true,
   state: {
-    bets: getBetsFromStorage()
+    bets: getBetsFromStorage(),
+    acceptAll: false,
+    betEventIds: []
   },
   actions,
   mutations,
