@@ -6,7 +6,7 @@
       :to="{ name: `${ title.page }` }"
       :key="index"
       active-class="styleguide-sidemenu-active"
-      class="styleguide-sidemenu mx-2 my-1">
+      class="styleguide-sidemenu mx-3 my-1">
       <b-row no-gutters>
         <b-col class="p-2 d-flex align-items-center justify-content-center">
           <h6 class="mb-0 font-weight-bold">
