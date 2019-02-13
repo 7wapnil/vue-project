@@ -133,9 +133,9 @@
           {{ bet.message }}
         </b-alert>
         <b-alert
-              :show="isSuccess"
-              class="mt-3 mx-auto p-2 text-center"
-              variant="success">
+          :show="isSuccess"
+          class="mt-3 mx-auto p-2 text-center"
+          variant="success">
           Your bet was successfully placed.
         </b-alert>
       </b-container>
@@ -199,7 +199,7 @@ export default {
     hasMessage () {
       return this.bet.message !== null
     },
-    isSuccess() {
+    isSuccess () {
       return this.bet.success
     },
     ...mapGetters('betslip', [
