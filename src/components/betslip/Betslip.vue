@@ -137,7 +137,6 @@ import NoBetsBlock from './NoBetsBlock'
 import { mapGetters, mapMutations, mapActions } from 'vuex'
 import wallets from '@/mixins/wallets'
 import BetslipSerializer from '@/services/serializers/betslip'
-import { MARKETS_LIST_QUERY, CATEGORY_MARKET_UPDATED } from '@/graphql'
 
 const BET_DESTROY_TIMEOUT = 5000
 
@@ -151,7 +150,51 @@ export default {
     return {
       messages: [],
       tabIndex: 0,
-      marketIds: []
+      marketIds: [],
+      markets: [
+        {
+          odds: [
+            {
+              id: '3897271',
+              name: 'Hv 71',
+              status: 'active',
+              value: 2.79
+            }, {
+              id: '3905832',
+              name: 'Hv 71',
+              status: 'active',
+              value: 2.03
+            },
+            {
+              id: '8392981',
+              name: 'Hv 71',
+              status: 'active',
+              value: 2.03
+            }
+          ]
+        },
+        {
+          odds: [
+            {
+              id: '8392981',
+              name: 'Hv 71',
+              status: 'active',
+              value: 2.03
+            }, {
+              id: '3905831',
+              name: 'Hv 71',
+              status: 'active',
+              value: 2.03
+            },
+            {
+              id: '3897273',
+              name: 'Hv 71',
+              status: 'active',
+              value: 2.03
+            }
+          ]
+        }
+      ]
     }
   },
   computed: {
@@ -176,32 +219,8 @@ export default {
       return this.getBetsMarketIds
     }
   },
-  apollo: {
-    markets () {
-      return {
-        query: MARKETS_LIST_QUERY,
-        variables: {
-          eventId: 1576
-        },
-        result({data: {markets}}){
-          this.updateOdds(markets)
-        },
-        subscribeToMore: {
-          document: CATEGORY_MARKET_UPDATED,
-          variables: {
-            eventId: 1576
-          },
-          updateQuery ({ markets }, { subscriptionData }) {
-            console.log(markets)
-            console.log(subscriptionData)
-            this.updateOdds(markets)
-            return {
-              markets: updateCacheList(markets, subscriptionData.data.category_market_updated)
-            }
-          }
-        }
-      }
-    }
+  created () {
+    this.updateOdds(this.markets)
   },
   methods: {
     ...mapActions('betslip', [

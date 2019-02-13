@@ -6,51 +6,6 @@ import Bet from '@/models/bet'
 import graphqlClient from '@/libs/apollo/'
 import { BETSLIP_PLACEMENT_QUERY } from '@/graphql/index'
 
-const mockMarketsArray = [
-  {
-    odds: [
-      {
-        id: '3897271',
-        name: 'Hv 71',
-        status: 'active',
-        value: 2.79
-      }, {
-        id: '3905832',
-        name: 'Hv 71',
-        status: 'active',
-        value: 2.03
-      },
-      {
-        id: '8392981',
-        name: 'Hv 71',
-        status: 'active',
-        value: 2.03
-      }
-    ]
-  },
-  {
-    odds: [
-      {
-        id: '8392981',
-        name: 'Hv 71',
-        status: 'active',
-        value: 2.03
-      }, {
-        id: '3905831',
-        name: 'Hv 71',
-        status: 'active',
-        value: 2.03
-      },
-      {
-        id: '3897273',
-        name: 'Hv 71',
-        status: 'active',
-        value: 2.03
-      }
-    ]
-  }
-]
-
 const getBetsFromStorage = () => {
   const json = localStorage.getItem('bets')
   if (!json) {
@@ -68,7 +23,6 @@ const setBetsToStorage = (bets) => {
 
 export const mutations = {
   updateOdds (state, markets) {
-    markets = mockMarketsArray
     markets.forEach(function getOdds (market) {
       market.odds.forEach(function (odd) {
         let bet = state.bets.find(el => el.oddId === odd.id)
@@ -154,8 +108,8 @@ export const getters = {
   acceptAllChecked (state) {
     return state.acceptAll
   },
-  getBetsMarketIds(state) {
-    return state.bets.map(x => x.marketId)
+  getBetsMarketIds (state) {
+    return state.bets.map(el => el.marketId)
   },
   anyInitialBet (state) {
     return state.bets.some((bet) => {
