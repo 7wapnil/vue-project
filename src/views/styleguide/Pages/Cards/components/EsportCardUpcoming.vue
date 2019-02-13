@@ -71,51 +71,40 @@
                 </b-col>
               </b-row>
             </b-col>
-            <b-col cols="auto">
-              <b-row
-                class="h-100"
-                no-gutters>
-                <b-col
-                  cols="auto"
-                  class="mt-1 pr-4 d-flex align-items-center justify-content-center">
-                  <icon
-                    name="sidemenu-game-icon"
-                    style="color: #808080"
-                    size="24px"/>
+            <b-col
+              cols="auto"
+              class="p-3 d-flex align-items-center justify-content-center">
+              <icon
+                name="sidemenu-game-icon"
+                style="color: #808080"
+                size="24px"/>
+            </b-col>
+            <b-col class="px-4 py-2">
+              <b-row no-gutters>
+                <b-col class="d-flex justify-content-center align-items-end pb-1">
+                  <span
+                    style="opacity: .4"
+                    class="text-arc-clr-iron team-name font-weight-light font-size-sm">
+                    Draw
+                  </span>
                 </b-col>
-
-                <b-col class="d-flex align-items-center py-2">
-                  <b-row
-                    no-gutters
-                    class="h-100">
-                    <b-col class="d-inline-flex justify-content-center pb-1">
-                      <span
-                        class="text-arc-clr-iron team-name font-weight-light font-size-sm"
-                        style="opacity: .4">
-                        Draw
-                      </span>
-                    </b-col>
-                    <div class="w-100"/>
-                    <b-col class="px-1">
-                      <b-button
-                        variant="arc-odd">
-                        6.66
-                      </b-button>
-                    </b-col>
-                  </b-row>
-                </b-col>
-
-                <b-col
-                  cols="auto"
-                  class="mt-1 pl-3 d-flex align-items-center justify-content-center">
-                  <icon
-                    name="sidemenu-game-icon"
-                    style="color: #808080"
-                    size="24px"/>
+                <div class="w-100"/>
+                <b-col>
+                  <b-button
+                    variant="arc-odd">
+                    7.77
+                  </b-button>
                 </b-col>
               </b-row>
             </b-col>
-
+            <b-col
+              cols="auto"
+              class="p-3 d-flex align-items-center justify-content-center">
+              <icon
+                name="sidemenu-game-icon"
+                style="color: #808080"
+                size="24px"/>
+            </b-col>
             <b-col class="px-4 py-2">
               <b-row no-gutters>
                 <b-col class="d-flex justify-content-center align-items-end pb-1">
