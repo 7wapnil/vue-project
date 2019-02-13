@@ -6,7 +6,7 @@ import Bet from '@/models/bet'
 import graphqlClient from '@/libs/apollo/'
 import { BETSLIP_PLACEMENT_QUERY } from '@/graphql/index'
 
-const testMarketsArray = [
+const mockMarketsArray = [
   {
     odds: [
       {
@@ -68,8 +68,7 @@ const setBetsToStorage = (bets) => {
 
 export const mutations = {
   updateOdds (state, markets) {
-    markets = testMarketsArray
-    console.log(state.acceptAll)
+    markets = mockMarketsArray
     markets.forEach(function getOdds (market) {
       market.odds.forEach(function (odd) {
         let bet = state.bets.find(el => el.oddId === odd.id)
@@ -154,6 +153,9 @@ export const getters = {
   },
   acceptAllChecked (state) {
     return state.acceptAll
+  },
+  getBetsMarketIds(state) {
+    return state.bets.map(x => x.marketId)
   },
   anyInitialBet (state) {
     return state.bets.some((bet) => {

@@ -160,7 +160,8 @@ export default {
         submitting: 'light',
         pending: 'light',
         succeeded: 'success',
-        failed: 'danger'
+        failed: 'danger',
+        warning: 'warning'
       }
     }
   },
@@ -192,13 +193,13 @@ export default {
       return false
     },
     betStatus () {
-      return this.bet.status
-    },
-    cardVariant () {
       if (this.valuesUnconfirmed) {
         return 'warning'
       }
 
+      return this.bet.status
+    },
+    cardVariant () {
       return this.variantMapping[this.betStatus]
     },
     hasMessage () {

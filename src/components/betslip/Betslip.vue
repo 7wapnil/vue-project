@@ -137,7 +137,7 @@ import NoBetsBlock from './NoBetsBlock'
 import { mapGetters, mapMutations, mapActions } from 'vuex'
 import wallets from '@/mixins/wallets'
 import BetslipSerializer from '@/services/serializers/betslip'
-import { MARKETS_LIST_QUERY } from '@/graphql'
+import { MARKETS_LIST_QUERY, CATEGORY_MARKET_UPDATED } from '@/graphql'
 
 const BET_DESTROY_TIMEOUT = 5000
 
@@ -151,8 +151,7 @@ export default {
     return {
       messages: [],
       tabIndex: 0,
-      marketIds: [],
-      markets: []
+      marketIds: []
     }
   },
   computed: {
@@ -162,8 +161,8 @@ export default {
       'getBetsCount',
       'getTotalReturn',
       'getTotalStakes',
-      'getEventIds',
-      'acceptAllChecked'
+      'acceptAllChecked',
+      'getBetsMarketIds'
     ]),
     acceptAllOdds: {
       get () {
@@ -174,7 +173,7 @@ export default {
       }
     },
     marketId () {
-      return this.getBets.map(x => x.marketId)
+      return this.getBetsMarketIds
     }
   },
   apollo: {
@@ -182,11 +181,24 @@ export default {
       return {
         query: MARKETS_LIST_QUERY,
         variables: {
-          eventId: 1576,
-          limit: 1000
+          eventId: 1576
         },
-        result ({ data: { markets } }) {
+        result({data: {markets}}){
           this.updateOdds(markets)
+        },
+        subscribeToMore: {
+          document: CATEGORY_MARKET_UPDATED,
+          variables: {
+            eventId: 1576
+          },
+          updateQuery ({ markets }, { subscriptionData }) {
+            console.log(markets)
+            console.log(subscriptionData)
+            this.updateOdds(markets)
+            return {
+              markets: updateCacheList(markets, subscriptionData.data.category_market_updated)
+            }
+          }
         }
       }
     }
