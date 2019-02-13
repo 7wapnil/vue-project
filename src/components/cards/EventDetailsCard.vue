@@ -93,11 +93,6 @@ export default {
       required: true
     }
   },
-  data () {
-    return {
-      cols: 6
-    }
-  },
   computed: {
     computedCols () {
       if (this.market.odds.length % 3 === 0) {
