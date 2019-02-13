@@ -59,14 +59,6 @@
                     </strong>
                   </small>
                 </b-col>
-                <b-col
-                  class="text-right ml-auto">
-                  <small>
-                    <strong class="text-arc-clr-iron">
-                      0
-                    </strong>
-                  </small>
-                </b-col>
               </b-row>
             </b-col>
 
