@@ -11,6 +11,10 @@
 
     <arc-code code-text="<sport-card-live/>"/>
 
+    <sport-card-upcoming/>
+
+    <arc-code code-text="<sport-card-upcoming/>"/>
+
     <h3 class="my-4 text-arc-clr-iron-light">
       Esport cards
     </h3>
@@ -42,8 +46,9 @@
 </template>
 
 <script>
-import SportCardLive from './components/SportCardLive'
 import ArcCode from '../../Code/ArcCode'
+import SportCardLive from './components/SportCardLive'
+import SportCardUpcoming from './components/SportCardUpcoming'
 import EsportCard from './components/EsportCard'
 import EsportCardVS from './components/EsportCardVS'
 import EventListHeader from './components/EventListHeader'
@@ -56,6 +61,7 @@ import EventDetailsCardTeam from './components/EventDetailsCardTeam'
 export default {
   components: {
     SportCardLive,
+    SportCardUpcoming,
     ArcCode,
     EsportCard,
     EsportCardVS,
