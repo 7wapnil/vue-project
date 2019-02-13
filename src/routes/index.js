@@ -9,6 +9,7 @@ const router = new Router({
     {
       path: '/styleguide',
       name: 'styleguide',
+      redirect: 'styleguide/typography',
       component: () => import('@/views/styleguide/Page'),
       children: StyleGuidePages
     },
