@@ -132,6 +132,12 @@
           variant="danger">
           {{ bet.message }}
         </b-alert>
+        <b-alert
+              :show="isSuccess"
+              class="mt-3 mx-auto p-2 text-center"
+              variant="success">
+          Your bet was successfully placed.
+        </b-alert>
       </b-container>
     </b-card>
   </div>
@@ -178,7 +184,8 @@ export default {
         submitting: 'light',
         pending: 'light',
         succeeded: 'success',
-        failed: 'danger'
+        failed: 'danger',
+        sent_to_external_validation: 'light'
       }
 
       if (this.bet.status !== Bet.statuses.succeeded &&
@@ -191,6 +198,9 @@ export default {
     },
     hasMessage () {
       return this.bet.message !== null
+    },
+    isSuccess() {
+      return this.bet.success
     },
     ...mapGetters('betslip', [
       'getBets'
