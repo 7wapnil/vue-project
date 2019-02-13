@@ -71,14 +71,15 @@
             </b-col>
 
             <b-col
-                    cols="auto"
-                    class="pt-2 px-3">
-              <b-row no-gutters
-                     v-for="(score, index) in getScore"
-                     :key="index">
+              cols="auto"
+              class="pt-2 px-3">
+              <b-row
+                v-for="(score, index) in getScore"
+                :key="index"
+                no-gutters>
                 <b-col class="d-inline-flex">
                   <small class="font-weight-bold text-arc-clr-iron">
-                    {{score}}
+                    {{ score }}
                   </small>
                 </b-col>
               </b-row>
@@ -215,19 +216,11 @@ export default {
       required: true
     }
   },
-  data(){
-    return {
-      scores: []
-    }
-  },
-  computed:{
-    getScore(){
-      if(this.event.state.score){
-        this.scores = this.event.state.score
-        return this.scores.split(':')
+  computed: {
+    getScore () {
+      if (this.event.state.score) {
+        return this.event.state.score.split(':')
       }
-
-      return this.scores
     },
   }
 }
