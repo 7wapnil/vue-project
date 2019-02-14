@@ -124,7 +124,7 @@ export const getters = {
   },
   getTotalReturn (state) {
     return state.bets.map(el => (el.stake > 0 ? el.stake : 0) * el.approvedOddValue).reduce((a, b) => +a + +b, 0)
-  },
+  }
 }
 
 export const actions = {

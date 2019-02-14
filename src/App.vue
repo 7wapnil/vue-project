@@ -24,7 +24,7 @@ export default {
           this.updateProvider(data.provider_updated)
         }
       },
-    },
+    }
   },
   created () {
     this.fetchWallets()
