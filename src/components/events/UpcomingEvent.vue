@@ -11,7 +11,6 @@
       <b-row
         no-gutters
         role="tab"
-        class="flex-nowrap"
         style="height: 76px">
 
         <time-block :event-start="event.start_at"/>
