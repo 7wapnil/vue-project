@@ -23,7 +23,9 @@
       :is-nav="true"
       :visible="item.active"
       :accordion="`${level}-menu`">
-      <b-nav vertical>
+      <b-nav
+        vertical
+        class="flex-nowrap">
         <b-nav-item
           v-for="(child, childIndex) in item.children"
           :key="childIndex">
