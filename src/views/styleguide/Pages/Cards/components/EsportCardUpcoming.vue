@@ -8,28 +8,38 @@
       <b-row
         no-gutters
         role="tab"
-        style="height: 90px">
-        <b-col style="max-width: 209px; min-width: 166px">
+        style="height: 80px">
+        <b-col style="max-width: 148px; min-width: 120px">
           <b-row
             no-gutters
-            class="p-3">
-            <b-col class="d-inline-flex align-items-start justify-content-start text-truncate">
-              <span class="d-inline-flex font-weight-bold text-arc-clr-iron text-uppercase mr-2 event-card-date">
-                Today
-              </span>
-              <span class="d-inline-flex font-weight-bold text-arc-clr-iron text-uppercase event-card-date">
-                20:30
-              </span>
-            </b-col>
-            <b-col cols="auto">
+            class="p-3 h-100">
+            <b-col class="text-truncate text-center">
               <b-row no-gutters>
-                <b-col class="d-inline-flex mr-3">
+                <b-col class="mb-2 d-inline-flex justify-content-center mt-1">
+                  <span class="font-weight-bold text-arc-clr-iron text-uppercase font-size-xs">
+                    Today
+                  </span>
+                </b-col>
+                <div class="w-100"/>
+                <b-col class="d-inline-flex justify-content-center">
+                  <span class="font-weight-bold text-arc-clr-iron text-uppercase font-size-xs">
+                    20:30
+                  </span>
+                </b-col>
+              </b-row>
+            </b-col>
+            <b-col>
+              <b-row
+                class="h-100"
+                no-gutters>
+                <b-col class="d-flex align-items-start justify-content-end mb-3">
                   <icon
                     name="upcoming-event-replay"
                     size="16px"
                     color="arc-clr-soil-light"/>
                 </b-col>
-                <b-col class="d-inline-flex">
+                <div class="w-100"/>
+                <b-col class="d-flex align-items-end justify-content-end">
                   <icon
                     name="upcoming-event-statistic"
                     size="18px"
@@ -38,24 +48,19 @@
               </b-row>
             </b-col>
           </b-row>
-          <b-row
-            no-gutters
-            class="pl-3 pr-5 pb-2">
-            <small class="text-arc-clr-iron event-card-name">
-              ESL Australia & NZ Championship
-            </small>
-          </b-row>
         </b-col>
         <b-col
-          class="event-card-inside-border-left"
+          class="event-card-inside-border-left pl-4"
           style="min-width: 487px">
-          <b-row no-gutters>
-            <b-col class="px-3 pt-3 pb-2">
+          <b-row
+            no-gutters
+            class="h-100">
+            <b-col class="px-4 py-2">
               <b-row no-gutters>
-                <b-col class="d-inline-flex justify-content-center pb-2">
-                  <small class="m-0 text-arc-clr-iron team-name font-weight-bold">
+                <b-col class="d-inline-flex justify-content-center pb-1">
+                  <span class="text-arc-clr-iron team-name font-weight-bold font-size-sm">
                     Faze Clan
-                  </small>
+                  </span>
                 </b-col>
                 <div class="w-100"/>
                 <b-col>
@@ -66,34 +71,46 @@
                 </b-col>
               </b-row>
             </b-col>
-            <b-col class="d-flex align-items-center justify-content-center p-1">
+            <b-col
+              cols="auto"
+              class="p-3 d-flex align-items-center justify-content-center">
+              <icon
+                name="sidemenu-game-icon"
+                style="color: #808080"
+                size="24px"/>
+            </b-col>
+            <b-col class="px-4 py-2">
               <b-row no-gutters>
-                <b-col class="pr-3">
-                  <icon
-                    name="sidemenu-game-icon"
-                    color="arc-clr-iron"
-                    size="24px"/>
+                <b-col class="d-flex justify-content-center align-items-end pb-1">
+                  <span
+                    style="opacity: .4"
+                    class="text-arc-clr-iron team-name font-weight-light font-size-sm">
+                    Draw
+                  </span>
                 </b-col>
-                <b-col class="px-3">
-                  <h5 class="mb-0 font-weight-light text-arc-clr-iron">
-                    VS
-                  </h5>
-                </b-col>
-                <b-col class="pl-3">
-                  <icon
-                    name="sidemenu-game-icon"
-                    color="arc-clr-iron"
-                    size="24px"/>
+                <div class="w-100"/>
+                <b-col>
+                  <b-button
+                    variant="arc-odd">
+                    7.77
+                  </b-button>
                 </b-col>
               </b-row>
             </b-col>
-
-            <b-col class="px-3 pt-3 pb-2">
+            <b-col
+              cols="auto"
+              class="p-3 d-flex align-items-center justify-content-center">
+              <icon
+                name="sidemenu-game-icon"
+                style="color: #808080"
+                size="24px"/>
+            </b-col>
+            <b-col class="px-4 py-2">
               <b-row no-gutters>
-                <b-col class="d-inline-flex justify-content-center pb-2">
-                  <small class="m-0 text-arc-clr-iron team-name font-weight-bold">
+                <b-col class="d-flex justify-content-center align-items-end pb-1">
+                  <span class="text-arc-clr-iron team-name font-weight-bold font-size-sm">
                     Liverpool
-                  </small>
+                  </span>
                 </b-col>
                 <div class="w-100"/>
                 <b-col>
@@ -118,6 +135,7 @@
               <icon
                 role="button"
                 color="arc-clr-soil-light"
+                class="mt-2"
                 tabindex="0"
                 size="7.5px"
                 name="upcoming-event-chevron-down"/>
@@ -127,9 +145,9 @@
             no-gutters
             class="h-50 w-100">
             <b-col class="d-flex align-items-start justify-content-center">
-              <h6 class="mb-0 mt-1 font-weight-bold">
+              <span class="mt-2 font-weight-bold font-size-md">
                 + 3
-              </h6>
+              </span>
             </b-col>
           </b-row>
         </b-col>
@@ -142,7 +160,7 @@
             <b-row
               no-gutters
               class="h-50 w-100">
-              <b-col class="d-inline-flex justify-content-center align-items-center">
+              <b-col class="mt-2 d-inline-flex justify-content-center align-items-center">
                 <icon
                   color="arc-clr-soil-light"
                   size="10px"
@@ -153,9 +171,9 @@
               no-gutters
               class="h-50 w-100">
               <b-col class="d-inline-flex justify-content-center align-items-start">
-                <h6 class="mb-0 mt-1 font-weight-bold">
+                <span class="mt-2 font-weight-bold font-size-md">
                   + 124
-                </h6>
+                </span>
               </b-col>
             </b-row>
           </b-row>

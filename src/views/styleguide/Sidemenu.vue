@@ -1,37 +1,20 @@
 <template>
   <b-nav
+    class="my-2"
     vertical>
     <b-nav-item
-      v-b-toggle="`title-${index}`"
       v-for="(title, index) in titles"
       :to="{ name: `${ title.page }` }"
       :key="index"
-      active-class="bg-arc-clr-soil-dark"
-      class="sidemenu">
-      <b-row
-        class="sidebar-collapsed-title"
-        no-gutters>
-        <b-col
-          cols="auto"
-          class="px-4 py-3 sidemenu-main-logo d-flex align-items-center justify-content-center">
-          <icon
-            name="sidemenu-game-icon"
-            size="24px"/>
-        </b-col>
-        <b-col class="py-4 d-flex align-items-center justify-content-start">
+      active-class="styleguide-sidemenu-active"
+      class="styleguide-sidemenu mx-3 my-1">
+      <b-row no-gutters>
+        <b-col class="p-2 d-flex align-items-center justify-content-center">
           <h6 class="mb-0 font-weight-bold">
             {{ title.name }}
           </h6>
         </b-col>
-        <b-col
-          cols="auto"
-          class="bg-arc-clr-esport-opacity-like px-4 sidemenu-chevron d-flex align-items-center justify-content-center"/>
       </b-row>
-
-      <b-collapse
-        :id="`title-${index}`"
-        :is-nav="true"
-        accordion="styleguide-titles-menu"/>
     </b-nav-item>
   </b-nav>
 </template>
