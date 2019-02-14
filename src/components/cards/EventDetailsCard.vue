@@ -45,7 +45,7 @@
               class="pr-2 mb-2 text-truncate market-odd">
               <b-row
                 align-v="center"
-                class="bg-arc-clr-soil-darker super-duper"
+                class="bg-arc-clr-soil-darker"
                 style="border-radius: 0 6px 6px 6px"
                 no-gutters>
                 <b-col class="w-100 pl-3 mr-3 d-inline-block text-truncate text-arc-clr-iron-light font-size-md">
