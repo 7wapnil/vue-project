@@ -159,7 +159,7 @@ export default {
         'esic.svg'],
       promotions: [
         {
-          link: '/',
+          link: '/promotions',
           name: 'ArcaneBet Promotions'
         }, {
           link: '/',
@@ -170,7 +170,7 @@ export default {
         }],
       responsibles: [
         {
-          link: '/',
+          link: '/responsible-gaming',
           name: 'Introduction'
         },
         {
@@ -188,7 +188,7 @@ export default {
       ],
       supports: [
         {
-          link: '/',
+          link: '/support',
           name: 'Live Support'
         },
         {
@@ -226,7 +226,7 @@ export default {
       ],
       abouts: [
         {
-          link: '/',
+          link: '/about',
           name: 'Welcome to ArcaneBet'
         },
         {
@@ -246,7 +246,7 @@ export default {
           name: 'Partners'
         },
         {
-          link: '/',
+          link: '/blog',
           name: 'Blog (when we have one)'
         },
         {

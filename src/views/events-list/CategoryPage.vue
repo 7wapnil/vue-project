@@ -7,15 +7,14 @@
         v-if="!showTitles"
         :title-id="$route.params.titleId"
         :category-id="$route.params.categoryId"
-        :tournament-id="$route.params.tournamentId"
-        :context="context" />
+        :tabs="tabsMapping" />
     </b-col>
   </b-row>
 </template>
 
 <script>
 import FilterTabs from '@/views/events-list/FilterTabs'
-import { UPCOMING_FOR_TIME } from '@/constants/graphql/event-context'
+import { LIVE, UPCOMING_LIMITED } from '@/constants/graphql/event-context'
 
 export default {
   components: {
@@ -23,7 +22,15 @@ export default {
   },
   data () {
     return {
-      context: UPCOMING_FOR_TIME
+      tabsMapping: [{
+        id: 'live',
+        title: 'Live now',
+        context: LIVE
+      }, {
+        id: 'upcoming',
+        title: 'Upcoming',
+        context: UPCOMING_LIMITED
+      }]
     }
   },
   computed: {

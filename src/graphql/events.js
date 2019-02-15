@@ -6,8 +6,6 @@ export const EVENTS_LIST_QUERY = gql`
     $titleId: ID = null,
     $titleKind: String = null,
     $tournamentId: ID = null,
-    $inPlay: Boolean = false,
-    $upcoming: Boolean = false,
     $withScopes: Boolean = false,
     $context: String = null,
     $categoryId: ID = null
@@ -18,8 +16,6 @@ export const EVENTS_LIST_QUERY = gql`
         titleId: $titleId,
         titleKind: $titleKind,
         tournamentId: $tournamentId,
-        inPlay: $inPlay,
-        upcoming: $upcoming,
         categoryId: $categoryId
     }) {
       ${EVENT_FIELDS}
