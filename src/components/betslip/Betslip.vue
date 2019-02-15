@@ -162,8 +162,7 @@ export default {
       'freezeBets',
       'updateBet',
       'removeBetFromBetslip',
-      'clearBetslip',
-      'disableProcessingBet'
+      'clearBetslip'
     ]),
     submit () {
       this.freezeBets()
