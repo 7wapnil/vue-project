@@ -71,7 +71,7 @@ import {
 import { updateCacheList } from '@/helpers/graphql'
 import MoreButton from '@/components/custom/MoreButton'
 import { TITLE_CHANGED } from '@/constants/custom-events'
-import { NO_CACHE } from '@/constants/graphql/fetch-policy'
+import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
 import { CONTEXT_TO_START_STATUS_MAP } from '@/constants/graphql/event-start-statuses'
 
 export default {
@@ -126,7 +126,7 @@ export default {
     query () {
       return {
         query: EVENTS_LIST_QUERY,
-        fetchPolicy: NO_CACHE,
+        fetchPolicy: NETWORK_ONLY,
         variables: {
           titleKind: this.$route.params.titleKind,
           titleId: this.titleId,
