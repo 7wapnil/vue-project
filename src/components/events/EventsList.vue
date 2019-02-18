@@ -48,7 +48,6 @@
           v-if="categoryId"
           :link="{ name: 'tournament', params: { titleKind: $route.params.titleKind, titleId: titleId, tournamentId: tournament.id } }"/>
       </div>
-
     </div>
 
     <loader v-if="loading"/>
