@@ -2,18 +2,12 @@ import EventsList from '@/views/events-list/Page.vue'
 import CategoryPage from '@/views/events-list/CategoryPage.vue'
 import TournamentPage from '@/views/events-list/TournamentPage.vue'
 import arcanebetSession from '@/services/local-storage/session'
-import InformationPages from '@/routes/information_pages.js'
 
 export default [
   {
     path: 'live',
     name: 'live',
     component: () => import('@/views/live/Page')
-  },
-  {
-    path: '/',
-    component: () => import('@/views/layouts/information-page/Content'),
-    children: InformationPages
   },
   {
     path: ':titleKind',
