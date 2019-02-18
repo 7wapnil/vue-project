@@ -72,6 +72,7 @@ import {
 import { updateCacheList } from '@/helpers/graphql'
 import MoreButton from '@/components/custom/MoreButton'
 import { TITLE_CHANGED } from '@/constants/custom-events'
+import { LIVE } from '@/constants/graphql/event-context'
 
 export default {
   components: { MoreButton },
@@ -100,7 +101,7 @@ export default {
   apollo: {
     events () {
       let subscription = null
-      let variables = {}
+      let variables = { live: this.context === LIVE }
 
       if (this.tournamentId) {
         subscription = TOURNAMENT_EVENT_UPDATED
