@@ -13,20 +13,27 @@
         :to="{ name: 'home' }"
         class="mr-0"/>
 
-      <b-navbar-nav id="styleguide-top-navigation">
-        <b-nav-item
-          v-for="(siteColor, index) in siteColors"
-          :key="index"
-          :class="'navbar-menu-item ' + `${siteColor.background}`"
-          style="height: 80px"
-          @click="$emit('changeColor', siteColor.category)">
-          <h6 class="m-0 font-weight-bold text-arc-clr-white">
-            {{ siteColor.label }}
-          </h6>
-        </b-nav-item>
-      </b-navbar-nav>
+      <b-collapse
+        id="styleguide_collapse"
+        is-nav>
+        <b-navbar-nav id="styleguide-top-navigation">
+          <b-nav-item
+            v-for="(siteColor, index) in siteColors"
+            :key="index"
+            :class="'navbar-menu-item ' + `${siteColor.background}`"
+            class="mr-2"
+            @click="$emit('changeColor', siteColor.category)">
+            <span class="font-weight-bold text-arc-clr-white font-size-md">
+              {{ siteColor.label }}
+            </span>
+          </b-nav-item>
+        </b-navbar-nav>
+      </b-collapse>
+      <b-navbar-toggle
+        class="mr-3"
+        target="styleguide_collapse"/>
 
-      <b-navbar-nav>
+      <b-navbar-nav class="d-none d-lg-block">
         <b-nav-item class="mr-4">
           ArcaneBet Styleguide
         </b-nav-item>

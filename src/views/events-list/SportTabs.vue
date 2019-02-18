@@ -5,7 +5,7 @@
     <template slot-scope="{ tab }">
       <filter-tabs
         :title-id="tab.id"
-        :context="context"/>
+        :tabs="tabsMapping"/>
     </template>
   </category-tabs>
 </template>
@@ -14,7 +14,7 @@
 import { TITLES_QUERY } from '@/graphql'
 import { TITLE_CHANGED } from '@/constants/custom-events'
 import FilterTabs from './FilterTabs'
-import { UPCOMING_FOR_TIME } from '@/constants/graphql/event-context'
+import { LIVE, UPCOMING_FOR_TIME } from '@/constants/graphql/event-context'
 
 export default {
   components: {
@@ -33,8 +33,16 @@ export default {
   data () {
     return {
       titles: [],
-      context: UPCOMING_FOR_TIME,
-      activeTitleId: null
+      activeTitleId: null,
+      tabsMapping: [{
+        id: 'live',
+        title: 'Live now',
+        context: LIVE
+      }, {
+        id: 'upcoming',
+        title: 'Upcoming',
+        context: UPCOMING_FOR_TIME
+      }]
     }
   },
   computed: {

@@ -64,8 +64,7 @@ export default {
       return {
         query: EVENT_BY_ID_QUERY,
         variables: {
-          id: this.eventId,
-          context: 'upcoming_for_time' // Hard code, remove after backend fix
+          id: this.eventId
         },
         update ({ events }) {
           if (!events.length) {
