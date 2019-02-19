@@ -12,6 +12,7 @@ export default [
   },
   {
     path: '/',
+    redirect: '/esports',
     component: () => import('@/views/layouts/information-page/Content'),
     children: InformationPages
   },
