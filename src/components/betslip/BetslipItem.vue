@@ -168,7 +168,7 @@ export default {
   },
   apollo: {
     $subscribe: {
-      marketsUpdated: {
+      marketUpdated: {
         query: UPDATE_MARKET_BY_ID,
         variables () {
           return {
