@@ -72,6 +72,7 @@ import {
 import { updateCacheList } from '@/helpers/graphql'
 import MoreButton from '@/components/custom/MoreButton'
 import { TITLE_CHANGED } from '@/constants/custom-events'
+import { LIVE } from '@/constants/graphql/event-context'
 
 export default {
   components: { MoreButton },
@@ -99,28 +100,11 @@ export default {
   },
   apollo: {
     events () {
-      let subscription = null
-      let variables = {}
-
-      if (this.tournamentId) {
-        subscription = TOURNAMENT_EVENT_UPDATED
-        variables.tournament = this.tournamentId
-      } else if (this.titleId) {
-        subscription = SPORT_EVENT_UPDATED
-        variables.title = this.titleId
-        if (this.categoryId) {
-          variables.category = this.categoryId
-        }
-      } else {
-        subscription = KIND_EVENT_UPDATED
-        variables.kind = this.$route.params.titleKind
-      }
-
       return {
         ...this.query,
         subscribeToMore: {
-          document: subscription,
-          variables,
+          document: this.subscription.document,
+          variables: this.subscription.variables,
           updateQuery ({ events }, { subscriptionData }) {
             const endpoint = Object.keys(subscriptionData.data)[0]
             return { events: updateCacheList(events, subscriptionData.data[endpoint]) }
@@ -146,6 +130,29 @@ export default {
           categoryId: this.categoryId,
           context: this.context
         }
+      }
+    },
+    subscription () {
+      let document = null
+      let variables = { live: this.context === LIVE }
+
+      if (this.tournamentId) {
+        document = TOURNAMENT_EVENT_UPDATED
+        variables.tournament = this.tournamentId
+      } else if (this.titleId) {
+        document = SPORT_EVENT_UPDATED
+        variables.title = this.titleId
+        if (this.categoryId) {
+          variables.category = this.categoryId
+        }
+      } else {
+        document = KIND_EVENT_UPDATED
+        variables.kind = this.$route.params.titleKind
+      }
+
+      return {
+        document: document,
+        variables: variables
       }
     },
     groupedEvents () {
