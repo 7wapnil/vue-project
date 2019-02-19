@@ -21,7 +21,6 @@ export default {
       providerUpdated: {
         query: PROVIDER_SUBSCRIPTION,
         result ({ data }) {
-          console.log(data)
           this.updateProvider(data.provider_updated)
         }
       },
