@@ -176,8 +176,8 @@ export default {
           }
         },
         result ({ data }) {
-          console.log(data)
-          this.updateOdds(data)
+          console.log(data.market_updated)
+          this.updateOdds(data.market_updated)
         },
       }
     }
@@ -234,6 +234,7 @@ export default {
       const updateBet = this.updateBet
       const acceptAllChecked = this.acceptAllChecked
       console.log('here')
+      console.log(market.odds)
       console.log(market.odds)
       market.odds.forEach(function (odd) {
         let bet = bets.find(el => el.oddId === odd.id)
