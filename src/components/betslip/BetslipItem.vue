@@ -177,7 +177,7 @@ export default {
         },
         result ({ data }) {
           console.log(data)
-          this.updateOdds(data)
+          // this.updateOdds(data)
         },
       }
     }
