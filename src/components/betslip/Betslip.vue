@@ -150,29 +150,7 @@ export default {
     return {
       messages: [],
       tabIndex: 0,
-      acceptedAll: false,
-      market: {
-        id: 1436252,
-        odds: [
-          {
-            id: '4132338',
-            name: 'Hv 71',
-            status: 'active',
-            value: 1.68
-          }, {
-            id: '3905832',
-            name: 'Hv 71',
-            status: 'active',
-            value: 2.03
-          },
-          {
-            id: '8392981',
-            name: 'Hv 71',
-            status: 'active',
-            value: 2.03
-          }
-        ]
-      }
+      acceptedAll: false
     }
   },
   computed: {
