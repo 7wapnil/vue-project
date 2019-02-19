@@ -22,25 +22,6 @@ const setBetsToStorage = (bets) => {
 }
 
 export const mutations = {
-  updateOdds (state, markets) {
-    markets.forEach(function getOdds (market) {
-      market.odds.forEach(function (odd) {
-        let bet = state.bets.find(el => el.oddId === odd.id)
-        if (!bet) return
-
-        Object.assign(bet, {
-          currentOddValue: odd.value
-        })
-
-        if (state.acceptAll) {
-          Object.assign(bet, {
-            approvedOddValue: odd.value
-          })
-        }
-        setBetsToStorage(state.bets)
-      })
-    })
-  },
   updateBet (state, { oddId, payload }) {
     let bet = state.bets.find(el => el.oddId === oddId)
     if (!bet) return
@@ -108,8 +89,8 @@ export const getters = {
   acceptAllChecked (state) {
     return state.acceptAll
   },
-  getBetsMarketIds (state) {
-    return state.bets.map(el => el.marketId)
+  getMarketIds (state) {
+    return state.marketIds
   },
   anyInitialBet (state) {
     return state.bets.some((bet) => {

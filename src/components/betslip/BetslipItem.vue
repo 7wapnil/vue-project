@@ -141,6 +141,7 @@
 import OddButton from '@/components/markets/OddButton.vue'
 import Bet from '@/models/bet'
 import { mapGetters, mapMutations } from 'vuex'
+import { UPDATE_MARKET_BY_ID } from '@/graphql'
 
 export default {
   components: {
@@ -162,6 +163,22 @@ export default {
         succeeded: 'success',
         failed: 'danger',
         warning: 'warning'
+      }
+    }
+  },
+  apollo: {
+    $subscribe: {
+      marketsUpdated: {
+        query: UPDATE_MARKET_BY_ID,
+        variables () {
+          return {
+            marketId: this.bet.marketId
+          }
+        },
+        result ({ data }) {
+          console.log(data)
+          this.updateOdds(data)
+        },
       }
     }
   },
@@ -210,8 +227,26 @@ export default {
     ...mapMutations('betslip', [
       'setBetStake',
       'updateBet',
-      'removeBetFromBetslip',
+      'removeBetFromBetslip'
     ]),
+    updateOdds (market) {
+      const bets = this.getBets
+      const updateBet = this.updateBet
+      const acceptAllChecked = this.acceptAllChecked
+
+      market.odds.forEach(function (odd) {
+        let bet = bets.find(el => el.oddId === odd.id)
+        console.log('beginnig', bet)
+        if (!bet) return
+        updateBet({ oddId: bet.oddId, payload: { currentOddValue: odd.value } })
+
+        if (acceptAllChecked) {
+          updateBet({ oddId: bet.oddId, payload: { approvedOddValue: odd.value } })
+        }
+
+        console.log('end', bet)
+      })
+    },
     confirmValue () {
       this.updateBet({ oddId: this.bet.oddId, payload: { approvedOddValue: this.bet.currentOddValue } })
     },
