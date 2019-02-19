@@ -89,9 +89,6 @@ export const getters = {
   acceptAllChecked (state) {
     return state.acceptAll
   },
-  getMarketIds (state) {
-    return state.marketIds
-  },
   anyInitialBet (state) {
     return state.bets.some((bet) => {
       return bet.status === Bet.statuses.initial

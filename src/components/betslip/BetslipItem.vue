@@ -46,6 +46,7 @@
           <b-row no-gutters>
             <b-col>
               <b-button
+                :disabled="isDisabled"
                 class="text-arc-clr-gold bg-arc-clr-soil-cover d-flex justify-content-center align-items-center p-0"
                 variant="arc-betslip-odd">
                 <small>
@@ -132,6 +133,12 @@
           variant="danger">
           {{ bet.message }}
         </b-alert>
+        <b-alert
+          :show="isDisabled"
+          class="mt-3 mx-auto p-2 text-center"
+          variant="danger">
+          {{ disabledMessage }}
+        </b-alert>
       </b-container>
     </b-card>
   </div>
@@ -142,6 +149,12 @@ import OddButton from '@/components/markets/OddButton.vue'
 import Bet from '@/models/bet'
 import { mapGetters, mapMutations } from 'vuex'
 import { UPDATE_MARKET_BY_ID } from '@/graphql'
+import {
+  SUSPENDED_STATUS,
+  INACTIVE_STATUS as MARKET_INACTIVE_STATUS,
+  SETTLED_STATUS,
+  HANDED_OVER_STATUS
+} from '@/models/market'
 
 export default {
   components: {
@@ -162,8 +175,10 @@ export default {
         pending: 'light',
         succeeded: 'success',
         failed: 'danger',
-        warning: 'warning'
-      }
+        warning: 'warning',
+      },
+      isDisabled: false,
+      disabledMessage: 'This market is inactive.'
     }
   },
   apollo: {
@@ -177,6 +192,7 @@ export default {
         },
         result ({ data }) {
           this.updateOdds(data.market_updated)
+          this.handleMarketStatus(data.market_updated)
         },
       }
     }
@@ -244,6 +260,16 @@ export default {
           updateBet({ oddId: bet.oddId, payload: { approvedOddValue: odd.value, status: 'warning' } })
         }
       })
+    },
+    handleMarketStatus (market) {
+      this.isDisabled = [
+        SUSPENDED_STATUS,
+        MARKET_INACTIVE_STATUS,
+        SETTLED_STATUS,
+        HANDED_OVER_STATUS
+      ].includes(market.status)
+
+      return this.isDisabled
     },
     confirmValue () {
       this.updateBet({ oddId: this.bet.oddId, payload: { approvedOddValue: this.bet.currentOddValue } })
