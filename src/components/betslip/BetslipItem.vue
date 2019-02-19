@@ -163,28 +163,6 @@ export default {
         succeeded: 'success',
         failed: 'danger',
         warning: 'warning'
-      },
-      market: {
-        id: 1436252,
-        odds: [
-          {
-            id: '4132338',
-            name: 'Hv 71',
-            status: 'active',
-            value: 1.68
-          }, {
-            id: '3905832',
-            name: 'Hv 71',
-            status: 'active',
-            value: 2.03
-          },
-          {
-            id: '8392981',
-            name: 'Hv 71',
-            status: 'active',
-            value: 2.03
-          }
-        ]
       }
     }
   },
@@ -198,7 +176,6 @@ export default {
           }
         },
         result ({ data }) {
-          console.log(data.market_updated)
           this.updateOdds(data.market_updated)
         },
       }
@@ -246,9 +223,6 @@ export default {
       return this.bet.message !== null
     }
   },
-  // created(){
-  //   this.updateOdds(this.market)
-  // },
   methods: {
     ...mapMutations('betslip', [
       'setBetStake',
@@ -259,18 +233,16 @@ export default {
       const bets = this.getBets
       const updateBet = this.updateBet
       const acceptAllChecked = this.acceptAllChecked
+
       market.odds.forEach(function (odd) {
-        console.log(bets)
         let bet = bets.find(el => el.oddId === odd.id)
-        console.log('beginnig', bet)
+
         if (!bet) return
         updateBet({ oddId: bet.oddId, payload: { currentOddValue: odd.value } })
 
-        if (acceptAllChecked) {
-          updateBet({ oddId: bet.oddId, payload: { approvedOddValue: odd.value } })
+        if (acceptAllChecked && bet.currentOddValue !== bet.approvedOddValue) {
+          updateBet({ oddId: bet.oddId, payload: { approvedOddValue: odd.value, status: 'warning' } })
         }
-
-        console.log('end', bet)
       })
     },
     confirmValue () {

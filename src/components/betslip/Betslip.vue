@@ -149,8 +149,7 @@ export default {
   data () {
     return {
       messages: [],
-      tabIndex: 0,
-      acceptedAll: false
+      tabIndex: 0
     }
   },
   computed: {
