@@ -11,7 +11,7 @@ export const CATEGORY_MARKET_UPDATED = gql`
 
 export const UPDATE_MARKET_BY_ID = gql`
   subscription marketUpdated ($marketId: ID){
-    market_updated (marketId: $marketId) {
+    market_updated (id: $marketId) {
       ${MARKET_FIELDS}
     }
   }
