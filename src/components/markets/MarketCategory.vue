@@ -33,8 +33,7 @@ export default {
         query: MARKETS_LIST_QUERY,
         variables: {
           eventId: this.event.id,
-          category: this.category.slug,
-          limit: 1000
+          category: this.category.slug
         },
         subscribeToMore: {
           document: CATEGORY_MARKET_UPDATED,
