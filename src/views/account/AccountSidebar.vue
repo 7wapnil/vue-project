@@ -1,13 +1,16 @@
 <template>
   <b-row no-gutters>
     <b-col class="profile-modal-sidebar bg-arc-clr-soil-dark">
+
+      <profile-wallet @open-deposit-tab="currentTabIndex = 4"/>
+
       <b-nav vertical>
         <b-nav-item
           v-for="(tab, index) in tabs"
           :key="index"
-          :class="{'profile-modal-nav-item-active': currentTab === tab.component }"
+          :class="{'profile-modal-nav-item-active': currentTabIndex === index }"
           class="profile-modal-nav-item bg-arc-clr-soil-black"
-          @click="currentTab = tab.component">
+          @click="currentTabIndex = index">
           <span>
             <icon
               :name="tab.icon"
@@ -21,9 +24,7 @@
       </b-nav>
     </b-col>
     <b-col class="profile-modal-nav-content p-5">
-      <keep-alive>
-        <component :is="currentTab"/>
-      </keep-alive>
+      <component :is="currentComponent"/>
     </b-col>
   </b-row>
 </template>
@@ -36,6 +37,7 @@ import DepositFunds from './DepositFunds'
 import Withdraw from './AccountWithdraw'
 import AccountVerification from './AccountVerification'
 import ChangePassword from './ChangePassword'
+import ProfileWallet from './ProfileWallet'
 
 export default {
   components: {
@@ -46,11 +48,12 @@ export default {
     DepositFunds,
     Withdraw,
     AccountVerification,
-    ChangePassword
+    ChangePassword,
+    ProfileWallet
   },
   data () {
     return {
-      currentTab: Account,
+      currentTabIndex: this.$route.query.depositState ? 4 : 0,
       tabs: [{
         title: 'Account info & settings',
         component: Account,
@@ -86,8 +89,10 @@ export default {
       }]
     }
   },
-  mounted () {
-    this.currentTab = this.$route.query.depositState ? 'DepositFunds' : 'Account'
+  computed: {
+    currentComponent () {
+      return this.tabs[this.currentTabIndex].component
+    }
   }
 }
 </script>
