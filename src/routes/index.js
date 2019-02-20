@@ -1,6 +1,9 @@
 import Router from 'vue-router'
 import mainRoutes from './main'
 import StyleGuidePages from './styleguide_pages'
+import InformationPages from '@/routes/information_pages';
+
+const rootChildren = [...mainRoutes, ...InformationPages.routes]
 
 const router = new Router({
   mode: 'history',
@@ -18,7 +21,7 @@ const router = new Router({
       redirect: '/esports',
       name: 'home',
       component: () => import('@/views/layouts/main/Layout'),
-      children: mainRoutes
+      children: rootChildren
     }
   ]
 })

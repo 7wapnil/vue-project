@@ -1,12 +1,15 @@
 @import '../variables';
 
 $transition-time: .3s;
+$sidemenu-item-height: 56px;
+$sidemenu-box-shadow: inset 0 -1px 0 0 rgba($black, .3);
 
 .side-menu {
   position: sticky;
   top: 80px;
   max-height: calc(100vh - 80px);
   overflow-y: auto;
+  cursor: pointer;
 
   .nav-item > a {
     padding: 0;
@@ -36,7 +39,7 @@ $transition-time: .3s;
   }
 
   .item-title-0 {
-    max-height: 56px;
+    max-height: $sidemenu-item-height;
     box-shadow: $arc-button-box-shadow;
     font-weight: $font-weight-bold;
     padding-right: 20px;
@@ -71,7 +74,7 @@ $transition-time: .3s;
     }
     .item-title-0 {
       background-color: $arc-clr-soil-dark;
-      box-shadow: inset 0 -1px 0 0 rgba($black, .3);
+      box-shadow: $sidemenu-box-shadow;
       transition: background-color $transition-time;
       > .sidemenu-chevron {
         transform: rotateX(0deg);
@@ -79,10 +82,34 @@ $transition-time: .3s;
     }
   }
   .side-menu-categories {
-    height: 56px;
+    height: $sidemenu-item-height;
     font-size: 11px;
-    box-shadow: inset 0 -1px 0 0 rgba($black, .3);
+    box-shadow: $sidemenu-box-shadow;
     user-select: none;
   }
 }
 
+// Information page sidemenu
+.information-page-sidemenu {
+  height: $sidemenu-item-height;
+  box-shadow: $sidemenu-box-shadow;
+  cursor: pointer;
+  .collapsed &{
+    color: $arc-clr-iron-light;
+    background-color: $arc-clr-soil-dark;
+    .arc-sidemenu-chevron-down {
+      transform: rotateX(0deg);
+      transition: transform $transition-time ease-in-out;
+    }
+    .item-name {
+      color: $arc-clr-iron-light;
+    }
+  }
+  .item-name {
+    color: $arc-clr-gold;
+  }
+  .arc-sidemenu-chevron-down {
+    transition: transform $transition-time ease-in-out;
+    transform: rotateX(180deg);
+  }
+}
