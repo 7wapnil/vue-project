@@ -53,9 +53,7 @@
 
         <div class="w-100"/>
 
-        <b-col>
-          Best of 3
-        </b-col>
+        <b-col/>
       </b-row>
     </b-col>
 

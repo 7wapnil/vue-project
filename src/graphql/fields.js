@@ -32,6 +32,7 @@ export const EVENT_FIELDS = `
   description
   status
   live
+  markets_count
   title {
     ${TITLE_FIELDS}
   }
