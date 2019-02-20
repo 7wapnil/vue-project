@@ -36,7 +36,6 @@
 <script>
 import { UNLIMITED_QUERY } from '@/constants/graphql/limits'
 import { EVENT_BY_ID_QUERY, EVENT_UPDATED } from '@/graphql'
-import { updateCacheList } from '@/helpers/graphql'
 import MarketsCategories from '@/components/markets/MarketsCategories'
 import HeaderSection from './HeaderSection'
 import MarketsList from '@/components/markets/MarketsList'
@@ -64,23 +63,19 @@ export default {
       return {
         query: EVENT_BY_ID_QUERY,
         variables: {
-          id: this.eventId,
-          context: 'upcoming_for_time' // Hard code, remove after backend fix
-        },
-        update ({ events }) {
-          if (!events.length) {
-            return null
-          }
-          return events[0]
+          id: this.eventId
         },
         subscribeToMore: {
           document: EVENT_UPDATED,
           variables: {
             id: this.eventId
           },
-          updateQuery ({ events }, { subscriptionData }) {
+          updateQuery ({ event }, { subscriptionData }) {
             return {
-              events: updateCacheList(events, subscriptionData.data.event_updated, false)
+              event: {
+                ...event,
+                ...subscriptionData.data.event_updated
+              }
             }
           }
         }

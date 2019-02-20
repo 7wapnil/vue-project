@@ -47,9 +47,9 @@
         </div>
       </div>
 
-      <more-button
-        v-if="categoryId"
-        :link="{ name: 'tournament', params: { titleKind: $route.params.titleKind, titleId: titleId, tournamentId: tournament.id } }"/>
+    <!--<more-button-->
+      <!--v-if="categoryId"-->
+      <!--:link="{ name: 'tournament', params: { titleKind: $route.params.titleKind, titleId: titleId, tournamentId: tournament.id } }"/>-->
     </div>
 
     <loader v-if="loading"/>
@@ -72,6 +72,7 @@ import {
 import { updateCacheList } from '@/helpers/graphql'
 import MoreButton from '@/components/custom/MoreButton'
 import { TITLE_CHANGED } from '@/constants/custom-events'
+import { LIVE } from '@/constants/graphql/event-context'
 
 export default {
   components: { MoreButton },
@@ -92,10 +93,6 @@ export default {
       type: String,
       default: null
     },
-    live: {
-      type: Boolean,
-      default: true
-    },
     context: {
       type: String,
       default: null
@@ -103,28 +100,11 @@ export default {
   },
   apollo: {
     events () {
-      let subscription = null
-      let variables = { live: this.live }
-
-      if (this.tournamentId) {
-        subscription = TOURNAMENT_EVENT_UPDATED
-        variables.tournament = this.tournamentId
-      } else if (this.titleId) {
-        subscription = SPORT_EVENT_UPDATED
-        variables.title = this.titleId
-        if (this.categoryId) {
-          variables.category = this.categoryId
-        }
-      } else {
-        subscription = KIND_EVENT_UPDATED
-        variables.kind = this.$route.params.titleKind
-      }
-
       return {
         ...this.query,
         subscribeToMore: {
-          document: subscription,
-          variables,
+          document: this.subscription.document,
+          variables: this.subscription.variables,
           updateQuery ({ events }, { subscriptionData }) {
             const endpoint = Object.keys(subscriptionData.data)[0]
             return { events: updateCacheList(events, subscriptionData.data[endpoint]) }
@@ -147,11 +127,32 @@ export default {
           titleKind: this.$route.params.titleKind,
           titleId: this.titleId,
           tournamentId: this.tournamentId,
-          inPlay: this.live,
-          upcoming: !this.live,
           categoryId: this.categoryId,
           context: this.context
         }
+      }
+    },
+    subscription () {
+      let document = null
+      let variables = { live: this.context === LIVE }
+
+      if (this.tournamentId) {
+        document = TOURNAMENT_EVENT_UPDATED
+        variables.tournament = this.tournamentId
+      } else if (this.titleId) {
+        document = SPORT_EVENT_UPDATED
+        variables.title = this.titleId
+        if (this.categoryId) {
+          variables.category = this.categoryId
+        }
+      } else {
+        document = KIND_EVENT_UPDATED
+        variables.kind = this.$route.params.titleKind
+      }
+
+      return {
+        document: document,
+        variables: variables
       }
     },
     groupedEvents () {

@@ -5,8 +5,7 @@
         :title-id="titleId"
         :tournament-id="tournamentId"
         :category-id="categoryId"
-        :live="tab.live"
-        :context="context">
+        :context="tab.context">
 
         <template slot-scope="{ event }">
 
@@ -56,23 +55,14 @@ export default {
       type: String,
       default: null
     },
-    context: {
-      type: String,
-      default: null
+    tabs: {
+      type: Array,
+      default () { return [] }
     }
   },
   data () {
     return {
-      tabIndex: 1,
-      tabs: [{
-        id: 'live',
-        title: 'Live now',
-        live: true
-      }, {
-        id: 'upcoming',
-        title: 'Upcoming',
-        live: false
-      }]
+      tabIndex: 1
     }
   },
   computed: {
