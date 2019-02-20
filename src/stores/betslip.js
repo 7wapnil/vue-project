@@ -54,6 +54,9 @@ export const mutations = {
       return bet
     })
     setBetsToStorage(state.bets)
+  },
+  updateAcceptAll (state, acceptValue) {
+    state.acceptAll = acceptValue
   }
 }
 
@@ -82,6 +85,9 @@ export const getters = {
   },
   getBets (state) {
     return state.bets
+  },
+  acceptAllChecked (state) {
+    return state.acceptAll
   },
   anyInitialBet (state) {
     return state.bets.some((bet) => {
@@ -118,7 +124,8 @@ export const actions = {
 export default {
   namespaced: true,
   state: {
-    bets: getBetsFromStorage()
+    bets: getBetsFromStorage(),
+    acceptAll: false
   },
   actions,
   mutations,
