@@ -2,107 +2,49 @@
   <modal
     v-if="user"
     id="AccountModal"
-    :title="`${user.username}` + ' Profile'"
+    ref="AccountModalRef"
+    scrollable
     size="lg"
-    header-class="d-flex align-items-center"
+    header-bg-variant="arc-clr-soil-darker"
+    header-class="profile-modal-header"
+    header-border-variant="arc-clr-soil-darker"
+    content-class="bg-arc-clr-soil-darker"
     body-class="p-0">
-    <b-tabs
-      v-model="tabIndex"
-      vertical
-      nav-wrapper-class="col-3 pr-0">
-      <b-tab
-        v-for="(tab, index) in tabs"
-        :title-link-class="profileNavigation(index)"
-        :key="tab.id">
-        <template slot="title">
-          <span class="nav-icon">
-            {{ tab.icon }}
-          </span>
-          <span class="nav-title">
-            {{ tab.title }}
-          </span>
-        </template>
-        <component
-          :is="tab.component"
-          class="m-4"/>
-      </b-tab>
-    </b-tabs>
+
+    <template slot="modal-header">
+      <span class="text-capitalize text-arc-clr-white text-text-truncate font-weight-light">
+        {{ user.username + ' profile' }}
+      </span>
+      <div @click="hideModal">
+        <icon
+          name="modal-close"
+          size="24px"
+          color="arc-clr-iron-light"/>
+      </div>
+    </template>
+
+    <account-sidebar/>
+
   </modal>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
-import Account from './Account'
-import NotImplemented from './NotImplemented'
-import Activity from './Activity'
-import ChangePassword from './ChangePassword'
-import AccountVerification from './AccountVerification'
-import DepositFunds from './DepositFunds'
+import AccountSidebar from './AccountSidebar'
 
 export default {
-  name: 'AccountModal',
-  data () {
-    return {
-      tabIndex: 0,
-      tabs: [{
-        id: 0,
-        title: 'Account info & settings',
-        component: Account,
-        icon: 'i'
-      }, {
-        id: 1,
-        title: 'Bonus',
-        component: NotImplemented,
-        icon: 'i'
-      }, {
-        id: 2,
-        title: 'Promotions',
-        component: NotImplemented,
-        icon: 'i'
-      }, {
-        id: 3,
-        title: 'Activity',
-        component: Activity,
-        icon: 'i'
-      }, {
-        id: 4,
-        title: 'Deposit funds',
-        component: DepositFunds,
-        icon: 'i'
-      }, {
-        id: 5,
-        title: 'Withdraw funds',
-        component: NotImplemented,
-        icon: 'i'
-      }, {
-        id: 6,
-        title: 'Account verification',
-        component: AccountVerification,
-        icon: 'i'
-      }, {
-        id: 7,
-        title: 'Change password',
-        component: ChangePassword,
-        icon: 'i'
-      }]
-    }
+  components: {
+    AccountSidebar
   },
   computed: {
     ...mapGetters({
       user: 'getUser'
     })
   },
-  mounted () {
-    this.tabIndex = this.$route.query.depositState ? 4 : 0
-  },
   methods: {
-    profileNavigation (index) {
-      if (this.tabIndex === index) {
-        return 'activeNav'
-      } else {
-        return 'profileNav'
-      }
-    },
+    hideModal () {
+      this.$refs.AccountModalRef.hide()
+    }
   }
 }
 </script>
