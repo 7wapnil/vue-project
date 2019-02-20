@@ -13,3 +13,15 @@
     font-size: $h6-font-size; // 14px
   }
 }
+
+.letter-spacing {
+  &-0 {
+    letter-spacing: .09px;
+  }
+  &-1 {
+    letter-spacing: .1px;
+  }
+  &-2 {
+    letter-spacing: .21px;
+  }
+}
