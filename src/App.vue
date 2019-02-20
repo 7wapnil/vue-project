@@ -23,7 +23,7 @@ export default {
         result ({ data }) {
           this.updateProvider(data.provider_updated)
         }
-      }
+      },
     }
   },
   created () {

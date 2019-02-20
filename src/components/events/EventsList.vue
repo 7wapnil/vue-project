@@ -3,7 +3,6 @@
     no-body
     class="p-4"
     body-class="events-card-body">
-
     <div
       v-for="title in groupedEvents"
       :key="title.name">
@@ -45,11 +44,10 @@
             <slot :event="event"/>
           </b-card>
         </div>
+        <more-button
+          v-if="categoryId"
+          :link="{ name: 'tournament', params: { titleKind: $route.params.titleKind, titleId: titleId, tournamentId: tournament.id } }"/>
       </div>
-
-    <!--<more-button-->
-      <!--v-if="categoryId"-->
-      <!--:link="{ name: 'tournament', params: { titleKind: $route.params.titleKind, titleId: titleId, tournamentId: tournament.id } }"/>-->
     </div>
 
     <loader v-if="loading"/>

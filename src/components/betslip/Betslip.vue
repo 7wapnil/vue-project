@@ -4,6 +4,7 @@
     <b-container
       v-if="getBets.length > 0"
       class="m-0 p-0">
+
       <b-row
         no-gutters
         class="betslip-header">
@@ -33,7 +34,6 @@
           </b-link>
         </b-col>
       </b-row>
-
       <b-card
         no-body
         bg-variant="arc-clr-soil-black">
@@ -102,7 +102,14 @@
           </b-col>
         </b-row>
       </b-card>
-
+      <b-form-group
+        class="“px-3”">
+        <b-form-checkbox
+          v-model="acceptAllOdds"
+          plain>
+          Accept all odd changes.
+        </b-form-checkbox>
+      </b-form-group>
     </b-container>
 
     <b-card
@@ -131,14 +138,14 @@ import { mapGetters, mapMutations, mapActions } from 'vuex'
 import wallets from '@/mixins/wallets'
 import BetslipSerializer from '@/services/serializers/betslip'
 
-const BET_DESTROY_TIMEOUT = 5000;
+const BET_DESTROY_TIMEOUT = 5000
 
 export default {
   components: {
     BetslipItem,
     NoBetsBlock
   },
-  mixins: [ wallets ],
+  mixins: [wallets],
   data () {
     return {
       messages: [],
@@ -151,8 +158,18 @@ export default {
       'getBets',
       'getBetsCount',
       'getTotalReturn',
-      'getTotalStakes'
-    ])
+      'getTotalStakes',
+      'acceptAllChecked',
+      'getBetsMarketIds'
+    ]),
+    acceptAllOdds: {
+      get () {
+        return this.acceptAllChecked
+      },
+      set (value) {
+        this.updateAcceptAll(value)
+      }
+    }
   },
   methods: {
     ...mapActions('betslip', [
@@ -163,6 +180,7 @@ export default {
       'updateBet',
       'removeBetFromBetslip',
       'clearBetslip',
+      'updateAcceptAll'
     ]),
     submit () {
       this.freezeBets()
@@ -180,6 +198,7 @@ export default {
     },
     updateBetsFromResponse (response) {
       const bets = this.getBets
+
       if (response.data && response.data.placeBets) {
         response.data.placeBets.forEach((betPayload) => {
           let bet = bets.find(el => el.oddId === betPayload.id)

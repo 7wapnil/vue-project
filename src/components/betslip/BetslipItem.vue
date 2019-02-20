@@ -46,6 +46,7 @@
           <b-row no-gutters>
             <b-col>
               <b-button
+                :disabled="isDisabled"
                 class="text-arc-clr-gold bg-arc-clr-soil-cover d-flex justify-content-center align-items-center p-0"
                 variant="arc-betslip-odd">
                 <small>
@@ -116,7 +117,7 @@
           </b-col>
         </b-row>
         <b-alert
-          :show="displayUnconfirmedOddValueDialog"
+          :show="valuesUnconfirmed"
           variant="danger"
           class="mt-3 mx-auto p-2 text-center">
           This bet odd value changed from {{ bet.approvedOddValue }} to {{ bet.currentOddValue }}.
@@ -132,6 +133,12 @@
           variant="danger">
           {{ bet.message }}
         </b-alert>
+        <b-alert
+          :show="isDisabled"
+          class="mt-3 mx-auto p-2 text-center"
+          variant="danger">
+          {{ disabledMessage }}
+        </b-alert>
       </b-container>
     </b-card>
   </div>
@@ -141,6 +148,13 @@
 import OddButton from '@/components/markets/OddButton.vue'
 import Bet from '@/models/bet'
 import { mapGetters, mapMutations } from 'vuex'
+import { UPDATE_MARKET_BY_ID } from '@/graphql'
+import {
+  SUSPENDED_STATUS,
+  INACTIVE_STATUS as MARKET_INACTIVE_STATUS,
+  SETTLED_STATUS,
+  HANDED_OVER_STATUS
+} from '@/models/market'
 
 export default {
   components: {
@@ -152,7 +166,42 @@ export default {
       required: true
     },
   },
+  data () {
+    return {
+      status: null,
+      variantMapping: {
+        initial: 'arc-clr-soil-dark',
+        submitting: 'light',
+        pending: 'light',
+        succeeded: 'success',
+        failed: 'danger',
+        warning: 'warning',
+      },
+      isDisabled: false,
+      disabledMessage: 'This market is inactive.'
+    }
+  },
+  apollo: {
+    $subscribe: {
+      marketUpdated: {
+        query: UPDATE_MARKET_BY_ID,
+        variables () {
+          return {
+            marketId: this.bet.marketId
+          }
+        },
+        result ({ data }) {
+          this.updateOdds(data.market_updated)
+          this.handleMarketStatus(data.market_updated)
+        },
+      }
+    }
+  },
   computed: {
+    ...mapGetters('betslip', [
+      'acceptAllChecked',
+      'getBets'
+    ]),
     potentialReturn: function () {
       const stake = this.bet.stake > 0 ? this.bet.stake : 0
       return stake * this.bet.approvedOddValue
@@ -166,42 +215,62 @@ export default {
         this.setBetStake({ oddId: this.bet.oddId, stakeValue })
       }
     },
-    displayUnconfirmedOddValueDialog () {
-      return (
-        this.bet.status !== Bet.statuses.succeeded &&
-              this.bet.approvedOddValue !== this.bet.currentOddValue
-      )
-    },
-    cardVariant () {
-      const variantMapping = {
-        initial: 'arc-clr-soil-dark',
-        submitting: 'light',
-        pending: 'light',
-        succeeded: 'success',
-        failed: 'danger'
+    valuesUnconfirmed () {
+      if (!this.acceptAllChecked) {
+        return (
+          this.bet.status !== Bet.statuses.succeeded &&
+                this.bet.approvedOddValue !== this.bet.currentOddValue
+        )
       }
 
-      if (this.bet.status !== Bet.statuses.succeeded &&
-          this.bet.approvedOddValue !== this.bet.currentOddValue
-      ) {
+      return false
+    },
+    betStatus () {
+      if (this.valuesUnconfirmed) {
         return 'warning'
       }
 
-      return variantMapping[this.bet.status]
+      return this.bet.status
+    },
+    cardVariant () {
+      return this.variantMapping[this.betStatus]
     },
     hasMessage () {
       return this.bet.message !== null
-    },
-    ...mapGetters('betslip', [
-      'getBets'
-    ])
+    }
   },
   methods: {
     ...mapMutations('betslip', [
       'setBetStake',
       'updateBet',
-      'removeBetFromBetslip',
+      'removeBetFromBetslip'
     ]),
+    updateOdds (market) {
+      const bets = this.getBets
+      const updateBet = this.updateBet
+      const acceptAllChecked = this.acceptAllChecked
+
+      market.odds.forEach(function (odd) {
+        let bet = bets.find(el => el.oddId === odd.id)
+
+        if (!bet) return
+        updateBet({ oddId: bet.oddId, payload: { currentOddValue: odd.value } })
+
+        if (acceptAllChecked && bet.currentOddValue !== bet.approvedOddValue) {
+          updateBet({ oddId: bet.oddId, payload: { approvedOddValue: odd.value, status: 'warning' } })
+        }
+      })
+    },
+    handleMarketStatus (market) {
+      this.isDisabled = [
+        SUSPENDED_STATUS,
+        MARKET_INACTIVE_STATUS,
+        SETTLED_STATUS,
+        HANDED_OVER_STATUS
+      ].includes(market.status)
+
+      return this.isDisabled
+    },
     confirmValue () {
       this.updateBet({ oddId: this.bet.oddId, payload: { approvedOddValue: this.bet.currentOddValue } })
     },
