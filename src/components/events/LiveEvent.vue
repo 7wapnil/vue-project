@@ -150,7 +150,7 @@
           style="max-width: 70px; min-height: 100%; position:relative">
 
           <b-row
-            no-gutters
+            no-gutters-page-vue
             class="text-center h-100">
 
             <b-row

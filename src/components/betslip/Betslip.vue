@@ -1,9 +1,10 @@
 <template>
-  <div class="mx-2 my-2">
+  <div class="m-2">
     <no-bets-block/>
     <b-container
       v-if="getBets.length > 0"
       class="m-0 p-0">
+
       <b-row
         no-gutters
         class="betslip-header">
@@ -33,7 +34,6 @@
           </b-link>
         </b-col>
       </b-row>
-
       <b-card
         no-body
         bg-variant="arc-clr-soil-black">
@@ -102,7 +102,14 @@
           </b-col>
         </b-row>
       </b-card>
-
+      <b-form-group
+        class="“px-3”">
+        <b-form-checkbox
+          v-model="acceptAllOdds"
+          plain>
+          Accept all odd changes.
+        </b-form-checkbox>
+      </b-form-group>
     </b-container>
 
     <b-card
@@ -138,7 +145,7 @@ export default {
     BetslipItem,
     NoBetsBlock
   },
-  mixins: [ wallets ],
+  mixins: [wallets],
   data () {
     return {
       messages: [],
@@ -151,8 +158,18 @@ export default {
       'getBets',
       'getBetsCount',
       'getTotalReturn',
-      'getTotalStakes'
-    ])
+      'getTotalStakes',
+      'acceptAllChecked',
+      'getBetsMarketIds'
+    ]),
+    acceptAllOdds: {
+      get () {
+        return this.acceptAllChecked
+      },
+      set (value) {
+        this.updateAcceptAll(value)
+      }
+    }
   },
   methods: {
     ...mapActions('betslip', [
@@ -162,7 +179,8 @@ export default {
       'freezeBets',
       'updateBet',
       'removeBetFromBetslip',
-      'clearBetslip'
+      'clearBetslip',
+      'updateAcceptAll'
     ]),
     submit () {
       this.freezeBets()
@@ -179,6 +197,7 @@ export default {
     },
     updateBetsFromResponse (response) {
       const bets = this.getBets
+
       if (response.data && response.data.placeBets) {
         response.data.placeBets.forEach((betPayload) => {
           let bet = bets.find(el => el.oddId === betPayload.id)
