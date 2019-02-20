@@ -1,7 +1,10 @@
 <template>
-  <b-row>
+  <b-row no-gutters>
     <b-col>
-      <h1>Not Implemented</h1>
+      yoyo
     </b-col>
   </b-row>
 </template>
+<script>
+
+</script>

@@ -1,36 +1,29 @@
 <template>
-  <div>
-    <b-nav-item-dropdown
-      v-if="isLoggedIn && user"
-      class="nav-profile-button"
-      no-caret
-      right>
-      <template slot="button-content">
-        <b-btn
-          variant="arc-secondary"
-          class="arc-profile-button p-0"/>
-      </template>
-      <b-dropdown-item @click="showModal">
-        Profile
-      </b-dropdown-item>
-      <b-dropdown-divider class="border-arc-dropdown-divider m-0"/>
+  <b-nav-item-dropdown
+    v-if="isLoggedIn && user"
+    class="nav-profile-button"
+    no-caret
+    right>
+    <template slot="button-content">
+      <b-btn
+        variant="arc-secondary"
+        class="arc-profile-button p-0"/>
+    </template>
+    <b-dropdown-item @click="showModal">
+      Profile
+    </b-dropdown-item>
+    <b-dropdown-divider class="border-arc-dropdown-divider m-0"/>
 
-      <b-dropdown-item @click.prevent="logout">
-        Logout
-      </b-dropdown-item>
-    </b-nav-item-dropdown>
-    <account-modal/>
-  </div>
+    <b-dropdown-item @click.prevent="logout">
+      Logout
+    </b-dropdown-item>
+  </b-nav-item-dropdown>
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-import AccountModal from '@/views/account/AccountModal'
 
 export default {
-  components: {
-    AccountModal
-  },
   computed: {
     ...mapGetters([
       'isLoggedIn'
