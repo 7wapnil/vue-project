@@ -10,7 +10,7 @@
         <template slot-scope="{ event }">
 
           <live-event
-            v-if="tab.id === 'live'"
+            v-if="tab.id === live"
             :event="event">
 
             <markets-list
@@ -18,7 +18,7 @@
               :markets="[event.dashboard_market]" />
           </live-event>
           <upcoming-event
-            v-if="tab.id === 'upcoming'"
+            v-if="tab.id === upcoming"
             :event="event">
             <markets-list
               :event="event"
@@ -38,6 +38,7 @@ import EventsList from '@/components/events/EventsList'
 import LiveEvent from '@/components/events/LiveEvent'
 import UpcomingEvent from '@/components/events/UpcomingEvent'
 import MarketsList from '@/components/markets/MarketsList'
+import { LIVE, UPCOMING } from '@/constants/graphql/event-start-statuses'
 
 export default {
   components: {
@@ -62,7 +63,9 @@ export default {
   },
   data () {
     return {
-      tabIndex: 1
+      tabIndex: 1,
+      live: LIVE,
+      upcoming: UPCOMING
     }
   },
   computed: {

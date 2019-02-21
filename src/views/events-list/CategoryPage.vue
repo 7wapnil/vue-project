@@ -14,7 +14,8 @@
 
 <script>
 import FilterTabs from '@/views/events-list/FilterTabs'
-import { LIVE, UPCOMING_LIMITED } from '@/constants/graphql/event-context'
+import { UPCOMING_LIMITED } from '@/constants/graphql/event-context'
+import { LIVE, UPCOMING } from '@/constants/graphql/event-start-statuses'
 
 export default {
   components: {
@@ -23,11 +24,11 @@ export default {
   data () {
     return {
       tabsMapping: [{
-        id: 'live',
+        id: LIVE,
         title: 'Live now',
         context: LIVE
       }, {
-        id: 'upcoming',
+        id: UPCOMING,
         title: 'Upcoming',
         context: UPCOMING_LIMITED
       }]

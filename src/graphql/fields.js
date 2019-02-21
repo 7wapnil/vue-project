@@ -32,6 +32,7 @@ export const EVENT_FIELDS = `
   description
   status
   live
+  start_status
   title {
     ${TITLE_FIELDS}
   }

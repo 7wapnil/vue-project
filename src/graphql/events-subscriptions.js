@@ -20,32 +20,32 @@ export const EVENTS_UPDATED = gql`
 `
 
 export const KIND_EVENT_UPDATED = gql`
-  subscription kindEventUpdated ($kind: String, $live: Boolean = false) {
-    kind_event_updated (kind: $kind, live: $live) {
+  subscription kindEventUpdated ($kind: String) {
+    kind_event_updated (kind: $kind) {
       ${SUBSCRIPTION_FIELDS}
     }
   }
 `
 
 export const SPORT_EVENT_UPDATED = gql`
-  subscription sportEventUpdated ($title: ID, $live: Boolean = false) {
-    sport_event_updated (title: $title, live: $live) {
+  subscription sportEventUpdated ($title: ID) {
+    sport_event_updated (title: $title) {
       ${SUBSCRIPTION_FIELDS}
     }
   }
 `
 
 export const CATEGORY_EVENT_UPDATED = gql`
-  subscription categoryEventUpdated ($category: ID, $live: Boolean = false) {
-    category_event_updated (category: $category, live: $live) {
+  subscription categoryEventUpdated ($category: ID) {
+    category_event_updated (category: $category) {
       ${SUBSCRIPTION_FIELDS}
     }
   }
 `
 
 export const TOURNAMENT_EVENT_UPDATED = gql`
-  subscription tournamentEventUpdated ($tournament: ID, $live: Boolean = false) {
-    tournament_event_updated (tournament: $tournament, live: $live) {
+  subscription tournamentEventUpdated ($tournament: ID) {
+    tournament_event_updated (tournament: $tournament) {
       ${SUBSCRIPTION_FIELDS}
     }
   }

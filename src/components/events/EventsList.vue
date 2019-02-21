@@ -71,8 +71,8 @@ import {
 import { updateCacheList } from '@/helpers/graphql'
 import MoreButton from '@/components/custom/MoreButton'
 import { TITLE_CHANGED } from '@/constants/custom-events'
-import { LIVE } from '@/constants/graphql/event-context'
 import { NO_CACHE } from '@/constants/graphql/fetch-policy'
+import { CONTEXT_TO_START_STATUS_MAPPING } from '@/constants/graphql/event-start-statuses'
 
 export default {
   components: { MoreButton },
@@ -107,7 +107,11 @@ export default {
           variables: this.subscription.variables,
           updateQuery ({ events }, { subscriptionData }) {
             const endpoint = Object.keys(subscriptionData.data)[0]
-            return { events: updateCacheList(events, subscriptionData.data[endpoint]) }
+            const attributes = subscriptionData.data[endpoint]
+            const isRemoved =
+              attributes.start_status !== CONTEXT_TO_START_STATUS_MAPPING[this.context]
+
+            return { events: updateCacheList(events, attributes, isRemoved) }
           }
         }
       }
@@ -120,13 +124,6 @@ export default {
     }
   },
   computed: {
-    getContext () {
-      if (this.live) {
-        return 'live'
-      }
-
-      return this.context
-    },
     query () {
       return {
         query: EVENTS_LIST_QUERY,
@@ -136,13 +133,13 @@ export default {
           titleId: this.titleId,
           tournamentId: this.tournamentId,
           categoryId: this.categoryId,
-          context: this.getContext
+          context: this.context
         }
       }
     },
     subscription () {
       let document = null
-      let variables = { live: this.context === LIVE }
+      let variables = {}
 
       if (this.tournamentId) {
         document = TOURNAMENT_EVENT_UPDATED
