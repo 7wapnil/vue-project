@@ -117,7 +117,7 @@
       class="px-2 py-2"
       no-body>
       <b-button
-        :disabled="!betslipSubmittable"
+        :disabled="!betslipSubmittable || disableButton"
         variant="arc-primary"
         size="lg"
         block
@@ -138,7 +138,7 @@ import { mapGetters, mapMutations, mapActions } from 'vuex'
 import wallets from '@/mixins/wallets'
 import BetslipSerializer from '@/services/serializers/betslip'
 
-const BET_DESTROY_TIMEOUT = 5000
+const BET_DESTROY_TIMEOUT = 3000
 
 export default {
   components: {
@@ -149,7 +149,8 @@ export default {
   data () {
     return {
       messages: [],
-      tabIndex: 0
+      tabIndex: 0,
+      disableButton: false
     }
   },
   computed: {
@@ -168,9 +169,7 @@ export default {
         return this.acceptAllChecked
       },
       set (value) {
-        if (value) {
-          this.updateBets()
-        }
+        if (value) { this.updateBets() }
         this.updateAcceptAll(value)
       }
     }
@@ -188,12 +187,11 @@ export default {
     ]),
     submit () {
       this.freezeBets()
-
+      this.disableButton = true
       let betsPayload = BetslipSerializer.serialize({
         bets: this.getBets,
         currencyCode: this.activeWallet.currency.code
       })
-
       this.placeBets(betsPayload)
         .then(this.processBetsPlacementResponse)
     },
@@ -216,20 +214,19 @@ export default {
               success: betPayload.success
             }
           })
-
+         
           if (betPayload.success) {
             setTimeout(() => {
               this.removeBetFromBetslip(bet.oddId)
             }, BET_DESTROY_TIMEOUT)
           }
+          this.disableButton = false
         })
       }
     },
     updateBets () {
       this.getBets.forEach(bet => {
-        console.log('1', bet)
         this.updateBet({ oddId: bet.oddId, payload: { approvedOddValue: bet.currentOddValue } })
-        console.log('2', bet)
       })
     },
     changeStyleTab (index) {
