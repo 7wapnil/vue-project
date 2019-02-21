@@ -214,7 +214,7 @@ export default {
               success: betPayload.success
             }
           })
-         
+
           if (betPayload.success) {
             setTimeout(() => {
               this.removeBetFromBetslip(bet.oddId)
