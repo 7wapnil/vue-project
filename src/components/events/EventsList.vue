@@ -72,7 +72,7 @@ import { updateCacheList } from '@/helpers/graphql'
 import MoreButton from '@/components/custom/MoreButton'
 import { TITLE_CHANGED } from '@/constants/custom-events'
 import { NO_CACHE } from '@/constants/graphql/fetch-policy'
-import { CONTEXT_TO_START_STATUS_MAPPING } from '@/constants/graphql/event-start-statuses'
+import { CONTEXT_TO_START_STATUS_MAP } from '@/constants/graphql/event-start-statuses'
 
 export default {
   components: { MoreButton },
@@ -108,8 +108,7 @@ export default {
           updateQuery ({ events }, { subscriptionData }) {
             const endpoint = Object.keys(subscriptionData.data)[0]
             const attributes = subscriptionData.data[endpoint]
-            const isRemoved =
-              attributes.start_status !== CONTEXT_TO_START_STATUS_MAPPING[this.context]
+            const isRemoved = attributes.start_status !== CONTEXT_TO_START_STATUS_MAP[this.context]
 
             return { events: updateCacheList(events, attributes, isRemoved) }
           }

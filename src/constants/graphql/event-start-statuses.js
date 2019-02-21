@@ -8,7 +8,7 @@ import {
 export const UPCOMING = 'upcoming'
 export { LIVE }
 
-export const CONTEXT_TO_START_STATUS_MAPPING = {
+export const CONTEXT_TO_START_STATUS_MAP = {
   [UPCOMING_FOR_TIME]: UPCOMING,
   [UPCOMING_LIMITED]: UPCOMING,
   [UPCOMING_UNLIMITED]: UPCOMING,

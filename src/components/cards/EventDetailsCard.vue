@@ -78,6 +78,7 @@ import {
   HANDED_OVER_STATUS
 } from '@/models/market'
 import OddButton from '@/components/markets/OddButton'
+import { LIVE } from '@/constants/graphql/event-start-statuses'
 
 export default {
   components: {
@@ -109,7 +110,7 @@ export default {
         HANDED_OVER_STATUS
       ].includes(this.market.status)
 
-      const isDisabledByAppState = this.event.live
+      const isDisabledByAppState = this.event.start_status === LIVE
         ? !this.isLiveConnected
         : !this.isPreLiveConnected
 
