@@ -138,7 +138,7 @@ import { mapGetters, mapMutations, mapActions } from 'vuex'
 import wallets from '@/mixins/wallets'
 import BetslipSerializer from '@/services/serializers/betslip'
 
-const BET_DESTROY_TIMEOUT = 3000
+const BET_DESTROY_TIMEOUT = 5000
 
 export default {
   components: {
@@ -156,7 +156,6 @@ export default {
   computed: {
     ...mapGetters('betslip', [
       'betslipSubmittable',
-      'betslipValuesConfirmed',
       'getBets',
       'getBetsCount',
       'getTotalReturn',
