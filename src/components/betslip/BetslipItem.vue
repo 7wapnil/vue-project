@@ -51,7 +51,7 @@
                 variant="arc-betslip-odd">
                 <small>
                   <strong>
-                    {{ bet.currentOddValue }}
+                    {{ bet.approvedOddValue }}
                   </strong>
                 </small>
               </b-button>

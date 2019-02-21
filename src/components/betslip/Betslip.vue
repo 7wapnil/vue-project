@@ -155,6 +155,7 @@ export default {
   computed: {
     ...mapGetters('betslip', [
       'betslipSubmittable',
+      'betslipValuesConfirmed',
       'getBets',
       'getBetsCount',
       'getTotalReturn',
@@ -167,6 +168,9 @@ export default {
         return this.acceptAllChecked
       },
       set (value) {
+        if (value) {
+          this.updateBets()
+        }
         this.updateAcceptAll(value)
       }
     }
@@ -220,6 +224,13 @@ export default {
           }
         })
       }
+    },
+    updateBets () {
+      this.getBets.forEach(bet => {
+        console.log('1', bet)
+        this.updateBet({ oddId: bet.oddId, payload: { approvedOddValue: bet.currentOddValue } })
+        console.log('2', bet)
+      })
     },
     changeStyleTab (index) {
       if (this.tabIndex === index) {
