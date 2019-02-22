@@ -71,6 +71,7 @@ import { updateCacheList } from '@/helpers/graphql'
 import MoreButton from '@/components/custom/MoreButton'
 import { TITLE_CHANGED } from '@/constants/custom-events'
 import { LIVE } from '@/constants/graphql/event-context'
+import { NO_CACHE } from '@/constants/graphql/fetch-policy'
 
 export default {
   components: { MoreButton },
@@ -121,6 +122,7 @@ export default {
     query () {
       return {
         query: EVENTS_LIST_QUERY,
+        fetchPolicy: NO_CACHE,
         variables: {
           titleKind: this.$route.params.titleKind,
           titleId: this.titleId,
