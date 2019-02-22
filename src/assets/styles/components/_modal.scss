@@ -5,6 +5,13 @@
   .modal-content {
     background-color: unset !important;
   }
+  .form-control {
+    font-size: $h6-font-size;
+  }
+  .custom-select {
+    background: #fff url(#{'~@/assets/icons/inputs/input-arrow-down.svg'}) no-repeat right 0.563rem center
+  }
+
   @media (min-width: 992px) {
     .modal-lg {
       max-width: 1179px;

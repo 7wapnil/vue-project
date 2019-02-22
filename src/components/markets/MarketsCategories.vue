@@ -9,7 +9,6 @@
       :key="category.slug"
       :title-link-class="titleClass"
       :title="category.name">
-
       <markets-category
         :event="event"
         :category="category">

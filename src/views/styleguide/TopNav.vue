@@ -23,7 +23,7 @@
             :class="'navbar-menu-item ' + `${siteColor.background}`"
             class="mr-2"
             @click="$emit('changeColor', siteColor.category)">
-            <span class="font-weight-bold text-arc-clr-white font-size-md">
+            <span class="font-weight-bold text-arc-clr-white font-size-14">
               {{ siteColor.label }}
             </span>
           </b-nav-item>

@@ -45,7 +45,7 @@
           </b-card>
         </div>
         <more-button
-          v-if="categoryId"
+          v-if="categoryId && tournament.events.length > 16"
           :link="{ name: 'tournament', params: { titleKind: $route.params.titleKind, titleId: titleId, tournamentId: tournament.id } }"/>
       </div>
     </div>
@@ -71,6 +71,7 @@ import { updateCacheList } from '@/helpers/graphql'
 import MoreButton from '@/components/custom/MoreButton'
 import { TITLE_CHANGED } from '@/constants/custom-events'
 import { LIVE } from '@/constants/graphql/event-context'
+import { NO_CACHE } from '@/constants/graphql/fetch-policy'
 
 export default {
   components: { MoreButton },
@@ -118,15 +119,23 @@ export default {
     }
   },
   computed: {
+    getContext () {
+      if (this.live) {
+        return 'live'
+      }
+
+      return this.context
+    },
     query () {
       return {
         query: EVENTS_LIST_QUERY,
+        fetchPolicy: NO_CACHE,
         variables: {
           titleKind: this.$route.params.titleKind,
           titleId: this.titleId,
           tournamentId: this.tournamentId,
           categoryId: this.categoryId,
-          context: this.context
+          context: this.getContext
         }
       }
     },
