@@ -45,7 +45,7 @@
           </b-card>
         </div>
         <more-button
-          v-if="categoryId"
+          v-if="categoryId && tournament.events.length > 16"
           :link="{ name: 'tournament', params: { titleKind: $route.params.titleKind, titleId: titleId, tournamentId: tournament.id } }"/>
       </div>
     </div>
