@@ -79,9 +79,10 @@
 
         <b-col
           v-b-toggle="'upcoming-event-' + event.id"
-          v-if="[event.dashboard_market].length > 1"
+          v-if="event.dashboard_market.length > 1"
           cols="auto"
           class="px-3 event-card-toggle-button">
+
           <b-row
             no-gutters
             class="h-50 w-100">
@@ -134,7 +135,7 @@
               <b-col class="d-inline-flex justify-content-center align-items-start">
                 <h6 class="mb-0 mt-1">
                   <strong>
-                    +{{ event.markets_count - 1 }}
+                    +{{ marketsCount }}
                   </strong>
                 </h6>
               </b-col>
