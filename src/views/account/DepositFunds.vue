@@ -138,7 +138,7 @@
 import RegularInput from '@/components/inputs/RegularInput.vue'
 import SelectInput from '@/components/inputs/SelectInput.vue'
 import { mapGetters } from 'vuex'
-import { CURRENCY_LIST_QUERY } from '@/graphql'
+import { CURRENCIES_LIST_QUERY } from '@/graphql'
 
 export default {
   name: 'DepositFunds',
@@ -168,7 +168,7 @@ export default {
   apollo: {
     currencies () {
       return {
-        query: CURRENCY_LIST_QUERY
+        query: CURRENCIES_LIST_QUERY
       }
     }
   },
