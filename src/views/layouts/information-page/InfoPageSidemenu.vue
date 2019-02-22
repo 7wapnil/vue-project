@@ -20,7 +20,7 @@
               :name="!!item.icon ? `${ item.icon }` : 'promotional'"
               size="24px"/>
           </span>
-          <span class="text-capitalize font-size-md font-weight-bold h-100 w-100 d-flex align-items-center item-name">
+          <span class="text-capitalize font-size-14 font-weight-bold h-100 w-100 d-flex align-items-center item-name">
             {{ item.name }}
           </span>
           <span class="px-4 d-flex align-items-center h-100">
@@ -40,7 +40,7 @@
               v-for="(child, childIndex) in item.children"
               :to="child.path"
               :key="childIndex"
-              class="px-4 py-1 w-100 h-100 text-capitalize text-arc-clr-iron-light font-size-md font-weight-bold text-truncate"
+              class="px-4 py-1 w-100 h-100 text-capitalize text-arc-clr-iron-light font-size-14 font-weight-bold text-truncate"
               active-class="text-arc-clr-gold"
               exact>
               {{ child.name }}
