@@ -1,35 +1,35 @@
 @import url('https://fonts.googleapis.com/css?family=IBM+Plex+Sans:300,400,700');
 
 // Colors //
+$arc-clr-sport-opacity-like: #004B2E;
 $arc-clr-sport-bg: #1B6945;
 $arc-clr-sport-glow: #47D469;
-$arc-clr-sport-opacity-like: #004B2E;
 
+$arc-clr-esport-opacity-like: #193261;
 $arc-clr-esport-bg: #2D4686;
 $arc-clr-esport-glow: #4290FF;
-$arc-clr-esport-opacity-like: #193261;
 
+$arc-clr-inplay-opacity-like: #1F110B;
 $arc-clr-inplay-bg: #281A12;
 $arc-clr-inplay-glow: #E54700;
-$arc-clr-inplay-opacity-like: #1F110B;
 
-$arc-clr-soil-light: #3D3D3D;
-$arc-clr-soil-dark: #2F2F2F;
-$arc-clr-soil-darker: #232323;
-$arc-clr-soil-black: #1E1E1E;
 $black: #000000;
+$arc-clr-soil-black: #1E1E1E;
+$arc-clr-soil-darker: #232323;
+$arc-clr-soil-dark: #2F2F2F;
+$arc-clr-soil-light: #3D3D3D;
+$arc-input-effect: #6c757d;
+$arc-dropdown-bg: #7d7d7d;
+$arc-clr-iron: #C1C1C1;
+$arc-clr-iron-light: #E5E5E5;
+$arc-clr-white: #FFFFFF;
+
 $arc-clr-soil-cover-opacity: .3;
 $arc-clr-soil-cover: rgba($black, .3);
 $arc-dropdown-divider: rgba($black, .15);
-$arc-input-effect: #6c757d;
-$arc-dropdown-bg: #7d7d7d;
+
 $arc-clr-gold: #FFB960;
 $arc-clr-gold-light: #FFC67E;
-
-$arc-clr-white: #FFFFFF;
-$arc-clr-iron: #C1C1C1;
-$arc-clr-iron-light: #E5E5E5;
-
 $wp-clr-notif-yellow: #FFE27A;
 $wp-clr-notif-red: #FF4C4C;
 
@@ -220,3 +220,11 @@ $breadcrumb-bg: transparent;
 $breadcrumb-active-color: $arc-clr-iron;
 $breadcrumb-padding-y: $spacer * 1.25;
 $breadcrumb-padding-x: $spacer * 2.75;
+
+// Select //
+$custom-select-border-radius: 0 6px 0 6px;
+$custom-select-disabled-color: $arc-clr-soil-light;
+$custom-select-padding-x: $spacer * .625;
+$form-group-margin-bottom: $spacer * 1.25;
+$input-disabled-bg: $arc-clr-white;
+

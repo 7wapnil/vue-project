@@ -14,10 +14,10 @@
           <span>
             <icon
               :name="tab.icon"
-              size="24px"
-              color="arc-clr-iron"/>
+              class="tab-icon"
+              size="24px"/>
           </span>
-          <span class="ml-3 font-weight-bold text-arc-clr-iron-light font-size-md">
+          <span class="ml-3 font-weight-bold font-size-14 tab-title">
             {{ tab.title }}
           </span>
         </b-nav-item>
@@ -81,10 +81,6 @@ export default {
       }, {
         title: 'Account verification',
         component: AccountVerification,
-        icon: 'profile-account'
-      }, {
-        title: 'Change password',
-        component: ChangePassword,
         icon: 'profile-account'
       }]
     }

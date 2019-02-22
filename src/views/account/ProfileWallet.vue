@@ -5,7 +5,7 @@
     <b-col class="bg-arc-clr-soil-dark py-4 px-3">
       <b-row no-gutters>
         <b-col>
-          <b-col class="p-0 text-uppercase text-arc-clr-iron font-size-xs letter-spacing-2">
+          <b-col class="p-0 text-uppercase text-arc-clr-iron font-size-10 letter-spacing-2">
             Balance
           </b-col>
           <div class="w-100"/>
@@ -19,24 +19,28 @@
           </b-col>
         </b-col>
         <b-col cols="auto">
-          <b-button @click="$emit('open-deposit-tab')">
+          <b-button
+            variant="user-profile-button"
+            @click="$emit('open-deposit-tab')">
             Deposit
           </b-button>
         </b-col>
       </b-row>
-      <b-row no-gutters>
+      <b-row
+        v-if="inactiveWalletsList"
+        no-gutters>
         <b-col class="mt-4">
-          <b-col class="p-0 text-uppercase text-arc-clr-iron font-size-xs letter-spacing-2">
+          <b-col class="p-0 text-uppercase text-arc-clr-iron font-size-10 letter-spacing-2">
             Crypto
           </b-col>
           <div class="w-100"/>
           <span
             v-for="(wallet, index) in inactiveWalletsList"
             :key="index">
-            <span class="font-weight-bold text-arc-clr-white font-size-sm letter-spacing-0">
+            <span class="font-weight-bold text-arc-clr-white font-size-12 letter-spacing-0">
               {{ wallet.amount | round }}
             </span>
-            <span class="font-weight-bold text-arc-clr-iron font-size-sm ml-1 letter-spacing-0">
+            <span class="font-weight-bold text-arc-clr-iron font-size-12 ml-1 letter-spacing-0">
               {{ wallet.currency.code }}
             </span>
           </span>
