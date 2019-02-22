@@ -119,6 +119,13 @@ export default {
     }
   },
   computed: {
+    getContext () {
+      if (this.live) {
+        return 'live'
+      }
+
+      return this.context
+    },
     query () {
       return {
         query: EVENTS_LIST_QUERY,
@@ -128,7 +135,7 @@ export default {
           titleId: this.titleId,
           tournamentId: this.tournamentId,
           categoryId: this.categoryId,
-          context: this.context
+          context: this.getContext
         }
       }
     },
