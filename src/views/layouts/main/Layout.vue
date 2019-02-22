@@ -14,6 +14,7 @@
 
     </b-container>
     <arc-footer/>
+    <modal-list/>
   </div>
 </template>
 

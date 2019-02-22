@@ -226,7 +226,7 @@ export default {
       ],
       abouts: [
         {
-          link: '/about',
+          link: 'about/welcome-to-arcanebet',
           name: 'Welcome to ArcaneBet'
         },
         {

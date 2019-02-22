@@ -1,0 +1,64 @@
+<template>
+  <b-nav
+    class="side-menu"
+    vertical>
+    <b-nav-item class="d-inline-flex align-items-center justify-content-start p-3 bg-arc-clr-soil-dark side-menu-categories">
+      <span class="text-arc-clr-iron">
+        CATEGORIES
+      </span>
+    </b-nav-item>
+    <b-nav-item
+      v-b-toggle="`item-${index}`"
+      v-for="(item, index) in menuItems"
+      v-if="!!item.children"
+      :key="index"
+      class="bg-arc-clr-soil-cover">
+      <div>
+        <div class="d-flex align-items-center information-page-sidemenu">
+          <span class="p-3">
+            <icon
+              :name="!!item.icon ? `${ item.icon }` : 'promotional'"
+              size="24px"/>
+          </span>
+          <span class="text-capitalize font-size-14 font-weight-bold h-100 w-100 d-flex align-items-center item-name">
+            {{ item.name }}
+          </span>
+          <span class="px-4 d-flex align-items-center h-100">
+            <icon
+              name="sidemenu-chevron-down"
+              size="7.5px"/>
+          </span>
+        </div>
+        <b-collapse
+          :id="`item-${index}`"
+          accordion="information-sidebar"
+          is-nav>
+          <b-nav
+            vertical
+            class="p-4 bg-arc-clr-soil-darker">
+            <b-nav-item
+              v-for="(child, childIndex) in item.children"
+              :to="child.path"
+              :key="childIndex"
+              class="px-4 py-1 w-100 h-100 text-capitalize text-arc-clr-iron-light font-size-14 font-weight-bold text-truncate"
+              active-class="text-arc-clr-gold"
+              exact>
+              {{ child.name }}
+            </b-nav-item>
+          </b-nav>
+        </b-collapse>
+      </div>
+    </b-nav-item>
+  </b-nav>
+</template>
+<script>
+import InformationPages from '@/routes/information_pages'
+
+export default {
+  data () {
+    return {
+      menuItems: InformationPages.routes
+    }
+  }
+}
+</script>

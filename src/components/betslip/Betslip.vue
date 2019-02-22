@@ -138,7 +138,7 @@ import { mapGetters, mapMutations, mapActions } from 'vuex'
 import wallets from '@/mixins/wallets'
 import BetslipSerializer from '@/services/serializers/betslip'
 
-const BET_DESTROY_TIMEOUT = 5000
+const BET_DESTROY_TIMEOUT = 3000;
 
 export default {
   components: {
@@ -184,7 +184,6 @@ export default {
     ]),
     submit () {
       this.freezeBets()
-
       let betsPayload = BetslipSerializer.serialize({
         bets: this.getBets,
         currencyCode: this.activeWallet.currency.code
@@ -206,14 +205,14 @@ export default {
           this.updateBet({
             oddId: bet.oddId,
             payload: {
-              status: betPayload.status,
+              status: betPayload.bet ? betPayload.bet.status : null,
               message: betPayload.message,
               externalId: betPayload.id,
               success: betPayload.success
             }
           })
 
-          if (betPayload.success) {
+          if (betPayload.success && betPayload.bet) {
             setTimeout(() => {
               this.removeBetFromBetslip(bet.oddId)
             }, BET_DESTROY_TIMEOUT)

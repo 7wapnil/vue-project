@@ -16,13 +16,13 @@
             <b-col class="text-truncate text-center">
               <b-row no-gutters>
                 <b-col class="mb-2 d-inline-flex justify-content-center mt-1">
-                  <span class="font-weight-bold text-arc-clr-iron text-uppercase font-size-xs">
+                  <span class="font-weight-bold text-arc-clr-iron text-uppercase font-size-10">
                     Today
                   </span>
                 </b-col>
                 <div class="w-100"/>
                 <b-col class="d-inline-flex justify-content-center">
-                  <span class="font-weight-bold text-arc-clr-iron text-uppercase font-size-xs">
+                  <span class="font-weight-bold text-arc-clr-iron text-uppercase font-size-10">
                     20:30
                   </span>
                 </b-col>
@@ -58,7 +58,7 @@
             <b-col class="px-4 py-2">
               <b-row no-gutters>
                 <b-col class="d-inline-flex justify-content-center pb-1">
-                  <span class="text-arc-clr-iron team-name font-weight-bold font-size-sm">
+                  <span class="text-arc-clr-iron team-name font-weight-bold font-size-12">
                     Faze Clan
                   </span>
                 </b-col>
@@ -82,7 +82,7 @@
                     size="24px"/>
                 </b-col>
                 <b-col class="px-3">
-                  <span class="font-weight-light text-arc-clr-iron font-size-sm">
+                  <span class="font-weight-light text-arc-clr-iron font-size-12">
                     VS
                   </span>
                 </b-col>
@@ -98,7 +98,7 @@
             <b-col class="px-4 py-2">
               <b-row no-gutters>
                 <b-col class="d-flex justify-content-center align-items-end pb-1">
-                  <span class="text-arc-clr-iron team-name font-weight-bold font-size-sm">
+                  <span class="text-arc-clr-iron team-name font-weight-bold font-size-12">
                     Liverpool
                   </span>
                 </b-col>
@@ -135,7 +135,7 @@
             no-gutters
             class="h-50 w-100">
             <b-col class="d-flex align-items-start justify-content-center">
-              <span class="mt-2 font-weight-bold font-size-md">
+              <span class="mt-2 font-weight-bold font-size-14">
                 + 3
               </span>
             </b-col>
@@ -161,7 +161,7 @@
               no-gutters
               class="h-50 w-100">
               <b-col class="d-inline-flex justify-content-center align-items-start">
-                <span class="mt-2 font-weight-bold font-size-md">
+                <span class="mt-2 font-weight-bold font-size-14">
                   + 124
                 </span>
               </b-col>

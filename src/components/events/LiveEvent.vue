@@ -59,16 +59,22 @@
                     </strong>
                   </small>
                 </b-col>
-                <b-col
-                  class="text-right ml-auto">
-                  <small>
-                    <strong class="text-arc-clr-iron">
-                      0
-                    </strong>
+              </b-row>
+            </b-col>
+
+            <b-col
+              cols="auto"
+              class="pt-2 px-3">
+              <b-row
+                v-for="(score, index) in getScore"
+                :key="index"
+                no-gutters>
+                <b-col class="d-inline-flex">
+                  <small class="font-weight-bold text-arc-clr-iron">
+                    {{ score }}
                   </small>
                 </b-col>
               </b-row>
-
             </b-col>
 
             <b-col
@@ -146,7 +152,7 @@
           style="max-width: 70px; min-height: 100%; position:relative">
 
           <b-row
-            no-gutters
+            no-gutters-page-vue
             class="text-center h-100">
 
             <b-row
@@ -207,6 +213,11 @@ export default {
   computed: {
     marketsCount () {
       return this.event.markets_count - 1
+    },
+    getScore () {
+      if (this.event.state.score) {
+        return this.event.state.score.split(':')
+      }
     }
   }
 }

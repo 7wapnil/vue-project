@@ -134,6 +134,12 @@
           {{ bet.message }}
         </b-alert>
         <b-alert
+          :show="isSuccess"
+          class="mt-3 mx-auto p-2 text-center"
+          variant="success">
+          {{ successMessage }}
+        </b-alert>
+        <b-alert
           :show="isDisabled"
           class="mt-3 mx-auto p-2 text-center"
           variant="danger">
@@ -178,7 +184,8 @@ export default {
         warning: 'warning',
       },
       isDisabled: false,
-      disabledMessage: 'This market is inactive.'
+      disabledMessage: 'This market is inactive.',
+      successMessage: 'Your bet was successfully placed.'
     }
   },
   apollo: {
@@ -237,7 +244,10 @@ export default {
     },
     hasMessage () {
       return this.bet.message !== null
-    }
+    },
+    isSuccess () {
+      return this.bet.success
+    },
   },
   methods: {
     ...mapMutations('betslip', [

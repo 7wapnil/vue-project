@@ -43,7 +43,7 @@
                 class="bg-arc-clr-soil-darker"
                 style="border-radius: 0 6px 6px 6px"
                 no-gutters>
-                <b-col class="pl-3 mr-3 d-inline-block text-truncate text-arc-clr-iron-light font-size-md">
+                <b-col class="pl-3 mr-3 d-inline-block text-truncate text-arc-clr-iron-light font-size-14">
                   Faze Clan
                 </b-col>
                 <b-col
@@ -61,7 +61,7 @@
                 class="bg-arc-clr-soil-darker"
                 style="border-radius: 0 6px 6px 6px"
                 no-gutters>
-                <b-col class="pl-3 mr-3 d-inline-block text-truncate text-arc-clr-iron-light font-size-md">
+                <b-col class="pl-3 mr-3 d-inline-block text-truncate text-arc-clr-iron-light font-size-14">
                   Low Crew
                 </b-col>
                 <b-col
@@ -79,7 +79,7 @@
                 class="bg-arc-clr-soil-darker"
                 style="border-radius: 0 6px 6px 6px"
                 no-gutters>
-                <b-col class="pl-3 mr-3 d-inline-block text-truncate text-arc-clr-iron-light font-size-md">
+                <b-col class="pl-3 mr-3 d-inline-block text-truncate text-arc-clr-iron-light font-size-14">
                   Liverpool
                 </b-col>
                 <b-col

@@ -20,7 +20,7 @@
             name="event-details-chevron-down"/>
         </b-col>
         <b-col class="d-flex align-items-center text-truncate">
-          <span class="font-weight-bold font-size-md text-arc-clr-iron-light">
+          <span class="font-weight-bold font-size-14 text-arc-clr-iron-light">
             Total team points
           </span>
         </b-col>
@@ -38,7 +38,7 @@
             align-v="center"
             class="pb-2 px-3"
             style="border-radius: 0 0 4px 4px">
-            <b-col class="mr-2 ml-4 font-size-md text-arc-clr-iron-light text-truncate">
+            <b-col class="mr-2 ml-4 font-size-14 text-arc-clr-iron-light text-truncate">
               Charlotte Hornets
             </b-col>
             <b-col class="mr-2">
@@ -47,7 +47,7 @@
                 class="bg-arc-clr-soil-darker"
                 style="border-radius: 0 6px 6px 6px"
                 no-gutters>
-                <b-col class="pl-3 mr-3 d-inline-block text-truncate text-arc-clr-iron-light font-size-md">
+                <b-col class="pl-3 mr-3 d-inline-block text-truncate text-arc-clr-iron-light font-size-14">
                   Over 109.5
                 </b-col>
                 <b-col
@@ -65,7 +65,7 @@
                 class="bg-arc-clr-soil-darker"
                 style="border-radius: 0 6px 6px 6px"
                 no-gutters>
-                <b-col class="pl-3 mr-3 d-inline-block text-truncate text-arc-clr-iron-light font-size-md">
+                <b-col class="pl-3 mr-3 d-inline-block text-truncate text-arc-clr-iron-light font-size-14">
                   Under 109.5
                 </b-col>
                 <b-col

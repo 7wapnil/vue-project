@@ -2,14 +2,20 @@
 
 @import '../variables';
 
-.font-size {
-  &-xs {
-    font-size: $extra-small-font-size; // 10px
+.letter-spacing {
+  &-0 {
+    letter-spacing: .09px;
   }
-  &-sm {
-    font-size: $small-font-size; // 12px
+  &-1 {
+    letter-spacing: .1px;
   }
-  &-md {
-    font-size: $h6-font-size; // 14px
+  &-2 {
+    letter-spacing: .21px;
+  }
+}
+
+@for $i from 1 through 30 {
+  .font-size-#{$i} {
+    font-size: $i + px
   }
 }
