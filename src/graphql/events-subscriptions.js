@@ -35,6 +35,14 @@ export const SPORT_EVENT_UPDATED = gql`
   }
 `
 
+export const CATEGORY_EVENT_UPDATED = gql`
+  subscription categoryEventUpdated ($category: ID, $live: Boolean = false) {
+    category_event_updated (category: $category, live: $live) {
+      ${SUBSCRIPTION_FIELDS}
+    }
+  }
+`
+
 export const TOURNAMENT_EVENT_UPDATED = gql`
   subscription tournamentEventUpdated ($tournament: ID, $live: Boolean = false) {
     tournament_event_updated (tournament: $tournament, live: $live) {

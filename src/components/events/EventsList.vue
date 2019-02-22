@@ -65,6 +65,7 @@ import {
   EVENTS_LIST_QUERY,
   KIND_EVENT_UPDATED,
   SPORT_EVENT_UPDATED,
+  CATEGORY_EVENT_UPDATED,
   TOURNAMENT_EVENT_UPDATED
 } from '@/graphql'
 import { updateCacheList } from '@/helpers/graphql'
@@ -146,12 +147,12 @@ export default {
       if (this.tournamentId) {
         document = TOURNAMENT_EVENT_UPDATED
         variables.tournament = this.tournamentId
+      } else if (this.categoryId) {
+        document = CATEGORY_EVENT_UPDATED
+        variables.category = this.categoryId
       } else if (this.titleId) {
         document = SPORT_EVENT_UPDATED
         variables.title = this.titleId
-        if (this.categoryId) {
-          variables.category = this.categoryId
-        }
       } else {
         document = KIND_EVENT_UPDATED
         variables.kind = this.$route.params.titleKind
