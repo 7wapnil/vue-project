@@ -201,7 +201,7 @@ export default {
       })
 
       return groupedEvents
-    },
+    }
   },
   methods: {
     emitTitleChange (titleId) {
