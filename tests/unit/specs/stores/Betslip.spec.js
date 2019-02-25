@@ -57,7 +57,8 @@ describe('wallets store', () => {
       const validGettersState = {
         getTotalStakes: 2,
         anyInitialBet: true,
-        betslipValuesConfirmed: true
+        betslipValuesConfirmed: true,
+        getStatusDisabled: false
       }
 
       it('is submittable when all rules valid', () => {

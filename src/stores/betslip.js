@@ -73,7 +73,7 @@ export const getters = {
     console.log(getters.getBetslipStatus)
     if (getters.betslipValuesConfirmed &&
       getters.getTotalStakes > 0 &&
-      getters.getTotalStakes <= activeWallet.amount && getters.getBetslipStatus
+      getters.getTotalStakes <= activeWallet.amount && !getters.getStatusDisabled
     ) {
       enabled = true
     }
@@ -106,7 +106,7 @@ export const getters = {
   getTotalReturn (state) {
     return state.bets.map(el => (el.stake > 0 ? el.stake : 0) * el.approvedOddValue).reduce((a, b) => +a + +b, 0)
   },
-  getBetslipStatus (state) {
+  getStatusDisabled (state) {
     return state.status === 'disabled'
   }
 }
@@ -132,7 +132,7 @@ export default {
   state: {
     bets: getBetsFromStorage(),
     acceptAll: false,
-    isSubmittable: true
+    status: null
   },
   actions,
   mutations,
