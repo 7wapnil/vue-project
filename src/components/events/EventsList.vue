@@ -44,9 +44,16 @@
             <slot :event="event"/>
           </b-card>
         </div>
-        <more-button
-          v-if="categoryId && tournament.events.length > 16"
-          :link="{ name: 'tournament', params: { titleKind: $route.params.titleKind, titleId: titleId, tournamentId: tournament.id } }"/>
+        <b-link
+          v-if="categoryId && tournament.events.length === 16"
+          :to="{ name: 'tournament', params: { titleKind: $route.params.titleKind, titleId: titleId, tournamentId: tournament.id } }"
+          exact>
+          <b-button
+            class="mt-2"
+            variant="arc-primary">
+            More
+          </b-button>
+        </b-link>
       </div>
     </div>
 
@@ -69,13 +76,11 @@ import {
   TOURNAMENT_EVENT_UPDATED
 } from '@/graphql'
 import { updateCacheList } from '@/helpers/graphql'
-import MoreButton from '@/components/custom/MoreButton'
 import { TITLE_CHANGED } from '@/constants/custom-events'
 import { NO_CACHE } from '@/constants/graphql/fetch-policy'
 import { CONTEXT_TO_START_STATUS_MAP } from '@/constants/graphql/event-start-statuses'
 
 export default {
-  components: { MoreButton },
   props: {
     header: {
       type: String,
