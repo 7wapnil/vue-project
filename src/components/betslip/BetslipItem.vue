@@ -137,7 +137,7 @@
           :show="bet.success"
           class="mt-3 mx-auto p-2 text-center"
           variant="success">
-          {{ message.MESSAGE_SUCCESS }}
+          {{ messages.MESSAGE_SUCCESS }}
         </b-alert>
         <b-alert
           :show="isDisabled || isSettled"

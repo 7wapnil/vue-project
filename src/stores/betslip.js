@@ -70,7 +70,7 @@ export const getters = {
       return false
     }
     let enabled = false
-    console.log(getters.getBetslipStatus)
+    console.log(getters.getStatusDisabled)
     if (getters.betslipValuesConfirmed &&
       getters.getTotalStakes > 0 &&
       getters.getTotalStakes <= activeWallet.amount && !getters.getStatusDisabled
