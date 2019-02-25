@@ -15,6 +15,7 @@ import { TITLES_QUERY } from '@/graphql'
 import { TITLE_CHANGED } from '@/constants/custom-events'
 import FilterTabs from './FilterTabs'
 import { LIVE, UPCOMING_FOR_TIME } from '@/constants/graphql/event-context'
+import { UPCOMING_FOR_TIME_TITLES_CONTEXT } from '@/constants/graphql/title-context'
 
 export default {
   components: {
@@ -25,7 +26,8 @@ export default {
       return {
         query: TITLES_QUERY,
         variables: {
-          kind: this.$route.params.titleKind
+          kind: this.$route.params.titleKind,
+          context: UPCOMING_FOR_TIME_TITLES_CONTEXT
         }
       }
     }
