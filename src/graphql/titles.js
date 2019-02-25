@@ -4,10 +4,11 @@ import { TITLE_FIELDS, SCOPE_FIELDS } from './fields'
 export const TITLES_QUERY = gql`
   query titlesList(
     $kind: String, 
+    $context: String, 
     $withScopes: Boolean = false,
     $withTournaments: Boolean = false
   ) {
-    titles (kind: $kind) {
+    titles (kind: $kind, context: $context) {
       ${TITLE_FIELDS}
       event_scopes @include (if: $withScopes) {
         ${SCOPE_FIELDS}
