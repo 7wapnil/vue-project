@@ -11,6 +11,7 @@
 <script>
 import { INACTIVE_STATUS as ODD_INACTIVE_STATUS } from '@/models/odd'
 import { mapActions, mapGetters, mapMutations } from 'vuex'
+import { LIVE } from '@/constants/graphql/event-start-statuses'
 
 export default {
   props: {
@@ -38,11 +39,11 @@ export default {
   },
   computed: {
     isEventAvailable () {
-      if (this.event.live && !this.isLiveConnected) {
+      if (this.event.start_status === LIVE && !this.isLiveConnected) {
         return false
       }
 
-      if (!this.event.live && !this.isPreLiveConnected) {
+      if (!this.event.start_status === LIVE && !this.isPreLiveConnected) {
         return false
       }
 

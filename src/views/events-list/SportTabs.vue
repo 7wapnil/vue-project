@@ -14,7 +14,8 @@
 import { TITLES_QUERY } from '@/graphql'
 import { TITLE_CHANGED } from '@/constants/custom-events'
 import FilterTabs from './FilterTabs'
-import { LIVE, UPCOMING_FOR_TIME } from '@/constants/graphql/event-context'
+import { UPCOMING_FOR_TIME } from '@/constants/graphql/event-context'
+import { LIVE, UPCOMING } from '@/constants/graphql/event-start-statuses'
 
 export default {
   components: {
@@ -35,11 +36,11 @@ export default {
       titles: [],
       activeTitleId: null,
       tabsMapping: [{
-        id: 'live',
+        id: LIVE,
         title: 'Live now',
         context: LIVE
       }, {
-        id: 'upcoming',
+        id: UPCOMING,
         title: 'Upcoming',
         context: UPCOMING_FOR_TIME
       }]

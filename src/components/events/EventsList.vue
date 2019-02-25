@@ -65,13 +65,14 @@ import {
   EVENTS_LIST_QUERY,
   KIND_EVENT_UPDATED,
   SPORT_EVENT_UPDATED,
+  CATEGORY_EVENT_UPDATED,
   TOURNAMENT_EVENT_UPDATED
 } from '@/graphql'
 import { updateCacheList } from '@/helpers/graphql'
 import MoreButton from '@/components/custom/MoreButton'
 import { TITLE_CHANGED } from '@/constants/custom-events'
-import { LIVE } from '@/constants/graphql/event-context'
 import { NO_CACHE } from '@/constants/graphql/fetch-policy'
+import { CONTEXT_TO_START_STATUS_MAP } from '@/constants/graphql/event-start-statuses'
 
 export default {
   components: { MoreButton },
@@ -106,7 +107,10 @@ export default {
           variables: this.subscription.variables,
           updateQuery ({ events }, { subscriptionData }) {
             const endpoint = Object.keys(subscriptionData.data)[0]
-            return { events: updateCacheList(events, subscriptionData.data[endpoint]) }
+            const attributes = subscriptionData.data[endpoint]
+            const isRemoved = attributes.start_status !== CONTEXT_TO_START_STATUS_MAP[this.context]
+
+            return { events: updateCacheList(events, attributes, isRemoved) }
           }
         }
       }
@@ -119,13 +123,6 @@ export default {
     }
   },
   computed: {
-    getContext () {
-      if (this.live) {
-        return 'live'
-      }
-
-      return this.context
-    },
     query () {
       return {
         query: EVENTS_LIST_QUERY,
@@ -135,23 +132,23 @@ export default {
           titleId: this.titleId,
           tournamentId: this.tournamentId,
           categoryId: this.categoryId,
-          context: this.getContext
+          context: this.context
         }
       }
     },
     subscription () {
       let document = null
-      let variables = { live: this.context === LIVE }
+      let variables = {}
 
       if (this.tournamentId) {
         document = TOURNAMENT_EVENT_UPDATED
         variables.tournament = this.tournamentId
+      } else if (this.categoryId) {
+        document = CATEGORY_EVENT_UPDATED
+        variables.category = this.categoryId
       } else if (this.titleId) {
         document = SPORT_EVENT_UPDATED
         variables.title = this.titleId
-        if (this.categoryId) {
-          variables.category = this.categoryId
-        }
       } else {
         document = KIND_EVENT_UPDATED
         variables.kind = this.$route.params.titleKind
