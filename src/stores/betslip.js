@@ -57,6 +57,9 @@ export const mutations = {
   },
   updateAcceptAll (state, acceptValue) {
     state.acceptAll = acceptValue
+  },
+  setBetslipStatus (state, status) {
+    state.status = status
   }
 }
 
@@ -67,10 +70,10 @@ export const getters = {
       return false
     }
     let enabled = false
-
+    console.log(getters.getBetslipStatus)
     if (getters.betslipValuesConfirmed &&
       getters.getTotalStakes > 0 &&
-      getters.getTotalStakes <= activeWallet.amount
+      getters.getTotalStakes <= activeWallet.amount && getters.getBetslipStatus
     ) {
       enabled = true
     }
@@ -102,6 +105,9 @@ export const getters = {
   },
   getTotalReturn (state) {
     return state.bets.map(el => (el.stake > 0 ? el.stake : 0) * el.approvedOddValue).reduce((a, b) => +a + +b, 0)
+  },
+  getBetslipStatus (state) {
+    return state.status === 'disabled'
   }
 }
 
@@ -125,7 +131,8 @@ export default {
   namespaced: true,
   state: {
     bets: getBetsFromStorage(),
-    acceptAll: false
+    acceptAll: false,
+    isSubmittable: true
   },
   actions,
   mutations,

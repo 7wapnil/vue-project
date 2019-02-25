@@ -134,13 +134,13 @@
           {{ bet.message }}
         </b-alert>
         <b-alert
-          :show="isSuccess"
+          :show="bet.success"
           class="mt-3 mx-auto p-2 text-center"
           variant="success">
-          {{ successMessage }}
+          {{ message.MESSAGE_SUCCESS }}
         </b-alert>
         <b-alert
-          :show="isDisabled"
+          :show="isDisabled || isSettled"
           class="mt-3 mx-auto p-2 text-center"
           variant="danger">
           {{ disabledMessage }}
@@ -159,6 +159,7 @@ import {
   SUSPENDED_STATUS,
   INACTIVE_STATUS as MARKET_INACTIVE_STATUS,
   SETTLED_STATUS,
+  CANCELLED_STATUS,
   HANDED_OVER_STATUS
 } from '@/models/market'
 
@@ -175,6 +176,11 @@ export default {
   data () {
     return {
       status: null,
+      messages: {
+        MESSAGE_SETTLED: 'Odds suspended',
+        MESSAGE_DISABLED: 'Odds closed',
+        MESSAGE_SUCCESS: 'Bet has been successfully placed'
+      },
       variantMapping: {
         initial: 'arc-clr-soil-dark',
         submitting: 'light',
@@ -184,8 +190,8 @@ export default {
         warning: 'warning',
       },
       isDisabled: false,
-      disabledMessage: 'This market is inactive.',
-      successMessage: 'Your bet was successfully placed.'
+      isSettled: false,
+      disabledMessage: null,
     }
   },
   apollo: {
@@ -244,16 +250,14 @@ export default {
     },
     hasMessage () {
       return this.bet.message !== null
-    },
-    isSuccess () {
-      return this.bet.success
-    },
+    }
   },
   methods: {
     ...mapMutations('betslip', [
       'setBetStake',
       'updateBet',
-      'removeBetFromBetslip'
+      'removeBetFromBetslip',
+      'setBetslipStatus'
     ]),
     updateOdds (market) {
       const bets = this.getBets
@@ -272,14 +276,24 @@ export default {
       })
     },
     handleMarketStatus (market) {
+      this.isSettled = market.status === SETTLED_STATUS
+
       this.isDisabled = [
         SUSPENDED_STATUS,
         MARKET_INACTIVE_STATUS,
-        SETTLED_STATUS,
-        HANDED_OVER_STATUS
+        HANDED_OVER_STATUS,
+        CANCELLED_STATUS
       ].includes(market.status)
 
-      return this.isDisabled
+      if (this.isSettled) {
+        this.disabledMessage = this.messages.MESSAGE_SETTLED
+        this.setBetslipStatus('disabled')
+      } else if (this.isDisabled) {
+        this.disabledMessage = this.messages.MESSAGE_DISABLED
+        this.setBetslipStatus('disabled')
+      }
+      console.log('status', market.status)
+      return this.isDisabled || this.isSettled
     },
     confirmValue () {
       this.updateBet({ oddId: this.bet.oddId, payload: { approvedOddValue: this.bet.currentOddValue } })
