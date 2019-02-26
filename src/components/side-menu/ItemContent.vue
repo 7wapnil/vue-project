@@ -10,7 +10,7 @@
         :name="item.icon"
         size="24px"/>
     </b-col>
-    <b-col class="py-1 pr-3 d-flex align-items-center justify-content-start">
+    <b-col class="py-1 pr-3 d-flex align-items-center justify-content-start letter-spacing-2">
       <span class="text-truncate">
         {{ item.label }}
       </span>

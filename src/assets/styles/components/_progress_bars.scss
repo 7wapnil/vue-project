@@ -1,10 +1,62 @@
 @import '../variables';
 
-.progress {
-  background-color: rgba($black, .3) !important;
+// Navbar wallet
+.arc-wallet-progress-bar {
+    padding: 2px;
+    position: relative;
+    background-color: rgba($black, .3);
+  .progress-bar {
+    border-radius: 0 0 0 4px;
+  }
+}
+
+// User profile / Bonus section
+.progress-scale {
+  border-right: 2px solid $arc-clr-soil-darker;
+  height: 11px;
+  &:first-child {
+    border-left: 2px solid $arc-clr-soil-darker;
+  }
+  &-percent {
+    margin-left: -3px;
+    &:last-child {
+      margin-right: -18px;
+    }
+  }
+}
+.arc-bonus-progress-bar {
+  background-color: $arc-clr-soil-darker;
   padding: 2px;
   position: relative;
-}
-.progress-bar {
   border-radius: 0 0 0 4px;
+  z-index: 1;
+  &-tooltip {
+    border-radius: 6px 0 6px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #2A2A2A;
+    width: 46px;
+    height: 28px;
+    font-size: $small-font-size;
+    font-weight: $font-weight-bold;
+    color: $arc-clr-sport-glow;
+    position: relative;
+    top: 25px;
+    margin-left: -23px;
+    z-index: 200;
+    &::after {
+      width: 2px;
+      height: 32px;
+      background-color: $arc-clr-white;
+      content: '';
+      position: absolute;
+      bottom: -28px;
+      z-index: 3;
+    }
+  }
+  .progress-bar {
+    background-image: linear-gradient(-90deg, $arc-clr-sport-glow 3%,  $arc-clr-sport-bg 100%);
+    border-radius: 0 0 0 3px;
+  }
 }

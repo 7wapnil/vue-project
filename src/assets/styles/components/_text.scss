@@ -12,9 +12,12 @@
   &-2 {
     letter-spacing: .21px;
   }
+  &-5 {
+    letter-spacing: .58px;
+  }
 }
 
-@for $i from 1 through 30 {
+@for $i from 1 through 36 {
   .font-size-#{$i} {
     font-size: $i + px
   }

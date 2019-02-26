@@ -141,8 +141,10 @@
 }
 
 // Progress bar
-.progress-bar {
-  background-image: linear-gradient(90deg, $nav-wallet-progress-bar-bg 0%, #65A5FF 100%);
+.arc-wallet-progress-bar {
+  .progress-bar {
+    background-image: linear-gradient(90deg, $nav-wallet-progress-bar-bg 0%, #65A5FF 100%);
+  }
   &-percent {
     color: $nav-wallet-currency-color;
   }

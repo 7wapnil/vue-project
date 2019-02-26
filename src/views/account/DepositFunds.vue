@@ -21,6 +21,26 @@
       <b-col
         class="ml-5"
         lg="4">
+        <b-row
+          v-if="currency"
+          no-gutters
+          class="mt-4">
+          <b-col
+            md="12"
+            lg="10"
+            class="mr-auto ml-auto ml-3"
+            block>
+            <b-input-group :append="currency">
+              <b-form-input
+                id="deposit-amount-currency"
+                v-model="fields.amount"
+                class="bg-arc-clr-white"
+                type="text"
+                placeholder="Amount"
+              />
+            </b-input-group>
+          </b-col>
+        </b-row>
 
         <RegularInput
           v-if="!currency"
@@ -31,7 +51,7 @@
           bottom-bar
         />
         <b-row
-          v-if="!currency"
+          v-if="!walletExists"
           align-h="center"
           no-gutters
           class="mt-4">
@@ -40,7 +60,7 @@
             md="1">
             <SelectInput
               id="deposit-currency"
-              :options="currencyList"
+              :options="filteredCurrencies"
               v-model="currency"
               class-name="currency"
               type="select"
@@ -51,26 +71,6 @@
         </b-row>
 
         <div>
-          <b-row
-            v-if="currency"
-            no-gutters
-            class="mt-4">
-            <b-col
-              md="12"
-              lg="10"
-              class="mr-auto ml-auto ml-3"
-              block>
-              <b-input-group :append="currency">
-                <b-form-input
-                  id="deposit-amount-currency"
-                  v-model="fields.amount"
-                  class="bg-arc-clr-white"
-                  type="text"
-                  placeholder="Amount"
-                />
-              </b-input-group>
-            </b-col>
-          </b-row>
           <b-row
             no-gutters
             class="mt-4">
@@ -138,6 +138,7 @@
 import RegularInput from '@/components/inputs/RegularInput.vue'
 import SelectInput from '@/components/inputs/SelectInput.vue'
 import { mapGetters } from 'vuex'
+import { CURRENCIES_LIST_QUERY } from '@/graphql'
 
 export default {
   name: 'DepositFunds',
@@ -152,17 +153,23 @@ export default {
         bonusCode: ''
       },
       dropdownCurrency: null,
-      currencyList: [{ label: 'EUR', value: 'EUR' },
-        { label: 'USD', value: 'USD' },
-        { label: 'SEK', value: 'SEK' },
-        { label: 'NOK', value: 'NOK' },
-        { label: 'CAD', value: 'CAD' },
-        { label: 'AUD', value: 'AUD' }],
+      currencies: [],
       redirectUrl: process.env.VUE_APP_DEPOSIT_URL,
-      walletExists: null,
       calculatedBonus: '',
       isVisible: null,
-      depositState: this.$route.query.depositState
+      depositState: this.$route.query.depositState,
+      variantMap: {
+        pending: 'warning',
+        success: 'success',
+        fail: 'danger'
+      }
+    }
+  },
+  apollo: {
+    currencies () {
+      return {
+        query: CURRENCIES_LIST_QUERY
+      }
     }
   },
   computed: {
@@ -201,16 +208,23 @@ export default {
         this.dropdownCurrency = value
       }
     },
+    walletExists () {
+      return Object.entries(this.walletActive).length !== 0
+    },
     getMessage () {
       return this.$route.query.depositStateMessage
     },
     mapDepositState () {
-      const variantMap = {
-        pending: 'warning',
-        success: 'success',
-        fail: 'danger'
-      }
-      return variantMap[this.depositState]
+      return this.variantMap[this.depositState]
+    },
+    filteredCurrencies () {
+      let currencyList = []
+
+      this.currencies.forEach((currency) => {
+        currencyList.push({ label: currency.name, value: currency.code, kind: currency.kind, primary: currency.primary })
+      })
+
+      return currencyList
     }
   },
   methods: {
@@ -237,7 +251,7 @@ export default {
         .map(param => param + '=' + queryParams[param])
         .join('&');
       window.location.href = this.redirectUrl += query
-    }
+    },
   }
 }
 </script>
