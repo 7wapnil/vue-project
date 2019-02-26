@@ -218,7 +218,7 @@ export default {
             if (betPayload.success && betPayload.bet) {
               this.removeBetFromBetslip(bet.oddId)
             }
-            this.updateBet({ oddId: bet.oddId, payload: { status:  betPayload.bet ? betPayload.bet.status : null } })
+            this.updateBet({ oddId: bet.oddId, payload: { status: betPayload.bet ? betPayload.bet.status : null } })
             this.disableButton = false
           }, BET_DESTROY_TIMEOUT)
         })

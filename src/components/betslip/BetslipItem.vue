@@ -140,7 +140,7 @@
           {{ messages.MESSAGE_SUCCESS }}
         </b-alert>
         <b-alert
-          :show="isDisabled || isSettled"
+          :show="isBetDisabled"
           class="mt-3 mx-auto p-2 text-center"
           variant="danger">
           {{ disabledMessage }}
@@ -265,6 +265,9 @@ export default {
     },
     hasMessage () {
       return this.bet.message !== null
+    },
+    isBetDisabled () {
+      return this.isDisabled || this.isSettled
     }
   },
   methods: {
@@ -300,8 +303,6 @@ export default {
       ].includes(market.status)
 
       this.disabledMessage = this.isSettled ? this.messages.MESSAGE_SETTLED : this.messages.MESSAGE_DISABLED
-
-      return this.isDisabled || this.isSettled
     },
     confirmValue () {
       this.updateBet({ oddId: this.bet.oddId, payload: { approvedOddValue: this.bet.currentOddValue } })
