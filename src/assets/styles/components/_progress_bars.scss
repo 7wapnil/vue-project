@@ -40,7 +40,7 @@
     height: 28px;
     font-size: $small-font-size;
     font-weight: $font-weight-bold;
-    color: $arc-clr-sport-glow;
+    color: $arc-clr-gold;
     position: relative;
     top: 25px;
     margin-left: -23px;
@@ -56,7 +56,7 @@
     }
   }
   .progress-bar {
-    background-image: linear-gradient(-90deg, $arc-clr-sport-glow 3%,  $arc-clr-sport-bg 100%);
+    background-image: linear-gradient(-90deg, $arc-clr-gold 3%, #DE8F2B 100%);
     border-radius: 0 0 0 3px;
   }
 }
