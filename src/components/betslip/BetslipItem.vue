@@ -271,8 +271,7 @@ export default {
     ...mapMutations('betslip', [
       'setBetStake',
       'updateBet',
-      'removeBetFromBetslip',
-      'setBetslipStatus'
+      'removeBetFromBetslip'
     ]),
     updateOdds (market) {
       const bets = this.getBets
@@ -288,8 +287,6 @@ export default {
         if (acceptAllChecked && bet.currentOddValue !== bet.approvedOddValue) {
           updateBet({ oddId: bet.oddId, payload: { approvedOddValue: odd.value, status: 'warning', marketStatus: market.status } })
         }
-
-        console.log(bet.marketStatus)
       })
     },
     handleMarketStatus (market) {

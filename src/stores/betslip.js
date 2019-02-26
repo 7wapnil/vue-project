@@ -57,9 +57,6 @@ export const mutations = {
   },
   updateAcceptAll (state, acceptValue) {
     state.acceptAll = acceptValue
-  },
-  setBetslipStatus (state, status) {
-    state.status = status
   }
 }
 
@@ -70,7 +67,6 @@ export const getters = {
       return false
     }
     let enabled = false
-    console.log(getters.getAnyInactiveMarket)
     if (getters.betslipValuesConfirmed &&
       getters.getTotalStakes > 0 &&
       getters.getTotalStakes <= activeWallet.amount && !getters.getAnyInactiveMarket
