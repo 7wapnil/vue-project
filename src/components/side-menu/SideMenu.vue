@@ -3,7 +3,7 @@
     class="side-menu flex-nowrap"
     vertical>
     <b-nav-item class="d-inline-flex align-items-center justify-content-start p-3 bg-arc-clr-soil-dark side-menu-categories">
-      <span class="text-arc-clr-iron">
+      <span class="text-arc-clr-iron letter-spacing-2">
         CATEGORIES
       </span>
     </b-nav-item>
