@@ -26,13 +26,14 @@
       <b-col>
         <b-progress
           :value="value"
+          class="arc-wallet-progress-bar"
           height="12px"/>
       </b-col>
     </b-row>
     <b-row no-gutters>
       <b-col class="pt-1 pb-3 d-flex justify-content-center align-items-center">
         <small>
-          <strong class="progress-bar-percent">
+          <strong class="arc-wallet-progress-bar-percent">
             {{ value }}%
           </strong>
         </small>

@@ -37,6 +37,10 @@ export const EVENT_BY_ID_QUERY = gql`
   query event ($id: ID!, $withScopes: Boolean = false) {
     event (id: $id) {
       ${EVENT_FIELDS_WITH_SCOPES}
+     
+     scopes @include (if: $withScopes) {
+    ${SCOPE_FIELDS}
+  }
     }
   }
 `

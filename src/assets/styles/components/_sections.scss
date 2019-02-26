@@ -1,0 +1,28 @@
+// Bonus section
+.bonus-overview-section {
+  border-radius: 6px 6px 0 0;
+  border: 1px solid $arc-dropdown-divider;
+  border-bottom: none;
+  height: 145px;
+  width: 100%;
+}
+.bonus-item {
+  cursor: pointer;
+  user-select: none;
+  box-shadow: 0 1px 0 0 $arc-clr-soil-cover;
+  margin-bottom: 1px;
+  .arc-bonus-chevron-down {
+    transform: rotateX(180deg);
+    transition: transform .8s ease;
+  }
+}
+.collapsed {
+  .arc-bonus-chevron-down {
+    transform: rotateX(0deg);
+    transition: transform .6s ease-in-out;
+  }
+  .bonus-item-name {
+    line-height: 20px;
+    color: $arc-clr-iron-light !important;
+  }
+}
