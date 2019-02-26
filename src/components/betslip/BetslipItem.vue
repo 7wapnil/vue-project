@@ -154,7 +154,7 @@
 import OddButton from '@/components/markets/OddButton.vue'
 import Bet from '@/models/bet'
 import { mapGetters, mapMutations } from 'vuex'
-import { UPDATE_MARKET_BY_ID } from '@/graphql'
+import { UPDATE_MARKET_BY_ID, MARKET_BY_ID_QUERY } from '@/graphql'
 import {
   SUSPENDED_STATUS,
   INACTIVE_STATUS as MARKET_INACTIVE_STATUS,
@@ -195,6 +195,21 @@ export default {
     }
   },
   apollo: {
+    markets () {
+      return {
+        query: MARKET_BY_ID_QUERY,
+        variables: {
+          id: this.bet.marketId,
+          eventId: this.bet.eventId
+        },
+        result ({ data }) {
+          data.markets.forEach(market => {
+            this.updateOdds(market)
+            this.handleMarketStatus(market)
+          })
+        }
+      }
+    },
     $subscribe: {
       marketUpdated: {
         query: UPDATE_MARKET_BY_ID,
@@ -268,11 +283,13 @@ export default {
         let bet = bets.find(el => el.oddId === odd.id)
 
         if (!bet) return
-        updateBet({ oddId: bet.oddId, payload: { currentOddValue: odd.value } })
+        updateBet({ oddId: bet.oddId, payload: { currentOddValue: odd.value, marketStatus: market.status } })
 
         if (acceptAllChecked && bet.currentOddValue !== bet.approvedOddValue) {
-          updateBet({ oddId: bet.oddId, payload: { approvedOddValue: odd.value, status: 'warning' } })
+          updateBet({ oddId: bet.oddId, payload: { approvedOddValue: odd.value, status: 'warning', marketStatus: market.status } })
         }
+
+        console.log(bet.marketStatus)
       })
     },
     handleMarketStatus (market) {
@@ -285,14 +302,8 @@ export default {
         CANCELLED_STATUS
       ].includes(market.status)
 
-      if (this.isSettled) {
-        this.disabledMessage = this.messages.MESSAGE_SETTLED
-        this.setBetslipStatus('disabled')
-      } else if (this.isDisabled) {
-        this.disabledMessage = this.messages.MESSAGE_DISABLED
-        this.setBetslipStatus('disabled')
-      }
-      console.log('status', market.status)
+      this.disabledMessage = this.isSettled ? this.messages.MESSAGE_SETTLED : this.messages.MESSAGE_DISABLED
+
       return this.isDisabled || this.isSettled
     },
     confirmValue () {

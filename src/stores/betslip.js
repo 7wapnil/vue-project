@@ -70,10 +70,10 @@ export const getters = {
       return false
     }
     let enabled = false
-    console.log(getters.getStatusDisabled)
+    console.log(getters.getAnyInactiveMarket)
     if (getters.betslipValuesConfirmed &&
       getters.getTotalStakes > 0 &&
-      getters.getTotalStakes <= activeWallet.amount && !getters.getStatusDisabled
+      getters.getTotalStakes <= activeWallet.amount && !getters.getAnyInactiveMarket
     ) {
       enabled = true
     }
@@ -106,8 +106,8 @@ export const getters = {
   getTotalReturn (state) {
     return state.bets.map(el => (el.stake > 0 ? el.stake : 0) * el.approvedOddValue).reduce((a, b) => +a + +b, 0)
   },
-  getStatusDisabled (state) {
-    return state.status === 'disabled'
+  getAnyInactiveMarket (state) {
+    return !!state.bets.find(bet => bet.marketStatus !== 'active');
   }
 }
 
@@ -131,8 +131,7 @@ export default {
   namespaced: true,
   state: {
     bets: getBetsFromStorage(),
-    acceptAll: false,
-    status: null
+    acceptAll: false
   },
   actions,
   mutations,
