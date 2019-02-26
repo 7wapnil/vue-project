@@ -30,7 +30,7 @@
 </template>
 <script>
 import Account from './Account'
-import Bonus from './AccountBonus'
+import Bonus from './bonus/Page'
 import Promotions from './AccountPromotions'
 import Activity from './Activity'
 import DepositFunds from './DepositFunds'

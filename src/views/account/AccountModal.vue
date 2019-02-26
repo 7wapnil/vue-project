@@ -13,7 +13,7 @@
 
     <template slot="modal-header">
       <span class="text-capitalize text-arc-clr-white text-text-truncate font-weight-light">
-        {{ user.username + ' profile' }}
+        {{ user.username + '\'s profile' }}
       </span>
       <div @click="hideModal">
         <icon
