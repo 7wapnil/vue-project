@@ -116,7 +116,8 @@
         </b-col>
 
         <b-col
-          v-b-toggle="'upcoming-event-' + event.id"
+          v-b-toggle="'live-event-' + event.id"
+          v-if="event.dashboard_market.length > 1"
           cols="auto"
           class="px-3 event-card-toggle-button">
           <b-row
@@ -145,6 +146,7 @@
         </b-col>
 
         <b-link
+          v-if="marketsCount > 0"
           :to="{ name: 'event', params: { id: event.id } }"
           class="col upcoming-statistics event-card-inside-border"
           style="max-width: 70px; min-height: 100%; position:relative">
@@ -170,7 +172,7 @@
               <b-col class="d-inline-flex justify-content-center align-items-start">
                 <h6 class="mb-0 mt-1">
                   <strong>
-                    +124
+                    +{{ marketsCount }}
                   </strong>
                 </h6>
               </b-col>
@@ -187,7 +189,7 @@
         align="center"
         style="min-height: 0">
         <b-collapse
-          :id="'upcoming-event-' + `${event.id}`"
+          :id="'live-event-' + `${event.id}`"
           accordion="my-accordion">
           <b-row
             no-gutters
@@ -209,11 +211,14 @@ export default {
     }
   },
   computed: {
+    marketsCount () {
+      return this.event.markets_count - 1
+    },
     getScore () {
       if (this.event.state.score) {
         return this.event.state.score.split(':')
       }
-    },
+    }
   }
 }
 </script>

@@ -70,12 +70,6 @@
 
         <div class="w-100"/>
 
-        <b-col>
-          Best of 3
-        </b-col>
-
-        <div class="w-100"/>
-
         <b-col class="mt-1">
           <span
             v-if="event.state.time"
