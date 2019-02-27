@@ -34,7 +34,7 @@ import Bonus from './bonus/Page'
 import Activity from './Activity'
 import DepositFunds from './DepositFunds'
 import Withdraw from './AccountWithdraw'
-import AccountVerification from './AccountVerification'
+import AccountVerification from './account-verification/AccountVerification'
 import ChangePassword from './ChangePassword'
 import ProfileWallet from './ProfileWallet'
 
