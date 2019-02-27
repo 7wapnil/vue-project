@@ -137,7 +137,7 @@
           :show="bet.success"
           class="mt-3 mx-auto p-2 text-center"
           variant="success">
-          {{ messages.MESSAGE_SUCCESS }}
+          {{ successMessage }}
         </b-alert>
         <b-alert
           :show="isBetDisabled"
@@ -154,6 +154,7 @@
 import OddButton from '@/components/markets/OddButton.vue'
 import Bet from '@/models/bet'
 import { mapGetters, mapMutations } from 'vuex'
+import { MESSAGE_SETTLED, MESSAGE_DISABLED, MESSAGE_SUCCESS } from '@/constants/betslip-messages'
 import { UPDATE_MARKET_BY_ID, MARKET_BY_ID_QUERY } from '@/graphql'
 import {
   SUSPENDED_STATUS,
@@ -176,11 +177,6 @@ export default {
   data () {
     return {
       status: null,
-      messages: {
-        MESSAGE_SETTLED: 'Odds suspended',
-        MESSAGE_DISABLED: 'Odds closed',
-        MESSAGE_SUCCESS: 'Bet has been successfully placed'
-      },
       variantMapping: {
         initial: 'arc-clr-soil-dark',
         submitting: 'light',
@@ -268,6 +264,9 @@ export default {
     },
     isBetDisabled () {
       return this.isDisabled || this.isSettled
+    },
+    successMessage () {
+      return MESSAGE_SUCCESS
     }
   },
   methods: {
@@ -302,7 +301,7 @@ export default {
         CANCELLED_STATUS
       ].includes(market.status)
 
-      this.disabledMessage = this.isSettled ? this.messages.MESSAGE_SETTLED : this.messages.MESSAGE_DISABLED
+      this.disabledMessage = this.isSettled ? MESSAGE_SETTLED : MESSAGE_DISABLED
     },
     confirmValue () {
       this.updateBet({ oddId: this.bet.oddId, payload: { approvedOddValue: this.bet.currentOddValue } })
