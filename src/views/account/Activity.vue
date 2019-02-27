@@ -8,14 +8,15 @@
       </b-col>
     </b-row>
     <b-tabs
-      card
-      @input="loadBets">
+      card>
       <b-tab
         v-for="tab in tabs"
         :key="tab.id"
         :title="tab.title">
 
-        <loader v-if="loadingBets"/>
+        <loader
+          v-if="loadingBets"
+          style="height: 1300px;"/>
 
         <b-table
           v-if="!loadingBets"
@@ -45,6 +46,10 @@
         </b-table>
       </b-tab>
     </b-tabs>
+    <b-pagination
+      v-model="currentPage"
+      align="center"
+    />
   </div>
 </template>
 
@@ -64,6 +69,8 @@ export default {
   data () {
     return {
       bets: [],
+      page: 1,
+      itemsPerPage: 3,
       loadingBets: true,
       fields: [
         {
@@ -96,25 +103,48 @@ export default {
         id: 2,
         title: 'Sport',
         kind: 'sport'
-      }, {
-        id: 3,
-        title: 'Casino',
-        kind: 'casino'
-      }],
+      }]
     }
   },
-  methods: {
-    loadBets (index = 0) {
+  computed: {
+    currentPage: {
+      get () {
+        return this.page
+      },
+      set (value) {
+        this.page = value
+        this.showMore()
+      }
+    },
+  },
+  apollo: {
+    bets (index = 0) {
       this.loadingBets = true
-
       const kind = this.tabs[index].kind
-      this.$apollo.addSmartQuery('bets', {
+      return {
         query: BETS_LIST_QUERY,
         fetchPolicy: NO_CACHE,
-        variables: { kind },
+        variables: {
+          kind: kind
+        },
         result () {
           this.loadingBets = false
         }
+      }
+    }
+  },
+  methods: {
+    showMore (index = 0) {
+      this.loadingBets = true
+      const kind = this.tabs[index].kind
+      this.$apollo.queries.bets.fetchMore({
+        variables: {
+          kind: kind
+        },
+        updateQuery: (previousResult, { fetchMoreResult }) => {
+          this.bets = fetchMoreResult.bets
+          this.loadingBets = false
+        },
       })
     }
   }
