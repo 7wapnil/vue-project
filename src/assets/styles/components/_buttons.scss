@@ -10,6 +10,12 @@
   &:hover {
     cursor: pointer;
   }
+  &.disabled,
+  &:disabled {
+    opacity: unset;
+    pointer-events: none;
+    box-shadow: unset;
+  }
 }
 .btn-secondary,
 %btn-secondary {
