@@ -14,7 +14,7 @@
               <icon
                 name="bonus-chevron-down"
                 size="8px"
-                color="arc-clr-sport-glow"/>
+                color="arc-clr-iron"/>
             </span>
           </b-col>
           <b-col>

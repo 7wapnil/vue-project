@@ -31,11 +31,10 @@
 <script>
 import Account from './Account'
 import Bonus from './bonus/Page'
-import Promotions from './AccountPromotions'
 import Activity from './Activity'
 import DepositFunds from './DepositFunds'
 import Withdraw from './AccountWithdraw'
-import AccountVerification from './AccountVerification'
+import AccountVerification from './account-verification/AccountVerification'
 import ChangePassword from './ChangePassword'
 import ProfileWallet from './ProfileWallet'
 
@@ -43,7 +42,6 @@ export default {
   components: {
     Account,
     Bonus,
-    Promotions,
     Activity,
     DepositFunds,
     Withdraw,
@@ -62,10 +60,6 @@ export default {
         title: 'Bonus',
         component: Bonus,
         icon: 'profile-bonus'
-      }, {
-        title: 'Promotions',
-        component: Promotions,
-        icon: 'profile-promotions'
       }, {
         title: 'Activity',
         component: Activity,

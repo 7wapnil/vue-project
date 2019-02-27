@@ -1,41 +1,34 @@
 <template>
   <div>
+    <verification-status :user="user"/>
+    <disclaimer-section/>
+
     <b-row
-      v-if="user"
-      class="mb-4">
-      <b-col>
-        <h1>Account status</h1>
-      </b-col>
-      <b-col class="d-flex align-items-center justify-content-end">
-        <span
-          :class="[ user.verified ? 'badge-success' : '', 'badge-secondary']"
-          class="badge">
-          <h5 class="p-1 mb-0">
-            {{ user.verified ? 'Verified' : 'Not Verified' }}
-          </h5>
-        </span>
-      </b-col>
-    </b-row>
-    <b-row
-      v-for="item in items"
-      :key="item.name">
+      v-for="(item, index) in items"
+      :key="index"
+      class="h-100 py-4 verification-card"
+      no-gutters>
       <b-col
-        cols="8"
-        class="mb-3">
-        <label :for="item.name">
+        cols="10"
+        class="d-inline-flex align-items-center">
+        <label
+          :for="item.name"
+          class="m-0 font-weight-light font-size-21 letter-spacing-2 text-arc-clr-white w-100">
           {{ item.label }}
         </label>
-        <b-form-invalid-feedback force-show>
+        <b-form-invalid-feedback
+          class="m-0"
+          force-show>
           {{ item.error }}
         </b-form-invalid-feedback>
       </b-col>
+
       <b-col
-        cols="4"
-        class="text-right">
+        cols="2"
+        class="d-flex align-items-center justify-content-end">
         <label
-          v-if="!item.file"
-          class="btn btn-outline-secondary">
-          CHOOSE FILE
+          class="btn-arc-secondary m-0 py-2 px-4 text-arc-clr-iron-light letter-spacing-2">
+          Choose file
           <b-form-file
             v-model="item.file"
             :state="item.error.length === 0 ? null : false"
@@ -46,48 +39,67 @@
             @input="onFileUpdate(item)"/>
         </label>
       </b-col>
-      <b-col>
-        <b-collapse
-          id="collapse"
-          :visible="Boolean(item.file)"
-          class="mb-4">
-          <b-card :class="{'bg-danger': item.error}">
-            <b-row
-              v-if="item.file"
-              align-v="center">
-              <b-col cols="8">
+
+      <b-col class="pt-3 pb-4">
+        <b-card
+          v-if="!!item.file"
+          no-body
+          class="bg-arc-clr-soil-dark p-0">
+          <b-row
+            class="p-4"
+            no-gutters>
+            <b-col class="text-truncate pr-4">
+              <span class="font-weight-bold text-arc-clr-white font-size-14 letter-spacing-2">
                 {{ item.file.name }}
-                <p v-if="!item.id && !item.error">
-                  <b-badge variant="secondary">
-                    Waiting for upload
-                  </b-badge>
-                </p>
-                <p v-else>
-                  <b-badge
-                    v-if="!item.error"
-                    variant="primary">
-                    {{ item.status }}
-                  </b-badge>
-                </p>
-              </b-col>
-              <b-col
-                cols="4"
-                class="text-right">
-                <b-link
-                  v-if="item.status !== 'confirmed'"
-                  @click="removeItem(item)">
-                  Remove
-                </b-link>
-              </b-col>
-            </b-row>
-          </b-card>
-        </b-collapse>
+              </span>
+              <span
+                v-if="!item.id && !item.error"
+                class="font-size-14 text-arc-clr-iron letter-spacing-2 d-flex align-items-center mt-1">
+                <arc-circle
+                  :bg-color="'arc-clr-iron'"
+                  :size="18"
+                  class="mr-2"/>
+                Waiting for upload
+              </span>
+              <span
+                v-else
+                class="d-flex align-items-center mt-1">
+                <arc-circle
+                  v-if="!item.error"
+                  :bg-color="statusColors[item.status]"
+                  :size="18"
+                  class="mr-2"/>
+                <span class="font-size-14 text-arc-clr-iron letter-spacing-2 text-capitalize d-flex align-items-center mt-1">
+                  {{ item.status }}
+                </span>
+              </span>
+            </b-col>
+            <b-col
+              cols="auto"
+              class="d-flex align-items-center">
+              <b-link
+                v-if="item.status !== 'confirmed'"
+                class="text-arc-clr-iron-light font-size-14 letter-spacing-1"
+                @click="removeItem(item)">
+                Remove
+              </b-link>
+            </b-col>
+          </b-row>
+        </b-card>
       </b-col>
     </b-row>
-    <b-row>
-      <b-col class="col text-right">
+    <b-row
+      class="pt-4"
+      no-gutters>
+      <b-col
+        v-if="!isSubmitEnabled"
+        class="mt-2 letter-spacing-2 text-arc-clr-iron">
+        You don’t have any files choosen.<br> Please choose files to upload
+      </b-col>
+      <b-col class="text-right mt-2">
         <b-button
           :disabled="!isSubmitEnabled"
+          variant="user-profile-button"
           @click="submitFiles">
           Upload Files
         </b-button>
@@ -101,8 +113,14 @@ import axios from 'axios'
 import { mapGetters } from 'vuex'
 import { DOCUMENTS_QUERY, DELETE_FILE, USER_VERIFICATION_QUERY } from '@/graphql/index'
 import { NO_CACHE } from '@/constants/graphql/fetch-policy'
+import VerificationStatus from './VerificationStatus'
+import DisclaimerSection from './DisclaimerSection'
 
 export default {
+  components: {
+    VerificationStatus,
+    DisclaimerSection
+  },
   data () {
     return {
       items: [{
@@ -162,6 +180,13 @@ export default {
       const haveNoErrors = !this.items.find(item => item.error)
 
       return haveFilesToUpload && haveNoErrors && !this.fileSendActive
+    },
+    statusColors () {
+      return {
+        confirmed: 'arc-clr-sport-glow',
+        rejected: 'wp-clr-notif-red',
+        pending: 'arc-clr-iron'
+      }
     }
   },
   apollo: {
