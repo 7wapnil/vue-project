@@ -5,6 +5,7 @@
     ref="AccountModalRef"
     scrollable
     size="lg"
+    :lazy="false"
     header-bg-variant="arc-clr-soil-darker"
     header-class="profile-modal-header"
     header-border-variant="arc-clr-soil-darker"
