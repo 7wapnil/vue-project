@@ -191,18 +191,18 @@ export default {
     }
   },
   apollo: {
-    markets () {
+    market () {
       return {
         query: MARKET_BY_ID_QUERY,
+        manual: true,
         variables: {
           id: this.bet.marketId,
           eventId: this.bet.eventId
         },
+        update: data => data.markets[0],
         result ({ data }) {
-          data.markets.forEach(market => {
-            this.updateOdds(market)
-            this.handleMarketStatus(market)
-          })
+          this.updateOdds(data.markets[0])
+          this.handleMarketStatus(data.markets[0])
         }
       }
     },
