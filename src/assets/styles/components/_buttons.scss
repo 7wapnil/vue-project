@@ -89,7 +89,7 @@
   border-radius: 50px !important;
   width: 42px !important;
   height: 42px !important;
-  border: 3px solid rgba($black, .3) !important;
+  box-shadow: 0 2px 0 0 rgba($black, .5);
 }
 .nav-profile-button {
   padding: 12px 7px 10px 5px;
