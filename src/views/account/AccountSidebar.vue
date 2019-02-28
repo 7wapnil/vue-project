@@ -21,6 +21,14 @@
             {{ tab.title }}
           </span>
         </b-nav-item>
+        <b-nav-item class="profile-modal-nav-item bg-arc-clr-soil-black "
+                @click.prevent="logout">
+            <icon
+                    name="logout"
+                    class="tab-icon"
+                    size="24px"/>
+            <span class="ml-3 font-weight-bold font-size-14 tab-title">Logout</span>
+        </b-nav-item>
       </b-nav>
     </b-col>
     <b-col class="profile-modal-nav-content p-5">
@@ -33,10 +41,11 @@ import Account from './Account'
 import Bonus from './bonus/Page'
 import Activity from './Activity'
 import DepositFunds from './DepositFunds'
-import Withdraw from './AccountWithdraw'
+import Withdraw from './withdraw/Page'
 import AccountVerification from './account-verification/AccountVerification'
 import ChangePassword from './ChangePassword'
 import ProfileWallet from './ProfileWallet'
+import { mapActions } from 'vuex'
 
 export default {
   components: {
@@ -83,6 +92,15 @@ export default {
     currentComponent () {
       return this.tabs[this.currentTabIndex].component
     }
+  },
+  methods: {
+    ...mapActions({
+      dispatchLogout: 'logout'
+    }),
+    logout () {
+      this.dispatchLogout(this)
+      this.$noty.success('Signed out successfully')
+    },
   }
 }
 </script>

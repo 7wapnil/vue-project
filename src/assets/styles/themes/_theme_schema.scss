@@ -52,7 +52,8 @@
   }
   &.disabled {
     background-color: rgba(151, 151, 151, .6);
-    box-shadow: 0 0 0 0 rgba($black, .5);
+    color: $arc-clr-soil-light;
+    box-shadow: unset;
     border: $btn-border-width solid rgba(193, 193, 193, .3);
   }
 }
@@ -111,7 +112,7 @@
 }
 
 // Profile button
-.arc-profile-button {
+.btn-arc-profile-button {
   border: 3px solid  $profile-button-second-color;
   background: $icon-section-color url('~@/assets/images/account/user-shadow.svg') no-repeat bottom;
 }
