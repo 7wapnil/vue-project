@@ -137,6 +137,7 @@ import NoBetsBlock from './NoBetsBlock'
 import { mapGetters, mapMutations, mapActions } from 'vuex'
 import wallets from '@/mixins/wallets'
 import BetslipSerializer from '@/services/serializers/betslip'
+import Bet from '@/models/bet'
 
 const BET_DESTROY_TIMEOUT = 3000;
 
@@ -207,26 +208,25 @@ export default {
           this.updateBet({
             oddId: bet.oddId,
             payload: {
-              status: betPayload.bet ? betPayload.bet.status : null,
+              status: Bet.statuses.submitting,
               message: betPayload.message,
               externalId: betPayload.id,
               success: betPayload.success
             }
           })
 
-          if (betPayload.success && betPayload.bet) {
-            setTimeout(() => {
+          setTimeout(() => {
+            if (betPayload.success && betPayload.bet) {
               this.removeBetFromBetslip(bet.oddId)
-            }, BET_DESTROY_TIMEOUT)
-          }
-          this.disableButton = false
+            }
+            this.updateBet({ oddId: bet.oddId, payload: { status: betPayload.bet ? betPayload.bet.status : null } })
+            this.disableButton = false
+          }, BET_DESTROY_TIMEOUT)
         })
       }
     },
     updateBets () {
-      this.getBets.forEach(bet => {
-        this.updateBet({ oddId: bet.oddId, payload: { approvedOddValue: bet.currentOddValue } })
-      })
+      this.getBets.forEach(bet => { this.updateBet({ oddId: bet.oddId, payload: { approvedOddValue: bet.currentOddValue } }) })
     },
     changeStyleTab (index) {
       if (this.tabIndex === index) {

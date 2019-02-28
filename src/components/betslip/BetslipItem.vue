@@ -134,13 +134,13 @@
           {{ bet.message }}
         </b-alert>
         <b-alert
-          :show="isSuccess"
+          :show="bet.success"
           class="mt-3 mx-auto p-2 text-center"
           variant="success">
           {{ successMessage }}
         </b-alert>
         <b-alert
-          :show="isDisabled"
+          :show="isBetDisabled"
           class="mt-3 mx-auto p-2 text-center"
           variant="danger">
           {{ disabledMessage }}
@@ -154,11 +154,13 @@
 import OddButton from '@/components/markets/OddButton.vue'
 import Bet from '@/models/bet'
 import { mapGetters, mapMutations } from 'vuex'
-import { UPDATE_MARKET_BY_ID } from '@/graphql'
+import { MESSAGE_SETTLED, MESSAGE_DISABLED, MESSAGE_SUCCESS } from '@/constants/betslip-messages'
+import { UPDATE_MARKET_BY_ID, MARKET_BY_ID_QUERY } from '@/graphql'
 import {
   SUSPENDED_STATUS,
   INACTIVE_STATUS as MARKET_INACTIVE_STATUS,
   SETTLED_STATUS,
+  CANCELLED_STATUS,
   HANDED_OVER_STATUS
 } from '@/models/market'
 
@@ -184,11 +186,26 @@ export default {
         warning: 'warning',
       },
       isDisabled: false,
-      disabledMessage: 'This market is inactive.',
-      successMessage: 'Your bet was successfully placed.'
+      isSettled: false,
+      disabledMessage: null,
     }
   },
   apollo: {
+    market () {
+      return {
+        query: MARKET_BY_ID_QUERY,
+        manual: true,
+        variables: {
+          id: this.bet.marketId,
+          eventId: this.bet.eventId
+        },
+        update: data => data.markets[0],
+        result ({ data }) {
+          this.updateOdds(data.markets[0])
+          this.handleMarketStatus(data.markets[0])
+        }
+      }
+    },
     $subscribe: {
       marketUpdated: {
         query: UPDATE_MARKET_BY_ID,
@@ -245,9 +262,12 @@ export default {
     hasMessage () {
       return this.bet.message !== null
     },
-    isSuccess () {
-      return this.bet.success
+    isBetDisabled () {
+      return this.isDisabled || this.isSettled
     },
+    successMessage () {
+      return MESSAGE_SUCCESS
+    }
   },
   methods: {
     ...mapMutations('betslip', [
@@ -264,22 +284,24 @@ export default {
         let bet = bets.find(el => el.oddId === odd.id)
 
         if (!bet) return
-        updateBet({ oddId: bet.oddId, payload: { currentOddValue: odd.value } })
+        updateBet({ oddId: bet.oddId, payload: { currentOddValue: odd.value, marketStatus: market.status } })
 
         if (acceptAllChecked && bet.currentOddValue !== bet.approvedOddValue) {
-          updateBet({ oddId: bet.oddId, payload: { approvedOddValue: odd.value, status: 'warning' } })
+          updateBet({ oddId: bet.oddId, payload: { approvedOddValue: odd.value, status: 'warning', marketStatus: market.status } })
         }
       })
     },
     handleMarketStatus (market) {
+      this.isSettled = market.status === SETTLED_STATUS
+
       this.isDisabled = [
         SUSPENDED_STATUS,
         MARKET_INACTIVE_STATUS,
-        SETTLED_STATUS,
-        HANDED_OVER_STATUS
+        HANDED_OVER_STATUS,
+        CANCELLED_STATUS
       ].includes(market.status)
 
-      return this.isDisabled
+      this.disabledMessage = this.isSettled ? MESSAGE_SETTLED : MESSAGE_DISABLED
     },
     confirmValue () {
       this.updateBet({ oddId: this.bet.oddId, payload: { approvedOddValue: this.bet.currentOddValue } })
