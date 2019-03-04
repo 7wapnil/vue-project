@@ -3,6 +3,7 @@
     v-if="user"
     id="AccountModal"
     ref="AccountModalRef"
+    :lazy="false"
     scrollable
     size="lg"
     header-bg-variant="arc-clr-soil-darker"

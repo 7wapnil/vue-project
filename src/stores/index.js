@@ -5,6 +5,7 @@ import user from './user'
 import betslip from './betslip'
 import wallets from './wallets'
 import account from './account'
+import tabs from './tabs'
 
 Vue.use(Vuex)
 
@@ -14,6 +15,7 @@ export default new Vuex.Store({
     user,
     betslip,
     wallets,
-    account
+    account,
+    tabs
   }
 })

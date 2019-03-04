@@ -57,7 +57,8 @@ describe('wallets store', () => {
       const validGettersState = {
         getTotalStakes: 2,
         anyInitialBet: true,
-        betslipValuesConfirmed: true
+        betslipValuesConfirmed: true,
+        getAnyInactiveMarket: false
       }
 
       it('is submittable when all rules valid', () => {
@@ -94,6 +95,17 @@ describe('wallets store', () => {
           const invalidRootGetters = {
             ...rootGetters,
             'wallets/activeWallet': { amount: 1 }
+          }
+
+          expect(getters.betslipSubmittable(state, validGettersState, {}, invalidRootGetters)).to.eql(false)
+        })
+
+        it('fails when at least one market status is inactive', () => {
+          const state = {}
+
+          const invalidRootGetters = {
+            ...validGettersState,
+            getAnyInactiveMarket: true
           }
 
           expect(getters.betslipSubmittable(state, validGettersState, {}, invalidRootGetters)).to.eql(false)

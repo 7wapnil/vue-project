@@ -51,7 +51,7 @@
           bottom-bar
         />
         <b-row
-          v-if="!walletExists"
+          v-if="isEmptyWallet"
           align-h="center"
           no-gutters
           class="mt-4">
@@ -198,7 +198,7 @@ export default {
           return this.dropdownCurrency
         }
 
-        if (this.walletActive) {
+        if (this.walletActive && !this.isEmptyWallet) {
           return this.walletActive.currency.code
         }
 
@@ -208,8 +208,8 @@ export default {
         this.dropdownCurrency = value
       }
     },
-    walletExists () {
-      return Object.entries(this.walletActive).length !== 0
+    isEmptyWallet () {
+      return this.walletActive.id === null
     },
     getMessage () {
       return this.$route.query.depositStateMessage
