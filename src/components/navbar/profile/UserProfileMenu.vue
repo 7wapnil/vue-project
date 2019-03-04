@@ -1,10 +1,11 @@
 <template>
-  <div v-if="isLoggedIn && user"
-       style="padding: 0 14px 0 14px"
-       class="d-flex align-items-center justify-content-center">
+  <div
+    v-if="isLoggedIn && user"
+    style="padding: 0 14px 0 14px"
+    class="d-flex align-items-center justify-content-center">
     <b-button
-            @click="showModal"
-            variant="arc-profile-button"/>
+      variant="arc-profile-button"
+      @click="showModal"/>
   </div>
 </template>
 

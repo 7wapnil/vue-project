@@ -10,15 +10,13 @@
         <b-col>
           <b-row no-gutters>
             <b-col class="d-inline-flex pb-2">
-              <small>
-                <b>
-                  {{ activeWallet.amount | round }}
+              <span class="font-weight-bold font-size-12 letter-spacing-2">
+                {{ activeWallet.amount | round }}
 
-                  <span class="currency-code">
-                    {{ activeWallet.currency.code }}
-                  </span>
-                </b>
-              </small>
+                <span class="currency-code">
+                  {{ activeWallet.currency.code }}
+                </span>
+              </span>
             </b-col>
           </b-row>
           <b-row no-gutters>
@@ -29,9 +27,9 @@
                 name="wallet-triangle-down"
                 class="mr-2 d-flex justify-content-center align-items-center"
                 size="6px"/>
-              <small class="text-arc-clr-iron-light">
+              <span class="text-arc-clr-iron-light font-size-12 letter-spacing-2">
                 View my wallet
-              </small>
+              </span>
             </b-col>
           </b-row>
         </b-col>
@@ -95,8 +93,15 @@ export default {
     ...mapMutations('wallets', {
       setActiveWallet: SET_ACTIVE_WALLET
     }),
+    ...mapMutations('tabs', {
+      changeTabIndex: 'changeTabIndex'
+    }),
     selectWallet (wallet) {
       this.setActiveWallet(wallet.id)
+    },
+    goToDepositPage () {
+      this.changeTabIndex(3)
+      this.$root.$emit('bv::show::modal', 'AccountModal')
     }
   },
 }

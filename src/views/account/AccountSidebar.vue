@@ -2,7 +2,7 @@
   <b-row no-gutters>
     <b-col class="profile-modal-sidebar bg-arc-clr-soil-dark">
 
-      <profile-wallet @open-deposit-tab="currentTabIndex = 4"/>
+      <profile-wallet @open-deposit-tab="changeTabIndex(3)"/>
 
       <b-nav vertical>
         <b-nav-item
@@ -10,7 +10,7 @@
           :key="index"
           :class="{'profile-modal-nav-item-active': currentTabIndex === index }"
           class="profile-modal-nav-item bg-arc-clr-soil-black"
-          @click="currentTabIndex = index">
+          @click="changeTabIndex(index)">
           <span>
             <icon
               :name="tab.icon"
@@ -21,13 +21,14 @@
             {{ tab.title }}
           </span>
         </b-nav-item>
-        <b-nav-item class="profile-modal-nav-item bg-arc-clr-soil-black "
-                @click.prevent="logout">
-            <icon
-                    name="logout"
-                    class="tab-icon"
-                    size="24px"/>
-            <span class="ml-3 font-weight-bold font-size-14 tab-title">Logout</span>
+        <b-nav-item
+          class="profile-modal-nav-item bg-arc-clr-soil-black "
+          @click.prevent="logout">
+          <icon
+            name="logout"
+            class="tab-icon"
+            size="24px"/>
+          <span class="ml-3 font-weight-bold font-size-14 tab-title">Logout</span>
         </b-nav-item>
       </b-nav>
     </b-col>
@@ -45,7 +46,7 @@ import Withdraw from './withdraw/Page'
 import AccountVerification from './account-verification/AccountVerification'
 import ChangePassword from './ChangePassword'
 import ProfileWallet from './ProfileWallet'
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters, mapMutations } from 'vuex'
 
 export default {
   components: {
@@ -60,7 +61,6 @@ export default {
   },
   data () {
     return {
-      currentTabIndex: this.$route.query.depositState ? 4 : 0,
       tabs: [{
         title: 'Account info & settings',
         component: Account,
@@ -91,11 +91,22 @@ export default {
   computed: {
     currentComponent () {
       return this.tabs[this.currentTabIndex].component
+    },
+    ...mapGetters('tabs', {
+      currentTabIndex: 'getCurrentTabIndex'
+    })
+  },
+  created () {
+    if (this.$route.query.depositState) {
+      this.changeTabIndex(4)
     }
   },
   methods: {
     ...mapActions({
       dispatchLogout: 'logout'
+    }),
+    ...mapMutations('tabs', {
+      changeTabIndex: 'changeTabIndex'
     }),
     logout () {
       this.dispatchLogout(this)
