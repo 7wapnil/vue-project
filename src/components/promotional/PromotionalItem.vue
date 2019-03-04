@@ -1,11 +1,11 @@
 <template>
   <div v-if="!isLoggedIn || isLoggedIn && !getBetsCount">
-    <div class="px-2 py-4 text-center text-arc-clr-iron">
+    <div v-if="!isLoggedIn" class="px-2 pt-4 text-center text-arc-clr-iron">
       <h6 class="m-0">Sign up now and get bonuses!</h6>
     </div>
     <b-img
       :src="bannerKind[$route.params.titleKind]"
-      class="p-0 mb-0 mx-2 promotional-area"
+      class="p-0 mb-0 mt-4 mx-2 promotional-area"
       alt="arcanebet-promocode"
       @click="getBonus"/>
   </div>
