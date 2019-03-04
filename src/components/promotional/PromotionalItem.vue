@@ -3,6 +3,7 @@
     <div class="px-2 py-4 text-center text-arc-clr-iron">
       <h6 class="m-0">Sign up now and get bonuses!</h6>
     </div>
+    <img :src="uri">
     <b-jumbotron
       bg-variant="dark"
       class="p-3 mb-0 mx-2 promotional-area">
@@ -32,19 +33,44 @@
         </b-col>
       </b-row>
     </b-jumbotron>
+
   </div>
 </template>
 <script>
 import { mapGetters } from 'vuex'
+import contentfulApi from '@/utils/contentful-client'
+import { PROMOTIONS_BANNER } from '@/constants/contentful/entry-ids'
 
 export default {
+  data () {
+    return {
+      banners: []
+    }
+  },
   computed: {
     ...mapGetters('betslip', [
       'getBetsCount'
     ]),
     ...mapGetters([
       'isLoggedIn'
-    ])
+    ]),
+    uri () {
+      let url = ''
+      if (!this.banners) return null
+
+      this.banners.map(banner => {
+        if (banner.fields.title === this.$route.params.titleKind) {
+          url = banner.fields.file.url
+        }
+      })
+
+      return url
+    }
+  },
+  mounted () {
+    contentfulApi.getEntry(PROMOTIONS_BANNER).then(res => {
+      this.banners = res.fields.banners
+    })
   }
 }
 </script>

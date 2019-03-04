@@ -616,6 +616,19 @@
     follow-redirects "^1.2.5"
     is-buffer "^1.1.5"
 
+"@contentful/rich-text-html-renderer@^13.0.0":
+  version "13.0.0"
+  resolved "https://registry.yarnpkg.com/@contentful/rich-text-html-renderer/-/rich-text-html-renderer-13.0.0.tgz#659b8f3af2476588ba6d02944be5d16ecb676a4b"
+  integrity sha512-gUhEjNyU/QR36+RsJ7/N+IaqJbQ9GiTezNRpF2NztOILdyjxplIbTt3HN5Yo99DT9K+qs8GbFV43EsIxbWgVjA==
+  dependencies:
+    "@contentful/rich-text-types" "^13.0.0"
+    escape-html "^1.0.3"
+
+"@contentful/rich-text-types@^13.0.0":
+  version "13.0.0"
+  resolved "https://registry.yarnpkg.com/@contentful/rich-text-types/-/rich-text-types-13.0.0.tgz#22daa89b551980edc81ef277f7e929c7b5551cfb"
+  integrity sha512-1+a/WAFVBZl1tJb4J7nHZxbqde1CqwLYE+xtpqO8Pqr5zOgVV4MJHzA2t7SDYc/ypJIoNL0W8yEUNgf43iFL/Q==
+
 "@intervolga/optimize-cssnano-plugin@^1.0.5":
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/@intervolga/optimize-cssnano-plugin/-/optimize-cssnano-plugin-1.0.6.tgz#be7c7846128b88f6a9b1d1261a0ad06eb5c0fdf8"
@@ -3507,7 +3520,7 @@ es6-promise-pool@^2.5.0:
   version "2.5.0"
   resolved "https://registry.yarnpkg.com/es6-promise-pool/-/es6-promise-pool-2.5.0.tgz#147c612b36b47f105027f9d2bf54a598a99d9ccb"
 
-escape-html@~1.0.3:
+escape-html@^1.0.3, escape-html@~1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/escape-html/-/escape-html-1.0.3.tgz#0258eae4d3d0c0974de1c169188ef0051d1d1988"
 

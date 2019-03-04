@@ -12,6 +12,7 @@
     "test:unit": "vue-cli-service test:unit --include tests/unit/.setup.js"
   },
   "dependencies": {
+    "@contentful/rich-text-html-renderer": "^13.0.0",
     "actioncable": "^5.2.2",
     "apollo-cache-inmemory": "^1.2.5",
     "apollo-client": "^2.3.5",
