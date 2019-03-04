@@ -18,6 +18,8 @@ Copy .env to .env.local (Vue.js convention)
 cp .env .env.local
 ```
 
+Put the values you got from the development team into .env.local
+
 Install the frontend dependencies into the docker-compose volume
 ```bash
 docker-compose run --rm web sh # bash won't work here
