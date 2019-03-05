@@ -50,7 +50,7 @@
           exact>
           <b-button
             class="mt-2"
-            variant="arc-primary">
+            variant="arc-secondary">
             More
           </b-button>
         </b-link>

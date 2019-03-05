@@ -29,8 +29,7 @@
 
         <b-col class="mt-4">
           <span
-            style="font-size: 11px"
-            class="text-arc-clr-iron text-uppercase">
+            class="text-arc-clr-iron text-uppercase font-size-11">
             Starts
           </span>
         </b-col>
@@ -46,8 +45,7 @@
         <b-col class="mt-1">
           <span
             v-if="event.state.score"
-            style="font-size: 11px"
-            class="text-arc-clr-iron text-uppercase">
+            class="text-arc-clr-iron text-uppercase font-size-11">
             Score
           </span>
         </b-col>
@@ -62,8 +60,7 @@
 
         <b-col class="mt-1">
           <span
-            style="font-size: 11px"
-            class="text-arc-clr-iron text-uppercase">
+            class="text-arc-clr-iron text-uppercase font-size-11">
             Match type
           </span>
         </b-col>
@@ -73,8 +70,7 @@
         <b-col class="mt-1">
           <span
             v-if="event.state.time"
-            style="font-size: 11px"
-            class="text-arc-clr-iron text-uppercase">
+            class="text-arc-clr-iron text-uppercase font-size-11">
             Time
           </span>
         </b-col>

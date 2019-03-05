@@ -1,6 +1,8 @@
 <template>
   <div v-if="!isLoggedIn || isLoggedIn && !getBetsCount">
-    <div v-if="!isLoggedIn" class="px-2 pt-4 text-center text-arc-clr-iron">
+    <div
+      v-if="!isLoggedIn"
+      class="px-2 pt-4 text-center text-arc-clr-iron">
       <h6 class="m-0">Sign up now and get bonuses!</h6>
     </div>
     <b-img

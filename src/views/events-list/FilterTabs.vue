@@ -6,31 +6,13 @@
         :tournament-id="tournamentId"
         :category-id="categoryId"
         :context="tab.context">
-
         <template slot-scope="{ event }">
-
-          <live-event
-            v-if="tab.id === live"
-            :event="event">
-
-            <markets-list
-              :event="event"
-              :markets="[event.dashboard_market]" />
-          </live-event>
-          <upcoming-event
-            v-if="tab.id === upcoming"
-            :event="event">
-            <markets-list
-              :event="event"
-              :markets="[event.dashboard_market]" />
-
-          </upcoming-event>
+          <hybrid-card :event="event"
+                       :tab-id="tab.id"/>
         </template>
       </events-list>
-
     </template>
   </simple-tabs>
-
 </template>
 
 <script>
@@ -39,13 +21,15 @@ import LiveEvent from '@/components/events/LiveEvent'
 import UpcomingEvent from '@/components/events/UpcomingEvent'
 import MarketsList from '@/components/markets/MarketsList'
 import { LIVE, UPCOMING } from '@/constants/graphql/event-start-statuses'
+import HybridCard from './HybridCard'
 
 export default {
   components: {
     EventsList,
     LiveEvent,
     UpcomingEvent,
-    MarketsList
+    MarketsList,
+    HybridCard
   },
   props: {
     titleId: {
