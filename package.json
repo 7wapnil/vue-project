@@ -12,6 +12,7 @@
     "test:unit": "vue-cli-service test:unit --include tests/unit/.setup.js"
   },
   "dependencies": {
+    "@contentful/rich-text-html-renderer": "^13.0.0",
     "actioncable": "^5.2.2",
     "apollo-cache-inmemory": "^1.2.5",
     "apollo-client": "^2.3.5",
@@ -21,6 +22,7 @@
     "babel-eslint": "^10.0.1",
     "bootstrap": "^4.1.1",
     "bootstrap-vue": "^2.0.0-rc.11",
+    "contentful": "^7.3.0",
     "countries-list": "^2.3.2",
     "graphql": "^0.13.2",
     "graphql-ruby-client": "^1.6.2",
