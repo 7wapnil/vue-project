@@ -1,9 +1,11 @@
 <template>
-  <b-img
-    :src="uri"
-    class="p-0 mb-0 mx-2 promotional-area"
-    alt="arcanebet-promocode"
-    @click="getBonus"/>
+  <div v-if="!getBetsCount">
+    <b-img
+      :src="uri"
+      class="p-0 my-4 mb-0 mx-2 promotional-area"
+      alt="arcanebet-promocode"
+      @click="getBonus"/>
+  </div>
 </template>
 
 <script>
