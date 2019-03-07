@@ -71,9 +71,12 @@ describe('Betslip', () => {
 
   describe('Has bets', () => {
     before(() => {
+      state = {
+        bets: [{ event: {}, market: {}, odd: {} }]
+      }
       getters = {
-        getBetsCount: () => 1,
-        getBets: () => state.bets
+        getBets: () => state.bets,
+        getBetsCount: () => state.bets.length
       }
 
       store = new Vuex.Store({
