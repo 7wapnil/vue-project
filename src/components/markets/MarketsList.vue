@@ -18,8 +18,18 @@
 <script>
 import MarketItem from '@/components/markets/MarketItem'
 import { ACTIVE_STATUS, INACTIVE_STATUS, SUSPENDED_STATUS } from '@/models/market'
+import EsportsUpcomingCardItem from '@/components/cards/esports-upcoming-card/EsportsUpcomingCardItem'
+import EsportsLiveCardItem from '@/components/cards/esports-live-card/EsportsLiveCardItem'
+import SportsLiveCardItem from '@/components/cards/sports-live-card/SportsLiveCardItem'
+import SportsUpcomingCardItem from '@/components/cards/sports-upcoming-card/SportsUpcomingCardItem'
 
 export default {
+  components: {
+    EsportsUpcomingCardItem,
+    EsportsLiveCardItem,
+    SportsLiveCardItem,
+    SportsUpcomingCardItem
+  },
   props: {
     event: {
       type: Object,
