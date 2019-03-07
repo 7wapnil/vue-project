@@ -1,11 +1,11 @@
 <template>
-    <div v-if="!isLoggedIn || isLoggedIn && !getBetsCount">
-      <b-img
-        :src="uri"
-        class="p-0 mb-0 mx-2 promotional-area"
-        alt="arcanebet-promocode"
-        @click="getBonus"/>
-    </div>
+  <div v-if="!isLoggedIn || isLoggedIn && !getBetsCount">
+    <b-img
+      :src="uri"
+      class="p-0 mb-0 mx-2 promotional-area"
+      alt="arcanebet-promocode"
+      @click="getBonus"/>
+  </div>
 </template>
 <script>
 import { mapGetters, mapMutations } from 'vuex'
