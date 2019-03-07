@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="container">
     <b-card
       :bg-variant="cardVariant"
       no-body
@@ -173,6 +173,11 @@ export default {
       type: Bet,
       required: true
     },
+    parentRefs: {
+      type: String,
+      required: false,
+      default: null
+    }
   },
   data () {
     return {
@@ -268,6 +273,11 @@ export default {
     successMessage () {
       return MESSAGE_SUCCESS
     }
+  },
+  mounted () {
+    this.$nextTick(() => {
+      this.parentRefs['parent-button'].scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'start' });
+    })
   },
   methods: {
     ...mapMutations('betslip', [
