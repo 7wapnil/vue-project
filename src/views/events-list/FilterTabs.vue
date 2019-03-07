@@ -7,8 +7,9 @@
         :category-id="categoryId"
         :context="tab.context">
         <template slot-scope="{ event }">
-          <hybrid-card :event="event"
-                       :tab-id="tab.id"/>
+          <hybrid-card
+            :event="event"
+            :tab-id="tab.id"/>
         </template>
       </events-list>
     </template>
@@ -17,8 +18,6 @@
 
 <script>
 import EventsList from '@/components/events/EventsList'
-import LiveEvent from '@/components/events/LiveEvent'
-import UpcomingEvent from '@/components/events/UpcomingEvent'
 import MarketsList from '@/components/markets/MarketsList'
 import { LIVE, UPCOMING } from '@/constants/graphql/event-start-statuses'
 import HybridCard from './HybridCard'
@@ -26,8 +25,6 @@ import HybridCard from './HybridCard'
 export default {
   components: {
     EventsList,
-    LiveEvent,
-    UpcomingEvent,
     MarketsList,
     HybridCard
   },

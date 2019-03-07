@@ -22,3 +22,9 @@
     font-size: $i + px
   }
 }
+
+@for $i from 1 through 20 {
+  .line-height-#{$i} {
+    line-height: $i + px
+  }
+}

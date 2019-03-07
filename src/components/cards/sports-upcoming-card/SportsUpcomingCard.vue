@@ -17,18 +17,21 @@
            position: relative">
           <b-row no-gutters>
             <b-col class="d-flex justify-content-center">
-              <span class="font-weight-bold text-arc-clr-iron text-uppercase mb-1 event-card-date">
-                Today
+              <span class="font-weight-bold text-arc-clr-iron text-uppercase mb-1 event-card-date letter-spacing-1">
+                {{ event.start_at | asCalendarDate({
+                  sameDay: '[Today]',
+                  nextDay: '[Tomorrow]',
+                  lastDay: '[Yesterday]',
+                  nextWeek: 'DD.MM',
+                  sameElse: 'DD.MM'}) }}
               </span>
             </b-col>
 
             <div class="w-100"/>
 
             <b-col class="d-flex align-items-start justify-content-center">
-              <span
-                style="font-size: 10px"
-                class="text-arc-clr-iron text-uppercase font-weight-bold">
-                14:30
+              <span class="text-arc-clr-iron text-uppercase font-weight-bold font-size-10 letter-spacing-2">
+                {{ event.start_at | asFormattedDate('HH:mm') }}
               </span>
             </b-col>
           </b-row>
@@ -43,15 +46,15 @@
                 class="mb-2"
                 no-gutters>
                 <b-col>
-                  <h6 class="m-0 font-weight-bold text-arc-clr-iron team-name text-truncate">
-                    Faze Clan
+                  <h6 class="m-0 font-weight-bold text-arc-clr-iron team-name text-truncate letter-spacing-2">
+                    {{ event.competitors[0].name }}
                   </h6>
                 </b-col>
               </b-row>
               <b-row no-gutters>
                 <b-col>
-                  <h6 class="m-0 font-weight-bold text-arc-clr-iron team-name text-truncate">
-                    Liverpool
+                  <h6 class="m-0 font-weight-bold text-arc-clr-iron team-name text-truncate letter-spacing-2">
+                    {{ event.competitors[1].name }}
                   </h6>
                 </b-col>
               </b-row>
@@ -62,6 +65,7 @@
               <b-row no-gutters>
                 <b-col class="d-inline-flex mb-2">
                   <icon
+                    v-if="icons"
                     name="upcoming-event-replay"
                     size="16px"
                     color="arc-clr-soil-light"/>
@@ -70,6 +74,7 @@
               <b-row no-gutters>
                 <b-col class="d-inline-flex">
                   <icon
+                    v-if="icons"
                     name="upcoming-event-statistic"
                     size="18px"
                     color="arc-clr-soil-light"/>
@@ -79,49 +84,13 @@
           </b-row>
         </b-col>
         <b-col
-          class="event-card-inside-border-left"
+          class="event-card-inside-border-left pl-3"
           style="min-width: 459px">
-          <b-row no-gutters>
-            <b-col class="d-inline-flex align-items-center justify-content-center pt-2 mb-1">
-              <small class="m-0 text-arc-clr-iron team-name">
-                Faze Clan
-              </small>
-            </b-col>
-            <b-col class="d-inline-flex align-items-center justify-content-center pt-2 mb-1">
-              <small
-                class="text-arc-clr-iron"
-                style="opacity: .4">
-                Draw
-              </small>
-            </b-col>
-            <b-col class="d-inline-flex align-items-center justify-content-center pt-2 mb-1">
-              <small class="m-0 text-center text-arc-clr-iron team-name">
-                Liverpool
-              </small>
-            </b-col>
-          </b-row>
-          <b-row no-gutters>
-            <b-col class="pl-3 mr-2 pb-2">
-              <b-button variant="arc-odd">
-                6.66
-              </b-button>
-            </b-col>
-            <b-col class="mr-2 pb-2">
-              <b-button variant="arc-odd">
-                6.66
-              </b-button>
-            </b-col>
-            <b-col class="mr-2 pb-2">
-              <b-button
-                variant="arc-odd"
-                class="active">
-                6.66
-              </b-button>
-            </b-col>
-          </b-row>
+          <slot/>
         </b-col>
         <b-col
-          v-b-toggle.sportcard
+          v-b-toggle="'sports-upcoming-event-' + event.id"
+          v-if="event.dashboard_market.length > 1"
           cols="auto"
           class="px-3 event-card-toggle-button">
           <b-row
@@ -148,6 +117,8 @@
         </b-col>
 
         <b-link
+          v-if="marketsCount > 0"
+          :to="{ name: 'event', params: { id: event.id } }"
           class="col event-card-statistics-button event-card-inside-border-left"
           style="min-width: 70px; max-width: 70px; min-height: 100%; position:relative">
           <b-row
@@ -168,7 +139,7 @@
               class="h-50 w-100">
               <b-col class="d-inline-flex justify-content-center align-items-start">
                 <h6 class="mb-0 mt-1 font-weight-bold">
-                  + 124
+                  +{{ marketsCount }}
                 </h6>
               </b-col>
             </b-row>
@@ -183,7 +154,7 @@
         align="center"
         style="min-height: 0">
         <b-collapse
-          id="sportcard"
+          :id="'sports-upcoming-event-' + `${event.id}`"
           accordion="my-accordion">
           <b-row
             no-gutters
@@ -288,3 +259,23 @@
     </b-row>
   </b-card>
 </template>
+
+<script>
+export default {
+  props: {
+    event: {
+      type: Object,
+      required: true
+    },
+    icons: {
+      type: Boolean,
+      default: true
+    }
+  },
+  computed: {
+    marketsCount () {
+      return this.event.markets_count - 1
+    }
+  }
+}
+</script>

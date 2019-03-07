@@ -1,5 +1,6 @@
 <template>
   <b-card
+    v-if="event"
     no-body
     style="min-width: 714px"
     class="mb-1 esport-card"
@@ -15,14 +16,14 @@
           <b-row no-gutters>
             <b-col class="mt-1 mb-4 text-truncate d-inline-flex align-items-center justify-content-center">
               <h6 class="mb-0 font-weight-bold text-arc-clr-iron-light">
-                25:42 Left
+                {{ event.state.time }}
               </h6>
             </b-col>
           </b-row>
           <b-row no-gutters>
             <b-col class="mb-3 d-inline-flex align-items-center justify-content-center text-truncate">
               <small class="text-arc-clr-iron">
-                ESEA MDL Season 29
+                {{ event.tournament.name }}
               </small>
             </b-col>
           </b-row>
@@ -30,6 +31,7 @@
             <b-col
               class="d-flex justify-content-start align-items-end pl-4">
               <icon
+                v-if="icons"
                 name="upcoming-event-replay"
                 size="16px"
                 color="arc-clr-soil-light"/>
@@ -37,6 +39,7 @@
             <b-col
               class="d-flex justify-content-end align-items-end pr-4">
               <icon
+                v-if="icons"
                 name="upcoming-event-statistic"
                 size="18px"
                 color="arc-clr-soil-light"/>
@@ -46,61 +49,7 @@
         <b-col
           class="event-card-inside-border-left"
           style="min-width: 459px">
-          <b-row
-            no-gutters>
-            <b-col class="text-center pt-4">
-              <icon
-                name="sidemenu-game-icon"
-                color="arc-clr-iron"
-                size="24px"/>
-              <h6 class="mt-3 m-0 font-weight-bold text-arc-clr-iron team-name">
-                Faze Clan
-              </h6>
-            </b-col>
-            <b-col class="text-center pt-4">
-              <h5 class="mb-3 font-weight-light text-arc-clr-iron">
-                <span>2</span>
-                <span class="mx-4">:</span>
-                <span>0</span>
-              </h5>
-              <small
-                style="opacity: .4"
-                class="text-arc-clr-iron">
-                Draw
-              </small>
-            </b-col>
-            <b-col class="pt-4 text-center">
-              <icon
-                name="sidemenu-game-icon"
-                color="arc-clr-iron"
-                size="24px"/>
-              <h6 class="mt-3 mb-1 text-center font-weight-bold text-arc-clr-iron team-name">
-                Liverpool
-              </h6>
-            </b-col>
-          </b-row>
-          <b-row
-            no-gutters>
-            <b-col class="pt-1 px-2">
-              <b-button
-                variant="arc-odd"
-                class="active">
-                6.12
-              </b-button>
-            </b-col>
-            <b-col class="pt-1 px-2">
-              <b-button
-                variant="arc-odd">
-                6.12
-              </b-button>
-            </b-col>
-            <b-col class="pt-1 px-2">
-              <b-button
-                variant="arc-odd">
-                6.12
-              </b-button>
-            </b-col>
-          </b-row>
+          <slot/>
         </b-col>
         <b-col
           class="event-card-inside-border-left"
@@ -118,7 +67,7 @@
                   class="h-50 w-100">
                   <b-col class="d-inline-flex justify-content-center align-items-start">
                     <h6 class="m-0 font-weight-bold">
-                      + 124
+                      +{{ marketsCount }}v
                     </h6>
                   </b-col>
                 </b-row>
@@ -139,7 +88,7 @@
             no-gutters
             class="h-50 w-100 event-card-inside-border-top">
             <b-col
-              v-b-toggle.esportcard
+              v-b-toggle="'esports-live-event-' + event.id"
               class="pt-3 event-card-toggle-button-esport">
               <b-row
                 no-gutters
@@ -176,9 +125,9 @@
         align="center"
         style="min-height: 0">
         <b-collapse
-          id="esportcard"
+          :id="'esports-live-event-' + `${event.id}`"
           style="border-radius: 0 0 4px 4px"
-          accordion="my-accordion">
+          accordion="esports-live-events">
           <b-row no-gutters>
             <b-col class="py-2">
               <b-row no-gutters>
@@ -281,11 +230,22 @@
 </template>
 
 <script>
-import OddButton from '@/components/markets/OddButton'
-
 export default {
-  components: {
-    OddButton
+  props: {
+    event: {
+      type: Object,
+      required: true
+    }
+  },
+  computed: {
+    marketsCount () {
+      return this.event.markets_count - 1
+    },
+    getScore () {
+      if (this.event.state.score) {
+        return this.event.state.score.split(':')
+      }
+    }
   }
 }
 </script>
