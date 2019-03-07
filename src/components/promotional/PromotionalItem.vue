@@ -1,23 +1,23 @@
 <template>
-  <div v-if="!isLoggedIn || isLoggedIn && !getBetsCount">
-    <div
-      v-if="!isLoggedIn"
-      class="px-2 pt-4 text-center text-arc-clr-iron">
-      <h6 class="m-0">Sign up now and get bonuses!</h6>
+    <div v-if="!isLoggedIn || isLoggedIn && !getBetsCount">
+      <b-img
+        :src="uri"
+        class="p-0 mb-0 mx-2 promotional-area"
+        alt="arcanebet-promocode"
+        @click="getBonus"/>
     </div>
-    <b-img
-      :src="bannerKind[$route.params.titleKind]"
-      class="p-0 mb-0 mt-4 mx-2 promotional-area"
-      alt="arcanebet-promocode"
-      @click="getBonus"/>
-  </div>
 </template>
 <script>
 import { mapGetters, mapMutations } from 'vuex'
-import esports from '@/assets/images/promotionals/arcanebet-esports-promo-banner.png'
-import sports from '@/assets/images/promotionals/arcanebet-sports-promo-banner.png'
+import contentfulApi from '@/utils/contentful-client'
+import { PROMOTIONS_BANNER } from '@/constants/contentful/entry-ids'
 
 export default {
+  data () {
+    return {
+      banners: []
+    }
+  },
   computed: {
     ...mapGetters('betslip', [
       'getBetsCount'
@@ -25,12 +25,23 @@ export default {
     ...mapGetters([
       'isLoggedIn'
     ]),
-    bannerKind () {
-      return {
-        esports,
-        sports
-      }
+    uri () {
+      let url = ''
+      if (!this.banners) return null
+
+      this.banners.map(banner => {
+        if (banner.fields.title === this.$route.params.titleKind) {
+          url = banner.fields.file.url
+        }
+      })
+
+      return url
     }
+  },
+  mounted () {
+    contentfulApi.getEntry(PROMOTIONS_BANNER).then(res => {
+      this.banners = res.fields.banners
+    })
   },
   methods: {
     ...mapMutations('tabs', {
