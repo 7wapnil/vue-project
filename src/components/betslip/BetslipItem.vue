@@ -163,6 +163,7 @@ import {
   CANCELLED_STATUS,
   HANDED_OVER_STATUS
 } from '@/models/market'
+import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
 
 export default {
   components: {
@@ -194,6 +195,7 @@ export default {
     market () {
       return {
         query: MARKET_BY_ID_QUERY,
+        fetchPolicy: NETWORK_ONLY,
         manual: true,
         variables: {
           id: this.bet.marketId,
