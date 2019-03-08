@@ -12,7 +12,6 @@
 <script>
 import contentfulApi from '@/utils/contentful-client'
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
-import { ABOUT_WELCOME } from '@/constants/contentful/info-pages-ids'
 
 export default {
   data () {
@@ -29,7 +28,7 @@ export default {
     }
   },
   mounted () {
-    contentfulApi.getEntry(ABOUT_WELCOME).then(res => {
+    contentfulApi.getEntry(process.env.VUE_APP_CONTENTFUL_ABOUT_WELCOME_ID).then(res => {
       this.viewItems = res.fields
     })
   }

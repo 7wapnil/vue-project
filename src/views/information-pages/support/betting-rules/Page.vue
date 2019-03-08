@@ -12,7 +12,6 @@
 <script>
 import contentfulApi from '@/utils/contentful-client'
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
-import { SUPPORT_BETTING_RULES } from '@/constants/contentful/info-pages-ids'
 
 export default {
   data () {
@@ -29,7 +28,7 @@ export default {
     }
   },
   mounted () {
-    contentfulApi.getEntry(SUPPORT_BETTING_RULES).then(res => {
+    contentfulApi.getEntry(process.env.VUE_APP_CONTENTFUL_SUPPORT_BETTING_RULES_ID).then(res => {
       this.viewItems = res.fields
     })
   }

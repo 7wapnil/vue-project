@@ -10,7 +10,6 @@
 <script>
 import { mapGetters, mapMutations } from 'vuex'
 import contentfulApi from '@/utils/contentful-client'
-import { PROMOTIONS_BANNER } from '@/constants/contentful/misc-ids'
 
 export default {
   data () {
@@ -39,7 +38,7 @@ export default {
     }
   },
   mounted () {
-    contentfulApi.getEntry(PROMOTIONS_BANNER).then(res => {
+    contentfulApi.getEntry(process.env.VUE_APP_CONTENTFUL_PROMOTIONS_BANNER_ID).then(res => {
       this.banners = res.fields.banners
     })
   },

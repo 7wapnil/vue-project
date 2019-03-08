@@ -12,7 +12,7 @@
 <script>
 import contentfulApi from '@/utils/contentful-client'
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
-import { AFFILIATES } from '@/constants/contentful/info-pages-ids'
+
 export default {
   data () {
     return {
@@ -28,7 +28,7 @@ export default {
     }
   },
   mounted () {
-    contentfulApi.getEntry(AFFILIATES).then(res => {
+    contentfulApi.getEntry(process.env.VUE_APP_CONTENTFUL_AFFILIATES_ID).then(res => {
       this.viewItems = res.fields
     })
   }

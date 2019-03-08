@@ -12,7 +12,7 @@
 <script>
 import contentfulApi from '@/utils/contentful-client'
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
-import { SUPPORT_PRIVACY_POLICY } from '@/constants/contentful/info-pages-ids'
+
 export default {
   data () {
     return {
@@ -28,7 +28,7 @@ export default {
     }
   },
   mounted () {
-    contentfulApi.getEntry(SUPPORT_PRIVACY_POLICY).then(res => {
+    contentfulApi.getEntry(process.env.VUE_APP_CONTENTFUL_SUPPORT_PRIVACY_POLICY_ID).then(res => {
       this.viewItems = res.fields
     })
   }

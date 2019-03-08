@@ -1,5 +1,5 @@
 <template>
-  <div id="container">
+  <div>
     <b-card
       :bg-variant="cardVariant"
       no-body
@@ -175,7 +175,7 @@ export default {
       required: true
     },
     parentRefs: {
-      type: String,
+      type: Object,
       required: false,
       default: null
     }

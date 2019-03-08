@@ -45,7 +45,6 @@
                 no-gutters
                 class="py-4 pl-4 my-5">
                 <b-col
-                  col="3"
                   class="here">
                   <ul
                     class="p-0 footer-list"
@@ -67,7 +66,6 @@
                   v-for="(item, index) in footerItems"
                   v-if="item.children"
                   :key="index"
-                  col="3"
                   class="here">
                   <ul
                     class="p-0 footer-list"
