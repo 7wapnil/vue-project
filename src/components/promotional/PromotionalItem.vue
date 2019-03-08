@@ -7,7 +7,6 @@
       @click="getBonus"/>
   </div>
 </template>
-
 <script>
 import { mapGetters, mapMutations } from 'vuex'
 import contentfulApi from '@/utils/contentful-client'
