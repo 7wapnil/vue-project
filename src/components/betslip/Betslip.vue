@@ -50,7 +50,9 @@
                 <div
                   v-for="bet in getBets"
                   :key="bet.oddId">
-                  <betslip-item :bet="bet"/>
+                  <betslip-item
+                    :parent-refs="$refs"
+                    :bet="bet"/>
                 </div>
               </b-col>
             </b-row>
@@ -113,6 +115,7 @@
     </b-container>
 
     <b-card
+      ref="parent-button"
       bg-variant="arc-clr-soil-black"
       class="px-2 py-2"
       no-body>
