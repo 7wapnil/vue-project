@@ -50,7 +50,7 @@
 
 <script>
 import { BETS_LIST_QUERY } from '@/graphql/index'
-import { NO_CACHE } from '@/constants/graphql/fetch-policy'
+import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
 
 export default {
   filters: {
@@ -110,7 +110,7 @@ export default {
       const kind = this.tabs[index].kind
       this.$apollo.addSmartQuery('bets', {
         query: BETS_LIST_QUERY,
-        fetchPolicy: NO_CACHE,
+        fetchPolicy: NETWORK_ONLY,
         variables: { kind },
         result () {
           this.loadingBets = false
