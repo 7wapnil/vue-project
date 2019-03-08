@@ -1,215 +1,104 @@
 import { expect } from 'chai'
-import { createLocalVue, shallowMount } from '@vue/test-utils'
+import { createLocalVue, mount } from '@vue/test-utils'
 import Vuex from 'vuex'
 import Betslip from '@/components/betslip/Betslip.vue'
-import betslip from '@/stores/betslip'
+import PromotionalItem from '@/components/promotional/PromotionalItem'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
 
-describe('Betslip component', () => {
+describe('Betslip', () => {
   let wrapper
+  let promotion
 
   let store
   let state
+  let actions
   let getters
   let mutations
-  let actions
 
   before(() => {
-    const wallet = { id: 1, amount: 112.23, currency: { code: 'EUR' } }
+    state = {
+      bets: []
+    }
 
     getters = {
-      getWallets: () => { return [ wallet ] },
-      getActiveWallet: () => { return wallet },
-    }
-
-    mutations = {
-      'betslip/freezeBets': sinon.stub(),
-      fetchWallets: sinon.stub()
-    }
-
-    actions = {
-      fetchWallets: sinon.stub(),
-      'betslip/placeBets': sinon.stub()
+      getBetsCount: () => state.bets.count,
+      getBets: () => state.bets,
+      betslipSubmittable: () => true
     }
 
     store = new Vuex.Store({
       modules: {
-        betslip
-      },
-      state,
-      getters,
-      mutations,
-      actions
+        betslip: {
+          namespaced: true,
+          state,
+          actions,
+          getters,
+          mutations
+        }
+      }
     })
 
-    wrapper = shallowMount(Betslip, {
-      stubs: {
-        'b-card': '<div><slot/></div>',
-        'betslip-item': '<div><slot/></div>'
-      },
-      mocks: {
-        $noty: {
-          success: sinon.stub(),
-          error: sinon.stub()
-        },
-      },
-      localVue,
-      store
-    })
+    promotion = mount(PromotionalItem,
+      {
+        localVue,
+        store
+      })
+
+    wrapper = mount(Betslip,
+      {
+        localVue,
+        store
+      })
   })
 
   describe('Default state', () => {
-    xit('opens Single tab', () => {
-      expect(wrapper.find('a.nav-link.active.betslipActiveTab').text()).to.eq('Single')
+    it('shows the banner', () => {
+      expect(promotion.contains('img[alt="arcanebet-promocode"]')).to.equal(true)
     })
 
-    xit('shows placeholder while no bets added', () => {
-      expect(wrapper.find('#betslipSingleTab').isVisible()).to.equal(true)
-      expect(wrapper.find('#betslipSingleTab').text()).to.eq('Place your bets')
+    it('shows initial view', () => {
+      expect(wrapper.text()).contains('Your betslip is currently empty.\n' +
+        '      Click on any odds to add them\n' +
+        '      to betslip.')
+    })
+
+    it('shows place bet button', () => {
+      expect(wrapper.find('span.text-uppercase').text()).to.equal('Place bet')
     })
   })
 
-  xdescribe('Single tab', () => {
+  describe('Has bets', () => {
     before(() => {
-      wrapper.find('#betslipSingleTab').trigger('click')
-    })
+      state = {
+        bets: [{ event: {}, market: {}, odd: {} }]
+      }
+      getters = {
+        getBets: () => state.bets,
+        getBetsCount: () => state.bets.length
+      }
 
-    xit('opens single tab', () => {
-      expect(wrapper.find('#betslipSingleTab').isVisible()).to.equal(true)
-    })
-
-    describe('empty', () => {
-      xit('shows placeholder', () => {
-        expect(wrapper.find('#betslipSingleTab').text()).to.eq('Place your bets')
-      })
-    })
-
-    describe('with bets added', () => {
-      let sampleOddId = 1
-      let sampleOddValue = 1.13
-      let sampleOdd = { id: sampleOddId, value: sampleOddValue }
-      let sampleInitialWalletBalance = 10.006
-      let sampleStake = 1.006
-      let sampleStakeDisplayValue = '1.01'
-      let sampleStakeReturn = 1.13678
-
-      before(() => {
-        const events = [
-          { id: 1, markets: [{ id: 2, odds: [sampleOdd, { id: 4, value: 2.21 }] }] }
-        ]
-        const wallet = { id: 1, amount: sampleInitialWalletBalance, currency: { code: 'EUR' } }
-
-        wrapper.vm.$store.hotUpdate({
-          getters: {
-            getEvents: () => { return events },
-            getWallets: () => { return [wallet] },
-            getActiveWallet: () => { return wallet }
+      store = new Vuex.Store({
+        modules: {
+          betslip: {
+            namespaced: true,
+            state,
+            actions,
+            getters
           }
-
-        })
-
-        wrapper.vm.$store.dispatch('betslip/pushBet', { event: {}, market: {}, odd: sampleOdd })
+        }
       })
 
-      describe('initial bet state', () => {
-        it('has correct odd id', () => {
-          expect(wrapper.vm.getBets[0].oddId).to.eql(sampleOdd.id)
+      promotion = mount(PromotionalItem,
+        {
+          localVue,
+          store
         })
+    })
 
-        it('has approved value equals to currrent odd value', () => {
-          expect(wrapper.vm.getBets[0].approvedOddValue).to.eql(sampleOdd.value)
-        })
-
-        it('has status as initial', () => {
-          expect(wrapper.vm.getBets[0].status).to.eql('initial')
-        })
-
-        it('has zero stake', () => {
-          expect(wrapper.vm.getBets[0].stake).to.eql(0)
-        })
-      })
-
-      it('has bet placement button disabled', () => {
-        expect(wrapper.find('#betslipSingleTab .btn-submit-bets').html()).to.contain('disabled')
-      })
-
-      describe('totals block', () => {
-        it('has total return field', () => {
-          expect(wrapper.find('#betslipSingleTab .total-return').text()).to.contain('Total return:')
-        })
-
-        it('has total stake field', () => {
-          expect(wrapper.find('#betslipSingleTab .total-stake').text()).to.contain('Total stake:')
-        })
-
-        it('should display a button to place bets', () => {
-          expect(wrapper.findAll('#betslipSingleTab .btn-submit-bets')).to.have.length(1);
-          expect(wrapper.find('#betslipSingleTab .btn-submit-bets').text()).to.contain('Place bet')
-        })
-
-        it('has zero stake by default', () => {
-          expect(wrapper.find('#betslipSingleTab .total-stake-value').text()).to.eq('0')
-        })
-
-        it('has zero return by default', () => {
-          expect(wrapper.find('#betslipSingleTab .total-return-value').text()).to.eq('0')
-        })
-      })
-
-      describe('with correct stake entered', () => {
-        before(() => {
-          wrapper.vm.$store.commit('betslip/setBetStake', { oddId: sampleOdd.id, stakeValue: sampleStake })
-        })
-
-        describe('betslip submitted', () => {
-          before(() => {
-            wrapper.vm.submit()
-          })
-
-          it('freezes BetItems in Betslip', function () {
-            expect(mutations['betslip/freezeBets'].calledOnce).to.equal(true)
-          })
-
-          it('calls bet placement API', () => {
-            expect(actions['betslip/placeBets'].called).to.eq(true)
-            const fistCallArgs = actions['betslip/placeBets'].firstCall.args[1][0]
-            expect(fistCallArgs.amount).to.eq(sampleStake)
-          })
-        })
-
-        describe('totals block adjusted', () => {
-          it('calculates correct total stakes', () => {
-            expect(wrapper.vm.getTotalStakes).to.eq(sampleStake)
-          })
-
-          it('displays correct total stakes', () => {
-            expect(
-              wrapper.find('#betslipSingleTab .total-stake-value').text())
-              .to.eq(sampleStakeDisplayValue)
-          })
-
-          it('calculates correct total return', () => {
-            expect(wrapper.vm.getTotalReturn).to.eq(sampleStakeReturn)
-          })
-        })
-      })
-
-      describe('with invalid stake', () => {
-        describe('stake over current wallet balance', () => {
-          before(() => {
-            const wallet = { id: 1, amount: 112.23, currency: { code: 'EUR' } }
-            wrapper.vm.$store.commit(
-              'storeWallets',
-              {
-                wallets: [wallet],
-                activeWallet: wallet
-              }
-            )
-          })
-        })
-      })
+    it('shows no banner', () => {
+      expect(promotion.contains('img[alt="arcanebet-promocode"]')).to.equal(false)
     })
   })
 })

@@ -112,7 +112,7 @@
 import axios from 'axios'
 import { mapGetters } from 'vuex'
 import { DOCUMENTS_QUERY, DELETE_FILE, USER_VERIFICATION_QUERY } from '@/graphql/index'
-import { NO_CACHE } from '@/constants/graphql/fetch-policy'
+import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
 import VerificationStatus from './VerificationStatus'
 import DisclaimerSection from './DisclaimerSection'
 
@@ -194,13 +194,13 @@ export default {
       return {
         query: DOCUMENTS_QUERY,
         result: this.mergeWithItems,
-        fetchPolicy: NO_CACHE
+        fetchPolicy: NETWORK_ONLY
       }
     },
     user () {
       return {
         query: USER_VERIFICATION_QUERY,
-        fetchPolicy: NO_CACHE,
+        fetchPolicy: NETWORK_ONLY
       }
     }
   },

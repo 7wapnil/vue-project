@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="container">
     <b-card
       :bg-variant="cardVariant"
       no-body
@@ -163,6 +163,7 @@ import {
   CANCELLED_STATUS,
   HANDED_OVER_STATUS
 } from '@/models/market'
+import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
 
 export default {
   components: {
@@ -173,6 +174,11 @@ export default {
       type: Bet,
       required: true
     },
+    parentRefs: {
+      type: String,
+      required: false,
+      default: null
+    }
   },
   data () {
     return {
@@ -194,6 +200,7 @@ export default {
     market () {
       return {
         query: MARKET_BY_ID_QUERY,
+        fetchPolicy: NETWORK_ONLY,
         manual: true,
         variables: {
           id: this.bet.marketId,
@@ -268,6 +275,11 @@ export default {
     successMessage () {
       return MESSAGE_SUCCESS
     }
+  },
+  mounted () {
+    this.$nextTick(() => {
+      this.parentRefs['parent-button'].scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'start' });
+    })
   },
   methods: {
     ...mapMutations('betslip', [
