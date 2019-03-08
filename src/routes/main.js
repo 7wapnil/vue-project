@@ -2,7 +2,7 @@ import EventsList from '@/views/events-list/Page.vue'
 import CategoryPage from '@/views/events-list/CategoryPage.vue'
 import TournamentPage from '@/views/events-list/TournamentPage.vue'
 import arcanebetSession from '@/services/local-storage/session'
-import NotFound from '@/views/layouts/main/NotFound'
+
 export default [
   {
     path: 'live',
@@ -13,9 +13,9 @@ export default [
     path: ':titleKind',
     component: () => import('@/views/layouts/main/Content'),
     beforeEnter: (to, from, next) => {
-      const isThere = to.params.titleKind === 'esports' || to.params.titleKind === 'sports'
+      const isKindSupported = to.params.titleKind === 'esports' || to.params.titleKind === 'sports'
 
-      isThere ? next() : next({ name: 'NotFound' })
+      isKindSupported ? next() : next({ name: 'NotFound' })
     },
     children: [
       {
@@ -63,10 +63,5 @@ export default [
       arcanebetSession.storeImpersonatedSession(to.params.token, customerAttrs)
       next({ path: '/' })
     }
-  },
-  {
-    path: '404',
-    name: 'NotFound',
-    component: NotFound
   }
 ]
