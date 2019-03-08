@@ -1,9 +1,10 @@
 <template>
   <b-row
-    v-if="wallets"
     no-gutters>
     <b-col class="bg-arc-clr-soil-dark py-4 px-3">
-      <b-row no-gutters>
+      <b-row
+        v-if="activeWallet"
+        no-gutters>
         <b-col>
           <b-col class="p-0 text-uppercase text-arc-clr-iron font-size-10 letter-spacing-2">
             Balance
