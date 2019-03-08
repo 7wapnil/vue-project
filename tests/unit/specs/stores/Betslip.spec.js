@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 import { mutations, getters, actions } from '@/stores/betslip'
 
-describe('wallets store', () => {
+describe('betslip store', () => {
   describe('mutations', () => {
     describe('freezeBets', () => {
       it('change state of all bets to submitting', () => {
