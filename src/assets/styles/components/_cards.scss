@@ -120,3 +120,14 @@
     cursor: pointer;
   }
 }
+.draw-style  {
+  .market-odd:nth-of-type(2) h6{
+    font-weight: normal !important;
+    color: $arc-clr-iron !important;
+    font-size: 12px;
+    line-height: 14px;
+    text-transform: capitalize;
+    opacity: .4;
+    margin-bottom: 12px !important;
+  }
+}
