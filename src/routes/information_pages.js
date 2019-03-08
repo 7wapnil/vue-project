@@ -8,11 +8,8 @@ import Faq from '@/views/information-pages/support/faq/Page'
 import WelcomePage from '@/views/information-pages/about/welcome/Page'
 import MainPage from '@/views/information-pages/about/main/Page'
 import Blog from '@/views/information-pages/about/blog/Page'
-import Career from '@/views/information-pages/about/career/Page'
 
 import Promotions from '@/views/information-pages/promotions/main/Page'
-
-import Affiliates from '@/views/information-pages/affiliates/main/Page'
 
 import Introduction from '@/views/information-pages/responsible-gaming/introduction/Page'
 import SelfAssessment from '@/views/information-pages/responsible-gaming/self-assessment/Page'
@@ -39,7 +36,7 @@ export const InformationPages = {
         },
         {
           path: 'betting-rules',
-          name: 'betting rules',
+          name: 'sports betting rules',
           component: BettingRules
         },
         {
@@ -48,14 +45,14 @@ export const InformationPages = {
           component: PaymentMethods
         },
         {
-          path: 'cookie-policy',
-          name: 'cookie policy',
-          component: CookiePolicy
-        },
-        {
           path: 'privacy-policy',
           name: 'privacy policy',
           component: PrivacyPolicy
+        },
+        {
+          path: 'cookie-policy',
+          name: 'cookie policy',
+          component: CookiePolicy
         },
         {
           path: 'faq',
@@ -83,12 +80,7 @@ export const InformationPages = {
           path: 'blog',
           name: 'blog',
           component: Blog
-        },
-        {
-          path: 'career',
-          name: 'career',
-          component: Career
-        },
+        }
       ]
     },
     {
@@ -100,7 +92,12 @@ export const InformationPages = {
           path: '',
           name: 'promotions',
           component: Promotions
-        }
+        },
+        {
+          path: 'bonus-rules',
+          name: 'Bonus Rules',
+          component: Promotions
+        },
       ]
     },
     {
@@ -115,26 +112,14 @@ export const InformationPages = {
         },
         {
           path: 'self-assessment',
-          name: 'self assessment',
+          name: 'self assessment test',
           component: SelfAssessment
         },
         {
           path: 'limits',
-          name: 'limits',
+          name: 'setting limits',
           component: Limits
         },
-      ]
-    },
-    {
-      path: 'affiliates',
-      name: 'affiliates',
-      component: () => import('@/views/layouts/information-page/Content'),
-      children: [
-        {
-          path: '',
-          name: 'affiliates',
-          component: Affiliates
-        }
       ]
     }
   ]

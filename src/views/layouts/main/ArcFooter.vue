@@ -45,7 +45,26 @@
                 no-gutters
                 class="py-4 pl-4 my-5">
                 <b-col
-                  v-for="(item, index) in items"
+                  col="3"
+                  class="here">
+                  <ul
+                    class="p-0 footer-list"
+                    style="">
+                    <li class="list-header my-2 text-capitalize">Sport</li>
+                    <li
+                      v-for="(item, index) in homepageLinks"
+                      :key="index"
+                      class="footer-list">
+                      <b-link
+                        :to="`${ item.path }`"
+                        class="text-capitalize">
+                        {{ item.name }}
+                      </b-link>
+                    </li>
+                  </ul>
+                </b-col>
+                <b-col
+                  v-for="(item, index) in footerItems"
                   v-if="item.children"
                   :key="index"
                   col="3"
@@ -117,7 +136,21 @@ export default {
         'gamcare.svg',
         'curacao.svg',
         'esic.svg'],
-      items: InformationPages.routes
+      footerItems: InformationPages.routes,
+      homepageLinks: [
+        {
+          path: '/esports',
+          name: 'Esport Homepage'
+        },
+        {
+          path: '/sports',
+          name: '  Sport Homepage'
+        },
+        {
+          path: '/live',
+          name: 'Inplay Homepage'
+        },
+      ]
     }
   }
 }

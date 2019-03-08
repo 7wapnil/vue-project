@@ -22,6 +22,12 @@ const router = new Router({
       name: 'home',
       component: () => import('@/views/layouts/main/Layout'),
       children: rootChildren
+    },
+    {
+      path: '/sports',
+      name: 'sports',
+      component: () => import('@/views/layouts/main/Layout'),
+      children: rootChildren
     }
   ]
 })
