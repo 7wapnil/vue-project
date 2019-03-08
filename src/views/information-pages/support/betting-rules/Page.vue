@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-row no-gutters >
+    <b-row no-gutters>
       <b-col class="d-none d-lg-block py-4">
         <h3>{{ header }}</h3>
         <span v-html="mainDocument"/>
@@ -12,7 +12,7 @@
 <script>
 import contentfulApi from '@/utils/contentful-client'
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
-import { ABOUT_WELCOME } from '@/constants/contentful/info-pages-ids'
+import { SUPPORT_BETTING_RULES } from '@/constants/contentful/info-pages-ids'
 
 export default {
   data () {
@@ -29,7 +29,7 @@ export default {
     }
   },
   mounted () {
-    contentfulApi.getEntry(ABOUT_WELCOME).then(res => {
+    contentfulApi.getEntry(SUPPORT_BETTING_RULES).then(res => {
       this.viewItems = res.fields
     })
   }

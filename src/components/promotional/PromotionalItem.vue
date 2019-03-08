@@ -9,7 +9,7 @@
 <script>
 import { mapGetters, mapMutations } from 'vuex'
 import contentfulApi from '@/utils/contentful-client'
-import { PROMOTIONS_BANNER } from '@/constants/contentful/entry-ids'
+import { PROMOTIONS_BANNER } from '@/constants/contentful/misc-ids'
 
 export default {
   data () {

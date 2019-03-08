@@ -1,0 +1,1 @@
+export const PROMOTIONS_BANNER = '65MSL5wajMcO2Auscl2D6X'

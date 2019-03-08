@@ -38,8 +38,8 @@
             class="p-4 bg-arc-clr-soil-darker">
             <b-nav-item
               v-for="(child, childIndex) in item.children"
-              :to="child.path"
               :key="childIndex"
+              :to="{ name: `${ child.name }` }"
               class="px-4 py-1 w-100 h-100 text-capitalize text-arc-clr-iron-light font-size-14 font-weight-bold text-truncate"
               active-class="text-arc-clr-gold"
               exact>
