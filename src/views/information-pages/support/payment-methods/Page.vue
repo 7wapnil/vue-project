@@ -1,36 +1,18 @@
 <template>
   <div>
-    <b-row no-gutters >
-      <b-col class="d-none d-lg-block py-4">
-        <h4>{{ header }}</h4>
-        <span v-html="mainDocument"/>
-      </b-col>
-    </b-row>
+    <static-content :contentful-id="id"/>
   </div>
 </template>
 
 <script>
-import contentfulApi from '@/utils/contentful-client'
-import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
+import StaticContent from '@/views/layouts/information-page/StaticContent'
 
 export default {
+  components: { StaticContent },
   data () {
     return {
-      viewItems: []
+      id: process.env.VUE_APP_CONTENTFUL_SUPPORT_PAYMENT_METHODS_ID
     }
-  },
-  computed: {
-    header () {
-      return this.viewItems.header
-    },
-    mainDocument () {
-      return documentToHtmlString(this.viewItems.body)
-    }
-  },
-  mounted () {
-    contentfulApi.getEntry(process.env.VUE_APP_CONTENTFUL_SUPPORT_PAYMENT_METHODS_ID).then(res => {
-      this.viewItems = res.fields
-    })
   }
 }
 </script>
