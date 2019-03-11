@@ -2,14 +2,14 @@
   <b-tabs
     :lazy="lazy"
     v-model="tabIndex"
-    nav-class="mb-2 bg-transparent"
+    nav-class="bg-arc-clr-soil-light-cover"
     nav-wrapper-class="sorting-panel">
 
     <b-tab
       v-for="(tab, index) in tabs"
       :key="index"
       no-body
-      title-link-class="mx-4 pb-4 pt-2 bg-transparent">
+      title-link-class="mx-4 py-4 bg-transparent">
 
       <template slot="title">
         <b-row no-gutters>

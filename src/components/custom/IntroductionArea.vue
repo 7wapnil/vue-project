@@ -1,14 +1,14 @@
 <template>
   <b-container
     fluid
-    class="d-flex align-items-center justify-content-center bg-arc-clr-soil-darker"
-    style="height: 202px">
-    <b-row>
-      <b-col>
-        <h3>
-          Welcome to ArcaneBet
-        </h3>
-      </b-col>
+    class="d-flex align-items-center justify-content-center bg-transparent p-0"
+    style="height: 220px">
+    <b-row no-gutters>
+      <b-col/>
     </b-row>
   </b-container>
 </template>
+
+<script>
+
+</script>

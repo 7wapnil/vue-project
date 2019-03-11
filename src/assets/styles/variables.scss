@@ -33,6 +33,7 @@ $arc-clr-white: #FFFFFF;
 $arc-clr-soil-cover-opacity: .3;
 $arc-clr-soil-cover: rgba($black, .3);
 $arc-dropdown-divider: rgba($black, .15);
+$arc-clr-soil-light-cover: rgba(61, 61, 61, .9);
 
 $arc-clr-gold: #FFB960;
 $arc-clr-gold-light: #FFC67E;
@@ -97,6 +98,7 @@ $input-btn-border-width: 0;
 
 // Custom Colors //
 $theme-colors: ("arc-clr-soil-light": $arc-clr-soil-light,
+                "arc-clr-soil-light-cover": $arc-clr-soil-light-cover,
                 "arc-clr-soil-dark": $arc-clr-soil-dark,
                 "arc-clr-soil-darker": $arc-clr-soil-darker,
                 "arc-clr-soil-black": $arc-clr-soil-black,
