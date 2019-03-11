@@ -2,7 +2,7 @@
   <b-row no-gutters>
     <b-col class="profile-modal-sidebar bg-arc-clr-soil-dark">
 
-      <profile-wallet @open-deposit-tab="changeTabIndex(3)"/>
+      <profile-wallet @open-deposit-tab="changeTabIndex(depositTabIndex)"/>
 
       <b-nav vertical>
         <b-nav-item
@@ -94,11 +94,20 @@ export default {
     },
     ...mapGetters('tabs', {
       currentTabIndex: 'getCurrentTabIndex'
-    })
+    }),
+    depositTabIndex () {
+      let tabIndex = null
+      this.tabs.forEach((tab, i) => {
+        if (tab.title === 'Deposit funds') {
+          tabIndex = i
+        }
+      })
+      return tabIndex
+    }
   },
-  created () {
+  mounted () {
     if (this.$route.query.depositState) {
-      this.changeTabIndex(4)
+      this.changeTabIndex(this.depositTabIndex)
     }
   },
   methods: {
