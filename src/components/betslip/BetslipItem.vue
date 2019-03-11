@@ -175,7 +175,7 @@ export default {
       required: true
     },
     parentRefs: {
-      type: String,
+      type: Object,
       required: false,
       default: null
     }
@@ -278,7 +278,7 @@ export default {
   },
   mounted () {
     this.$nextTick(() => {
-      this.parentRefs['parent-button'].scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'start' });
+      this.parentRefs['parent-button'].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' })
     })
   },
   methods: {
