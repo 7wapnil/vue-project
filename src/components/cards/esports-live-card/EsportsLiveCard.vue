@@ -16,7 +16,7 @@
           <b-row no-gutters>
             <b-col class="mt-1 mb-4 text-truncate d-inline-flex align-items-center justify-content-center">
               <h6 class="mb-0 font-weight-bold text-arc-clr-iron-light">
-                {{ event.state.time }}
+                {{ event.state.time ? event.state.time : 'not avaible' }}
               </h6>
             </b-col>
           </b-row>
@@ -58,6 +58,8 @@
             no-gutters
             class="h-50 w-100">
             <b-link
+              v-if="marketsCount > 0"
+              :to="{ name: 'event', params: { id: event.id } }"
               class="col pt-3 event-card-statistics-button">
               <b-row
                 no-gutters
@@ -67,7 +69,7 @@
                   class="h-50 w-100">
                   <b-col class="d-inline-flex justify-content-center align-items-start">
                     <h6 class="m-0 font-weight-bold">
-                      +{{ marketsCount }}v
+                      + {{ marketsCount }}
                     </h6>
                   </b-col>
                 </b-row>
@@ -235,6 +237,10 @@ export default {
     event: {
       type: Object,
       required: true
+    },
+    icons: {
+      type: Boolean,
+      default: true
     }
   },
   computed: {

@@ -13,6 +13,11 @@ export default [
   {
     path: ':titleKind',
     component: () => import('@/views/layouts/main/Content'),
+    beforeEnter: (to, from, next) => {
+      const isKindSupported = to.params.titleKind === 'esports' || to.params.titleKind === 'sports'
+
+      isKindSupported ? next() : next({ name: 'NotFound' })
+    },
     children: [
       {
         path: '',
