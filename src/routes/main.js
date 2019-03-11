@@ -67,7 +67,6 @@ export default [
   },
   {
     path: 'affiliates',
-    name: 'affiliates',
     component: () => import('@/views/layouts/information-page/Content'),
     children: [
       {

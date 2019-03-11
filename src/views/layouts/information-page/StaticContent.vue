@@ -32,6 +32,7 @@ export default {
     }
   },
   mounted () {
+    console.log(this.$contentful)
     contentfulApi.getEntry(this.contentfulId).then(res => {
       this.viewItems = res.fields
     })

@@ -1,20 +1,3 @@
-import ContactUs from '@/views/information-pages/support/contact-us/Page'
-import TermsAndConditions from '@/views/information-pages/support/terms-and-conditions/Page'
-import BettingRules from '@/views/information-pages/support/betting-rules/Page'
-import PaymentMethods from '@/views/information-pages/support/payment-methods/Page'
-import CookiePolicy from '@/views/information-pages/support/cookie-policy/Page'
-import PrivacyPolicy from '@/views/information-pages/support/privacy-policy/Page'
-import Faq from '@/views/information-pages/support/faq/Page'
-import WelcomePage from '@/views/information-pages/about/welcome/Page'
-import MainPage from '@/views/information-pages/about/main/Page'
-import Blog from '@/views/information-pages/about/blog/Page'
-
-import Promotions from '@/views/information-pages/promotions/main/Page'
-
-import Introduction from '@/views/information-pages/responsible-gaming/introduction/Page'
-import SelfAssessment from '@/views/information-pages/responsible-gaming/self-assessment/Page'
-import Limits from '@/views/information-pages/responsible-gaming/limits/Page'
-
 export const InformationPages = {
   routes: [
     {
@@ -27,37 +10,37 @@ export const InformationPages = {
         {
           path: 'contact-us',
           name: 'contact us',
-          component: ContactUs
+          component: () => import('@/views/information-pages/support/contact-us/Page')
         },
         {
           path: 'terms-and-conditions',
           name: 'terms and conditions',
-          component: TermsAndConditions
+          component: () => import('@/views/information-pages/support/terms-and-conditions/Page')
         },
         {
           path: 'betting-rules',
           name: 'sports betting rules',
-          component: BettingRules
+          component: () => import('@/views/information-pages/support/betting-rules/Page')
         },
         {
           path: 'payment-methods',
           name: 'payment methods',
-          component: PaymentMethods
+          component: () => import('@/views/information-pages/support/payment-methods/Page')
         },
         {
           path: 'privacy-policy',
           name: 'privacy policy',
-          component: PrivacyPolicy
+          component: () => import('@/views/information-pages/support/privacy-policy/Page')
         },
         {
           path: 'cookie-policy',
           name: 'cookie policy',
-          component: CookiePolicy
+          component: () => import('@/views/information-pages/support/cookie-policy/Page')
         },
         {
           path: 'faq',
           name: 'FAQ',
-          component: Faq
+          component: () => import('@/views/information-pages/support/faq/Page')
         }
       ]
     },
@@ -69,34 +52,33 @@ export const InformationPages = {
         {
           path: 'welcome-to-arcanebet',
           name: 'welcome to arcanebet',
-          component: WelcomePage
+          component: () => import('@/views/information-pages/about/welcome/Page')
         },
         {
           path: 'about-arcanebet',
           name: 'about arcanebet',
-          component: MainPage
+          component: () => import('@/views/information-pages/about/main/Page')
         },
         {
           path: 'blog',
           name: 'blog',
-          component: Blog
+          component: () => import('@/views/information-pages/about/blog/Page')
         }
       ]
     },
     {
       path: 'promotions',
-      name: 'promotions',
       component: () => import('@/views/layouts/information-page/Content'),
       children: [
         {
           path: '',
           name: 'promotions',
-          component: Promotions
+          component: () => import('@/views/information-pages/promotions/main/Page')
         },
         {
           path: 'bonus-rules',
           name: 'Bonus Rules',
-          component: Promotions
+          component: () => import('@/views/information-pages/promotions/main/Page')
         },
       ]
     },
@@ -108,17 +90,17 @@ export const InformationPages = {
         {
           path: 'introduction',
           name: 'introduction',
-          component: Introduction
+          component: () => import('@/views/information-pages/responsible-gaming/introduction/Page')
         },
         {
           path: 'self-assessment',
           name: 'self assessment test',
-          component: SelfAssessment
+          component: () => import('@/views/information-pages/responsible-gaming/self-assessment/Page')
         },
         {
           path: 'limits',
           name: 'setting limits',
-          component: Limits
+          component: () => import('@/views/information-pages/responsible-gaming/limits/Page')
         },
       ]
     }
