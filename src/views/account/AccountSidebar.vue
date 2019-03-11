@@ -105,7 +105,7 @@ export default {
       return tabIndex
     }
   },
-  mounted () {
+  created () {
     if (this.$route.query.depositState) {
       this.changeTabIndex(this.depositTabIndex)
     }
