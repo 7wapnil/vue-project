@@ -71,7 +71,7 @@
                     class="p-0 footer-list"
                     style="">
 
-                    <li class="list-header my-2 text-capitalize">{{ item.name }}</li>
+                    <li class="list-header my-2 text-capitalize">{{ item.title }}</li>
                     <li
                       v-for="(child, index) in item.children"
                       :key="index"
@@ -142,7 +142,7 @@ export default {
         },
         {
           path: '/sports',
-          name: '  Sport Homepage'
+          name: 'Sport Homepage'
         },
         {
           path: '/live',

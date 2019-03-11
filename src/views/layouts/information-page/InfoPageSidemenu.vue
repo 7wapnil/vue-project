@@ -21,7 +21,7 @@
               size="24px"/>
           </span>
           <span class="text-capitalize font-size-14 font-weight-bold h-100 w-100 d-flex align-items-center item-name">
-            {{ item.name }}
+            {{ item.title }}
           </span>
           <span class="px-4 d-flex align-items-center h-100">
             <icon
@@ -43,7 +43,7 @@
               class="px-4 py-1 w-100 h-100 text-capitalize text-arc-clr-iron-light font-size-14 font-weight-bold text-truncate"
               active-class="text-arc-clr-gold"
               exact>
-              {{ child.name }}
+              {{ child.title }}
             </b-nav-item>
           </b-nav>
         </b-collapse>

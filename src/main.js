@@ -13,6 +13,7 @@ import globalMixin from '@/mixins/global'
 import '@/components/global-components'
 import VueApollo from 'vue-apollo'
 import VueLogger from 'vuejs-logger'
+import ContentfulPlugin from '@/libs/contentful/contentful-client'
 
 const isProduction = process.env.NODE_ENV === 'production'
 
@@ -29,6 +30,8 @@ Vue.use(VueApollo)
 Vue.use(VueLogger, {
   logLevel: isProduction ? 'error' : 'debug'
 })
+
+Vue.use(ContentfulPlugin)
 
 const ApolloProvider = new VueApollo({
   defaultClient: apolloClient,
