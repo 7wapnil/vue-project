@@ -5,7 +5,7 @@
     card
     class="category-tabs"
     nav-class="bg-transparent px-4 py-0"
-    nav-wrapper-class="bg-arc-clr-soil-darker"
+    nav-wrapper-class="bg-transparent"
     @input="emitInput">
     <b-tab
       v-for="(tab, index) in tabs"
@@ -17,14 +17,15 @@
           <b-col class="d-flex justify-content-center align-items-center">
             <icon
               :name="tab.icon"
+              color="arc-clr-iron"
               size="18px"/>
           </b-col>
         </b-row>
         <b-row no-gutters>
           <b-col>
-            <small>
+            <span class="font-size-12 text-arc-clr-iron-light line-height-14 letter-spacing-3">
               {{ tab.title }}
-            </small>
+            </span>
           </b-col>
         </b-row>
       </template>
