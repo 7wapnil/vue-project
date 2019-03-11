@@ -3,9 +3,11 @@ import { createLocalVue, mount } from '@vue/test-utils'
 import Vuex from 'vuex'
 import Betslip from '@/components/betslip/Betslip.vue'
 import PromotionalItem from '@/components/promotional/PromotionalItem'
+import contentful from '@/libs/contentful/contentful-client'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
+localVue.use(contentful)
 
 describe('Betslip', () => {
   let wrapper
@@ -54,6 +56,7 @@ describe('Betslip', () => {
   })
 
   describe('Default state', () => {
+
     it('shows the banner', () => {
       expect(promotion.contains('img[alt="arcanebet-promocode"]')).to.equal(true)
     })
