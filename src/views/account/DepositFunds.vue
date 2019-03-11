@@ -209,7 +209,9 @@ export default {
       }
     },
     isEmptyWallet () {
-      return this.walletActive.id === null
+      if (this.walletActive) {
+        return this.walletActive.id === null
+      }
     },
     getMessage () {
       return this.$route.query.depositStateMessage
