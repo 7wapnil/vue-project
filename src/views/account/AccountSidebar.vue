@@ -64,27 +64,33 @@ export default {
       tabs: [{
         title: 'Account info & settings',
         component: Account,
-        icon: 'profile-account'
+        icon: 'profile-account',
+        id: 'account'
       }, {
         title: 'Bonus',
         component: Bonus,
-        icon: 'profile-bonus'
+        icon: 'profile-bonus',
+        id: 'bonus'
       }, {
         title: 'Activity',
         component: Activity,
-        icon: 'profile-account'
+        icon: 'profile-account',
+        id: 'activity'
       }, {
         title: 'Deposit funds',
         component: DepositFunds,
-        icon: 'profile-deposit'
+        icon: 'profile-deposit',
+        id: 'deposit'
       }, {
         title: 'Withdraw funds',
         component: Withdraw,
-        icon: 'profile-withdraw'
+        icon: 'profile-withdraw',
+        id: 'withdraw'
       }, {
         title: 'Account verification',
         component: AccountVerification,
-        icon: 'profile-account'
+        icon: 'profile-account',
+        id: 'verification'
       }]
     }
   },
@@ -96,13 +102,7 @@ export default {
       currentTabIndex: 'getCurrentTabIndex'
     }),
     depositTabIndex () {
-      let tabIndex = null
-      this.tabs.forEach((tab, i) => {
-        if (tab.title === 'Deposit funds') {
-          tabIndex = i
-        }
-      })
-      return tabIndex
+      return this.tabs.findIndex(tab => tab.id === 'deposit') || null
     }
   },
   created () {
