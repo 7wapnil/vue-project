@@ -56,7 +56,6 @@ describe('Betslip', () => {
   })
 
   describe('Default state', () => {
-
     it('shows the banner', () => {
       expect(promotion.contains('img[alt="arcanebet-promocode"]')).to.equal(true)
     })
