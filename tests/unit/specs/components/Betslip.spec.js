@@ -3,9 +3,14 @@ import { createLocalVue, mount } from '@vue/test-utils'
 import Vuex from 'vuex'
 import Betslip from '@/components/betslip/Betslip.vue'
 import PromotionalItem from '@/components/promotional/PromotionalItem'
+import contentful from '@/libs/contentful/contentful-client'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
+localVue.use(contentful, {
+  space: process.env.VUE_APP_CONTENTFUL_SPACE_ID,
+  accessToken: process.env.VUE_APP_CONTENTFUL_ACCESS_TOKEN
+})
 
 describe('Betslip', () => {
   let wrapper

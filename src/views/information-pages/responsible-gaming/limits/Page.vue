@@ -11,7 +11,7 @@ export default {
   components: { StaticContent },
   data () {
     return {
-      id: process.env.VUE_APP_CONTENTFUL_ABOUT_WELCOME_ID
+      id: process.env.VUE_APP_CONTENTFUL_RESPONSIBLE_LIMITS_ID
     }
   }
 }

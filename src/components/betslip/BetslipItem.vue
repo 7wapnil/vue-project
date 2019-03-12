@@ -1,5 +1,5 @@
 <template>
-  <div id="container">
+  <div>
     <b-card
       :bg-variant="cardVariant"
       no-body
