@@ -47,6 +47,7 @@
       </b-tab>
     </b-tabs>
     <b-pagination
+      v-if="paginationProps.count > 0"
       v-model="currentPage"
       :total-rows="paginationProps.count"
       :per-page="betsPerPage"
@@ -59,11 +60,8 @@
 <script>
 import { BETS_LIST_QUERY } from '@/graphql/index'
 import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
-import BPagination from 'bootstrap-vue/es/components/pagination/pagination'
+
 export default {
-  components: {
-    BPagination
-  },
   filters: {
     capitalize (value) {
       if (!value) {
