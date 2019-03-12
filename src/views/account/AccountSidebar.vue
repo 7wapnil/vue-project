@@ -2,7 +2,7 @@
   <b-row no-gutters>
     <b-col class="profile-modal-sidebar bg-arc-clr-soil-dark">
 
-      <profile-wallet @open-deposit-tab="currentTabIndex = 4"/>
+      <profile-wallet @open-deposit-tab="changeTabIndex(depositTabIndex)"/>
 
       <b-nav vertical>
         <b-nav-item
@@ -10,7 +10,7 @@
           :key="index"
           :class="{'profile-modal-nav-item-active': currentTabIndex === index }"
           class="profile-modal-nav-item bg-arc-clr-soil-black"
-          @click="currentTabIndex = index">
+          @click="changeTabIndex(index)">
           <span>
             <icon
               :name="tab.icon"
@@ -20,6 +20,15 @@
           <span class="ml-3 font-weight-bold font-size-14 tab-title">
             {{ tab.title }}
           </span>
+        </b-nav-item>
+        <b-nav-item
+          class="profile-modal-nav-item bg-arc-clr-soil-black "
+          @click.prevent="logout">
+          <icon
+            name="logout"
+            class="tab-icon"
+            size="24px"/>
+          <span class="ml-3 font-weight-bold font-size-14 tab-title">Logout</span>
         </b-nav-item>
       </b-nav>
     </b-col>
@@ -31,19 +40,18 @@
 <script>
 import Account from './Account'
 import Bonus from './bonus/Page'
-import Promotions from './AccountPromotions'
 import Activity from './Activity'
 import DepositFunds from './DepositFunds'
-import Withdraw from './AccountWithdraw'
-import AccountVerification from './AccountVerification'
+import Withdraw from './withdraw/Page'
+import AccountVerification from './account-verification/AccountVerification'
 import ChangePassword from './ChangePassword'
 import ProfileWallet from './ProfileWallet'
+import { mapActions, mapGetters, mapMutations } from 'vuex'
 
 export default {
   components: {
     Account,
     Bonus,
-    Promotions,
     Activity,
     DepositFunds,
     Withdraw,
@@ -53,42 +61,66 @@ export default {
   },
   data () {
     return {
-      currentTabIndex: this.$route.query.depositState ? 4 : 0,
       tabs: [{
         title: 'Account info & settings',
         component: Account,
-        icon: 'profile-account'
+        icon: 'profile-account',
+        id: 'account'
       }, {
         title: 'Bonus',
         component: Bonus,
-        icon: 'profile-bonus'
-      }, {
-        title: 'Promotions',
-        component: Promotions,
-        icon: 'profile-promotions'
+        icon: 'profile-bonus',
+        id: 'bonus'
       }, {
         title: 'Activity',
         component: Activity,
-        icon: 'profile-account'
+        icon: 'profile-account',
+        id: 'activity'
       }, {
         title: 'Deposit funds',
         component: DepositFunds,
-        icon: 'profile-deposit'
+        icon: 'profile-deposit',
+        id: 'deposit'
       }, {
         title: 'Withdraw funds',
         component: Withdraw,
-        icon: 'profile-withdraw'
+        icon: 'profile-withdraw',
+        id: 'withdraw'
       }, {
         title: 'Account verification',
         component: AccountVerification,
-        icon: 'profile-account'
+        icon: 'profile-account',
+        id: 'verification'
       }]
     }
   },
   computed: {
     currentComponent () {
       return this.tabs[this.currentTabIndex].component
+    },
+    ...mapGetters('tabs', {
+      currentTabIndex: 'getCurrentTabIndex'
+    }),
+    depositTabIndex () {
+      return this.tabs.findIndex(tab => tab.id === 'deposit') || null
     }
+  },
+  created () {
+    if (this.$route.query.depositState) {
+      this.changeTabIndex(this.depositTabIndex)
+    }
+  },
+  methods: {
+    ...mapActions({
+      dispatchLogout: 'logout'
+    }),
+    ...mapMutations('tabs', {
+      changeTabIndex: 'changeTabIndex'
+    }),
+    logout () {
+      this.dispatchLogout(this)
+      this.$noty.success('Signed out successfully')
+    },
   }
 }
 </script>

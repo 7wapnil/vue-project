@@ -12,6 +12,7 @@
 import { MARKETS_LIST_QUERY, CATEGORY_MARKET_UPDATED } from '@/graphql'
 import { updateCacheList } from '@/helpers/graphql'
 import MarketsList from './MarketsList'
+import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
 
 export default {
   components: {
@@ -31,6 +32,7 @@ export default {
     markets () {
       return {
         query: MARKETS_LIST_QUERY,
+        fetchPolicy: NETWORK_ONLY,
         variables: {
           eventId: this.event.id,
           category: this.category.slug

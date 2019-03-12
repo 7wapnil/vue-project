@@ -20,7 +20,7 @@
 
         <b-table
           v-if="!loadingBets"
-          :items="bets"
+          :items="bets.collection"
           :fields="fields">
           <template
             slot="details"
@@ -48,16 +48,22 @@
     </b-tabs>
     <b-pagination
       v-model="currentPage"
+      :total-rows="paginationProps.count"
+      :per-page="betsPerPage"
       align="center"
+      @input="showMore()"
     />
   </div>
 </template>
 
 <script>
 import { BETS_LIST_QUERY } from '@/graphql/index'
-import { NO_CACHE } from '@/constants/graphql/fetch-policy'
-
+import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
+import BPagination from 'bootstrap-vue/es/components/pagination/pagination'
 export default {
+  components: {
+    BPagination
+  },
   filters: {
     capitalize (value) {
       if (!value) {
@@ -70,7 +76,9 @@ export default {
     return {
       bets: [],
       page: 1,
-      itemsPerPage: 3,
+      paginationProps: Object,
+      count: null,
+      betsPerPage: 5,
       loadingBets: true,
       fields: [
         {
@@ -113,7 +121,6 @@ export default {
       },
       set (value) {
         this.page = value
-        this.showMore()
       }
     },
   },
@@ -123,12 +130,15 @@ export default {
       const kind = this.tabs[index].kind
       return {
         query: BETS_LIST_QUERY,
-        fetchPolicy: NO_CACHE,
+        fetchPolicy: NETWORK_ONLY,
         variables: {
+          page: this.currentPage,
+          per_page: this.betsPerPage,
           kind: kind
         },
-        result () {
+        result ({ data }) {
           this.loadingBets = false
+          this.paginationProps = data.bets.pagination
         }
       }
     }
@@ -139,12 +149,15 @@ export default {
       const kind = this.tabs[index].kind
       this.$apollo.queries.bets.fetchMore({
         variables: {
+          page: this.currentPage,
+          per_page: this.betsPerPage,
           kind: kind
         },
         updateQuery: (previousResult, { fetchMoreResult }) => {
           this.bets = fetchMoreResult.bets
+          this.paginationProps = fetchMoreResult.bets.pagination
           this.loadingBets = false
-        },
+        }
       })
     }
   }

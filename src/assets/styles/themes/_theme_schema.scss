@@ -52,7 +52,8 @@
   }
   &.disabled {
     background-color: rgba(151, 151, 151, .6);
-    box-shadow: 0 0 0 0 rgba($black, .5);
+    color: $arc-clr-soil-light;
+    box-shadow: unset;
     border: $btn-border-width solid rgba(193, 193, 193, .3);
   }
 }
@@ -76,7 +77,7 @@
 .wallet-button {
   background-color: $nav-wallet-button-background;
   box-shadow: $arc-button-box-shadow;
-  border: 1px solid rgba(66,144,255, .5);
+  border: 1px solid  $profile-button-second-color !important;
   border-radius: 6px 0 6px 0 !important;
 }
 #nav-wallet-wrapper > .dropdown-menu,
@@ -109,8 +110,11 @@
 .arc-event-details-chevron-down {
   color: $icon-section-color;
 }
-.arc-profile-button {
-  background-color: $icon-section-color;
+
+// Profile button
+.btn-arc-profile-button {
+  border: 3px solid  $profile-button-second-color;
+  background: $icon-section-color url('~@/assets/images/account/user-shadow.svg') no-repeat bottom;
 }
 .category-tabs .nav-link.active i{
   color: $icon-section-color;

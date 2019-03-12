@@ -67,10 +67,9 @@ export const getters = {
       return false
     }
     let enabled = false
-
     if (getters.betslipValuesConfirmed &&
       getters.getTotalStakes > 0 &&
-      getters.getTotalStakes <= activeWallet.amount
+      getters.getTotalStakes <= activeWallet.amount && !getters.getAnyInactiveMarket
     ) {
       enabled = true
     }
@@ -102,6 +101,9 @@ export const getters = {
   },
   getTotalReturn (state) {
     return state.bets.map(el => (el.stake > 0 ? el.stake : 0) * el.approvedOddValue).reduce((a, b) => +a + +b, 0)
+  },
+  getAnyInactiveMarket (state) {
+    return !!state.bets.find(bet => bet.marketStatus !== 'active');
   }
 }
 

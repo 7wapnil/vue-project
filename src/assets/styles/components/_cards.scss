@@ -5,8 +5,11 @@
 %event-card {
   border-radius: 4px !important;
   user-select: none;
+  transition: box-shadow $transition-speed ease;
   &:hover {
     cursor: pointer;
+    box-shadow: 0 1px 20px 0 rgba($black, .3);
+    transition: box-shadow $transition-speed ease;
     .arc-upcoming-event-replay,
     .arc-upcoming-event-statistic {
       transition: all $transition-speed ease-in-out;
@@ -92,7 +95,7 @@
 .upcoming-card {
   @extend %event-card;
   & .card-body {
-    height: 80px;
+    max-height: 80px;
   }
 }
 .esport-card {
@@ -100,11 +103,31 @@
   transition: box-shadow $transition-speed ease;
   &:hover {
     transition: box-shadow $transition-speed ease;
-    box-shadow: 0 0 20px 0 $black;
+    box-shadow: 0 1px 20px 0 rgba($black, .3);
   }
   .event-card-statistics-button {
     &:hover {
       border-bottom-right-radius: 0;
     }
+  }
+}
+
+// Verification card
+.verification-card {
+  min-height: 97px;
+  box-shadow: inset 0 -1px 0 0 $arc-clr-soil-cover;
+  label {
+    cursor: pointer;
+  }
+}
+.draw-style  {
+  .market-odd:nth-of-type(2) h6{
+    font-weight: normal !important;
+    color: $arc-clr-iron !important;
+    font-size: 12px;
+    line-height: 14px;
+    text-transform: capitalize;
+    opacity: .4;
+    margin-bottom: 12px !important;
   }
 }

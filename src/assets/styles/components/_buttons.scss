@@ -10,6 +10,12 @@
   &:hover {
     cursor: pointer;
   }
+  &.disabled,
+  &:disabled {
+    opacity: unset;
+    pointer-events: none;
+    box-shadow: unset;
+  }
 }
 .btn-secondary,
 %btn-secondary {
@@ -63,6 +69,7 @@
   color: $arc-clr-iron-light;
   font-weight: $font-weight-bold;
   font-size: $h6-font-size;
+  letter-spacing: .2px;
   &:hover {
     background-color: $arc-clr-soil-cover;
     color: $arc-clr-white;
@@ -79,14 +86,16 @@
 }
 
 // User profile button //
-.arc-profile-button {
+.btn-arc-profile-button {
   border-radius: 50px !important;
   width: 42px !important;
   height: 42px !important;
-  border: 3px solid rgba($black, .3) !important;
-}
-.nav-profile-button {
-  padding: 12px 7px 10px 5px;
+  box-shadow: 0 2px 0 0 rgba($black, .5);
+  padding: 0;
+  &:hover {
+    background-color: $arc-clr-soil-cover;
+    color: $arc-clr-white;
+  }
 }
 
 // Event cards odd button //
