@@ -12,11 +12,10 @@
       <b-tab
         v-for="tab in tabs"
         :key="tab.id"
-        :title="tab.title">
+        :title="tab.title"
+        @click="changeKind(tab)">
 
-        <loader
-          v-if="loadingBets"
-          style="height: 1300px;"/>
+        <loader v-if="loadingBets"/>
 
         <b-table
           v-if="!loadingBets"
@@ -52,7 +51,7 @@
       :total-rows="paginationProps.count"
       :per-page="betsPerPage"
       align="center"
-      @input="showMore()"
+      @input="loadMoreHistory()"
     />
   </div>
 </template>
@@ -75,8 +74,8 @@ export default {
       bets: [],
       page: 1,
       paginationProps: Object,
-      count: null,
-      betsPerPage: 5,
+      betsPerPage: 10,
+      betKind: null,
       loadingBets: true,
       fields: [
         {
@@ -109,7 +108,7 @@ export default {
         id: 2,
         title: 'Sport',
         kind: 'sport'
-      }]
+      }],
     }
   },
   computed: {
@@ -121,18 +120,24 @@ export default {
         this.page = value
       }
     },
+    variables () {
+      return {
+        page: this.currentPage,
+        per_page: this.betsPerPage,
+        kind: this.betKind
+      }
+    }
   },
   apollo: {
-    bets (index = 0) {
+    bets () {
       this.loadingBets = true
-      const kind = this.tabs[index].kind
       return {
         query: BETS_LIST_QUERY,
         fetchPolicy: NETWORK_ONLY,
         variables: {
-          page: this.currentPage,
+          page: 1,
           per_page: this.betsPerPage,
-          kind: kind
+          kind: null
         },
         result ({ data }) {
           this.loadingBets = false
@@ -142,21 +147,22 @@ export default {
     }
   },
   methods: {
-    showMore (index = 0) {
+    loadMoreHistory () {
       this.loadingBets = true
-      const kind = this.tabs[index].kind
       this.$apollo.queries.bets.fetchMore({
-        variables: {
-          page: this.currentPage,
-          per_page: this.betsPerPage,
-          kind: kind
-        },
+        variables: this.variables,
         updateQuery: (previousResult, { fetchMoreResult }) => {
-          this.bets = fetchMoreResult.bets
-          this.paginationProps = fetchMoreResult.bets.pagination
           this.loadingBets = false
+          return {
+            bets: fetchMoreResult.bets,
+            paginationProps: fetchMoreResult.bets.pagination
+          }
         }
       })
+    },
+    changeKind (tab) {
+      this.betKind = tab.kind
+      return this.betKind
     }
   }
 }
