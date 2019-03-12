@@ -8,8 +8,8 @@ import contentful from '@/libs/contentful/contentful-client'
 const localVue = createLocalVue()
 localVue.use(Vuex)
 localVue.use(contentful, {
-  space: `${process.env.VUE_APP_CONTENTFUL_SPACE_ID}`,
-  accessToken: `${process.env.VUE_APP_CONTENTFUL_ACCESS_TOKEN}`
+  space: process.env.VUE_APP_CONTENTFUL_SPACE_ID,
+  accessToken: process.env.VUE_APP_CONTENTFUL_ACCESS_TOKEN
 })
 
 describe('Betslip', () => {
