@@ -1,11 +1,4 @@
-const DEFAULT_ICON = 'sidemenu-game-icon'
-
-/**
- * Icons map for title high level menu
- */
-const iconsMap = {
-  'american-football': 'sidemenu-game-icon'
-}
+import iconsMap, { DEFAULT_ICON } from '@/assets/icons/sidemenu/index'
 
 /**
  * Converts title name to slug-title-name

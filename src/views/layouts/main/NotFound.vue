@@ -23,7 +23,7 @@
               :to="{ path: '/esports' }"
               size="lg"
               variant="arc-secondary"
-              class="px-5 bg-arc-clr-esport-bg border-0 letter-spacing-2 font-weight-bold opacity-6">
+              class="px-5 bg-arc-clr-esport-bg border-0 letter-spacing-2 font-weight-bold">
               ESPORT HOME
             </b-button>
           </b-col>
@@ -32,7 +32,7 @@
               :to="{ path: '/sports'}"
               size="lg"
               variant="arc-secondary"
-              class="px-5 bg-arc-clr-sport-bg border-0 letter-spacing-2 font-weight-bold opacity-6">
+              class="px-5 bg-arc-clr-sport-bg border-0 letter-spacing-2 font-weight-bold">
               SPORT HOME
             </b-button>
           </b-col>

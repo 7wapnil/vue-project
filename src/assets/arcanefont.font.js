@@ -1,7 +1,8 @@
 module.exports = {
   'files': [
     './icons/*.svg',
-    './icons/*/*.svg'
+    './icons/*/*.svg',
+    './icons/*/*/*.svg'
   ],
   'fontName': 'arcanefont',
   'classPrefix': 'arc-',
