@@ -8,18 +8,18 @@
       </b-col>
     </b-row>
     <b-tabs
-      card
-      @input="loadBets">
+      card>
       <b-tab
         v-for="tab in tabs"
         :key="tab.id"
-        :title="tab.title">
+        :title="tab.title"
+        @click="changeKind(tab)">
 
         <loader v-if="loadingBets"/>
 
         <b-table
           v-if="!loadingBets"
-          :items="bets"
+          :items="bets.collection"
           :fields="fields">
           <template
             slot="details"
@@ -45,6 +45,14 @@
         </b-table>
       </b-tab>
     </b-tabs>
+    <b-pagination
+      v-if="paginationProps.count > 0"
+      v-model="currentPage"
+      :total-rows="paginationProps.count"
+      :per-page="betsPerPage"
+      align="center"
+      @input="loadMoreHistory()"
+    />
   </div>
 </template>
 
@@ -64,6 +72,10 @@ export default {
   data () {
     return {
       bets: [],
+      page: 1,
+      paginationProps: Object,
+      betsPerPage: 10,
+      betKind: null,
       loadingBets: true,
       fields: [
         {
@@ -99,19 +111,58 @@ export default {
       }],
     }
   },
-  methods: {
-    loadBets (index = 0) {
+  computed: {
+    currentPage: {
+      get () {
+        return this.page
+      },
+      set (value) {
+        this.page = value
+      }
+    },
+    variables () {
+      return {
+        page: this.currentPage,
+        per_page: this.betsPerPage,
+        kind: this.betKind
+      }
+    }
+  },
+  apollo: {
+    bets () {
       this.loadingBets = true
-
-      const kind = this.tabs[index].kind
-      this.$apollo.addSmartQuery('bets', {
+      return {
         query: BETS_LIST_QUERY,
         fetchPolicy: NETWORK_ONLY,
-        variables: { kind },
-        result () {
+        variables: {
+          page: 1,
+          per_page: this.betsPerPage,
+          kind: null
+        },
+        result ({ data }) {
           this.loadingBets = false
+          this.paginationProps = data.bets.pagination
+        }
+      }
+    }
+  },
+  methods: {
+    loadMoreHistory () {
+      this.loadingBets = true
+      this.$apollo.queries.bets.fetchMore({
+        variables: this.variables,
+        updateQuery: (previousResult, { fetchMoreResult }) => {
+          this.loadingBets = false
+          return {
+            bets: fetchMoreResult.bets,
+            paginationProps: fetchMoreResult.bets.pagination
+          }
         }
       })
+    },
+    changeKind (tab) {
+      this.betKind = tab.kind
+      return this.betKind
     }
   }
 }
