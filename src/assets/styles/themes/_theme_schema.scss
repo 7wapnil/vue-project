@@ -117,7 +117,7 @@
   background: $icon-section-color url('~@/assets/images/account/user-shadow.svg') no-repeat bottom;
 }
 .category-tabs .nav-link.active i{
-  color: $icon-section-color;
+  color: $icon-section-color !important;
 }
 .events-list-title i{
   color: $icon-section-color;
@@ -169,6 +169,7 @@
   background-color: $nav-item-active-glow;
 }
 
+// Breadcrumbs
 .breadcrumb-item {
   font-size: $small-font-size;
   &:before {

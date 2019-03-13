@@ -1,24 +1,4 @@
-import iconsMap, { DEFAULT_ICON } from '@/assets/icons/sidemenu/index'
-
-/**
- * Converts title name to slug-title-name
- * @param words
- * @returns {string}
- */
-const slug = (words) => {
-  return words
-    .toLowerCase()
-    .replace(/\s+/g, '-')
-}
-
-const getTitleIcon = (titleName) => {
-  const titleSlug = slug(titleName)
-  if (iconsMap[titleSlug] === undefined) {
-    return DEFAULT_ICON
-  }
-
-  return iconsMap[titleSlug]
-}
+import { findTitleIcon } from './icon-finder'
 
 /**
  * Build tournaments list by parent ID
@@ -95,7 +75,7 @@ export const buildTree = (titleKind, titles, route) => {
       id: title.id,
       label: title.name,
       active: !!children.find(c => c.active),
-      icon: getTitleIcon(title.name),
+      icon: findTitleIcon(title),
       children
     }
   })
