@@ -107,7 +107,7 @@ export default {
       }, {
         id: 2,
         title: 'Sport',
-        kind: 'sport'
+        kind: 'sports'
       }],
     }
   },
@@ -162,6 +162,8 @@ export default {
     },
     changeKind (tab) {
       this.betKind = tab.kind
+      this.page = 1
+      this.loadMoreHistory()
       return this.betKind
     }
   }
