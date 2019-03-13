@@ -4,22 +4,22 @@
     class="p-4"
     body-class="events-card-body">
     <div
-      v-for="title in groupedEvents"
-      :key="title.name">
+      v-for="(title, index) in groupedEvents"
+      :key="index">
       <b-row
         v-if="!titleId"
         no-gutters>
         <b-col class="d-inline-flex px-4 pt-4 events-list-title">
 
           <icon
+            :name="findTitleIcon(title)"
             class="ml-2"
-            name="sidemenu-game-icon"
             size="24px"/>
 
           <h4
             tabindex="0"
-            class="ml-4 mb-0 text-arc-clr-white font-weight-light letter-spacing-1"
-            style="cursor: pointer; outline: 0;"
+            class="ml-4 mb-0 text-arc-clr-white font-weight-light letter-spacing-1 pointer"
+            style="outline: 0;"
             @click="() => emitTitleChange(title.id)">
             {{ title.name }}
           </h4>
@@ -79,6 +79,7 @@ import { updateCacheList } from '@/helpers/graphql'
 import { TITLE_CHANGED } from '@/constants/custom-events'
 import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
 import { CONTEXT_TO_START_STATUS_MAP } from '@/constants/graphql/event-start-statuses'
+import { findTitleIcon } from '@/helpers/icon-finder'
 
 export default {
   props: {
@@ -203,7 +204,8 @@ export default {
   methods: {
     emitTitleChange (titleId) {
       this.$root.$emit(TITLE_CHANGED, titleId)
-    }
+    },
+    findTitleIcon
   }
 }
 </script>
