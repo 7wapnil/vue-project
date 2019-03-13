@@ -38,7 +38,8 @@
           class="text-right ml-auto">
           <b-button
             variant="arc-secondary"
-            class="wallet-button">
+            class="wallet-button"
+            @click.stop="goToDepositPage">
             <icon
               name="nav-wallet"
               size="24px"/>
