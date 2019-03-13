@@ -17,6 +17,7 @@ import FilterTabs from './FilterTabs'
 import { UPCOMING_FOR_TIME } from '@/constants/graphql/event-context'
 import { LIVE, UPCOMING } from '@/constants/graphql/event-start-statuses'
 import { UPCOMING_FOR_TIME_TITLES_CONTEXT } from '@/constants/graphql/title-context'
+import { findTitleIcon } from '@/helpers/icon-finder'
 
 export default {
   components: {
@@ -50,13 +51,10 @@ export default {
   },
   computed: {
     tabs () {
-      /**
-       * @todo Need to define algorithm of icon selection depends on sport
-       */
       return [
         { id: null, title: 'All', icon: 'sidemenu-game-icon' },
         ...this.titles.map((title) => {
-          return { id: title.id, title: title.name, icon: 'sidemenu-game-icon' }
+          return { id: title.id, title: title.name, icon: findTitleIcon(title) }
         })
       ]
     },
