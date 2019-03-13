@@ -14,6 +14,12 @@
           class="my-4 mx-auto text-center w-50 justify-content-center p-4">
           {{ getMessage }}
         </b-alert>
+        <b-alert
+          :show="!!bonusError"
+          variant="danger"
+          class="my-4 mx-auto text-center w-50 justify-content-center p-4">
+          {{ bonusError }}
+        </b-alert>
       </b-col>
     </b-row>
 
@@ -138,7 +144,7 @@
 import RegularInput from '@/components/inputs/RegularInput.vue'
 import SelectInput from '@/components/inputs/SelectInput.vue'
 import { mapGetters } from 'vuex'
-import { CURRENCIES_LIST_QUERY } from '@/graphql'
+import { CURRENCIES_LIST_QUERY, BONUS_CALCULATION_MUTATION } from '@/graphql'
 
 export default {
   name: 'DepositFunds',
@@ -157,6 +163,8 @@ export default {
       redirectUrl: process.env.VUE_APP_DEPOSIT_URL,
       calculatedBonus: '',
       isVisible: null,
+      bonusError: null,
+      missingValuesError: 'Please make sure you filled all the fields.',
       depositState: this.$route.query.depositState,
       variantMap: {
         pending: 'warning',
@@ -231,9 +239,22 @@ export default {
   },
   methods: {
     calculateBonus () {
-      // mock
-      if (this.fields.bonusCode) {
-        this.calculatedBonus = '25'
+      if (this.fields.bonusCode && this.fields.amount) {
+        this.$apollo.mutate({
+          mutation: BONUS_CALCULATION_MUTATION,
+          variables: {
+            amount: parseFloat(this.fields.amount),
+            code: this.fields.bonusCode
+          }
+        }).then(({ data }) => {
+          this.calculatedBonus = data.deposit_bonus.bonus
+          this.bonusError = null
+        }).catch(({ graphQLErrors }) => {
+          this.calculatedBonus = null
+          this.bonusError = graphQLErrors[0].message
+        })
+      } else {
+        this.bonusError = this.missingValuesError
       }
     },
     showButton (e) {
