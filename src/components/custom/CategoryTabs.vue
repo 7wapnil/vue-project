@@ -3,9 +3,9 @@
     :lazy="lazy"
     :value="value"
     card
+    content-class="p-0 m-0"
     class="category-tabs"
     nav-class="bg-transparent px-4 py-0"
-    nav-wrapper-class="bg-transparent"
     @input="emitInput">
     <b-tab
       v-for="(tab, index) in tabs"
