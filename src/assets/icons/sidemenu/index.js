@@ -1,4 +1,4 @@
-export const DEFAULT_ICON = 'sidemenu-game-icon';
+export const DEFAULT_ICON = 'arcanebet-default-icon';
 
 export default {
   // Sports

@@ -52,7 +52,7 @@ export default {
   computed: {
     tabs () {
       return [
-        { id: null, title: 'All', icon: 'sidemenu-game-icon' },
+        { id: null, title: 'All', icon: 'arcanebet-default-icon' },
         ...this.titles.map((title) => {
           return { id: title.id, title: title.name, icon: findTitleIcon(title) }
         })
