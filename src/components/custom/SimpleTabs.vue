@@ -3,7 +3,7 @@
     :lazy="lazy"
     v-model="tabIndex"
     nav-class="bg-arc-clr-soil-light-cover"
-    nav-wrapper-class="sorting-panel">
+    nav-wrapper-class="sorting-panel p-0">
 
     <b-tab
       v-for="(tab, index) in tabs"
