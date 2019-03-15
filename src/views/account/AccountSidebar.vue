@@ -14,8 +14,8 @@
           <span>
             <icon
               :name="tab.icon"
-              class="tab-icon"
-              size="24px"/>
+              :size="tab.size ? tab.size : '24px'"
+              class="tab-icon"/>
           </span>
           <span class="ml-3 font-weight-bold font-size-14 tab-title">
             {{ tab.title }}
@@ -74,7 +74,8 @@ export default {
       }, {
         title: 'Activity',
         component: Activity,
-        icon: 'profile-account',
+        icon: 'profile-activity',
+        size: '18px',
         id: 'activity'
       }, {
         title: 'Deposit funds',

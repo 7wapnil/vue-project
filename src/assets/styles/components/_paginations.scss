@@ -1,0 +1,42 @@
+@import '../variables';
+
+// Activity table pagination
+.activity-table-pagination {
+  li:first-of-type span {
+    border-radius: 4px 0 0 4px !important;
+  }
+  li:last-of-type span {
+    border-radius: 0 4px 4px 0 !important;
+  }
+  .page-item {
+     .page-link {
+       background-color: $arc-clr-soil-light;
+       font-weight: normal;
+       border: 1px solid $arc-clr-soil-dark;
+       color: $arc-clr-iron-light;
+       font-size: $h6-font-size;
+       letter-spacing: .2px;
+       text-align: center;
+       padding: 8px 15px;
+       display: flex;
+       align-items: center;
+       &:hover {
+         background-color: rgba($black, 0.3);
+       }
+       &:active {
+         background-color: $arc-clr-gold;
+         border: 1px solid $arc-clr-soil-dark;
+         font-weight: bold;
+         color: $arc-clr-soil-darker;
+       }
+     }
+  }
+}
+
+
+
+
+
+
+
+
