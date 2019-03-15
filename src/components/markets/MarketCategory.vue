@@ -47,9 +47,6 @@ export default {
           },
           updateQuery ({ markets }, { subscriptionData }) {
             const event = subscriptionData.data.event_updated
-
-            console.log(event.markets)
-
             return {
               markets: updateCacheListWithList(markets, event.markets)
             }
