@@ -15,5 +15,11 @@ export default {
   },
   round: (value, number = 2) => {
     return value.toFixed(number)
+  },
+  capitalize (value) {
+    if (!value) {
+      return ''
+    }
+    return value.toUpperCase()
   }
 }
