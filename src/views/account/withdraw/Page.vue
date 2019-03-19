@@ -118,6 +118,6 @@ export default {
       this.selectedMethod = value
       this.imageSrc = value.icon
     }
-  },
+  }
 }
 </script>

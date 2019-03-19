@@ -86,7 +86,6 @@ export default {
   computed: {
     filteredMethods () {
       let result = []
-      console.log(this.$apollo)
       this.methods.forEach(method => {
         this.withdrawMethods.find(el => {
           if (el.code === method.code) {
