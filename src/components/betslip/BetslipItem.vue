@@ -155,7 +155,7 @@ import OddButton from '@/components/markets/OddButton.vue'
 import Bet from '@/models/bet'
 import { mapGetters, mapMutations } from 'vuex'
 import { MESSAGE_SETTLED, MESSAGE_DISABLED, MESSAGE_SUCCESS } from '@/constants/betslip-messages'
-import { UPDATE_MARKET_BY_ID, MARKET_BY_ID_QUERY, eventUpdatedSubscription } from '@/graphql'
+import { MARKET_BY_ID_QUERY, eventUpdatedSubscription } from '@/graphql'
 import {
   SUSPENDED_STATUS,
   INACTIVE_STATUS as MARKET_INACTIVE_STATUS,
