@@ -5,28 +5,19 @@
       style="border-radius: 4px"
       no-gutters>
       <b-col
-        v-for="(method, index) in withdrawMethods"
+        v-for="(method, index) in filteredMethods"
         :key="index"
         class="d-flex align-items-center justify-content-center">
         <b-img
           :src="method.icon"
-          style="cursor: pointer"/>
+          style="cursor: pointer"
+          @click="selectMethod(method.code)"/>
       </b-col>
     </b-row>
   </div>
 </template>
 
 <script>
-import Sofort from './withdraw-methods/Sofort'
-import Skrill from './withdraw-methods/Skrill'
-import Skinwallet from './withdraw-methods/Skinwallet'
-import Skinpay from './withdraw-methods/Skinpay'
-import Qiwi from './withdraw-methods/Qiwi'
-import Paysafe from './withdraw-methods/Paysafe'
-import Mru from './withdraw-methods/Mru'
-import CreditCard from './withdraw-methods/CreditCard'
-import Bitcoin from './withdraw-methods/Bitcoin'
-import Yandex from './withdraw-methods/Yandex'
 import SofortIcon from '@/assets/images/withdraw-methods/sofort.png'
 import SkrillIcon from '@/assets/images/withdraw-methods/skrill.png'
 import SkinwalletIcon from '@/assets/images/withdraw-methods/skinwallet.png'
@@ -39,62 +30,77 @@ import BitcoinIcon from '@/assets/images/withdraw-methods/btc.png'
 import YandexIcon from '@/assets/images/withdraw-methods/yandex.png'
 
 export default {
-  components: {
-    Sofort,
-    Skrill,
-    Skinwallet,
-    Skinpay,
-    Qiwi,
-    Paysafe,
-    Mru,
-    CreditCard,
-    Bitcoin,
-    Yandex
+  props: {
+    methods: {
+      type: Array,
+      default: () => []
+    }
   },
   data () {
     return {
+      selectedComponent: null,
       withdrawMethods: [
         { name: 'Sofort',
-          component: Sofort,
-          icon: SofortIcon
+          icon: SofortIcon,
+          code: 'sofort'
         },
         { name: 'Skrill',
-          component: Skrill,
-          icon: SkrillIcon
+          icon: SkrillIcon,
+          code: 'skrill'
         },
         { name: 'Skinwallet',
-          component: Skinwallet,
-          icon: SkinwalletIcon
+          icon: SkinwalletIcon,
+          code: 'skinwallet'
         },
         { name: 'Skinpay',
-          component: Skinpay,
-          icon: SkinpayIcon
+          icon: SkinpayIcon,
+          code: 'skinpay'
         },
         { name: 'Qiwi',
-          component: Qiwi,
-          icon: QiwiIcon
+          icon: QiwiIcon,
+          code: 'qiwi'
         },
         { name: 'Paysafe',
-          component: Paysafe,
-          icon: PaysafeIcon
+          icon: PaysafeIcon,
+          code: 'paysafe'
         },
         { name: 'Mru',
-          component: Mru,
-          icon: MruIcon
+          icon: MruIcon,
+          code: 'mru'
         },
         { name: 'Credit Card',
-          component: CreditCard,
-          icon: CreditCardIcon
+          icon: CreditCardIcon,
+          code: 'credit_card'
         },
         { name: 'Bitcoin',
-          component: Bitcoin,
-          icon: BitcoinIcon
+          icon: BitcoinIcon,
+          code: 'bitcoin'
         },
         { name: 'Yandex',
-          component: Yandex,
-          icon: YandexIcon
+          icon: YandexIcon,
+          code: 'yandex'
         },
       ]
+    }
+  },
+  computed: {
+    filteredMethods () {
+      let result = []
+      this.methods.forEach(method => {
+        this.withdrawMethods.find(el => {
+          if (el.code === method.code) {
+            el['fields'] = method.fields
+            result.push(el)
+          }
+        })
+      })
+      return result
+    }
+  },
+  methods: {
+    selectMethod (val) {
+      this.selectedComponent = this.filteredMethods.find(method => method.code === val)
+      this.$emit('clicked-change-method', this.selectedComponent);
     }
   }
 }
