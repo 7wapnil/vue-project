@@ -183,7 +183,6 @@ export default {
       this.betKind = tab.kind
       this.page = 1
       this.loadMoreHistory()
-      return this.betKind
     },
     tableTimeFilter (state) {
       this.timeFilterState = state.event
