@@ -48,7 +48,6 @@
 import WithdrawMethodsSwitch from './WithdrawMethodsSwitch'
 import WithdrawForm from './WithdrawForm'
 import { PAYMENT_METHODS_QUERY } from '@/graphql'
-import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
 import SofortIcon from '@/assets/images/withdraw-methods/sofort.png'
 import SkrillIcon from '@/assets/images/withdraw-methods/skrill.png'
 import SkinwalletIcon from '@/assets/images/withdraw-methods/skinwallet.png'
@@ -94,7 +93,6 @@ export default {
     paymentMethods () {
       return {
         query: PAYMENT_METHODS_QUERY,
-        fetchPolicy: NETWORK_ONLY,
         result ({ data }) {
           this.setDefaultMethodProps(data.paymentMethods[0])
         }
