@@ -58,6 +58,34 @@ export const EVENT_UPDATED = gql`
       scopes {
         ${SCOPE_FIELDS}
       }
-    }
+      markets (eventId: $id, id: "273657") {
+        ${MARKET_FIELDS}
+      }
+    } 
   }
 `
+
+export const eventUpdatedSubscription = (marketId = null, category = null) => {
+  const marketArgs = ['eventId: $id']
+  if (marketId) {
+    marketArgs.push(`id: "${marketId}"`)
+  }
+
+  if (category) {
+    marketArgs.push(`category: "${category}"`)
+  }
+
+  return gql`
+    subscription eventUpdated ($id: ID) {
+      event_updated (id: $id) {
+        ${EVENT_FIELDS}
+        scopes {
+          ${SCOPE_FIELDS}
+        }
+        markets (${marketArgs.join(', ')}) {
+          ${MARKET_FIELDS}
+        }
+      } 
+    }
+  `
+}
