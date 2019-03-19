@@ -21,11 +21,13 @@ describe('Betslip', () => {
   let actions
   let getters
   let mutations
-
+  let uri
   before(() => {
     state = {
       bets: []
     }
+
+    uri = 'https://someurl'
 
     getters = {
       getBetsCount: () => state.bets.count,
@@ -47,6 +49,11 @@ describe('Betslip', () => {
 
     promotion = mount(PromotionalItem,
       {
+        computed: {
+          uri () {
+            return uri
+          }
+        },
         localVue,
         store
       })
@@ -59,6 +66,25 @@ describe('Betslip', () => {
   })
 
   describe('Default state', () => {
+    describe('no url', () => {
+      before(() => {
+        promotion = mount(PromotionalItem,
+          {
+            computed: {
+              uri () {
+                return ''
+              }
+            },
+            localVue,
+            store
+          })
+      })
+
+      it('does not display banner when there is no url', () => {
+        expect(promotion.contains('img[alt="arcanebet-promocode"]')).to.equal(false)
+      })
+    })
+
     it('shows the banner', () => {
       expect(promotion.contains('img[alt="arcanebet-promocode"]')).to.equal(true)
     })
