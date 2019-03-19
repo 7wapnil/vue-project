@@ -14,8 +14,8 @@
           <span>
             <icon
               :name="tab.icon"
-              class="tab-icon"
-              size="24px"/>
+              :size="tab.size ? tab.size : '24px'"
+              class="tab-icon"/>
           </span>
           <span class="ml-3 font-weight-bold font-size-14 tab-title">
             {{ tab.title }}
@@ -42,6 +42,7 @@ import Account from './Account'
 import Bonus from './bonus/Page'
 import Activity from './Activity'
 import DepositFunds from './DepositFunds'
+import TransactionHistory from './TransactionHistory'
 import Withdraw from './withdraw/Page'
 import AccountVerification from './account-verification/AccountVerification'
 import ChangePassword from './ChangePassword'
@@ -57,7 +58,8 @@ export default {
     Withdraw,
     AccountVerification,
     ChangePassword,
-    ProfileWallet
+    ProfileWallet,
+    TransactionHistory
   },
   data () {
     return {
@@ -74,7 +76,8 @@ export default {
       }, {
         title: 'Activity',
         component: Activity,
-        icon: 'profile-account',
+        icon: 'profile-activity',
+        size: '18px',
         id: 'activity'
       }, {
         title: 'Deposit funds',
@@ -91,6 +94,12 @@ export default {
         component: AccountVerification,
         icon: 'profile-account',
         id: 'verification'
+      }, {
+        title: 'Transaction history',
+        component: TransactionHistory,
+        icon: 'profile-activity',
+        size: '18px',
+        id: 'transaction'
       }]
     }
   },

@@ -63,7 +63,8 @@
 }
 
 // Secondary button //
-.btn-arc-secondary {
+.btn-arc-secondary,
+%btn-arc-secondary {
   border-radius: 4px 4px 0 4px !important;
   background-color: rgba($black, .15);
   color: $arc-clr-iron-light;
@@ -228,3 +229,31 @@
   align-items: center;
   justify-content: center;
 }
+
+// Activity filters buttons
+.btn-arc-filters {
+  @extend %btn-arc-secondary;
+  background: $arc-clr-soil-light;
+  border: 1px solid $arc-clr-soil-dark;
+  font-weight: normal;
+  color: $arc-clr-iron-light;
+  font-size: $h6-font-size;
+  border-radius: 0 !important;
+  letter-spacing: .2px;
+  text-align: center;
+  padding: 8px 15px;
+  &:first-of-type {
+    border-radius: 4px 0 0 4px !important;
+  }
+  &:last-of-type {
+    border-radius: 0 4px 4px 0 !important;
+  }
+  &.active {
+    background-color: $arc-clr-gold;
+    font-weight: bold;
+    color: $arc-clr-soil-darker;
+    padding: 8px 15px;
+  }
+}
+
+
