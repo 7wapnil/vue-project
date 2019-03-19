@@ -14,8 +14,7 @@ export default new InMemoryCache({
     Query: {
       event: (root, { id }) => toIdValue(dataIdFromObject({ __typename: 'Event', id })),
       market: (root, { id }) => toIdValue(dataIdFromObject({ __typename: 'Market', id })),
-      odd: (root, { id }) => toIdValue(dataIdFromObject({ __typename: 'Odd', id })),
-      paymentMethods: (root, { code }) => toIdValue(dataIdFromObject({ __typename: 'PaymentMethod', code }))
+      odd: (root, { id }) => toIdValue(dataIdFromObject({ __typename: 'Odd', id }))
     }
   },
   dataIdFromObject
