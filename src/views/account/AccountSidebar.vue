@@ -42,6 +42,7 @@ import Account from './Account'
 import Bonus from './bonus/Page'
 import Activity from './Activity'
 import DepositFunds from './DepositFunds'
+import TransactionHistory from './TransactionHistory'
 import Withdraw from './withdraw/Page'
 import AccountVerification from './account-verification/AccountVerification'
 import ChangePassword from './ChangePassword'
@@ -57,7 +58,8 @@ export default {
     Withdraw,
     AccountVerification,
     ChangePassword,
-    ProfileWallet
+    ProfileWallet,
+    TransactionHistory
   },
   data () {
     return {
@@ -92,6 +94,12 @@ export default {
         component: AccountVerification,
         icon: 'profile-account',
         id: 'verification'
+      }, {
+        title: 'Transaction history',
+        component: TransactionHistory,
+        icon: 'profile-activity',
+        size: '18px',
+        id: 'transaction'
       }]
     }
   },

@@ -1,7 +1,12 @@
 <template>
   <div>
-    <activity-header/>
-
+    <b-row no-gutters>
+      <b-col>
+        <h3 class="ml-4 mb-4 font-weight-light letter-spacing-2">
+          Transactions
+        </h3>
+      </b-col>
+    </b-row>
     <b-tabs
       nav-wrapper-class="border-top-tabs-orange-tabs"
       content-class="py-4">
@@ -10,37 +15,34 @@
         :key="tab.id"
         :title="tab.title"
         title-link-class="border-top-tabs-orange-titles"
-        @click="changeKind(tab)">
+        @click="changeFilter(tab)">
 
-        <loader v-if="loadingBets"/>
-
-        <activity-filters
-          @table-filtred-by-time="tableTimeFilter"
-          @table-filtred-by-bet-state="tableBetFilter"/>
+        <loader v-if="loadingHistory"/>
 
         <b-table
-          v-if="!loadingBets"
-          :items="bets.collection"
+          v-if="!loadingHistory"
+          :items="transactions.collection"
           :fields="fields"
           thead-class="activity-table-head"
           tbody-class="activity-table-body"
           tbody-tr-class="activity-table-body-row">
-          <template
-            slot="details"
-            slot-scope="data">
-            <b-row no-gutters>
-              <b-col>
-                <span class="font-size-11">
-                  {{ data.item.market.name | capitalize }}
-                </span>
-              </b-col>
-            </b-row>
-            <b-row no-gutters>
-              <b-col>
-                {{ data.item.event.name }}
-              </b-col>
-            </b-row>
-          </template>
+          <!--<template-->
+          <!--slot="details"-->
+          <!--slot-scope="data">-->
+          <!--<b-row no-gutters>-->
+          <!--<b-col>-->
+          <!--<span class="font-size-11">-->
+          <!--{{data.item}}-->
+          <!--&lt;!&ndash;{{ data.item.market.name | capitalize }}&ndash;&gt;-->
+          <!--</span>-->
+          <!--</b-col>-->
+          <!--</b-row>-->
+          <!--<b-row no-gutters>-->
+          <!--<b-col>-->
+          <!--&lt;!&ndash;{{ data.item.event.name }}&ndash;&gt;-->
+          <!--</b-col>-->
+          <!--</b-row>-->
+          <!--</template>-->
           <template
             slot="status"
             slot-scope="data">
@@ -57,7 +59,7 @@
       v-if="paginationProps.count > 0"
       v-model="currentPage"
       :total-rows="paginationProps.count"
-      :per-page="betsPerPage"
+      :per-page="itemsPerPage"
       class="activity-table-pagination"
       align="center"
       @input="loadMoreHistory()"
@@ -66,35 +68,30 @@
 </template>
 
 <script>
-import { BETS_LIST_QUERY } from '@/graphql/index'
-import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
-import ActivityFilters from '@/views/account/activity/ActivityFilters'
-import ActivityHeader from '@/views/account/activity/ActivityHeader'
+import { TRANSACTION_LIST_QUERY } from '@/graphql'
 
 export default {
-  components: {
-    ActivityFilters,
-    ActivityHeader
-  },
   data () {
     return {
-      bets: [],
-      page: 1,
+      transactionHistory: [],
+      filter: 'deposit',
+      loadingHistory: false,
       paginationProps: Object,
-      betsPerPage: 10,
-      betKind: null,
-      loadingBets: true,
+      itemsPerPage: 10,
+      page: 1,
       fields: [
         {
           key: 'created_at',
           label: 'Date'
         },
-        'details',
         { key: 'amount',
-          label: 'Stake'
+          label: 'Amount'
         },
-        { key: 'oddValue',
-          label: 'Odds'
+        { key: 'currencyCode',
+          label: 'Currency'
+        },
+        { key: 'comment',
+          label: 'Comment'
         },
         { key: 'status',
           label: 'Status'
@@ -109,15 +106,31 @@ export default {
         kind: null
       }, {
         id: 1,
-        title: 'Esport',
-        kind: 'esports'
+        title: 'Deposits',
+        kind: 'deposits'
       }, {
         id: 2,
-        title: 'Sport',
-        kind: 'sports'
+        title: 'Withdraws',
+        kind: 'withdraws'
       }],
-      timeFilterState: '',
-      betFilterState: ''
+    }
+  },
+  apollo: {
+    transactions () {
+      this.loadingHistory = true
+      return {
+        query: TRANSACTION_LIST_QUERY,
+        variables: {
+          filter: this.filter,
+          page: 1,
+          per_page: this.betsPerPage
+        },
+        result ({ data }) {
+          console.log(data)
+          this.loadingHistory = false
+          this.paginationProps = data.transactions.pagination
+        }
+      }
     }
   },
   computed: {
@@ -132,8 +145,8 @@ export default {
     variables () {
       return {
         page: this.currentPage,
-        per_page: this.betsPerPage,
-        kind: this.betKind
+        per_page: this.itemsPerPage,
+        filter: this.filter
       }
     },
     badgeStatus () {
@@ -147,48 +160,24 @@ export default {
       }
     }
   },
-  apollo: {
-    bets () {
-      this.loadingBets = true
-      return {
-        query: BETS_LIST_QUERY,
-        fetchPolicy: NETWORK_ONLY,
-        variables: {
-          page: 1,
-          per_page: this.betsPerPage,
-          kind: null
-        },
-        result ({ data }) {
-          this.loadingBets = false
-          this.paginationProps = data.bets.pagination
-        }
-      }
-    }
-  },
   methods: {
     loadMoreHistory () {
-      this.loadingBets = true
-      this.$apollo.queries.bets.fetchMore({
+      this.loadingHistory = true
+      this.$apollo.queries.transactions.fetchMore({
         variables: this.variables,
         updateQuery: (previousResult, { fetchMoreResult }) => {
-          this.loadingBets = false
+          this.loadingHistory = false
           return {
-            bets: fetchMoreResult.bets,
-            paginationProps: fetchMoreResult.bets.pagination
+            bets: fetchMoreResult.transactions,
+            paginationProps: fetchMoreResult.transactions.pagination
           }
         }
       })
     },
-    changeKind (tab) {
-      this.betKind = tab.kind
+    changeFilter (filter) {
+      this.filter = filter
       this.page = 1
       this.loadMoreHistory()
-    },
-    tableTimeFilter (state) {
-      this.timeFilterState = state.event
-    },
-    tableBetFilter (state) {
-      this.betFilterState = state.event
     }
   }
 }
