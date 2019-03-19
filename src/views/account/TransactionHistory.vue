@@ -102,7 +102,6 @@ export default {
   apollo: {
     transactions () {
       this.loadingHistory = true
-      console.log(this.filter)
       return {
         query: TRANSACTION_LIST_QUERY,
         fetchPolicy: NETWORK_ONLY,
