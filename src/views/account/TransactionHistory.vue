@@ -26,23 +26,6 @@
           thead-class="activity-table-head"
           tbody-class="activity-table-body"
           tbody-tr-class="activity-table-body-row">
-          <!--<template-->
-          <!--slot="details"-->
-          <!--slot-scope="data">-->
-          <!--<b-row no-gutters>-->
-          <!--<b-col>-->
-          <!--<span class="font-size-11">-->
-          <!--{{data.item}}-->
-          <!--&lt;!&ndash;{{ data.item.market.name | capitalize }}&ndash;&gt;-->
-          <!--</span>-->
-          <!--</b-col>-->
-          <!--</b-row>-->
-          <!--<b-row no-gutters>-->
-          <!--<b-col>-->
-          <!--&lt;!&ndash;{{ data.item.event.name }}&ndash;&gt;-->
-          <!--</b-col>-->
-          <!--</b-row>-->
-          <!--</template>-->
           <template
             slot="status"
             slot-scope="data">
@@ -62,13 +45,14 @@
       :per-page="itemsPerPage"
       class="activity-table-pagination"
       align="center"
-      @input="loadMoreHistory()"
+      @input="loadMoreTransactions()"
     />
   </div>
 </template>
 
 <script>
 import { TRANSACTION_LIST_QUERY } from '@/graphql'
+import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
 
 export default {
   data () {
@@ -103,30 +87,31 @@ export default {
       tabs: [{
         id: 0,
         title: 'All',
-        kind: null
+        kind: 'deposit'
       }, {
         id: 1,
         title: 'Deposits',
-        kind: 'deposits'
+        kind: 'deposit'
       }, {
         id: 2,
         title: 'Withdraws',
-        kind: 'withdraws'
-      }],
+        kind: 'withdraw'
+      }]
     }
   },
   apollo: {
     transactions () {
       this.loadingHistory = true
+      console.log(this.filter)
       return {
         query: TRANSACTION_LIST_QUERY,
+        fetchPolicy: NETWORK_ONLY,
         variables: {
           filter: this.filter,
           page: 1,
           per_page: this.betsPerPage
         },
         result ({ data }) {
-          console.log(data)
           this.loadingHistory = false
           this.paginationProps = data.transactions.pagination
         }
@@ -161,23 +146,23 @@ export default {
     }
   },
   methods: {
-    loadMoreHistory () {
+    loadMoreTransactions () {
       this.loadingHistory = true
       this.$apollo.queries.transactions.fetchMore({
         variables: this.variables,
         updateQuery: (previousResult, { fetchMoreResult }) => {
           this.loadingHistory = false
           return {
-            bets: fetchMoreResult.transactions,
+            transactions: fetchMoreResult.transactions,
             paginationProps: fetchMoreResult.transactions.pagination
           }
         }
       })
     },
     changeFilter (filter) {
-      this.filter = filter
+      this.filter = filter.kind
       this.page = 1
-      this.loadMoreHistory()
+      this.loadMoreTransactions()
     }
   }
 }
