@@ -76,3 +76,12 @@ export const MARKET_FIELDS = `
     status
   }
 `
+
+export const BET_FIELDS = `
+  id
+  created_at
+  amount
+  oddValue
+  status
+  message
+`
