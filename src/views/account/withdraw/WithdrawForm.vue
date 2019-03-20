@@ -43,16 +43,16 @@
       no-gutters>
       <b-col class="text-md-right text-sm-left align-self-center" >
         <label
-          :for="`${field.name}`"
+          :for="field.name"
           class="text-arc-clr-iron font-size-14 letter-spacing-2 mb-0">
           {{ field.name }}
         </label>
       </b-col>
       <b-col class="user-profile-form">
         <b-form-input
-          v-model="withdrawFields[`${field.code}`]"
-          :id="`${field.name}`"
-          :type="typeMap[`${field.type}`]"
+          v-model="withdrawFields[field.code]"
+          :id="field.name"
+          :type="typeMap[field.type]"
           class="ml-4 text-left w-75"
         />
       </b-col>
