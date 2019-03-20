@@ -21,14 +21,14 @@
       no-gutters>
       <b-col class="text-md-right text-sm-left align-self-center">
         <label
-          for="amount_main"
+          for="amount"
           class="text-arc-clr-iron font-size-14 letter-spacing-2 mb-0">
           Amount
         </label>
       </b-col>
       <b-col class="user-profile-form">
         <b-form-input
-          id="amount_main"
+          id="amount"
           v-model="withdrawFields.amount"
           step="0.01"
           class="ml-4 text-left w-50"
