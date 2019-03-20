@@ -17,7 +17,7 @@
         v-if="selectedMethod"
         class="ml-2">
         <span class="font-weight-bold letter-spacing-2 text-arc-clr-white">
-          {{ methodName }}
+          {{ selectedMethod.name }}
         </span>
         <br>
         <span class="font-size-14 letter-spacing-2 text-arc-clr-iron">
@@ -100,9 +100,6 @@ export default {
     }
   },
   computed: {
-    methodName () {
-      return this.paymentName[this.selectedMethod.code]
-    },
     methodNote () {
       return this.paymentNotes[this.selectedMethod.code]
     }
