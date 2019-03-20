@@ -27,6 +27,11 @@
           tbody-class="activity-table-body"
           tbody-tr-class="activity-table-body-row">
           <template
+            slot="amount"
+            slot-scope="data">
+            {{ data.item.amount }} {{ data.item.currencyCode }}
+          </template>
+          <template
             slot="status"
             slot-scope="data">
             <b-badge
@@ -67,15 +72,9 @@ export default {
         {
           key: 'created_at',
           label: 'Date'
-        },
-        { key: 'amount',
-          label: 'Amount'
-        },
-        { key: 'currencyCode',
-          label: 'Currency'
-        },
-        { key: 'comment',
-          label: 'Comment'
+        }, 'amount',
+        { key: 'mode',
+          label: 'Payment Method'
         },
         { key: 'status',
           label: 'Status'
