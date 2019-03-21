@@ -1,5 +1,5 @@
 <template>
-  <div class="m-2">
+  <div>
     <no-bets-block/>
     <b-container
       v-if="getBets.length > 0"

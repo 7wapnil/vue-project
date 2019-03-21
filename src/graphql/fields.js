@@ -77,6 +77,12 @@ export const MARKET_FIELDS = `
   }
 `
 
+export const MARKET_CATEGORY_FIELDS = `
+  id
+  name
+  count
+`
+
 export const BET_FIELDS = `
   id
   created_at

@@ -14,6 +14,7 @@ import '@/components/global-components'
 import VueApollo from 'vue-apollo'
 import VueLogger from 'vuejs-logger'
 import ContentfulPlugin from '@/libs/contentful/contentful-client'
+import Vuebar from 'vuebar'
 
 const isProduction = process.env.NODE_ENV === 'production'
 
@@ -35,6 +36,7 @@ Vue.use(ContentfulPlugin, {
   space: process.env.VUE_APP_CONTENTFUL_SPACE_ID,
   accessToken: process.env.VUE_APP_CONTENTFUL_ACCESS_TOKEN
 })
+Vue.use(Vuebar)
 
 const ApolloProvider = new VueApollo({
   defaultClient: apolloClient,

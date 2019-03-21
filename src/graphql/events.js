@@ -1,5 +1,10 @@
 import gql from 'graphql-tag'
-import { EVENT_FIELDS, MARKET_FIELDS, SCOPE_FIELDS } from './fields'
+import {
+  EVENT_FIELDS,
+  MARKET_FIELDS,
+  SCOPE_FIELDS,
+  MARKET_CATEGORY_FIELDS
+} from './fields'
 
 const EVENT_FIELDS_WITH_SCOPES = `
   ${EVENT_FIELDS}
@@ -37,10 +42,12 @@ export const EVENT_BY_ID_QUERY = gql`
   query event ($id: ID!, $withScopes: Boolean = false) {
     event (id: $id) {
       ${EVENT_FIELDS_WITH_SCOPES}
-     
-     scopes @include (if: $withScopes) {
-    ${SCOPE_FIELDS}
-  }
+      scopes @include (if: $withScopes) {
+        ${SCOPE_FIELDS}
+      }
+      categories {
+        ${MARKET_CATEGORY_FIELDS}
+      }
     }
   }
 `

@@ -33,7 +33,7 @@
 
 <script>
 import { UNLIMITED_QUERY } from '@/constants/graphql/limits'
-import { EVENT_BY_ID_QUERY, EVENT_UPDATED } from '@/graphql'
+import { EVENT_BY_ID_QUERY } from '@/graphql'
 import MarketsCategories from '@/components/markets/MarketsCategories'
 import HeaderSection from './HeaderSection'
 import MarketsList from '@/components/markets/MarketsList'
@@ -59,20 +59,6 @@ export default {
         variables: {
           id: this.eventId,
           withScopes: true
-        },
-        subscribeToMore: {
-          document: EVENT_UPDATED,
-          variables: {
-            id: this.eventId
-          },
-          updateQuery ({ event }, { subscriptionData }) {
-            return {
-              event: {
-                ...event,
-                ...subscriptionData.data.event_updated
-              }
-            }
-          }
         }
       }
     }
