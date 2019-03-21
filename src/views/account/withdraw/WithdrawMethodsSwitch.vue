@@ -58,7 +58,7 @@ export default {
     selectMethod (selectedMethod) {
       selectedMethod['icon'] = this.withdrawIcons[selectedMethod.code]
       this.$emit('clicked-change-method', selectedMethod)
-    },
+    }
   }
 }
 </script>
