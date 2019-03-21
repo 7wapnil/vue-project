@@ -21,7 +21,7 @@
         </span>
         <br>
         <span class="font-size-14 letter-spacing-2 text-arc-clr-iron">
-          {{ methodNote }}
+          {{ selectedMethod.payment_note }}
         </span>
       </b-col>
       <b-col
@@ -69,9 +69,6 @@ export default {
       paymentMethods: [],
       selectedMethod: {},
       imageSrc: '',
-      paymentNotes: {
-        credit_card: 'Range: 10 - 10 000€ / No service fee'
-      },
       paymentName: {
         credit_card: 'Credit Card'
       },
@@ -102,9 +99,6 @@ export default {
   computed: {
     methodName () {
       return this.paymentName[this.selectedMethod.code]
-    },
-    methodNote () {
-      return this.paymentNotes[this.selectedMethod.code]
     }
   },
   methods: {

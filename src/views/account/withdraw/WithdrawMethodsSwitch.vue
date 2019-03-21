@@ -5,13 +5,14 @@
       style="border-radius: 4px"
       no-gutters>
       <b-col
-        v-for="(method, index) in filteredMethods"
+        v-for="(method, index) in methods"
         :key="index"
         class="d-flex align-items-center justify-content-center">
         <b-img
-          :src="method.icon"
+          :src="withdrawIcons[method.code]"
+          :class="{ inactive: !method.availability}"
           style="cursor: pointer"
-          @click="selectMethod(method.code)"/>
+          @click="selectMethod(method)"/>
       </b-col>
     </b-row>
   </div>
@@ -39,69 +40,25 @@ export default {
   data () {
     return {
       selectedComponent: null,
-      withdrawMethods: [
-        { name: 'Sofort',
-          icon: SofortIcon,
-          code: 'sofort'
-        },
-        { name: 'Skrill',
-          icon: SkrillIcon,
-          code: 'skrill'
-        },
-        { name: 'Skinwallet',
-          icon: SkinwalletIcon,
-          code: 'skinwallet'
-        },
-        { name: 'Skinpay',
-          icon: SkinpayIcon,
-          code: 'skinpay'
-        },
-        { name: 'Qiwi',
-          icon: QiwiIcon,
-          code: 'qiwi'
-        },
-        { name: 'Paysafe',
-          icon: PaysafeIcon,
-          code: 'paysafe'
-        },
-        { name: 'Mru',
-          icon: MruIcon,
-          code: 'mru'
-        },
-        { name: 'Credit Card',
-          icon: CreditCardIcon,
-          code: 'credit_card'
-        },
-        { name: 'Bitcoin',
-          icon: BitcoinIcon,
-          code: 'bitcoin'
-        },
-        { name: 'Yandex',
-          icon: YandexIcon,
-          code: 'yandex'
-        },
-      ]
-    }
-  },
-  computed: {
-    filteredMethods () {
-      let result = []
-      this.methods.forEach(method => {
-        this.withdrawMethods.find(el => {
-          if (el.code === method.code) {
-            el['fields'] = method.fields
-            result.push(el)
-          }
-        })
-      })
-      return result
+      withdrawIcons: {
+        'sofort': SofortIcon,
+        'yandex': YandexIcon,
+        'skrill': SkrillIcon,
+        'skinwallet': SkinwalletIcon,
+        'skinpay': SkinpayIcon,
+        'qiwi': QiwiIcon,
+        'paysafe': PaysafeIcon,
+        'mru': MruIcon,
+        'credit_card': CreditCardIcon,
+        'bitcoin': BitcoinIcon
+      }
     }
   },
   methods: {
-    selectMethod (val) {
-      this.selectedComponent = this.filteredMethods.find(method => method.code === val)
-      this.$emit('clicked-change-method', this.selectedComponent);
-    }
+    selectMethod (selectedMethod) {
+      selectedMethod['icon'] = this.withdrawIcons[selectedMethod.code]
+      this.$emit('clicked-change-method', selectedMethod)
+    },
   }
 }
 </script>
