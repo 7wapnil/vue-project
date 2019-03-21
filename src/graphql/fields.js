@@ -76,3 +76,9 @@ export const MARKET_FIELDS = `
     status
   }
 `
+
+export const MARKET_CATEGORY_FIELDS = `
+  id
+  name
+  count
+`

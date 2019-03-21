@@ -5,10 +5,11 @@
     v-model="tabIndex"
     :lazy="lazy">
     <b-tab
-      v-for="category in categories"
-      :key="category.slug"
+      v-for="(category, index) in categories"
+      :key="index"
       :title-link-class="titleClass"
-      :title="category.name">
+      :title="category.name"
+      @click="$emit('change', category)">
       <markets-category
         :event="event"
         :category="category">
@@ -16,12 +17,10 @@
           <slot :markets="markets"/>
         </template>
       </markets-category>
-
     </b-tab>
   </b-tabs>
 </template>
 <script>
-import MARKETS_CATEGORIES from '@/constants/markets/categories'
 import MarketsCategory from './MarketCategory'
 
 export default {
@@ -64,8 +63,12 @@ export default {
   },
   data () {
     return {
-      tabIndex: this.activeIndex,
-      categories: MARKETS_CATEGORIES.slice(0, this.numberOfTabs)
+      tabIndex: this.activeIndex
+    }
+  },
+  computed: {
+    categories () {
+      return this.event.categories
     }
   }
 }

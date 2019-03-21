@@ -9,3 +9,11 @@ export const updateCacheList = (list, data, remove = false) => {
 
   return list
 }
+
+export const updateCacheListWithList = (list, otherList, remove = false) => {
+  otherList.forEach((itemData) => {
+    updateCacheList(list, itemData, remove)
+  })
+
+  return list
+}
