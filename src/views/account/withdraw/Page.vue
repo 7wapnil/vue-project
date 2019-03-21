@@ -17,7 +17,7 @@
         v-if="selectedMethod"
         class="ml-2">
         <span class="font-weight-bold letter-spacing-2 text-arc-clr-white">
-          {{ methodName }}
+          {{ selectedMethod.name }}
         </span>
         <br>
         <span class="font-size-14 letter-spacing-2 text-arc-clr-iron">
@@ -69,9 +69,6 @@ export default {
       paymentMethods: [],
       selectedMethod: {},
       imageSrc: '',
-      paymentName: {
-        credit_card: 'Credit Card'
-      },
       images: {
         credit_card: CreditCardIcon,
         yandex: YandexIcon,
@@ -94,11 +91,6 @@ export default {
           this.setDefaultMethodProps(data.paymentMethods[0])
         }
       }
-    }
-  },
-  computed: {
-    methodName () {
-      return this.paymentName[this.selectedMethod.code]
     }
   },
   methods: {
