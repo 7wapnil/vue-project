@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import { MARKETS_LIST_QUERY, EVENT_MARKETS_UPDATED } from '@/graphql'
+import { MARKETS_LIST_QUERY, eventUpdatedSubscription } from '@/graphql'
 import { updateCacheListWithList } from '@/helpers/graphql'
 import MarketsList from './MarketsList'
 import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
@@ -38,11 +38,10 @@ export default {
           category: this.category.name
         },
         subscribeToMore: {
-          document: EVENT_MARKETS_UPDATED,
+          document: eventUpdatedSubscription(null, this.category.name),
           variables () {
             return {
-              id: this.event.id,
-              category: this.category.name
+              id: this.event.id
             }
           },
           updateQuery ({ markets }, { subscriptionData }) {
