@@ -1,14 +1,19 @@
 <template>
   <b-container
     fluid
-    class="d-flex align-items-center justify-content-center bg-transparent p-0"
-    style="height: 215px">
-    <b-row no-gutters>
-      <b-col/>
-    </b-row>
+    class="p-0">
+    <b-img  style="z-index: -999"
+            :src="background"
+            fluid-grow
+            alt="Responsive image"/>
   </b-container>
 </template>
-
 <script>
-
+  export default {
+    computed: {
+      background () {
+        return require('@/assets/images/introduction-area/background-basketball.png')
+      }
+    }
+  }
 </script>
