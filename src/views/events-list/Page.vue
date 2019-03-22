@@ -1,18 +1,22 @@
 <template>
-  <b-row no-gutters>
-    <b-col>
+  <div sticky-container>
+        <introduction-area/>
+        <div>
 
-      <introduction-area/>
+          <div>
+            <div v-sticky :sticky-offset="stickyOffset" sticky-side="top">
+              Ш ФЬ ЫЕШСЛН
+            </div>
+          </div>
 
-      <sport-tabs v-if="showTitles" />
+          <sport-tabs @category-tab-changed="" v-if="showTitles"/>
 
-      <filter-tabs
-        v-if="!showTitles"
-        :title-id="$route.params.titleId"
-        :tabs="tabsMapping"/>
-
-    </b-col>
-  </b-row>
+          <filter-tabs
+            v-if="!showTitles"
+            :title-id="$route.params.titleId"
+            :tabs="tabsMapping"/>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -30,6 +34,9 @@ export default {
   },
   data () {
     return {
+      stickyOffset: {
+        top: 150
+      },
       tabsMapping: [{
         id: LIVE,
         title: 'Live now',

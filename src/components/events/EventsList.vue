@@ -1,8 +1,7 @@
 <template>
   <b-card
     no-body
-    class="p-4"
-    body-class="events-card-body">
+    class="p-4">
     <div
       v-for="(title, index) in groupedEvents"
       :key="index">

@@ -6,13 +6,8 @@
       style="max-width: 268px; min-width: 268px;">
       <side-menu :items="menuItems"/>
     </b-col>
-    <b-col
-      v-bar
-      :style="{ 'background-image': 'url(' + `${ background }` + ')'}"
-      style="min-height: 100vh; background-repeat: no-repeat; background-size: contain"
-      class="bg-arc-clr-soil-light">
+    <b-col style="min-height: 100vh" class="bg-arc-clr-soil-light" v-bar>
       <router-view :key="$route.fullPath"/>
-
     </b-col>
     <b-col
       v-bar
@@ -63,9 +58,6 @@ export default {
   computed: {
     menuItems () {
       return buildTree(this.$route.params.titleKind, this.titles, this.$route)
-    },
-    background () {
-      return require('@/assets/images/introduction-area/soccer.png')
     }
   }
 }
