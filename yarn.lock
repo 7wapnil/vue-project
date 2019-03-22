@@ -9503,6 +9503,11 @@ vue-select@^2.5.1:
   resolved "https://registry.yarnpkg.com/vue-select/-/vue-select-2.5.1.tgz#9886e7123150a52dc8dbfe3202d0387268835aaa"
   integrity sha512-Hs+arh7+0gLJoYiM3r9V/5CRn5XsAT8tVkouTkpDAWb923KFgraWrKDLSqz3ROedZUkuVIwkFuYq8+baHUf+bg==
 
+vue-sticky-directive@^0.0.8:
+  version "0.0.8"
+  resolved "https://registry.yarnpkg.com/vue-sticky-directive/-/vue-sticky-directive-0.0.8.tgz#54876b2511b22a91d0155b23fc4becffdfda73b3"
+  integrity sha512-v3sk6ZhmXurqR8pWkoLoYI/OHDYTaejE73xLw5jg55z4KRb/51eySr0Jb+oEowoCo/ZUCfRqegrVo74JADDL1w==
+
 vue-style-loader@^4.1.0:
   version "4.1.2"
   resolved "https://registry.yarnpkg.com/vue-style-loader/-/vue-style-loader-4.1.2.tgz#dedf349806f25ceb4e64f3ad7c0a44fba735fcf8"
