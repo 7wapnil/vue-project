@@ -116,9 +116,6 @@
   border: 3px solid  $profile-button-second-color;
   background: $icon-section-color url('~@/assets/images/account/user-shadow.svg') no-repeat bottom;
 }
-.category-tabs .nav-link.active i{
-  color: $icon-section-color !important;
-}
 .events-list-title i{
   color: $icon-section-color;
 }
@@ -182,4 +179,20 @@
 // Event tabs
 .event-panel-tabs .nav-link.active {
   border-top: 3px solid $icon-section-color;
+}
+
+// Category tabs
+.category-tabs {
+  .left-side-navigation:hover i {
+    transition: color .3s ease-in-out;
+    color: $icon-section-color;
+  }
+  .right-side-navigation:hover i{
+    transition: color .3s ease-in-out;
+    color: $icon-section-color;
+  }
+  .nav-link.active i{
+    transition: color .2s ease-in-out;
+    color: $icon-section-color !important;
+  }
 }
