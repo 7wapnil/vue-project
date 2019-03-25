@@ -1,10 +1,12 @@
 /**
  * Betslip store module
  */
-
+import Vue from 'vue'
 import Bet from '@/models/bet'
 import graphqlClient from '@/libs/apollo/'
-import { BETSLIP_PLACEMENT_QUERY } from '@/graphql/index'
+import { BETSLIP_PLACEMENT_QUERY, BET_UPDATED } from '@/graphql/index'
+
+const BET_DESTROY_TIMEOUT = 3000
 
 const getBetsFromStorage = () => {
   const json = localStorage.getItem('bets')
@@ -108,6 +110,51 @@ export const getters = {
 }
 
 export const actions = {
+  subscribeBets ({ dispatch, getters }) {
+    getters
+      .getBets
+      .filter(bet => !!bet.id)
+      .forEach(bet => dispatch('subscribeBet', bet))
+  },
+  subscribeBet ({ state, commit, getters }, bet) {
+    state.subscriptions[bet.id] = graphqlClient
+      .subscribe({
+        query: BET_UPDATED,
+        variables: { id: bet.id }
+      })
+      .subscribe({
+        next ({ data: { bet_updated: betUpdated } }) {
+          commit('updateBet', {
+            oddId: bet.oddId,
+            payload: {
+              status: betUpdated.status,
+              message: betUpdated.message
+            }
+          })
+
+          if (betUpdated.status === 'accepted') {
+            setTimeout(() => {
+              commit('removeBetFromBetslip', bet.oddId)
+            }, BET_DESTROY_TIMEOUT)
+          }
+        },
+        error (error) {
+          Vue.$log.error(error)
+        }
+      })
+
+    Vue.$log.debug(`Subscribed bet ID ${bet.id}`)
+  },
+  unsubscribeBet ({ state }, bet) {
+    if (state.subscriptions[bet.id]) {
+      state.subscriptions[bet.id].unsubscribe()
+      delete state.subscriptions[bet.id]
+      Vue.$log.debug(`Unsubscribed bet ID ${bet.id}`)
+    }
+  },
+  unsubscribeBets ({ dispatch, getters }) {
+    getters.getBets.forEach(bet => dispatch('unsubscribeBet', bet))
+  },
   pushBet ({ state }, { event, market, odd }) {
     if (state.bets.find(bet => bet.oddId === odd.id)) { return }
     state.bets.push(Bet.initial(event, market, odd))
@@ -127,7 +174,8 @@ export default {
   namespaced: true,
   state: {
     bets: getBetsFromStorage(),
-    acceptAll: false
+    acceptAll: false,
+    subscriptions: {}
   },
   actions,
   mutations,

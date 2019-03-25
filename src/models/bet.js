@@ -19,6 +19,7 @@ export default class Bet {
 
   static initial (event, market, odd) {
     return new Bet({
+      id: null,
       eventId: event.id,
       marketStatus: null,
       eventName: event.name,
