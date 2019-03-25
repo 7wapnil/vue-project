@@ -5,28 +5,20 @@
       style="border-radius: 4px"
       no-gutters>
       <b-col
-        v-for="(method, index) in withdrawMethods"
+        v-for="(method, index) in methods"
         :key="index"
         class="d-flex align-items-center justify-content-center">
         <b-img
-          :src="method.icon"
-          style="cursor: pointer"/>
+          :src="withdrawIcons[method.code]"
+          :class="{ inactive: !method.availability}"
+          style="cursor: pointer"
+          @click="selectMethod(method)"/>
       </b-col>
     </b-row>
   </div>
 </template>
 
 <script>
-import Sofort from './withdraw-methods/Sofort'
-import Skrill from './withdraw-methods/Skrill'
-import Skinwallet from './withdraw-methods/Skinwallet'
-import Skinpay from './withdraw-methods/Skinpay'
-import Qiwi from './withdraw-methods/Qiwi'
-import Paysafe from './withdraw-methods/Paysafe'
-import Mru from './withdraw-methods/Mru'
-import CreditCard from './withdraw-methods/CreditCard'
-import Bitcoin from './withdraw-methods/Bitcoin'
-import Yandex from './withdraw-methods/Yandex'
 import SofortIcon from '@/assets/images/withdraw-methods/sofort.png'
 import SkrillIcon from '@/assets/images/withdraw-methods/skrill.png'
 import SkinwalletIcon from '@/assets/images/withdraw-methods/skinwallet.png'
@@ -39,62 +31,33 @@ import BitcoinIcon from '@/assets/images/withdraw-methods/btc.png'
 import YandexIcon from '@/assets/images/withdraw-methods/yandex.png'
 
 export default {
-  components: {
-    Sofort,
-    Skrill,
-    Skinwallet,
-    Skinpay,
-    Qiwi,
-    Paysafe,
-    Mru,
-    CreditCard,
-    Bitcoin,
-    Yandex
+  props: {
+    methods: {
+      type: Array,
+      default: () => []
+    }
   },
   data () {
     return {
-      withdrawMethods: [
-        { name: 'Sofort',
-          component: Sofort,
-          icon: SofortIcon
-        },
-        { name: 'Skrill',
-          component: Skrill,
-          icon: SkrillIcon
-        },
-        { name: 'Skinwallet',
-          component: Skinwallet,
-          icon: SkinwalletIcon
-        },
-        { name: 'Skinpay',
-          component: Skinpay,
-          icon: SkinpayIcon
-        },
-        { name: 'Qiwi',
-          component: Qiwi,
-          icon: QiwiIcon
-        },
-        { name: 'Paysafe',
-          component: Paysafe,
-          icon: PaysafeIcon
-        },
-        { name: 'Mru',
-          component: Mru,
-          icon: MruIcon
-        },
-        { name: 'Credit Card',
-          component: CreditCard,
-          icon: CreditCardIcon
-        },
-        { name: 'Bitcoin',
-          component: Bitcoin,
-          icon: BitcoinIcon
-        },
-        { name: 'Yandex',
-          component: Yandex,
-          icon: YandexIcon
-        },
-      ]
+      selectedComponent: null,
+      withdrawIcons: {
+        'sofort': SofortIcon,
+        'yandex': YandexIcon,
+        'skrill': SkrillIcon,
+        'skinwallet': SkinwalletIcon,
+        'skinpay': SkinpayIcon,
+        'qiwi': QiwiIcon,
+        'paysafe': PaysafeIcon,
+        'mru': MruIcon,
+        'credit_card': CreditCardIcon,
+        'bitcoin': BitcoinIcon
+      }
+    }
+  },
+  methods: {
+    selectMethod (selectedMethod) {
+      selectedMethod['icon'] = this.withdrawIcons[selectedMethod.code]
+      this.$emit('clicked-change-method', selectedMethod)
     }
   }
 }

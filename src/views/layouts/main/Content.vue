@@ -1,11 +1,13 @@
 <template>
   <b-row no-gutters>
     <b-col
-      class="d-none d-lg-block bg-arc-clr-soil-black"
+      v-bar
+      class="d-none d-lg-block bg-arc-clr-soil-black side-menu"
       style="max-width: 268px; min-width: 268px;">
       <side-menu :items="menuItems"/>
     </b-col>
     <b-col
+      v-bar
       :style="{ 'background-image': 'url(' + `${ background }` + ')'}"
       style="min-height: 100vh; background-repeat: no-repeat; background-size: contain"
       class="bg-arc-clr-soil-light">
@@ -13,9 +15,10 @@
 
     </b-col>
     <b-col
-      class="d-none d-lg-block bg-arc-clr-soil-black"
-      style="max-width: 268px; min-width: 268px;">
-      <div class="betslip-block">
+      v-bar
+      class="d-none d-lg-block bg-arc-clr-soil-black betslip-block"
+      style="max-width: 268px; min-width: 268px">
+      <div>
         <promotional-item/>
         <betslip/>
       </div>

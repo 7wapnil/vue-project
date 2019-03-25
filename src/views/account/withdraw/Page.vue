@@ -1,9 +1,8 @@
 <template>
-  <div>
+  <div v-if="paymentMethods">
     <h3 class="mb-5 font-weight-light">
       Withdraw funds
     </h3>
-
     <b-row
       v-b-toggle.withdrawMethod
       no-gutters
@@ -12,42 +11,97 @@
       <b-col
         class="p-2"
         cols="auto">
-        <b-img :src="require('@/assets/images/withdraw-methods/card.png')"/>
+        <b-img :src="imageSrc"/>
       </b-col>
-      <b-col class="ml-2">
+      <b-col
+        v-if="selectedMethod"
+        class="ml-2">
         <span class="font-weight-bold letter-spacing-2 text-arc-clr-white">
-          Credit card (Visa, MasterCard, Maestro)
+          {{ selectedMethod.name }}
         </span>
         <br>
         <span class="font-size-14 letter-spacing-2 text-arc-clr-iron">
-          Range: 10 - 10 000€ / No service fee
+          {{ selectedMethod.payment_note }}
         </span>
       </b-col>
-      <b-col cols="auto">
+      <b-col
+        v-if="paymentMethods.length > 1"
+        cols="auto">
         <b-button variant="arc-secondary">
           Change withdraw method
         </b-button>
       </b-col>
     </b-row>
-    <b-collapse id="withdrawMethod">
-      <withdraw-methods-switch/>
+    <b-collapse
+      v-if="paymentMethods.length > 1"
+      id="withdrawMethod">
+      <withdraw-methods-switch
+        :methods="paymentMethods"
+        @clicked-change-method="changeMethod"/>
     </b-collapse>
-    <component :is="CreditCard"/>
+    <withdraw-form
+      :default-method="selectedMethod"/>
   </div>
 </template>
+
 <script>
 import WithdrawMethodsSwitch from './WithdrawMethodsSwitch'
-import CreditCard from './withdraw-methods/CreditCard'
+import WithdrawForm from './WithdrawForm'
+import { PAYMENT_METHODS_QUERY } from '@/graphql'
+import SofortIcon from '@/assets/images/withdraw-methods/sofort.png'
+import SkrillIcon from '@/assets/images/withdraw-methods/skrill.png'
+import SkinwalletIcon from '@/assets/images/withdraw-methods/skinwallet.png'
+import SkinpayIcon from '@/assets/images/withdraw-methods/skinpay.png'
+import QiwiIcon from '@/assets/images/withdraw-methods/qiwi.png'
+import PaysafeIcon from '@/assets/images/withdraw-methods/paysafe.png'
+import MruIcon from '@/assets/images/withdraw-methods/mru.png'
+import CreditCardIcon from '@/assets/images/withdraw-methods/card.png'
+import BitcoinIcon from '@/assets/images/withdraw-methods/btc.png'
+import YandexIcon from '@/assets/images/withdraw-methods/yandex.png'
 
 export default {
   components: {
     WithdrawMethodsSwitch,
-    CreditCard
+    WithdrawForm
   },
   data () {
     return {
-      CreditCard: CreditCard
+      paymentMethods: [],
+      selectedMethod: {},
+      imageSrc: '',
+      images: {
+        credit_card: CreditCardIcon,
+        yandex: YandexIcon,
+        mru: MruIcon,
+        bitcoin: BitcoinIcon,
+        paysafe: PaysafeIcon,
+        qiwi: QiwiIcon,
+        skinpay: SkinpayIcon,
+        skinwallet: SkinwalletIcon,
+        skrill: SkrillIcon,
+        sofort: SofortIcon
+      }
     }
   },
+  apollo: {
+    paymentMethods () {
+      return {
+        query: PAYMENT_METHODS_QUERY,
+        result ({ data }) {
+          this.setDefaultMethodProps(data.paymentMethods[0])
+        }
+      }
+    }
+  },
+  methods: {
+    setDefaultMethodProps (firstMethod) {
+      this.selectedMethod = firstMethod
+      this.imageSrc = this.images[this.selectedMethod.code]
+    },
+    changeMethod (value) {
+      this.selectedMethod = value
+      this.imageSrc = value.icon
+    }
+  }
 }
 </script>

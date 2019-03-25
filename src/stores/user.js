@@ -2,6 +2,7 @@ import arcanebetSession from '@/services/local-storage/session'
 import graphqlClient from '@/libs/apollo/'
 import { AUTH_INFO_QUERY, SIGN_IN_MUTATION, SIGN_UP_MUTATION } from '@/graphql/index'
 import { NO_CACHE } from '@/constants/graphql/fetch-policy'
+import { wsClient } from '@/libs/apollo/ws-link'
 
 /**
  * User store module
@@ -18,6 +19,7 @@ export default {
       context.commit('clearBetslip')
       context.commit('clearWalletsStorage')
       arcanebetSession.dropSession()
+      context.commit('resetConnection')
       componentContext.$apollo.getClient().cache.reset()
       componentContext.$router.push({ name: 'home' })
     },
@@ -42,6 +44,7 @@ export default {
     login (context, sessionData) {
       context.commit('storeSession', sessionData)
       arcanebetSession.storeSession(sessionData)
+      context.commit('resetConnection')
     },
     rejectLogin ({ state, commit }, authData) {
       let login = authData.login
@@ -65,6 +68,10 @@ export default {
     },
     clearSession (state) {
       state.session = {}
+    },
+    resetConnection (state) {
+      wsClient.url = `${process.env.VUE_APP_WS_URL}?token=${state.session.token || null}`
+      wsClient.connection.reopen()
     },
     userData (state, data) {
       const session = state.session
