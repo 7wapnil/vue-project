@@ -91,6 +91,7 @@
             class="h-50 w-100 event-card-inside-border-top">
             <b-col
               v-b-toggle="'esports-live-event-' + event.id"
+              v-if="event.dashboard_market.length > 1"
               class="pt-3 event-card-toggle-button-esport">
               <b-row
                 no-gutters

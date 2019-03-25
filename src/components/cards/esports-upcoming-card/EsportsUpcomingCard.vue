@@ -63,7 +63,7 @@
         </b-col>
         <b-col
           v-b-toggle="'esports-upcoming-card-' + event.id"
-          v-if="event.dashboard_market"
+          v-if="event.dashboard_market.length > 1"
           cols="auto"
           class="px-3 event-card-toggle-button">
           <b-row
