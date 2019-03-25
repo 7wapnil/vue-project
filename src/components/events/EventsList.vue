@@ -1,8 +1,7 @@
 <template>
   <b-card
     no-body
-    class="p-4"
-    body-class="events-card-body">
+    class="p-4">
     <div
       v-for="(title, index) in groupedEvents"
       :key="index">
@@ -41,7 +40,9 @@
             v-for="event in tournament.events"
             :key="event.id"
             no-body>
+
             <slot :event="event"/>
+
           </b-card>
         </div>
         <b-link

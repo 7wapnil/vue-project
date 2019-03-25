@@ -8,11 +8,9 @@
     </b-col>
     <b-col
       v-bar
-      :style="{ 'background-image': 'url(' + `${ background }` + ')'}"
-      style="min-height: 100vh; background-repeat: no-repeat; background-size: contain"
+      style="min-height: 100vh"
       class="bg-arc-clr-soil-light">
       <router-view :key="$route.fullPath"/>
-
     </b-col>
     <b-col
       v-bar
@@ -63,9 +61,6 @@ export default {
   computed: {
     menuItems () {
       return buildTree(this.$route.params.titleKind, this.titles, this.$route)
-    },
-    background () {
-      return require('@/assets/images/introduction-area/soccer.png')
     }
   }
 }

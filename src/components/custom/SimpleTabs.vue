@@ -8,14 +8,14 @@
     <b-tab
       v-for="(tab, index) in tabs"
       :key="index"
-      no-body
-      title-link-class="mx-4 py-4 bg-transparent">
+      title-link-class="mx-4 py-3 bg-transparent"
+      @click="emitTabChange">
 
       <template slot="title">
         <b-row no-gutters>
           <b-col class="d-flex justify-content-center align-items-center">
             <h5 class="m-0">
-              {{ tab.title }}
+              {{ tab.label }}
             </h5>
           </b-col>
         </b-row>
@@ -50,6 +50,16 @@ export default {
   data () {
     return {
       tabIndex: this.activeIndex
+    }
+  },
+  created () {
+    this.emitTabChange()
+  },
+  methods: {
+    emitTabChange () {
+      if (this.tabs[this.tabIndex]) {
+        this.$emit('tab-changed', this.tabs[this.tabIndex])
+      }
     }
   }
 }

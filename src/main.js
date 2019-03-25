@@ -15,6 +15,7 @@ import VueApollo from 'vue-apollo'
 import VueLogger from 'vuejs-logger'
 import ContentfulPlugin from '@/libs/contentful/contentful-client'
 import Vuebar from 'vuebar'
+import Sticky from 'vue-sticky-directive'
 
 const isProduction = process.env.NODE_ENV === 'production'
 
@@ -37,6 +38,7 @@ Vue.use(ContentfulPlugin, {
   accessToken: process.env.VUE_APP_CONTENTFUL_ACCESS_TOKEN
 })
 Vue.use(Vuebar)
+Vue.use(Sticky)
 
 const ApolloProvider = new VueApollo({
   defaultClient: apolloClient,

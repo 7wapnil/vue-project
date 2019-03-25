@@ -1,21 +1,14 @@
 <template>
   <category-tabs
     :tabs="tabs"
-    v-model="activeTabIndex">
-    <template slot-scope="{ tab }">
-      <filter-tabs
-        :title-id="tab.id"
-        :tabs="tabsMapping"/>
-    </template>
-  </category-tabs>
+    v-model="activeTabIndex"
+    @tab-changed="tab => $emit('tab-changed', tab)"/>
 </template>
 
 <script>
 import { TITLES_QUERY } from '@/graphql'
 import { TITLE_CHANGED } from '@/constants/custom-events'
 import FilterTabs from './FilterTabs'
-import { UPCOMING_FOR_TIME } from '@/constants/graphql/event-context'
-import { LIVE, UPCOMING } from '@/constants/graphql/event-start-statuses'
 import { UPCOMING_FOR_TIME_TITLES_CONTEXT } from '@/constants/graphql/title-context'
 import { findTitleIcon } from '@/helpers/icon-finder'
 
@@ -37,40 +30,26 @@ export default {
   data () {
     return {
       titles: [],
-      activeTitleId: null,
-      tabsMapping: [{
-        id: LIVE,
-        title: 'Live now',
-        context: LIVE
-      }, {
-        id: UPCOMING,
-        title: 'Upcoming',
-        context: UPCOMING_FOR_TIME
-      }]
+      activeTabIndex: 0
     }
   },
   computed: {
     tabs () {
       return [
-        { id: null, title: 'All', icon: 'arcanebet-default-icon' },
+        { value: null, label: 'All', icon: 'arcanebet-default-icon' },
         ...this.titles.map((title) => {
-          return { id: title.id, title: title.name, icon: findTitleIcon(title) }
+          return { value: title.id, label: title.name, icon: findTitleIcon(title) }
         })
       ]
-    },
-    activeTabIndex: {
-      get () {
-        return this.activeTitleId
-          ? this.tabs.findIndex(title => title.id === this.activeTitleId)
-          : 0
-      },
-      set (tabIndex) {
-        this.activeTitleId = this.tabs[tabIndex].id
-      }
     }
   },
   created () {
-    this.$root.$on(TITLE_CHANGED, titleId => { this.activeTitleId = titleId })
+    this.$root.$on(TITLE_CHANGED, (titleId) => {
+      const tabIndexToShow = this.tabs.findIndex(t => t.value === titleId)
+      if (tabIndexToShow > -1) {
+        this.activeTabIndex = tabIndexToShow
+      }
+    })
   }
 }
 </script>

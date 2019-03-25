@@ -1,49 +1,80 @@
 <template>
-  <b-row no-gutters>
-    <b-col>
+  <div>
+    <div class="d-flex flex-column position-relative">
+      <introduction-area :title="activeTitle"/>
 
-      <introduction-area/>
-
-      <sport-tabs v-if="showTitles" />
-
-      <filter-tabs
-        v-if="!showTitles"
-        :title-id="$route.params.titleId"
-        :tabs="tabsMapping"/>
-
-    </b-col>
-  </b-row>
+      <div
+        class="w-100 position-absolute"
+        style="bottom: 0;">
+        <sport-tabs @tab-changed="onCategoryChange"/>
+        <filter-tabs @tab-changed="onFilterChange"/>
+      </div>
+    </div>
+    <events-list
+      v-if="eventListProps"
+      :key="key"
+      v-bind="eventListProps">
+      <template slot-scope="{ event }">
+        <hybrid-card
+          :event="event"
+          :tab-id="selectedFilter.value"/>
+      </template>
+    </events-list>
+  </div>
 </template>
 
 <script>
 import IntroductionArea from '@/components/custom/IntroductionArea'
 import SportTabs from './SportTabs'
 import FilterTabs from './FilterTabs'
-import { UPCOMING_FOR_TIME } from '@/constants/graphql/event-context'
-import { LIVE, UPCOMING } from '@/constants/graphql/event-start-statuses'
+import EventsList from '@/components/events/EventsList'
+import HybridCard from './HybridCard'
 
 export default {
   components: {
     IntroductionArea,
     SportTabs,
-    FilterTabs
+    FilterTabs,
+    EventsList,
+    HybridCard
   },
   data () {
     return {
-      tabsMapping: [{
-        id: LIVE,
-        title: 'Live now',
-        context: LIVE
-      }, {
-        id: UPCOMING,
-        title: 'Upcoming',
-        context: UPCOMING_FOR_TIME
-      }]
+      offset: {
+        top: -218
+      },
+      selectedCategory: null,
+      selectedFilter: null
     }
   },
   computed: {
-    showTitles () {
-      return this.$route.name === 'title-kind'
+    eventListProps () {
+      if (!this.selectedFilter) { return null }
+
+      return {
+        titleId: this.selectedCategory ? this.selectedCategory.value : null,
+        tournamentId: this.$route.params.tournamentId || null,
+        context: this.selectedFilter ? this.selectedFilter.context : null
+      }
+    },
+    key () {
+      if (!this.eventListProps) { return '' }
+      return Object.values(this.eventListProps).join(':')
+    },
+    activeTitle () {
+      if (!this.selectedCategory) {
+        return null
+      }
+
+      return { id: this.selectedCategory.value, name: this.selectedCategory.label }
+    }
+  },
+  methods: {
+    onCategoryChange (tab) {
+      this.selectedCategory = tab
+    },
+    onFilterChange (tab) {
+      this.selectedFilter = tab
     }
   }
 }
