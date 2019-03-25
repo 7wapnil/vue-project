@@ -1,5 +1,7 @@
 <template>
-  <simple-tabs :tabs="tabs" @tab-changed="tab => $emit('tab-changed', tab)"/>
+  <simple-tabs
+    :tabs="tabs"
+    @tab-changed="tab => $emit('tab-changed', tab)"/>
 </template>
 
 <script>

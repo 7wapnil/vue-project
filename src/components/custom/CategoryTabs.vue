@@ -1,71 +1,69 @@
 <template>
-    <b-tabs
-            :lazy="lazy"
-            content-class="p-0 m-0"
-            class="category-tabs"
-            v-model="categoryTabIndex"
-            nav-class="px-5">
+  <b-tabs
+    :lazy="lazy"
+    v-model="categoryTabIndex"
+    content-class="p-0 m-0"
+    class="category-tabs"
+    style="overflow: hidden !important;"
+    nav-class="px-5">
 
-      <template slot="tabs">
+    <template slot="tabs">
 
-        <b-nav-item v-if="categoryTabIndex > 0"
-                    class="pointer left-side-navigation"
-                    @click="categoryTabIndex--">
-          <icon name="chevron-left"/>
-        </b-nav-item>
+      <b-nav-item
+        v-if="categoryTabIndex > 0"
+        class="pointer left-side-navigation"
+        @click="categoryTabIndex--">
+        <icon name="chevron-left"/>
+      </b-nav-item>
 
-      </template>
+    </template>
 
-      <b-tab
-              v-for="(tab, index) in tabs"
-              :key="index"
-              no-body
-              @click="emitTabChanged"
-              title-link-class="category-tab px-4 py-3 ">
-        <template slot="title">
-          <b-row no-gutters>
-            <b-col>
-              <icon
-                      :name="tab.icon"
-                      color="arc-clr-iron"
-                      size="18px"/>
-            </b-col>
-          </b-row>
-          <b-row no-gutters>
-            <b-col>
+    <b-tab
+      v-for="(tab, index) in tabs"
+      :key="index"
+      no-body
+      title-link-class="category-tab px-4 py-3 "
+      @click="emitTabChanged">
+      <template slot="title">
+        <b-row no-gutters>
+          <b-col>
+            <icon
+              :name="tab.icon"
+              color="arc-clr-iron"
+              size="18px"/>
+          </b-col>
+        </b-row>
+        <b-row no-gutters>
+          <b-col>
             <span class="font-size-12 text-arc-clr-iron-light line-height-14">
               {{ tab.label }}
             </span>
-            </b-col>
-          </b-row>
-        </template>
-      </b-tab>
-
-
-
-      <template slot="tabs">
-        <b-nav-item v-if="categoryTabIndex !== tabs.length - 1"
-                    class="pointer right-side-navigation"
-                    @click="categoryTabIndex++">
-          <icon class="category-tab" name="chevron-right"/>
-        </b-nav-item>
+          </b-col>
+        </b-row>
       </template>
+    </b-tab>
 
+    <template slot="tabs">
+      <b-nav-item
+        v-if="categoryTabIndex !== tabs.length - 1"
+        class="pointer right-side-navigation"
+        @click="categoryTabIndex++">
+        <icon
+          class="category-tab"
+          name="chevron-right"/>
+      </b-nav-item>
+    </template>
 
-      <div slot="empty"
-           class="text-center text-muted">
-        No tabs. Try to check your connection.
-      </div>
-    </b-tabs>
+    <div
+      slot="empty"
+      class="text-center text-muted">
+      No tabs. Try to check your connection.
+    </div>
+  </b-tabs>
 </template>
 
 <script>
 export default {
-  data() {
-    return {
-      categoryTabIndex: 0
-    }
-  },
   props: {
     tabs: {
       type: Array,
@@ -78,6 +76,11 @@ export default {
     lazy: {
       type: Boolean,
       default: true
+    }
+  },
+  data () {
+    return {
+      categoryTabIndex: 0
     }
   },
   created () {

@@ -1,23 +1,26 @@
 <template>
-  <div sticky-container>
-        <introduction-area :title="activeTitle"/>
-        <div>
+  <div>
+    <div class="d-flex flex-column position-relative">
+      <introduction-area :title="activeTitle"/>
 
-            <div v-sticky sticky-offset="offset">
-                <sport-tabs @tab-changed="onCategoryChange"/>
-                <filter-tabs @tab-changed="onFilterChange"/>
-            </div>
-
-            <events-list :key="key" v-bind="eventListProps" v-if="eventListProps">
-                <template slot-scope="{ event }">
-                    <hybrid-card
-                        :event="event"
-                        :tab-id="selectedFilter.value"/>
-                </template>
-            </events-list>
-
-        </div>
+      <div
+        class="w-100 position-absolute"
+        style="bottom: 0;">
+        <sport-tabs @tab-changed="onCategoryChange"/>
+        <filter-tabs @tab-changed="onFilterChange"/>
+      </div>
     </div>
+    <events-list
+      v-if="eventListProps"
+      :key="key"
+      v-bind="eventListProps">
+      <template slot-scope="{ event }">
+        <hybrid-card
+          :event="event"
+          :tab-id="selectedFilter.value"/>
+      </template>
+    </events-list>
+  </div>
 </template>
 
 <script>
@@ -38,7 +41,7 @@ export default {
   data () {
     return {
       offset: {
-        top: 80
+        top: -218
       },
       selectedCategory: null,
       selectedFilter: null
@@ -67,7 +70,7 @@ export default {
     }
   },
   methods: {
-    onCategoryChange(tab) {
+    onCategoryChange (tab) {
       this.selectedCategory = tab
     },
     onFilterChange (tab) {

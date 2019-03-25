@@ -8,8 +8,8 @@
     <b-tab
       v-for="(tab, index) in tabs"
       :key="index"
-      @click="emitTabChange"
-      title-link-class="mx-4 py-4 bg-transparent">
+      title-link-class="mx-4 py-3 bg-transparent"
+      @click="emitTabChange">
 
       <template slot="title">
         <b-row no-gutters>
@@ -47,13 +47,13 @@ export default {
       default: ''
     }
   },
-  created () {
-    this.emitTabChange()
-  },
   data () {
     return {
       tabIndex: this.activeIndex
     }
+  },
+  created () {
+    this.emitTabChange()
   },
   methods: {
     emitTabChange () {

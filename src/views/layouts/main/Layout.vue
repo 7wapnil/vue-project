@@ -3,7 +3,7 @@
     <b-container
       fluid
       class="p-0">
-        <nav-bar/>
+      <nav-bar/>
     </b-container>
     <b-container
       fluid

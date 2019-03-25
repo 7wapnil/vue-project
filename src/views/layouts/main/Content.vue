@@ -6,7 +6,10 @@
       style="max-width: 268px; min-width: 268px;">
       <side-menu :items="menuItems"/>
     </b-col>
-    <b-col style="min-height: 100vh;" class="bg-arc-clr-soil-light" v-bar>
+    <b-col
+      v-bar
+      style="min-height: 100vh"
+      class="bg-arc-clr-soil-light">
       <router-view :key="$route.fullPath"/>
     </b-col>
     <b-col
