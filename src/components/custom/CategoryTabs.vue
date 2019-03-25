@@ -1,12 +1,12 @@
 <template>
     <b-tabs
+            v-sticky
+            sticky-offset="offset"
             :lazy="lazy"
-            :value="value"
             content-class="p-0 m-0"
             class="category-tabs"
             v-model="categoryTabIndex"
-            nav-class="px-5"
-            @input="emitInput">
+            nav-class="px-5">
 
       <template slot="tabs">
 
@@ -23,7 +23,7 @@
               v-for="(tab, index) in tabs"
               :key="index"
               no-body
-              @click="$emit('category-tab-changed', tab.title)"
+              @click="emitTabChanged"
               title-link-class="category-tab px-4 py-3 ">
         <template slot="title">
           <b-row no-gutters>
@@ -37,13 +37,11 @@
           <b-row no-gutters>
             <b-col>
             <span class="font-size-12 text-arc-clr-iron-light line-height-14">
-              {{ tab.title }}
+              {{ tab.label }}
             </span>
             </b-col>
           </b-row>
         </template>
-
-        <slot :tab="tab"/>
       </b-tab>
 
 
@@ -58,9 +56,8 @@
       </template>
 
 
-      <div
-              slot="empty"
-              class="text-center text-muted">
+      <div slot="empty"
+           class="text-center text-muted">
         No tabs. Try to check your connection.
       </div>
     </b-tabs>
@@ -70,6 +67,7 @@
 export default {
   data() {
     return {
+      offset: { top: 80 },
       categoryTabIndex: 0
     }
   },
@@ -87,9 +85,14 @@ export default {
       default: true
     }
   },
+  created () {
+    this.emitTabChanged()
+  },
   methods: {
-    emitInput (value) {
-      this.$emit('input', value)
+    emitTabChanged () {
+      if (this.tabs[this.categoryTabIndex]) {
+        this.$emit('tab-changed', this.tabs[this.categoryTabIndex])
+      }
     }
   },
 }

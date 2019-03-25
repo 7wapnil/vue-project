@@ -2,6 +2,7 @@ import backgroundsMap, { DEFAULT_BACKGROUND } from '@/assets/images/introduction
 import { slug } from '@/helpers/strings'
 
 export const findBackground = ({ name }) => {
+  console.log(name)
   const titleSlug = slug(name)
   if (backgroundsMap[titleSlug] === undefined) {
     return DEFAULT_BACKGROUND

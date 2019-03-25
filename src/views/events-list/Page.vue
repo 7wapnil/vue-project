@@ -1,20 +1,24 @@
 <template>
   <div sticky-container>
-        <introduction-area/>
+        <!--<introduction-area :img-title="backgroundTitle"/>-->
         <div>
 
-          <div>
-            <div v-sticky :sticky-offset="stickyOffset" sticky-side="top">
-              Ш ФЬ ЫЕШСЛН
+            <sport-tabs @tab-changed="onCategoryChange" v-if="showTitles"/>
+            <filter-tabs @tab-changed="onFilterChange"/>
+
+            <div>
+                <!--<events-list-->
+                <!--:title-id="titleId"-->
+                <!--:tournament-id="tournamentId"-->
+                <!--:category-id="categoryId"-->
+                <!--:context="tab.context">-->
+                <!--<template slot-scope="{ event }">-->
+                <!--<hybrid-card-->
+                <!--:event="event"-->
+                <!--:tab-id="tab.id"/>-->
+                <!--</template>-->
+                <!--</events-list>-->
             </div>
-          </div>
-
-          <sport-tabs @category-tab-changed="" v-if="showTitles"/>
-
-          <filter-tabs
-            v-if="!showTitles"
-            :title-id="$route.params.titleId"
-            :tabs="tabsMapping"/>
         </div>
     </div>
 </template>
@@ -23,8 +27,7 @@
 import IntroductionArea from '@/components/custom/IntroductionArea'
 import SportTabs from './SportTabs'
 import FilterTabs from './FilterTabs'
-import { UPCOMING_FOR_TIME } from '@/constants/graphql/event-context'
-import { LIVE, UPCOMING } from '@/constants/graphql/event-start-statuses'
+import { findBackground } from '@/helpers/background-finder'
 
 export default {
   components: {
@@ -35,22 +38,30 @@ export default {
   data () {
     return {
       stickyOffset: {
-        top: 150
+        top: 80
       },
-      tabsMapping: [{
-        id: LIVE,
-        title: 'Live now',
-        context: LIVE
-      }, {
-        id: UPCOMING,
-        title: 'Upcoming',
-        context: UPCOMING_FOR_TIME
-      }]
+      selectedCategory: null,
+      selectedFilter: null
     }
   },
   computed: {
     showTitles () {
       return this.$route.name === 'title-kind'
+    },
+    key () {
+      return this.selectedCategory ? this.selectedCategory.value : 'Huj'
+    }
+  },
+  methods: {
+    onCategoryChange(tab) {
+      console.log('Category changed', tab)
+      this.selectedCategory = tab
+    },
+    onFilterChange (tab) {
+      console.log('Filter changed', tab)
+      this.selectedFilter = tab
+    },
+    changeBackground(tab) {
     }
   }
 }

@@ -3,13 +3,12 @@
     <b-container
       fluid
       class="p-0">
-      <nav-bar/>
+        <nav-bar/>
     </b-container>
     <b-container
       fluid
       style="max-width: 1920px"
       class="p-0">
-
       <router-view/>
 
     </b-container>

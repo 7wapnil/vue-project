@@ -1,52 +1,23 @@
 <template>
-  <simple-tabs :tabs="tabs">
-    <template slot-scope="{ tab }">
-      <events-list
-        :title-id="titleId"
-        :tournament-id="tournamentId"
-        :category-id="categoryId"
-        :context="tab.context">
-        <template slot-scope="{ event }">
-          <hybrid-card
-            :event="event"
-            :tab-id="tab.id"/>
-        </template>
-      </events-list>
-    </template>
-  </simple-tabs>
+  <simple-tabs :tabs="tabs" @tab-changed="tab => $emit('tab-changed', tab)"/>
 </template>
 
 <script>
-import EventsList from '@/components/events/EventsList'
-import MarketsList from '@/components/markets/MarketsList'
+import { UPCOMING_FOR_TIME } from '@/constants/graphql/event-context'
 import { LIVE, UPCOMING } from '@/constants/graphql/event-start-statuses'
-import HybridCard from './HybridCard'
 
 export default {
-  components: {
-    EventsList,
-    MarketsList,
-    HybridCard
-  },
-  props: {
-    titleId: {
-      type: String,
-      default: null
-    },
-    categoryId: {
-      type: String,
-      default: null
-    },
-    tabs: {
-      type: Array,
-      default () { return [] }
-    }
-  },
   data () {
     return {
-      tabIndex: 1,
-      live: LIVE,
-      upcoming: UPCOMING
+      tabs: [{
+        value: LIVE,
+        label: 'Live now',
+        context: LIVE
+      }, {
+        value: UPCOMING,
+        label: 'Upcoming',
+        context: UPCOMING_FOR_TIME
+      }]
     }
   },
   computed: {
