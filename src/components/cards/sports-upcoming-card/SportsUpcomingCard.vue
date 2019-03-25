@@ -59,28 +59,6 @@
                 </b-col>
               </b-row>
             </b-col>
-            <b-col
-              cols="auto"
-              class="p-3">
-              <b-row no-gutters>
-                <b-col class="d-inline-flex mb-2">
-                  <icon
-                    v-if="icons"
-                    name="upcoming-event-replay"
-                    size="16px"
-                    color="arc-clr-soil-light"/>
-                </b-col>
-              </b-row>
-              <b-row no-gutters>
-                <b-col class="d-inline-flex">
-                  <icon
-                    v-if="icons"
-                    name="upcoming-event-statistic"
-                    size="18px"
-                    color="arc-clr-soil-light"/>
-                </b-col>
-              </b-row>
-            </b-col>
           </b-row>
         </b-col>
         <b-col

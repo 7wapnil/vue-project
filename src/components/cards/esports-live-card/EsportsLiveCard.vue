@@ -27,24 +27,6 @@
               </small>
             </b-col>
           </b-row>
-          <b-row no-gutters>
-            <b-col
-              class="d-flex justify-content-start align-items-end pl-4">
-              <icon
-                v-if="icons"
-                name="upcoming-event-replay"
-                size="16px"
-                color="arc-clr-soil-light"/>
-            </b-col>
-            <b-col
-              class="d-flex justify-content-end align-items-end pr-4">
-              <icon
-                v-if="icons"
-                name="upcoming-event-statistic"
-                size="18px"
-                color="arc-clr-soil-light"/>
-            </b-col>
-          </b-row>
         </b-col>
         <b-col
           class="event-card-inside-border-left"

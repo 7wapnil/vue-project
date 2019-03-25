@@ -34,26 +34,6 @@
                 </b-col>
               </b-row>
             </b-col>
-            <b-col>
-              <b-row
-                no-gutters>
-                <b-col class="d-flex align-items-start justify-content-end mb-3">
-                  <icon
-                    v-if="icons"
-                    name="upcoming-event-replay"
-                    size="16px"
-                    color="arc-clr-soil-light"/>
-                </b-col>
-                <div class="w-100"/>
-                <b-col class="d-flex align-items-end justify-content-end">
-                  <icon
-                    v-if="icons"
-                    name="upcoming-event-statistic"
-                    size="18px"
-                    color="arc-clr-soil-light"/>
-                </b-col>
-              </b-row>
-            </b-col>
           </b-row>
         </b-col>
         <b-col
