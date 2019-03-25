@@ -139,10 +139,7 @@ import BetslipItem from './BetslipItem'
 import NoBetsBlock from './NoBetsBlock'
 import { mapGetters, mapMutations, mapActions } from 'vuex'
 import wallets from '@/mixins/wallets'
-import BetslipSerializer from '@/services/serializers/betslip'
 import Bet from '@/models/bet'
-
-const BET_DESTROY_TIMEOUT = 3000;
 
 export default {
   components: {
@@ -177,8 +174,13 @@ export default {
       }
     }
   },
+  created () {
+    this.subscribeBets()
+  },
   methods: {
     ...mapActions('betslip', [
+      'subscribeBets',
+      'unsubscribeBets',
       'placeBets'
     ]),
     ...mapMutations('betslip', [
@@ -191,15 +193,18 @@ export default {
     submit () {
       this.freezeBets()
       this.disableButton = true
-      let betsPayload = BetslipSerializer.serialize({
-        bets: this.getBets,
-        currencyCode: this.activeWallet.currency.code
+
+      const payload = this.getBets.map((bet) => {
+        return {
+          amount: parseFloat(bet.stake),
+          oddId: bet.oddId,
+          oddValue: bet.approvedOddValue,
+          currencyCode: this.activeWallet.currency.code
+        }
       })
-      this.placeBets(betsPayload)
-        .then(this.processBetsPlacementResponse)
-    },
-    processBetsPlacementResponse (response) {
-      this.updateBetsFromResponse(response)
+
+      this.placeBets(payload)
+        .then(this.updateBetsFromResponse)
     },
     updateBetsFromResponse (response) {
       const bets = this.getBets
@@ -211,20 +216,13 @@ export default {
           this.updateBet({
             oddId: bet.oddId,
             payload: {
+              id: betPayload.bet.id,
               status: Bet.statuses.submitting,
               message: betPayload.message,
               externalId: betPayload.id,
               success: betPayload.success
             }
           })
-
-          setTimeout(() => {
-            if (betPayload.success && betPayload.bet) {
-              this.removeBetFromBetslip(bet.oddId)
-            }
-            this.updateBet({ oddId: bet.oddId, payload: { status: betPayload.bet ? betPayload.bet.status : null } })
-            this.disableButton = false
-          }, BET_DESTROY_TIMEOUT)
         })
       }
     },

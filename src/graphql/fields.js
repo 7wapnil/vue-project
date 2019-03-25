@@ -82,3 +82,12 @@ export const MARKET_CATEGORY_FIELDS = `
   name
   count
 `
+
+export const BET_FIELDS = `
+  id
+  created_at
+  amount
+  oddValue
+  status
+  message
+`
