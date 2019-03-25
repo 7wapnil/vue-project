@@ -3,7 +3,6 @@ import graphqlClient from '@/libs/apollo/'
 import { AUTH_INFO_QUERY, SIGN_IN_MUTATION, SIGN_UP_MUTATION } from '@/graphql/index'
 import { NO_CACHE } from '@/constants/graphql/fetch-policy'
 import { wsClient } from '@/libs/apollo/ws-link'
-import { fetchToken } from '@/libs/apollo/helpers'
 
 /**
  * User store module
@@ -70,8 +69,8 @@ export default {
     clearSession (state) {
       state.session = {}
     },
-    resetConnection () {
-      wsClient.url = `${process.env.VUE_APP_WS_URL}?token=${fetchToken()}`
+    resetConnection (state) {
+      wsClient.url = `${process.env.VUE_APP_WS_URL}?token=${state.session.token || null}`
       wsClient.connection.reopen()
     },
     userData (state, data) {
