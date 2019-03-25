@@ -27,24 +27,6 @@
               </small>
             </b-col>
           </b-row>
-          <b-row no-gutters>
-            <b-col
-              class="d-flex justify-content-start align-items-end pl-4">
-              <icon
-                v-if="icons"
-                name="upcoming-event-replay"
-                size="16px"
-                color="arc-clr-soil-light"/>
-            </b-col>
-            <b-col
-              class="d-flex justify-content-end align-items-end pr-4">
-              <icon
-                v-if="icons"
-                name="upcoming-event-statistic"
-                size="18px"
-                color="arc-clr-soil-light"/>
-            </b-col>
-          </b-row>
         </b-col>
         <b-col
           class="event-card-inside-border-left"
@@ -91,6 +73,7 @@
             class="h-50 w-100 event-card-inside-border-top">
             <b-col
               v-b-toggle="'esports-live-event-' + event.id"
+              v-if="event.dashboard_market.length > 1"
               class="pt-3 event-card-toggle-button-esport">
               <b-row
                 no-gutters

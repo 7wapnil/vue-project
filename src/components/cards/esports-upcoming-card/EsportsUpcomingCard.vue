@@ -34,26 +34,6 @@
                 </b-col>
               </b-row>
             </b-col>
-            <b-col>
-              <b-row
-                no-gutters>
-                <b-col class="d-flex align-items-start justify-content-end mb-3">
-                  <icon
-                    v-if="icons"
-                    name="upcoming-event-replay"
-                    size="16px"
-                    color="arc-clr-soil-light"/>
-                </b-col>
-                <div class="w-100"/>
-                <b-col class="d-flex align-items-end justify-content-end">
-                  <icon
-                    v-if="icons"
-                    name="upcoming-event-statistic"
-                    size="18px"
-                    color="arc-clr-soil-light"/>
-                </b-col>
-              </b-row>
-            </b-col>
           </b-row>
         </b-col>
         <b-col
@@ -63,7 +43,7 @@
         </b-col>
         <b-col
           v-b-toggle="'esports-upcoming-card-' + event.id"
-          v-if="event.dashboard_market"
+          v-if="event.dashboard_market.length > 1"
           cols="auto"
           class="px-3 event-card-toggle-button">
           <b-row
