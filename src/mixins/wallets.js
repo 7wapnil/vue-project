@@ -5,6 +5,6 @@ export default {
     ...mapGetters('wallets', ['wallets', 'activeWallet'])
   },
   methods: {
-    ...mapActions('wallets', ['refetchWallets'])
+    ...mapActions('wallets', ['fetchWallets'])
   }
 }

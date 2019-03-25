@@ -77,6 +77,7 @@ import InputComponent from '@/components/inputs/RegularInput.vue'
 import VueRecaptcha from 'vue-recaptcha'
 import { mapGetters, mapActions } from 'vuex'
 import ResponseErrorPanel from '@/components/custom/ResponseErrorPanel.vue'
+import wallets from '@/mixins/wallets'
 
 export default {
   components: {
@@ -84,6 +85,7 @@ export default {
     'input-component': InputComponent,
     'response-panel': ResponseErrorPanel
   },
+  mixins: [wallets],
   props: {
     modalName: {
       type: String,
@@ -141,6 +143,7 @@ export default {
     },
     onSuccess ({ data: { signIn } }) {
       this.login(signIn)
+      this.fetchWallets()
       this.$noty.success('Signed in successfully')
       this.$router.push({ name: 'home' })
       this.close()
