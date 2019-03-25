@@ -1,7 +1,5 @@
 <template>
     <b-tabs
-            v-sticky
-            sticky-offset="offset"
             :lazy="lazy"
             content-class="p-0 m-0"
             class="category-tabs"
@@ -11,7 +9,6 @@
       <template slot="tabs">
 
         <b-nav-item v-if="categoryTabIndex > 0"
-                    style="position: absolute; left: 0; top: 10px"
                     class="pointer left-side-navigation"
                     @click="categoryTabIndex--">
           <icon name="chevron-left"/>
@@ -47,8 +44,7 @@
 
 
       <template slot="tabs">
-        <b-nav-item style="position: absolute; right: 0; top: 10px"
-                    v-if="categoryTabIndex !== tabs.length - 1"
+        <b-nav-item v-if="categoryTabIndex !== tabs.length - 1"
                     class="pointer right-side-navigation"
                     @click="categoryTabIndex++">
           <icon class="category-tab" name="chevron-right"/>
@@ -67,7 +63,6 @@
 export default {
   data() {
     return {
-      offset: { top: 80 },
       categoryTabIndex: 0
     }
   },

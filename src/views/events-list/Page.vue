@@ -1,7 +1,8 @@
 <template>
   <div sticky-container>
         <!--<introduction-area :img-title="backgroundTitle"/>-->
-        <div>
+        <div v-sticky
+             sticky-offset="offset">
 
             <sport-tabs @tab-changed="onCategoryChange" v-if="showTitles"/>
             <filter-tabs @tab-changed="onFilterChange"/>
@@ -37,7 +38,7 @@ export default {
   },
   data () {
     return {
-      stickyOffset: {
+      offset: {
         top: 80
       },
       selectedCategory: null,

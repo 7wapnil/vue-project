@@ -183,13 +183,23 @@
 
 // Category tabs
 .category-tabs {
-  .left-side-navigation:hover i {
-    transition: color .3s ease-in-out;
-    color: $icon-section-color;
+  .left-side-navigation {
+    position: absolute;
+    left: 0;
+    top: 10px;
+    &:hover i {
+      transition: color .3s ease-in-out;
+      color: $icon-section-color;
+    }
   }
-  .right-side-navigation:hover i{
-    transition: color .3s ease-in-out;
-    color: $icon-section-color;
+  .right-side-navigation {
+    position: absolute;
+    right: 0;
+    top: 10px;
+    &:hover i {
+      transition: color .3s ease-in-out;
+      color: $icon-section-color;
+    }
   }
   .nav-link.active i{
     transition: color .2s ease-in-out;
