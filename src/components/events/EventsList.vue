@@ -40,7 +40,9 @@
             v-for="event in tournament.events"
             :key="event.id"
             no-body>
+
             <slot :event="event"/>
+
           </b-card>
         </div>
         <b-link

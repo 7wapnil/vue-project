@@ -1,25 +1,21 @@
 <template>
   <div sticky-container>
-        <!--<introduction-area :img-title="backgroundTitle"/>-->
-        <div v-sticky
-             sticky-offset="offset">
+        <introduction-area :title="activeTitle"/>
+        <div>
 
-            <sport-tabs @tab-changed="onCategoryChange" v-if="showTitles"/>
-            <filter-tabs @tab-changed="onFilterChange"/>
-
-            <div>
-                <!--<events-list-->
-                <!--:title-id="titleId"-->
-                <!--:tournament-id="tournamentId"-->
-                <!--:category-id="categoryId"-->
-                <!--:context="tab.context">-->
-                <!--<template slot-scope="{ event }">-->
-                <!--<hybrid-card-->
-                <!--:event="event"-->
-                <!--:tab-id="tab.id"/>-->
-                <!--</template>-->
-                <!--</events-list>-->
+            <div v-sticky sticky-offset="offset">
+                <sport-tabs @tab-changed="onCategoryChange"/>
+                <filter-tabs @tab-changed="onFilterChange"/>
             </div>
+
+            <events-list :key="key" v-bind="eventListProps" v-if="eventListProps">
+                <template slot-scope="{ event }">
+                    <hybrid-card
+                        :event="event"
+                        :tab-id="selectedFilter.value"/>
+                </template>
+            </events-list>
+
         </div>
     </div>
 </template>
@@ -28,13 +24,16 @@
 import IntroductionArea from '@/components/custom/IntroductionArea'
 import SportTabs from './SportTabs'
 import FilterTabs from './FilterTabs'
-import { findBackground } from '@/helpers/background-finder'
+import EventsList from '@/components/events/EventsList'
+import HybridCard from './HybridCard'
 
 export default {
   components: {
     IntroductionArea,
     SportTabs,
-    FilterTabs
+    FilterTabs,
+    EventsList,
+    HybridCard
   },
   data () {
     return {
@@ -46,23 +45,33 @@ export default {
     }
   },
   computed: {
-    showTitles () {
-      return this.$route.name === 'title-kind'
+    eventListProps () {
+      if (!this.selectedFilter) { return null }
+
+      return {
+        titleId: this.selectedCategory ? this.selectedCategory.value : null,
+        tournamentId: this.$route.params.tournamentId || null,
+        context: this.selectedFilter ? this.selectedFilter.context : null
+      }
     },
     key () {
-      return this.selectedCategory ? this.selectedCategory.value : 'Huj'
+      if (!this.eventListProps) { return '' }
+      return Object.values(this.eventListProps).join(':')
+    },
+    activeTitle () {
+      if (!this.selectedCategory) {
+        return null
+      }
+
+      return { id: this.selectedCategory.value, name: this.selectedCategory.label }
     }
   },
   methods: {
     onCategoryChange(tab) {
-      console.log('Category changed', tab)
       this.selectedCategory = tab
     },
     onFilterChange (tab) {
-      console.log('Filter changed', tab)
       this.selectedFilter = tab
-    },
-    changeBackground(tab) {
     }
   }
 }

@@ -4,21 +4,26 @@
     class="p-0">
     <b-img  style="z-index: -999"
             fluid-grow
+            :src="background"
             alt="Responsive image"/>
-      {{ imgTitle }}
   </b-container>
 </template>
 <script>
+  import { findBackground } from '@/helpers/background-finder'
+
   export default {
     computed: {
+      imageFileName () {
+        return findBackground({ name: this.title ? this.title.name: '' })
+      },
       background () {
-        return require(`@/assets/images/introduction-area/${this.imgTitle}.png`)
+        return require(`@/assets/images/introduction-area/${this.imageFileName}.png`)
       }
     },
     props: {
-      imgTitle: {
-        type: String,
-        default: 'yoooopta'
+      title: {
+        type: Object,
+        default: null
       }
     }
   }
