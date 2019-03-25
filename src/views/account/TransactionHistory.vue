@@ -63,7 +63,7 @@ export default {
   data () {
     return {
       transactionHistory: [],
-      filter: 'deposit',
+      filter: null,
       loadingHistory: false,
       paginationProps: Object,
       itemsPerPage: 10,
@@ -86,7 +86,7 @@ export default {
       tabs: [{
         id: 0,
         title: 'All',
-        kind: 'deposit'
+        kind: null
       }, {
         id: 1,
         title: 'Deposits',
@@ -105,9 +105,9 @@ export default {
         query: TRANSACTION_LIST_QUERY,
         fetchPolicy: NETWORK_ONLY,
         variables: {
-          filter: this.filter,
+          filter: null,
           page: 1,
-          per_page: this.betsPerPage
+          per_page: this.itemsPerPage
         },
         result ({ data }) {
           this.loadingHistory = false
@@ -157,8 +157,8 @@ export default {
         }
       })
     },
-    changeFilter (filter) {
-      this.filter = filter.kind
+    changeFilter (tab) {
+      this.filter = tab.kind
       this.page = 1
       this.loadMoreTransactions()
     }
