@@ -1,12 +1,17 @@
-import backgroundsMap, { DEFAULT_BACKGROUND } from '@/assets/images/introduction-area/index'
 import { slug } from '@/helpers/strings'
 
-export const findBackground = ({ name }) => {
-  console.log(name)
-  const titleSlug = slug(name)
-  if (backgroundsMap[titleSlug] === undefined) {
-    return DEFAULT_BACKGROUND
-  }
+export const DEFAULT_BACKGROUND = 'arcanebet-default-background'
 
-  return backgroundsMap[titleSlug]
+const loadBackgroundSource = (fileName) => {
+  return require(`@/assets/images/introduction-area/${fileName}.png`)
+}
+
+export const findBackgroundSource = ({ name }) => {
+  const fileName = `background-${slug(name)}`
+
+  try {
+    return loadBackgroundSource(fileName)
+  } catch (e) {
+    return loadBackgroundSource(DEFAULT_BACKGROUND)
+  }
 }

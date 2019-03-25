@@ -9,15 +9,12 @@
   </b-container>
 </template>
 <script>
-  import { findBackground } from '@/helpers/background-finder'
+  import { findBackgroundSource } from '@/helpers/background-finder'
 
   export default {
     computed: {
-      imageFileName () {
-        return findBackground({ name: this.title ? this.title.name: '' })
-      },
       background () {
-        return require(`@/assets/images/introduction-area/${this.imageFileName}.png`)
+        return findBackgroundSource({ name: this.title ? this.title.name: '' })
       }
     },
     props: {
