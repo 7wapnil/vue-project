@@ -27,6 +27,11 @@
           tbody-class="activity-table-body"
           tbody-tr-class="activity-table-body-row">
           <template
+            slot="amount"
+            slot-scope="data">
+            {{ data.item.amount }} {{ data.item.currencyCode }}
+          </template>
+          <template
             slot="status"
             slot-scope="data">
             <b-badge
@@ -58,7 +63,7 @@ export default {
   data () {
     return {
       transactionHistory: [],
-      filter: 'deposit',
+      filter: null,
       loadingHistory: false,
       paginationProps: Object,
       itemsPerPage: 10,
@@ -67,15 +72,9 @@ export default {
         {
           key: 'created_at',
           label: 'Date'
-        },
-        { key: 'amount',
-          label: 'Amount'
-        },
-        { key: 'currencyCode',
-          label: 'Currency'
-        },
-        { key: 'comment',
-          label: 'Comment'
+        }, 'amount',
+        { key: 'mode',
+          label: 'Payment Method'
         },
         { key: 'status',
           label: 'Status'
@@ -87,7 +86,7 @@ export default {
       tabs: [{
         id: 0,
         title: 'All',
-        kind: 'deposit'
+        kind: null
       }, {
         id: 1,
         title: 'Deposits',
@@ -106,9 +105,9 @@ export default {
         query: TRANSACTION_LIST_QUERY,
         fetchPolicy: NETWORK_ONLY,
         variables: {
-          filter: this.filter,
+          filter: null,
           page: 1,
-          per_page: this.betsPerPage
+          per_page: this.itemsPerPage
         },
         result ({ data }) {
           this.loadingHistory = false
@@ -158,8 +157,8 @@ export default {
         }
       })
     },
-    changeFilter (filter) {
-      this.filter = filter.kind
+    changeFilter (tab) {
+      this.filter = tab.kind
       this.page = 1
       this.loadMoreTransactions()
     }
