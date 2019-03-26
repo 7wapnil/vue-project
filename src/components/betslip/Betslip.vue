@@ -217,13 +217,14 @@ export default {
             oddId: bet.oddId,
             payload: {
               id: betPayload.bet.id,
-              status: Bet.statuses.submitting,
+              status: Bet.statuses.submitted,
               message: betPayload.message,
               externalId: betPayload.id,
               success: betPayload.success
             }
           })
         })
+        this.subscribeBets()
       }
     },
     updateBets () {

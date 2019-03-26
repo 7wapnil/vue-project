@@ -185,11 +185,12 @@ export default {
       status: null,
       variantMapping: {
         initial: 'arc-clr-soil-dark',
-        submitting: 'light',
+        submitted: 'light',
         pending: 'light',
         succeeded: 'success',
         failed: 'danger',
         warning: 'warning',
+        disconnect: 'info',
       },
       isDisabled: false,
       isSettled: false,
@@ -221,6 +222,7 @@ export default {
             return { id: this.bet.eventId }
           },
           result ({ data: { event_updated: eventUpdated } }) {
+            console.log()
             this.updateOdds(eventUpdated.markets[0])
             this.handleMarketStatus(eventUpdated.markets[0])
           }

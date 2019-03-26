@@ -1,9 +1,10 @@
 const STATUSES = {
   initial: 'initial',
-  submitting: 'submitting',
+  submitted: 'submitted',
   pending: 'pending',
   succeeded: 'succeeded',
-  failed: 'failed'
+  failed: 'failed',
+  disconnect: 'disconnect',
 }
 
 export default class Bet {
@@ -39,7 +40,7 @@ export default class Bet {
 
   get frozen () {
     return [
-      STATUSES.submitting,
+      STATUSES.submitted,
       STATUSES.pending,
       STATUSES.succeeded
     ].includes(this.status)

@@ -20,7 +20,7 @@ describe('Bet', () => {
     it('provides interface for correct statuses map', () => {
       expect(Bet.statuses).to.eql({
         initial: 'initial',
-        submitting: 'submitting',
+        submitted: 'submitted',
         pending: 'pending',
         succeeded: 'succeeded',
         failed: 'failed'
@@ -29,8 +29,8 @@ describe('Bet', () => {
   })
 
   describe('frozen', () => {
-    it('returns true for submitting status', () => {
-      const newBet = new Bet({ status: 'submitting' })
+    it('returns true for submitted status', () => {
+      const newBet = new Bet({ status: 'submitted' })
       expect(newBet.frozen).to.eql(true)
     })
 

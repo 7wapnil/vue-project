@@ -7,6 +7,7 @@ import graphqlClient from '@/libs/apollo/'
 import { BETSLIP_PLACEMENT_QUERY, BET_UPDATED } from '@/graphql/index'
 
 const BET_DESTROY_TIMEOUT = 3000
+const BET_WAITING_TIMEOUT = 8000
 
 const getBetsFromStorage = () => {
   const json = localStorage.getItem('bets')
@@ -52,7 +53,7 @@ export const mutations = {
   },
   freezeBets (state) {
     state.bets = state.bets.map((bet) => {
-      bet.status = Bet.statuses.submitting
+      bet.status = Bet.statuses.submitted
       return bet
     })
     setBetsToStorage(state.bets)
@@ -111,6 +112,7 @@ export const getters = {
 
 export const actions = {
   subscribeBets ({ dispatch, getters }) {
+    console.log('here')
     getters
       .getBets
       .filter(bet => !!bet.id)
@@ -131,12 +133,23 @@ export const actions = {
               message: betUpdated.message
             }
           })
-
           if (betUpdated.status === 'accepted') {
             setTimeout(() => {
               commit('removeBetFromBetslip', bet.oddId)
             }, BET_DESTROY_TIMEOUT)
           }
+
+          setTimeout(() => {
+            if (!betUpdated) {
+              commit('updateBet', {
+                oddId: bet.oddId,
+                payload: {
+                  status: Bet.statuses.disconnect,
+                  message: 'asd'
+                }
+              })
+            }
+          }, BET_WAITING_TIMEOUT)
         },
         error (error) {
           Vue.$log.error(error)

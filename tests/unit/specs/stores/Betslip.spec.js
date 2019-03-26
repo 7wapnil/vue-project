@@ -4,14 +4,14 @@ import { mutations, getters, actions } from '@/stores/betslip'
 describe('betslip store', () => {
   describe('mutations', () => {
     describe('freezeBets', () => {
-      it('change state of all bets to submitting', () => {
+      it('change state of all bets to submitted', () => {
         const state = {
           bets: [{ status: 'initial' }, { status: 'initial' }]
         }
 
         mutations.freezeBets(state)
 
-        expect(state.bets).to.eql([{ status: 'submitting' }, { status: 'submitting' }])
+        expect(state.bets).to.eql([{ status: 'submitted' }, { status: 'submitted' }])
       })
     })
     describe('pushBet', () => {
