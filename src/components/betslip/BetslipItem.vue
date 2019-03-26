@@ -222,7 +222,6 @@ export default {
             return { id: this.bet.eventId }
           },
           result ({ data: { event_updated: eventUpdated } }) {
-            console.log()
             this.updateOdds(eventUpdated.markets[0])
             this.handleMarketStatus(eventUpdated.markets[0])
           }

@@ -125,6 +125,7 @@ export const actions = {
       })
       .subscribe({
         next ({ data: { bet_updated: betUpdated } }) {
+          console.log(betUpdated)
           commit('updateBet', {
             oddId: bet.oddId,
             payload: {
@@ -140,8 +141,8 @@ export const actions = {
           }
 
           setTimeout(() => {
+            console.log('here if no status')
             if (!betUpdated.status) {
-              console.log('here if no status')
               commit('updateBet', {
                 oddId: bet.oddId,
                 payload: {
@@ -153,6 +154,7 @@ export const actions = {
           }, BET_WAITING_TIMEOUT)
         },
         error (error) {
+          console.log(error)
           Vue.$log.error(error)
         }
       })
