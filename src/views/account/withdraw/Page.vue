@@ -58,7 +58,6 @@ import MruIcon from '@/assets/images/withdraw-methods/mru.png'
 import CreditCardIcon from '@/assets/images/withdraw-methods/card.png'
 import BitcoinIcon from '@/assets/images/withdraw-methods/btc.png'
 import YandexIcon from '@/assets/images/withdraw-methods/yandex.png'
-import { CACHE_AND_NETWORK } from '../../../constants/graphql/fetch-policy'
 
 export default {
   components: {
