@@ -125,7 +125,6 @@ export const actions = {
       })
       .subscribe({
         next ({ data: { bet_updated: betUpdated } }) {
-          console.log(betUpdated)
           commit('updateBet', {
             oddId: bet.oddId,
             payload: {
@@ -133,6 +132,7 @@ export const actions = {
               message: betUpdated.message
             }
           })
+
           if (betUpdated.status === 'accepted') {
             setTimeout(() => {
               commit('removeBetFromBetslip', bet.oddId)
@@ -140,7 +140,7 @@ export const actions = {
           }
 
           setTimeout(() => {
-            if (!betUpdated) {
+            if (!betUpdated.status) {
               commit('updateBet', {
                 oddId: bet.oddId,
                 payload: {

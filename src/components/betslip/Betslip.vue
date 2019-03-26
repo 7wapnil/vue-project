@@ -139,7 +139,6 @@ import BetslipItem from './BetslipItem'
 import NoBetsBlock from './NoBetsBlock'
 import { mapGetters, mapMutations, mapActions } from 'vuex'
 import wallets from '@/mixins/wallets'
-import Bet from '@/models/bet'
 
 export default {
   components: {
@@ -206,26 +205,8 @@ export default {
       this.placeBets(payload)
         .then(this.updateBetsFromResponse)
     },
-    updateBetsFromResponse (response) {
-      const bets = this.getBets
-
-      if (response.data && response.data.placeBets) {
-        response.data.placeBets.forEach((betPayload) => {
-          let bet = bets.find(el => el.oddId === betPayload.id)
-
-          this.updateBet({
-            oddId: bet.oddId,
-            payload: {
-              id: betPayload.bet.id,
-              status: Bet.statuses.submitted,
-              message: betPayload.message,
-              externalId: betPayload.id,
-              success: betPayload.success
-            }
-          })
-        })
-        this.subscribeBets()
-      }
+    updateBetsFromResponse () {
+      this.subscribeBets()
     },
     updateBets () {
       this.getBets.forEach(bet => { this.updateBet({ oddId: bet.oddId, payload: { approvedOddValue: bet.currentOddValue } }) })
