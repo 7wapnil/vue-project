@@ -112,7 +112,6 @@ export const getters = {
 
 export const actions = {
   subscribeBets ({ dispatch, getters }) {
-    console.log('here')
     getters
       .getBets
       .filter(bet => !!bet.id)
@@ -126,6 +125,7 @@ export const actions = {
       })
       .subscribe({
         next ({ data: { bet_updated: betUpdated } }) {
+          console.log(betUpdated)
           commit('updateBet', {
             oddId: bet.oddId,
             payload: {
@@ -145,7 +145,7 @@ export const actions = {
                 oddId: bet.oddId,
                 payload: {
                   status: Bet.statuses.disconnect,
-                  message: 'asd'
+                  message: 'disconnected?'
                 }
               })
             }

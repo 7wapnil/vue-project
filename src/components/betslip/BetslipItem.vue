@@ -134,7 +134,7 @@
           {{ bet.message }}
         </b-alert>
         <b-alert
-          :show="bet.success"
+          :show="isSuccess"
           class="mt-3 mx-auto p-2 text-center"
           variant="success">
           {{ successMessage }}
@@ -264,6 +264,9 @@ export default {
       }
 
       return this.bet.status
+    },
+    isSuccess () {
+      return this.bet.status === 'accepted'
     },
     cardVariant () {
       return this.variantMapping[this.betStatus]
