@@ -142,10 +142,10 @@ export const actions = {
               }, BET_DESTROY_TIMEOUT)
             }
           }
-
+          data = null
           setTimeout(() => {
-            console.log('here if no status')
             if (!data.bet_updated) {
+              console.log('here if no status')
               commit('updateBet', {
                 oddId: bet.oddId,
                 payload: {
