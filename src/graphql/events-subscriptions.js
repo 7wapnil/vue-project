@@ -65,8 +65,16 @@ export const EVENT_UPDATED = gql`
   }
 `
 
-export const EVENT_BET_STOP = gql`
-  subscription eventBetStopper ($id: ID, $category: String = null) {
+export const EVENTS_BET_STOPPED = gql`
+  subscription eventsBetStopped {
+    events_bet_stopped {
+      ${EVENT_BET_STOP_FIELDS}
+    } 
+  }
+`
+
+export const EVENT_BET_STOPPED = gql`
+  subscription eventBetStopped ($id: ID) {
     event_bet_stopped (id: $id) {
       ${EVENT_BET_STOP_FIELDS}
     } 

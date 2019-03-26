@@ -93,6 +93,6 @@ export const BET_FIELDS = `
 `
 
 export const EVENT_BET_STOP_FIELDS = `
-  id
-  status
+  event_id
+  market_status
 `
