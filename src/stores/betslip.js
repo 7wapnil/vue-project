@@ -124,25 +124,28 @@ export const actions = {
         variables: { id: bet.id }
       })
       .subscribe({
-        next ({ data: { bet_updated: betUpdated } }) {
-          console.log(betUpdated)
-          commit('updateBet', {
-            oddId: bet.oddId,
-            payload: {
-              status: betUpdated.status,
-              message: betUpdated.message
-            }
-          })
+        next ({ data }) {
+          console.log(data)
 
-          if (betUpdated.status === 'accepted') {
-            setTimeout(() => {
-              commit('removeBetFromBetslip', bet.oddId)
-            }, BET_DESTROY_TIMEOUT)
+          if (data.bet_updated) {
+            commit('updateBet', {
+              oddId: bet.oddId,
+              payload: {
+                status: data.bet_updated.status,
+                message: data.bet_updated.message
+              }
+            })
+
+            if (data.bet_updated.status === 'accepted') {
+              setTimeout(() => {
+                commit('removeBetFromBetslip', bet.oddId)
+              }, BET_DESTROY_TIMEOUT)
+            }
           }
 
           setTimeout(() => {
             console.log('here if no status')
-            if (!betUpdated.status) {
+            if (!data.bet_updated) {
               commit('updateBet', {
                 oddId: bet.oddId,
                 payload: {
