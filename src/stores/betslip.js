@@ -141,6 +141,7 @@ export const actions = {
 
           setTimeout(() => {
             if (!betUpdated.status) {
+              console.log('here if no status')
               commit('updateBet', {
                 oddId: bet.oddId,
                 payload: {
