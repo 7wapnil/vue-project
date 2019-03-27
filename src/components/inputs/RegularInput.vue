@@ -1,19 +1,19 @@
 <template>
   <div>
-      <div class="input-group-custom mt-3">
-        <b-form-input
-          :id="id"
-          :type="type"
-          v-model="content"
-          :disabled="disabled"
-          :name="id"
-          :autocomplete="autocomplete"
-          required
-          min="1"
-          @blur.native="handleBlur"
-          @keydown.enter.native="handleEnter"
-          @input="handleInput"/>
-      </div>
+    <div class="input-group-custom mt-3">
+      <b-form-input
+        :id="id"
+        :type="type"
+        v-model="content"
+        :disabled="disabled"
+        :name="id"
+        :autocomplete="autocomplete"
+        required
+        min="1"
+        @blur.native="handleBlur"
+        @keydown.enter.native="handleEnter"
+        @input="handleInput"/>
+    </div>
   </div>
 </template>
 
