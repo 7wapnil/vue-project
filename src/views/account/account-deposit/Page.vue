@@ -4,20 +4,17 @@
       class="mb-4">
       <b-col>
         <h3>Deposit Funds</h3>
-        <hr class="border-arc-clr-iron">
         <p class="my-2">The money will be transferred directly in to your Arcanebet account.
         When you have won some bets you can look forward to easy and fast
         withdrawals without fees!</p>
         <b-alert
           :show="!!depositState"
-          :variant="mapDepositState"
-          class="my-4 mx-auto text-center w-50 justify-content-center p-4">
+          :variant="mapDepositState">
           {{ getMessage }}
         </b-alert>
         <b-alert
           :show="!!bonusError"
-          variant="danger"
-          class="my-4 mx-auto text-center w-50 justify-content-center p-4">
+          variant="danger">
           {{ bonusError }}
         </b-alert>
       </b-col>
