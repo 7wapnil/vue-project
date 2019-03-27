@@ -50,7 +50,7 @@ describe('MarketsList component', () => {
   it('filters out specified markets by status', () => {
     const filtered = wrapper.vm.filteredMarkets
     const visibleStatuses = filtered.map(market => market.status)
-    expect(visibleStatuses).to.include.members([ ACTIVE_STATUS, INACTIVE_STATUS, SUSPENDED_STATUS ])
+    expect(visibleStatuses).to.include.members([ ACTIVE_STATUS, SUSPENDED_STATUS ])
     expect(visibleStatuses).not.to.include.members([ SETTLED_STATUS, CANCELLED_STATUS ])
   })
 })
