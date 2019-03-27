@@ -56,10 +56,9 @@ export default {
           {
             document: EVENT_BET_STOPPED,
             variables: { id: this.event.id },
-            updateQuery ({ markets }, { subscriptionData }) {
-              const endpoint = Object.keys(subscriptionData.data)[0]
-              const data = subscriptionData.data[endpoint]
-              const marketStatus = data.market_status
+            updateQuery ({ markets }, { subscriptionData: { data } }) {
+              const subscriptionData = data.event_bet_stopped
+              const marketStatus = subscriptionData.market_status
 
               if (MARKET_STOP_STATUSES.includes(marketStatus)) {
                 if (marketStatus === INACTIVE) markets = []

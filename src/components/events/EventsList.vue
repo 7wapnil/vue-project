@@ -126,13 +126,13 @@ export default {
           },
           {
             document: EVENTS_BET_STOPPED,
-            updateQuery ({ events }, { subscriptionData }) {
-              const endpoint = Object.keys(subscriptionData.data)[0]
-              const data = subscriptionData.data[endpoint]
-              const marketStatus = data.market_status
+            updateQuery ({ events }, { subscriptionData: { data } }) {
+              const subscriptionData = data.events_bet_stopped
+              const marketStatus = subscriptionData.market_status
 
               if (MARKET_STOP_STATUSES.includes(marketStatus)) {
-                const eventIndex = events.findIndex(event => event.id === data.event_id)
+                const eventIndex = events
+                  .findIndex(event => event.id === subscriptionData.event_id)
 
                 if (marketStatus === INACTIVE) events.splice(eventIndex, 1)
                 if (marketStatus === SUSPENDED) {
