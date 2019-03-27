@@ -28,7 +28,9 @@
             name="logout"
             class="tab-icon"
             size="24px"/>
-          <span class="ml-3 font-weight-bold font-size-14 tab-title">Logout</span>
+          <span class="ml-3 font-weight-bold font-size-14 tab-title">
+            Logout
+          </span>
         </b-nav-item>
       </b-nav>
     </b-col>
@@ -38,15 +40,15 @@
   </b-row>
 </template>
 <script>
-import Account from './Account'
-import Bonus from './bonus/Page'
-import Activity from './Activity'
-import DepositFunds from './DepositFunds'
-import TransactionHistory from './TransactionHistory'
-import Withdraw from './withdraw/Page'
+import Account from './account-information/Page'
+import Bonus from './account-bonus/Page'
+import Activity from './account-activity/Page'
+import DepositFunds from './account-deposit/Page'
+import TransactionHistory from './account-transaction/TransactionHistory'
+import Withdraw from './account-withdraw/Page'
 import AccountVerification from './account-verification/AccountVerification'
-import ChangePassword from './ChangePassword'
-import ProfileWallet from './ProfileWallet'
+import ChangePassword from './account-information/ChangePassword'
+import ProfileWallet from './AccountWallet'
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 
 export default {
@@ -66,38 +68,39 @@ export default {
       tabs: [{
         title: 'Account info & settings',
         component: Account,
-        icon: 'profile-account',
+        icon: 'account-information',
         id: 'account'
       }, {
         title: 'Bonus',
         component: Bonus,
-        icon: 'profile-bonus',
-        id: 'bonus'
+        icon: 'account-bonus',
+        id: 'account-bonus'
       }, {
         title: 'Activity',
         component: Activity,
-        icon: 'profile-activity',
+        icon: 'account-activity',
         size: '18px',
-        id: 'activity'
+        id: 'account-activity'
       }, {
         title: 'Deposit funds',
         component: DepositFunds,
-        icon: 'profile-deposit',
+        icon: 'account-deposit',
         id: 'deposit'
       }, {
         title: 'Withdraw funds',
         component: Withdraw,
-        icon: 'profile-withdraw',
-        id: 'withdraw'
+        icon: 'account-withdraw',
+        id: 'account-withdraw'
       }, {
         title: 'Account verification',
         component: AccountVerification,
-        icon: 'profile-account',
+        icon: 'account-verification',
+        size: '20px',
         id: 'verification'
       }, {
         title: 'Transaction history',
         component: TransactionHistory,
-        icon: 'profile-activity',
+        icon: 'account-activity',
         size: '18px',
         id: 'transaction'
       }]

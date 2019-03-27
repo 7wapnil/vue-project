@@ -2,7 +2,7 @@
   <div class="py-5">
     <b-list-group>
       <b-list-group-item
-        v-b-toggle="'bonus-' + index"
+        v-b-toggle="'account-bonus-' + index"
         v-for="(bonusItem, index) in bonusItems"
         :key="index"
         class="bonus-item bg-arc-clr-soil-light px-0 py-4 border-0">
@@ -36,7 +36,7 @@
           </b-col>
         </b-row>
         <b-collapse
-          :id="`${'bonus-' + index}`"
+          :id="`${'account-bonus-' + index}`"
           accordion="bonus-accordion">
           <p class="px-5 py-4 mb-0 mt-2 text-arc-clr-iron letter-spacing-2">
             What do motivational thoughts do? They help you take action.

@@ -22,13 +22,13 @@
         <b-col cols="auto">
           <b-button
             variant="user-profile-button"
-            @click="$emit('open-deposit-tab')">
+            @click="$emit('open-account-deposit-tab')">
             Deposit
           </b-button>
         </b-col>
       </b-row>
       <b-row
-        v-if="inactiveWalletsList"
+        v-if="!inactiveWalletsList"
         no-gutters>
         <b-col class="mt-4">
           <b-col class="p-0 text-uppercase text-arc-clr-iron font-size-10 letter-spacing-2">

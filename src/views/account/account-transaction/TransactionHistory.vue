@@ -56,7 +56,7 @@
 </template>
 
 <script>
-import { TRANSACTION_LIST_QUERY } from '@/graphql'
+import { TRANSACTION_LIST_QUERY } from '@/graphql/index'
 import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
 
 export default {
@@ -94,7 +94,7 @@ export default {
       }, {
         id: 2,
         title: 'Withdraws',
-        kind: 'withdraw'
+        kind: 'account-withdraw'
       }]
     }
   },

@@ -2,7 +2,10 @@
   <div>
     <activity-header/>
 
+    <activity-placeholder v-if="!bets.length"/>
+
     <b-tabs
+      v-if="!!bets.length"
       nav-wrapper-class="border-top-tabs-orange-tabs"
       content-class="py-4">
       <b-tab
@@ -12,19 +15,19 @@
         title-link-class="border-top-tabs-orange-titles"
         @click="changeKind(tab)">
 
-        <loader v-if="loadingBets"/>
-
         <activity-filters
           @table-filtred-by-time="tableTimeFilter"
           @table-filtred-by-bet-state="tableBetFilter"/>
 
         <b-table
-          v-if="!loadingBets"
           :items="bets.collection"
           :fields="fields"
           thead-class="activity-table-head"
           tbody-class="activity-table-body"
           tbody-tr-class="activity-table-body-row">
+
+          <loader v-if="loadingBets"/>
+
           <template
             slot="details"
             slot-scope="data">
@@ -53,6 +56,7 @@
         </b-table>
       </b-tab>
     </b-tabs>
+
     <b-pagination
       v-if="paginationProps.count > 0"
       v-model="currentPage"
@@ -68,13 +72,15 @@
 <script>
 import { BETS_LIST_QUERY } from '@/graphql/index'
 import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
-import ActivityFilters from '@/views/account/activity/ActivityFilters'
-import ActivityHeader from '@/views/account/activity/ActivityHeader'
+import ActivityFilters from '@/views/account/account-activity/ActivityFilters'
+import ActivityHeader from '@/views/account/account-activity/ActivityHeader'
+import ActivityPlaceholder from '@/views/account/account-activity/ActivityPlaceholder'
 
 export default {
   components: {
     ActivityFilters,
-    ActivityHeader
+    ActivityHeader,
+    ActivityPlaceholder
   },
   data () {
     return {
