@@ -187,7 +187,7 @@ export default {
         initial: 'arc-clr-soil-dark',
         submitted: 'light',
         pending: 'light',
-        succeeded: 'success',
+        accepted: 'success',
         failed: 'danger',
         warning: 'warning',
         rejected: 'danger'
@@ -250,7 +250,7 @@ export default {
     valuesUnconfirmed () {
       if (!this.acceptAllChecked) {
         return (
-          this.bet.status !== Bet.statuses.succeeded &&
+          this.bet.status !== Bet.statuses.accepted &&
                 this.bet.approvedOddValue !== this.bet.currentOddValue
         )
       }
@@ -265,7 +265,7 @@ export default {
       return this.bet.status
     },
     isSuccess () {
-      return this.bet.status === 'accepted'
+      return this.bet.status === Bet.statuses.accepted
     },
     cardVariant () {
       return this.variantMapping[this.betStatus]
