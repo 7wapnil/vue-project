@@ -11,7 +11,7 @@
         <b-img
           :src="withdrawIcons[method.code]"
           :class="{ inactive: !method.availability}"
-          style="cursor: pointer"
+          class="pointer"
           @click="selectMethod(method)"/>
       </b-col>
     </b-row>

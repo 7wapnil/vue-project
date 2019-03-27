@@ -1,13 +1,6 @@
 <template>
-  <b-row
-    no-gutters
-    class="mt-4">
-    <b-col
-      md="12"
-      lg="10"
-      class="mr-auto ml-auto ml-3"
-      block>
-      <div class="input-group-custom">
+  <div>
+      <div class="input-group-custom mt-3">
         <b-form-input
           :id="id"
           :type="type"
@@ -15,33 +8,22 @@
           :disabled="disabled"
           :name="id"
           :autocomplete="autocomplete"
-          class="bg-arc-clr-white"
           required
+          min="1"
           @blur.native="handleBlur"
           @keydown.enter.native="handleEnter"
           @input="handleInput"/>
-        <span
-          v-if="bottomBar"
-          class="bar"/>
-        <label class="text-input">{{ label }}</label>
       </div>
-      {{ feedback }}
-    </b-col>
-  </b-row>
+  </div>
 </template>
 
 <script>
-
 export default {
   name: 'RegularInput',
   props: {
     label: {
       type: String,
       default: ''
-    },
-    bottomBar: {
-      type: Boolean,
-      default: true
     },
     type: {
       type: String,
