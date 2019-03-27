@@ -220,7 +220,6 @@ export default {
             }
           })
         })
-
         this.subscribeBets()
       }
     },

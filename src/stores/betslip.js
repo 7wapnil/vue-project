@@ -167,7 +167,7 @@ export const actions = {
           message: 'Oops! Something is not right. Please try again.'
         }
       })
-    }, BET_WAIT_TIMEOUT);
+    }, BET_WAIT_TIMEOUT)
 
     Vue.$log.debug(`Subscribed bet ID ${bet.id}`)
   },
