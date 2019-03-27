@@ -72,7 +72,9 @@ export const getters = {
     let enabled = false
     if (getters.betslipValuesConfirmed &&
       getters.getTotalStakes > 0 &&
-      getters.getTotalStakes <= activeWallet.amount && !getters.getAnyInactiveMarket
+      getters.getTotalStakes <= activeWallet.amount &&
+      !getters.getAnyInactiveMarket &&
+      !getters.getBetSubmittedStatus
     ) {
       enabled = true
     }
@@ -106,7 +108,12 @@ export const getters = {
     return state.bets.map(el => (el.stake > 0 ? el.stake : 0) * el.approvedOddValue).reduce((a, b) => +a + +b, 0)
   },
   getAnyInactiveMarket (state) {
-    return !!state.bets.find(bet => bet.marketStatus !== 'active');
+    return !!state.bets.find(bet => bet.marketStatus !== 'active')
+  },
+  getBetSubmittedStatus (state) {
+    return state.bets.some((bet) => {
+      return bet.status === Bet.statuses.submitted
+    })
   }
 }
 
@@ -125,8 +132,6 @@ export const actions = {
       })
       .subscribe({
         next ({ data }) {
-          console.log(data)
-
           if (data.bet_updated) {
             commit('updateBet', {
               oddId: bet.oddId,
@@ -142,9 +147,9 @@ export const actions = {
               }, BET_DESTROY_TIMEOUT)
             }
           }
-          data = null
-          setTimeout(() => {
-            if (!data.bet_updated) {
+
+          if (!data) {
+            setTimeout(() => {
               console.log('here if no status')
               commit('updateBet', {
                 oddId: bet.oddId,
@@ -153,11 +158,13 @@ export const actions = {
                   message: 'disconnected?'
                 }
               })
-            }
-          }, BET_WAITING_TIMEOUT)
+            }, BET_WAITING_TIMEOUT)
+          }
+
+          console.log('bet', bet)
+          console.log('data', data)
         },
         error (error) {
-          console.log(error)
           Vue.$log.error(error)
         }
       })

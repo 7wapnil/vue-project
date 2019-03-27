@@ -120,7 +120,7 @@
       class="px-2 py-2"
       no-body>
       <b-button
-        :disabled="!betslipSubmittable || disableButton"
+        :disabled="!betslipSubmittable"
         variant="arc-primary"
         size="lg"
         block
@@ -149,8 +149,7 @@ export default {
   data () {
     return {
       messages: [],
-      tabIndex: 0,
-      disableButton: false
+      tabIndex: 0
     }
   },
   computed: {
@@ -191,7 +190,6 @@ export default {
     ]),
     submit () {
       this.freezeBets()
-      this.disableButton = true
 
       const payload = this.getBets.map((bet) => {
         return {
