@@ -17,7 +17,7 @@
 
 <script>
 import MarketItem from '@/components/markets/MarketItem'
-import { ACTIVE_STATUS, INACTIVE_STATUS, SUSPENDED_STATUS } from '@/models/market'
+import { ACTIVE_STATUS, SUSPENDED_STATUS } from '@/models/market'
 import EsportsUpcomingCardItem from '@/components/cards/esports-upcoming-card/EsportsUpcomingCardItem'
 import EsportsLiveCardItem from '@/components/cards/esports-live-card/EsportsLiveCardItem'
 import SportsLiveCardItem from '@/components/cards/sports-live-card/SportsLiveCardItem'
@@ -52,7 +52,6 @@ export default {
 
       const allowedStatuses = [
         ACTIVE_STATUS,
-        INACTIVE_STATUS,
         SUSPENDED_STATUS
       ]
 
