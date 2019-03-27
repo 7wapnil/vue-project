@@ -87,8 +87,8 @@ export default {
     paymentMethods () {
       return {
         query: PAYMENT_METHODS_QUERY,
-        result ({ data: { paymentMethods } }) {
-          this.setDefaultMethodProps(paymentMethods[0])
+        result ({ data }) {
+          this.setDefaultMethodProps(data.paymentMethods[0])
         }
       }
     }

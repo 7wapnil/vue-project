@@ -8,6 +8,7 @@ import { BETSLIP_PLACEMENT_QUERY, BET_UPDATED } from '@/graphql/index'
 
 const BET_DESTROY_TIMEOUT = 3000
 const BET_WAIT_TIMEOUT = 10000
+const BET_FAIL_MESSAGE = 'Oops! Something is not right. Please try again.'
 
 const getBetsFromStorage = () => {
   const json = localStorage.getItem('bets')
@@ -164,7 +165,7 @@ export const actions = {
         oddId: bet.oddId,
         payload: {
           status: Bet.statuses.failed,
-          message: 'Oops! Something is not right. Please try again.'
+          message: BET_FAIL_MESSAGE
         }
       })
     }, BET_WAIT_TIMEOUT)
