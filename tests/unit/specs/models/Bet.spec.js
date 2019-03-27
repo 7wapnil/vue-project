@@ -24,7 +24,7 @@ describe('Bet', () => {
         pending: 'pending',
         succeeded: 'succeeded',
         failed: 'failed',
-        disconnect: 'disconnect'
+        rejected: 'rejected'
       })
     })
   })

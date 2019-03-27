@@ -7,7 +7,7 @@ import graphqlClient from '@/libs/apollo/'
 import { BETSLIP_PLACEMENT_QUERY, BET_UPDATED } from '@/graphql/index'
 
 const BET_DESTROY_TIMEOUT = 3000
-const BET_WAITING_TIMEOUT = 8000
+const BET_WAIT_TIMEOUT = 10000
 
 const getBetsFromStorage = () => {
   const json = localStorage.getItem('bets')
@@ -74,7 +74,7 @@ export const getters = {
       getters.getTotalStakes > 0 &&
       getters.getTotalStakes <= activeWallet.amount &&
       !getters.getAnyInactiveMarket &&
-      !getters.getBetSubmittedStatus
+      !getters.getAnySubmittedBet
     ) {
       enabled = true
     }
@@ -110,7 +110,7 @@ export const getters = {
   getAnyInactiveMarket (state) {
     return !!state.bets.find(bet => bet.marketStatus !== 'active')
   },
-  getBetSubmittedStatus (state) {
+  getAnySubmittedBet (state) {
     return state.bets.some((bet) => {
       return bet.status === Bet.statuses.submitted
     })
@@ -131,43 +131,43 @@ export const actions = {
         variables: { id: bet.id }
       })
       .subscribe({
-        next ({ data }) {
-          if (data.bet_updated) {
+        next ({ data: { bet_updated: betUpdated } }) {
+          commit('updateBet', {
+            oddId: bet.oddId,
+            payload: {
+              status: betUpdated.status,
+              message: betUpdated.message
+            }
+          })
+
+          if (betUpdated.status === 'accepted') {
+            setTimeout(() => {
+              commit('removeBetFromBetslip', bet.oddId)
+            }, BET_DESTROY_TIMEOUT)
+          } else if (betUpdated.status === 'failed' || betUpdated.status === 'rejected') {
             commit('updateBet', {
               oddId: bet.oddId,
               payload: {
-                status: data.bet_updated.status,
-                message: data.bet_updated.message
+                status: betUpdated.status,
+                message: betUpdated.message
               }
             })
-
-            if (data.bet_updated.status === 'accepted') {
-              setTimeout(() => {
-                commit('removeBetFromBetslip', bet.oddId)
-              }, BET_DESTROY_TIMEOUT)
-            }
           }
-
-          if (!data) {
-            setTimeout(() => {
-              console.log('here if no status')
-              commit('updateBet', {
-                oddId: bet.oddId,
-                payload: {
-                  status: Bet.statuses.disconnect,
-                  message: 'disconnected?'
-                }
-              })
-            }, BET_WAITING_TIMEOUT)
-          }
-
-          console.log('bet', bet)
-          console.log('data', data)
         },
         error (error) {
           Vue.$log.error(error)
         }
       })
+
+    setTimeout(() => {
+      commit('updateBet', {
+        oddId: bet.oddId,
+        payload: {
+          status: Bet.statuses.failed,
+          message: 'Oops! Something is not right. Please try again.'
+        }
+      })
+    }, BET_WAIT_TIMEOUT);
 
     Vue.$log.debug(`Subscribed bet ID ${bet.id}`)
   },

@@ -190,7 +190,7 @@ export default {
         succeeded: 'success',
         failed: 'danger',
         warning: 'warning',
-        disconnect: 'info',
+        rejected: 'danger'
       },
       isDisabled: false,
       isSettled: false,

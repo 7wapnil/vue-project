@@ -4,7 +4,7 @@ const STATUSES = {
   pending: 'pending',
   succeeded: 'succeeded',
   failed: 'failed',
-  disconnect: 'disconnect',
+  rejected: 'rejected'
 }
 
 export default class Bet {

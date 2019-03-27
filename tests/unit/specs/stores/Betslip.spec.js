@@ -111,6 +111,17 @@ describe('betslip store', () => {
           expect(getters.betslipSubmittable(state, validGettersState, {}, invalidRootGetters)).to.eql(false)
         })
 
+        it('fails when at least one bet is in status submitted', () => {
+          const state = {}
+
+          const invalidRootGetters = {
+            ...validGettersState,
+            getAnySubmittedBet: true
+          }
+
+          expect(getters.betslipSubmittable(state, validGettersState, {}, invalidRootGetters)).to.eql(false)
+        })
+
         it('does not fail without any initial bet in betslip', () => {
           const state = {}
 
