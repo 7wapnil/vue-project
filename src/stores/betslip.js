@@ -7,6 +7,8 @@ import graphqlClient from '@/libs/apollo/'
 import { BETSLIP_PLACEMENT_QUERY, BET_UPDATED } from '@/graphql/index'
 
 const BET_DESTROY_TIMEOUT = 3000
+const BET_WAIT_TIMEOUT = 15000
+const BET_FAIL_MESSAGE = 'Oops! Something is not right. Please try again.'
 
 const getBetsFromStorage = () => {
   const json = localStorage.getItem('bets')
@@ -52,7 +54,7 @@ export const mutations = {
   },
   freezeBets (state) {
     state.bets = state.bets.map((bet) => {
-      bet.status = Bet.statuses.submitting
+      bet.status = Bet.statuses.submitted
       return bet
     })
     setBetsToStorage(state.bets)
@@ -71,7 +73,9 @@ export const getters = {
     let enabled = false
     if (getters.betslipValuesConfirmed &&
       getters.getTotalStakes > 0 &&
-      getters.getTotalStakes <= activeWallet.amount && !getters.getAnyInactiveMarket
+      getters.getTotalStakes <= activeWallet.amount &&
+      !getters.getAnyInactiveMarket &&
+      !getters.getAnySubmittedBet
     ) {
       enabled = true
     }
@@ -105,7 +109,12 @@ export const getters = {
     return state.bets.map(el => (el.stake > 0 ? el.stake : 0) * el.approvedOddValue).reduce((a, b) => +a + +b, 0)
   },
   getAnyInactiveMarket (state) {
-    return !!state.bets.find(bet => bet.marketStatus !== 'active');
+    return !!state.bets.find(bet => bet.marketStatus !== 'active')
+  },
+  getAnySubmittedBet (state) {
+    return state.bets.some((bet) => {
+      return bet.status === Bet.statuses.submitted
+    })
   }
 }
 
@@ -136,12 +145,30 @@ export const actions = {
             setTimeout(() => {
               commit('removeBetFromBetslip', bet.oddId)
             }, BET_DESTROY_TIMEOUT)
+          } else if (betUpdated.status === 'failed' || betUpdated.status === 'rejected') {
+            commit('updateBet', {
+              oddId: bet.oddId,
+              payload: {
+                status: betUpdated.status,
+                message: betUpdated.message
+              }
+            })
           }
         },
         error (error) {
           Vue.$log.error(error)
         }
       })
+
+    setTimeout(() => {
+      commit('updateBet', {
+        oddId: bet.oddId,
+        payload: {
+          status: Bet.statuses.failed,
+          message: BET_FAIL_MESSAGE
+        }
+      })
+    }, BET_WAIT_TIMEOUT)
 
     Vue.$log.debug(`Subscribed bet ID ${bet.id}`)
   },

@@ -4,14 +4,14 @@ import { mutations, getters, actions } from '@/stores/betslip'
 describe('betslip store', () => {
   describe('mutations', () => {
     describe('freezeBets', () => {
-      it('change state of all bets to submitting', () => {
+      it('change state of all bets to submitted', () => {
         const state = {
           bets: [{ status: 'initial' }, { status: 'initial' }]
         }
 
         mutations.freezeBets(state)
 
-        expect(state.bets).to.eql([{ status: 'submitting' }, { status: 'submitting' }])
+        expect(state.bets).to.eql([{ status: 'submitted' }, { status: 'submitted' }])
       })
     })
     describe('pushBet', () => {
@@ -106,6 +106,17 @@ describe('betslip store', () => {
           const invalidRootGetters = {
             ...validGettersState,
             getAnyInactiveMarket: true
+          }
+
+          expect(getters.betslipSubmittable(state, validGettersState, {}, invalidRootGetters)).to.eql(false)
+        })
+
+        it('fails when at least one bet is in status submitted', () => {
+          const state = {}
+
+          const invalidRootGetters = {
+            ...validGettersState,
+            getAnySubmittedBet: true
           }
 
           expect(getters.betslipSubmittable(state, validGettersState, {}, invalidRootGetters)).to.eql(false)

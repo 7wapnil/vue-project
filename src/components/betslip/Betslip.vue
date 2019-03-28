@@ -120,7 +120,7 @@
       class="px-2 py-2"
       no-body>
       <b-button
-        :disabled="!betslipSubmittable || disableButton"
+        :disabled="!betslipSubmittable"
         variant="arc-primary"
         size="lg"
         block
@@ -139,7 +139,6 @@ import BetslipItem from './BetslipItem'
 import NoBetsBlock from './NoBetsBlock'
 import { mapGetters, mapMutations, mapActions } from 'vuex'
 import wallets from '@/mixins/wallets'
-import Bet from '@/models/bet'
 
 export default {
   components: {
@@ -150,8 +149,7 @@ export default {
   data () {
     return {
       messages: [],
-      tabIndex: 0,
-      disableButton: false
+      tabIndex: 0
     }
   },
   computed: {
@@ -192,7 +190,6 @@ export default {
     ]),
     submit () {
       this.freezeBets()
-      this.disableButton = true
 
       const payload = this.getBets.map((bet) => {
         return {
@@ -217,13 +214,13 @@ export default {
             oddId: bet.oddId,
             payload: {
               id: betPayload.bet.id,
-              status: Bet.statuses.submitting,
               message: betPayload.message,
               externalId: betPayload.id,
               success: betPayload.success
             }
           })
         })
+        this.subscribeBets()
       }
     },
     updateBets () {

@@ -134,7 +134,7 @@
           {{ bet.message }}
         </b-alert>
         <b-alert
-          :show="bet.success"
+          :show="isSuccess"
           class="mt-3 mx-auto p-2 text-center"
           variant="success">
           {{ successMessage }}
@@ -185,11 +185,12 @@ export default {
       status: null,
       variantMapping: {
         initial: 'arc-clr-soil-dark',
-        submitting: 'light',
+        submitted: 'light',
         pending: 'light',
-        succeeded: 'success',
+        accepted: 'success',
         failed: 'danger',
         warning: 'warning',
+        rejected: 'danger'
       },
       isDisabled: false,
       isSettled: false,
@@ -249,7 +250,7 @@ export default {
     valuesUnconfirmed () {
       if (!this.acceptAllChecked) {
         return (
-          this.bet.status !== Bet.statuses.succeeded &&
+          this.bet.status !== Bet.statuses.accepted &&
                 this.bet.approvedOddValue !== this.bet.currentOddValue
         )
       }
@@ -262,6 +263,9 @@ export default {
       }
 
       return this.bet.status
+    },
+    isSuccess () {
+      return this.bet.status === Bet.statuses.accepted
     },
     cardVariant () {
       return this.variantMapping[this.betStatus]

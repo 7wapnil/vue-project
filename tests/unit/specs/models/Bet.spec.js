@@ -20,17 +20,18 @@ describe('Bet', () => {
     it('provides interface for correct statuses map', () => {
       expect(Bet.statuses).to.eql({
         initial: 'initial',
-        submitting: 'submitting',
+        submitted: 'submitted',
         pending: 'pending',
-        succeeded: 'succeeded',
-        failed: 'failed'
+        accepted: 'accepted',
+        failed: 'failed',
+        rejected: 'rejected'
       })
     })
   })
 
   describe('frozen', () => {
-    it('returns true for submitting status', () => {
-      const newBet = new Bet({ status: 'submitting' })
+    it('returns true for accepted status', () => {
+      const newBet = new Bet({ status: 'accepted' })
       expect(newBet.frozen).to.eql(true)
     })
 
@@ -39,8 +40,8 @@ describe('Bet', () => {
       expect(newBet.frozen).to.eql(true)
     })
 
-    it('returns true for succeeded status', () => {
-      const newBet = new Bet({ status: 'succeeded' })
+    it('returns true for accepted status', () => {
+      const newBet = new Bet({ status: 'accepted' })
       expect(newBet.frozen).to.eql(true)
     })
 
