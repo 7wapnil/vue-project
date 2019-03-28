@@ -57,6 +57,8 @@ export default {
 
       return this.markets.filter((market) => {
         return market && allowedStatuses.includes(market.status)
+      }).sort((a, b) => {
+        return a.priority - b.priority || a.id - b.id
       })
     }
   }
