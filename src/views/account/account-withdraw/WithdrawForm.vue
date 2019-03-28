@@ -113,7 +113,7 @@ export default {
   },
   data () {
     return {
-      successMessage: 'Your withdraw request has been successfully submitted.',
+      successMessage: 'Your account-withdraw request has been successfully submitted.',
       errorMessage: 'Something went wrong, please make sure you entered correct details and try again.',
       responseMessage: null,
       withdrawFields: {

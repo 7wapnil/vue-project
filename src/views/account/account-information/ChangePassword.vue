@@ -125,8 +125,8 @@
 </template>
 
 <script>
-import { CHANGE_USER_PASSWORD } from '@/graphql'
-import { Form } from '@/helpers'
+import { CHANGE_USER_PASSWORD } from '@/graphql/index'
+import { Form } from '@/helpers/index'
 
 export default {
   data () {

@@ -1,9 +1,18 @@
+//Opacity
 @for $i from 1 through 9 {
   .opacity-#{$i} {
     opacity: $i * 0.1
   }
 }
 
+//Border radius
+@for $i from 1 through 9 {
+  .border-#{$i} {
+    border-radius: $i + px
+  }
+}
+
+// Cursor
 .pointer {
   cursor: pointer;
 }

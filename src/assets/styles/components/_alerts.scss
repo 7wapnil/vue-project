@@ -1,0 +1,21 @@
+// Alerts //
+@import "../variables";
+
+.alert {
+  background-color: unset;
+  border: 1px solid;
+  color: $arc-clr-white;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &-danger {
+    border-color: $wp-clr-notif-red;
+  }
+  &-success {
+    border-color: $arc-clr-sport-glow;
+  }
+ &-warning {
+   border-color: $arc-clr-gold;
+ }
+}
