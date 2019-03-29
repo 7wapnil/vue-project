@@ -91,3 +91,8 @@ export const BET_FIELDS = `
   status
   message
 `
+
+export const EVENT_BET_STOP_FIELDS = `
+  event_id
+  market_status
+`

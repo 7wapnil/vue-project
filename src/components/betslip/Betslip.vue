@@ -105,7 +105,7 @@
         </b-row>
       </b-card>
       <b-form-group
-        class="“px-3”">
+        class="px-3">
         <b-form-checkbox
           v-model="acceptAllOdds"
           plain>

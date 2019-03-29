@@ -74,12 +74,14 @@ import {
   KIND_EVENT_UPDATED,
   SPORT_EVENT_UPDATED,
   CATEGORY_EVENT_UPDATED,
-  TOURNAMENT_EVENT_UPDATED
+  TOURNAMENT_EVENT_UPDATED,
+  EVENTS_BET_STOPPED
 } from '@/graphql'
 import { updateCacheList } from '@/helpers/graphql'
 import { TITLE_CHANGED } from '@/constants/custom-events'
 import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
 import { CONTEXT_TO_START_STATUS_MAP } from '@/constants/graphql/event-start-statuses'
+import { INACTIVE, SUSPENDED, MARKET_STOP_STATUSES } from '@/constants/graphql/event-market-statuses'
 import { findTitleIcon } from '@/helpers/icon-finder'
 
 export default {
@@ -109,17 +111,42 @@ export default {
     events () {
       return {
         ...this.query,
-        subscribeToMore: {
-          document: this.subscription.document,
-          variables: this.subscription.variables,
-          updateQuery ({ events }, { subscriptionData }) {
-            const endpoint = Object.keys(subscriptionData.data)[0]
-            const attributes = subscriptionData.data[endpoint]
-            const isRemoved = attributes.start_status !== CONTEXT_TO_START_STATUS_MAP[this.context]
+        subscribeToMore: [
+          {
+            document: this.eventsSubscription.document,
+            variables: this.eventsSubscription.variables,
+            updateQuery ({ events }, { subscriptionData }) {
+              const endpoint = Object.keys(subscriptionData.data)[0]
+              const attributes = subscriptionData.data[endpoint]
+              const isRemoved =
+                attributes.start_status !== CONTEXT_TO_START_STATUS_MAP[this.context]
 
-            return { events: updateCacheList(events, attributes, isRemoved) }
+              return { events: updateCacheList(events, attributes, isRemoved) }
+            }
+          },
+          {
+            document: EVENTS_BET_STOPPED,
+            updateQuery ({ events }, { subscriptionData: { data } }) {
+              const subscriptionData = data.events_bet_stopped
+              const marketStatus = subscriptionData.market_status
+
+              if (MARKET_STOP_STATUSES.includes(marketStatus)) {
+                const eventIndex = events
+                  .findIndex(event => event.id === subscriptionData.event_id)
+
+                if (marketStatus === INACTIVE) events.splice(eventIndex, 1)
+                if (marketStatus === SUSPENDED) {
+                  events[eventIndex]
+                    .dashboard_market
+                    .odds
+                    .forEach(function (odd) { odd.status = INACTIVE })
+                }
+              }
+
+              return { events: events }
+            }
           }
-        }
+        ]
       }
     }
   },
@@ -143,7 +170,7 @@ export default {
         }
       }
     },
-    subscription () {
+    eventsSubscription () {
       let document = null
       let variables = {}
 

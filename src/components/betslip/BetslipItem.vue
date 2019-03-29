@@ -110,6 +110,7 @@
             style="max-width: 79px">
             <b-form-input
               v-model="betStake"
+              :disabled="isDisabled"
               class="betslip-input"
               type="number"
               min="0"
@@ -155,7 +156,7 @@ import OddButton from '@/components/markets/OddButton.vue'
 import Bet from '@/models/bet'
 import { mapGetters, mapMutations } from 'vuex'
 import { MESSAGE_SETTLED, MESSAGE_DISABLED, MESSAGE_SUCCESS } from '@/constants/betslip-messages'
-import { MARKET_BY_ID_QUERY, eventUpdatedSubscription } from '@/graphql'
+import { MARKET_BY_ID_QUERY, EVENT_BET_STOPPED, eventUpdatedSubscription } from '@/graphql'
 import {
   SUSPENDED_STATUS,
   INACTIVE_STATUS as MARKET_INACTIVE_STATUS,
@@ -224,6 +225,18 @@ export default {
           result ({ data: { event_updated: eventUpdated } }) {
             this.updateOdds(eventUpdated.markets[0])
             this.handleMarketStatus(eventUpdated.markets[0])
+          }
+        }
+      },
+      eventBetStopped () {
+        return {
+          query: EVENT_BET_STOPPED,
+          variables () {
+            return { id: this.bet.eventId }
+          },
+          result ({ data: { event_bet_stopped: eventBetStopped } }) {
+            this.bet.marketStatus = eventBetStopped.market_status
+            this.handleMarketStatus({ status: eventBetStopped.market_status })
           }
         }
       }

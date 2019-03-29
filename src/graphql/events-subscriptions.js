@@ -1,5 +1,5 @@
 import gql from 'graphql-tag'
-import { EVENT_FIELDS, MARKET_FIELDS, SCOPE_FIELDS } from './fields'
+import { EVENT_FIELDS, MARKET_FIELDS, SCOPE_FIELDS, EVENT_BET_STOP_FIELDS } from './fields'
 
 const SUBSCRIPTION_FIELDS = `
   ${EVENT_FIELDS}
@@ -61,6 +61,22 @@ export const EVENT_UPDATED = gql`
       markets (eventId: $id, id: "273657") {
         ${MARKET_FIELDS}
       }
+    } 
+  }
+`
+
+export const EVENTS_BET_STOPPED = gql`
+  subscription eventsBetStopped {
+    events_bet_stopped {
+      ${EVENT_BET_STOP_FIELDS}
+    } 
+  }
+`
+
+export const EVENT_BET_STOPPED = gql`
+  subscription eventBetStopped ($id: ID) {
+    event_bet_stopped (id: $id) {
+      ${EVENT_BET_STOP_FIELDS}
     } 
   }
 `
