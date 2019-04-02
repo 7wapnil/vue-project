@@ -1,5 +1,6 @@
 <template>
   <b-collapse
+    id="cookie-warning"
     v-model="showWarning">
     <b-navbar
       fixed="bottom"
