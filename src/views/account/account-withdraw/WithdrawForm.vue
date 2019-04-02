@@ -162,7 +162,7 @@ export default {
       })
 
       return paymentDetailsData
-    },
+    }
   },
   methods: {
     submitWithdraw () {
@@ -178,10 +178,13 @@ export default {
           }
         }
       ).then(({ data: { withdraw } }) => {
+        Object.keys(this.withdrawFields).forEach(field => {
+          this.withdrawFields[field] = ''
+        })
         this.responseMessage = (withdraw['error_messages'] ? withdraw['error_messages'][0] : this.successMessage)
-        this.sending = false
       }).catch(() => {
         this.responseMessage = this.errorMessage
+      }).finally(() => {
         this.sending = false
       })
     }
