@@ -14,17 +14,20 @@
     </b-container>
     <arc-footer/>
     <modal-list/>
+    <cookie-warning/>
   </div>
 </template>
 
 <script>
 import NavBar from './NavBar'
 import ArcFooter from './ArcFooter'
+import CookieWarning from './CookieWarning'
 
 export default {
   components: {
     NavBar,
-    ArcFooter
+    ArcFooter,
+    CookieWarning
   },
   computed: {
     titleKind () {
@@ -41,6 +44,6 @@ export default {
     if (this.$route.query.depositState) {
       this.$root.$emit('bv::show::modal', 'AccountModal')
     }
-  },
+  }
 }
 </script>
