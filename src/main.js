@@ -40,7 +40,7 @@ Vue.use(ContentfulPlugin, {
 Vue.use(Vuebar)
 Vue.use(Sticky)
 
-const ApolloProvider = new VueApollo({
+const apolloProvider = new VueApollo({
   defaultClient: apolloClient,
   defaultOptions: {
     $query: {
@@ -52,6 +52,6 @@ const ApolloProvider = new VueApollo({
 new Vue({
   router: Router,
   store: Store,
-  provide: ApolloProvider.provide(),
+  apolloProvider,
   render: h => h(App),
 }).$mount('#app')
