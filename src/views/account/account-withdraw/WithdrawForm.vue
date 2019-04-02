@@ -79,6 +79,7 @@
       <b-col class="user-profile-form">
         <b-form-input
           id="password"
+          v-model="withdrawFields.password"
           class="ml-4 text-left w-50"
           type="password"/>
       </b-col>
@@ -88,6 +89,7 @@
       <b-col/>
       <b-col class="mt-2 ml-4 user-profile-form">
         <b-button
+          :disabled="isDisabled"
           class="ml-2 w-50"
           variant="user-profile-button"
           @click.prevent="submitWithdraw()">
@@ -116,8 +118,10 @@ export default {
       successMessage: 'Your account-withdraw request has been successfully submitted.',
       errorMessage: 'Something went wrong, please make sure you entered correct details and try again.',
       responseMessage: null,
+      sending: false,
       withdrawFields: {
-        amount: Number
+        amount: null,
+        password: null
       },
       typeMap: {
         'float': 'number',
@@ -129,6 +133,19 @@ export default {
     }
   },
   computed: {
+    isDisabled () {
+      return this.anyEmptyField || this.anyEmptyPaymentDetails || this.sending
+    },
+    anyEmptyField () {
+      return Object.values(this.withdrawFields).some((value) => {
+        return value === null || value === ''
+      })
+    },
+    anyEmptyPaymentDetails () {
+      return this.paymentDetails.some((field) => {
+        return field.value === null || field.value === ''
+      })
+    },
     mainMethod () {
       return this.defaultMethod ? this.defaultMethod : ''
     },
@@ -149,6 +166,7 @@ export default {
   },
   methods: {
     submitWithdraw () {
+      this.sending = true
       this.$apollo.mutate(
         {
           mutation: WITHDRAW_MUTATION,
@@ -160,9 +178,14 @@ export default {
           }
         }
       ).then(({ data: { withdraw } }) => {
+        Object.keys(this.withdrawFields).forEach(field => {
+          this.withdrawFields[field] = ''
+        })
         this.responseMessage = (withdraw['error_messages'] ? withdraw['error_messages'][0] : this.successMessage)
       }).catch(() => {
         this.responseMessage = this.errorMessage
+      }).finally(() => {
+        this.sending = false
       })
     }
   }
