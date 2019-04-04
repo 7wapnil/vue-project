@@ -7,7 +7,8 @@
       :src="background"
       :alt="`${title.name}-background-image`"
       fluid-grow
-      style="min-height: 336px"/>
+      center
+      style="min-height: 386px; max-height: 386px"/>
   </b-container>
 </template>
 <script>
