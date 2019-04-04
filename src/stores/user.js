@@ -44,6 +44,7 @@ export default {
     login (context, sessionData) {
       context.commit('storeSession', sessionData)
       arcanebetSession.storeSession(sessionData)
+      context.commit('setLCParams')
       context.commit('resetConnection')
     },
     rejectLogin ({ state, commit }, authData) {
@@ -68,6 +69,16 @@ export default {
     },
     clearSession (state) {
       state.session = {}
+    },
+    setLCParams (state) {
+      let extraParams = [
+        { name: 'username', value: state.session.user.username },
+        { name: 'name', value: state.session.user.first_name + ' ' + state.session.user.last_name },
+        { name: 'email', value: state.session.user.email }
+      ]
+      window.__lc.params = extraParams
+      window.__lc.visitor =
+        { name: state.session.user.first_name + ' ' + state.session.user.last_name, email: state.session.user.email }
     },
     resetConnection (state) {
       wsClient.url = `${process.env.VUE_APP_WS_URL}?token=${state.session.token || null}`

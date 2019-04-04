@@ -16,6 +16,7 @@ import VueLogger from 'vuejs-logger'
 import ContentfulPlugin from '@/libs/contentful/contentful-client'
 import Vuebar from 'vuebar'
 import Sticky from 'vue-sticky-directive'
+import { LiveChatPlugin } from '@/plugins/'
 
 const isProduction = process.env.NODE_ENV === 'production'
 
@@ -39,6 +40,10 @@ Vue.use(ContentfulPlugin, {
 })
 Vue.use(Vuebar)
 Vue.use(Sticky)
+
+Vue.use(LiveChatPlugin, {
+  license: process.env.VUE_APP_LIVECHAT_LICENSE
+})
 
 const apolloProvider = new VueApollo({
   defaultClient: apolloClient,
