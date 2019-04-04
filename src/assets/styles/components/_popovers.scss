@@ -1,0 +1,24 @@
+@import '../variables';
+
+.popover {
+    width: 234px;
+    border: 1px solid $arc-clr-gold-light;
+    border-radius: 3px;
+    background-color: $arc-clr-soil-black;
+    box-shadow: 0 8px 16px 0 rgba($black, .3);
+  &-body {
+    color: $arc-clr-gold;
+    font-size: $small-font-size;
+    padding: 10px;
+    letter-spacing: 0.02px;
+  }
+  .arrow {
+    &::before {
+      border-top-color: $arc-clr-gold-light;
+    }
+    &::after {
+      border-top-color: $arc-clr-soil-black;
+      bottom: 2px;
+    }
+  }
+}

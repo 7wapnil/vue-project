@@ -1,10 +1,12 @@
 <template>
   <div
-    :class="['bg-' + bgColor, 'text-' + color]"
+    :class="['bg-' + bgColor,
+             depends ? 'arc-circle' : 'text-' + color,
+             inline ? 'd-inline-flex' : 'd-flex']"
     :style="{ 'width': size + 'px',
               'height': size + 'px',
               'border-radius': '50px'}"
-    class="d-flex align-items-center justify-content-center">
+    class="align-items-center justify-content-center">
     <slot/>
   </div>
 </template>
@@ -22,6 +24,14 @@ export default {
     bgColor: {
       type: String,
       default: 'arc-clr-soil-dark'
+    },
+    inline: {
+      type: Boolean,
+      default: false
+    },
+    depends: {
+      type: Boolean,
+      default: false
     }
   }
 }

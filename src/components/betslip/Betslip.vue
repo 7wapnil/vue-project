@@ -3,32 +3,29 @@
     <no-bets-block/>
     <b-container
       v-if="getBets.length > 0"
-      class="m-0 p-0">
-
+      class="p-0">
       <b-row
         no-gutters
-        class="betslip-header">
+        class="py-3 px-4">
         <b-col class="p-0">
-          <small>
-            <strong class="mr-3 text-arc-clr-iron">
-              Betslip
-            </strong>
-          </small>
-          <span
-            v-show="getBets.length > 0"
-            class="betslip-bet-count-round">
-            <small>
-              <strong>
-                {{ getBets.length }}
-              </strong>
-            </small>
+          <span class="mr-2 text-arc-clr-iron letter-spacing-2 font-size-11">
+            BETSLIP
           </span>
+          <arc-circle
+            v-show="getBets.length > 0"
+            :size="24"
+            class="font-weight-bold font-size-12"
+            bg-color="arc-clr-soil-cover"
+            depends
+            inline>
+            {{ getBets.length }}
+          </arc-circle>
         </b-col>
         <b-col
           class="p-0"
           align="right">
           <b-link
-            class="text-arc-clr-iron-light"
+            class="text-arc-clr-iron-light font-size-14"
             @click="clearBetslip">
             Clear all
           </b-link>
@@ -39,8 +36,7 @@
         bg-variant="arc-clr-soil-black">
         <b-tabs
           v-model="tabIndex"
-          nav-class="flex-nowrap"
-          nav-wrapper-class="betslip-tabs-wrapper">
+          nav-wrapper-class="betslip-nav-wrapper">
           <b-tab
             :title-link-class="changeStyleTab(0)"
             title="Single"
@@ -48,8 +44,8 @@
             <b-row no-gutters>
               <b-col>
                 <div
-                  v-for="bet in getBets"
-                  :key="bet.oddId">
+                  v-for="(bet, index) in getBets"
+                  :key="index">
                   <betslip-item
                     :parent-refs="$refs"
                     :bet="bet"/>
@@ -71,9 +67,8 @@
       </b-card>
 
       <b-card
-        v-if="getBets.length > 0"
         bg-variant="arc-clr-soil-black"
-        class="px-4 py-3"
+        class="pl-3 pr-4 py-3"
         no-body>
         <b-row
           no-gutters
@@ -83,7 +78,7 @@
               Total stake:
             </h6>
           </b-col>
-          <b-col class="text-right mr-1">
+          <b-col class="text-right mr-4">
             <h6 class="m-0 text-arc-clr-white">
               {{ parseFloat(getTotalStakes.toFixed(2)) }}
             </h6>
@@ -96,41 +91,49 @@
             </h5>
           </b-col>
           <b-col class="text-right mr-1">
-            <h5 class="m-0 text-arc-clr-white">
-              <strong>
-                {{ parseFloat(getTotalReturn.toFixed(2)) }}
-              </strong>
+            <h5 class="m-0 text-arc-clr-white font-weight-bold">
+              {{ parseFloat(getTotalReturn.toFixed(2)) }}
             </h5>
           </b-col>
         </b-row>
       </b-card>
       <b-form-group
-        class="px-3">
+        class="px-3 pb-3 mb-0 bg-arc-clr-soil-black">
         <b-form-checkbox
           v-model="acceptAllOdds"
-          plain>
-          Accept all odd changes.
+          class="accept-all-odds-checkbox">
+          <span class="font-size-14 text-arc-clr-iron letter-spacing-2 ml-2 pointer">
+            Accept all odd changes
+          </span>
         </b-form-checkbox>
       </b-form-group>
     </b-container>
 
-    <b-card
+    <b-row
+      id="betslip-submit"
       ref="parent-button"
-      bg-variant="arc-clr-soil-black"
-      class="px-2 py-2"
-      no-body>
-      <b-button
-        :disabled="!betslipSubmittable"
-        variant="arc-primary"
-        size="lg"
-        block
-        @click="submit">
-        <span class="text-uppercase">
-          Place bet
-        </span>
-      </b-button>
-    </b-card>
+      no-gutters
+      class="p-2 bg-arc-clr-soil-black">
+      <b-col>
+        <b-button
+          :disabled="!betslipSubmittable"
+          variant="arc-primary"
+          size="lg"
+          block
+          @click="submit">
+          PLACE BET
+        </b-button>
 
+        <spinner-button v-if="false"/>
+
+        <b-popover
+          v-if="!betslipSubmittable"
+          target="betslip-submit"
+          placement="top"
+          triggers="hover"
+          content="Please accept odd changes to continue"/>
+      </b-col>
+    </b-row>
   </div>
 </template>
 
@@ -139,17 +142,20 @@ import BetslipItem from './BetslipItem'
 import NoBetsBlock from './NoBetsBlock'
 import { mapGetters, mapMutations, mapActions } from 'vuex'
 import wallets from '@/mixins/wallets'
+import SpinnerButton from './SpinnerButton'
 
 export default {
   components: {
     BetslipItem,
-    NoBetsBlock
+    NoBetsBlock,
+    SpinnerButton
   },
   mixins: [wallets],
   data () {
     return {
       messages: [],
-      tabIndex: 0
+      tabIndex: 0,
+      valuesUnconfirmed: false
     }
   },
   computed: {

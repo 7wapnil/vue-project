@@ -114,3 +114,24 @@
     }
   }
 }
+
+// Betslip accept all odds checkbox
+.accept-all-odds-checkbox {
+  .custom-control-label {
+    padding-top: 3px;
+    user-select: none;
+    &::before {
+      border-radius: 0 6px 0 6px;
+      height: 24px;
+      width: 24px;
+      background-color: $arc-clr-white !important;
+    }
+    &::after {
+      width: 24px;
+      height: 24px;
+      top: 3px;
+      cursor: pointer;
+      background-image: url(#{'~@/assets/images/inputs/checked.svg'});
+    }
+  }
+}
