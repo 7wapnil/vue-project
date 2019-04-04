@@ -61,6 +61,8 @@
   font-size: $h6-font-size;
   letter-spacing: .2px !important;
   line-height: 18px !important;
+  font-weight: bold;
+  color: $arc-clr-white;
 }
 .betslipTab {
   padding: 14px 42px !important;
@@ -68,20 +70,12 @@
   font-size: $h6-font-size;
   letter-spacing: .2px !important;
   line-height: 18px !important;
+  font-weight: bold;
+  color: $arc-clr-iron-light;
 }
 .betslipTab:hover {
   background-color: #1A1A1A;
   transition: background-color .3s;
-}
-.betslip-tabs-wrapper {
-  background-color: $arc-clr-soil-black !important;
-}
-
-.betslip-header {
-  padding: 16px 24px 15px 20px;
-}
-.betslip-header a{
-  font-size: $h6-font-size;
 }
 
 // Auth Tabs

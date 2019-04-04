@@ -62,9 +62,6 @@
 .betslipActiveTab {
   box-shadow: inset 0 2px 0 0 $betslip-active-tab-border-color;
 }
-.betslip-bet-count-round {
-  color: $betslip-bet-count-color;
-}
 
 // Logo
 .navbar-brand {
@@ -205,4 +202,11 @@
     transition: color .2s ease-in-out;
     color: $icon-section-color !important;
   }
+}
+
+
+//---------- Custom Components
+// Arc Circle
+.arc-circle {
+  color: $second-color;
 }
