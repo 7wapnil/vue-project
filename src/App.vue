@@ -23,23 +23,25 @@ export default {
         result ({ data }) {
           this.updateProvider(data.provider_updated)
         }
-      },
+      }
     }
   },
   computed: {
-    ...mapGetters([ 'isLoggedIn' ])
+    ...mapGetters(['isLoggedIn', 'getUser'])
   },
   created () {
     if (this.isLoggedIn) {
       this.fetchWallets()
+      this.$livechat.setUser(this.getUser)
     }
+    this.$livechat.initWidget()
   },
   methods: {
     ...mapMutations('providers', {
       setProviders: SET_PROVIDERS,
       updateProvider: UPDATE_PROVIDER
     }),
-    ...mapActions('wallets', ['fetchWallets'])
+    ...mapActions('wallets', ['fetchWallets']),
   }
 }
 </script>
