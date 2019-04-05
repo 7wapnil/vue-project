@@ -27,20 +27,20 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['isLoggedIn'])
+    ...mapGetters(['isLoggedIn', 'getUser'])
   },
   created () {
     if (this.isLoggedIn) {
       this.fetchWallets()
-      this.setLCParams()
+      this.$livechat.setUser(this.getUser)
     }
+    this.$livechat.initWidget()
   },
   methods: {
     ...mapMutations('providers', {
       setProviders: SET_PROVIDERS,
       updateProvider: UPDATE_PROVIDER
     }),
-    ...mapMutations(['setLCParams']),
     ...mapActions('wallets', ['fetchWallets']),
   }
 }

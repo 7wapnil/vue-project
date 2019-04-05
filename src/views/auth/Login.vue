@@ -146,6 +146,8 @@ export default {
       this.fetchWallets()
       this.$noty.success('Signed in successfully')
       this.$router.push({ name: 'home' })
+      this.$livechat.setUser(signIn.user)
+      this.$livechat.initWidget()
       this.close()
     },
     onError (err) {
