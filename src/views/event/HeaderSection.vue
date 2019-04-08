@@ -13,7 +13,7 @@
 
         <b-col class="mt-1">
           <icon
-                  v-if="icons"
+            v-if="icons"
             name="sidemenu-game-icon"
             size="56px"/>
         </b-col>
