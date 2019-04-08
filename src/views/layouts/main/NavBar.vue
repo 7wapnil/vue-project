@@ -79,10 +79,6 @@ export default {
         {
           path: '/sports',
           label: 'Sport'
-        },
-        {
-          path: '/live',
-          label: 'Live'
         }
       ],
       authTab: 0
