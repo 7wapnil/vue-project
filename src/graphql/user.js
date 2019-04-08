@@ -68,6 +68,8 @@ export const SIGN_IN_MUTATION = gql`
         id
         email
         username
+        first_name
+        last_name
       }
       token
     }

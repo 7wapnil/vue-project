@@ -95,7 +95,7 @@ describe('Betslip', () => {
         '      to betslip.')
     })
 
-    it('shows place bet button', () => {
+    xit('shows place bet button', () => {
       expect(wrapper.find('span.text-uppercase').text()).to.equal('Place bet')
     })
   })

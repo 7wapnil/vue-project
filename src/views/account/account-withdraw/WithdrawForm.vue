@@ -158,10 +158,13 @@ export default {
         {
           mutation: WITHDRAW_MUTATION,
           variables: {
-            amount: parseFloat(this.withdrawFields.amount),
-            walletId: this.activeWallet.id,
-            payment_method: this.defaultMethod.code,
-            payment_details: this.withdrawFields.payment_details
+            input: {
+              password: this.withdrawFields.password,
+              amount: parseFloat(this.withdrawFields.amount),
+              walletId: this.activeWallet.id,
+              paymentMethod: this.defaultMethod.code,
+              paymentDetails: this.withdrawFields.payment_details
+            }
           }
         }
       ).then(({ data: { withdraw } }) => {
@@ -169,8 +172,8 @@ export default {
           this.withdrawFields[field] = ''
         })
         this.responseMessage = (withdraw['error_messages'] ? withdraw['error_messages'][0] : this.successMessage)
-      }).catch(() => {
-        this.responseMessage = this.errorMessage
+      }).catch(({ graphQLErrors }) => {
+        this.responseMessage = graphQLErrors[0].message
       }).finally(() => {
         this.sending = false
       })

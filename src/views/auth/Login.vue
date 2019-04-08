@@ -1,5 +1,8 @@
 <template>
   <form @submit.prevent="submit">
+    <label for="login-username">
+      Username
+    </label>
     <input-component
       id="login-username"
       :feedback="inputFeedback['login']"
@@ -11,6 +14,9 @@
       aria-describedby="inputFeedbackUsername"
       feedback-id="inputFeedbackUser"
     />
+    <label for="login-password">
+      Password
+    </label>
     <input-component
       id="login-password"
       :feedback="inputFeedback['password']"
@@ -146,6 +152,8 @@ export default {
       this.fetchWallets()
       this.$noty.success('Signed in successfully')
       this.$router.push({ name: 'home' })
+      this.$livechat.setUser(signIn.user)
+      this.$livechat.initWidget()
       this.close()
     },
     onError (err) {

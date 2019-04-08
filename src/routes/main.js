@@ -6,11 +6,6 @@ import Affiliates from '@/views/information-pages/affiliates/main/Page'
 
 export default [
   {
-    path: 'live',
-    name: 'live',
-    component: () => import('@/views/live/Page')
-  },
-  {
     path: ':titleKind',
     component: () => import('@/views/layouts/main/Content'),
     beforeEnter: (to, from, next) => {

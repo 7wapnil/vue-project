@@ -3,11 +3,12 @@
     v-if="title"
     fluid
     class="p-0">
-    <b-img
-      :src="background"
-      :alt="`${title.name}-background-image`"
-      fluid-grow
-      style="min-height: 336px"/>
+    <div style="max-height: 368px; overflow: hidden">
+      <b-img
+        :src="background"
+        :alt="`${title.name}-background-image`"
+        fluid-grow/>
+    </div>
   </b-container>
 </template>
 <script>

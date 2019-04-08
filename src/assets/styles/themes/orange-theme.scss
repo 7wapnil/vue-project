@@ -12,7 +12,6 @@ $profile-button-second-color: $arc-clr-inplay-glow-second;
 
 // Betslip
 $betslip-active-tab-border-color: $arc-clr-inplay-glow;
-$betslip-bet-count-color: $arc-clr-inplay-glow;
 
 // Close
 $close-color: $arc-clr-inplay-glow;
@@ -37,5 +36,8 @@ $sidemenu-main-logo-color: $arc-clr-inplay-glow;
 
 // Breadcrumbs
 $breadcrumb-divider-color: $arc-clr-inplay-glow;
+
+// Arc Circle
+$second-color: $arc-clr-inplay-glow;
 
 @import 'theme_schema';

@@ -1,39 +1,45 @@
 <template>
-  <b-collapse
-    id="cookie-warning"
-    v-model="showWarning">
-    <b-navbar
-      fixed="bottom"
-      class="pt-3 pb-0">
-      <b-container
-        fluid
-        style="max-width: 1920px"
-        class="p-0">
-        <b-row>
-          <b-col
-            cols="10">
-            <h5>We value your privacy</h5>
-            <p style="font-size: 14px;">
-              This website uses cookies to ensure you get the best experience on our site and to provide a
-              comment feature. To analyze our traffic, we use basic Google Analytics implementation with anonymized data.
-              If you continue without changing your settings, we'll assume that you are happy to receive
-              all cookies on the Public website. To understand more about how we use cookies, or for information
-              on how to change your cookie settings, please see our <b-link :to="{ name: 'cookie policy'}">Cookie Policy</b-link>
-            </p>
-          </b-col>
-          <b-col
-            cols="2">
-            <b-button
-              type="button"
-              class="btn btn-primary btn-md acceptcookies"
-              @click="acceptCookieWarning()">
-              I ACCEPT
-            </b-button>
-          </b-col>
-        </b-row>
-      </b-container>
-    </b-navbar>
-  </b-collapse>
+  <b-container
+    v-if="showWarning"
+    fluid
+    class="cookie-container p-0 position-sticky">
+    <b-row
+      class="cookie-section"
+      no-gutters>
+      <b-col
+        class="d-flex align-items-center justify-content-center pl-5"
+        cols="auto">
+        <img src="~@/assets/images/common/cookies.svg">
+      </b-col>
+      <b-col class="p-5">
+        <h4 class="font-weight-light text-arc-clr-white mb-4 letter-spacing-2">
+          We value your privacy
+        </h4>
+        <h6 class="text-arc-clr-iron letter-spacing-2 mb-0 line-height-24">
+          This website uses cookies to ensure you get the best experience on our site and to provide a
+          comment feature. To analyze our traffic, we use basic Google Analytics implementation with anonymized data.
+          If you continue without changing your settings, we'll assume that you are happy to receive
+          all cookies on the Public website. To understand more about how we use cookies, or for information
+          on how to change your cookie settings, please see our
+          <b-link
+            :to="{ name: 'cookie policy'}"
+            class="text-arc-clr-iron-light font-weight-bold letter-spacing-2">
+            Cookie Policy
+          </b-link>
+        </h6>
+      </b-col>
+      <b-col
+        class="d-flex align-items-center justify-content-center px-5"
+        cols="auto">
+        <b-button
+          variant="user-profile-button"
+          class="text-uppercase letter-spacing-2"
+          @click="acceptCookieWarning">
+          I Accept
+        </b-button>
+      </b-col>
+    </b-row>
+  </b-container>
 </template>
 
 <script>

@@ -1,158 +1,167 @@
 <template>
-  <div>
-    <b-card
-      :bg-variant="cardVariant"
-      no-body
-      class="px-2 py-3 mb-1">
-      <b-row no-gutters>
-        <b-col
-          class="d-flex justify-content-center market-name">
-          <small class="pt-1 text-arc-clr-iron-light">
-            {{ bet.eventName }}
-          </small>
-        </b-col>
-        <b-col
-          cols="auto"
-          class="d-flex justify-content-center"
-          @click="removeOdd(bet.oddId)">
-          <icon
-            v-show="!bet.frozen"
-            size="12px"
-            name="betslip-close"/>
-        </b-col>
-      </b-row>
-      <b-row no-gutters>
-        <b-col class="mt-2 d-flex justify-content-center">
-          <h6>
-            <strong>
-              {{ bet.marketName }}
-            </strong>
-          </h6>
-        </b-col>
-      </b-row>
-
-      <b-row no-gutters>
-        <b-col cols="4">
-          <b-row no-gutters>
-            <b-col
-              align="center"
-              class="p-2">
-              <small>
-                {{ bet.oddName }}
-              </small>
-            </b-col>
-          </b-row>
-
-          <b-row no-gutters>
-            <b-col>
-              <b-button
-                :disabled="isDisabled"
-                class="text-arc-clr-gold bg-arc-clr-soil-cover d-flex justify-content-center align-items-center p-0"
-                variant="arc-betslip-odd">
-                <small>
-                  <strong>
-                    {{ bet.approvedOddValue }}
-                  </strong>
-                </small>
-              </b-button>
-            </b-col>
-          </b-row>
-
-        </b-col>
-
-      </b-row>
-
-      <b-row class="pl-2 pr-1">
-        <b-col cols="8">
-          <small>Potential Return:</small>
-        </b-col>
-        <b-col
-          cols="4"
-          align="right">
-          <small>
-            {{ parseFloat(potentialReturn.toFixed(2)) }}
-          </small>
-        </b-col>
-      </b-row>
-    </b-card>
-
-    <b-card
-      :bg-variant="cardVariant"
+  <b-card
+    bg-variant="arc-clr-soil-dark"
+    style="margin-left: 6px"
+    class="py-2 pl-3 pr-2 mb-1"
+    no-body>
+    <b-row
+      class="mb-2"
+      no-gutters>
+      <b-col class="d-flex justify-content-start">
+        <span
+          :class="[ isBetDisabled ? 'text-arc-clr-iron' : 'text-arc-clr-iron-light']"
+          class="font-size-12 font-weight-bold line-height-10">
+          {{ bet.marketName }}
+        </span>
+      </b-col>
+      <b-col
+        cols="auto"
+        class="d-flex justify-content-center"
+        @click="removeOdd(bet.oddId)">
+        <icon
+          v-show="!bet.frozen"
+          size="12px"
+          name="betslip-close"/>
+      </b-col>
+    </b-row>
+    <b-row
       class="mb-1"
-      no-body>
-      <b-container class="py-3 px-2">
+      no-gutters>
+      <b-col>
         <b-row no-gutters>
-          <b-col>
-            <b-row no-gutters>
-              <b-col class="mb-1">
-                <small class="text-arc-clr-iron">
-                  <strong class="text-uppercase">
-                    Stake:
-                  </strong>
-                </small>
-              </b-col>
-            </b-row>
-            <b-row no-gutters>
-              <b-col class="d-flex align-items-center">
-                <icon
-                  name="betslip-stake"
-                  size="12px"
-                  class="mr-2"/>
-                <small class="text-arc-clr-iron-light">
-                  Bet max
-                </small>
-              </b-col>
-            </b-row>
+          <b-col class="pr-2">
+            <span
+              :class="[ isBetDisabled ? 'text-arc-clr-iron' : 'text-arc-clr-iron-light']"
+              class="font-size-14 font-weight-bold letter-spacing-2">
+              {{ bet.oddName }}
+            </span>
           </b-col>
-
-          <b-col
-            class="d-flex align-items-center"
-            style="max-width: 79px">
-            <b-form-input
-              v-model="betStake"
-              :disabled="isDisabled"
-              class="betslip-input"
-              type="number"
-              min="0"
-              name="odd-value"/>
+          <b-col cols="auto">
+            <b-button
+              :disabled="isBetDisabled"
+              variant="arc-betslip-odd">
+              {{ bet.approvedOddValue }}
+            </b-button>
           </b-col>
         </b-row>
-        <b-alert
-          :show="valuesUnconfirmed"
-          variant="danger"
-          class="mt-3 mx-auto p-2 text-center">
-          This bet odd value changed from {{ bet.approvedOddValue }} to {{ bet.currentOddValue }}.
-          <b-button
-            class="mt-1 mx-auto p-2 text-center"
-            @click="confirmValue">
-            Accept new value
-          </b-button>
-        </b-alert>
-        <b-alert
-          :show="hasMessage"
-          class="mt-3 mx-auto p-2 text-center"
-          variant="danger">
-          {{ bet.message }}
-        </b-alert>
-        <b-alert
-          :show="isSuccess"
-          class="mt-3 mx-auto p-2 text-center"
-          variant="success">
-          {{ successMessage }}
-        </b-alert>
-        <b-alert
-          :show="isBetDisabled"
-          class="mt-3 mx-auto p-2 text-center"
-          variant="danger">
-          {{ disabledMessage }}
-        </b-alert>
-      </b-container>
-    </b-card>
-  </div>
+      </b-col>
+    </b-row>
+    <b-row
+      class="mb-2"
+      no-gutters>
+      <b-col>
+        <span
+          :class="[ isBetDisabled ? 'text-arc-clr-iron' : 'text-arc-clr-iron-light']"
+          class="font-size-12">
+          {{ bet.eventName }}
+        </span>
+      </b-col>
+    </b-row>
+    <b-row no-gutters>
+      <b-col>
+        <b-row no-gutters>
+          <b-col class="mb-1">
+            <small class="text-arc-clr-iron text-uppercase font-weight-bold letter-spacing-2">
+              Stake:
+            </small>
+          </b-col>
+        </b-row>
+        <b-row no-gutters>
+          <b-col class="d-flex align-items-center">
+            <icon
+              name="betslip-stake"
+              size="12px"
+              class="mr-1"/>
+            <small class="ml-1 text-arc-clr-iron-light">
+              Bet max
+            </small>
+          </b-col>
+        </b-row>
+      </b-col>
+      <b-col class="d-flex align-items-center justify-content-end">
+        <b-form-input
+          v-model="betStake"
+          :disabled="isDisabled"
+          class="betslip-input"
+          type="number"
+          min="0"
+          name="odd-value"/>
+      </b-col>
+    </b-row>
+    <b-row
+      class="pt-3"
+      no-gutters>
+      <b-col>
+        <small class="text-arc-clr-iron letter-spacing-2">
+          Potential Return:
+        </small>
+      </b-col>
+      <b-col class="pr-4 text-right text-truncate">
+        <small>
+          {{ parseFloat(potentialReturn.toFixed(2)) }}
+        </small>
+      </b-col>
+    </b-row>
+
+    <b-row
+      v-if="valuesUnconfirmed"
+      class="alert-odd-value-changed mt-3"
+      no-gutters>
+      <b-col>
+        <b-row
+          class="pl-2 py-1"
+          no-gutters>
+          <b-col class="line-height-14">
+            <small class="text-arc-clr-gold letter-spacing-2">
+              Odd changed:
+            </small>
+          </b-col>
+          <div class="w-100"/>
+          <b-col class="line-height-14">
+            <small>
+              {{ bet.approvedOddValue }}
+            </small>
+            <small class="text-arc-clr-gold mx-2">
+              >
+            </small>
+            <small>
+              {{ bet.currentOddValue }}
+            </small>
+          </b-col>
+        </b-row>
+      </b-col>
+      <b-col
+        class="d-flex align-items-center justify-content-center"
+        cols="auto">
+        <b-button
+          variant="arc-odd-changed"
+          @click="confirmValue">
+          Accept
+        </b-button>
+      </b-col>
+    </b-row>
+
+    <b-alert
+      :show="hasMessage"
+      class="mt-3 mx-auto p-2 text-center"
+      variant="danger">
+      {{ bet.message }}
+    </b-alert>
+    <b-alert
+      :show="isSuccess"
+      class="mt-3 mx-auto p-2 text-center"
+      variant="success">
+      {{ successMessage }}
+    </b-alert>
+    <b-alert
+      :show="isBetDisabled"
+      variant="odd-disabled">
+      {{ disabledMessage }}
+    </b-alert>
+  </b-card>
 </template>
 
 <script>
-import OddButton from '@/components/markets/OddButton.vue'
 import Bet from '@/models/bet'
 import { mapGetters, mapMutations } from 'vuex'
 import { MESSAGE_SETTLED, MESSAGE_DISABLED, MESSAGE_SUCCESS } from '@/constants/betslip-messages'
@@ -167,9 +176,6 @@ import {
 import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
 
 export default {
-  components: {
-    OddButton
-  },
   props: {
     bet: {
       type: Bet,
@@ -184,15 +190,6 @@ export default {
   data () {
     return {
       status: null,
-      variantMapping: {
-        initial: 'arc-clr-soil-dark',
-        submitted: 'light',
-        pending: 'light',
-        accepted: 'success',
-        failed: 'danger',
-        warning: 'warning',
-        rejected: 'danger'
-      },
       isDisabled: false,
       isSettled: false,
       disabledMessage: null,
@@ -279,9 +276,6 @@ export default {
     },
     isSuccess () {
       return this.bet.status === Bet.statuses.accepted
-    },
-    cardVariant () {
-      return this.variantMapping[this.betStatus]
     },
     hasMessage () {
       return this.bet.message !== null
