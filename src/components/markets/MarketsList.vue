@@ -5,6 +5,7 @@
       :is="itemComponent"
       :key="market.id"
       :event="event"
+      :icons="false"
       :market="market"/>
 
     <small

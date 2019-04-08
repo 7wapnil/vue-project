@@ -2,7 +2,8 @@
   <div>
     <b-breadcrumb :items="composedBreadcrumbs"/>
 
-    <header-section :event="event"/>
+    <header-section :event="event"
+                    :icons="false"/>
     <b-row
       v-if="event"
       class="mt-4"

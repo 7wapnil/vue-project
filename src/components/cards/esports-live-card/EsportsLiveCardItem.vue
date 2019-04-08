@@ -24,8 +24,7 @@
         cols="auto"
         class="text-center pt-4">
         <h5
-          style="opacity: .4"
-          class="font-weight-light text-arc-clr-iron mt-1 letter-spacing-2">
+          class="font-weight-light text-arc-clr-iron mt-1 letter-spacing-2 opacity-4">
           VS
         </h5>
       </b-col>
