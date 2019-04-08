@@ -25,27 +25,11 @@
           class="p-0"
           fluid>
           <b-row no-gutters>
-            <b-col
-              class="py-4"
-              style="max-width: 268px">
-              <b-row no-gutters>
-                <b-col
-                  v-for="(lefticon, index) in lefticons"
-                  :key="index"
-                  cols="12"
-                  class="py-4 my-3 d-flex justify-content-center">
-                  <img
-                    :src="require('@/assets/images/footer/' + `${lefticon}`)"
-                    class="d-flex align-items-center">
-                </b-col>
-              </b-row>
-            </b-col>
             <b-col>
               <b-row
                 no-gutters
-                class="py-4 pl-4 my-5">
-                <b-col
-                  class="here">
+                class="p-4 my-5">
+                <b-col class="d-flex justify-content-center">
                   <ul
                     class="p-0 footer-list"
                     style="">
@@ -66,11 +50,9 @@
                   v-for="(item, index) in footerItems"
                   v-if="item.children"
                   :key="index"
-                  class="here">
+                  class="d-flex justify-content-center">
                   <ul
-                    class="p-0 footer-list"
-                    style="">
-
+                    class="p-0 footer-list">
                     <li class="list-header my-2 text-capitalize">{{ item.title }}</li>
                     <li
                       v-for="(child, index) in item.children"
@@ -95,20 +77,38 @@
         <b-container
           style="max-width: 1920px"
           fluid>
-          <b-row class="py-5">
-            <b-col
-              style="max-width: 268px"
-              class="d-flex justify-content-center">
-              <img src="~@/assets/images/footer/footer-logo.svg">
+          <b-row no-gutters>
+            <b-col class="d-flex align-items-center justify-content-center pt-5">
+              <arc-circle
+                v-for="(socialicon, index) in socialicons"
+                :key="index"
+                :size="50"
+                class="mx-2 pointer">
+                <icon
+                  :name="socialicon"
+                  size="20px"
+                  color="arc-clr-soil-darker"/>
+              </arc-circle>
             </b-col>
-            <b-col>
-              <p class="text-left pl-3 footer-text">
+          </b-row>
+          <b-row class="pb-5 pt-5">
+            <b-col class="text-center">
+              <span class="footer-text line-height-24">
                 TH Gambling N.V. E-Commerce Park Vredenberg, Curacao, Ara Hill Top Building Unit A-2 Pletterijweg Oost 1.<br>
                 License and regulation is provided by the Government of Curacao, license #365/JAZ.<br>
                 All video streaming is provided by various third parties and we do not carry any responsibility for actual content, stream quality, or streaming rights.<br>
                 For customer support related questions, you can reach us through <a href="mailto:contact@arcanebet.com">contact@arcanebet.com</a> or by phone: + 31 6 44 28 36 07<br>
                 © Copyrights 2018 All rights reserved. Gambling can be addictive. Please gamble responsibly.
-              </p>
+              </span>
+            </b-col>
+          </b-row>
+          <b-row no-gutters>
+            <b-col class="d-flex align-items-center justify-content-center pb-5">
+              <img
+                v-for="(lefticon, index) in lefticons"
+                :key="index"
+                :src="require('@/assets/images/footer/' + `${lefticon}`)"
+                class="px-4">
             </b-col>
           </b-row>
         </b-container>
@@ -143,12 +143,9 @@ export default {
         {
           path: '/sports',
           name: 'Sport Homepage'
-        },
-        {
-          path: '/live',
-          name: 'Inplay Homepage'
-        },
-      ]
+        }
+      ],
+      socialicons: ['facebook', 'twitter', 'discord']
     }
   }
 }
