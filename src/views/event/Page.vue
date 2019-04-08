@@ -4,7 +4,7 @@
 
     <header-section
       :event="event"
-      :icons="false"/>
+      :showicons="false"/>
     <b-row
       v-if="event"
       class="mt-4"

@@ -13,7 +13,7 @@
 
         <b-col class="mt-1">
           <icon
-            v-if="icons"
+            v-if="showicons"
             name="sidemenu-game-icon"
             size="56px"/>
         </b-col>
@@ -85,7 +85,7 @@
       <b-row no-gutters>
         <b-col class="mt-1">
           <icon
-            v-if="icons"
+            v-if="showicons"
             name="sidemenu-game-icon"
             size="56px"/>
         </b-col>
@@ -99,6 +99,10 @@ export default {
     event: {
       type: Object,
       default: () => {}
+    },
+    showicons: {
+      type: Boolean,
+      default: true
     }
   }
 }

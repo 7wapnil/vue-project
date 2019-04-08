@@ -3,7 +3,7 @@
     <b-row no-gutters>
       <b-col class="text-center pt-4 pb-3">
         <icon
-          v-if="icons"
+          v-if="showicons"
           name="sidemenu-game-icon"
           color="arc-clr-iron"
           size="24px"/>
@@ -30,7 +30,7 @@
       </b-col>
       <b-col class="text-center pt-4 pb-3">
         <icon
-          v-if="icons"
+          v-if="showicons"
           name="sidemenu-game-icon"
           color="arc-clr-iron"
           size="24px"/>
@@ -92,7 +92,7 @@ export default {
       type: Boolean,
       default: false
     },
-    icons: {
+    showicons: {
       type: Boolean,
       default: true
     }
