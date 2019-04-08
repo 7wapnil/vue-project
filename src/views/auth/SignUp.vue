@@ -4,6 +4,9 @@
       v-show="isCurrentStep(1)"
       class="step"
     >
+      <label for="signup-username">
+        Username
+      </label>
       <input-component
         id="signup-username"
         :feedback="inputFeedback['username']"
@@ -13,6 +16,9 @@
         bottom-bar
         aria-describedby="inputFeedbackUsername"
       />
+      <label for="signup-email">
+        Email
+      </label>
       <input-component
         id="signup-email"
         :feedback="inputFeedback['email']"
