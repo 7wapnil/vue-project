@@ -16,3 +16,11 @@
 .pointer {
   cursor: pointer;
 }
+
+// Min width / height
+.min-vw-100 {
+  min-width: 100vw;
+}
+.min-vh-100 {
+  min-height: 100vh;
+}
