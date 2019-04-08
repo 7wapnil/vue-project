@@ -10,7 +10,6 @@
       style="max-width: 1920px"
       class="p-0">
       <router-view/>
-
     </b-container>
     <arc-footer/>
     <modal-list/>

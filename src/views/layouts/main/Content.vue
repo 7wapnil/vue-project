@@ -2,20 +2,15 @@
   <b-row no-gutters>
     <b-col
       v-bar
-      class="d-none d-lg-block bg-arc-clr-soil-black side-menu"
-      style="max-width: 268px; min-width: 268px;">
+      class="d-none d-lg-block bg-arc-clr-soil-black side-menu">
       <side-menu :items="menuItems"/>
     </b-col>
-    <b-col
-      v-bar
-      style="min-height: 100vh"
-      class="bg-arc-clr-soil-light">
+    <b-col class="bg-arc-clr-soil-light">
       <router-view :key="$route.fullPath"/>
     </b-col>
     <b-col
       v-bar
-      class="d-none d-lg-block bg-arc-clr-soil-black betslip-block"
-      style="max-width: 268px; min-width: 268px">
+      class="d-none d-lg-block bg-arc-clr-soil-black betslip-block">
       <div>
         <promotional-item/>
         <betslip/>
