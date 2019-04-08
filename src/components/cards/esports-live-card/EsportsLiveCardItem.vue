@@ -3,7 +3,7 @@
     <b-row no-gutters>
       <b-col class="text-center pt-4 pb-3">
         <icon
-          v-if="icons"
+          v-if="showicons"
           name="sidemenu-game-icon"
           color="arc-clr-iron"
           size="24px"/>
@@ -24,14 +24,13 @@
         cols="auto"
         class="text-center pt-4">
         <h5
-          style="opacity: .4"
-          class="font-weight-light text-arc-clr-iron mt-1 letter-spacing-2">
+          class="font-weight-light text-arc-clr-iron mt-1 letter-spacing-2 opacity-4">
           VS
         </h5>
       </b-col>
       <b-col class="text-center pt-4 pb-3">
         <icon
-          v-if="icons"
+          v-if="showicons"
           name="sidemenu-game-icon"
           color="arc-clr-iron"
           size="24px"/>
@@ -93,7 +92,7 @@ export default {
       type: Boolean,
       default: false
     },
-    icons: {
+    showicons: {
       type: Boolean,
       default: true
     }

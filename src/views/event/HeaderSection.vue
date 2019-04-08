@@ -13,6 +13,7 @@
 
         <b-col class="mt-1">
           <icon
+            v-if="showicons"
             name="sidemenu-game-icon"
             size="56px"/>
         </b-col>
@@ -60,15 +61,6 @@
 
         <b-col class="mt-1">
           <span
-            class="text-arc-clr-iron text-uppercase font-size-11">
-            Match type
-          </span>
-        </b-col>
-
-        <div class="w-100"/>
-
-        <b-col class="mt-1">
-          <span
             v-if="event.state.time"
             class="text-arc-clr-iron text-uppercase font-size-11">
             Time
@@ -93,6 +85,7 @@
       <b-row no-gutters>
         <b-col class="mt-1">
           <icon
+            v-if="showicons"
             name="sidemenu-game-icon"
             size="56px"/>
         </b-col>
@@ -106,6 +99,10 @@ export default {
     event: {
       type: Object,
       default: () => {}
+    },
+    showicons: {
+      type: Boolean,
+      default: true
     }
   }
 }

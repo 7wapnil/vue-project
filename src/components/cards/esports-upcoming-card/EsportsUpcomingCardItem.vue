@@ -30,7 +30,7 @@
       cols="auto"
       class="p-3 d-flex align-items-center justify-content-center">
       <icon
-        v-if="icons"
+        v-if="showicons"
         name="sidemenu-game-icon"
         style="color: #808080"
         size="24px"/>
@@ -78,7 +78,7 @@
       cols="auto"
       class="p-3 d-flex align-items-center justify-content-center">
       <icon
-        v-if="icons"
+        v-if="showicons"
         name="sidemenu-game-icon"
         style="color: #808080"
         size="24px"/>
@@ -132,7 +132,7 @@ export default {
       type: Boolean,
       default: false
     },
-    icons: {
+    showicons: {
       type: Boolean,
       default: true
     }
