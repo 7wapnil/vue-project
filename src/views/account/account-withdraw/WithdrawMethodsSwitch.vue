@@ -10,7 +10,7 @@
         class="d-flex align-items-center justify-content-center">
         <b-img
           :src="withdrawIcons[method.code]"
-          :class="{ inactive: !method.availability}"
+          :class="{ inactive: !method.active}"
           class="pointer"
           @click="selectMethod(method)"/>
       </b-col>
