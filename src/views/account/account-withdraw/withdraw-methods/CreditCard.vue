@@ -35,7 +35,7 @@
           id="card_holder_name"
           v-model="fields.holder_name"
           class="ml-4 text-left w-50"
-          type="number"
+          type="text"
           @input="onInput()"/>
       </b-col>
       <b-col/>

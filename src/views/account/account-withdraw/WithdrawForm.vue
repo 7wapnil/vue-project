@@ -125,7 +125,7 @@ export default {
       withdrawFields: {
         amount: null,
         password: null,
-        payment_details: null
+        payment_details: []
       },
       descriptionMap: {
         'credit_card': 'Debit/Credit Card withdrawals come with a 0% withdrawal fee'
@@ -142,9 +142,8 @@ export default {
       })
     },
     anyEmptyPaymentDetails () {
-      console.log(this.withdrawFields.payment_details)
-      return this.withdrawFields.payment_details.some((field) => {
-        return field.value === null || field.value === ''
+      return Object.values(this.withdrawFields.payment_details).some((field) => {
+        return field === null || field === ''
       })
     },
     mainMethod () {
