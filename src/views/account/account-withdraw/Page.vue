@@ -1,47 +1,54 @@
 <template>
   <div>
-    <withdraw-placeholder v-if="!activeMethod"/>
-    <div v-if="activeMethod">
-      <h3 class="mb-5 font-weight-light">
-        Withdraw funds
-      </h3>
-      <b-row
-        v-b-toggle.withdrawMethod
-        no-gutters
-        class="d-flex align-items-center"
-        style="min-height: 80px; box-shadow: 0 1px 0 0 rgba(0,0,0,0.30)">
-        <b-col
-          class="p-2"
-          cols="auto">
-          <payment-method-icon :name="activeMethod.code"/>
-        </b-col>
-        <b-col
-          class="ml-2">
-          <span class="font-weight-bold letter-spacing-2 text-arc-clr-white">
-            {{ activeMethod.name }}
-          </span>
-          <br>
-          <span class="font-size-14 letter-spacing-2 text-arc-clr-iron">
-            {{ activeMethod.note }}
-          </span>
-        </b-col>
-        <b-col
+    <loader v-if="loading"/>
+
+    <div v-if="!loading">
+      <withdraw-placeholder v-if="!activeMethod"/>
+
+      <div v-if="activeMethod">
+        <h3 class="mb-5 font-weight-light">
+          Withdraw funds
+        </h3>
+        <b-row
+          v-b-toggle.withdrawMethod
+          no-gutters
+          class="d-flex align-items-center"
+          style="min-height: 80px; box-shadow: 0 1px 0 0 rgba(0,0,0,0.30)">
+          <b-col
+            class="p-2"
+            cols="auto">
+            <payment-method-icon :name="activeMethod.code"/>
+          </b-col>
+          <b-col
+            class="ml-2">
+            <span class="font-weight-bold letter-spacing-2 text-arc-clr-white">
+              {{ activeMethod.name }}
+            </span>
+            <br>
+            <span class="font-size-14 letter-spacing-2 text-arc-clr-iron">
+              {{ activeMethod.note }}
+            </span>
+          </b-col>
+          <b-col
+            v-if="paymentMethods.length > 1"
+            cols="auto">
+            <b-button variant="arc-secondary">
+              Change withdraw method
+            </b-button>
+          </b-col>
+        </b-row>
+        <b-collapse
           v-if="paymentMethods.length > 1"
-          cols="auto">
-          <b-button variant="arc-secondary">
-            Change withdraw method
-          </b-button>
-        </b-col>
-      </b-row>
-      <b-collapse
-        v-if="paymentMethods.length > 1"
-        id="withdrawMethod">
-        <withdraw-methods-switch
-          :methods="paymentMethods"
-          :active-methods="userWithdrawMethods"
-          @change="changeMethod"/>
-      </b-collapse>
-      <withdraw-form v-if="activeMethod" :default-method="activeMethod"/>
+          id="withdrawMethod">
+          <withdraw-methods-switch
+            :methods="paymentMethods"
+            :active-methods="userWithdrawMethods"
+            @change="changeMethod"/>
+        </b-collapse>
+        <withdraw-form
+          v-if="activeMethod"
+          :default-method="activeMethod"/>
+      </div>
     </div>
   </div>
 </template>
@@ -77,7 +84,8 @@ export default {
     return {
       paymentMethods: [],
       selectedMethod: null,
-      user: null
+      user: null,
+      loading: 0
     }
   },
   apollo: {

@@ -3,6 +3,14 @@ export default class Errors {
     this.errors = {}
   }
 
+  get first () {
+    if (this.any()) {
+      return this.errors[ Object.keys(this.errors)[0] ]
+    }
+
+    return null
+  }
+
   fill (errors) {
     this.errors = errors
   }
