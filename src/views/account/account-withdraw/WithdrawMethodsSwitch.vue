@@ -9,8 +9,8 @@
         :key="index"
         class="d-flex align-items-center justify-content-center">
         <b-img
-          :src="withdrawIcons[method.code]"
-          :class="{ inactive: !method.availability}"
+          :src="imageSrc(method)"
+          :class="{ inactive: !method.active}"
           class="pointer"
           @click="selectMethod(method)"/>
       </b-col>
@@ -39,7 +39,6 @@ export default {
   },
   data () {
     return {
-      selectedComponent: null,
       withdrawIcons: {
         'sofort': SofortIcon,
         'yandex': YandexIcon,
@@ -58,6 +57,9 @@ export default {
     selectMethod (selectedMethod) {
       selectedMethod['icon'] = this.withdrawIcons[selectedMethod.code]
       this.$emit('clicked-change-method', selectedMethod)
+    },
+    imageSrc (selectedMethod) {
+      return this.withdrawIcons[selectedMethod.code]
     }
   }
 }

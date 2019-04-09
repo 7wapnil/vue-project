@@ -1,53 +1,57 @@
 <template>
-  <div v-if="paymentMethods">
-    <h3 class="mb-5 font-weight-light">
-      Withdraw funds
-    </h3>
-    <b-row
-      v-b-toggle.withdrawMethod
-      no-gutters
-      class="d-flex align-items-center"
-      style="min-height: 80px; box-shadow: 0 1px 0 0 rgba(0,0,0,0.30)">
-      <b-col
-        class="p-2"
-        cols="auto">
-        <b-img :src="imageSrc"/>
-      </b-col>
-      <b-col
-        v-if="selectedMethod"
-        class="ml-2">
-        <span class="font-weight-bold letter-spacing-2 text-arc-clr-white">
-          {{ selectedMethod.name }}
-        </span>
-        <br>
-        <span class="font-size-14 letter-spacing-2 text-arc-clr-iron">
-          {{ selectedMethod.payment_note }}
-        </span>
-      </b-col>
-      <b-col
-        v-if="paymentMethods.length > 1"
-        cols="auto">
-        <b-button variant="arc-secondary">
-          Change withdraw method
-        </b-button>
-      </b-col>
-    </b-row>
-    <b-collapse
-      v-if="paymentMethods.length > 1"
-      id="withdrawMethod">
-      <withdraw-methods-switch
-        :methods="paymentMethods"
-        @clicked-change-method="changeMethod"/>
-    </b-collapse>
-    <withdraw-form
-      :default-method="selectedMethod"/>
+  <div>
+    <withdraw-placeholder v-if="!currentUserPaymentMethods"/>
+    <div v-if="currentUserPaymentMethods">
+      <h3 class="mb-5 font-weight-light">
+        Withdraw funds
+      </h3>
+      <b-row
+        v-b-toggle.withdrawMethod
+        no-gutters
+        class="d-flex align-items-center"
+        style="min-height: 80px; box-shadow: 0 1px 0 0 rgba(0,0,0,0.30)">
+        <b-col
+          class="p-2"
+          cols="auto">
+          <b-img :src="imageSrc"/>
+        </b-col>
+        <b-col
+          v-if="selectedMethod"
+          class="ml-2">
+          <span class="font-weight-bold letter-spacing-2 text-arc-clr-white">
+            {{ selectedMethod.name }}
+          </span>
+          <br>
+          <span class="font-size-14 letter-spacing-2 text-arc-clr-iron">
+            {{ selectedMethod.payment_note }}
+          </span>
+        </b-col>
+        <b-col
+          v-if="allMethods.length > 1"
+          cols="auto">
+          <b-button variant="arc-secondary">
+            Change withdraw method
+          </b-button>
+        </b-col>
+      </b-row>
+      <b-collapse
+        v-if="allMethods.length > 1"
+        id="withdrawMethod">
+        <withdraw-methods-switch
+          :methods="allMethods"
+          @clicked-change-method="changeMethod"/>
+      </b-collapse>
+      <withdraw-form
+        :default-method="selectedMethod"/>
+    </div>
   </div>
 </template>
 
 <script>
 import WithdrawMethodsSwitch from './WithdrawMethodsSwitch'
+import WithdrawPlaceholder from './WithdrawPlaceholder'
 import WithdrawForm from './WithdrawForm'
-import { PAYMENT_METHODS_QUERY } from '@/graphql'
+import { PAYMENT_METHODS_QUERY, USER_PAYMENT_METHODS_QUERY } from '@/graphql'
 import SofortIcon from '@/assets/images/withdraw-methods/sofort.png'
 import SkrillIcon from '@/assets/images/withdraw-methods/skrill.png'
 import SkinwalletIcon from '@/assets/images/withdraw-methods/skinwallet.png'
@@ -62,13 +66,15 @@ import YandexIcon from '@/assets/images/withdraw-methods/yandex.png'
 export default {
   components: {
     WithdrawMethodsSwitch,
-    WithdrawForm
+    WithdrawForm,
+    WithdrawPlaceholder
   },
   data () {
     return {
       paymentMethods: [],
       selectedMethod: {},
-      imageSrc: '',
+      user: null,
+      loading: true,
       images: {
         credit_card: CreditCardIcon,
         yandex: YandexIcon,
@@ -87,20 +93,41 @@ export default {
     paymentMethods () {
       return {
         query: PAYMENT_METHODS_QUERY,
-        result ({ data }) {
-          this.setDefaultMethodProps(data.paymentMethods[0])
-        }
+        result: this.setDefaultMethodProps
+      }
+    },
+    user () {
+      return {
+        query: USER_PAYMENT_METHODS_QUERY
       }
     }
   },
+  computed: {
+    currentUserPaymentMethods () {
+      return this.user ? this.user['available_withdraw_methods'] : []
+    },
+    allMethods () {
+      if (!this.paymentMethods) {
+        return []
+      }
+
+      if (this.currentUserPaymentMethods) {
+        return this.paymentMethods.map((method) => {
+          method.active = this.currentUserPaymentMethods.includes(method.code)
+          return method
+        })
+      }
+    },
+    imageSrc () {
+      return this.selectedMethod ? this.images[this.selectedMethod.code] : ''
+    },
+  },
   methods: {
-    setDefaultMethodProps (firstMethod) {
-      this.selectedMethod = firstMethod
-      this.imageSrc = this.images[this.selectedMethod.code]
+    setDefaultMethodProps () {
+      this.selectedMethod = this.allMethods[0] || null
     },
     changeMethod (value) {
       this.selectedMethod = value
-      this.imageSrc = value.icon
     }
   }
 }
