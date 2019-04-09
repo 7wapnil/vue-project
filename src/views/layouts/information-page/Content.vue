@@ -5,7 +5,7 @@
       style="max-width: 268px">
       <info-page-sidemenu/>
     </b-col>
-    <b-col class="bg-arc-clr-soil-light">
+    <b-col class="bg-arc-clr-soil-light min-vh-100">
 
       <router-view :key="$route.fullPath"/>
 
