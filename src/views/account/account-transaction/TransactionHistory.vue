@@ -94,7 +94,7 @@ export default {
       }, {
         id: 2,
         title: 'Withdraws',
-        kind: 'account-withdraw'
+        kind: 'withdraw'
       }]
     }
   },
