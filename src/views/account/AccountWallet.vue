@@ -28,7 +28,6 @@
         </b-col>
       </b-row>
       <b-row
-        v-if="!inactiveWalletsList"
         no-gutters>
         <b-col class="mt-4">
           <b-col class="p-0 text-uppercase text-arc-clr-iron font-size-10 letter-spacing-2">
