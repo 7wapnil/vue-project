@@ -22,7 +22,7 @@
           </span>
           <br>
           <span class="font-size-14 letter-spacing-2 text-arc-clr-iron">
-            {{ activeMethod.payment_note }}
+            {{ activeMethod.note }}
           </span>
         </b-col>
         <b-col
@@ -52,6 +52,20 @@ import WithdrawPlaceholder from './WithdrawPlaceholder'
 import WithdrawForm from './WithdrawForm'
 import { PAYMENT_METHODS_QUERY, USER_PAYMENT_METHODS_QUERY } from '@/graphql'
 
+const paymentMethodsAdapter = (methods) => {
+  if (methods.length === 0 || !methods[0].hasOwnProperty('availability')) {
+    return methods
+  }
+
+  return methods.map((method) => {
+    return {
+      code: method.code,
+      name: method.name,
+      note: method.payment_note,
+      kind: method.type
+    }
+  })
+}
 
 export default {
   components: {
@@ -69,7 +83,10 @@ export default {
   apollo: {
     paymentMethods () {
       return {
-        query: PAYMENT_METHODS_QUERY
+        query: PAYMENT_METHODS_QUERY,
+        update ({ paymentMethods }) {
+          return paymentMethodsAdapter(paymentMethods)
+        }
       }
     },
     user () {
