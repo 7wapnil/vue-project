@@ -1,7 +1,7 @@
 <template>
   <div>
-    <withdraw-placeholder v-if="!currentUserPaymentMethods"/>
-    <div v-if="currentUserPaymentMethods">
+    <withdraw-placeholder v-if="!activeMethod"/>
+    <div v-if="activeMethod">
       <h3 class="mb-5 font-weight-light">
         Withdraw funds
       </h3>
@@ -13,21 +13,20 @@
         <b-col
           class="p-2"
           cols="auto">
-          <b-img :src="imageSrc"/>
+          <payment-method-icon :name="activeMethod.code"/>
         </b-col>
         <b-col
-          v-if="selectedMethod"
           class="ml-2">
           <span class="font-weight-bold letter-spacing-2 text-arc-clr-white">
-            {{ selectedMethod.name }}
+            {{ activeMethod.name }}
           </span>
           <br>
           <span class="font-size-14 letter-spacing-2 text-arc-clr-iron">
-            {{ selectedMethod.payment_note }}
+            {{ activeMethod.payment_note }}
           </span>
         </b-col>
         <b-col
-          v-if="allMethods.length > 1"
+          v-if="paymentMethods.length > 1"
           cols="auto">
           <b-button variant="arc-secondary">
             Change withdraw method
@@ -35,14 +34,14 @@
         </b-col>
       </b-row>
       <b-collapse
-        v-if="allMethods.length > 1"
+        v-if="paymentMethods.length > 1"
         id="withdrawMethod">
         <withdraw-methods-switch
-          :methods="allMethods"
-          @clicked-change-method="changeMethod"/>
+          :methods="paymentMethods"
+          :active-methods="userWithdrawMethods"
+          @change="changeMethod"/>
       </b-collapse>
-      <withdraw-form
-        :default-method="selectedMethod"/>
+      <withdraw-form v-if="activeMethod" :default-method="activeMethod"/>
     </div>
   </div>
 </template>
@@ -52,16 +51,7 @@ import WithdrawMethodsSwitch from './WithdrawMethodsSwitch'
 import WithdrawPlaceholder from './WithdrawPlaceholder'
 import WithdrawForm from './WithdrawForm'
 import { PAYMENT_METHODS_QUERY, USER_PAYMENT_METHODS_QUERY } from '@/graphql'
-import SofortIcon from '@/assets/images/withdraw-methods/sofort.png'
-import SkrillIcon from '@/assets/images/withdraw-methods/skrill.png'
-import SkinwalletIcon from '@/assets/images/withdraw-methods/skinwallet.png'
-import SkinpayIcon from '@/assets/images/withdraw-methods/skinpay.png'
-import QiwiIcon from '@/assets/images/withdraw-methods/qiwi.png'
-import PaysafeIcon from '@/assets/images/withdraw-methods/paysafe.png'
-import MruIcon from '@/assets/images/withdraw-methods/mru.png'
-import CreditCardIcon from '@/assets/images/withdraw-methods/card.png'
-import BitcoinIcon from '@/assets/images/withdraw-methods/btc.png'
-import YandexIcon from '@/assets/images/withdraw-methods/yandex.png'
+
 
 export default {
   components: {
@@ -72,28 +62,14 @@ export default {
   data () {
     return {
       paymentMethods: [],
-      selectedMethod: {},
-      user: null,
-      loading: true,
-      images: {
-        credit_card: CreditCardIcon,
-        yandex: YandexIcon,
-        mru: MruIcon,
-        bitcoin: BitcoinIcon,
-        paysafe: PaysafeIcon,
-        qiwi: QiwiIcon,
-        skinpay: SkinpayIcon,
-        skinwallet: SkinwalletIcon,
-        skrill: SkrillIcon,
-        sofort: SofortIcon
-      }
+      selectedMethod: null,
+      user: null
     }
   },
   apollo: {
     paymentMethods () {
       return {
-        query: PAYMENT_METHODS_QUERY,
-        result: this.setDefaultMethodProps
+        query: PAYMENT_METHODS_QUERY
       }
     },
     user () {
@@ -103,29 +79,20 @@ export default {
     }
   },
   computed: {
-    currentUserPaymentMethods () {
-      return this.user ? this.user['available_withdraw_methods'] : []
-    },
-    allMethods () {
-      if (!this.paymentMethods) {
+    userWithdrawMethods () {
+      if (!this.user || !this.user.available_withdraw_methods.length) {
         return []
       }
 
-      if (this.currentUserPaymentMethods) {
-        return this.paymentMethods.map((method) => {
-          method.active = this.currentUserPaymentMethods.includes(method.code)
-          return method
-        })
-      }
+      return this.paymentMethods.filter((method) => {
+        return this.user.available_withdraw_methods.includes(method.code)
+      })
     },
-    imageSrc () {
-      return this.selectedMethod ? this.images[this.selectedMethod.code] : ''
-    },
+    activeMethod () {
+      return this.selectedMethod || this.userWithdrawMethods[0] || null
+    }
   },
   methods: {
-    setDefaultMethodProps () {
-      this.selectedMethod = this.allMethods[0] || null
-    },
     changeMethod (value) {
       this.selectedMethod = value
     }
