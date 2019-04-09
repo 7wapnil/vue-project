@@ -73,9 +73,8 @@ export default {
     return {
       paymentMethods: [],
       selectedMethod: {},
-      user: [],
+      user: null,
       loading: true,
-      imageSrc: '',
       images: {
         credit_card: CreditCardIcon,
         yandex: YandexIcon,
@@ -112,25 +111,23 @@ export default {
         return []
       }
 
-      let methods = this.paymentMethods
-
       if (this.currentUserPaymentMethods) {
-        methods.forEach(method => {
+        return this.paymentMethods.map((method) => {
           method.active = this.currentUserPaymentMethods.includes(method.code)
+          return method
         })
       }
-
-      return methods
-    }
+    },
+    imageSrc () {
+      return this.selectedMethod ? this.images[this.selectedMethod.code] : ''
+    },
   },
   methods: {
     setDefaultMethodProps () {
-      this.selectedMethod = this.allMethods[0]
-      this.imageSrc = this.images[this.selectedMethod.code]
+      this.selectedMethod = this.allMethods[0] || null
     },
     changeMethod (value) {
       this.selectedMethod = value
-      this.imageSrc = value.icon
     }
   }
 }

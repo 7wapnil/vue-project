@@ -37,8 +37,8 @@
       <b-col/>
     </b-row>
     <component
-      v-model="withdrawFields.payment_details"
-      :is="components[mainMethod.code]"/>
+      v-model="withdrawFields.paymentDetails"
+      :is="currentComponent"/>
     <b-row no-gutters>
       <b-col
         class="mr-1"
@@ -100,7 +100,6 @@ export default {
   props: {
     defaultMethod: {
       type: Object,
-      default: () => {},
       required: true
     }
   },
@@ -125,7 +124,7 @@ export default {
       withdrawFields: {
         amount: null,
         password: null,
-        payment_details: []
+        paymentDetails: []
       },
       descriptionMap: {
         'credit_card': 'Debit/Credit Card withdrawals come with a 0% withdrawal fee'
@@ -142,12 +141,15 @@ export default {
       })
     },
     anyEmptyPaymentDetails () {
-      return Object.values(this.withdrawFields.payment_details).some((field) => {
+      return Object.values(this.withdrawFields.paymentDetails).some((field) => {
         return field === null || field === ''
       })
     },
     mainMethod () {
       return this.defaultMethod ? this.defaultMethod : ''
+    },
+    currentComponent () {
+      return this.components[this.mainMethod.code] || null
     },
     ...mapGetters('wallets', ['activeWallet'])
   },
@@ -163,7 +165,7 @@ export default {
               amount: parseFloat(this.withdrawFields.amount),
               walletId: this.activeWallet.id,
               paymentMethod: this.defaultMethod.code,
-              paymentDetails: this.withdrawFields.payment_details
+              paymentDetails: this.withdrawFields.paymentDetails
             }
           }
         }
