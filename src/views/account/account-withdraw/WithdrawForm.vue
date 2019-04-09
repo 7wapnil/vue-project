@@ -29,7 +29,7 @@
       <b-col class="user-profile-form">
         <b-form-input
           id="amount"
-          v-model="withdrawFields.amount"
+          v-model="form.amount"
           step="0.01"
           class="ml-4 text-left w-50"
           type="number"/>
@@ -37,7 +37,7 @@
       <b-col/>
     </b-row>
     <component
-      v-model="withdrawFields.paymentDetails"
+      v-model="form.paymentDetails"
       :is="currentComponent"/>
     <b-row no-gutters>
       <b-col
@@ -60,7 +60,7 @@
       <b-col class="user-profile-form">
         <b-form-input
           id="password"
-          v-model="withdrawFields.password"
+          v-model="form.password"
           class="ml-4 text-left w-50"
           type="password"/>
       </b-col>
@@ -85,6 +85,7 @@
 <script>
 import { WITHDRAW_MUTATION } from '@/graphql'
 import { mapGetters } from 'vuex'
+import { Form } from '@/helpers'
 import Sofort from './withdraw-methods/Sofort'
 import Skrill from './withdraw-methods/Skrill'
 import Skinwallet from './withdraw-methods/Skinwallet'
@@ -121,11 +122,11 @@ export default {
         'bitcoin': Bitcoin,
         'yandex': Yandex
       },
-      withdrawFields: {
+      form: new Form({
         amount: null,
         password: null,
         paymentDetails: []
-      },
+      }),
       descriptionMap: {
         'credit_card': 'Debit/Credit Card withdrawals come with a 0% withdrawal fee'
       }
@@ -136,12 +137,12 @@ export default {
       return this.anyEmptyField || this.sending || this.anyEmptyPaymentDetails
     },
     anyEmptyField () {
-      return Object.values(this.withdrawFields).some((value) => {
+      return Object.values(this.form).some((value) => {
         return value === null || value === ''
       })
     },
     anyEmptyPaymentDetails () {
-      return Object.values(this.withdrawFields.paymentDetails).some((field) => {
+      return Object.values(this.form.paymentDetails).some((field) => {
         return field === null || field === ''
       })
     },
@@ -155,30 +156,39 @@ export default {
   },
   methods: {
     submitWithdraw () {
-      this.sending = true
-      this.$apollo.mutate(
-        {
-          mutation: WITHDRAW_MUTATION,
-          variables: {
-            input: {
-              password: this.withdrawFields.password,
-              amount: parseFloat(this.withdrawFields.amount),
-              walletId: this.activeWallet.id,
-              paymentMethod: this.defaultMethod.code,
-              paymentDetails: this.withdrawFields.paymentDetails
-            }
-          }
+      const input = {
+        ...this.form.values(),
+        ...{
+          amount: parseFloat(this.form.amount),
+          paymentMethod: this.defaultMethod.code,
+          walletId: this.activeWallet.id
         }
-      ).then(({ data: { withdraw } }) => {
-        Object.keys(this.withdrawFields).forEach(field => {
-          this.withdrawFields[field] = ''
-        })
-        this.responseMessage = (withdraw['error_messages'] ? withdraw['error_messages'][0] : this.successMessage)
-      }).catch(({ graphQLErrors }) => {
-        this.responseMessage = graphQLErrors[0].message
-      }).finally(() => {
-        this.sending = false
+      }
+
+      input.paymentDetails = Object.keys(input.paymentDetails).map((code) => {
+        return { code, value: input.paymentDetails[code] }
       })
+
+      this.sending = true
+      this
+        .$apollo
+        .mutate(
+          {
+            mutation: WITHDRAW_MUTATION,
+            variables: { input }
+          }
+        )
+        .then(() => {
+          this.form.reset()
+          this.responseMessage = this.successMessage
+        })
+        .catch((errors) => {
+          this.form.handleGraphQLErrors(errors)
+          this.responseMessage = this.form.errors.first
+        })
+        .finally(() => {
+          this.sending = false
+        })
     }
   }
 }

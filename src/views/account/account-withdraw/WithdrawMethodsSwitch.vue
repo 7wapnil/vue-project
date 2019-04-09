@@ -8,58 +8,40 @@
         v-for="(method, index) in methods"
         :key="index"
         class="d-flex align-items-center justify-content-center">
-        <b-img
-          :src="imageSrc(method)"
-          :class="{ inactive: !method.active}"
+
+        <payment-method-icon
+          :name="method.code"
+          :class="{ inactive: !isActive(method.code)}"
           class="pointer"
           @click="selectMethod(method)"/>
+
       </b-col>
     </b-row>
   </div>
 </template>
 
 <script>
-import SofortIcon from '@/assets/images/withdraw-methods/sofort.png'
-import SkrillIcon from '@/assets/images/withdraw-methods/skrill.png'
-import SkinwalletIcon from '@/assets/images/withdraw-methods/skinwallet.png'
-import SkinpayIcon from '@/assets/images/withdraw-methods/skinpay.png'
-import QiwiIcon from '@/assets/images/withdraw-methods/qiwi.png'
-import PaysafeIcon from '@/assets/images/withdraw-methods/paysafe.png'
-import MruIcon from '@/assets/images/withdraw-methods/mru.png'
-import CreditCardIcon from '@/assets/images/withdraw-methods/card.png'
-import BitcoinIcon from '@/assets/images/withdraw-methods/btc.png'
-import YandexIcon from '@/assets/images/withdraw-methods/yandex.png'
 
 export default {
   props: {
     methods: {
       type: Array,
       default: () => []
-    }
-  },
-  data () {
-    return {
-      withdrawIcons: {
-        'sofort': SofortIcon,
-        'yandex': YandexIcon,
-        'skrill': SkrillIcon,
-        'skinwallet': SkinwalletIcon,
-        'skinpay': SkinpayIcon,
-        'qiwi': QiwiIcon,
-        'paysafe': PaysafeIcon,
-        'mru': MruIcon,
-        'credit_card': CreditCardIcon,
-        'bitcoin': BitcoinIcon
-      }
+    },
+    activeMethods: {
+      type: Array,
+      default: () => []
     }
   },
   methods: {
     selectMethod (selectedMethod) {
-      selectedMethod['icon'] = this.withdrawIcons[selectedMethod.code]
-      this.$emit('clicked-change-method', selectedMethod)
+      this.$emit('change', selectedMethod)
     },
-    imageSrc (selectedMethod) {
-      return this.withdrawIcons[selectedMethod.code]
+    isActive (method) {
+      return this
+        .activeMethods
+        .filter(m => m.code === method)
+        .length > 0
     }
   }
 }
