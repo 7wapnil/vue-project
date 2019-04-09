@@ -2,7 +2,7 @@
   <b-row no-gutters>
     <b-col class="profile-modal-sidebar bg-arc-clr-soil-dark">
 
-      <profile-wallet @open-deposit-tab="changeTabIndex(depositTabIndex)"/>
+      <profile-wallet @open-account-deposit-tab="changeTabIndex(depositTabIndex)"/>
 
       <b-nav vertical>
         <b-nav-item
