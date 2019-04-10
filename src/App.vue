@@ -14,11 +14,6 @@ export default {
         query: PROVIDERS_QUERY,
         result ({ data: { providers } }) {
           this.setProviders(providers)
-        },
-        error (error) {
-          if (error.networkError) {
-            this.$router.push({ name: 'Maintenance' })
-          }
         }
       }
     },
