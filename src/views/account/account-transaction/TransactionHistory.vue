@@ -48,10 +48,9 @@
       v-model="currentPage"
       :total-rows="paginationProps.count"
       :per-page="itemsPerPage"
-      class="activity-table-pagination"
+      class="table-pagination"
       align="center"
-      @input="loadMoreTransactions()"
-    />
+      @input="loadMoreTransactions"/>
   </div>
 </template>
 

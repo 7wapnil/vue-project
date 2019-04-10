@@ -1,7 +1,7 @@
 @import '../variables';
 
-// Activity table pagination
-.activity-table-pagination {
+// Table pagination
+.table-pagination {
   li:first-of-type span {
     border-radius: 4px 0 0 4px !important;
   }
@@ -9,6 +9,12 @@
     border-radius: 0 4px 4px 0 !important;
   }
   .page-item {
+    &.active > .page-link{
+      background-color: $arc-clr-gold !important;
+      border: 1px solid $arc-clr-soil-dark;
+      font-weight: bold;
+      color: $arc-clr-soil-darker;
+    }
      .page-link {
        background-color: $arc-clr-soil-light;
        font-weight: normal;
@@ -22,12 +28,6 @@
        align-items: center;
        &:hover {
          background-color: rgba($black, 0.3);
-       }
-       &:active {
-         background-color: $arc-clr-gold;
-         border: 1px solid $arc-clr-soil-dark;
-         font-weight: bold;
-         color: $arc-clr-soil-darker;
        }
      }
   }
