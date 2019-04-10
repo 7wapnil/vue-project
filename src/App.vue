@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import { PROVIDERS_QUERY, PROVIDER_SUBSCRIPTION } from '@/graphql'
+import { PROVIDERS_QUERY, PROVIDER_SUBSCRIPTION, APPLICATION_STATUS_UPDATED } from '@/graphql'
 import { SET_PROVIDERS, UPDATE_PROVIDER } from '@/stores/providers'
 import { mapMutations, mapActions, mapGetters } from 'vuex'
 
@@ -18,10 +18,20 @@ export default {
       }
     },
     $subscribe: {
-      providerUpdated: {
-        query: PROVIDER_SUBSCRIPTION,
-        result ({ data }) {
-          this.updateProvider(data.provider_updated)
+      providerUpdated () {
+        return {
+          query: PROVIDER_SUBSCRIPTION,
+          result ({ data }) {
+            this.updateProvider(data.provider_updated)
+          }
+        }
+      },
+      applicationStatusUpdated () {
+        return {
+          query: APPLICATION_STATUS_UPDATED,
+          result ({ data }) {
+            this.updateAppStatus(data.application_status_updated.status)
+          }
         }
       }
     }
@@ -42,6 +52,10 @@ export default {
       updateProvider: UPDATE_PROVIDER
     }),
     ...mapActions('wallets', ['fetchWallets']),
+    updateAppStatus (status) {
+      if (status === 'recovering') { return this.$router.push({ name: 'Maintenance' }) }
+      if (status === 'healthy') { return this.$router.push({ name: 'home' }) }
+    }
   }
 }
 </script>
