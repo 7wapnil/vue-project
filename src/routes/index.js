@@ -3,6 +3,8 @@ import mainRoutes from './main'
 import StyleGuidePages from './styleguide_pages'
 import InformationPages from '@/routes/information_pages';
 import NotFound from '@/views/layouts/main/NotFound'
+import { setCookie } from '@/helpers/cookies'
+import moment from 'moment'
 
 const rootChildren = [...mainRoutes, ...InformationPages.routes]
 
@@ -33,6 +35,11 @@ const router = new Router({
   scrollBehavior (to, from, savedPosition) {
     return { x: 0, y: 0 }
   }
+})
+
+router.beforeEach((to, from, next) => {
+  if (to.query.btag) { setCookie('btag', to.query.btag, moment().add(1, 'month').toDate()) }
+  next()
 })
 
 export default router
