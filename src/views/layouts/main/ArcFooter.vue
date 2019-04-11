@@ -125,17 +125,17 @@ export default {
     return {
       topicons:
         ['visa.svg',
-        'master-card.svg',
-        'skrill.svg',
-        'neteller.svg',
-        'paysafe.svg',
-        'skinpay.svg',
-        'bitcoin.svg'],
+          'master-card.svg',
+          'skrill.svg',
+          'neteller.svg',
+          'paysafe.svg',
+          'skinpay.svg',
+          'bitcoin.svg'],
       bottomicons:
         ['18years.svg',
-        'gamcare.svg',
-        'curacao.svg',
-        'esic.svg'],
+          'gamcare.svg',
+          'curacao.svg',
+          'esic.svg'],
       footerItems: InformationPages.routes,
       homepageLinks: [
         {
