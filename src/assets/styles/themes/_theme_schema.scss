@@ -183,7 +183,16 @@
   .left-side-navigation {
     position: absolute;
     left: 0;
-    margin-top: 30px;
+    top: 0;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .nav-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
     &:hover i {
       transition: color .3s ease-in-out;
       color: $icon-section-color;
@@ -192,7 +201,16 @@
   .right-side-navigation {
     position: absolute;
     right: 0;
-    margin-top: 30px;
+    top: 0;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .nav-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
     &:hover i {
       transition: color .3s ease-in-out;
       color: $icon-section-color;
@@ -203,7 +221,6 @@
     color: $icon-section-color !important;
   }
 }
-
 
 //---------- Custom Components
 // Arc Circle

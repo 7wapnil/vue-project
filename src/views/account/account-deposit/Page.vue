@@ -88,7 +88,8 @@
                 </b-input-group>
                 <b-form-select
                   v-if="isEmptyWallet"
-                  v-model="currency">
+                  v-model="currency"
+                  class="mb-4">
                   <option :value="null">Choose currency</option>
                   <option
                     v-for="(filtredCurrency, index) in filteredCurrencies"
