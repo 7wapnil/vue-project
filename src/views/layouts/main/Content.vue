@@ -5,7 +5,7 @@
       class="d-none d-lg-block bg-arc-clr-soil-black side-menu">
       <side-menu :items="menuItems"/>
     </b-col>
-    <b-col class="bg-arc-clr-soil-light">
+    <b-col class="bg-arc-clr-soil-light min-vh-100">
       <router-view :key="$route.fullPath"/>
     </b-col>
     <b-col

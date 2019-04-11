@@ -105,9 +105,9 @@
           <b-row no-gutters>
             <b-col class="d-flex align-items-center justify-content-center pb-5">
               <img
-                v-for="(lefticon, index) in lefticons"
+                v-for="(bottomicon, index) in bottomicons"
                 :key="index"
-                :src="require('@/assets/images/footer/' + `${lefticon}`)"
+                :src="require('@/assets/images/footer/' + `${bottomicon}`)"
                 class="px-4">
             </b-col>
           </b-row>
@@ -123,17 +123,19 @@ import InformationPages from '@/routes/information_pages'
 export default {
   data () {
     return {
-      topicons: ['visa.svg',
-        'master-card.svg',
-        'skrill.svg',
-        'neteller.svg',
-        'paysafe.svg',
-        'skinpay.svg',
-        'bitcoin.svg'],
-      lefticons: ['18years.svg',
-        'gamcare.svg',
-        'curacao.svg',
-        'esic.svg'],
+      topicons:
+        ['visa.svg',
+          'master-card.svg',
+          'skrill.svg',
+          'neteller.svg',
+          'paysafe.svg',
+          'skinpay.svg',
+          'bitcoin.svg'],
+      bottomicons:
+        ['18years.svg',
+          'gamcare.svg',
+          'curacao.svg',
+          'esic.svg'],
       footerItems: InformationPages.routes,
       homepageLinks: [
         {
