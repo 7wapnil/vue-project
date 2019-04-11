@@ -3,9 +3,10 @@
 </template>
 
 <script>
-import { PROVIDERS_QUERY, PROVIDER_SUBSCRIPTION, APPLICATION_STATUS_UPDATED } from '@/graphql'
+import { PROVIDERS_QUERY, PROVIDER_SUBSCRIPTION, MTS_CONNECTION_STATUS_UPDATED } from '@/graphql'
 import { SET_PROVIDERS, UPDATE_PROVIDER } from '@/stores/providers'
 import { mapMutations, mapActions, mapGetters } from 'vuex'
+import { HEALTHY, RECOVERING } from './constants/graphql/app-statuses'
 
 export default {
   apollo: {
@@ -26,11 +27,11 @@ export default {
           }
         }
       },
-      applicationStatusUpdated () {
+      mtsConnectionStatusUpdated () {
         return {
-          query: APPLICATION_STATUS_UPDATED,
+          query: MTS_CONNECTION_STATUS_UPDATED,
           result ({ data }) {
-            this.updateAppStatus(data.application_status_updated.status)
+            this.updateAppStatus(data.mts_connection_status_updated.status)
           }
         }
       }
@@ -53,8 +54,8 @@ export default {
     }),
     ...mapActions('wallets', ['fetchWallets']),
     updateAppStatus (status) {
-      if (status === 'recovering') { return this.$router.push({ name: 'Maintenance' }) }
-      if (status === 'healthy') { return this.$router.push({ name: 'home' }) }
+      if (status === RECOVERING) { this.$router.push({ name: 'Maintenance' }) }
+      if (status === HEALTHY) { this.$router.push({ name: 'home' }) }
     }
   }
 }

@@ -97,6 +97,6 @@ export const EVENT_BET_STOP_FIELDS = `
   market_status
 `
 
-export const APPLICATION_STATUS_FIELDS = `
+export const MTS_CONNECTION_STATUS_FIELDS = `
   status
 `
