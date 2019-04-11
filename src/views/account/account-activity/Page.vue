@@ -62,9 +62,9 @@
       v-model="currentPage"
       :total-rows="paginationProps.count"
       :per-page="betsPerPage"
-      class="activity-table-pagination"
+      class="table-pagination"
       align="center"
-      @input="loadMoreHistory()"
+      @input="loadMoreHistory"
     />
   </div>
 </template>

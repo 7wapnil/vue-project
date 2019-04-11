@@ -1,8 +1,5 @@
 <template>
   <form @submit.prevent="submit">
-    <label for="login-username">
-      Username
-    </label>
     <input-component
       id="login-username"
       :feedback="inputFeedback['login']"
@@ -14,9 +11,6 @@
       aria-describedby="inputFeedbackUsername"
       feedback-id="inputFeedbackUser"
     />
-    <label for="login-password">
-      Password
-    </label>
     <input-component
       id="login-password"
       :feedback="inputFeedback['password']"

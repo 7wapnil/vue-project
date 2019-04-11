@@ -28,4 +28,10 @@ export default class Form {
       this[field] = this.defaults[field]
     })
   }
+
+  handleGraphQLErrors ({ graphQLErrors }) {
+    (graphQLErrors || []).forEach((error) => {
+      this.errors.add(error.path[0], error.message)
+    })
+  }
 }

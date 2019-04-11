@@ -29,6 +29,15 @@ export const USER_QUERY = gql`
   }
 `
 
+export const USER_PAYMENT_METHODS_QUERY = gql`
+  query {
+    user {
+      id
+      available_withdraw_methods
+    }
+  }
+`
+
 export const ACTIVATE_ACCOUNT = gql`
   mutation ($token: String!) {
     activate (token: $token)

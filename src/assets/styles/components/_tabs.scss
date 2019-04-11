@@ -95,6 +95,9 @@
 
 // Category Tabs
 .category-tabs {
+  .tab-panel {
+    flex-wrap: nowrap;
+  }
   .nav-link {
     text-align: center;
     letter-spacing: -0.004em;
@@ -103,8 +106,20 @@
       background: linear-gradient(-180deg, #3d3d3dad 0%, rgba(241, 236, 236, 0) 100%);
       border-radius: 2px 2px 0 0;
       letter-spacing: -0.004em;
-
     }
+  }
+  &-wrapper {
+    overflow: hidden;
+    width: 100%;
+    flex-direction: row;
+    padding: 0 60px;
+  }
+  &-nav {
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    max-width: 100%;
+    overflow: auto !important;
+    scroll-behavior: smooth;
   }
 }
 

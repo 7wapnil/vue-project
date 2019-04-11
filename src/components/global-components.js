@@ -10,6 +10,7 @@ import CategoryTabs from '@/components/custom/CategoryTabs'
 import SimpleTabs from '@/components/custom/SimpleTabs'
 import ModalList from '@/components/custom/ModalList'
 import ArcCircle from '@/components/custom/ArcCircle'
+import PaymentMethodIcon from '@/components/PaymentMethodIcon'
 
 Vue.use(Router)
 Vue.use(BootstrapVue)
@@ -23,3 +24,4 @@ Vue.component('category-tabs', CategoryTabs)
 Vue.component('simple-tabs', SimpleTabs)
 Vue.component('modal-list', ModalList)
 Vue.component('arc-circle', ArcCircle)
+Vue.component('payment-method-icon', PaymentMethodIcon)
