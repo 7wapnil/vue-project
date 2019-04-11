@@ -1,4 +1,4 @@
-export const DEFAULT_ICON = 'arcanebet-default-icon';
+export const DEFAULT_ICON = 'sidemenu-default-icon';
 
 export default {
   // Sports
@@ -13,8 +13,14 @@ export default {
   'mma': 'sidemenu-mma',
   'rugby': 'sidemenu-rugby',
   'soccer': 'sidemenu-soccer',
+  'squash': 'sidemenu-squash',
   'tennis': 'sidemenu-tennis',
   'waterpolo': 'sidemenu-waterpolo',
+  'volleyball': 'sidemenu-volleyball',
+  'table-tennis': 'sidemenu-table-tennis',
+  'floorball': 'sidemenu-floorball',
+  'aussie-rules': 'sidemenu-aussie-rules',
+  'futsal': 'sidemenu-futsal',
 
   // Esports
   'call-of-duty': 'esports-cod',
