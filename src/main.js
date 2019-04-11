@@ -17,6 +17,8 @@ import ContentfulPlugin from '@/libs/contentful/contentful-client'
 import Vuebar from 'vuebar'
 import Sticky from 'vue-sticky-directive'
 import { LiveChatPlugin } from '@/plugins/'
+import VueI18n from 'vue-i18n'
+import { messages } from '@/translations/'
 
 const isProduction = process.env.NODE_ENV === 'production'
 
@@ -40,9 +42,15 @@ Vue.use(ContentfulPlugin, {
 })
 Vue.use(Vuebar)
 Vue.use(Sticky)
+Vue.use(VueI18n)
 
 Vue.use(LiveChatPlugin, {
   license: process.env.VUE_APP_LIVECHAT_LICENSE
+})
+
+const i18n = new VueI18n({
+  locale: process.env.VUE_APP_I18N_LOCALE,
+  messages
 })
 
 const apolloProvider = new VueApollo({
@@ -58,5 +66,6 @@ new Vue({
   router: Router,
   store: Store,
   apolloProvider,
+  i18n,
   render: h => h(App),
 }).$mount('#app')

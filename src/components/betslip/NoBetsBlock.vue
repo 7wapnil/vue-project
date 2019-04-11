@@ -14,10 +14,7 @@
       <img
         class="p-4 mt-2"
         src="~@/assets/images/betslip/arc-logo-black.svg">
-      <h6 class="text-center text-arc-clr-iron my-2 px-2">Your betslip is currently empty.<br>
-        Click on any odds to add them<br>
-        to betslip.
-      </h6>
+      <h6 class="text-center text-arc-clr-iron my-2 px-2">{{ $t('betslip.betslipEmpty') }}</h6>
     </b-card>
   </span>
 </template>

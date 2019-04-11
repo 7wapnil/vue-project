@@ -115,11 +115,11 @@ export default {
         kind: null
       }, {
         id: 1,
-        title: 'Esport',
+        title: this.$i18n.t('homePage.esport'),
         kind: 'esports'
       }, {
         id: 2,
-        title: 'Sport',
+        title: this.$i18n.t('homePage.sport'),
         kind: 'sports'
       }],
       timeFilterState: '',
