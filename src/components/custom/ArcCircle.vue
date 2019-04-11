@@ -9,6 +9,7 @@
     class="align-items-center justify-content-center">
     <slot/>
   </div>
+
 </template>
 <script>
 export default {

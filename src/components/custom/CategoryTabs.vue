@@ -4,15 +4,15 @@
     v-model="categoryTabIndex"
     content-class="p-0 m-0"
     class="category-tabs"
-    style="overflow: hidden !important;"
-    nav-class="px-5">
+    nav-wrapper-class="category-tabs-wrapper"
+    nav-class="category-tabs-nav">
 
     <template slot="tabs">
 
       <b-nav-item
         v-if="categoryTabIndex > 0"
-        class="pointer left-side-navigation"
-        @click="categoryTabIndex--">
+        class="left-side-navigation"
+        @click="moveTab('left')">
         <icon name="chevron-left"/>
       </b-nav-item>
 
@@ -46,8 +46,8 @@
     <template slot="tabs">
       <b-nav-item
         v-if="categoryTabIndex !== tabs.length - 1"
-        class="pointer right-side-navigation"
-        @click="categoryTabIndex++">
+        class="right-side-navigation"
+        @click="moveTab('right')">
         <icon
           class="category-tab"
           name="chevron-right"/>
@@ -90,6 +90,17 @@ export default {
     emitTabChanged () {
       if (this.tabs[this.categoryTabIndex]) {
         this.$emit('tab-changed', this.tabs[this.categoryTabIndex])
+      }
+    },
+    moveTab (side) {
+      let content = document.querySelector('.category-tabs-nav')
+      let step = document.getElementsByClassName('category-tab active')[0].clientWidth
+      if (side === 'right') {
+        content.scrollLeft += step
+        this.categoryTabIndex++
+      } else {
+        content.scrollLeft -= step
+        this.categoryTabIndex--
       }
     }
   },
