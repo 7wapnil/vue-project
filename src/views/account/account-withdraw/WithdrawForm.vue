@@ -23,7 +23,7 @@
         <label
           for="amount"
           class="text-arc-clr-iron font-size-14 letter-spacing-2 mb-0">
-          Amount:
+          {{ $t('generalTerms.amount') }}:
         </label>
       </b-col>
       <b-col class="user-profile-form">
@@ -54,7 +54,7 @@
         <label
           for="password"
           class="text-arc-clr-iron font-size-14 letter-spacing-2 mb-0">
-          Arcanebet password:
+          {{ $t('account.withdraw.arcanebetPassword') }}
         </label>
       </b-col>
       <b-col class="user-profile-form">
@@ -74,7 +74,7 @@
           class="ml-2 w-50"
           variant="user-profile-button"
           @click.prevent="submitWithdraw()">
-          Withdraw
+          {{ $t('account.cta.withdraw') }}:
         </b-button>
       </b-col>
       <b-col/>

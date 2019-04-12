@@ -7,7 +7,7 @@
         <label
           for="last_four_digits"
           class="text-arc-clr-iron font-size-14 letter-spacing-2 mb-0">
-          Card last four digits:
+          {{ $t('account.withdraw.cardLastFourDigits') }}:
         </label>
       </b-col>
       <b-col class="user-profile-form">
@@ -27,7 +27,7 @@
         <label
           for="card_holder_name"
           class="text-arc-clr-iron font-size-14 letter-spacing-2 mb-0">
-          Card holder Name:
+          {{ $t('account.withdraw.cardHolderName') }}:
         </label>
       </b-col>
       <b-col class="user-profile-form">

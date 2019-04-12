@@ -7,7 +7,7 @@
         no-gutters>
         <b-col>
           <b-col class="p-0 text-uppercase text-arc-clr-iron font-size-10 letter-spacing-2">
-            Balance
+            {{ $t('wallet.balance') }}
           </b-col>
           <div class="w-100"/>
           <b-col class="p-0">
@@ -23,7 +23,7 @@
           <b-button
             variant="user-profile-button"
             @click="$emit('open-account-deposit-tab')">
-            Deposit
+            {{ $t('account.cta.deposit') }}
           </b-button>
         </b-col>
       </b-row>

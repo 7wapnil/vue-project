@@ -66,39 +66,39 @@ export default {
   data () {
     return {
       tabs: [{
-        title: 'Account info & settings',
+        title: this.$i18n.t('account.tabs.account'),
         component: Account,
         icon: 'account-information',
         id: 'account'
       }, {
-        title: 'Bonus',
+        title: this.$i18n.t('account.tabs.bonus'),
         component: Bonus,
         icon: 'account-bonus',
         id: 'account-bonus'
       }, {
-        title: 'Activity',
+        title: this.$i18n.t('account.tabs.activity'),
         component: Activity,
         icon: 'account-activity',
         size: '18px',
         id: 'account-activity'
       }, {
-        title: 'Deposit funds',
+        title: this.$i18n.t('account.tabs.depositFunds'),
         component: DepositFunds,
         icon: 'account-deposit',
         id: 'deposit'
       }, {
-        title: 'Withdraw funds',
+        title: this.$i18n.t('account.tabs.withdrawFunds'),
         component: Withdraw,
         icon: 'account-withdraw',
         id: 'account-withdraw'
       }, {
-        title: 'Account verification',
+        title: this.$i18n.t('account.tabs.accountVerification'),
         component: AccountVerification,
         icon: 'account-verification',
         size: '20px',
         id: 'verification'
       }, {
-        title: 'Transaction history',
+        title: this.$i18n.t('account.tabs.transactionHistory'),
         component: TransactionHistory,
         icon: 'account-activity',
         size: '18px',

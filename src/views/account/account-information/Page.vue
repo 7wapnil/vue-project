@@ -22,7 +22,7 @@
         no-gutters>
         <b-col class="text-md-right text-sm-left align-self-center">
           <label class="text-arc-clr-iron font-size-14 letter-spacing-2 mb-0">
-            Email:
+            {{ $t('account.accountInfo.email') }}:
           </label>
         </b-col>
         <b-col class="align-self-center user-profile-form">
@@ -40,7 +40,7 @@
           <label
             for="username"
             class="text-arc-clr-iron font-size-14 letter-spacing-2 mb-0">
-            Username:
+            {{ $t('account.accountInfo.username') }}:
           </label>
         </b-col>
         <b-col class="user-profile-form">
@@ -60,7 +60,7 @@
           <label
             for="language"
             class="text-arc-clr-iron font-size-14 letter-spacing-2 mb-0">
-            Language:
+            {{ $t('account.accountInfo.language') }}:
           </label>
         </b-col>
         <b-col class="user-profile-form-select">
@@ -80,7 +80,7 @@
           <label
             for="currency"
             class="text-arc-clr-iron font-size-14 letter-spacing-2 mb-0">
-            Currency:
+            {{ $t('account.accountInfo.currency') }}:
           </label>
         </b-col>
         <b-col class="user-profile-form-select">
@@ -103,7 +103,7 @@
         <b-col/>
         <b-col class="p-4 user-profile-form">
           <h4 class="font-weight-light">
-            Private data
+            {{ $t('account.accountInfo.privateData') }}
           </h4>
         </b-col>
         <b-col/>
@@ -121,7 +121,7 @@
           <label
             for="first_name"
             class="text-arc-clr-iron font-size-14 letter-spacing-2 mb-0">
-            First name:
+            {{ $t('account.accountInfo.firstName') }}:
           </label>
         </b-col>
         <b-col class="user-profile-form">
@@ -141,7 +141,7 @@
           <label
             for="last_name"
             class="text-arc-clr-iron font-size-14 letter-spacing-2 mb-0">
-            Last name:
+            {{ $t('account.accountInfo.lastName') }}:
           </label>
         </b-col>
         <b-col class="user-profile-form">
@@ -161,7 +161,7 @@
           <label
             for="gender"
             class="text-arc-clr-iron font-size-14 letter-spacing-2 mb-0">
-            Gender:
+            {{ $t('account.accountInfo.gender') }}:
           </label>
         </b-col>
         <b-col class="user-profile-form-select">
@@ -181,7 +181,7 @@
           <label
             for="birthday"
             class="text-arc-clr-iron font-size-14 letter-spacing-2 mb-0">
-            Birth date:
+            {{ $t('account.accountInfo.dob') }}:
           </label>
         </b-col>
         <b-col class="user-profile-form-select">
@@ -226,7 +226,7 @@
         <b-col/>
         <b-col class="p-4 user-profile-form">
           <h4 class="font-weight-light">
-            Address and Phone
+            {{ $t('account.accountInfo.addressAndPhone') }}
           </h4>
         </b-col>
         <b-col/>
@@ -243,7 +243,7 @@
           <label
             for="country"
             class="text-arc-clr-iron font-size-14 letter-spacing-2 mb-0">
-            Country:
+            {{ $t('account.accountInfo.country') }}:
           </label>
         </b-col>
         <b-col class="user-profile-form-select">
@@ -263,7 +263,7 @@
           <label
             for="province"
             class="text-arc-clr-iron font-size-14 letter-spacing-2 mb-0">
-            State or province:
+            {{ $t('account.accountInfo.state') }}:
           </label>
         </b-col>
         <b-col class="user-profile-form-select">
@@ -283,7 +283,7 @@
           <label
             for="city"
             class="text-arc-clr-iron font-size-14 letter-spacing-2 mb-0">
-            City:
+            {{ $t('account.accountInfo.city') }}:
           </label>
         </b-col>
         <b-col class="user-profile-form-select">
@@ -303,7 +303,7 @@
           <label
             for="street_address"
             class="text-arc-clr-iron font-size-14 letter-spacing-2 mb-0">
-            Address:
+            {{ $t('account.accountInfo.address') }}:
           </label>
         </b-col>
         <b-col class="user-profile-form-select">
@@ -334,7 +334,7 @@
           <label
             for="phone"
             class="text-arc-clr-iron font-size-14 letter-spacing-2 mb-0">
-            Phone:
+            {{ $t('account.accountInfo.phone') }}:
           </label>
         </b-col>
         <b-col class="user-profile-form-select">
