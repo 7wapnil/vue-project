@@ -4,9 +4,12 @@ import Vuex from 'vuex'
 import Betslip from '@/components/betslip/Betslip.vue'
 import PromotionalItem from '@/components/promotional/PromotionalItem'
 import contentful from '@/libs/contentful/contentful-client'
+import VueI18n from 'vue-i18n'
+import { messages } from '@/translations/'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
+localVue.use(VueI18n)
 localVue.use(contentful, {
   space: process.env.VUE_APP_CONTENTFUL_SPACE_ID,
   accessToken: process.env.VUE_APP_CONTENTFUL_ACCESS_TOKEN
@@ -22,6 +25,7 @@ describe('Betslip', () => {
   let getters
   let mutations
   let uri
+  let i18n
   before(() => {
     state = {
       bets: []
@@ -34,6 +38,11 @@ describe('Betslip', () => {
       getBets: () => state.bets,
       betslipSubmittable: () => true
     }
+
+    i18n = new VueI18n({
+      locale: 'en',
+      messages
+    })
 
     store = new Vuex.Store({
       modules: {
@@ -54,12 +63,14 @@ describe('Betslip', () => {
             return uri
           }
         },
+        i18n,
         localVue,
         store
       })
 
     wrapper = mount(Betslip,
       {
+        i18n,
         localVue,
         store
       })
@@ -90,9 +101,8 @@ describe('Betslip', () => {
     })
 
     it('shows initial view', () => {
-      expect(wrapper.text()).contains('Your betslip is currently empty.\n' +
-        '      Click on any odds to add them\n' +
-        '      to betslip.')
+      console.log(i18n.t('betslip.betslipEmpty'))
+      expect(wrapper.text()).contains(i18n.t('betslip.betslipEmpty'))
     })
 
     xit('shows place bet button', () => {
