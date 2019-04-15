@@ -3,7 +3,7 @@
     <b-row no-gutters>
       <b-col>
         <h3 class="mb-4 font-weight-light letter-spacing-2">
-          Transactions
+          {{ $tc('generalTerms.transaction', 2) }}
         </h3>
       </b-col>
     </b-row>
@@ -70,13 +70,13 @@ export default {
       fields: [
         {
           key: 'created_at',
-          label: 'Date'
-        }, 'amount',
+          label: this.$i18n.t('generalTerms.date'),
+        }, this.$i18n.t('generalTerms.amount'),
         { key: 'mode',
-          label: 'Payment Method'
+          label: this.$i18n.tc('generalTerms.paymentMethod', 1)
         },
         { key: 'status',
-          label: 'Status'
+          label: this.$i18n.t('generalTerms.status')
         },
         { key: 'id',
           label: '#'
@@ -84,15 +84,15 @@ export default {
       ],
       tabs: [{
         id: 0,
-        title: 'All',
+        title: this.$i18n.t('generalTerms.all'),
         kind: null
       }, {
         id: 1,
-        title: 'Deposits',
+        title: this.$i18n.tc('generalTerms.deposit', 2),
         kind: 'deposit'
       }, {
         id: 2,
-        title: 'Withdraws',
+        title: this.$i18n.tc('generalTerms.withdraw', 2),
         kind: 'withdraw'
       }]
     }

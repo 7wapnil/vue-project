@@ -23,9 +23,7 @@
       no-gutters>
       <b-col>
         <p class="mb-0 text-arc-clr-iron letter-spacing-2">
-          The money will be transferred directly in to your Arcanebet account.
-          When you have won some bets you can look forward to easy and fast
-          withdrawals without fees!
+          {{ $t('account.deposit.moneyTransferInformation') }}
         </p>
       </b-col>
     </b-row>
@@ -53,7 +51,7 @@
             class="text-right pt-2"
             cols="4">
             <h6 class="text-arc-clr-iron letter-spacing-2">
-              Amount:
+              {{ $t('generalTerms.amount') }}:
             </h6>
           </b-col>
           <b-col class="text-right">
@@ -104,7 +102,7 @@
                 cols="4"
                 class="mr-2">
                 <h6 class="text-right mt-2 text-arc-clr-iron letter-spacing-2">
-                  Bonus code:
+                  {{ $t('generalTerms.bonusCode') }}:
                 </h6>
               </b-col>
               <b-col class="ml-4 mr-2">
@@ -133,7 +131,7 @@
         <b-row no-gutters>
           <b-col class="text-center py-2">
             <h4 class="mt-2 mb-4 font-weight-light letter-spacing-1">
-              Deposit summary
+              {{ $t('account.deposit.depositSummary') }}
             </h4>
           </b-col>
         </b-row>
@@ -142,7 +140,7 @@
           no-gutters>
           <b-col>
             <h6 class="text-right letter-spacing-2 text-arc-clr-iron">
-              Deposit:
+              {{ $tc('generalTerms.deposit', 1) }}:
             </h6>
           </b-col>
           <b-col class="pl-2 text-truncate">
@@ -156,7 +154,7 @@
           no-gutters>
           <b-col>
             <h6 class="text-right letter-spacing-2 text-arc-clr-iron">
-              Bonus:
+              {{ $tc('generalTerms.bonus', 1) }}:
             </h6>
           </b-col>
           <b-col class="pl-2 text-truncate">
@@ -170,7 +168,7 @@
           no-gutters>
           <b-col>
             <h6 class="mb-2 text-right letter-spacing-2 text-arc-clr-iron">
-              Fee:
+              {{ $tc('generalTerms.fee', 1) }}:
             </h6>
           </b-col>
           <b-col class="pl-2 text-truncate">
@@ -184,7 +182,7 @@
           no-gutters>
           <b-col class="pt-1">
             <h6 class="mb-0 text-right letter-spacing-2 text-arc-clr-iron">
-              Total to be added:
+              {{ $t('account.deposit.total') }}:
             </h6>
           </b-col>
           <b-col class="pl-2 mb-4 text-truncate">
@@ -200,7 +198,7 @@
               variant="user-profile-button"
               class="w-100"
               @click.prevent="submitDeposit">
-              Deposit
+              {{ $t('account.cta.deposit') }}
             </b-button>
           </b-col>
         </b-row>

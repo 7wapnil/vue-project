@@ -13,11 +13,11 @@ export default {
     return {
       tabs: [{
         value: LIVE,
-        label: 'Live now',
+        label: this.$i18n.t('homePage.live'),
         context: LIVE
       }, {
         value: UPCOMING,
-        label: 'Upcoming',
+        label: this.$i18n.t('homePage.upcoming'),
         context: UPCOMING_FOR_TIME
       }]
     }

@@ -7,7 +7,7 @@
         <b-col/>
         <b-col class="p-4 user-profile-form">
           <h4 class="font-weight-light">
-            Change Password
+            {{ $t('account.accountInfo.changePassword') }}
           </h4>
         </b-col>
         <b-col/>
@@ -24,7 +24,7 @@
           <label
             for="current_password"
             class="text-arc-clr-iron font-size-14 letter-spacing-2 mb-0">
-            Current password:
+            {{ $t('account.accountInfo.currentPassword') }}:
           </label>
         </b-col>
         <b-col class="align-self-center user-profile-form">
@@ -50,7 +50,7 @@
           <label
             for="new_password"
             class="text-arc-clr-iron font-size-14 letter-spacing-2 mb-0">
-            New password:
+            {{ $t('account.accountInfo.newPassword') }}:
           </label>
         </b-col>
 
@@ -83,7 +83,7 @@
           <label
             for="repeat_password"
             class="text-arc-clr-iron font-size-14 letter-spacing-2 mb-0">
-            Repeat new password:
+            {{ $t('account.accountInfo.repeatPassword') }}:
           </label>
         </b-col>
 
@@ -114,7 +114,7 @@
             :disabled="isSubmitDisabled"
             variant="user-profile-button"
             @click="changePassword">
-            Reset password
+            {{ $t('account.cta.resetPassword') }}
           </b-button>
         </b-col>
         <b-col/>
