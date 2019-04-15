@@ -22,8 +22,8 @@
           </span>
         </b-nav-item>
         <b-nav-item
-          class="profile-modal-nav-item bg-arc-clr-soil-black "
-          @click.prevent="logout">
+          class="profile-modal-nav-item bg-arc-clr-soil-black"
+          @click="showConfirmationModal">
           <icon
             name="logout"
             class="tab-icon"
@@ -49,7 +49,7 @@ import Withdraw from './account-withdraw/Page'
 import AccountVerification from './account-verification/AccountVerification'
 import ChangePassword from './account-information/ChangePassword'
 import ProfileWallet from './AccountWallet'
-import { mapActions, mapGetters, mapMutations } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 
 export default {
   components: {
@@ -123,16 +123,12 @@ export default {
     }
   },
   methods: {
-    ...mapActions({
-      dispatchLogout: 'logout'
-    }),
     ...mapMutations('tabs', {
       changeTabIndex: 'changeTabIndex'
     }),
-    logout () {
-      this.dispatchLogout(this)
-      this.$noty.success('Signed out successfully')
-    },
+    showConfirmationModal () {
+      this.$root.$emit('bv::show::modal', 'AccountLogoutModal')
+    }
   }
 }
 </script>
