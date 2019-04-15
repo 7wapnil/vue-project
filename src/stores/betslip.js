@@ -201,7 +201,7 @@ export default {
   namespaced: true,
   state: {
     bets: getBetsFromStorage(),
-    acceptAll: false,
+    acceptAll: true,
     subscriptions: {}
   },
   actions,
