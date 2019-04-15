@@ -82,10 +82,10 @@
         <b-form-input
           v-model="betStake"
           :disabled="isDisabled"
+          v-mask="'##,##'"
           class="betslip-input"
-          type="number"
-          min="0"
-          name="odd-value"/>
+          type="tel"
+          name="stake"/>
       </b-col>
     </b-row>
     <b-row
@@ -174,6 +174,7 @@ import {
   HANDED_OVER_STATUS
 } from '@/models/market'
 import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
+import { mask } from 'vue-the-mask'
 
 export default {
   props: {
@@ -187,6 +188,7 @@ export default {
       default: null
     }
   },
+  directives: { mask },
   data () {
     return {
       status: null,
@@ -253,8 +255,8 @@ export default {
         return this.bet.stake
       },
       set (value) {
-        let stakeValue = value > 0 ? value : 0
-        this.setBetStake({ oddId: this.bet.oddId, stakeValue })
+        let stakeValue = value > 0 ? value: null
+        this.setBetStake({ oddId: this.bet.oddId, stakeValue: stakeValue })
       }
     },
     valuesUnconfirmed () {
