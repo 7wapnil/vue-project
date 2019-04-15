@@ -70,12 +70,13 @@ export const getters = {
     if (activeWallet === undefined) {
       return false
     }
+
     let enabled = false
     if (getters.betslipValuesConfirmed &&
       getters.getTotalStakes > 0 &&
       getters.getTotalStakes <= activeWallet.amount &&
       !getters.getAnyInactiveMarket &&
-      !getters.getAnySubmittedBet
+      !getters.getAnySubmittedBet && !getters.getAnyEmptyStake
     ) {
       enabled = true
     }
@@ -110,6 +111,11 @@ export const getters = {
   },
   getAnyInactiveMarket (state) {
     return !!state.bets.find(bet => bet.marketStatus !== 'active')
+  },
+  getAnyEmptyStake (state) {
+    return state.bets.some((bet) => {
+      return bet.stake === 0 || bet.stake === null
+    })
   },
   getAnySubmittedBet (state) {
     return state.bets.some((bet) => {

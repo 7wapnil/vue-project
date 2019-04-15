@@ -80,9 +80,9 @@
       </b-col>
       <b-col class="d-flex align-items-center justify-content-end">
         <b-form-input
+          v-mask="['#.##', '##.##', '###.##', '####.##', '#####.##', '######.##']"
           v-model="betStake"
           :disabled="isDisabled"
-          v-mask="'##,##'"
           class="betslip-input"
           type="tel"
           name="stake"/>
@@ -177,6 +177,7 @@ import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
 import { mask } from 'vue-the-mask'
 
 export default {
+  directives: { mask },
   props: {
     bet: {
       type: Bet,
@@ -188,13 +189,12 @@ export default {
       default: null
     }
   },
-  directives: { mask },
   data () {
     return {
       status: null,
       isDisabled: false,
       isSettled: false,
-      disabledMessage: null,
+      disabledMessage: null
     }
   },
   apollo: {
@@ -248,6 +248,7 @@ export default {
     ]),
     potentialReturn: function () {
       const stake = this.bet.stake > 0 ? this.bet.stake : 0
+
       return stake * this.bet.approvedOddValue
     },
     betStake: {
@@ -255,7 +256,7 @@ export default {
         return this.bet.stake
       },
       set (value) {
-        let stakeValue = value > 0 ? value: null
+        let stakeValue = value > 0 ? value : null
         this.setBetStake({ oddId: this.bet.oddId, stakeValue: stakeValue })
       }
     },
@@ -287,7 +288,7 @@ export default {
     },
     successMessage () {
       return MESSAGE_SUCCESS
-    }
+    },
   },
   mounted () {
     this.$nextTick(() => {
@@ -333,7 +334,7 @@ export default {
     },
     removeOdd (oddId) {
       this.removeBetFromBetslip(oddId)
-    },
+    }
   }
 }
 </script>
