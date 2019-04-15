@@ -22,8 +22,8 @@
           </span>
         </b-nav-item>
         <b-nav-item
-          class="profile-modal-nav-item bg-arc-clr-soil-black "
-          @click.prevent="logout">
+          class="profile-modal-nav-item bg-arc-clr-soil-black"
+          @click="showConfirmationModal">
           <icon
             name="logout"
             class="tab-icon"
@@ -49,7 +49,7 @@ import Withdraw from './account-withdraw/Page'
 import AccountVerification from './account-verification/AccountVerification'
 import ChangePassword from './account-information/ChangePassword'
 import ProfileWallet from './AccountWallet'
-import { mapActions, mapGetters, mapMutations } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 
 export default {
   components: {
@@ -66,39 +66,39 @@ export default {
   data () {
     return {
       tabs: [{
-        title: 'Account info & settings',
+        title: this.$i18n.t('account.tabs.account'),
         component: Account,
         icon: 'account-information',
         id: 'account'
       }, {
-        title: 'Bonus',
+        title: this.$i18n.t('account.tabs.bonus'),
         component: Bonus,
         icon: 'account-bonus',
         id: 'account-bonus'
       }, {
-        title: 'Activity',
+        title: this.$i18n.t('account.tabs.activity'),
         component: Activity,
         icon: 'account-activity',
         size: '18px',
         id: 'account-activity'
       }, {
-        title: 'Deposit funds',
+        title: this.$i18n.t('account.tabs.depositFunds'),
         component: DepositFunds,
         icon: 'account-deposit',
         id: 'deposit'
       }, {
-        title: 'Withdraw funds',
+        title: this.$i18n.t('account.tabs.withdrawFunds'),
         component: Withdraw,
         icon: 'account-withdraw',
         id: 'account-withdraw'
       }, {
-        title: 'Account verification',
+        title: this.$i18n.t('account.tabs.accountVerification'),
         component: AccountVerification,
         icon: 'account-verification',
         size: '20px',
         id: 'verification'
       }, {
-        title: 'Transaction history',
+        title: this.$i18n.t('account.tabs.transactionHistory'),
         component: TransactionHistory,
         icon: 'account-activity',
         size: '18px',
@@ -123,16 +123,12 @@ export default {
     }
   },
   methods: {
-    ...mapActions({
-      dispatchLogout: 'logout'
-    }),
     ...mapMutations('tabs', {
       changeTabIndex: 'changeTabIndex'
     }),
-    logout () {
-      this.dispatchLogout(this)
-      this.$noty.success('Signed out successfully')
-    },
+    showConfirmationModal () {
+      this.$root.$emit('bv::show::modal', 'AccountLogoutModal')
+    }
   }
 }
 </script>

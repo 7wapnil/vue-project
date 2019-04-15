@@ -123,6 +123,20 @@
             </b-row>
           </b-row>
         </b-link>
+
+        <span
+          v-if="marketsCount === 0"
+          class="col event-card-statistics-button event-card-inside-border-left"
+          style="min-width: 70px; max-width: 70px; min-height: 100%; position:relative; pointer-events: none">
+          <b-row
+            no-gutters
+            class="text-center h-100">
+            <b-col class="d-inline-flex justify-content-center align-items-start">
+              <no-data-placeholder/>
+            </b-col>
+          </b-row>
+        </span>
+
       </b-row>
     </b-card-body>
     <b-row
@@ -239,7 +253,12 @@
 </template>
 
 <script>
+import NoDataPlaceholder from '@/components/cards/NoDataPlaceholder'
+
 export default {
+  components: {
+    NoDataPlaceholder
+  },
   props: {
     event: {
       type: Object,

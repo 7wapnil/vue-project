@@ -25,11 +25,11 @@ export default {
     return {
       tabsMapping: [{
         id: LIVE,
-        title: 'Live now',
+        title: this.$i18n.t('homePage.live'),
         context: LIVE
       }, {
         id: UPCOMING,
-        title: 'Upcoming',
+        title: this.$i18n.t('homePage.upcoming'),
         context: UPCOMING_LIMITED
       }]
     }

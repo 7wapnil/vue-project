@@ -7,7 +7,7 @@
 
       <div v-if="activeMethod">
         <h3 class="mb-5 font-weight-light">
-          Withdraw funds
+          {{ $t('account.withdraw.withdrawFunds') }}
         </h3>
         <b-row
           v-b-toggle.withdrawMethod
@@ -33,7 +33,7 @@
             v-if="paymentMethods.length > 1"
             cols="auto">
             <b-button variant="arc-secondary">
-              Change withdraw method
+              {{ $t('account.cta.changeWithdrawMethod') }}
             </b-button>
           </b-col>
         </b-row>
