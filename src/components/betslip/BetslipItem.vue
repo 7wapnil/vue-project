@@ -248,7 +248,6 @@ export default {
     ]),
     potentialReturn: function () {
       const stake = this.bet.stake > 0 ? this.bet.stake : 0
-
       return stake * this.bet.approvedOddValue
     },
     betStake: {
