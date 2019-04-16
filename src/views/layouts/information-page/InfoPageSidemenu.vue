@@ -13,7 +13,6 @@
       v-if="!!item.children"
       :key="index"
       class="bg-arc-clr-soil-cover">
-
       <div>
         <div class="d-flex align-items-center information-page-sidemenu">
           <span class="p-3">
@@ -30,7 +29,6 @@
               size="7.5px"/>
           </span>
         </div>
-
         <b-collapse
           :visible="item.path === currentPath"
           :id="`item-${index}`"
