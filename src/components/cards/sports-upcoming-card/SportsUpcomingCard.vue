@@ -47,14 +47,14 @@
                 no-gutters>
                 <b-col>
                   <h6 class="m-0 font-weight-bold text-arc-clr-iron team-name text-truncate letter-spacing-2">
-                    {{ event.competitors[0].name }}
+                    <!--{{ event.competitors[0].name }}-->
                   </h6>
                 </b-col>
               </b-row>
               <b-row no-gutters>
                 <b-col>
                   <h6 class="m-0 font-weight-bold text-arc-clr-iron team-name text-truncate letter-spacing-2">
-                    {{ event.competitors[1].name }}
+                    <!--{{ event.competitors[1].name }}-->
                   </h6>
                 </b-col>
               </b-row>

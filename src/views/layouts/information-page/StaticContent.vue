@@ -1,6 +1,6 @@
 <template>
   <b-row no-gutters>
-    <b-col class="d-none d-lg-block py-4">
+    <b-col class="d-none d-lg-block p-4">
       <h3>{{ header }}</h3>
       <span v-html="mainDocument"/>
     </b-col>

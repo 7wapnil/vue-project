@@ -73,7 +73,7 @@
       </b-container>
       <b-container
         fluid
-        class="p-0 footer-section">
+        class="px-2 footer-section">
         <b-container
           style="max-width: 1920px"
           fluid>
@@ -103,7 +103,7 @@
             </b-col>
           </b-row>
           <b-row no-gutters>
-            <b-col class="d-flex align-items-center justify-content-center pb-5">
+            <b-col class="d-flex align-items-center justify-content-center pb-5 px-1">
               <img
                 v-for="(bottomicon, index) in bottomicons"
                 :key="index"

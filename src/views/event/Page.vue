@@ -1,35 +1,24 @@
 <template>
   <div>
-    <b-breadcrumb :items="composedBreadcrumbs"/>
-
     <header-section
-      :event="event"
-      :showicons="false"/>
-    <b-row
       v-if="event"
-      class="mt-4"
-      no-gutters>
-      <b-col>
-        <markets-categories
-          :event="event"
-          :active-index="0"
-          :number-of-tabs="7"
-          tabs-class="event-panel-tabs"
-          title-class="event-panel-titles"
-          content-class="event-panel-content"
-          lazy>
+      :event="event"
+      :showicons="false">
 
-          <template slot-scope="{ markets }">
-            <markets-list
-              :event="event"
-              :markets="markets"
-              :item-component="itemComponent"/>
+      <markets-categories
+        :event="event"
+        :active-index="activeIndex"
+        tabs-class="event-panel-tabs"
+        title-class="event-panel-titles"
+        content-class="event-panel-content"
+        lazy
+        @change-category="onTabChange"/>
+    </header-section>
 
-          </template>
-
-        </markets-categories>
-      </b-col>
-    </b-row>
+    <market-category
+      v-if="category"
+      :event="event"
+      :category="category"/>
   </div>
 </template>
 
@@ -40,9 +29,11 @@ import MarketsCategories from '@/components/markets/MarketsCategories'
 import HeaderSection from './HeaderSection'
 import MarketsList from '@/components/markets/MarketsList'
 import EventDetailsCard from '@/components/cards/EventDetailsCard'
+import MarketCategory from '@/components/markets/MarketCategory';
 
 export default {
   components: {
+    MarketCategory,
     MarketsList,
     MarketsCategories,
     HeaderSection
@@ -51,8 +42,19 @@ export default {
     return {
       event: null,
       itemComponent: EventDetailsCard,
-      marketsLimit: UNLIMITED_QUERY
+      marketsLimit: UNLIMITED_QUERY,
+      markets: [],
+      category: null,
+      activeIndex: 0
     }
+  },
+  computed: {
+    eventId () {
+      return this.$route.params.id
+    }
+  },
+  created () {
+    this.activeIndex = 0
   },
   apollo: {
     event () {
@@ -65,36 +67,9 @@ export default {
       }
     }
   },
-  computed: {
-    eventId () {
-      return this.$route.params.id
-    },
-    category () {
-      let category = {}
-      this.event.scopes.filter((scope) => {
-        if (scope.kind === 'category') {
-          category = { id: scope.id, name: scope.name }
-        }
-      })
-      return category
-    },
-    composedBreadcrumbs () {
-      if (this.event) {
-        return [
-          {
-            text: this.event.title.name,
-            to: { name: 'title', params: { titleKind: this.$route.params.titleKind, titleId: this.event.title.id, } }
-          },
-          {
-            text: this.category.name,
-            to: { name: 'category-tournaments', params: { titleKind: this.$route.params.titleKind, titleId: this.event.title.id, categoryId: this.category.id } }
-          },
-          {
-            text: this.event.tournament.name,
-            to: { name: 'tournament', params: { titleKind: this.$route.params.titleKind, titleId: this.event.title.id, tournamentId: this.event.tournament.id } }
-          },
-          { text: this.event.name }]
-      }
+  methods: {
+    onTabChange (tab) {
+      this.category = tab
     }
   }
 }

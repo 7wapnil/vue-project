@@ -9,15 +9,7 @@
       :key="index"
       :title-link-class="titleClass"
       :title="category.name"
-      @click="$emit('change', category)">
-      <markets-category
-        :event="event"
-        :category="category">
-        <template slot-scope="{ markets }">
-          <slot :markets="markets"/>
-        </template>
-      </markets-category>
-    </b-tab>
+      @click="categoryChange(category)"/>
   </b-tabs>
 </template>
 <script>
@@ -31,10 +23,6 @@ export default {
     event: {
       type: Object,
       required: true
-    },
-    queryOptions: {
-      type: Object,
-      default () { return {} }
     },
     titleClass: {
       type: String,
@@ -52,10 +40,6 @@ export default {
       type: Boolean,
       default: true
     },
-    numberOfTabs: {
-      type: Number,
-      default: 7
-    },
     contentClass: {
       type: String,
       default: ''
@@ -69,6 +53,11 @@ export default {
   computed: {
     categories () {
       return this.event.categories
+    }
+  },
+  methods: {
+    categoryChange (category) {
+      this.$emit('change-category', category)
     }
   }
 }
