@@ -1,8 +1,12 @@
 <template>
   <b-row no-gutters>
-    <b-col class="d-none d-lg-block py-4">
-      <h3>{{ header }}</h3>
-      <span v-html="mainDocument"/>
+    <b-col class="d-none d-lg-block p-4">
+      <h2 class="font-weight-light m-4">
+        {{ header }}
+      </h2>
+      <h6
+        class="text-arc-clr-iron letter-spacing-2 line-height-24 text-left px-4 py-2 mb-0"
+        v-html="mainDocument"/>
     </b-col>
   </b-row>
 </template>
@@ -37,3 +41,8 @@ export default {
   }
 }
 </script>
+<style scoped>
+  h4 {
+    color: red !important;
+  }
+</style>

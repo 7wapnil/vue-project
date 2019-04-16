@@ -5,7 +5,7 @@ export const InformationPages = {
       name: 'support',
       title: 'support',
       redirect: 'styleguide/typography',
-      icon: 'promotional',
+      icon: 'support',
       component: () => import('@/views/layouts/information-page/Content'),
       children: [
         {
@@ -56,6 +56,7 @@ export const InformationPages = {
       path: 'about',
       name: 'about',
       title: 'about',
+      icon: 'arcanebet-default-icon',
       component: () => import('@/views/layouts/information-page/Content'),
       children: [
         {
@@ -101,6 +102,7 @@ export const InformationPages = {
       path: 'responsible-gaming',
       name: 'responsible gaming',
       title: 'responsible gaming',
+      icon: 'help',
       component: () => import('@/views/layouts/information-page/Content'),
       children: [
         {
