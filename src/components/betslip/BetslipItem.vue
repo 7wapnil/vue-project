@@ -84,7 +84,7 @@
           v-model="betStake"
           :disabled="isDisabled"
           class="betslip-input"
-          type="tel"
+          type="text"
           name="stake"/>
       </b-col>
     </b-row>
