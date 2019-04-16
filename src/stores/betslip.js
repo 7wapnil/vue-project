@@ -7,7 +7,7 @@ import graphqlClient from '@/libs/apollo/'
 import { BETSLIP_PLACEMENT_QUERY, BET_UPDATED } from '@/graphql/index'
 
 const BET_DESTROY_TIMEOUT = 3000
-const BET_WAIT_TIMEOUT = 15000
+const BET_WAIT_TIMEOUT = 15
 const BET_FAIL_MESSAGE = 'Bet placement unsuccessful'
 
 const getBetsFromStorage = () => {
@@ -126,6 +126,10 @@ export const actions = {
       .forEach(bet => dispatch('subscribeBet', bet))
   },
   subscribeBet ({ state, commit, getters }, bet) {
+    let counter = 0
+    let counting = setInterval(counter++, 1000)
+    console.log(counting)
+    console.log(counter)
     state.subscriptions[bet.id] = graphqlClient
       .subscribe({
         query: BET_UPDATED,
@@ -133,6 +137,7 @@ export const actions = {
       })
       .subscribe({
         next ({ data: { bet_updated: betUpdated } }) {
+          clearInterval(counting)
           commit('updateBet', {
             oddId: bet.oddId,
             payload: {
@@ -160,7 +165,7 @@ export const actions = {
         }
       })
 
-    setTimeout(() => {
+    if (counter === BET_WAIT_TIMEOUT) {
       commit('updateBet', {
         oddId: bet.oddId,
         payload: {
@@ -168,7 +173,7 @@ export const actions = {
           message: BET_FAIL_MESSAGE
         }
       })
-    }, BET_WAIT_TIMEOUT)
+    }
 
     Vue.$log.debug(`Subscribed bet ID ${bet.id}`)
   },
