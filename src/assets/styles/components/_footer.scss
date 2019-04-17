@@ -1,23 +1,29 @@
 // Footer //
 @import '../variables';
 
-.footer-section {
+.footer {
+  max-width: 1920px;
   box-shadow: inset 0 1px 0 0 $arc-clr-soil-light;
-}
-.policy {
-  border: 1px solid $arc-clr-soil-light;
-  border-bottom-style: none;
-}
-.list-header {
-  font-weight: $font-weight-bold;
-  color: $arc-clr-gold;
-  letter-spacing: .2px;
-  line-height: 18px;
-}
-.footer-text {
-  color: #6F6F6F;
-}
-.footer-list li{
-  line-height: 30px;
-  list-style-type: none
+  &-wrapper {
+    padding: 0;
+    background-color: $arc-clr-soil-darker;
+    box-shadow: inset 0 1px 0 0 $arc-clr-soil-light;
+  }
+  &-social-section {
+    box-shadow: inset 0 1px 0 0 $arc-clr-soil-light;
+  }
+  &-links-section {
+    padding: 68px 20px;
+    box-shadow: inset 0 1px 0 0 $arc-clr-soil-light;
+  }
+  &-topicons-section {
+    padding: 68px 0;
+  }
+  &-policy-section {
+    color: #6F6F6F;
+  }
+  &-list li {
+    line-height: 30px;
+    list-style-type: none
+  }
 }
