@@ -101,7 +101,6 @@ describe('Betslip', () => {
     })
 
     it('shows initial view', () => {
-      console.log(i18n.t('betslip.betslipEmpty'))
       expect(wrapper.text()).contains(i18n.t('betslip.betslipEmpty'))
     })
 
