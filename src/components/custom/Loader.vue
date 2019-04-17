@@ -1,7 +1,8 @@
 <template>
   <div class="w-100 d-flex justify-content-center align-items-center">
-    <b-spinner :style="{ height: size, width: size }"
-                variant="arc-clr-gold"/>
+    <b-spinner
+      :style="{ height: size, width: size }"
+      variant="arc-clr-gold"/>
   </div>
 </template>
 
