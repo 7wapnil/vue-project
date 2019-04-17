@@ -50,7 +50,7 @@
                   v-for="(competitor, index) in event.competitors"
                   :key="index">
                   <h6 class="m-0 font-weight-bold text-arc-clr-iron team-name text-truncate letter-spacing-2">
-                    {{ competitor }}
+                    {{ competitor.name }}
                   </h6>
                 </b-col>
               </b-row>
