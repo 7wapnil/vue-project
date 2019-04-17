@@ -49,7 +49,7 @@
             slot-scope="data">
             <b-badge
               :variant="badgeStatus[data.item.status]"
-              class="badge-status text-uppercase font-size-11 text-arc-clr-soil-dark p-2">
+              class="border-4 text-uppercase font-size-11 text-arc-clr-soil-dark p-2">
               {{ data.item.status }}
             </b-badge>
           </template>
