@@ -1,6 +1,6 @@
 <template>
   <div class="w-100 d-flex justify-content-center align-items-center">
-    <b-spinner :style="{ height, width: height }"
+    <b-spinner :style="{ height: size, width: size }"
                 variant="arc-clr-gold"/>
   </div>
 </template>
@@ -8,9 +8,9 @@
 <script>
 export default {
   props: {
-    height: {
+    size: {
       type: String,
-      default: '100px'
+      default: '50px'
     }
   }
 }
