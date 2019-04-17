@@ -1,20 +1,22 @@
 // Footer //
 @import '../variables';
 
+$section-top-border: inset 0 1px 0 0 $arc-clr-soil-light;
+
 .footer {
   max-width: 1920px;
-  box-shadow: inset 0 1px 0 0 $arc-clr-soil-light;
+  box-shadow: $section-top-border;
   &-wrapper {
     padding: 0;
     background-color: $arc-clr-soil-darker;
-    box-shadow: inset 0 1px 0 0 $arc-clr-soil-light;
+    box-shadow: $section-top-border;
   }
   &-social-section {
-    box-shadow: inset 0 1px 0 0 $arc-clr-soil-light;
+    box-shadow: $section-top-border;
   }
   &-links-section {
     padding: 68px 20px;
-    box-shadow: inset 0 1px 0 0 $arc-clr-soil-light;
+    box-shadow: $section-top-border;
   }
   &-topicons-section {
     padding: 68px 0;
