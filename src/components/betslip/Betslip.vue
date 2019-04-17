@@ -124,7 +124,9 @@
           PLACE BET
         </b-button>
 
-        <spinner-button v-if="false"/>
+        <spinner-button v-if="false">
+          Placing bet
+        </spinner-button>
 
         <b-popover
           v-if="!betslipSubmittable"

@@ -4,7 +4,7 @@
   min-height: $navbar-height;
 }
 #top-navigation > .nav-item > a {
-  letter-spacing: .23px;
+  letter-spacing: .02em;
   line-height: $btn-line-height-sm;
   padding: 31px 60px;
 }
@@ -19,7 +19,7 @@
   height: $navbar-height;
   & > a {
     padding: 0;
-    letter-spacing: .09px;
+    letter-spacing: .02em;
     line-height: 14px;
   }
   & > .dropdown-menu {

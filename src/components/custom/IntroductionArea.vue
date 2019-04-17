@@ -3,7 +3,7 @@
     v-if="title"
     fluid
     class="p-0">
-    <div style="max-height: 368px; overflow: hidden">
+    <div class="introduction-area-wrapper">
       <b-img
         :src="background"
         :alt="`${title.name}-background-image`"

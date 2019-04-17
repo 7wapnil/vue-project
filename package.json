@@ -20,8 +20,8 @@
     "apollo-link-http": "^1.5.4",
     "axios": "^0.18.0",
     "babel-eslint": "^10.0.1",
-    "bootstrap": "^4.1.1",
-    "bootstrap-vue": "^2.0.0-rc.11",
+    "bootstrap": "^4.3.1",
+    "bootstrap-vue": "^2.0.0-rc.18",
     "contentful": "^7.3.0",
     "countries-list": "^2.3.2",
     "graphql": "^0.13.2",
@@ -35,7 +35,7 @@
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",
     "unfetch": "^3.1.1",
-    "vue": "2.5.17",
+    "vue": "^2.6.10",
     "vue-apollo": "^3.0.0-beta.19",
     "vue-flatpickr-component": "^7.0.4",
     "vue-i18n": "^8.10.0",
@@ -65,7 +65,7 @@
     "sinon-chai": "^3.2.0",
     "standard": "^12.0.1",
     "vue-cli-plugin-s3-deploy": "2.0.2",
-    "vue-template-compiler": "2.5.17"
+    "vue-template-compiler": "2.6.10"
   },
   "browserslist": [
     "> 1%",
