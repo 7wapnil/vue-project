@@ -21,13 +21,13 @@
        border: 1px solid $arc-clr-soil-dark;
        color: $arc-clr-iron-light;
        font-size: $h6-font-size;
-       letter-spacing: .2px;
+       letter-spacing: .02em;
        text-align: center;
        padding: 8px 15px;
        display: flex;
        align-items: center;
        &:hover {
-         background-color: rgba($black, 0.3);
+         background-color: rgba($black, .3);
        }
      }
   }

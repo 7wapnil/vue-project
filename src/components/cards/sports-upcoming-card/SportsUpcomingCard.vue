@@ -40,21 +40,17 @@
         <b-col style="max-width: 247px; min-width: 60px">
           <b-row no-gutters>
             <b-col
+              v-if="event.competitors.length"
               class="p-3"
               style="min-width: 40px">
               <b-row
                 class="mb-2"
                 no-gutters>
-                <b-col>
+                <b-col
+                  v-for="(competitor, index) in event.competitors"
+                  :key="index">
                   <h6 class="m-0 font-weight-bold text-arc-clr-iron team-name text-truncate letter-spacing-2">
-                    {{ event.competitors[0].name }}
-                  </h6>
-                </b-col>
-              </b-row>
-              <b-row no-gutters>
-                <b-col>
-                  <h6 class="m-0 font-weight-bold text-arc-clr-iron team-name text-truncate letter-spacing-2">
-                    {{ event.competitors[1].name }}
+                    {{ competitor.name }}
                   </h6>
                 </b-col>
               </b-row>

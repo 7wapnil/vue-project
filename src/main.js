@@ -64,20 +64,18 @@ const apolloProvider = new VueApollo({
   }
 })
 
-const airbrake = new AirbrakeClient({
+let airbrake = new AirbrakeClient({
   projectId: 1,
   host: process.env.VUE_APP_AIRBRAKE_HOST,
   projectKey: process.env.VUE_APP_AIRBRAKE_KEY,
-  environment: process.env.NODE_ENV,
+  environment: process.env.NODE_ENV
 })
-
-console.log(airbrake)
-console.log(AirbrakeClient)
 
 Vue.config.errorHandler = function (err, vm, info) {
   airbrake.notify({
     error: err,
-    params: { info: info }
+    params: { info: info },
+    session: arcanebetSession.getSession() || null
   })
 }
 
