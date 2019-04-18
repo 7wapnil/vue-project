@@ -3,6 +3,7 @@ import mainRoutes from './main'
 import StyleGuidePages from './styleguide_pages'
 import InformationPages from '@/routes/information_pages';
 import NotFound from '@/views/layouts/main/NotFound'
+import Maintenance from '@/views/layouts/main/Maintenance'
 import { setCookie } from '@/helpers/cookies'
 import moment from 'moment'
 
@@ -25,6 +26,11 @@ const router = new Router({
       name: 'home',
       component: () => import('@/views/layouts/main/Layout'),
       children: rootChildren
+    },
+    {
+      path: 'maintenance',
+      name: 'Maintenance',
+      component: Maintenance
     },
     {
       path: '/*',
