@@ -9,18 +9,21 @@
 .profile-modal-nav {
   &-item {
     height: 56px;
-    padding: 16px;
+    padding-left: 16px;
     font-size: $h6-font-size;
     cursor: pointer;
     display: flex;
     align-items: center;
     a {
       display: flex;
+      width: 100%;
+      height: 100%;
       align-items: center;
       padding: 0;
     }
     .tab-title {
       color: $arc-clr-iron-light;
+      letter-spacing: .04em;
     }
     .tab-icon {
       color: #6F6F6F;
@@ -29,7 +32,7 @@
   &-item-active {
     background-color: #171717 !important;
     height: 56px;
-    padding: 16px;
+    padding-left: 16px;
     font-size: $h6-font-size;
     display: flex;
     align-items: center;
@@ -37,10 +40,13 @@
     a {
       display: flex;
       align-items: center;
+      width: 100%;
+      height: 100%;
       padding: 0;
     }
     .tab-title {
       color: $arc-clr-gold;
+      letter-spacing: .04em;
     }
     .tab-icon {
       color: $arc-clr-iron;
