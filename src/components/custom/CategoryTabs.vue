@@ -1,7 +1,7 @@
 <template>
   <b-tabs
     :lazy="lazy"
-    v-model="categoryTabIndex"
+    v-model="tabIndex"
     content-class="p-0 m-0"
     class="category-tabs"
     nav-wrapper-class="category-tabs-wrapper"
@@ -22,15 +22,14 @@
       v-for="(tab, index) in tabs"
       :key="index"
       no-body
-      title-link-class="category-tab px-4 py-3 "
-      @click="emitTabChanged">
+      title-link-class="category-tab px-4 py-3">
       <template slot="title">
         <b-row no-gutters>
           <b-col>
             <icon
               :name="tab.icon"
               color="arc-clr-iron"
-              size="18px"/>
+              size="24px"/>
           </b-col>
         </b-row>
         <b-row no-gutters>
@@ -83,15 +82,24 @@ export default {
       categoryTabIndex: 0
     }
   },
+  computed: {
+    tabIndex: {
+      get () {
+        return this.categoryTabIndex
+      },
+      set (value) {
+        this.categoryTabIndex = value
+        const tab = this.tabs[this.categoryTabIndex]
+        if (tab) {
+          this.$emit('tab-changed', tab)
+        }
+      }
+    }
+  },
   created () {
-    this.emitTabChanged()
+    this.tabIndex = 0
   },
   methods: {
-    emitTabChanged () {
-      if (this.tabs[this.categoryTabIndex]) {
-        this.$emit('tab-changed', this.tabs[this.categoryTabIndex])
-      }
-    },
     moveTab (side) {
       let content = document.querySelector('.category-tabs-nav')
       let step = document.getElementsByClassName('category-tab active')[0].clientWidth
