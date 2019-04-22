@@ -255,7 +255,7 @@ export default {
         return this.bet.stake
       },
       set (value) {
-        let stakeValue = value > 0 ? value : 0
+        let stakeValue = value > 0 ? value : null
         this.setBetStake({ oddId: this.bet.oddId, stakeValue: stakeValue })
       }
     },
