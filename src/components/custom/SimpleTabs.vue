@@ -8,8 +8,7 @@
     <b-tab
       v-for="(tab, index) in tabs"
       :key="index"
-      title-link-class="mx-4 py-3 bg-transparent"
-      @click="emitTabChange">
+      title-link-class="mx-4 py-3 bg-transparent">
 
       <template slot="title">
         <b-row no-gutters>
@@ -24,6 +23,11 @@
       <slot :tab="tab"/>
 
     </b-tab>
+    <div
+      slot="empty"
+      class="text-center text-muted">
+      No tabs. Try to check your connection.
+    </div>
   </b-tabs>
 </template>
 
@@ -49,18 +53,25 @@ export default {
   },
   data () {
     return {
-      tabIndex: this.activeIndex
+      currentTabIndex: 0
+    }
+  },
+  computed: {
+    tabIndex: {
+      get () {
+        return this.currentTabIndex
+      },
+      set (value) {
+        this.currentTabIndex = value
+        const tab = this.tabs[this.currentTabIndex]
+        if (tab) {
+          this.$emit('tab-changed', tab)
+        }
+      }
     }
   },
   created () {
-    this.emitTabChange()
+    this.tabIndex = this.activeIndex
   },
-  methods: {
-    emitTabChange () {
-      if (this.tabs[this.tabIndex]) {
-        this.$emit('tab-changed', this.tabs[this.tabIndex])
-      }
-    }
-  }
 }
 </script>

@@ -1,3 +1,5 @@
+@import '../variables';
+
 #styleguide-top-navigation {
   .nav-item > a {
     line-height: $btn-line-height-sm;
@@ -10,17 +12,17 @@
 }
 .styleguide-sidemenu {
     border-radius: 4px;
-    border: 1px solid #FFB960;
+    border: 1px solid $arc-clr-gold;
   &:hover {
     background-color: rgba(255, 185, 96, .5);
     & > a {
-      color: black;
+      color: $arc-clr-soil-black;
     }
   }
   &-active {
     background-color: $arc-clr-gold;
     border: none;
-    color: black;
+    color: $arc-clr-soil-black;
     transition: background-color .3s ease;
   }
 }

@@ -124,7 +124,9 @@
           PLACE BET
         </b-button>
 
-        <spinner-button v-if="false"/>
+        <spinner-button v-if="false">
+          Placing bet
+        </spinner-button>
 
         <b-popover
           v-if="!betslipSubmittable"
@@ -215,11 +217,12 @@ export default {
       if (response.data && response.data.placeBets) {
         response.data.placeBets.forEach((betPayload) => {
           let bet = bets.find(el => el.oddId === betPayload.id)
+          let betId = (betPayload.bet) ? betPayload.bet.id : null
 
           this.updateBet({
             oddId: bet.oddId,
             payload: {
-              id: betPayload.bet.id,
+              id: betId,
               message: betPayload.message,
               externalId: betPayload.id,
               success: betPayload.success
@@ -230,7 +233,12 @@ export default {
       }
     },
     updateBets () {
-      this.getBets.forEach(bet => { this.updateBet({ oddId: bet.oddId, payload: { approvedOddValue: bet.currentOddValue } }) })
+      this.getBets.forEach(bet => {
+        this.updateBet({
+          oddId: bet.oddId,
+          payload: { approvedOddValue: bet.currentOddValue }
+        })
+      })
     },
     changeStyleTab (index) {
       if (this.tabIndex === index) {

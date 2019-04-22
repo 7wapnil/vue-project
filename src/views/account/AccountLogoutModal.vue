@@ -24,7 +24,9 @@
 
     <b-row no-gutter>
       <b-col class="text-center p-4">
-        <h5 class="mb-4 letter-spacing-2 font-weight-light">Are you sure, you want to logout?</h5>
+        <h5 class="mb-4 letter-spacing-2 font-weight-light">
+          Are you sure, you want to logout?
+        </h5>
       </b-col>
     </b-row>
     <b-row
@@ -60,7 +62,8 @@ export default {
       this.$noty.success('Signed out successfully')
     },
     hideModal () {
-      this.$refs.AccountLogoutModalRef.hide()
+      this.$root.$emit('bv::hide::modal', 'AccountLogoutModal')
+      this.$root.$emit('bv::show::modal', 'AccountModal')
     }
   }
 }
