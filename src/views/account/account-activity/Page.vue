@@ -2,10 +2,10 @@
   <div>
     <activity-header/>
 
-    <activity-placeholder v-if="!isBetHistory"/>
+    <activity-placeholder v-if="!hasBetHistory"/>
 
     <b-tabs
-      v-if="!!isBetHistory"
+      v-if="!!hasBetHistory"
       nav-wrapper-class="border-top-tabs-orange-tabs"
       content-class="py-4">
       <b-tab
@@ -127,8 +127,8 @@ export default {
     }
   },
   computed: {
-    isBetHistory () {
-      return this.bets.collection ? this.bets.collection.length : null
+    hasBetHistory () {
+      return this.bets.collection && this.bets.collection.length
     },
     currentPage: {
       get () {
