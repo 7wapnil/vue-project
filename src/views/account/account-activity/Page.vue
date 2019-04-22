@@ -2,10 +2,10 @@
   <div>
     <activity-header/>
 
-    <activity-placeholder v-if="!bets.length"/>
+    <activity-placeholder v-if="!isBetHistory"/>
 
     <b-tabs
-      v-if="!!bets.length"
+      v-if="!!isBetHistory"
       nav-wrapper-class="border-top-tabs-orange-tabs"
       content-class="py-4">
       <b-tab
@@ -84,7 +84,7 @@ export default {
   },
   data () {
     return {
-      bets: [],
+      bets: {},
       page: 1,
       paginationProps: Object,
       betsPerPage: 10,
@@ -127,6 +127,9 @@ export default {
     }
   },
   computed: {
+    isBetHistory () {
+      return this.bets.collection ? this.bets.collection.length : null
+    },
     currentPage: {
       get () {
         return this.page
