@@ -104,8 +104,8 @@ describe('Betslip', () => {
       expect(wrapper.text()).contains(i18n.t('betslip.betslipEmpty'))
     })
 
-    xit('shows place bet button', () => {
-      expect(wrapper.find('span.text-uppercase').text()).to.equal('Place bet')
+    it('shows place bet button', () => {
+      expect(wrapper.find('button.btn-arc-primary').text()).to.equal('PLACE BET')
     })
   })
 

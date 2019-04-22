@@ -32,22 +32,22 @@ describe('Bet', () => {
   describe('frozen', () => {
     it('returns true for accepted status', () => {
       const newBet = new Bet({ status: 'accepted' })
-      expect(newBet.frozen).to.eql(true)
+      expect(Bet.frozen(newBet)).to.eql(true)
     })
 
     it('returns true for pending status', () => {
       const newBet = new Bet({ status: 'pending' })
-      expect(newBet.frozen).to.eql(true)
+      expect(Bet.frozen(newBet)).to.eql(true)
     })
 
     it('returns true for accepted status', () => {
-      const newBet = new Bet({ status: 'accepted' })
-      expect(newBet.frozen).to.eql(true)
+      const newBet = new Bet({ status: 'submitted' })
+      expect(Bet.frozen(newBet)).to.eql(true)
     })
 
     it('returns false for any other status', () => {
       const newBet = new Bet({ status: 'boo' })
-      expect(newBet.frozen).to.eql(false)
+      expect(Bet.frozen(newBet)).to.eql(false)
     })
   })
 })

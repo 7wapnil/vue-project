@@ -124,7 +124,7 @@ export const getters = {
   },
   getAnyFrozenBet (state) {
     return state.bets.some((bet) => {
-      return Bet.frozen(bet.status)
+      return Bet.frozen(bet)
     })
   }
 }
