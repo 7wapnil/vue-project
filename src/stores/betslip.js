@@ -132,6 +132,18 @@ export const actions = {
       .forEach(bet => dispatch('subscribeBet', bet))
   },
   subscribeBet ({ state, commit, getters }, bet) {
+    let betPlacementTimeout
+
+    betPlacementTimeout = setTimeout(() => {
+      commit('updateBet', {
+        oddId: bet.oddId,
+        payload: {
+          status: Bet.statuses.failed,
+          message: BET_FAIL_MESSAGE
+        }
+      })
+    }, BET_WAIT_TIMEOUT)
+
     state.subscriptions[bet.id] = graphqlClient
       .subscribe({
         query: BET_UPDATED,
@@ -139,6 +151,7 @@ export const actions = {
       })
       .subscribe({
         next ({ data: { bet_updated: betUpdated } }) {
+          clearTimeout(betPlacementTimeout)
           commit('updateBet', {
             oddId: bet.oddId,
             payload: {
@@ -165,16 +178,6 @@ export const actions = {
           Vue.$log.error(error)
         }
       })
-
-    setTimeout(() => {
-      commit('updateBet', {
-        oddId: bet.oddId,
-        payload: {
-          status: Bet.statuses.failed,
-          message: BET_FAIL_MESSAGE
-        }
-      })
-    }, BET_WAIT_TIMEOUT)
 
     Vue.$log.debug(`Subscribed bet ID ${bet.id}`)
   },
