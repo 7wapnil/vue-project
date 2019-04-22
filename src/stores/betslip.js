@@ -132,9 +132,9 @@ export const actions = {
       .forEach(bet => dispatch('subscribeBet', bet))
   },
   subscribeBet ({ state, commit, getters }, bet) {
-    let timeout
+    let betPlacementTimeout
 
-    timeout = setTimeout(() => {
+    betPlacementTimeout = setTimeout(() => {
       commit('updateBet', {
         oddId: bet.oddId,
         payload: {
@@ -151,7 +151,7 @@ export const actions = {
       })
       .subscribe({
         next ({ data: { bet_updated: betUpdated } }) {
-          clearTimeout(timeout)
+          clearTimeout(betPlacementTimeout)
           commit('updateBet', {
             oddId: bet.oddId,
             payload: {
