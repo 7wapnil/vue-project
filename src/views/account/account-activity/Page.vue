@@ -5,7 +5,7 @@
     <activity-placeholder v-if="!hasBetHistory"/>
 
     <b-tabs
-      v-if="!!hasBetHistory"
+      v-if="hasBetHistory"
       nav-wrapper-class="border-top-tabs-orange-tabs"
       content-class="py-4">
       <b-tab
