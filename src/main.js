@@ -19,6 +19,8 @@ import Sticky from 'vue-sticky-directive'
 import { LiveChatPlugin } from '@/plugins/'
 import VueI18n from 'vue-i18n'
 import { messages } from '@/translations/'
+import AirbrakeClient from 'airbrake-js'
+import arcanebetSession from '@/services/local-storage/session'
 
 const isProduction = process.env.NODE_ENV === 'production'
 
@@ -61,6 +63,21 @@ const apolloProvider = new VueApollo({
     }
   }
 })
+
+let airbrake = new AirbrakeClient({
+  projectId: 1,
+  host: process.env.VUE_APP_AIRBRAKE_HOST,
+  projectKey: process.env.VUE_APP_AIRBRAKE_KEY,
+  environment: process.env.NODE_ENV
+})
+
+Vue.config.errorHandler = function (err, vm, info) {
+  airbrake.notify({
+    error: err,
+    params: { info: info },
+    session: arcanebetSession.getSession() || null
+  })
+}
 
 new Vue({
   router: Router,
