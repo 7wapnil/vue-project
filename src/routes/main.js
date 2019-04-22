@@ -48,6 +48,11 @@ export default [
     component: () => import('@/views/auth/Activation')
   },
   {
+    path: 'email_verification/:token',
+    name: 'email_verification',
+    component: () => import('@/views/auth/EmailVerification')
+  },
+  {
     path: 'impersonate/:token',
     beforeEnter: (to, from, next) => {
       const customerAttrs = JSON.parse(to.query.customer)
