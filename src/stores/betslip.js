@@ -151,8 +151,6 @@ export const actions = {
       })
       .subscribe({
         next ({ data: { bet_updated: betUpdated } }) {
-          console.log('done', timeout)
-
           clearTimeout(timeout)
           commit('updateBet', {
             oddId: bet.oddId,
@@ -180,8 +178,6 @@ export const actions = {
           Vue.$log.error(error)
         }
       })
-
-    console.log(timeout)
 
     Vue.$log.debug(`Subscribed bet ID ${bet.id}`)
   },
