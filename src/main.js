@@ -68,7 +68,7 @@ let airbrake = new AirbrakeClient({
   projectId: 1,
   host: process.env.VUE_APP_AIRBRAKE_HOST,
   projectKey: process.env.VUE_APP_AIRBRAKE_KEY,
-  environment: process.env.NODE_ENV
+  environment: 'production'
 })
 
 Vue.config.errorHandler = function (err, vm, info) {

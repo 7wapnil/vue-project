@@ -80,7 +80,7 @@ export const getters = {
     ) {
       enabled = true
     }
-    console.log(getters.getAnyFrozenBet)
+
     return enabled
   },
   betslipValuesConfirmed: (state) => {
@@ -124,7 +124,6 @@ export const getters = {
   },
   getAnyFrozenBet (state) {
     return state.bets.some((bet) => {
-      console.log(bet.status)
       return Bet.frozen(bet.status)
     })
   }
