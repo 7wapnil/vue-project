@@ -76,11 +76,11 @@ export const getters = {
       getters.getTotalStakes > 0 &&
       getters.getTotalStakes <= activeWallet.amount &&
       !getters.getAnyInactiveMarket &&
-      !getters.getAnySubmittedBet && !getters.getAnyEmptyStake
+      !getters.getAnySubmittedBet && !getters.getAnyEmptyStake && !getters.getAnyFrozenBet
     ) {
       enabled = true
     }
-
+    console.log(getters.getAnyFrozenBet)
     return enabled
   },
   betslipValuesConfirmed: (state) => {
@@ -120,6 +120,12 @@ export const getters = {
   getAnySubmittedBet (state) {
     return state.bets.some((bet) => {
       return bet.status === Bet.statuses.submitted
+    })
+  },
+  getAnyFrozenBet (state) {
+    return state.bets.some((bet) => {
+      console.log(bet.status)
+      return Bet.frozen(bet.status)
     })
   }
 }
@@ -164,14 +170,6 @@ export const actions = {
             setTimeout(() => {
               commit('removeBetFromBetslip', bet.oddId)
             }, BET_DESTROY_TIMEOUT)
-          } else if (betUpdated.status === 'failed' || betUpdated.status === 'rejected') {
-            commit('updateBet', {
-              oddId: bet.oddId,
-              payload: {
-                status: betUpdated.status,
-                message: betUpdated.message
-              }
-            })
           }
         },
         error (error) {
