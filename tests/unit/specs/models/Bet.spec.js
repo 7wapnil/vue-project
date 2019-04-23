@@ -40,7 +40,7 @@ describe('Bet', () => {
       expect(newBet.frozen).to.eql(true)
     })
 
-    it('returns true for accepted status', () => {
+    it('returns true for submitted status', () => {
       const newBet = new Bet({ status: 'submitted' })
       expect(newBet.frozen).to.eql(true)
     })
