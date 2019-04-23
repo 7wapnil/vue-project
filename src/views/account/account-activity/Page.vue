@@ -49,7 +49,7 @@
             slot-scope="data">
             <b-badge
               :variant="badgeStatus[data.item.status]"
-              class="badge-status text-uppercase font-size-11 text-arc-clr-soil-dark p-2">
+              class="border-4 text-uppercase font-size-11 text-arc-clr-soil-dark p-2">
               {{ data.item.status }}
             </b-badge>
           </template>
@@ -115,11 +115,11 @@ export default {
         kind: null
       }, {
         id: 1,
-        title: 'Esport',
+        title: this.$i18n.t('homePage.esport'),
         kind: 'esports'
       }, {
         id: 2,
-        title: 'Sport',
+        title: this.$i18n.t('homePage.sport'),
         kind: 'sports'
       }],
       timeFilterState: '',

@@ -32,7 +32,7 @@
         <router-link
           v-if="!tournamentId"
           :to="{name: 'tournament', params: {titleId: title.id, tournamentId: tournament.id}}"
-          class="pl-4 text-arc-clr-gold mb-2 d-block font-size-14 letter-spacing-1">
+          class="pl-4 text-arc-clr-gold mb-2 d-block font-size-14 letter-spacing-2">
           {{ tournament.name }}
         </router-link>
         <div>

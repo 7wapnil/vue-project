@@ -74,11 +74,11 @@ export default {
       mainMenu: [
         {
           path: '/esports',
-          label: 'Esport'
+          label: this.$i18n.t('homePage.esport')
         },
         {
           path: '/sports',
-          label: 'Sport'
+          label: this.$i18n.t('homePage.sport')
         }
       ],
       authTab: 0

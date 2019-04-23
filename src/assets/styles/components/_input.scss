@@ -117,6 +117,13 @@
 
 // Betslip accept all odds checkbox
 .accept-all-odds-checkbox {
+  input.custom-control-input:checked ~ .custom-control-label:after{
+      width: 24px;
+      height: 24px;
+      top: 3px;
+      cursor: pointer;
+      background-image: url(#{'~@/assets/images/inputs/checked.svg'});
+  }
   .custom-control-label {
     padding-top: 3px;
     user-select: none;
@@ -125,13 +132,6 @@
       height: 24px;
       width: 24px;
       background-color: $arc-clr-white !important;
-    }
-    &::after {
-      width: 24px;
-      height: 24px;
-      top: 3px;
-      cursor: pointer;
-      background-image: url(#{'~@/assets/images/inputs/checked.svg'});
     }
   }
 }

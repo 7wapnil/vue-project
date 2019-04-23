@@ -43,11 +43,6 @@ export default [
     ]
   },
   {
-    path: 'outright',
-    name: 'outright',
-    component: () => import('@/views/outrights/Page'),
-  },
-  {
     path: 'activation/:token',
     name: 'activation',
     component: () => import('@/views/auth/Activation')

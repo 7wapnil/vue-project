@@ -16,7 +16,7 @@
           <b-row no-gutters>
             <b-col class="mt-1 mb-4 text-truncate d-inline-flex align-items-center justify-content-center">
               <h6 class="mb-0 font-weight-bold text-arc-clr-iron-light">
-                {{ event.state.time ? event.state.time : 'not avaible' }}
+                {{ event.state.time }}
               </h6>
             </b-col>
           </b-row>
@@ -51,7 +51,7 @@
                   class="h-50 w-100">
                   <b-col class="d-inline-flex justify-content-center align-items-start">
                     <h6 class="m-0 font-weight-bold">
-                      + {{ marketsCount }}
+                      +{{ marketsCount }}
                     </h6>
                   </b-col>
                 </b-row>
@@ -67,6 +67,19 @@
                 </b-row>
               </b-row>
             </b-link>
+
+            <span
+              v-if="marketsCount === 0"
+              class="col pt-3 event-card-statistics-button">
+              <b-row
+                no-gutters
+                class="text-center h-100">
+                <b-col class="d-inline-flex justify-content-center align-items-start">
+                  <no-data-placeholder/>
+                </b-col>
+              </b-row>
+            </span>
+
           </b-row>
           <b-row
             no-gutters
@@ -215,7 +228,12 @@
 </template>
 
 <script>
+import NoDataPlaceholder from '@/components/cards/NoDataPlaceholder'
+
 export default {
+  components: {
+    NoDataPlaceholder
+  },
   props: {
     event: {
       type: Object,

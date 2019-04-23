@@ -30,6 +30,7 @@
           </span>
         </div>
         <b-collapse
+          :visible="item.path === currentPath"
           :id="`item-${index}`"
           accordion="information-sidebar"
           is-nav>
@@ -58,6 +59,11 @@ export default {
   data () {
     return {
       menuItems: InformationPages.routes
+    }
+  },
+  computed: {
+    currentPath () {
+      return this.$route.path.split('/')[1]
     }
   }
 }

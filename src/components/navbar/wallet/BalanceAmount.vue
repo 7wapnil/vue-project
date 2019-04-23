@@ -1,18 +1,13 @@
 <template>
-  <div>
-    <small v-if="wallet">
-      <b>
-        {{ wallet.amount | round }}
-        <span class="currency-code">
-          {{ wallet.currency.code }}
-        </span>
-      </b>
+  <div v-if="!wallet">
+    <small class="font-weight-bold">
+      {{ wallet.amount | round }}
+      <span class="currency-code">
+        {{ wallet.currency.code }}
+      </span>
     </small>
-
-    <small v-if="!wallet">
-      <b class="text-center">
-        No active wallets
-      </b>
+    <small class="font-weight-bold text-center">
+      No active wallets
     </small>
   </div>
 </template>
