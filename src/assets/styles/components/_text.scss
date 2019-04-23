@@ -3,17 +3,14 @@
 @import '../variables';
 
 .letter-spacing {
-  &-0 {
-    letter-spacing: .09px;
-  }
   &-1 {
-    letter-spacing: .1px;
+    letter-spacing: .01em;
   }
   &-2 {
-    letter-spacing: .21px;
+    letter-spacing: .02em;
   }
   &-5 {
-    letter-spacing: .58px;
+    letter-spacing: .05em;
   }
 }
 

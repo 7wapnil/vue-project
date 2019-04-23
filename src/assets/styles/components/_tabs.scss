@@ -87,7 +87,7 @@
 // Auth Tabs
 .authActiveTab {
   padding: 14px 29px !important;
-  letter-spacing: 0.2px !important;
+  letter-spacing: .02em !important;
   box-shadow: inset 0 2px 0 0 #47D469;
   line-height: 18px !important;
 }
@@ -145,7 +145,6 @@
 .event-panel,
 %event-panel {
   &-tabs {
-    border-bottom: 1px solid $arc-clr-soil-cover;
     margin: 0 24px;
     .nav-link.active {
       color: $arc-clr-white !important;
@@ -164,6 +163,8 @@
   &-titles {
     padding: 16px 20px 20px;
     background-color: $arc-dropdown-divider;
+    text-transform: capitalize;
+    letter-spacing: .02em;
   }
   &-content {
     padding: 24px !important;
@@ -194,5 +195,6 @@
   &-titles {
     padding: 16px 20px 20px;
     background-color: $arc-dropdown-divider;
+    text-transform: capitalize;
   }
 }

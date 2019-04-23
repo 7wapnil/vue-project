@@ -37,10 +37,10 @@
           <span
             v-for="(wallet, index) in inactiveWalletsList"
             :key="index">
-            <span class="font-weight-bold text-arc-clr-white font-size-12 letter-spacing-0">
+            <span class="font-weight-bold text-arc-clr-white font-size-12 letter-spacing-2">
               {{ wallet.amount | round }}
             </span>
-            <span class="font-weight-bold text-arc-clr-iron font-size-12 ml-1 letter-spacing-0">
+            <span class="font-weight-bold text-arc-clr-iron font-size-12 ml-1 letter-spacing-2">
               {{ wallet.currency.code }}
             </span>
           </span>
