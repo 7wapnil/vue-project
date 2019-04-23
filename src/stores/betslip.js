@@ -42,17 +42,11 @@ export const mutations = {
     state.bets = state.bets.filter(e => e.oddId !== oddId)
     setBetsToStorage(state.bets)
   },
-  resetBetslipStakes (state) {
-    state.bets.forEach(function (bet) {
-      bet.stake = 0
-    })
-    setBetsToStorage(state.bets)
-  },
   clearBetslip (state) {
     state.bets = []
     setBetsToStorage(state.bets)
   },
-  freezeBets (state) {
+  setBetStatusAsSubmitted (state) {
     state.bets = state.bets.map((bet) => {
       bet.status = Bet.statuses.submitted
       return bet
@@ -124,7 +118,11 @@ export const getters = {
   },
   getAnyFrozenBet (state) {
     return state.bets.some((bet) => {
-      return Bet.frozen(bet)
+      return [
+        Bet.statuses.submitted,
+        Bet.statuses.pending,
+        Bet.statuses.accepted
+      ].includes(bet.status)
     })
   }
 }

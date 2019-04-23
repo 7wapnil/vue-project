@@ -38,11 +38,11 @@ export default class Bet {
     })
   }
 
-  static frozen (bet) {
+  get frozen () {
     return [
       STATUSES.submitted,
       STATUSES.pending,
       STATUSES.accepted
-    ].includes(bet.status)
+    ].includes(this.status)
   }
 }
