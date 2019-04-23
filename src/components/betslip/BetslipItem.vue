@@ -263,7 +263,7 @@ export default {
     },
     betStake: {
       get () {
-        return this.bet.stake.toString()
+        return this.bet.stake ? this.bet.stake.toString() : null
       },
       set (value) {
         let stakeValue = value > 0 ? value : null
