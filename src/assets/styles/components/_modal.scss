@@ -9,7 +9,7 @@
     font-size: $h6-font-size;
   }
   .custom-select {
-    background: $arc-clr-white url(#{'~@/assets/icons/inputs/input-arrow-down.svg'}) no-repeat right 0.563rem center
+    background: $arc-clr-white;
   }
 
   @media (min-width: 992px) {
@@ -40,5 +40,9 @@
     max-width: 330px;
     letter-spacing: .02em;
     padding: 0;
+    &-inner {
+      position: sticky;
+      top: 0;
+    }
   }
 }

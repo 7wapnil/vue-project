@@ -8,8 +8,7 @@
       v-for="(category, index) in categories"
       :key="index"
       :title-link-class="titleClass"
-      :title="category.name"
-      @click="categoryChange(category)"/>
+      :title="category.name"/>
   </b-tabs>
 </template>
 <script>
@@ -47,18 +46,28 @@ export default {
   },
   data () {
     return {
-      tabIndex: this.activeIndex
+      currentTabIndex: 0
     }
   },
   computed: {
     categories () {
       return this.event.categories
+    },
+    tabIndex: {
+      get () {
+        return this.currentTabIndex
+      },
+      set (value) {
+        this.currentTabIndex = value
+        const category = this.categories[this.currentTabIndex]
+        if (category) {
+          this.$emit('change-category', category)
+        }
+      }
     }
   },
-  methods: {
-    categoryChange (category) {
-      this.$emit('change-category', category)
-    }
+  created () {
+    this.tabIndex = this.activeIndex
   }
 }
 </script>

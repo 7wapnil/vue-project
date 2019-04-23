@@ -28,7 +28,8 @@ const messages = {
       }
     },
     wallet: {
-      balance: 'Balance'
+      balance: 'Balance',
+      crypto: 'Crypto'
     },
     account: {
       tabs: {

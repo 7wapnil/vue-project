@@ -1,13 +1,12 @@
 <template>
   <b-row
     v-if="event"
-    style="margin-top: 85px;"
-    class="pt-4 pb-5 w-100"
+    class="py-5 w-100"
     no-gutters>
     <b-col class="text-center pt-4">
       <b-row no-gutters>
         <b-col class="font-weight-bold my-4 letter-spacing-2">
-          <!--{{ event.competitors[0].name }}-->
+          {{ event.competitors[0].name }}
         </b-col>
 
         <div class="w-100"/>
@@ -79,7 +78,7 @@
     <b-col class="text-center pt-4">
       <b-row no-gutters>
         <b-col class="font-weight-bold my-4 letter-spacing-2">
-          <!--{{ event.competitors[1].name }}-->
+          {{ event.competitors[1].name }}
         </b-col>
       </b-row>
       <b-row no-gutters>

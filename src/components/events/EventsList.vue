@@ -63,7 +63,7 @@
     <div
       v-if="!loading && !events.length"
       class="text-center">
-      <h6>No events found</h6>
+      <h6 class="mb-0">No events found</h6>
     </div>
   </b-card>
 </template>

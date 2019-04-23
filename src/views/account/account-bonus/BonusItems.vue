@@ -22,8 +22,7 @@
               {{ bonusItem.name }}
             </span><br>
             <span
-              style="line-height: 18px"
-              class="font-size-14 text-arc-clr-iron letter-spacing-2">
+              class="font-size-14 text-arc-clr-iron letter-spacing-2 line-height-18">
               {{ bonusItem.status }}
             </span>
           </b-col>
