@@ -1,12 +1,16 @@
 <template>
   <div>
     <introduction-area :title="{ name: event.title.name }"/>
-    <div class="position-absolute w-100 top-0">
+    <div
+      style="max-height: 368px"
+      class="position-absolute w-100 h-100 top-0">
       <header-breadcrumbs :event="event"/>
       <event-details
         :event="event"
         :showicons="showicons"/>
-      <slot/>
+      <div class="position-absolute w-100 bottom-0">
+        <slot/>
+      </div>
     </div>
   </div>
 </template>

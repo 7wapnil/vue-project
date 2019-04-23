@@ -4,21 +4,28 @@
       v-if="event"
       :event="event"
       :showicons="false">
-
       <markets-categories
         :event="event"
         :active-index="activeIndex"
+        lazy
         tabs-class="event-panel-tabs"
         title-class="event-panel-titles"
-        content-class="event-panel-content"
-        lazy
         @change-category="onTabChange"/>
     </header-section>
-
     <market-category
       v-if="category"
       :event="event"
-      :category="category"/>
+      :category="category">
+      <template slot-scope="{ markets }">
+        <div class="m-4">
+          <markets-list
+            v-if="event"
+            :event="event"
+            :markets="markets"
+            :item-component="itemComponent"/>
+        </div>
+      </template>
+    </market-category>
   </div>
 </template>
 
@@ -29,7 +36,7 @@ import MarketsCategories from '@/components/markets/MarketsCategories'
 import HeaderSection from './HeaderSection'
 import MarketsList from '@/components/markets/MarketsList'
 import EventDetailsCard from '@/components/cards/EventDetailsCard'
-import MarketCategory from '@/components/markets/MarketCategory';
+import MarketCategory from '@/components/markets/MarketCategory'
 
 export default {
   components: {
@@ -52,9 +59,6 @@ export default {
     eventId () {
       return this.$route.params.id
     }
-  },
-  created () {
-    this.activeIndex = 0
   },
   apollo: {
     event () {

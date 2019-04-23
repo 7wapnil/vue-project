@@ -23,7 +23,7 @@ export default {
   },
   computed: {
     background () {
-      return findBackgroundSource({ name: this.title ? this.title.name : '' })
+      return findBackgroundSource({ name: this.title ? this.title.name : null })
     }
   }
 }
