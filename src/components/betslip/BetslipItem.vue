@@ -85,7 +85,7 @@
           :mask="mask"
           type="text"
           name="stake"
-          class="betslip-input"
+          class="betslip-input form-control"
         />
       </b-col>
     </b-row>
