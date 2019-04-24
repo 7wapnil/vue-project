@@ -250,7 +250,8 @@ export default {
       return createNumberMask({
         prefix: '',
         allowDecimal: true,
-        allowLeadingZeroes: true
+        allowLeadingZeroes: true,
+        includeThousandsSeparator: false
       })
     },
     ...mapGetters('betslip', [
