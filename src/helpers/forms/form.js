@@ -34,4 +34,8 @@ export default class Form {
       this.errors.add(error.path[0], error.message)
     })
   }
+
+  getErrorsArray () {
+    return Object.values(this.errors.errors)
+  }
 }

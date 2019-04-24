@@ -17,12 +17,25 @@
       </b-col>
     </b-row>
     <b-row
+      v-if="responseErrors"
+      no-gutters>
+      <ul class="pb-5">
+        <li
+          v-for="(error, index) in responseErrors"
+          :key="index"
+          class="text-arc-clr-white">
+          {{ error }}
+        </li>
+      </ul>
+    </b-row>
+    <b-row
       class="mb-4"
       no-gutters>
       <b-col class="text-md-right text-sm-left align-self-center">
         <label
           for="amount"
-          class="text-arc-clr-iron font-size-14 letter-spacing-2 mb-0">
+          class="text-arc-clr-iron font-size-14 letter-spacing-2 mb-0"
+          min="0">
           {{ $t('generalTerms.amount') }}:
         </label>
       </b-col>
@@ -37,6 +50,7 @@
       <b-col/>
     </b-row>
     <component
+      ref="paymentDetails"
       v-model="form.paymentDetails"
       :is="currentComponent"/>
     <b-row no-gutters>
@@ -109,6 +123,7 @@ export default {
       successMessage: 'Your account-withdraw request has been successfully submitted.',
       errorMessage: 'Something went wrong, please make sure you entered correct details and try again.',
       responseMessage: null,
+      responseErrors: [],
       sending: false,
       components: {
         'credit_card': CreditCard,
@@ -181,14 +196,21 @@ export default {
         .then(() => {
           this.form.reset()
           this.responseMessage = this.successMessage
+          this.responseErrors = []
+          this.resetPaymentDetailsForm()
         })
         .catch((errors) => {
+          this.form.clearErrors()
           this.form.handleGraphQLErrors(errors)
-          this.responseMessage = this.form.errors.first
+          this.responseErrors = this.form.getErrorsArray()
+          this.responseMessage = null
         })
         .finally(() => {
           this.sending = false
         })
+    },
+    resetPaymentDetailsForm () {
+      this.$refs.paymentDetails.resetForm()
     }
   }
 }
