@@ -130,10 +130,10 @@
 
         <b-popover
           v-if="!betslipSubmittable"
+          :content="getTooltipContent"
           target="betslip-submit"
           placement="top"
-          triggers="hover"
-          content="Please accept odd changes to continue"/>
+          triggers="hover"/>
       </b-col>
     </b-row>
   </div>
@@ -164,11 +164,14 @@ export default {
     ...mapGetters('betslip', [
       'betslipSubmittable',
       'getBets',
-      'getBetsCount',
       'getTotalReturn',
       'getTotalStakes',
       'acceptAllChecked',
-      'getBetsMarketIds'
+      'betslipValuesConfirmed',
+      'getIsEnoughFundsToBet',
+      'getAnyInactiveMarket',
+      'getAnySubmittedBet',
+      'getAnyEmptyStake'
     ]),
     acceptAllOdds: {
       get () {
@@ -178,6 +181,21 @@ export default {
         if (value) { this.updateBets() }
         this.updateAcceptAll(value)
       }
+    },
+    getTooltipContent () {
+      let content
+      if (!this.betslipValuesConfirmed) {
+        content = this.$i18n.t('betslip.tooltipMessages.oddsNotConfirmed')
+      } else if (!this.getIsEnoughFundsToBet) {
+        content = this.$i18n.t('betslip.tooltipMessages.notEnoughMoney')
+      } else if (this.getAnyInactiveMarket) {
+        content = this.$i18n.t('betslip.tooltipMessages.inactiveMarkets')
+      } else if (this.getAnySubmittedBet) {
+        content = this.$i18n.t('betslip.tooltipMessages.betsBeingSubmitted')
+      } else if (this.getAnyEmptyStake) {
+        content = this.$i18n.t('betslip.tooltipMessages.invalidStakeAmount')
+      }
+      return content
     }
   },
   created () {

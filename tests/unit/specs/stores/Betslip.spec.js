@@ -50,20 +50,17 @@ describe('betslip store', () => {
   })
   describe('getters', () => {
     describe('betslipSubmittable', () => {
-      const rootGetters = {
-        'wallets/activeWallet': { amount: 2 }
-      }
-
       const validGettersState = {
         getTotalStakes: 2,
         anyInitialBet: true,
         betslipValuesConfirmed: true,
-        getAnyInactiveMarket: false
+        getAnyInactiveMarket: false,
+        getIsEnoughFundsToBet: true
       }
 
       it('is submittable when all rules valid', () => {
         const state = {}
-        expect(getters.betslipSubmittable(state, validGettersState, {}, rootGetters)).to.eql(true)
+        expect(getters.betslipSubmittable(state, validGettersState, {})).to.eql(true)
       })
 
       describe('fails', () => {
@@ -72,10 +69,10 @@ describe('betslip store', () => {
 
           const invalidGetters = {
             ...validGettersState,
-            getTotalStakes: 0
+            getIsEnoughFundsToBet: false
           }
 
-          expect(getters.betslipSubmittable(state, invalidGetters, {}, rootGetters)).to.eql(false)
+          expect(getters.betslipSubmittable(state, invalidGetters, {})).to.eql(false)
         })
 
         it('with unconfirmed odd values in betslip', () => {
@@ -86,40 +83,40 @@ describe('betslip store', () => {
             betslipValuesConfirmed: false
           }
 
-          expect(getters.betslipSubmittable(state, invalidGetters, {}, rootGetters)).to.eql(false)
+          expect(getters.betslipSubmittable(state, invalidGetters, {})).to.eql(false)
         })
 
         it('fails without enough balance in active wallet', () => {
           const state = {}
 
-          const invalidRootGetters = {
-            ...rootGetters,
-            'wallets/activeWallet': { amount: 1 }
+          const invalidGetters = {
+            ...validGettersState,
+            getIsEnoughFundsToBet: false
           }
 
-          expect(getters.betslipSubmittable(state, validGettersState, {}, invalidRootGetters)).to.eql(false)
+          expect(getters.betslipSubmittable(state, invalidGetters, {})).to.eql(false)
         })
 
         it('fails when at least one market status is inactive', () => {
           const state = {}
 
-          const invalidRootGetters = {
+          const invalidGetters = {
             ...validGettersState,
             getAnyInactiveMarket: true
           }
 
-          expect(getters.betslipSubmittable(state, validGettersState, {}, invalidRootGetters)).to.eql(false)
+          expect(getters.betslipSubmittable(state, invalidGetters, {})).to.eql(false)
         })
 
         it('fails when at least one bet is in status submitted', () => {
           const state = {}
 
-          const invalidRootGetters = {
+          const invalidGetters = {
             ...validGettersState,
             getAnySubmittedBet: true
           }
 
-          expect(getters.betslipSubmittable(state, validGettersState, {}, invalidRootGetters)).to.eql(false)
+          expect(getters.betslipSubmittable(state, invalidGetters, {})).to.eql(false)
         })
 
         it('does not fail without any initial bet in betslip', () => {
@@ -130,7 +127,7 @@ describe('betslip store', () => {
             anyInitialBet: false
           }
 
-          expect(getters.betslipSubmittable(state, invalidGetters, {}, rootGetters)).to.eql(true)
+          expect(getters.betslipSubmittable(state, invalidGetters, {})).to.eql(true)
         })
       })
     })
