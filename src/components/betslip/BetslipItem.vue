@@ -79,13 +79,14 @@
         </b-row>
       </b-col>
       <b-col class="d-flex align-items-center justify-content-end">
-        <b-form-input
-          v-mask="['#.##', '##.##', '###.##', '####.##', '#####.##', '######.##']"
-          v-model="betStake"
+        <masked-input
           :disabled="isDisabled"
-          class="betslip-input"
+          v-model="betStake"
+          :mask="mask"
           type="text"
-          name="stake"/>
+          name="stake"
+          class="betslip-input form-control"
+        />
       </b-col>
     </b-row>
     <b-row
@@ -174,10 +175,13 @@ import {
   HANDED_OVER_STATUS
 } from '@/models/market'
 import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
-import { mask } from 'vue-the-mask'
+import MaskedInput from 'vue-text-mask'
+import createNumberMask from 'text-mask-addons/dist/createNumberMask'
 
 export default {
-  directives: { mask },
+  components: {
+    MaskedInput
+  },
   props: {
     bet: {
       type: Bet,
@@ -242,6 +246,13 @@ export default {
     }
   },
   computed: {
+    mask () {
+      return createNumberMask({
+        prefix: '',
+        allowDecimal: true,
+        allowLeadingZeroes: true
+      })
+    },
     ...mapGetters('betslip', [
       'acceptAllChecked',
       'getBets'
@@ -252,7 +263,7 @@ export default {
     },
     betStake: {
       get () {
-        return this.bet.stake
+        return this.bet.stake ? this.bet.stake.toString() : null
       },
       set (value) {
         let stakeValue = value > 0 ? value : null
@@ -268,13 +279,6 @@ export default {
       }
 
       return false
-    },
-    betStatus () {
-      if (this.valuesUnconfirmed) {
-        return 'warning'
-      }
-
-      return this.bet.status
     },
     isSuccess () {
       return this.bet.status === Bet.statuses.accepted
