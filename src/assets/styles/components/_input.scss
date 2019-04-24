@@ -120,13 +120,17 @@
   input.custom-control-input:checked ~ .custom-control-label:after{
       width: 24px;
       height: 24px;
-      top: 3px;
-      cursor: pointer;
+      top: 4px;
       background-image: url(#{'~@/assets/images/inputs/checked.svg'});
   }
   .custom-control-label {
-    padding-top: 3px;
+    padding-top: 4px;
     user-select: none;
+    &::after {
+      height: 24px;
+      width: 24px;
+      cursor: pointer;
+    }
     &::before {
       border-radius: 0 6px 0 6px;
       height: 24px;
