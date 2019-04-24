@@ -69,9 +69,11 @@ export const getters = {
     let enabled = false
     if (getters.betslipValuesConfirmed &&
       getters.getIsEnoughFundsToBet &&
+      getters.getTotalStakes > 0 &&
       !getters.getAnyInactiveMarket &&
       !getters.getAnySubmittedBet &&
-      !getters.getAnyEmptyStake
+      !getters.getAnyEmptyStake &&
+      !getters.getAnyFrozenBet
     ) {
       enabled = true
     }
@@ -84,8 +86,7 @@ export const getters = {
       return false
     }
 
-    return getters.getTotalStakes > 0 &&
-      getters.getTotalStakes <= activeWallet.amount
+    return getters.getTotalStakes <= activeWallet.amount
   },
   betslipValuesConfirmed: (state) => {
     const betWithUnconfirmedValue = state.bets.find((bet) => {

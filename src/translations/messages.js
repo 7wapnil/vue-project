@@ -24,6 +24,7 @@ const messages = {
         'Click on any odds to add them\n' +
         'to betslip.',
       tooltipMessages: {
+        default: 'Please add smth to place bets',
         oddsNotConfirmed: 'Please confirm all odds changes',
         notEnoughMoney: 'Please check your available balance',
         inactiveMarkets: 'Please remove any inactive bets',

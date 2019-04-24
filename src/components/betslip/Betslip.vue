@@ -194,6 +194,8 @@ export default {
         content = this.$i18n.t('betslip.tooltipMessages.betsBeingSubmitted')
       } else if (this.getAnyEmptyStake) {
         content = this.$i18n.t('betslip.tooltipMessages.invalidStakeAmount')
+      } else {
+
       }
       return content
     }
