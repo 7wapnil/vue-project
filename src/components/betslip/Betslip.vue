@@ -190,14 +190,14 @@ export default {
       'placeBets'
     ]),
     ...mapMutations('betslip', [
-      'freezeBets',
+      'setBetStatusAsSubmitted',
       'updateBet',
       'removeBetFromBetslip',
       'clearBetslip',
       'updateAcceptAll'
     ]),
     submit () {
-      this.freezeBets()
+      this.setBetStatusAsSubmitted()
 
       const payload = this.getBets.map((bet) => {
         return {

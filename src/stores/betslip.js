@@ -42,17 +42,11 @@ export const mutations = {
     state.bets = state.bets.filter(e => e.oddId !== oddId)
     setBetsToStorage(state.bets)
   },
-  resetBetslipStakes (state) {
-    state.bets.forEach(function (bet) {
-      bet.stake = 0
-    })
-    setBetsToStorage(state.bets)
-  },
   clearBetslip (state) {
     state.bets = []
     setBetsToStorage(state.bets)
   },
-  freezeBets (state) {
+  setBetStatusAsSubmitted (state) {
     state.bets = state.bets.map((bet) => {
       bet.status = Bet.statuses.submitted
       return bet
@@ -76,7 +70,7 @@ export const getters = {
       getters.getTotalStakes > 0 &&
       getters.getTotalStakes <= activeWallet.amount &&
       !getters.getAnyInactiveMarket &&
-      !getters.getAnySubmittedBet && !getters.getAnyEmptyStake
+      !getters.getAnySubmittedBet && !getters.getAnyEmptyStake && !getters.getAnyFrozenBet
     ) {
       enabled = true
     }
@@ -121,6 +115,15 @@ export const getters = {
     return state.bets.some((bet) => {
       return bet.status === Bet.statuses.submitted
     })
+  },
+  getAnyFrozenBet (state) {
+    return state.bets.some((bet) => {
+      return [
+        Bet.statuses.submitted,
+        Bet.statuses.pending,
+        Bet.statuses.accepted
+      ].includes(bet.status)
+    })
   }
 }
 
@@ -164,14 +167,6 @@ export const actions = {
             setTimeout(() => {
               commit('removeBetFromBetslip', bet.oddId)
             }, BET_DESTROY_TIMEOUT)
-          } else if (betUpdated.status === 'failed' || betUpdated.status === 'rejected') {
-            commit('updateBet', {
-              oddId: bet.oddId,
-              payload: {
-                status: betUpdated.status,
-                message: betUpdated.message
-              }
-            })
           }
         },
         error (error) {
