@@ -23,6 +23,13 @@ const messages = {
       betslipEmpty: 'Your betslip is currently empty.\n' +
         'Click on any odds to add them\n' +
         'to betslip.',
+      tooltipMessages: {
+        oddsNotConfirmed: 'Please confirm all odds changes',
+        notEnoughMoney: 'Please check your available balance',
+        inactiveMarkets: 'Please remove any inactive bets',
+        betsBeingSubmitted: 'Bet placement in progress',
+        invalidStakeAmount: 'Please make sure your stake is correct'
+      },
       cta: {
         placeBet: 'Place Bet'
       }
