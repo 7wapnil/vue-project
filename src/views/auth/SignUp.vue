@@ -299,6 +299,7 @@ import SelectInput from '@/components/inputs/SelectInput.vue'
 import RadioButton from '@/components/inputs/RadioButton.vue'
 import ResponseErrorPanel from '@/components/custom/ResponseErrorPanel.vue'
 import { getCookie } from '@/helpers/cookies'
+
 export default {
   components: {
     'input-component': RegularInput,
@@ -390,9 +391,6 @@ export default {
       }
 
       return days
-    },
-    getBtag () {
-      return getCookie('btag') || null
     }
   },
   watch: {
@@ -485,7 +483,7 @@ export default {
     submit () {
       this.inputFeedback = {}
       this.feedback = ''
-      const input = { ...this.fieldsStepOne, ...this.fieldsStepTwo, ...{ b_tag: this.getBtag } }
+      const input = { ...this.fieldsStepOne, ...this.fieldsStepTwo, ...{ b_tag: getCookie('btag') || null } }
       this.submitting = true
       this.$store.dispatch('registerNewUser', input)
         .then(({ data: { signUp } }) => {
