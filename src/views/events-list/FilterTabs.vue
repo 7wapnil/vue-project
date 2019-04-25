@@ -21,11 +21,6 @@ export default {
         context: UPCOMING_FOR_TIME
       }]
     }
-  },
-  computed: {
-    tournamentId () {
-      return this.$route.params.tournamentId
-    }
   }
 }
 </script>
