@@ -110,6 +110,7 @@
     </b-container>
 
     <b-row
+      v-b-popover.hover.top="getTooltipContent"
       id="betslip-submit"
       ref="parent-button"
       no-gutters
@@ -127,13 +128,6 @@
         <spinner-button v-if="false">
           Placing bet
         </spinner-button>
-
-        <b-popover
-          v-if="!betslipSubmittable"
-          :content="getTooltipContent"
-          target="betslip-submit"
-          placement="top"
-          triggers="hover"/>
       </b-col>
     </b-row>
   </div>
@@ -164,6 +158,7 @@ export default {
     ...mapGetters('betslip', [
       'betslipSubmittable',
       'getBets',
+      'getBetsCount',
       'getTotalReturn',
       'getTotalStakes',
       'acceptAllChecked',
@@ -173,6 +168,7 @@ export default {
       'getAnySubmittedBet',
       'getAnyEmptyStake'
     ]),
+    ...mapGetters(['isLoggedIn']),
     acceptAllOdds: {
       get () {
         return this.acceptAllChecked
@@ -184,18 +180,26 @@ export default {
     },
     getTooltipContent () {
       let content
-      if (!this.betslipValuesConfirmed) {
-        content = this.$i18n.t('betslip.tooltipMessages.oddsNotConfirmed')
-      } else if (!this.getIsEnoughFundsToBet) {
-        content = this.$i18n.t('betslip.tooltipMessages.notEnoughMoney')
-      } else if (this.getAnyInactiveMarket) {
-        content = this.$i18n.t('betslip.tooltipMessages.inactiveMarkets')
-      } else if (this.getAnySubmittedBet) {
-        content = this.$i18n.t('betslip.tooltipMessages.betsBeingSubmitted')
-      } else if (this.getAnyEmptyStake) {
-        content = this.$i18n.t('betslip.tooltipMessages.invalidStakeAmount')
-      } else {
-
+      if (!this.betslipSubmittable) {
+        if (!this.getBets.length) {
+          this.isLoggedIn
+            ? content = this.$i18n.t('betslip.tooltipMessages.defaultLoggedIn')
+            : content = this.$i18n.t('betslip.tooltipMessages.default')
+        } else {
+          if (!this.betslipValuesConfirmed) {
+            content = this.$i18n.t('betslip.tooltipMessages.oddsNotConfirmed')
+          } else if (!this.getIsEnoughFundsToBet) {
+            content = this.$i18n.t('betslip.tooltipMessages.notEnoughMoney')
+          } else if (this.getAnyInactiveMarket) {
+            content = this.$i18n.t('betslip.tooltipMessages.inactiveMarkets')
+          } else if (this.getAnySubmittedBet) {
+            content = this.$i18n.t('betslip.tooltipMessages.betsBeingSubmitted')
+          } else if (this.getAnyEmptyStake) {
+            content = this.$i18n.t('betslip.tooltipMessages.invalidStakeAmount')
+          } else {
+            content = this.$i18n.t('betslip.tooltipMessages.default')
+          }
+        }
       }
       return content
     }
