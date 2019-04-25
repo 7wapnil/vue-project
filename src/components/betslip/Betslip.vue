@@ -158,7 +158,6 @@ export default {
     ...mapGetters('betslip', [
       'betslipSubmittable',
       'getBets',
-      'getBetsCount',
       'getTotalReturn',
       'getTotalStakes',
       'acceptAllChecked',
