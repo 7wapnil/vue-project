@@ -5,11 +5,7 @@ import Vue from 'vue'
 import Bet from '@/models/bet'
 import graphqlClient from '@/libs/apollo/'
 import { BETSLIP_PLACEMENT_QUERY, BET_UPDATED } from '@/graphql/index'
-import { INACTIVE_STATUS,
-  SUSPENDED_STATUS,
-  SETTLED_STATUS,
-  HANDED_OVER_STATUS,
-  CANCELLED_STATUS } from '@/models/market'
+import { ACTIVE_STATUS } from '@/models/market'
 
 const BET_DESTROY_TIMEOUT = 3000
 const BET_WAIT_TIMEOUT = 15000
@@ -113,12 +109,7 @@ export const getters = {
   },
   getAnyInactiveMarket (state) {
     return state.bets.some((bet) => {
-      return [INACTIVE_STATUS,
-        SETTLED_STATUS,
-        SUSPENDED_STATUS,
-        HANDED_OVER_STATUS,
-        CANCELLED_STATUS
-      ].includes(bet.marketStatus)
+      return bet.marketStatus !== ACTIVE_STATUS
     })
   },
   getAnyEmptyStake (state) {
