@@ -4,12 +4,13 @@
     :lazy="false"
     title="Welcome to ArcaneBet"
     title-tag="h4"
+    v-model="modalVisible"
     header-class="header">
     <b-card
       no-body
       bg-variant="arc-clr-soil-dark">
       <b-tabs
-        v-model="tabIndex"
+        v-model="auth"
         content-class="content">
         <b-tab
           :title-link-class="changeStyleTab(0)"
@@ -35,30 +36,35 @@
 <script>
 import Login from './Login'
 import SignUp from './SignUp'
+import { mapGetters, mapMutations } from 'vuex'
 
 export default {
   components: {
     SignUp,
     Login
   },
-  props: {
-    tab: {
-      type: Number,
-      default: 0,
-      required: false
-    },
-  },
-  data () {
-    return {
-      tabIndex: this.tab
+  created () {
+    if (this.$route.query.auth !== undefined) {
+      this.updateAuth(this.$route.query.auth)
     }
   },
-  watch: {
-    tab: function (newTab) {
-      this.tabIndex = newTab
+  computed: {
+    ...mapGetters([
+      'auth'
+    ]),
+    modalVisible: {
+      get () {
+        return this.auth !== null
+      },
+      set (value) {
+        if(!value) { this.updateAuth(null) }
+      }
     }
   },
   methods: {
+    ...mapMutations([
+      'updateAuth'
+    ]),
     changeStyleTab (index) {
       if (this.tabIndex === index) {
         return 'authActiveTab'
@@ -67,7 +73,7 @@ export default {
       }
     },
     changeTab (tab) {
-      this.tabIndex = tab
+      this.updateAuth(tab)
     }
   }
 }
