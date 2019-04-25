@@ -178,28 +178,30 @@ export default {
       }
     },
     getTooltipContent () {
-      let content
-      if (!this.betslipSubmittable) {
-        if (!this.getBets.length) {
-          this.isLoggedIn
-            ? content = this.$i18n.t('betslip.tooltipMessages.defaultLoggedIn')
-            : content = this.$i18n.t('betslip.tooltipMessages.default')
-        } else {
-          if (!this.betslipValuesConfirmed) {
-            content = this.$i18n.t('betslip.tooltipMessages.oddsNotConfirmed')
-          } else if (!this.getIsEnoughFundsToBet) {
-            content = this.$i18n.t('betslip.tooltipMessages.notEnoughMoney')
-          } else if (this.getAnyInactiveMarket) {
-            content = this.$i18n.t('betslip.tooltipMessages.inactiveMarkets')
-          } else if (this.getAnySubmittedBet) {
-            content = this.$i18n.t('betslip.tooltipMessages.betsBeingSubmitted')
-          } else if (this.getAnyEmptyStake) {
-            content = this.$i18n.t('betslip.tooltipMessages.invalidStakeAmount')
-          } else {
-            content = this.$i18n.t('betslip.tooltipMessages.default')
-          }
-        }
+      if (this.betslipSubmittable) return
+
+      if (!this.getBets.length) {
+        const langKey = this.isLoggedIn ? 'defaultLoggedIn' : 'default'
+        return this.$i18n.t(`betslip.tooltipMessages.${langKey}`)
       }
+
+      let content = this.$i18n.t('betslip.tooltipMessages.default')
+
+      const conditions = {
+        oddsNotConfirmed: !this.betslipValuesConfirmed,
+        notEnoughMoney: !this.getIsEnoughFundsToBet,
+        inactiveMarkets: this.getAnyInactiveMarket,
+        betsBeingSubmitted: this.getAnySubmittedBet,
+        invalidStakeAmount: this.getAnyEmptyStake
+      }
+
+      Object.keys(conditions).forEach((translationKey) => {
+        const condition = conditions[translationKey]
+        if (condition === true) {
+          content = this.$i18n.t(`betslip.tooltipMessages.${translationKey}`)
+        }
+      })
+
       return content
     }
   },
