@@ -59,7 +59,7 @@ export default {
     }
   },
   methods: {
-    tabChanged(tab) {
+    tabChanged (tab) {
       this.selectedFilter = tab
     }
   }
