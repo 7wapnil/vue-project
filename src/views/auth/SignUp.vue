@@ -486,7 +486,7 @@ export default {
     submit () {
       this.inputFeedback = {}
       this.feedback = ''
-      const input = { ...this.fieldsStepOne, ...this.fieldsStepTwo, ...{ b_tag: this.btag } }
+      const input = { ...this.fieldsStepOne, ...this.fieldsStepTwo, b_tag: this.btag }
       this.submitting = true
       this.$store.dispatch('registerNewUser', input)
         .then(({ data: { signUp } }) => {
