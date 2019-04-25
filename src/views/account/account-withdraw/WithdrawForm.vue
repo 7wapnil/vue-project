@@ -17,14 +17,14 @@
       </b-col>
     </b-row>
     <b-row
-      v-if="responseErrors"
+      v-if="form.errors.any()"
       no-gutters>
       <ul class="pb-5">
         <li
-          v-for="(error, index) in responseErrors"
-          :key="index"
+          v-for="(errorText, errorName) in form.getErrors()"
+          :key="errorName"
           class="text-arc-clr-white">
-          {{ error }}
+          {{ errorText }}
         </li>
       </ul>
     </b-row>
@@ -123,7 +123,6 @@ export default {
       successMessage: 'Your account-withdraw request has been successfully submitted.',
       errorMessage: 'Something went wrong, please make sure you entered correct details and try again.',
       responseMessage: null,
-      responseErrors: [],
       sending: false,
       components: {
         'credit_card': CreditCard,
@@ -184,6 +183,7 @@ export default {
         return { code, value: input.paymentDetails[code] }
       })
 
+      this.form.clearErrors()
       this.sending = true
       this
         .$apollo
@@ -196,13 +196,10 @@ export default {
         .then(() => {
           this.form.reset()
           this.responseMessage = this.successMessage
-          this.responseErrors = []
           this.resetPaymentDetailsForm()
         })
         .catch((errors) => {
-          this.form.clearErrors()
           this.form.handleGraphQLErrors(errors)
-          this.responseErrors = this.form.getErrorsArray()
           this.responseMessage = null
         })
         .finally(() => {

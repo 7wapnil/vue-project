@@ -35,7 +35,7 @@ export default class Form {
     })
   }
 
-  getErrorsArray () {
-    return Object.values(this.errors.errors)
+  getErrors () {
+    return this.errors.all()
   }
 }
