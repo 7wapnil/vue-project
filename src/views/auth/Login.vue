@@ -48,7 +48,7 @@
         </div>
       </b-col>
     </b-row>
-    <response-panel :response-text="feedback"/>
+    <response-error-panel :response-text="feedback"/>
     <b-row no-gutters>
       <b-col
         cols="6"
@@ -60,13 +60,6 @@
           type="submit">
           Sign in
         </b-button>
-      </b-col>
-    </b-row>
-    <b-row no-gutters>
-      <b-col align="center">
-        <b-link @click="$emit('tab-changed', 1)">
-          Have no account yet? Sign up here
-        </b-link>
       </b-col>
     </b-row>
   </form>
@@ -82,16 +75,10 @@ import wallets from '@/mixins/wallets'
 export default {
   components: {
     VueRecaptcha,
-    'input-component': InputComponent,
-    'response-panel': ResponseErrorPanel
+    InputComponent,
+    ResponseErrorPanel
   },
   mixins: [wallets],
-  props: {
-    modalName: {
-      type: String,
-      required: true
-    }
-  },
   data () {
     return {
       inputFeedback: {},
@@ -162,7 +149,7 @@ export default {
       this.submitting = false
     },
     close () {
-      this.$root.$emit('bv::hide::modal', this.modalName)
+      this.$root.$emit('bv::hide::modal', 'AuthModal')
     },
     ...mapActions([
       'authenticate',

@@ -2,34 +2,38 @@
   <modal
     id="AuthModal"
     :lazy="false"
-    title="Welcome to ArcaneBet"
-    title-tag="h4"
     v-model="modalVisible"
-    header-class="header">
-    <b-card
-      no-body
-      bg-variant="arc-clr-soil-dark">
-      <b-tabs
-        v-model="auth"
-        content-class="content">
-        <b-tab
-          :title-link-class="changeStyleTab(0)"
-          title-item-class="w-50 text-center"
-          title="Sign in">
-          <login
-            modal-name="AuthModal"
-            @tab-changed="changeTab"/>
-        </b-tab>
-        <b-tab
-          :title-link-class="changeStyleTab(1)"
-          title-item-class="w-50 text-center"
-          title="Sign up">
-          <sign-up
-            modal-name="AuthModal"
-            @tab-changed="changeTab"/>
-        </b-tab>
-      </b-tabs>
-    </b-card>
+    header-class="auth-modal-header"
+    body-class="auth-modal-body">
+    <template #modal-header="{ close }">
+      <img
+        src="~@/assets/images/logo/arcanebet-logo.svg"
+        height="20"
+        alt="arcanebet-logo">
+      <span @click="close">
+        <icon
+          name="modal-close"
+          size="24px"
+          color="arc-clr-iron-light"/>
+      </span>
+    </template>
+    <b-tabs
+      :value="auth"
+      active-tab-class="auth-tabs-active"
+      content-class="auth-modal-content">
+      <b-tab
+        title-link-class="auth-tabs"
+        title-item-class="w-50 text-center"
+        title="Sign in">
+        <login/>
+      </b-tab>
+      <b-tab
+        title-link-class="auth-tabs"
+        title-item-class="w-50 text-center"
+        title="Sign up">
+        <sign-up/>
+      </b-tab>
+    </b-tabs>
   </modal>
 </template>
 
@@ -43,11 +47,6 @@ export default {
     SignUp,
     Login
   },
-  created () {
-    if (this.$route.query.auth !== undefined) {
-      this.updateAuth(this.$route.query.auth)
-    }
-  },
   computed: {
     ...mapGetters([
       'auth'
@@ -57,24 +56,21 @@ export default {
         return this.auth !== null
       },
       set (value) {
-        if(!value) { this.updateAuth(null) }
+        if (!value) {
+          this.updateAuth(null)
+        }
       }
+    }
+  },
+  created () {
+    if (this.$route.query.auth !== undefined) {
+      this.updateAuth(this.$route.query.auth)
     }
   },
   methods: {
     ...mapMutations([
       'updateAuth'
-    ]),
-    changeStyleTab (index) {
-      if (this.tabIndex === index) {
-        return 'authActiveTab'
-      } else {
-        return 'authTab'
-      }
-    },
-    changeTab (tab) {
-      this.updateAuth(tab)
-    }
+    ])
   }
 }
 </script>

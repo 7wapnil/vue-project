@@ -276,16 +276,6 @@
         </div>
       </b-col>
     </b-row>
-
-    <b-row no-gutters>
-      <b-col
-        align="center"
-        class="mt-4">
-        <b-link @click="$emit('tab-changed', 0)">
-          Have account already? Sign in here
-        </b-link>
-      </b-col>
-    </b-row>
   </form>
 
 </template>
@@ -307,13 +297,6 @@ export default {
     'response-panel': ResponseErrorPanel
   },
   directives: { mask },
-
-  props: {
-    modalName: {
-      type: String,
-      required: true
-    }
-  },
   data () {
     return {
       agree: false,

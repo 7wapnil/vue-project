@@ -30,16 +30,16 @@
           style="max-width: 268px"
           class="ml-auto">
           <b-button
-            @click="showAuthModal(0)"
             variant="arc-secondary"
-            class="m-2">
+            class="m-2"
+            @click="showAuthModal(0)">
             Login
           </b-button>
 
           <b-button
-                  @click="showAuthModal(1)"
             variant="arc-primary"
-            class="m-2 mr-4">
+            class="m-2 mr-4"
+            @click="showAuthModal(1)">
             Sign Up
           </b-button>
         </b-navbar-nav>
