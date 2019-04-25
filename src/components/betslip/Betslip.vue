@@ -110,6 +110,7 @@
     </b-container>
 
     <b-row
+      v-b-popover.hover.top="getTooltipContent"
       id="betslip-submit"
       ref="parent-button"
       no-gutters
@@ -127,13 +128,6 @@
         <spinner-button v-if="false">
           Placing bet
         </spinner-button>
-
-        <b-popover
-          v-if="!betslipSubmittable"
-          :content="getTooltipContent"
-          target="betslip-submit"
-          placement="top"
-          triggers="hover"/>
       </b-col>
     </b-row>
   </div>
@@ -173,6 +167,7 @@ export default {
       'getAnySubmittedBet',
       'getAnyEmptyStake'
     ]),
+    ...mapGetters(['isLoggedIn']),
     acceptAllOdds: {
       get () {
         return this.acceptAllChecked
@@ -183,18 +178,30 @@ export default {
       }
     },
     getTooltipContent () {
-      let content
-      if (!this.betslipValuesConfirmed) {
-        content = this.$i18n.t('betslip.tooltipMessages.oddsNotConfirmed')
-      } else if (!this.getIsEnoughFundsToBet) {
-        content = this.$i18n.t('betslip.tooltipMessages.notEnoughMoney')
-      } else if (this.getAnyInactiveMarket) {
-        content = this.$i18n.t('betslip.tooltipMessages.inactiveMarkets')
-      } else if (this.getAnySubmittedBet) {
-        content = this.$i18n.t('betslip.tooltipMessages.betsBeingSubmitted')
-      } else if (this.getAnyEmptyStake) {
-        content = this.$i18n.t('betslip.tooltipMessages.invalidStakeAmount')
+      if (this.betslipSubmittable) return
+
+      if (!this.getBets.length) {
+        const langKey = this.isLoggedIn ? 'defaultLoggedIn' : 'default'
+        return this.$i18n.t(`betslip.tooltipMessages.${langKey}`)
       }
+
+      let content = this.$i18n.t('betslip.tooltipMessages.default')
+
+      const conditions = {
+        oddsNotConfirmed: !this.betslipValuesConfirmed,
+        notEnoughMoney: !this.getIsEnoughFundsToBet,
+        inactiveMarkets: this.getAnyInactiveMarket,
+        betsBeingSubmitted: this.getAnySubmittedBet,
+        invalidStakeAmount: this.getAnyEmptyStake
+      }
+
+      Object.keys(conditions).forEach((translationKey) => {
+        const condition = conditions[translationKey]
+        if (condition === true) {
+          content = this.$i18n.t(`betslip.tooltipMessages.${translationKey}`)
+        }
+      })
+
       return content
     }
   },

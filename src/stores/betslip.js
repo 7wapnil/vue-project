@@ -5,6 +5,7 @@ import Vue from 'vue'
 import Bet from '@/models/bet'
 import graphqlClient from '@/libs/apollo/'
 import { BETSLIP_PLACEMENT_QUERY, BET_UPDATED } from '@/graphql/index'
+import { ACTIVE_STATUS } from '@/models/market'
 
 const BET_DESTROY_TIMEOUT = 3000
 const BET_WAIT_TIMEOUT = 15000
@@ -63,6 +64,7 @@ export const getters = {
     let enabled = false
     if (getters.betslipValuesConfirmed &&
       getters.getIsEnoughFundsToBet &&
+      getters.getTotalStakes > 0 &&
       !getters.getAnyInactiveMarket &&
       !getters.getAnySubmittedBet && !getters.getAnyEmptyStake && !getters.getAnyFrozenBet
     ) {
@@ -77,8 +79,7 @@ export const getters = {
       return false
     }
 
-    return getters.getTotalStakes > 0 &&
-      getters.getTotalStakes <= activeWallet.amount
+    return getters.getTotalStakes <= activeWallet.amount
   },
   betslipValuesConfirmed: (state) => {
     const betWithUnconfirmedValue = state.bets.find((bet) => {
@@ -107,7 +108,9 @@ export const getters = {
     return state.bets.map(el => (el.stake > 0 ? el.stake : 0) * el.approvedOddValue).reduce((a, b) => +a + +b, 0)
   },
   getAnyInactiveMarket (state) {
-    return !!state.bets.find(bet => bet.marketStatus !== 'active')
+    return state.bets.some((bet) => {
+      return bet.marketStatus !== ACTIVE_STATUS
+    })
   },
   getAnyEmptyStake (state) {
     return state.bets.some((bet) => {
