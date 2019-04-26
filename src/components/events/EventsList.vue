@@ -83,6 +83,7 @@ import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
 import { CONTEXT_TO_START_STATUS_MAP } from '@/constants/graphql/event-start-statuses'
 import { INACTIVE, SUSPENDED, MARKET_STOP_STATUSES } from '@/constants/graphql/event-market-statuses'
 import { findTitleIcon } from '@/helpers/icon-finder'
+import { build } from './sorting'
 
 export default {
   props: {
@@ -142,7 +143,6 @@ export default {
                     .forEach(function (odd) { odd.status = INACTIVE })
                 }
               }
-
               return { events: events }
             }
           }
@@ -166,7 +166,8 @@ export default {
           titleId: this.titleId,
           tournamentId: this.tournamentId,
           categoryId: this.categoryId,
-          context: this.context
+          context: this.context,
+          withScopes: true
         }
       }
     },
@@ -195,14 +196,14 @@ export default {
     },
     groupedEvents () {
       const groupedEvents = [];
-
+      build(this.events)
       this.events.forEach(event => {
         const currentTitleIndex = groupedEvents.findIndex(title => title.name === event.title.name);
 
         if (currentTitleIndex > -1) {
           const currentTournamentIndex = groupedEvents[currentTitleIndex]
             .tournaments
-            .findIndex(tournament => tournament.id === event.tournament.id);
+            .findIndex(tournament => tournament.id === event.tournament.id)
 
           if (currentTournamentIndex > -1) {
             groupedEvents[currentTitleIndex]
