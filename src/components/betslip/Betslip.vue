@@ -189,8 +189,7 @@ export default {
         notEnoughMoney: !this.getIsEnoughFundsToBet,
         inactiveMarkets: this.getAnyInactiveMarket,
         betsBeingSubmitted: this.getAnySubmittedBet,
-        invalidStakeAmount: this.getAnyEmptyStake,
-        defaultLoggedIn: !this.getBets.length
+        invalidStakeAmount: this.getAnyEmptyStake
       }
 
       Object.keys(conditions).forEach((translationKey) => {
