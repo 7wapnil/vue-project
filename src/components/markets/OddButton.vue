@@ -66,7 +66,7 @@ export default {
         return this.isBetExists()
       },
       set () {
-        if (this.isBetExists()) {
+        if (this.isBetExists() && !this.getAnyFrozenBet) {
           return this.removeBetFromBetslip(this.odd.id)
         }
         this.pushBetToBetslip()

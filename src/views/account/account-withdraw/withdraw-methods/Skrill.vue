@@ -24,7 +24,10 @@
 </template>
 
 <script>
+import formReset from '@/mixins/formReset'
+
 export default {
+  mixins: [formReset],
   data () {
     return {
       fields: {
