@@ -21,6 +21,9 @@ export default {
         context: UPCOMING_FOR_TIME
       }]
     }
+  },
+  mounted () {
+    this.$emit('tab-changed', this.tabs[0])
   }
 }
 </script>
