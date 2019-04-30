@@ -17,7 +17,7 @@ import ContentfulPlugin from '@/libs/contentful/contentful-client'
 import AirbrakePlugin from '@/libs/airbrake/airbrake-client'
 import Vuebar from 'vuebar'
 import Sticky from 'vue-sticky-directive'
-import { LiveChatPlugin } from '@/plugins/'
+import { LiveChatPlugin, GTMPlugin } from '@/plugins/'
 import VueI18n from 'vue-i18n'
 import { messages } from '@/translations/'
 
@@ -49,6 +49,10 @@ Vue.use(VueI18n)
 
 Vue.use(LiveChatPlugin, {
   license: process.env.VUE_APP_LIVECHAT_LICENSE
+})
+
+Vue.use(GTMPlugin, {
+  id: process.env.VUE_APP_GTM_ID
 })
 
 const i18n = new VueI18n({
