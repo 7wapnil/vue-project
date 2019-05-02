@@ -58,10 +58,6 @@ export default {
     [CLEAR_WALLETS] (state) {
       state.activeWalletId = null
       state.wallets = []
-    },
-    clearWalletsStorage (state) {
-      state.activeWalletId = null
-      state.wallets = []
     }
   },
   getters: {
