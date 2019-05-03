@@ -32,4 +32,8 @@ export default class Form {
   handleGraphQLErrors (errors) {
     this.errors.parseGraphQLErrors(errors)
   }
+
+  getErrors () {
+    return this.errors.all()
+  }
 }

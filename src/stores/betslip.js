@@ -5,10 +5,9 @@ import Vue from 'vue'
 import Bet from '@/models/bet'
 import graphqlClient from '@/libs/apollo/'
 import { BETSLIP_PLACEMENT_QUERY, BET_UPDATED } from '@/graphql/index'
+import { ACTIVE_STATUS } from '@/models/market'
 
 const BET_DESTROY_TIMEOUT = 3000
-const BET_WAIT_TIMEOUT = 15000
-const BET_FAIL_MESSAGE = 'Bet placement unsuccessful'
 
 const getBetsFromStorage = () => {
   const json = localStorage.getItem('bets')
@@ -42,17 +41,11 @@ export const mutations = {
     state.bets = state.bets.filter(e => e.oddId !== oddId)
     setBetsToStorage(state.bets)
   },
-  resetBetslipStakes (state) {
-    state.bets.forEach(function (bet) {
-      bet.stake = 0
-    })
-    setBetsToStorage(state.bets)
-  },
   clearBetslip (state) {
     state.bets = []
     setBetsToStorage(state.bets)
   },
-  freezeBets (state) {
+  setBetStatusAsSubmitted (state) {
     state.bets = state.bets.map((bet) => {
       bet.status = Bet.statuses.submitted
       return bet
@@ -65,23 +58,26 @@ export const mutations = {
 }
 
 export const getters = {
-  betslipSubmittable: (state, getters, rootState, rootGetters) => {
-    const activeWallet = rootGetters['wallets/activeWallet']
-    if (activeWallet === undefined) {
-      return false
-    }
-
+  betslipSubmittable: (state, getters) => {
     let enabled = false
     if (getters.betslipValuesConfirmed &&
+      getters.getIsEnoughFundsToBet &&
       getters.getTotalStakes > 0 &&
-      getters.getTotalStakes <= activeWallet.amount &&
       !getters.getAnyInactiveMarket &&
-      !getters.getAnySubmittedBet && !getters.getAnyEmptyStake
+      !getters.getAnySubmittedBet && !getters.getAnyEmptyStake && !getters.getAnyFrozenBet
     ) {
       enabled = true
     }
 
     return enabled
+  },
+  getIsEnoughFundsToBet: (state, getters, rootState, rootGetters) => {
+    const activeWallet = rootGetters['wallets/activeWallet']
+    if (activeWallet === undefined) {
+      return false
+    }
+
+    return getters.getTotalStakes <= activeWallet.amount
   },
   betslipValuesConfirmed: (state) => {
     const betWithUnconfirmedValue = state.bets.find((bet) => {
@@ -110,7 +106,9 @@ export const getters = {
     return state.bets.map(el => (el.stake > 0 ? el.stake : 0) * el.approvedOddValue).reduce((a, b) => +a + +b, 0)
   },
   getAnyInactiveMarket (state) {
-    return !!state.bets.find(bet => bet.marketStatus !== 'active')
+    return state.bets.some((bet) => {
+      return bet.marketStatus !== ACTIVE_STATUS
+    })
   },
   getAnyEmptyStake (state) {
     return state.bets.some((bet) => {
@@ -120,6 +118,15 @@ export const getters = {
   getAnySubmittedBet (state) {
     return state.bets.some((bet) => {
       return bet.status === Bet.statuses.submitted
+    })
+  },
+  getAnyFrozenBet (state) {
+    return state.bets.some((bet) => {
+      return [
+        Bet.statuses.submitted,
+        Bet.statuses.pending,
+        Bet.statuses.accepted
+      ].includes(bet.status)
     })
   }
 }
@@ -132,18 +139,6 @@ export const actions = {
       .forEach(bet => dispatch('subscribeBet', bet))
   },
   subscribeBet ({ state, commit, getters }, bet) {
-    let betPlacementTimeout
-
-    betPlacementTimeout = setTimeout(() => {
-      commit('updateBet', {
-        oddId: bet.oddId,
-        payload: {
-          status: Bet.statuses.failed,
-          message: BET_FAIL_MESSAGE
-        }
-      })
-    }, BET_WAIT_TIMEOUT)
-
     state.subscriptions[bet.id] = graphqlClient
       .subscribe({
         query: BET_UPDATED,
@@ -151,7 +146,6 @@ export const actions = {
       })
       .subscribe({
         next ({ data: { bet_updated: betUpdated } }) {
-          clearTimeout(betPlacementTimeout)
           commit('updateBet', {
             oddId: bet.oddId,
             payload: {
@@ -164,14 +158,6 @@ export const actions = {
             setTimeout(() => {
               commit('removeBetFromBetslip', bet.oddId)
             }, BET_DESTROY_TIMEOUT)
-          } else if (betUpdated.status === 'failed' || betUpdated.status === 'rejected') {
-            commit('updateBet', {
-              oddId: bet.oddId,
-              payload: {
-                status: betUpdated.status,
-                message: betUpdated.message
-              }
-            })
           }
         },
         error (error) {

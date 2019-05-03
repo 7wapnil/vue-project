@@ -11,6 +11,7 @@ import { LIVE, UPCOMING } from '@/constants/graphql/event-start-statuses'
 export default {
   data () {
     return {
+      defaultTabIndex: 1,
       tabs: [{
         value: LIVE,
         label: this.$i18n.t('homePage.live'),
@@ -22,10 +23,8 @@ export default {
       }]
     }
   },
-  computed: {
-    tournamentId () {
-      return this.$route.params.tournamentId
-    }
+  mounted () {
+    this.$emit('tab-changed', this.tabs[this.defaultTabIndex])
   }
 }
 </script>

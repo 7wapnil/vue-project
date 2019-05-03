@@ -110,6 +110,7 @@
     </b-container>
 
     <b-row
+      v-b-popover.hover.top="getTooltipContent"
       id="betslip-submit"
       ref="parent-button"
       no-gutters
@@ -127,13 +128,6 @@
         <spinner-button v-if="false">
           Placing bet
         </spinner-button>
-
-        <b-popover
-          v-if="!betslipSubmittable"
-          target="betslip-submit"
-          placement="top"
-          triggers="hover"
-          content="Please accept odd changes to continue"/>
       </b-col>
     </b-row>
   </div>
@@ -164,12 +158,16 @@ export default {
     ...mapGetters('betslip', [
       'betslipSubmittable',
       'getBets',
-      'getBetsCount',
       'getTotalReturn',
       'getTotalStakes',
       'acceptAllChecked',
-      'getBetsMarketIds'
+      'betslipValuesConfirmed',
+      'getIsEnoughFundsToBet',
+      'getAnyInactiveMarket',
+      'getAnySubmittedBet',
+      'getAnyEmptyStake'
     ]),
+    ...mapGetters(['isLoggedIn']),
     acceptAllOdds: {
       get () {
         return this.acceptAllChecked
@@ -178,6 +176,30 @@ export default {
         if (value) { this.updateBets() }
         this.updateAcceptAll(value)
       }
+    },
+    getTooltipContent () {
+      if (this.betslipSubmittable) return
+
+      if (!this.isLoggedIn) return this.$i18n.t('betslip.tooltipMessages.default')
+
+      let content = this.$i18n.t('betslip.tooltipMessages.defaultLoggedIn')
+
+      const conditions = {
+        oddsNotConfirmed: !this.betslipValuesConfirmed,
+        notEnoughMoney: !this.getIsEnoughFundsToBet,
+        inactiveMarkets: this.getAnyInactiveMarket,
+        betsBeingSubmitted: this.getAnySubmittedBet,
+        invalidStakeAmount: this.getAnyEmptyStake
+      }
+
+      Object.keys(conditions).forEach((translationKey) => {
+        const condition = conditions[translationKey]
+        if (condition === true) {
+          content = this.$i18n.t(`betslip.tooltipMessages.${translationKey}`)
+        }
+      })
+
+      return content
     }
   },
   created () {
@@ -190,14 +212,14 @@ export default {
       'placeBets'
     ]),
     ...mapMutations('betslip', [
-      'freezeBets',
+      'setBetStatusAsSubmitted',
       'updateBet',
       'removeBetFromBetslip',
       'clearBetslip',
       'updateAcceptAll'
     ]),
     submit () {
-      this.freezeBets()
+      this.setBetStatusAsSubmitted()
 
       const payload = this.getBets.map((bet) => {
         return {

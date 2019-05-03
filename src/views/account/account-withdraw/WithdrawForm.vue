@@ -17,12 +17,25 @@
       </b-col>
     </b-row>
     <b-row
+      v-if="form.errors.any()"
+      no-gutters>
+      <ul class="pb-5">
+        <li
+          v-for="(errorText, errorName) in form.getErrors()"
+          :key="errorName"
+          class="text-arc-clr-white">
+          {{ errorText }}
+        </li>
+      </ul>
+    </b-row>
+    <b-row
       class="mb-4"
       no-gutters>
       <b-col class="text-md-right text-sm-left align-self-center">
         <label
           for="amount"
-          class="text-arc-clr-iron font-size-14 letter-spacing-2 mb-0">
+          class="text-arc-clr-iron font-size-14 letter-spacing-2 mb-0"
+          min="0">
           {{ $t('generalTerms.amount') }}:
         </label>
       </b-col>
@@ -37,6 +50,7 @@
       <b-col/>
     </b-row>
     <component
+      ref="paymentDetails"
       v-model="form.paymentDetails"
       :is="currentComponent"/>
     <b-row no-gutters>
@@ -169,6 +183,7 @@ export default {
         return { code, value: input.paymentDetails[code] }
       })
 
+      this.form.clearErrors()
       this.sending = true
       this
         .$apollo
@@ -181,14 +196,18 @@ export default {
         .then(() => {
           this.form.reset()
           this.responseMessage = this.successMessage
+          this.resetPaymentDetailsForm()
         })
         .catch((errors) => {
           this.form.handleGraphQLErrors(errors)
-          this.responseMessage = this.form.errors.first
+          this.responseMessage = null
         })
         .finally(() => {
           this.sending = false
         })
+    },
+    resetPaymentDetailsForm () {
+      this.$refs.paymentDetails.resetForm()
     }
   }
 }
