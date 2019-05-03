@@ -91,7 +91,7 @@ export default {
   },
   methods: {
     isCaptchaEmpty () {
-      return this.isSuspicious && this.fields.captcha === null
+      return this.isSuspicious && this.fields.captcha === ''
     },
     onCaptchaVerified (token) {
       this.fields.captcha = token
