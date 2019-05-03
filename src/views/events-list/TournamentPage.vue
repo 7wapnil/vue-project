@@ -3,6 +3,7 @@
     class="pt-2"
     no-gutters>
     <b-col>
+      <scope-breadcrumbs />
       <div
         v-for="(tab, index) in tabsMapping"
         :key="index">
@@ -33,11 +34,13 @@ import EventsList from '@/components/events/EventsList'
 import { UPCOMING_UNLIMITED } from '@/constants/graphql/event-context'
 import { LIVE, UPCOMING } from '@/constants/graphql/event-start-statuses'
 import HybridCard from '@/views/events-list/HybridCard'
+import ScopeBreadcrumbs from '@/views/events-list/ScopeBreadcrumbs'
 
 export default {
   components: {
     HybridCard,
-    EventsList
+    EventsList,
+    ScopeBreadcrumbs
   },
   data () {
     return {
