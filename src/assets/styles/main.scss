@@ -1,16 +1,19 @@
 .esports {
   @import "themes/blue-theme";
   margin-top: 80px;
+  min-width: 1200px;
 }
 
 .sports {
   @import "themes/green-theme";
   margin-top: 80px;
+  min-width: 1200px;
 }
 
 .live {
   @import "themes/orange-theme";
   margin-top: 80px;
+  min-width: 1200px;
 }
 
 @import "components/navbar";
