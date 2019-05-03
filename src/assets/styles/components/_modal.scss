@@ -22,16 +22,14 @@
     padding: 24px 24px 24px 30px;
   }
   &-content {
-    padding: 40px;
+    padding: 50px 80px;
     background-color: $arc-clr-soil-dark;
   }
   &-body {
     padding: 0 14px 14px 14px;
   }
 }
-#AuthModal .modal-content {
-  border: none;
-}
+
 @media (min-width: 576px) {
   #AuthModal .modal-dialog {
     max-width: 564px;

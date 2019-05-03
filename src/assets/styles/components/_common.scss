@@ -32,3 +32,13 @@
 .bottom-0 {
   bottom: 0;
 }
+
+.nav-link:focus {
+  outline: 0;
+}
+.tab-content:focus {
+  outline: 0;
+}
+a:focus {
+  outline: 0;
+}

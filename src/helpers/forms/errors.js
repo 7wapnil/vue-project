@@ -41,4 +41,11 @@ export default class Errors {
   state (field) {
     return this.has(field) ? false : null
   }
+
+  parseGraphQLErrors ({ graphQLErrors }) {
+    (graphQLErrors || []).forEach((error) => {
+      const path = error.path ? error.path[0] : 'form'
+      this.add(path, error.message)
+    })
+  }
 }

@@ -19,17 +19,16 @@
     </template>
     <b-tabs
       :value="auth"
+      justified
       active-tab-class="auth-tabs-active"
       content-class="auth-modal-content">
       <b-tab
         title-link-class="auth-tabs"
-        title-item-class="w-50 text-center"
         title="Sign in">
         <login/>
       </b-tab>
       <b-tab
         title-link-class="auth-tabs"
-        title-item-class="w-50 text-center"
         title="Sign up">
         <sign-up/>
       </b-tab>

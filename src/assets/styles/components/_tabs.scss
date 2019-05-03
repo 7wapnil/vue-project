@@ -1,7 +1,7 @@
 // Profile Modal Tabs
 @import '../variables';
 
-.nav:focus {
+.nav:focus, div:focus {
   box-shadow: none !important;
   outline: none !important;
 }
@@ -178,7 +178,6 @@
 
     .nav-link.active {
       color: $arc-clr-white !important;
-      background-color: unset;
       background-image: linear-gradient(-180deg, rgba($arc-clr-white, .1) 0%, #2F2f2f 100%);
       box-shadow: inset 0 3px 0 0 $arc-clr-gold;
       border-left: 1px solid rgba($black, .3);
@@ -197,5 +196,27 @@
     padding: 16px 20px 20px;
     background-color: $arc-dropdown-divider;
     text-transform: capitalize;
+  }
+}
+.sign-form-tabs {
+  &-title {
+    font-size: 14px;
+    letter-spacing: .03em;
+    &:first-of-type {
+      margin-right: 24px;
+    }
+  }
+  &-content {
+    padding-bottom: 16px;
+  }
+  .nav-link {
+    box-shadow: inset 0 2px 0 0 $arc-clr-white;
+    padding: 16px;
+  }
+  &.active {
+    box-shadow: inset 0 2px 0 0 $arc-clr-gold;
+    letter-spacing: .03em;
+    font-size: 14px;
+    color: $arc-clr-gold !important;
   }
 }
