@@ -97,7 +97,8 @@ const messages = {
         cardHolderName: 'Card holder Name',
         arcanebetPassword: 'Arcanebet password',
         notAvailable: 'This is not available to you at the moment.',
-        withdrawNoFeeInformation: 'Debit/Credit Card withdrawals come with a 0% withdrawal fee'
+        withdrawNoFeeInformation: 'Debit/Credit Card withdrawals come with a 0% withdrawal fee',
+        warning: 'Please be aware that requesting a withdrawal while you have an active bonus will result in all of your bonus funds being confiscated. If you wish to check your bonus status, please navigate to the bonus tab on your profile or contact support for further assistance. Be aware that if you initiate a withdrawal and the bonus is confiscated this is NOT reversible.'
       }
     }
   }
