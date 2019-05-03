@@ -57,8 +57,10 @@ export default {
       ]
 
       return this.markets.filter((market) => {
-        if (market.priority === 0 && market.status === INACTIVE_STATUS) return market
-        return market && allowedStatuses.includes(market.status)
+        if (!market) return false
+
+        return allowedStatuses.includes(market.status) ||
+                (market.priority === 0 && market.status === INACTIVE_STATUS)
       }).sort((a, b) => {
         return a.priority - b.priority || a.id - b.id
       })
