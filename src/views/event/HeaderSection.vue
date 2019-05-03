@@ -16,13 +16,13 @@
 </template>
 <script>
 import IntroductionArea from '@/components/custom/IntroductionArea'
-import HeaderBreadcrumbs from '@/views/event/HeaderBreadcrumbs'
+import EventBreadcrumbs from '@/views/event/EventBreadcrumbs'
 import EventDetails from '@/views/event/EventDetails'
 
 export default {
   components: {
     IntroductionArea,
-    HeaderBreadcrumbs,
+    EventBreadcrumbs,
     EventDetails
   },
   props: {
