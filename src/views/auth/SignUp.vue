@@ -298,6 +298,7 @@ import RegularInput from '@/components/inputs/RegularInput.vue'
 import SelectInput from '@/components/inputs/SelectInput.vue'
 import RadioButton from '@/components/inputs/RadioButton.vue'
 import ResponseErrorPanel from '@/components/custom/ResponseErrorPanel.vue'
+import { getCookie } from '@/helpers/cookies'
 
 export default {
   components: {
@@ -391,7 +392,9 @@ export default {
 
       return days
     },
-
+    btag () {
+      return getCookie('btag') || null
+    }
   },
   watch: {
     'fieldsStepOne.country': function (countryName) {
@@ -483,7 +486,7 @@ export default {
     submit () {
       this.inputFeedback = {}
       this.feedback = ''
-      const input = { ...this.fieldsStepOne, ...this.fieldsStepTwo }
+      const input = { ...this.fieldsStepOne, ...this.fieldsStepTwo, b_tag: this.btag }
       this.submitting = true
       this.$store.dispatch('registerNewUser', input)
         .then(({ data: { signUp } }) => {

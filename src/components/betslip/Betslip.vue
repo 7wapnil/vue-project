@@ -180,12 +180,9 @@ export default {
     getTooltipContent () {
       if (this.betslipSubmittable) return
 
-      if (!this.getBets.length) {
-        const langKey = this.isLoggedIn ? 'defaultLoggedIn' : 'default'
-        return this.$i18n.t(`betslip.tooltipMessages.${langKey}`)
-      }
+      if (!this.isLoggedIn) return this.$i18n.t('betslip.tooltipMessages.default')
 
-      let content = this.$i18n.t('betslip.tooltipMessages.default')
+      let content = this.$i18n.t('betslip.tooltipMessages.defaultLoggedIn')
 
       const conditions = {
         oddsNotConfirmed: !this.betslipValuesConfirmed,
