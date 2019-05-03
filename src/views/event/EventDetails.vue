@@ -110,10 +110,10 @@ export default {
   },
   computed: {
     firstCompetitor () {
-      return event.competitors[0]
+      return this.event.competitors[0]
     },
     secondCompetitor () {
-      return event.competitors[1]
+      return this.event.competitors[1]
     }
   }
 }
