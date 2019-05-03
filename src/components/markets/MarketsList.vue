@@ -18,7 +18,7 @@
 
 <script>
 import MarketItem from '@/components/markets/MarketItem'
-import { ACTIVE_STATUS, SUSPENDED_STATUS } from '@/models/market'
+import { ACTIVE_STATUS, SUSPENDED_STATUS, INACTIVE_STATUS } from '@/models/market'
 import EsportsUpcomingCardItem from '@/components/cards/esports-upcoming-card/EsportsUpcomingCardItem'
 import EsportsLiveCardItem from '@/components/cards/esports-live-card/EsportsLiveCardItem'
 import SportsLiveCardItem from '@/components/cards/sports-live-card/SportsLiveCardItem'
@@ -57,6 +57,7 @@ export default {
       ]
 
       return this.markets.filter((market) => {
+        if (market.priority === 0 && market.status === INACTIVE_STATUS) return market
         return market && allowedStatuses.includes(market.status)
       }).sort((a, b) => {
         return a.priority - b.priority || a.id - b.id
