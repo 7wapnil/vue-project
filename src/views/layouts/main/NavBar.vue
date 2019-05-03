@@ -1,11 +1,11 @@
 <template>
   <b-navbar
     fixed="top"
-    toggleable="lg"
+    toggleable="sm"
     class="p-0">
     <b-container
       fluid
-      style="max-width: 1920px"
+      style="max-width: 1920px; min-width: 1200px"
       class="p-0">
       <b-navbar-brand
         :to="{ name: 'home' }"

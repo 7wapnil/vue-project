@@ -2,7 +2,7 @@
   <b-row no-gutters>
     <b-col
       v-bar
-      class="d-none d-lg-block bg-arc-clr-soil-black side-menu">
+      class="bg-arc-clr-soil-black side-menu">
       <side-menu :items="menuItems"/>
     </b-col>
     <b-col class="bg-arc-clr-soil-light min-vh-100">
@@ -10,7 +10,7 @@
     </b-col>
     <b-col
       v-bar
-      class="d-none d-lg-block bg-arc-clr-soil-black betslip-block">
+      class="bg-arc-clr-soil-black betslip-block">
       <div>
         <promotional-item/>
         <betslip/>
