@@ -103,8 +103,7 @@ export default {
       }, {
         title: this.$i18n.t('account.tabs.transactionHistory'),
         component: TransactionHistory,
-        icon: 'account-activity',
-        size: '18px',
+        icon: 'account-history',
         id: 'transaction'
       }]
     }
