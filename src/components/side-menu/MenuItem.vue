@@ -1,12 +1,13 @@
 <template>
   <div :class="`items-level-${level}`">
-    <span
+    <div
       v-b-toggle="`item-${level}-${index}`"
-      v-if="hasChildren">
+      v-if="hasChildren"
+      class="collapsed">
       <item-content
         :item="item"
         :level="level"/>
-    </span>
+    </div>
 
     <b-link
       v-if="!hasChildren && item.to"
@@ -20,7 +21,6 @@
     <b-collapse
       v-if="hasChildren"
       :id="`item-${level}-${index}`"
-      :is-nav="true"
       :visible="item.active"
       :accordion="`${level}-menu`">
       <b-nav
