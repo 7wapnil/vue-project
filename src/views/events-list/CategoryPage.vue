@@ -14,7 +14,6 @@
         :category-id="$route.params.categoryId"
         :context="selectedFilter.context"
         :key="selectedFilter.context">
-
         <template slot-scope="{ event }">
           <hybrid-card
             :event="event"

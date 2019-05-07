@@ -8,8 +8,6 @@ import { BETSLIP_PLACEMENT_QUERY, BET_UPDATED } from '@/graphql/index'
 import { ACTIVE_STATUS } from '@/models/market'
 
 const BET_DESTROY_TIMEOUT = 3000
-const BET_WAIT_TIMEOUT = 15000
-const BET_FAIL_MESSAGE = 'Bet placement unsuccessful'
 
 const getBetsFromStorage = () => {
   const json = localStorage.getItem('bets')
@@ -141,18 +139,6 @@ export const actions = {
       .forEach(bet => dispatch('subscribeBet', bet))
   },
   subscribeBet ({ state, commit, getters }, bet) {
-    let betPlacementTimeout
-
-    betPlacementTimeout = setTimeout(() => {
-      commit('updateBet', {
-        oddId: bet.oddId,
-        payload: {
-          status: Bet.statuses.failed,
-          message: BET_FAIL_MESSAGE
-        }
-      })
-    }, BET_WAIT_TIMEOUT)
-
     state.subscriptions[bet.id] = graphqlClient
       .subscribe({
         query: BET_UPDATED,
@@ -160,7 +146,6 @@ export const actions = {
       })
       .subscribe({
         next ({ data: { bet_updated: betUpdated } }) {
-          clearTimeout(betPlacementTimeout)
           commit('updateBet', {
             oddId: bet.oddId,
             payload: {

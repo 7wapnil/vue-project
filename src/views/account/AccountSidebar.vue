@@ -1,6 +1,5 @@
 <template>
   <b-row no-gutters>
-
     <b-col class="profile-modal-sidebar bg-arc-clr-soil-dark">
       <div class="profile-modal-sidebar-inner">
         <profile-wallet @open-account-deposit-tab="changeTabIndex(depositTabIndex)"/>
@@ -36,7 +35,6 @@
         </b-nav>
       </div>
     </b-col>
-
     <b-col class="profile-modal-nav-content p-5">
       <component :is="currentComponent"/>
     </b-col>
@@ -103,8 +101,7 @@ export default {
       }, {
         title: this.$i18n.t('account.tabs.transactionHistory'),
         component: TransactionHistory,
-        icon: 'account-activity',
-        size: '18px',
+        icon: 'account-history',
         id: 'transaction'
       }]
     }

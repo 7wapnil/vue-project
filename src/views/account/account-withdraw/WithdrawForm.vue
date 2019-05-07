@@ -1,12 +1,18 @@
 <template>
   <div v-if="mainMethod">
     <b-row no-gutters>
-      <b-col class="pt-4 pb-5">
+      <b-col class="pt-4 pb-3">
         <span class="text-arc-clr-iron">
           {{ descriptionMap[mainMethod.code] }}
         </span>
       </b-col>
     </b-row>
+    <b-alert
+      show
+      class="text-center"
+      variant="warning">
+      {{ $t('account.withdraw.warning') }}
+    </b-alert>
     <b-row
       v-if="responseMessage"
       no-gutters>

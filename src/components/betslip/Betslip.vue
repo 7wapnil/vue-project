@@ -180,17 +180,16 @@ export default {
     getTooltipContent () {
       if (this.betslipSubmittable) return
 
-      let content = this.$i18n.t('betslip.tooltipMessages.default')
+      if (!this.isLoggedIn) return this.$i18n.t('betslip.tooltipMessages.default')
 
-      if (!this.isLoggedIn) return content
+      let content = this.$i18n.t('betslip.tooltipMessages.defaultLoggedIn')
 
       const conditions = {
         oddsNotConfirmed: !this.betslipValuesConfirmed,
         notEnoughMoney: !this.getIsEnoughFundsToBet,
         inactiveMarkets: this.getAnyInactiveMarket,
         betsBeingSubmitted: this.getAnySubmittedBet,
-        invalidStakeAmount: this.getAnyEmptyStake,
-        defaultLoggedIn: !this.getBets.length
+        invalidStakeAmount: this.getAnyEmptyStake
       }
 
       Object.keys(conditions).forEach((translationKey) => {
