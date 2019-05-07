@@ -4,6 +4,7 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import 'vuejs-noty/dist/vuejs-noty.css'
 import 'bootstrap'
 import Vue from 'vue'
+import vuescroll from 'vuescroll/dist/vuescroll-native'
 import VueNoty from 'vuejs-noty'
 import App from './App'
 import Router from '@/routes'
@@ -15,7 +16,6 @@ import VueApollo from 'vue-apollo'
 import VueLogger from 'vuejs-logger'
 import ContentfulPlugin from '@/libs/contentful/contentful-client'
 import AirbrakePlugin from '@/libs/airbrake/airbrake-client'
-import Vuebar from 'vuebar'
 import Sticky from 'vue-sticky-directive'
 import { LiveChatPlugin } from '@/plugins/'
 import VueI18n from 'vue-i18n'
@@ -43,9 +43,9 @@ Vue.use(ContentfulPlugin, {
   space: process.env.VUE_APP_CONTENTFUL_SPACE_ID,
   accessToken: process.env.VUE_APP_CONTENTFUL_ACCESS_TOKEN
 })
-Vue.use(Vuebar)
 Vue.use(Sticky)
 Vue.use(VueI18n)
+Vue.use(vuescroll)
 
 Vue.use(LiveChatPlugin, {
   license: process.env.VUE_APP_LIVECHAT_LICENSE

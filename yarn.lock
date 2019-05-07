@@ -11209,11 +11209,6 @@ vue@^2.6.10:
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.6.10.tgz#a72b1a42a4d82a721ea438d1b6bf55e66195c637"
   integrity sha512-ImThpeNU9HbdZL3utgMCq0oiMzAkt1mcgy3/E6zWC/G6AaQoeuFdsl9nDhTDU3X1R6FK7nsIUuRACVcjI+A2GQ==
 
-vuebar@^0.0.20:
-  version "0.0.20"
-  resolved "https://registry.yarnpkg.com/vuebar/-/vuebar-0.0.20.tgz#fd6313c2d3a2202c49e42419fe1d9ef126134200"
-  integrity sha512-Pq72X10Yl5QyQPcX4hR8KdhA2o+qpqzOdwkoIHUnAJfXWLODBKJhUPAnWvKvBcgst0HuHASLDrcFBSQz98gd9g==
-
 vuejs-logger@^1.5.3:
   version "1.5.3"
   resolved "https://registry.yarnpkg.com/vuejs-logger/-/vuejs-logger-1.5.3.tgz#fc8b7428af9c1bc252eb7deddd5638bce3b91549"
@@ -11227,6 +11222,11 @@ vuejs-noty@^0.1.3:
   integrity sha512-qHdEpq3IQMg3Upf6UAQrcEtRGNZfH3gQd1KLJYQE52rmYaNp79ZAj8F7kP2xDKpSBGBERvCUAy7txNiodRxAYg==
   dependencies:
     noty "^3.1.0"
+
+vuescroll@^4.12.2:
+  version "4.12.2"
+  resolved "https://registry.yarnpkg.com/vuescroll/-/vuescroll-4.12.2.tgz#fc61e8e8867881475f99d5ae753d47db05d8cce7"
+  integrity sha512-ND29bRjG0loUNIY6UjsXhmnb/jStWjNJKB1upUycUBj6jAo1XfT7K2kniaNo67kV2VZpIKziMh2MgjtktaRfyw==
 
 vuex@^3.0.1:
   version "3.1.0"

@@ -1,6 +1,5 @@
 <template>
   <b-row no-gutters>
-
     <b-col class="profile-modal-sidebar bg-arc-clr-soil-dark">
       <div class="profile-modal-sidebar-inner">
         <profile-wallet @open-account-deposit-tab="changeTabIndex(depositTabIndex)"/>
@@ -36,7 +35,6 @@
         </b-nav>
       </div>
     </b-col>
-
     <b-col class="profile-modal-nav-content p-5">
       <component :is="currentComponent"/>
     </b-col>
