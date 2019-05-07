@@ -2,6 +2,7 @@
   <b-card
     no-body
     class="p-4">
+    {{ groupedEvents }}
     <div
       v-for="(title, index) in groupedEvents"
       :key="index">
@@ -194,50 +195,123 @@ export default {
       }
     },
     groupedEvents () {
-      const groupedEvents = [];
-      this.events.forEach(event => {
-        const currentTitleIndex = groupedEvents.findIndex(title => title.name === event.title.name);
+      let groupedEvents = [];
+      groupedEvents = this.events.map((event) => {
+        // console.log(event)
+        const children = event
+          .scopes
+          .filter((scope) => {
+            return scope.kind === 'category'
+          })
+          .map((category) => {
+            console.log(category)
+            const tournamentList = event.scopes
+              .filter((scope) => {
+                return scope.kind === 'tournament' &&
+                                    (category.id === null ? true : scope.event_scope_id === category.id)
+              })
+              .map((tournament) => {
+                return {
+                  id: tournament.id,
+                  label: tournament.name,
+                  position: tournament.position
+                }
+              })
 
-        if (currentTitleIndex > -1) {
-          const currentTournamentIndex = groupedEvents[currentTitleIndex]
-            .tournaments
-            .findIndex(tournament => tournament.id === event.tournament.id)
-          console.log(event.scopes)
-          event.scopes.forEach(scope => {
-            console.log(event.scopes)
-            if (scope.kind === 'tournament') {
-              event.tourPosition = scope.position
-            } else if (scope.kind === 'category') {
-              event.catPosition = scope.position
+            // console.log(tournamentList)
+            return {
+              id: category.id,
+              label: category.name,
+              tournaments: tournamentList,
+              position: category.position
             }
           })
-          if (currentTournamentIndex > -1) {
-            groupedEvents[currentTitleIndex]
-              .tournaments[currentTournamentIndex]
-              .events.push(event)
-          } else {
-            groupedEvents[currentTitleIndex]
-              .tournaments.push({
-                ...event.tournament,
-                events: [event]
-              })
-          }
-        } else {
-          groupedEvents.push({
-            ...event.title,
-            tournaments: [{
-              ...event.tournament,
-              events: [event]
-            }]
-          })
+        return {
+          id: event.title.id,
+          name: event.title.name,
+          categories: children
         }
-
-        console.log(event.tourPosition)
-        console.log(event.catPosition)
       })
-      // console.log(this.events)
-
       return groupedEvents
+      // console.log(groupedEvents)
+      // this.events.forEach(event => {
+      //   event.scopes.forEach(scope => {
+      //
+      //     if (scope.kind === 'tournament') {
+      //       event.tournament.position = scope.position
+      //       tourPosition = scope.position
+      //     } else if (scope.kind === 'category') {
+      //       console.log(scope)
+      //       category = scope
+      //       catPosition = scope.position
+      //     }
+      //   })
+      //
+      //   const currentTitleIndex = groupedEvents.findIndex(title => title.name === event.title.name);
+      //
+      //   if (currentTitleIndex > -1) {
+      //
+      //     const currentTournamentIndex = groupedEvents[currentTitleIndex]
+      //       .tournaments
+      //       .findIndex(tournament => tournament.id === event.tournament.id)
+      //
+      //     if (currentTournamentIndex > -1) {
+      //       groupedEvents[currentTitleIndex]
+      //         .tournaments[currentTournamentIndex]
+      //         .events.push(event)
+      //     } else {
+      //       groupedEvents[currentTitleIndex]
+      //         .tournaments.push({
+      //           position: tourPosition,
+      //           ...event.tournament,
+      //           events: [event]
+      //         })
+      //     }
+      //   } else {
+      //     groupedEvents.push({
+      //       ...event.title,
+      //       ...event.scope,
+      //       tournaments: [{
+      //         ...event.tournament,
+      //         events: [event]
+      //       }]
+      //     })
+      //   }
+      // })
+
+      // groupedEvents.forEach(event => {
+      //   let asd = event.tournaments.filter(tournament => {
+      //     return tournament && tournament.catPosition !== 9999
+      //   }).sort((a, b) => {
+      //     return a.catPosition - b.catPosition
+      //   })
+      //
+      //   let dsasda = event.tournaments.filter(tournament => {
+      //     return tournament && tournament.catPosition === 9999
+      //   }).sort((a, b) => {
+      //     if (a.name < b.name) { return -1; }
+      //     if (a.name > b.name) { return 1; }
+      //     return 0;
+      //   })
+      //   event.tournaments = asd.concat(dsasda)
+      // })
+      //
+      // groupedEvents.forEach(event => {
+      //   let asd = event.tournaments.filter(tournament => {
+      //     return tournament && tournament.position !== 9999
+      //   }).sort((a, b) => {
+      //     return a.position - b.position
+      //   })
+      //
+      //   let dsasda = event.tournaments.filter(tournament => {
+      //     return tournament && tournament.position === 9999
+      //   }).sort((a, b) => {
+      //     if (a.name < b.name) { return -1; }
+      //     if (a.name > b.name) { return 1; }
+      //     return 0;
+      //   })
+      //   event.tournaments = asd.concat(dsasda)
+      // })
     }
   },
   methods: {
