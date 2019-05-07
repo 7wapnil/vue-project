@@ -196,8 +196,10 @@ export default {
     },
     groupedEvents () {
       let groupedEvents = [];
-      groupedEvents = this.events.map((event) => {
-        // console.log(event)
+      console.log(this.events)
+      this.events.forEach((event) => {
+        const currentTitleIndex = groupedEvents.findIndex(title => title.name === event.title.name);
+
         const children = event
           .scopes
           .filter((scope) => {
@@ -218,7 +220,6 @@ export default {
                 }
               })
 
-            // console.log(tournamentList)
             return {
               id: category.id,
               label: category.name,
@@ -226,26 +227,22 @@ export default {
               position: category.position
             }
           })
-        return {
+
+        let title = {
           id: event.title.id,
           name: event.title.name,
-          categories: children
+          category: children
+        }
+
+        if (currentTitleIndex > -1) {
+          groupedEvents[currentTitleIndex] = title
+        } else {
+          groupedEvents.push(title)
         }
       })
-      return groupedEvents
-      // console.log(groupedEvents)
+
+      console.log(groupedEvents)
       // this.events.forEach(event => {
-      //   event.scopes.forEach(scope => {
-      //
-      //     if (scope.kind === 'tournament') {
-      //       event.tournament.position = scope.position
-      //       tourPosition = scope.position
-      //     } else if (scope.kind === 'category') {
-      //       console.log(scope)
-      //       category = scope
-      //       catPosition = scope.position
-      //     }
-      //   })
       //
       //   const currentTitleIndex = groupedEvents.findIndex(title => title.name === event.title.name);
       //
@@ -278,7 +275,7 @@ export default {
       //     })
       //   }
       // })
-
+      return groupedEvents
       // groupedEvents.forEach(event => {
       //   let asd = event.tournaments.filter(tournament => {
       //     return tournament && tournament.catPosition !== 9999

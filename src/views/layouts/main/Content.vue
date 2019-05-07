@@ -57,7 +57,7 @@ export default {
     menuItems () {
       let ololo = buildTree(this.$route.params.titleKind, this.titles, this.$route)
 
-      console.log(ololo)
+      // console.log(ololo)
       return ololo
     }
   }
