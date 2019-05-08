@@ -5,8 +5,7 @@ import { getMainDefinition } from 'apollo-utilities'
 import { wsLink } from './ws-link'
 
 const httpLink = new HttpLink({
-  // uri: process.env.VUE_APP_API_URL || '',
-  uri: 'https://backend.arcanedemo.com/graphql',
+  uri: process.env.VUE_APP_API_URL || '',
   fetch: fetch
 })
 

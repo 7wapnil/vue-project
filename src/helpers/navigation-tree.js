@@ -70,7 +70,7 @@ const buildSubTree = (titleKind, title, route) => {
 export const buildTree = (titleKind, titles, route) => {
   return titles.map((title) => {
     const children = buildSubTree(titleKind, title, route)
-    // console.log(children)
+
     return {
       id: title.id,
       label: title.name,
