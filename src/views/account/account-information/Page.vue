@@ -52,46 +52,6 @@
         </b-col>
         <b-col/>
       </b-row>
-
-      <b-row
-        class="mb-4"
-        no-gutters>
-        <b-col class="text-md-right text-sm-left align-self-center">
-          <label
-            for="language"
-            class="text-arc-clr-iron font-size-14 letter-spacing-2 mb-0">
-            {{ $t('account.accountInfo.language') }}:
-          </label>
-        </b-col>
-        <b-col class="user-profile-form">
-          <b-col class="align-self-center user-profile-form">
-            <p class="ml-3 mb-0 text-arc-clr-iron-light font-size-14 letter-spacing-2">
-              English
-            </p>
-          </b-col>
-        </b-col>
-        <b-col/>
-      </b-row>
-
-      <b-row
-        class="mb-3"
-        no-gutters>
-        <b-col class="text-md-right text-sm-left align-self-center">
-          <label
-            for="currency"
-            class="text-arc-clr-iron font-size-14 letter-spacing-2 mb-0">
-            {{ $t('account.accountInfo.currency') }}:
-          </label>
-        </b-col>
-        <b-col class="user-profile-form">
-          <b-col class="align-self-center user-profile-form">
-            <p class="ml-3 mb-0 text-arc-clr-iron-light font-size-14 letter-spacing-2">
-              EUR
-            </p>
-          </b-col>
-        </b-col>
-        <b-col/>
-      </b-row>
     </b-container>
 
     <div class="border-top border-arc-clr-soil-cover mt-4 mb-2"/>

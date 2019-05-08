@@ -11,7 +11,6 @@
 <script>
 import { MARKETS_LIST_QUERY, EVENT_BET_STOPPED, eventUpdatedSubscription } from '@/graphql'
 import { INACTIVE, SUSPENDED, MARKET_STOP_STATUSES } from '@/constants/graphql/event-market-statuses'
-import { updateCacheListWithList } from '@/helpers/graphql'
 import MarketsList from './MarketsList'
 import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
 
@@ -48,9 +47,7 @@ export default {
             },
             updateQuery ({ markets }, { subscriptionData }) {
               const event = subscriptionData.data.event_updated
-              return {
-                markets: updateCacheListWithList(markets, event.markets)
-              }
+              return { markets: event.markets }
             }
           },
           {

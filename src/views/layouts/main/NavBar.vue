@@ -1,22 +1,15 @@
 <template>
   <b-navbar
     fixed="top"
-    toggleable="lg"
     class="p-0">
     <b-container
       fluid
-      style="max-width: 1920px"
+      style="max-width: 1920px; min-width: 1200px"
       class="p-0">
       <b-navbar-brand
         :to="{ name: 'home' }"
         class="mr-0"/>
-      <b-navbar-toggle
-        class="mr-2"
-        target="collapsableMenu"/>
-      <b-collapse
-        id="collapsableMenu"
-        is-nav>
-        <b-navbar-nav id="top-navigation">
+      <b-navbar-nav id="top-navigation">
           <b-nav-item
             v-for="item in mainMenu"
             :key="item.path"
@@ -30,6 +23,7 @@
           style="max-width: 268px"
           class="ml-auto">
           <b-button
+
             variant="arc-secondary"
             class="m-2"
             @click="showAuthModal(0)">
@@ -37,6 +31,7 @@
           </b-button>
 
           <b-button
+
             variant="arc-primary"
             class="m-2 mr-4"
             @click="showAuthModal(1)">
@@ -49,7 +44,7 @@
           <balances-list/>
           <user-profile-menu/>
         </b-navbar-nav>
-      </b-collapse>
+
     </b-container>
   </b-navbar>
 </template>

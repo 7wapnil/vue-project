@@ -48,9 +48,9 @@
     "vue-sticky-directive": "^0.0.8",
     "vue-text-mask": "^6.1.2",
     "vue-the-mask": "^0.11.1",
-    "vuebar": "^0.0.20",
     "vuejs-logger": "^1.5.3",
     "vuejs-noty": "^0.1.3",
+    "vuescroll": "^4.12.2",
     "vuex": "^3.0.1",
     "webfonts-loader": "^4.1.0"
   },
