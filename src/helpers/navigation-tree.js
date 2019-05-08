@@ -16,11 +16,15 @@ const buildTournaments = (titleKind, title, route, parentId = null) => {
         (parentId === null ? true : scope.event_scope_id === parentId)
     })
     .map((tournament) => {
+      let link
+
+      if (parentId) { link = { name: 'categoryTournament', params: { titleKind, titleId: title.id, categoryId: parentId, tournamentId: tournament.id } } } else { link = { name: 'tournament', params: { titleKind, titleId: title.id, tournamentId: tournament.id } } }
+
       return {
         id: tournament.id,
         label: tournament.name,
         active: route.params.tournamentId && route.params.tournamentId === tournament.id,
-        to: { name: 'tournament', params: { titleKind, titleId: title.id, tournamentId: tournament.id } },
+        to: link,
         children: []
       }
     })
