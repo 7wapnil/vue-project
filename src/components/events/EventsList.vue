@@ -2,61 +2,13 @@
   <b-card
     no-body
     class="p-4">
-    {{ groupedEvents }}
-    <div
-      v-for="(title, index) in groupedEvents"
-      :key="index">
-      <b-row
-        v-if="!titleId"
-        no-gutters>
-        <b-col class="d-inline-flex px-4 pt-4 events-list-title">
 
-          <icon
-            :name="findTitleIcon(title)"
-            class="ml-2"
-            size="24px"/>
-
-          <h4
-            tabindex="0"
-            class="ml-4 mb-0 text-arc-clr-white font-weight-light letter-spacing-1 pointer"
-            style="outline: 0;"
-            @click="() => emitTitleChange(title.id)">
-            {{ title.name }}
-          </h4>
-
-        </b-col>
-      </b-row>
-      <div
-        v-for="tournament in title.tournaments"
-        :key="tournament.id"
-        class="pt-4">
-        <router-link
-          v-if="!tournamentId"
-          :to="{name: 'tournament', params: {titleId: title.id, tournamentId: tournament.id}}"
-          class="pl-4 text-arc-clr-gold mb-2 d-block font-size-14 letter-spacing-2">
-          {{ tournament.name }}
-        </router-link>
-        <div>
-          <b-card
-            v-for="event in tournament.events"
-            :key="event.id"
-            no-body>
-
-            <slot :event="event"/>
-
-          </b-card>
-        </div>
-        <b-link
-          v-if="categoryId && tournament.events.length === 16"
-          :to="{ name: 'tournament', params: { titleKind: $route.params.titleKind, titleId: titleId, tournamentId: tournament.id } }"
-          exact>
-          <b-button
-            class="mt-2"
-            variant="arc-secondary">
-            More
-          </b-button>
-        </b-link>
-      </div>
+    <div v-if="tabId">
+      <events-group
+        v-for="(group, index) in groupedEvents"
+        :key="index"
+        :group="group"
+        :tab-id="tabId"/>
     </div>
 
     <loader v-if="loading"/>
@@ -84,8 +36,12 @@ import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
 import { CONTEXT_TO_START_STATUS_MAP } from '@/constants/graphql/event-start-statuses'
 import { INACTIVE, SUSPENDED, MARKET_STOP_STATUSES } from '@/constants/graphql/event-market-statuses'
 import { findTitleIcon } from '@/helpers/icon-finder'
+import EventsGroup from '@/components/events/EventsGroup'
 
 export default {
+  components: {
+    EventsGroup
+  },
   props: {
     header: {
       type: String,
@@ -106,6 +62,10 @@ export default {
     context: {
       type: String,
       default: null
+    },
+    tabId: {
+      type: String,
+      default: () => 'upcoming'
     }
   },
   apollo: {
@@ -194,128 +154,186 @@ export default {
         variables: variables
       }
     },
-    groupedEvents () {
-      let groupedEvents = [];
-      console.log(this.events)
-      this.events.forEach((event) => {
-        const currentTitleIndex = groupedEvents.findIndex(title => title.name === event.title.name);
+    parentizeEvents () {
+      return this.events.map((event) => {
+        const { title, scopes } = event
+        const category = scopes.find(s => s.kind === 'category')
+        const tournament = scopes.find(s => s.kind === 'tournament')
 
-        const children = event
-          .scopes
-          .filter((scope) => {
-            return scope.kind === 'category'
-          })
-          .map((category) => {
-            console.log(category)
-            const tournamentList = event.scopes
-              .filter((scope) => {
-                return scope.kind === 'tournament' &&
-                                    (category.id === null ? true : scope.event_scope_id === category.id)
-              })
-              .map((tournament) => {
-                return {
-                  id: tournament.id,
-                  label: tournament.name,
-                  position: tournament.position
-                }
-              })
-
-            return {
-              id: category.id,
-              label: category.name,
-              tournaments: tournamentList,
-              position: category.position
-            }
-          })
-
-        let title = {
-          id: event.title.id,
-          name: event.title.name,
-          category: children
+        let highestParent = {
+          ...title,
+          type: 'title'
         }
 
-        if (currentTitleIndex > -1) {
-          groupedEvents[currentTitleIndex] = title
-        } else {
-          groupedEvents.push(title)
+        if (category) {
+          highestParent = {
+            ...category,
+            type: 'category',
+            title: event.title,
+            parent: highestParent
+          }
+        }
+
+        return {
+          ...event,
+          type: 'event',
+          title: event.title,
+          parent: {
+            ...tournament,
+            type: 'tournament',
+            title: event.title,
+            parent: highestParent
+          }
         }
       })
+    },
+    groupedEvents () {
+      return this.buildEventBranch(this.parentizeEvents)
 
-      console.log(groupedEvents)
-      // this.events.forEach(event => {
-      //
+      // let groupedEvents = [];
+      // console.log(this.events)
+      // this.events.forEach((event) => {
       //   const currentTitleIndex = groupedEvents.findIndex(title => title.name === event.title.name);
       //
-      //   if (currentTitleIndex > -1) {
-      //
-      //     const currentTournamentIndex = groupedEvents[currentTitleIndex]
-      //       .tournaments
-      //       .findIndex(tournament => tournament.id === event.tournament.id)
-      //
-      //     if (currentTournamentIndex > -1) {
-      //       groupedEvents[currentTitleIndex]
-      //         .tournaments[currentTournamentIndex]
-      //         .events.push(event)
-      //     } else {
-      //       groupedEvents[currentTitleIndex]
-      //         .tournaments.push({
-      //           position: tourPosition,
-      //           ...event.tournament,
-      //           events: [event]
-      //         })
-      //     }
-      //   } else {
-      //     groupedEvents.push({
-      //       ...event.title,
-      //       ...event.scope,
-      //       tournaments: [{
-      //         ...event.tournament,
-      //         events: [event]
-      //       }]
+      //   const children = event
+      //     .scopes
+      //     .filter((scope) => {
+      //       return scope.kind === 'category'
       //     })
+      //     .map((category) => {
+      //       console.log(category)
+      //       const tournamentList = event.scopes
+      //         .filter((scope) => {
+      //           return scope.kind === 'tournament' &&
+      //                               (category.id === null ? true : scope.event_scope_id === category.id)
+      //         })
+      //         .map((tournament) => {
+      //           return {
+      //             id: tournament.id,
+      //             label: tournament.name,
+      //             position: tournament.position
+      //           }
+      //         })
+      //
+      //       return {
+      //         id: category.id,
+      //         label: category.name,
+      //         tournaments: tournamentList,
+      //         position: category.position
+      //       }
+      //     })
+      //
+      //   let title = {
+      //     id: event.title.id,
+      //     name: event.title.name,
+      //     category: children
+      //   }
+      //
+      //   if (currentTitleIndex > -1) {
+      //     groupedEvents[currentTitleIndex] = title
+      //   } else {
+      //     groupedEvents.push(title)
       //   }
       // })
-      return groupedEvents
-      // groupedEvents.forEach(event => {
-      //   let asd = event.tournaments.filter(tournament => {
-      //     return tournament && tournament.catPosition !== 9999
-      //   }).sort((a, b) => {
-      //     return a.catPosition - b.catPosition
-      //   })
       //
-      //   let dsasda = event.tournaments.filter(tournament => {
-      //     return tournament && tournament.catPosition === 9999
-      //   }).sort((a, b) => {
-      //     if (a.name < b.name) { return -1; }
-      //     if (a.name > b.name) { return 1; }
-      //     return 0;
-      //   })
-      //   event.tournaments = asd.concat(dsasda)
-      // })
-      //
-      // groupedEvents.forEach(event => {
-      //   let asd = event.tournaments.filter(tournament => {
-      //     return tournament && tournament.position !== 9999
-      //   }).sort((a, b) => {
-      //     return a.position - b.position
-      //   })
-      //
-      //   let dsasda = event.tournaments.filter(tournament => {
-      //     return tournament && tournament.position === 9999
-      //   }).sort((a, b) => {
-      //     if (a.name < b.name) { return -1; }
-      //     if (a.name > b.name) { return 1; }
-      //     return 0;
-      //   })
-      //   event.tournaments = asd.concat(dsasda)
-      // })
+      // console.log(groupedEvents)
+      // // this.events.forEach(event => {
+      // //
+      // //   const currentTitleIndex = groupedEvents.findIndex(title => title.name === event.title.name);
+      // //
+      // //   if (currentTitleIndex > -1) {
+      // //
+      // //     const currentTournamentIndex = groupedEvents[currentTitleIndex]
+      // //       .tournaments
+      // //       .findIndex(tournament => tournament.id === event.tournament.id)
+      // //
+      // //     if (currentTournamentIndex > -1) {
+      // //       groupedEvents[currentTitleIndex]
+      // //         .tournaments[currentTournamentIndex]
+      // //         .events.push(event)
+      // //     } else {
+      // //       groupedEvents[currentTitleIndex]
+      // //         .tournaments.push({
+      // //           position: tourPosition,
+      // //           ...event.tournament,
+      // //           events: [event]
+      // //         })
+      // //     }
+      // //   } else {
+      // //     groupedEvents.push({
+      // //       ...event.title,
+      // //       ...event.scope,
+      // //       tournaments: [{
+      // //         ...event.tournament,
+      // //         events: [event]
+      // //       }]
+      // //     })
+      // //   }
+      // // })
+      // return groupedEvents
+      // // groupedEvents.forEach(event => {
+      // //   let asd = event.tournaments.filter(tournament => {
+      // //     return tournament && tournament.catPosition !== 9999
+      // //   }).sort((a, b) => {
+      // //     return a.catPosition - b.catPosition
+      // //   })
+      // //
+      // //   let dsasda = event.tournaments.filter(tournament => {
+      // //     return tournament && tournament.catPosition === 9999
+      // //   }).sort((a, b) => {
+      // //     if (a.name < b.name) { return -1; }
+      // //     if (a.name > b.name) { return 1; }
+      // //     return 0;
+      // //   })
+      // //   event.tournaments = asd.concat(dsasda)
+      // // })
+      // //
+      // // groupedEvents.forEach(event => {
+      // //   let asd = event.tournaments.filter(tournament => {
+      // //     return tournament && tournament.position !== 9999
+      // //   }).sort((a, b) => {
+      // //     return a.position - b.position
+      // //   })
+      // //
+      // //   let dsasda = event.tournaments.filter(tournament => {
+      // //     return tournament && tournament.position === 9999
+      // //   }).sort((a, b) => {
+      // //     if (a.name < b.name) { return -1; }
+      // //     if (a.name > b.name) { return 1; }
+      // //     return 0;
+      // //   })
+      // //   event.tournaments = asd.concat(dsasda)
+      // // })
     }
   },
   methods: {
     emitTitleChange (titleId) {
       this.$root.$emit(TITLE_CHANGED, titleId)
     },
-    findTitleIcon
+    findTitleIcon,
+    buildEventBranch (items) {
+      const branch = items.reduce(this.addItemToGroup, [])
+
+      if (branch.length && branch[0].parent) {
+        return this.buildEventBranch(branch)
+      }
+
+      return branch
+    },
+    addItemToGroup (groups, item) {
+      let groupIndex = groups.findIndex(i => i.id === item.parent.id)
+
+      // if group not found - create it
+      if (groupIndex < 0) {
+        groups.push({ ...item.parent, children: [] })
+        groupIndex = groups.length - 1
+      }
+
+      // add item to group
+      groups[groupIndex].children.push(item)
+
+      return groups
+    }
   }
 }
 </script>

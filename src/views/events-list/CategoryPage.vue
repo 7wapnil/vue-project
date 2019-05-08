@@ -12,7 +12,8 @@
         :title-id="$route.params.titleId"
         :category-id="$route.params.categoryId"
         :context="selectedFilter.context"
-        :key="selectedFilter.context">
+        :key="selectedFilter.context"
+        :tab-id="selectedFilter.value">
 
         <template slot-scope="{ event }">
           <hybrid-card
