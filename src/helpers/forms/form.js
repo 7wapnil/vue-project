@@ -29,10 +29,8 @@ export default class Form {
     })
   }
 
-  handleGraphQLErrors ({ graphQLErrors }) {
-    (graphQLErrors || []).forEach((error) => {
-      this.errors.add(error.path[0], error.message)
-    })
+  handleGraphQLErrors (errors) {
+    this.errors.parseGraphQLErrors(errors)
   }
 
   getErrors () {

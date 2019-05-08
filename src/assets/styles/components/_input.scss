@@ -132,10 +132,10 @@
       cursor: pointer;
     }
     &::before {
-      border-radius: 0 6px 0 6px;
       height: 24px;
       width: 24px;
       background-color: $arc-clr-white !important;
+      border-color: $arc-clr-white !important;
     }
   }
 }

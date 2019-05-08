@@ -11,19 +11,25 @@
   .custom-select {
     background: $arc-clr-white;
   }
-
   @media (min-width: 992px) {
     .modal-lg {
       max-width: 1179px;
     }
   }
 }
-#AuthModal .content {
-  padding: 40px;
+.auth-modal {
+  &-header {
+    padding: 24px 24px 24px 30px;
+  }
+  &-content {
+    padding: 50px 80px;
+    background-color: $arc-clr-soil-dark;
+  }
+  &-body {
+    padding: 0 14px 14px 14px;
+  }
 }
-#AuthModal .modal-content {
-  border: none;
-}
+
 @media (min-width: 576px) {
   #AuthModal .modal-dialog {
     max-width: 564px;
