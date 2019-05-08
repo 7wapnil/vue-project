@@ -38,6 +38,8 @@ import { INACTIVE, SUSPENDED, MARKET_STOP_STATUSES } from '@/constants/graphql/e
 import { findTitleIcon } from '@/helpers/icon-finder'
 import EventsGroup from '@/components/events/EventsGroup'
 
+const DEFAULT_POSITION = 9999
+
 export default {
   components: {
     EventsGroup
@@ -312,19 +314,19 @@ export default {
             return 0
           }
 
-          if (a.position < 9999 && b.position < 9999) {
+          if (a.position < DEFAULT_POSITION && b.position < DEFAULT_POSITION) {
             return a.position - b.position
           }
 
-          if (a.position === 9999 && b.position < 9999) {
+          if (a.position === DEFAULT_POSITION && b.position < DEFAULT_POSITION) {
             return 1
           }
 
-          if (a.position < 9999 && b.position === 9999) {
+          if (a.position < DEFAULT_POSITION && b.position === DEFAULT_POSITION) {
             return -1
           }
 
-          if (a.position === 9999 && b.position === 9999) {
+          if (a.position === DEFAULT_POSITION && b.position === DEFAULT_POSITION) {
             return this.sortByName(a, b)
           }
 
