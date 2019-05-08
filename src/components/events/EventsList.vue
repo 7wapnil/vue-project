@@ -160,29 +160,22 @@ export default {
         const category = scopes.find(s => s.kind === 'category')
         const tournament = scopes.find(s => s.kind === 'tournament')
 
-        let highestParent = {
-          ...title,
-          type: 'title'
-        }
-
-        if (category) {
-          highestParent = {
-            ...category,
-            type: 'category',
-            title: event.title,
-            parent: highestParent
-          }
-        }
+        const middleBranch = event.title.show_category_in_navigation
+          ? { ...category, type: 'category' }
+          : { ...tournament, type: 'tournament' }
 
         return {
           ...event,
           type: 'event',
           title: event.title,
           parent: {
-            ...tournament,
-            type: 'tournament',
+            ...middleBranch,
+            name: `${middleBranch.position} --- ${middleBranch.name}`,
             title: event.title,
-            parent: highestParent
+            parent: {
+              ...title,
+              type: 'title'
+            }
           }
         }
       })
@@ -312,7 +305,31 @@ export default {
     },
     findTitleIcon,
     buildEventBranch (items) {
-      const branch = items.reduce(this.addItemToGroup, [])
+      const branch = items
+        .reduce(this.addItemToGroup, [])
+        .sort((a, b) => {
+          if (a.position === undefined && b.position === undefined) {
+            return 0
+          }
+
+          if (a.position < 9999 && b.position < 9999) {
+            return a.position - b.position
+          }
+
+          if (a.position === 9999 && b.position < 9999) {
+            return 1
+          }
+
+          if (a.position < 9999 && b.position === 9999) {
+            return -1
+          }
+
+          if (a.position === 9999 && b.position === 9999) {
+            return this.sortByName(a, b)
+          }
+
+          return this.sortByName(a, b)
+        })
 
       if (branch.length && branch[0].parent) {
         return this.buildEventBranch(branch)
@@ -333,6 +350,12 @@ export default {
       groups[groupIndex].children.push(item)
 
       return groups
+    },
+    sortByName (a, b) {
+      if (a.name < b.name) { return -1 }
+      if (a.name > b.name) { return 1 }
+
+      return 0
     }
   }
 }

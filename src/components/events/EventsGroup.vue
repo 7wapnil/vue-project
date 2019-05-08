@@ -5,7 +5,7 @@
       v-if="group.type === 'title'"
       :item="group"/>
     <group-sub-header
-      v-if="group.type === 'tournament'"
+      v-if="group.type === 'tournament' || group.type === 'category'"
       :item="group">
       <b-card
         v-for="event in group.children"
