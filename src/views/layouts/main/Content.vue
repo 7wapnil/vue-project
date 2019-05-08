@@ -62,6 +62,9 @@ export default {
         },
         scrollPanel: {
           easing: 'easeInCubic'
+        },
+        vuescroll: {
+          sizeStrategy: 'number'
         }
       }
     }
