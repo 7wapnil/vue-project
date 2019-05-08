@@ -13,14 +13,7 @@
         :category-id="$route.params.categoryId"
         :context="selectedFilter.context"
         :key="selectedFilter.context"
-        :tab-id="selectedFilter.value">
-
-        <template slot-scope="{ event }">
-          <hybrid-card
-            :event="event"
-            :tab-id="selectedFilter.value"/>
-        </template>
-      </events-list>
+        :tab-id="selectedFilter.value"/>
     </b-col>
   </b-row>
 </template>
@@ -38,7 +31,8 @@ export default {
   },
   data () {
     return {
-      selectedFilter: {}
+      selectedFilter: {},
+      defaultValue: 'upcoming'
     }
   },
   computed: {

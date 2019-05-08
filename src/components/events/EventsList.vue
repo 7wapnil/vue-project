@@ -65,7 +65,7 @@ export default {
     },
     tabId: {
       type: String,
-      default: () => 'upcoming'
+      default: null
     }
   },
   apollo: {

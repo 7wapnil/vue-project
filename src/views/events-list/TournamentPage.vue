@@ -14,16 +14,9 @@
         <events-list
           :title-id="$route.params.titleId"
           :tournament-id="$route.params.tournamentId"
-          :context="tab.context">
-
-          <template slot-scope="{ event }">
-            <hybrid-card
-              :event="event"
-              :tab-id="tab.id"/>
-          </template>
-        </events-list>
+          :tab-id="tab.value"
+          :context="tab.context"/>
       </div>
-
     </b-col>
   </b-row>
 </template>
@@ -42,16 +35,14 @@ export default {
   data () {
     return {
       tabsMapping: [{
-        id: LIVE,
+        value: LIVE,
         title: this.$i18n.t('homePage.live'),
         context: LIVE
       }, {
-        id: UPCOMING,
+        value: UPCOMING,
         title: this.$i18n.t('homePage.upcoming'),
         context: UPCOMING_UNLIMITED
-      }],
-      upcoming: UPCOMING,
-      live: LIVE
+      }]
     }
   }
 }
