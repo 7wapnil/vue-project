@@ -31,11 +31,9 @@ import {
   EVENTS_BET_STOPPED
 } from '@/graphql'
 import { updateCacheList } from '@/helpers/graphql'
-import { TITLE_CHANGED } from '@/constants/custom-events'
 import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
 import { CONTEXT_TO_START_STATUS_MAP } from '@/constants/graphql/event-start-statuses'
 import { INACTIVE, SUSPENDED, MARKET_STOP_STATUSES } from '@/constants/graphql/event-market-statuses'
-import { findTitleIcon } from '@/helpers/icon-finder'
 import EventsGroup from '@/components/events/EventsGroup'
 
 const DEFAULT_POSITION = 9999
@@ -172,7 +170,7 @@ export default {
           title: event.title,
           parent: {
             ...middleBranch,
-            name: `${middleBranch.position} --- ${middleBranch.name}`,
+            name: middleBranch.name,
             title: event.title,
             parent: {
               ...title,
@@ -184,128 +182,9 @@ export default {
     },
     groupedEvents () {
       return this.buildEventBranch(this.parentizeEvents)
-
-      // let groupedEvents = [];
-      // console.log(this.events)
-      // this.events.forEach((event) => {
-      //   const currentTitleIndex = groupedEvents.findIndex(title => title.name === event.title.name);
-      //
-      //   const children = event
-      //     .scopes
-      //     .filter((scope) => {
-      //       return scope.kind === 'category'
-      //     })
-      //     .map((category) => {
-      //       console.log(category)
-      //       const tournamentList = event.scopes
-      //         .filter((scope) => {
-      //           return scope.kind === 'tournament' &&
-      //                               (category.id === null ? true : scope.event_scope_id === category.id)
-      //         })
-      //         .map((tournament) => {
-      //           return {
-      //             id: tournament.id,
-      //             label: tournament.name,
-      //             position: tournament.position
-      //           }
-      //         })
-      //
-      //       return {
-      //         id: category.id,
-      //         label: category.name,
-      //         tournaments: tournamentList,
-      //         position: category.position
-      //       }
-      //     })
-      //
-      //   let title = {
-      //     id: event.title.id,
-      //     name: event.title.name,
-      //     category: children
-      //   }
-      //
-      //   if (currentTitleIndex > -1) {
-      //     groupedEvents[currentTitleIndex] = title
-      //   } else {
-      //     groupedEvents.push(title)
-      //   }
-      // })
-      //
-      // console.log(groupedEvents)
-      // // this.events.forEach(event => {
-      // //
-      // //   const currentTitleIndex = groupedEvents.findIndex(title => title.name === event.title.name);
-      // //
-      // //   if (currentTitleIndex > -1) {
-      // //
-      // //     const currentTournamentIndex = groupedEvents[currentTitleIndex]
-      // //       .tournaments
-      // //       .findIndex(tournament => tournament.id === event.tournament.id)
-      // //
-      // //     if (currentTournamentIndex > -1) {
-      // //       groupedEvents[currentTitleIndex]
-      // //         .tournaments[currentTournamentIndex]
-      // //         .events.push(event)
-      // //     } else {
-      // //       groupedEvents[currentTitleIndex]
-      // //         .tournaments.push({
-      // //           position: tourPosition,
-      // //           ...event.tournament,
-      // //           events: [event]
-      // //         })
-      // //     }
-      // //   } else {
-      // //     groupedEvents.push({
-      // //       ...event.title,
-      // //       ...event.scope,
-      // //       tournaments: [{
-      // //         ...event.tournament,
-      // //         events: [event]
-      // //       }]
-      // //     })
-      // //   }
-      // // })
-      // return groupedEvents
-      // // groupedEvents.forEach(event => {
-      // //   let asd = event.tournaments.filter(tournament => {
-      // //     return tournament && tournament.catPosition !== 9999
-      // //   }).sort((a, b) => {
-      // //     return a.catPosition - b.catPosition
-      // //   })
-      // //
-      // //   let dsasda = event.tournaments.filter(tournament => {
-      // //     return tournament && tournament.catPosition === 9999
-      // //   }).sort((a, b) => {
-      // //     if (a.name < b.name) { return -1; }
-      // //     if (a.name > b.name) { return 1; }
-      // //     return 0;
-      // //   })
-      // //   event.tournaments = asd.concat(dsasda)
-      // // })
-      // //
-      // // groupedEvents.forEach(event => {
-      // //   let asd = event.tournaments.filter(tournament => {
-      // //     return tournament && tournament.position !== 9999
-      // //   }).sort((a, b) => {
-      // //     return a.position - b.position
-      // //   })
-      // //
-      // //   let dsasda = event.tournaments.filter(tournament => {
-      // //     return tournament && tournament.position === 9999
-      // //   }).sort((a, b) => {
-      // //     if (a.name < b.name) { return -1; }
-      // //     if (a.name > b.name) { return 1; }
-      // //     return 0;
-      // //   })
-      // //   event.tournaments = asd.concat(dsasda)
-      // // })
     }
   },
   methods: {
-    emitTitleChange (titleId) {
-      this.$root.$emit(TITLE_CHANGED, titleId)
-    },
-    findTitleIcon,
     buildEventBranch (items) {
       const branch = items
         .reduce(this.addItemToGroup, [])
