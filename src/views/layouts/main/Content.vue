@@ -1,20 +1,20 @@
 <template>
   <b-row no-gutters>
     <b-col
-      v-bar
       class="bg-arc-clr-soil-black side-menu">
-      <side-menu :items="menuItems"/>
+      <vue-scroll :ops="scrollSettings">
+        <side-menu :items="menuItems"/>
+      </vue-scroll>
     </b-col>
     <b-col class="bg-arc-clr-soil-light min-vh-100">
       <router-view :key="$route.fullPath"/>
     </b-col>
     <b-col
-      v-bar
       class="bg-arc-clr-soil-black betslip-block">
-      <div>
+      <vue-scroll :ops="scrollSettings">
         <promotional-item/>
         <betslip/>
-      </div>
+      </vue-scroll>
     </b-col>
   </b-row>
 </template>
@@ -50,15 +50,25 @@ export default {
   },
   data () {
     return {
-      titles: []
+      titles: [],
+      scrollSettings: {
+        bar: {
+          size: '6px',
+          opacity: 0.6,
+          background: '#5e5e5e',
+        },
+        rail: {
+          gutterOfSide: '4px'
+        },
+        scrollPanel: {
+          easing: 'easeInCubic'
+        }
+      }
     }
   },
   computed: {
     menuItems () {
-      let ololo = buildTree(this.$route.params.titleKind, this.titles, this.$route)
-
-      // console.log(ololo)
-      return ololo
+      return buildTree(this.$route.params.titleKind, this.titles, this.$route)
     }
   }
 }
