@@ -1,33 +1,34 @@
 <template>
-  <b-tabs
-    v-model="tabIndex"
-    active-nav-item-class="sign-form-tabs"
-    nav-class="sign-form-tabs"
-    content-class="sign-form-tabs-content"
-    justified
-    end>
-    <b-tab
-      title="Personal information"
-      title-item-class="sign-form-tabs-title">
-      <signup-first-step
-        :errors="errors"
-        @section-one-filled="addFirstStepFields"/>
-    </b-tab>
-    <b-tab
-      title="Contact information"
-      title-item-class="sign-form-tabs-title"
-      @click="composeFormFields">
-      <signup-second-step
-        :submiting="submitting"
-        :errors="errors"
-        @section-two-filled="composeFormFields"
-        @step-changed="tabIndex = 0"/>
-    </b-tab>
-  </b-tabs>
+  <b-form @submit.prevent="submit">
+    <b-tabs
+      v-model="tabIndex"
+      active-nav-item-class="sign-form-tabs"
+      nav-class="sign-form-tabs"
+      content-class="sign-form-tabs-content"
+      lazy
+      justified
+      end>
+      <b-tab
+        title="Personal information"
+        title-item-class="sign-form-tabs-title">
+        <signup-first-step
+          :form="form"
+          @submit="tabIndex = 1"/>
+      </b-tab>
+      <b-tab
+        title="Contact information"
+        title-item-class="sign-form-tabs-title">
+        <signup-second-step
+          :submitting="submitting"
+          :form="form"
+          @return="tabIndex = 0"/>
+      </b-tab>
+    </b-tabs>
+  </b-form>
 </template>
 
 <script>
-import Errors from '@/helpers/forms/errors'
+import { Form } from '@/helpers'
 import SignupFirstStep from './SignupFirstStep'
 import SignupSecondStep from './SignupSecondStep'
 import SelectInput from '@/components/inputs/SelectInput.vue'
@@ -36,41 +37,48 @@ export default {
   components: {
     'select-component': SelectInput,
     SignupFirstStep,
-    SignupSecondStep,
+    SignupSecondStep
   },
   data () {
     return {
-      fieldsStepOne: {},
-      fieldsStepTwo: {},
+      form: new Form({
+        username: '',
+        email: '',
+        date_of_birth: '',
+        password: '',
+        password_confirmation: '',
+        country: '',
+        first_name: '',
+        last_name: '',
+        gender: 'male',
+        phone: '',
+        street_address: '',
+        city: '',
+        state: '',
+        zip_code: '',
+        agreed_with_promotional: false
+      }),
       submitting: false,
-      tabIndex: 0,
-      errors: new Errors()
+      tabIndex: 0
     }
   },
   methods: {
-    addFirstStepFields (value) {
-      this.fieldsStepOne = value
-      this.tabIndex = 1
-    },
-    composeFormFields (value) {
-      this.fieldsStepTwo = value
-      this.submit()
-    },
     close () {
       this.$root.$emit('bv::hide::modal', 'AuthModal')
     },
     submit () {
-      this.errors.clear()
-      const input = { ...this.fieldsStepOne, ...this.fieldsStepTwo }
+      this.form.clearErrors()
       this.submitting = true
-      this.$store.dispatch('registerNewUser', input)
+
+      this.$store
+        .dispatch('registerNewUser', this.form.values())
         .then(({ data: { signUp } }) => {
           this.$store.dispatch('login', signUp)
           this.$router.push({ name: 'home' })
           this.close()
           this.$noty.success('Welcome to ArcaneBet!')
         })
-        .catch((err) => this.errors.parseGraphQLErrors(err))
+        .catch((err) => this.form.handleGraphQLErrors(err))
         .finally(() => {
           this.submitting = false
         })
