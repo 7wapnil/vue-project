@@ -25,20 +25,16 @@ export default {
       value: 50,
       bonusItems: [
         { name: 'Bonus name',
-          status: 'All completed',
           overallStatus: 'Achived'
         },
         { name: 'Bonus name',
-          status: 'All completed',
           overallStatus: 'Achived'
         },
         { name: 'Bonus name',
-          overallStatus: '12 of 15 completed',
-          status: 'Expires in 3 days 12 hours and 15 minutes',
+          overallStatus: '12 of 15 completed'
         },
         { name: 'Bonus name',
-          overallStatus: '9 of 15 completed',
-          status: 'Expires in 14 days',
+          overallStatus: '9 of 15 completed'
         }
       ]
     }
