@@ -37,19 +37,19 @@
           </b-row>
         </b-col>
 
-        <b-col style="max-width: 247px; min-width: 60px">
-          <b-row no-gutters>
-            <b-col
-              v-if="event.competitors.length"
-              class="p-3"
-              style="min-width: 40px">
+        <b-col
+          class="pr-4"
+          style="max-width: 247px; min-width: 60px">
+          <b-row
+            class="d-flex align-items-center w-100 h-100"
+            no-gutters>
+            <b-col style="min-width: 40px">
               <b-row
                 v-for="(competitor, index) in event.competitors"
                 :key="index"
-                class="mb-1"
                 no-gutters>
                 <b-col>
-                  <h6 class="m-0 font-weight-bold text-arc-clr-iron team-name text-truncate letter-spacing-2">
+                  <h6 class="mb-0 font-weight-bold text-arc-clr-iron team-name text-truncate letter-spacing-5">
                     {{ competitor.name }}
                   </h6>
                 </b-col>
