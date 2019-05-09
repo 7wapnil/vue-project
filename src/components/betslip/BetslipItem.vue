@@ -141,24 +141,25 @@
         </b-button>
       </b-col>
     </b-row>
-
-    <b-alert
-      :show="hasMessage"
-      class="mt-3 mx-auto p-2 text-center"
-      variant="danger">
-      {{ bet.message }}
-    </b-alert>
-    <b-alert
-      :show="isSuccess"
-      class="mt-3 mx-auto p-2 text-center"
-      variant="success">
-      {{ successMessage }}
-    </b-alert>
-    <b-alert
-      :show="isBetDisabled"
-      variant="odd-disabled">
-      {{ disabledMessage }}
-    </b-alert>
+    <div v-if="!isSubmitted">
+      <b-alert
+        :show="hasMessage"
+        class="mt-3 mx-auto p-2 text-center"
+        variant="danger">
+        {{ bet.message }}
+      </b-alert>
+      <b-alert
+        :show="isSuccess"
+        class="mt-3 mx-auto p-2 text-center"
+        variant="success">
+        {{ successMessage }}
+      </b-alert>
+      <b-alert
+        :show="isBetDisabled"
+        variant="odd-disabled">
+        {{ disabledMessage }}
+      </b-alert>
+    </div>
   </b-card>
 </template>
 
@@ -226,6 +227,7 @@ export default {
             return { id: this.bet.eventId }
           },
           result ({ data: { event_updated: eventUpdated } }) {
+            console.log('something happened')
             this.updateOdds(eventUpdated.markets[0])
             this.handleMarketStatus(eventUpdated.markets[0])
           }
@@ -293,6 +295,9 @@ export default {
     successMessage () {
       return MESSAGE_SUCCESS
     },
+    isSubmitted () {
+      return this.bet.status === Bet.statuses.submitted
+    }
   },
   mounted () {
     this.$nextTick(() => {
