@@ -39,24 +39,6 @@
         </small>
       </b-col>
     </b-row>
-    <b-dropdown-divider class="border-arc-dropdown-divider m-0"/>
-    <b-row
-      class="p-3"
-      no-gutters>
-      <b-col class="d-flex  align-items-center">
-        <small class="text-arc-clr-iron-light">
-          How to get bonuses
-        </small>
-      </b-col>
-      <b-col
-        cols="2"
-        class="d-flex justify-content-end align-items-center">
-        <icon
-          name="wallet-arrow-right"
-          size="10px"/>
-      </b-col>
-    </b-row>
-
   </b-dropdown-item>
 </template>
 <script>
