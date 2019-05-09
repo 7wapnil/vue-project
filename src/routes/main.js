@@ -30,11 +30,6 @@ export default [
         component: TournamentPage
       },
       {
-        path: 'title/:titleId/category/:categoryId/tour/:tournamentId',
-        name: 'categoryTournament',
-        component: TournamentPage
-      },
-      {
         path: 'title/:titleId/category/:categoryId/',
         name: 'category-tournaments',
         component: CategoryPage

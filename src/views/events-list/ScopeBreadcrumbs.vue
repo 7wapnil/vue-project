@@ -1,53 +1,121 @@
 <template>
-  <div>
+  <div v-if="titles.length">
     <b-breadcrumb
       :items="composedBreadcrumbs"
       class="w-100 letter-spacing-2"/>
   </div>
 </template>
+
 <script>
+import { TITLES_QUERY } from '@/graphql'
+
 export default {
+  data () {
+    return {
+      titles: []
+    }
+  },
+  apollo: {
+    titles () {
+      return {
+        query: TITLES_QUERY,
+        variables () {
+          return {
+            kind: this.$route.params.titleKind,
+            withScopes: true
+          }
+        }
+      }
+    }
+  },
   computed: {
-    getCache () {
-      return this.$apolloProvider.defaultClient.cache.data.data
-    },
     getTitle () {
-      return this.getCache[`Title:${this.$route.params.titleId}`]
-    },
-    getCategory () {
-      return this.getCache[`Scope:${this.$route.params.categoryId}`]
+      let currentTitle
+
+      this.titles.filter(title => {
+        if (title.id === this.$route.params.titleId) {
+          currentTitle = {
+            id: title.id,
+            name: title.name,
+            scopes: title.event_scopes
+          }
+        }
+      })
+
+      return currentTitle
     },
     getTournament () {
-      return this.getCache[`Scope:${this.$route.params.tournamentId}`]
+      let currentTournament
+
+      this.getTitle.scopes.filter((scope) => {
+        if (scope.kind === 'tournament' && scope.id === this.$route.params.tournamentId) {
+          currentTournament = scope
+        }
+      })
+
+      return currentTournament
+    },
+    getCategory () {
+      let categoryId
+
+      if (this.$route.params.categoryId) {
+        categoryId = this.$route.params.categoryId
+      } else {
+        categoryId = this.getEventScopeID
+      }
+
+      let category
+
+      this.getTitle.scopes.filter((scope) => {
+        if (scope.kind === 'category' && scope.id === categoryId) {
+          category = scope
+        }
+      })
+      return category
+    },
+    getEventScopeID () {
+      return this.getTournament ? this.getTournament.event_scope_id : null
     },
     titleLink () {
-      return {
-        text: this.getTitle.name,
-        to: { name: 'title', params: { titleKind: this.$route.params.titleKind, titleId: this.$route.params.titleId, } }
+      if (this.getTitle) {
+        return {
+          text: this.getTitle.name,
+          to: {
+            name: 'title',
+            params: { titleKind: this.$route.params.titleKind, titleId: this.$route.params.titleId, }
+          }
+        }
       }
     },
     categoryLink () {
-      if (!this.$route.params.categoryId) return null
-      return {
-        text: this.getCategory.name,
-        to: { name: 'category-tournaments',
-          params: {
-            titleKind: this.$route.params.titleKind,
-            titleId: this.$route.params.titleId,
-            categoryId: this.$route.params.categoryId
+      if (this.getCategory) {
+        return {
+          text: this.getCategory.name,
+          to: {
+            name: 'category-tournaments',
+            params: {
+              titleKind: this.$route.params.titleKind,
+              titleId: this.$route.params.titleId,
+              categoryId: this.getCategory.id
+            }
           }
         }
       }
     },
     tournamentLink () {
-      let result = null
-      if (this.$route.params.tournamentId) {
-        result = {
+      if (this.getTournament) {
+        return {
           text: this.getTournament.name,
-          to: { name: 'tournament', params: { titleKind: this.$route.params.titleKind, titleId: this.$route.params.titleId, tournamentId: this.$route.params.tournamentId } }
+          to: {
+            name: 'tournament',
+            params: {
+              titleKind: this.$route.params.titleKind,
+              titleId: this.$route.params.titleId,
+              tournamentId: this.$route.params.tournamentId
+            }
+          }
         }
       }
-      return result
     },
     composedBreadcrumbs () {
       return [this.titleLink, this.categoryLink, this.tournamentLink].filter((link) => !!link)

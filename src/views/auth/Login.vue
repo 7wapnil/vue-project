@@ -1,100 +1,73 @@
 <template>
-  <form @submit.prevent="submit">
-    <input-component
-      id="login-username"
-      :feedback="inputFeedback['login']"
-      v-model="fields.login"
-      class-name="username"
-      type="text"
-      label="Username"
-      bottom-bar
-      aria-describedby="inputFeedbackUsername"
-      feedback-id="inputFeedbackUser"
-    />
-    <input-component
-      id="login-password"
-      :feedback="inputFeedback['password']"
-      v-model="fields.password"
-      type="password"
-      label="Password"
-      bottom-bar
-      aria-describedby="inputFeedbackPassword"
-      feedback-id="inputFeedbackPassword"
-    />
+  <b-form
+    novalidate
+    @submit.prevent="submit">
+    <b-form-group>
+      <b-form-input
+        v-model="fields.login"
+        placeholder="Username"
+        autocomplete="username"
+        class="mb-4"
+        required/>
+      <b-form-input
+        v-model="fields.password"
+        class="mb-4"
+        autocomplete="current-password"
+        placeholder="Password"
+        type="password"
+        required/>
+    </b-form-group>
     <b-row
       v-if="isSuspicious"
-      class="mt-4"
       no-gutters>
-      <b-col
-        sm="3"
-        align="right"
-        class="mt-2 mr-3">
-        <label for="captcha">
-          Captcha
-        </label>
-      </b-col>
-      <b-col cols="6">
+      <b-col align="center">
         <vue-recaptcha
           ref="recaptcha"
           :sitekey="recaptchaSiteKey"
+          class="mb-3"
           theme="dark"
           @verify="onCaptchaVerified"
           @expired="resetCaptcha"/>
-        <div
+        <b-alert
           v-if="isCaptchaMissing"
-          role="alert"
-          class="invalid-feedback d-block">
+          variant="danger">
           Please, pass Captcha verification!
-        </div>
+        </b-alert>
       </b-col>
     </b-row>
-    <response-panel :response-text="feedback"/>
-    <b-row no-gutters>
-      <b-col
-        cols="6"
-        class="mr-auto ml-auto">
-        <b-button
-          :disabled="submitting"
-          class="my-4"
-          block
-          type="submit">
-          Sign in
-        </b-button>
-      </b-col>
-    </b-row>
+    <b-form-invalid-feedback>
+      Feedback
+    </b-form-invalid-feedback>
+    <b-button
+      :disabled="isSubmitDisabled"
+      class="mb-3"
+      type="submit"
+      variant="user-profile-button"
+      block>
+      Sign in
+    </b-button>
     <b-row no-gutters>
       <b-col align="center">
-        <b-link @click="$emit('tab-changed', 1)">
-          Have no account yet? Sign up here
+        <b-link class="font-size-14 letter-spacing-2 text-arc-clr-iron">
+          Forgot your password? Recover it here
         </b-link>
       </b-col>
     </b-row>
-  </form>
+  </b-form>
 </template>
 
 <script>
-import InputComponent from '@/components/inputs/RegularInput.vue'
 import VueRecaptcha from 'vue-recaptcha'
 import { mapGetters, mapActions } from 'vuex'
-import ResponseErrorPanel from '@/components/custom/ResponseErrorPanel.vue'
 import wallets from '@/mixins/wallets'
 
 export default {
   components: {
-    VueRecaptcha,
-    'input-component': InputComponent,
-    'response-panel': ResponseErrorPanel
+    VueRecaptcha
   },
   mixins: [wallets],
-  props: {
-    modalName: {
-      type: String,
-      required: true
-    }
-  },
   data () {
     return {
-      inputFeedback: {},
       feedback: '',
       fields: {
         login: '',
@@ -110,7 +83,11 @@ export default {
     ...mapGetters({
       isSuspicious: 'isSuspicious',
       lastLogin: 'getLastLogin'
-    })
+    }),
+    isSubmitDisabled () {
+      const hasLength = !!(this.fields.login && this.fields.password)
+      return !hasLength && !this.isCaptchaMissing && !this.submitting
+    }
   },
   methods: {
     isCaptchaEmpty () {
@@ -121,17 +98,17 @@ export default {
       this.isCaptchaMissing = false
     },
     resetCaptcha () {
-      this.$refs.recaptcha.reset();
+      this.$refs.recaptcha.reset()
       this.fields.captcha = ''
     },
     submit () {
       if (this.isCaptchaEmpty()) {
-        this.isCaptchaMissing = true;
+        this.isCaptchaMissing = true
         return
       }
       this.submitting = true
 
-      if (this.lastLogin !== this.fields.login) this.removeCaptcha()
+      if (this.lastLogin !== this.fields.login) { this.removeCaptcha() }
 
       this.authenticate(this.fields)
         .then(this.onSuccess)
@@ -139,7 +116,7 @@ export default {
         .finally(this.done)
     },
     removeCaptcha () {
-      this.fields.captcha = null
+      this.fields.captcha = ''
     },
     onSuccess ({ data: { signIn } }) {
       this.login(signIn)
@@ -162,7 +139,7 @@ export default {
       this.submitting = false
     },
     close () {
-      this.$root.$emit('bv::hide::modal', this.modalName)
+      this.$root.$emit('bv::hide::modal', 'AuthModal')
     },
     ...mapActions([
       'authenticate',

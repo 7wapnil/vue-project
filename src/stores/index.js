@@ -10,6 +10,17 @@ import tabs from './tabs'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
+  state: {
+    auth: null
+  },
+  getters: {
+    auth (state) { return state.auth }
+  },
+  mutations: {
+    updateAuth (state, auth) {
+      state.auth = auth
+    }
+  },
   modules: {
     providers,
     user,

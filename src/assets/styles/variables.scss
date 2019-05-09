@@ -84,20 +84,33 @@ $navbar-light-hover-color: $arc-clr-white;
 $navbar-light-active-color: $arc-clr-white;
 
 // Forms //
-$input-border-color: $arc-clr-soil-darker;
+$input-placeholder-color: $arc-clr-soil-light;
+$input-border-color: $arc-clr-white;
 $input-border-radius: 0 6px 0 6px;
+$input-border-width: 2px;
 $input-color: $arc-clr-soil-light;
 $input-border-radius-lg: $input-border-radius;
 $input-border-radius-sm: $input-border-radius;
 $input-line-height: 1.125;
 $input-padding-x: 12px;
 $input-padding-y: 9px;
-$input-btn-focus-width: 0;
+$input-btn-focus-width: 2px;
 $input-btn-focus-color: none;
 $input-btn-focus-box-shadow: none;
 $input-btn-border-width: 0;
+$input-focus-box-shadow: none;
+$input-focus-width: 2px;
+$input-focus-border-color: $arc-clr-gold;
+$custom-select-color: $arc-clr-soil-light;
+$custom-select-border-width: 2px;
+$custom-select-border-color: $arc-clr-white;
+$custom-select-focus-width: 2px;
+$custom-select-focus-border-color: $arc-clr-gold;
+$custom-select-disabled-color: $arc-clr-iron;
+$custom-checkbox-indicator-border-radius: 0 6px 0 6px;
+$custom-checkbox-indicator-indeterminate-border-color: $arc-clr-white;
 
-// Custom Colors //
+  // Custom Colors //
 $theme-colors: ("arc-clr-soil-light": $arc-clr-soil-light,
                 "arc-clr-soil-light-cover": $arc-clr-soil-light-cover,
                 "arc-clr-soil-dark": $arc-clr-soil-dark,

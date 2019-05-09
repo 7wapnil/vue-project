@@ -3,6 +3,14 @@ export default class Errors {
     this.errors = {}
   }
 
+  get first () {
+    if (this.any()) {
+      return this.errors[ Object.keys(this.errors)[0] ]
+    }
+
+    return null
+  }
+
   fill (errors) {
     this.errors = errors
   }
@@ -34,7 +42,10 @@ export default class Errors {
     return this.has(field) ? false : null
   }
 
-  all () {
-    return this.errors
+  parseGraphQLErrors ({ graphQLErrors }) {
+    (graphQLErrors || []).forEach((error) => {
+      const path = error.path ? error.path[0] : 'form'
+      this.add(path, error.message)
+    })
   }
 }

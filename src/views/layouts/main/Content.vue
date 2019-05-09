@@ -7,7 +7,9 @@
       </vue-scroll>
     </b-col>
     <b-col class="bg-arc-clr-soil-light min-vh-100">
-      <router-view :key="$route.fullPath"/>
+      <router-view
+        v-if="titles.length"
+        :key="$route.fullPath"/>
     </b-col>
     <b-col
       class="bg-arc-clr-soil-black betslip-block">
@@ -62,6 +64,9 @@ export default {
         },
         scrollPanel: {
           easing: 'easeInCubic'
+        },
+        vuescroll: {
+          sizeStrategy: 'number'
         }
       }
     }
