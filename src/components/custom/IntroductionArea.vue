@@ -3,12 +3,12 @@
     v-if="title"
     fluid
     class="p-0">
-    <div class="introduction-area-wrapper">
-      <b-img
-        :src="background"
-        :alt="`${title.name}-background-image`"
-        fluid-grow/>
-    </div>
+      <div class="introduction-area-wrapper">
+          <b-img
+            :src="background"
+            :alt="`${title.name}-background-image`"
+            fluid-grow/>
+      </div>
   </b-container>
 </template>
 <script>

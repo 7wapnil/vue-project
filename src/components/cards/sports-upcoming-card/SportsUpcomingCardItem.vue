@@ -9,8 +9,8 @@
       :key="odd.id"
       class="mr-2 text-truncate market-odd">
       <b-row no-gutters>
-        <b-col class="px-1 mb-1 text-center text-truncate">
-          <small class="text-arc-clr-iron">
+        <b-col class="p-1 text-center text-truncate">
+          <small class="text-arc-clr-iron team-name">
             {{ odd.name }}
           </small>
         </b-col>

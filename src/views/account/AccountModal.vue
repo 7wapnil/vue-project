@@ -24,7 +24,9 @@
       </div>
     </template>
 
-    <account-sidebar/>
+    <vue-scroll :ops="scrollSettings">
+      <account-sidebar/>
+    </vue-scroll>
 
   </modal>
 </template>
@@ -36,6 +38,23 @@ import AccountSidebar from './AccountSidebar'
 export default {
   components: {
     AccountSidebar
+  },
+  data () {
+    return {
+      scrollSettings: {
+        bar: {
+          size: '6px',
+          opacity: 0.6,
+          background: '#5e5e5e',
+        },
+        rail: {
+          gutterOfSide: '6px'
+        },
+        scrollPanel: {
+          easing: 'easeInCubic'
+        }
+      }
+    }
   },
   computed: {
     ...mapGetters({

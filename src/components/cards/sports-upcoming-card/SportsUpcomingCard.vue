@@ -30,7 +30,7 @@
             <div class="w-100"/>
 
             <b-col class="d-flex align-items-start justify-content-center">
-              <span class="text-arc-clr-iron text-uppercase font-weight-bold font-size-10 letter-spacing-2">
+              <span class="text-arc-clr-iron text-uppercase font-weight-bold font-size-10 letter-spacing-2 hover-item">
                 {{ event.start_at | asFormattedDate('HH:mm') }}
               </span>
             </b-col>
@@ -44,11 +44,11 @@
               class="p-3"
               style="min-width: 40px">
               <b-row
-                class="mb-2"
+                v-for="(competitor, index) in event.competitors"
+                :key="index"
+                class="mb-1"
                 no-gutters>
-                <b-col
-                  v-for="(competitor, index) in event.competitors"
-                  :key="index">
+                <b-col>
                   <h6 class="m-0 font-weight-bold text-arc-clr-iron team-name text-truncate letter-spacing-2">
                     {{ competitor.name }}
                   </h6>

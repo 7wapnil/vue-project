@@ -3,10 +3,12 @@
     v-if="event"
     class="py-5 w-100"
     no-gutters>
-    <b-col class="text-center pt-4">
+    <b-col
+      v-if="firstCompetitor"
+      class="text-center pt-4">
       <b-row no-gutters>
         <b-col class="font-weight-bold my-4 letter-spacing-2">
-          {{ event.competitors[0].name }}
+          {{ firstCompetitor.name }}
         </b-col>
 
         <div class="w-100"/>
@@ -75,10 +77,12 @@
       </b-row>
     </b-col>
 
-    <b-col class="text-center pt-4">
+    <b-col
+      v-if="secondCompetitor"
+      class="text-center pt-4">
       <b-row no-gutters>
         <b-col class="font-weight-bold my-4 letter-spacing-2">
-          {{ event.competitors[1].name }}
+          {{ secondCompetitor.name }}
         </b-col>
       </b-row>
       <b-row no-gutters>
@@ -104,5 +108,13 @@ export default {
       default: true
     }
   },
+  computed: {
+    firstCompetitor () {
+      return this.event.competitors[0]
+    },
+    secondCompetitor () {
+      return this.event.competitors[1]
+    }
+  }
 }
 </script>
