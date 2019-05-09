@@ -58,7 +58,7 @@
             :title-link-class="changeStyleTab(1)"
             title="Combo"
             no-body>
-            <p class="p-5 text-center bg-arc-clr-soil-dark">
+            <p style="margin-left: 6px" class="p-5 text-center bg-arc-clr-soil-dark">
               To be implemented
             </p>
           </b-tab>
