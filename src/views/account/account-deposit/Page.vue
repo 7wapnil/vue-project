@@ -175,7 +175,7 @@
           </b-col>
         </b-row>
         <b-row
-          class="mt-2"
+          class="mt-2 mb-1"
           no-gutters>
           <b-col class="pt-1">
             <h6 class="mb-0 text-right letter-spacing-2 text-arc-clr-iron">
@@ -199,6 +199,11 @@
             </b-button>
           </b-col>
         </b-row>
+      </b-col>
+    </b-row>
+    <b-row no-gutters>
+      <b-col class="text-arc-clr-iron mb-2">
+        Payments methods we support:
       </b-col>
     </b-row>
     <deposit-methods/>
