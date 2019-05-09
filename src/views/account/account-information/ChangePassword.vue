@@ -90,7 +90,6 @@
         </b-row>
 
         <b-row
-          class="mb-4"
           no-gutters>
           <b-col class="text-md-right text-sm-left align-self-center">
             <label
@@ -107,7 +106,6 @@
               v-model="form.new_password_confirmation"
               class="ml-4"
               type="password"/>
-
           </b-col>
           <b-col/>
         </b-row>

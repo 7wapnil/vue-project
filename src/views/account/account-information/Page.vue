@@ -141,8 +141,9 @@
             <b-col class="user-profile-form-select">
               <b-form-select
                 id="gender"
-                :options="[{text: user.gender}]"
-                class="ml-4 h-100"
+                :value="null"
+                :options="[{value: null, text: user.gender}]"
+                class="ml-4 h-100 text-capitalize"
                 disabled/>
             </b-col>
             <b-col/>
@@ -159,26 +160,28 @@
             </b-col>
             <b-col class="user-profile-form-select">
               <b-row
-                class="ml-4 h-100"
                 no-gutters>
-                <b-col>
+                <b-col class="ml-4">
                   <b-form-select
                     id="birthday"
-                    :options="[{text: user.date_of_birth.slice(8, 11)}]"
+                    :value="null"
+                    :options="[{value: null, text: user.date_of_birth.slice(8, 11)}]"
                     class="h-100"
                     type="date"
                     disabled/>
                 </b-col>
                 <b-col class="ml-2">
                   <b-form-select
-                    :options="[{text: user.date_of_birth.slice(5, 7) }]"
+                          :value="null"
+                    :options="[{value: null, text: user.date_of_birth.slice(5, 7) }]"
                     class="h-100"
                     type="date"
                     disabled/>
                 </b-col>
                 <b-col class="ml-2">
                   <b-form-select
-                    :options="[{text: user.date_of_birth.slice(0, 4)}]"
+                          :value="null"
+                    :options="[{value: null, text: user.date_of_birth.slice(0, 4)}]"
                     class="h-100"
                     type="date"
                     disabled/>
@@ -234,7 +237,8 @@
             <b-col class="user-profile-form-select">
               <b-form-select
                 id="country"
-                :options="[{text: user.address_country}]"
+                :value="null"
+                :options="[{value: null, text: user.address_country}]"
                 class="ml-4 h-100"
                 disabled/>
             </b-col>
@@ -254,7 +258,8 @@
             <b-col class="user-profile-form-select">
               <b-form-select
                 id="province"
-                :options="[{text: user.address_state}]"
+                :value="null"
+                :options="[{value: null, text: user.address_state}]"
                 class="ml-4 h-100"
                 disabled/>
             </b-col>
@@ -273,8 +278,9 @@
             </b-col>
             <b-col class="user-profile-form-select">
               <b-form-select
+                      :value="null"
                 id="city"
-                :options="[{text: user.address_city}]"
+                :options="[{value: null, text: user.address_city}]"
                 class="ml-4 h-100"
                 disabled/>
             </b-col>
