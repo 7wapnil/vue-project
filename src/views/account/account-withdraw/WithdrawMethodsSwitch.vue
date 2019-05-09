@@ -1,8 +1,6 @@
 <template>
-  <div>
     <b-row
-      class="p-4 bg-arc-clr-soil-darker"
-      style="border-radius: 4px"
+      class="p-4 bg-arc-clr-soil-darker border-4"
       no-gutters>
       <b-col
         v-for="(method, index) in methods"
@@ -17,7 +15,6 @@
 
       </b-col>
     </b-row>
-  </div>
 </template>
 
 <script>

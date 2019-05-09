@@ -15,9 +15,6 @@
         </p>
       </b-col>
     </b-row>
-
-    <deposit-methods/>
-
     <b-row
       class="my-4"
       no-gutters>
@@ -204,6 +201,7 @@
         </b-row>
       </b-col>
     </b-row>
+    <deposit-methods/>
   </div>
 </template>
 
