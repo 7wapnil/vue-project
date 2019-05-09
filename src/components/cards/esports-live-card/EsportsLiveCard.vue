@@ -34,83 +34,33 @@
           <slot/>
         </b-col>
         <b-col
-          class="event-card-inside-border-left"
+          class="event-card-inside-border-left event-card-statistics-button"
           style="max-width: 102px">
-          <b-row
-            no-gutters
-            class="h-50 w-100">
             <b-link
               v-if="marketsCount > 0"
               :to="{ name: 'event', params: { id: event.id } }"
-              class="col pt-3 event-card-statistics-button">
-              <b-row
-                no-gutters
-                class="text-center h-100">
-                <b-row
-                  no-gutters
-                  class="h-50 w-100">
-                  <b-col class="d-inline-flex justify-content-center align-items-start">
-                    <h6 class="m-0 font-weight-bold">
-                      +{{ marketsCount }}
-                    </h6>
-                  </b-col>
-                </b-row>
-                <b-row
-                  no-gutters
-                  class="h-50 w-100">
-                  <b-col class="mb-2 d-inline-flex justify-content-center align-items-center">
-                    <icon
-                      color="arc-clr-soil-light"
-                      size="10px"
-                      name="upcoming-event-arrow-right"/>
-                  </b-col>
-                </b-row>
-              </b-row>
+              class="col h-100 w-100 p-0 d-flex justify-content-center align-items-center">
+                  <b-row no-gutters>
+                    <b-col class="d-flex align-items-center justify-content-center px-2">
+                      <h6 class="m-0 font-weight-bold">
+                        +{{ marketsCount }}
+                      </h6>
+                    </b-col>
+                  </b-row>
+                  <b-row no-gutters>
+                    <b-col class="d-flex align-items-center justify-content-center px-2">
+                      <icon color="arc-clr-soil-light"
+                            size="10px"
+                            name="upcoming-event-arrow-right"/>
+                    </b-col>
+                  </b-row>
             </b-link>
-
-            <span
-              v-if="marketsCount === 0"
-              class="col pt-3 event-card-statistics-button">
-              <b-row
-                no-gutters
-                class="text-center h-100">
-                <b-col class="d-inline-flex justify-content-center align-items-start">
-                  <no-data-placeholder/>
-                </b-col>
-              </b-row>
-            </span>
-
-          </b-row>
-          <b-row
-            no-gutters
-            class="h-50 w-100 event-card-inside-border-top">
-            <b-col
-              v-b-toggle="'esports-live-event-' + event.id"
-              v-if="event.dashboard_market.length > 1"
-              class="pt-3 event-card-toggle-button-esport">
-              <b-row
-                no-gutters
-                class="h-50 w-100">
-                <b-col class="d-flex align-items-start justify-content-center">
-                  <h6 class="mb-0 font-weight-bold">
-                    + 3
-                  </h6>
-                </b-col>
-              </b-row>
-              <b-row
-                no-gutters
-                class="h-50 w-100">
-                <b-col class="pb-2 d-flex align-items-center justify-content-center">
-                  <icon
-                    role="button"
-                    color="arc-clr-soil-light"
-                    tabindex="0"
-                    size="7.5px"
-                    name="upcoming-event-chevron-down"/>
-                </b-col>
-              </b-row>
-            </b-col>
-          </b-row>
+            <b-row v-if="marketsCount === 0"
+                   no-gutters>
+              <b-col class="d-flex justify-content-center align-items-start">
+                <no-data-placeholder/>
+              </b-col>
+            </b-row>
         </b-col>
       </b-row>
     </b-card-body>
