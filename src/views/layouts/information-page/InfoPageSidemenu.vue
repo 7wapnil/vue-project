@@ -3,14 +3,14 @@
     class="side-menu"
     vertical>
     <b-nav-item class="d-inline-flex align-items-center justify-content-start p-3 bg-arc-clr-soil-dark side-menu-categories">
-      <span class="text-arc-clr-iron">
+      <span class="text-arc-clr-iron letter-spacing-2">
         CATEGORIES
       </span>
     </b-nav-item>
+
     <b-nav-item
       v-b-toggle="`item-${index}`"
       v-for="(item, index) in menuItems"
-      v-if="!!item.children"
       :key="index"
       class="bg-arc-clr-soil-cover">
       <div>
@@ -20,7 +20,7 @@
               :name="!!item.icon ? `${ item.icon }` : 'promotional'"
               size="24px"/>
           </span>
-          <span class="text-capitalize font-size-14 font-weight-bold h-100 w-100 d-flex align-items-center item-name">
+          <span class="text-capitalize font-size-14 font-weight-bold h-100 w-100 d-flex align-items-center item-name letter-spacing-2">
             {{ item.title }}
           </span>
           <span class="px-4 d-flex align-items-center h-100">
@@ -36,12 +36,13 @@
           is-nav>
           <b-nav
             vertical
-            class="p-4 bg-arc-clr-soil-darker">
+            class="bg-arc-clr-soil-darker py-3">
             <b-nav-item
               v-for="(child, childIndex) in item.children"
               :key="childIndex"
               :to="{ name: `${ child.name }` }"
-              class="px-4 py-1 w-100 h-100 text-capitalize text-arc-clr-iron-light font-size-14 font-weight-bold text-truncate"
+              link-classes="information-page-sidemenu-item"
+              class="text-capitalize text-arc-clr-iron-light font-size-14 font-weight-bold text-truncate letter-spacing-2"
               active-class="text-arc-clr-gold"
               exact>
               {{ child.title }}
