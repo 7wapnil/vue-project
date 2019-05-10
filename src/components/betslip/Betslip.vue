@@ -117,6 +117,7 @@
       class="p-2 bg-arc-clr-soil-black">
       <b-col>
         <b-button
+          v-if="!getAnySubmittedBet"
           :disabled="!betslipSubmittable"
           variant="arc-primary"
           size="lg"
@@ -125,7 +126,7 @@
           PLACE BET
         </b-button>
 
-        <spinner-button v-if="false">
+        <spinner-button v-if="getAnySubmittedBet">
           Placing bet
         </spinner-button>
       </b-col>
@@ -149,9 +150,7 @@ export default {
   mixins: [wallets],
   data () {
     return {
-      messages: [],
-      tabIndex: 0,
-      valuesUnconfirmed: false
+      tabIndex: 0
     }
   },
   computed: {

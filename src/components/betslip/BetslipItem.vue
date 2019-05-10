@@ -4,6 +4,7 @@
     style="margin-left: 6px"
     class="py-2 pl-3 pr-2 mb-1"
     no-body>
+
     <b-row
       class="mb-2"
       no-gutters>
@@ -105,7 +106,7 @@
     </b-row>
 
     <b-row
-      v-if="valuesUnconfirmed"
+      v-if="valuesUnconfirmed && !isSubmitted"
       class="alert-odd-value-changed mt-3"
       no-gutters>
       <b-col>
@@ -141,7 +142,6 @@
         </b-button>
       </b-col>
     </b-row>
-
     <b-alert
       :show="hasMessage"
       class="mt-3 mx-auto p-2 text-center"
@@ -155,7 +155,7 @@
       {{ successMessage }}
     </b-alert>
     <b-alert
-      :show="isBetDisabled"
+      :show="isBetDisabled && !isSubmitted"
       variant="odd-disabled">
       {{ disabledMessage }}
     </b-alert>
@@ -293,6 +293,9 @@ export default {
     successMessage () {
       return MESSAGE_SUCCESS
     },
+    isSubmitted () {
+      return this.bet.status === Bet.statuses.submitted
+    }
   },
   mounted () {
     this.$nextTick(() => {
