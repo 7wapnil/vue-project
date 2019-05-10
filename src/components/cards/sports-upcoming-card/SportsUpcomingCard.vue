@@ -10,14 +10,13 @@
         role="tab"
         style="height: 76px">
         <b-col
-          class="px-2 py-4"
+          class="d-flex align-items-center justify-content-center position-relative"
           style="min-width: 80px;
            max-width: 80px;
-           min-height: 100%;
-           position: relative">
+           min-height: 100%;">
           <b-row no-gutters>
             <b-col class="d-flex justify-content-center">
-              <span class="font-weight-bold text-arc-clr-iron text-uppercase mb-1 event-card-date letter-spacing-1">
+              <span class="font-weight-bold text-arc-clr-iron text-uppercase event-card-date letter-spacing-1">
                 {{ event.start_at | asCalendarDate({
                   sameDay: '[Today]',
                   nextDay: '[Tomorrow]',
