@@ -4,6 +4,7 @@
     style="margin-left: 6px"
     class="py-2 pl-3 pr-2 mb-1"
     no-body>
+
     <b-row
       class="mb-2"
       no-gutters>
@@ -105,7 +106,7 @@
     </b-row>
 
     <b-row
-      v-if="valuesUnconfirmed"
+      v-if="valuesUnconfirmed && !isSubmitted"
       class="alert-odd-value-changed mt-3"
       no-gutters>
       <b-col>
@@ -141,25 +142,23 @@
         </b-button>
       </b-col>
     </b-row>
-    <div v-if="!isSubmitted">
-      <b-alert
-        :show="hasMessage"
-        class="mt-3 mx-auto p-2 text-center"
-        variant="danger">
-        {{ bet.message }}
-      </b-alert>
-      <b-alert
-        :show="isSuccess"
-        class="mt-3 mx-auto p-2 text-center"
-        variant="success">
-        {{ successMessage }}
-      </b-alert>
-      <b-alert
-        :show="isBetDisabled"
-        variant="odd-disabled">
-        {{ disabledMessage }}
-      </b-alert>
-    </div>
+    <b-alert
+      :show="hasMessage"
+      class="mt-3 mx-auto p-2 text-center"
+      variant="danger">
+      {{ bet.message }}
+    </b-alert>
+    <b-alert
+      :show="isSuccess"
+      class="mt-3 mx-auto p-2 text-center"
+      variant="success">
+      {{ successMessage }}
+    </b-alert>
+    <b-alert
+      :show="isBetDisabled && !isSubmitted"
+      variant="odd-disabled">
+      {{ disabledMessage }}
+    </b-alert>
   </b-card>
 </template>
 
@@ -227,7 +226,6 @@ export default {
             return { id: this.bet.eventId }
           },
           result ({ data: { event_updated: eventUpdated } }) {
-            console.log('something happened')
             this.updateOdds(eventUpdated.markets[0])
             this.handleMarketStatus(eventUpdated.markets[0])
           }
