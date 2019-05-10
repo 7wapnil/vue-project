@@ -16,6 +16,7 @@
           v-model="fields.last_four_digits"
           class="ml-4 text-left w-50"
           type="number"
+          min="0"
           @input="onInput()"/>
       </b-col>
       <b-col/>

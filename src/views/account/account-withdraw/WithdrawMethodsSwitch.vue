@@ -6,13 +6,11 @@
       v-for="(method, index) in methods"
       :key="index"
       class="d-flex align-items-center justify-content-center">
-
       <payment-method-icon
         :name="method.code"
         :class="{ inactive: !isActive(method.code)}"
         class="pointer"
         @click="selectMethod(method)"/>
-
     </b-col>
   </b-row>
 </template>
