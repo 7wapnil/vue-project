@@ -49,8 +49,9 @@
     </template>
 
     <template v-if="inactiveWalletsList.length">
-      <div v-for="(wallet, index) in inactiveWalletsList"
-          :key="index">
+      <div
+        v-for="(wallet, index) in inactiveWalletsList"
+        :key="index">
 
         <b-dropdown-divider class="border-arc-dropdown-divider mx-3 my-0"/>
 

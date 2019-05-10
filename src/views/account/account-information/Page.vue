@@ -172,7 +172,7 @@
                 </b-col>
                 <b-col class="ml-2">
                   <b-form-select
-                          :value="null"
+                    :value="null"
                     :options="[{value: null, text: user.date_of_birth.slice(5, 7) }]"
                     class="h-100"
                     type="date"
@@ -180,7 +180,7 @@
                 </b-col>
                 <b-col class="ml-2">
                   <b-form-select
-                          :value="null"
+                    :value="null"
                     :options="[{value: null, text: user.date_of_birth.slice(0, 4)}]"
                     class="h-100"
                     type="date"
@@ -278,8 +278,8 @@
             </b-col>
             <b-col class="user-profile-form-select">
               <b-form-select
-                      :value="null"
                 id="city"
+                :value="null"
                 :options="[{value: null, text: user.address_city}]"
                 class="ml-4 h-100"
                 disabled/>
