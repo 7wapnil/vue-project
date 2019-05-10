@@ -43,7 +43,7 @@
               :to="{ name: `${ child.name }` }"
               link-classes="information-page-sidemenu-item"
               class="text-capitalize text-arc-clr-iron-light font-size-14 font-weight-bold text-truncate letter-spacing-2"
-              active-class="text-arc-clr-gold"
+              active-class="information-page-sidemenu-active"
               exact>
               {{ child.title }}
             </b-nav-item>
