@@ -48,18 +48,24 @@
       </b-row>
     </template>
 
-    <div
-      v-for="wallet in inactiveWalletsList"
-      :key="wallet.currency.code">
+    <template v-if="inactiveWalletsList.length">
+      <div v-for="(wallet, index) in inactiveWalletsList"
+          :key="index">
 
-      <b-dropdown-divider class="border-arc-dropdown-divider mx-3 my-0"/>
+        <b-dropdown-divider class="border-arc-dropdown-divider mx-3 my-0"/>
 
-      <b-dropdown-item
-        class="wallet-dropdown text-right px-3 py-2"
-        @click.prevent="selectWallet(wallet)">
-        <balance-amount :wallet="wallet"/>
-      </b-dropdown-item>
-    </div>
+        <b-dropdown-item-button
+          class="text-right wallet-button-menu-item px-3 py-2"
+          @click.prevent="selectWallet(wallet)">
+          <span class="font-weight-bold font-size-12 letter-spacing-2">
+            {{ wallet.amount | round }}
+          </span>
+          <span class="currency-code font-weight-bold font-size-12 letter-spacing-2">
+            {{ wallet.currency.code }}
+          </span>
+        </b-dropdown-item-button>
+      </div>
+    </template>
 
     <b-dropdown-divider class="border-arc-dropdown-divider my-0"/>
 
@@ -69,14 +75,12 @@
 </template>
 
 <script>
-import BalanceAmount from './BalanceAmount'
 import BonusSection from './BonusSection'
 import { mapGetters, mapMutations } from 'vuex'
 import { SET_ACTIVE_WALLET } from '@/stores/wallets'
 
 export default {
   components: {
-    BalanceAmount,
     BonusSection
   },
   computed: {

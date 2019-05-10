@@ -76,6 +76,10 @@
   box-shadow: $arc-button-box-shadow;
   border: 1px solid  $profile-button-second-color !important;
   border-radius: 6px 0 6px 0 !important;
+  &-menu-item .dropdown-item {
+    padding: 0;
+    outline: 0;
+  }
 }
 #nav-wallet-wrapper > .dropdown-menu,
 #nav-wallet-wrapper .dropdown-item:focus {
