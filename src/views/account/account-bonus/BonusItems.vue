@@ -17,13 +17,9 @@
                 color="arc-clr-iron"/>
             </span>
           </b-col>
-          <b-col>
+          <b-col class="d-flex align-items-center pl-2">
             <span class="bonus-item-name text-arc-clr-gold font-weight-bold letter-spacing-2">
               {{ bonusItem.name }}
-            </span><br>
-            <span
-              class="font-size-14 text-arc-clr-iron letter-spacing-2 line-height-18">
-              {{ bonusItem.status }}
             </span>
           </b-col>
           <b-col class="text-right d-flex justify-content-end align-items-center">

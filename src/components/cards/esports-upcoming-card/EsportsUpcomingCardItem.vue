@@ -2,14 +2,14 @@
   <b-row
     :data-id="market.id"
     no-gutters
-    style="max-height: 80px"
+    style="min-height: 80px; max-height: 80px"
     class="market-odds">
     <b-col
       style="min-width: 135px"
-      class="px-4 py-2 market-odd">
+      class="px-4 py-1 market-odd">
       <b-row no-gutters>
-        <b-col class="px-3 text-truncate text-center">
-          <span class="text-arc-clr-iron team-name font-weight-bold font-size-12 line-height-14 ">
+        <b-col class="px-3 py-1 text-truncate text-center">
+          <span class="text-arc-clr-iron team-name font-weight-bold font-size-12 line-height-14 letter-spacing-2">
             {{ firstTeam.name }}
           </span>
         </b-col>
@@ -27,10 +27,10 @@
     </b-col>
 
     <b-col
+      v-if="showicons"
       cols="auto"
       class="p-3 d-flex align-items-center justify-content-center">
       <icon
-        v-if="showicons"
         name="sidemenu-game-icon"
         style="color: #808080"
         size="24px"/>
@@ -39,13 +39,10 @@
     <!--Draw-->
     <b-col
       v-if="hasDraw"
-      style="min-width: 135px"
-      class="px-4 py-2">
+      style="min-width: 135px; padding-top: 9px">
       <b-row no-gutters>
         <b-col>
-          <span
-            style="opacity: .4"
-            class="w-100 text-arc-clr-iron team-name font-weight-light font-size-12 d-inline-flex justify-content-center mb-1 line-height-14">
+          <span class="w-100 text-arc-clr-iron team-name font-weight-light font-size-12 d-inline-flex justify-content-center opacity-4 letter-spacing-2 mb-1">
             Draw
           </span>
         </b-col>
@@ -64,7 +61,7 @@
     <b-col
       v-if="!hasDraw"
       cols="auto"
-      class="px-2 d-flex align-items-center justify-content-center">
+      class="d-flex align-items-center justify-content-center">
       <b-row no-gutters>
         <b-col class="px-3">
           <span class="font-weight-light text-arc-clr-iron font-size-12">
@@ -75,20 +72,20 @@
     </b-col>
 
     <b-col
+      v-if="showicons"
       cols="auto"
       class="p-3 d-flex align-items-center justify-content-center">
       <icon
-        v-if="showicons"
         name="sidemenu-game-icon"
         style="color: #808080"
         size="24px"/>
     </b-col>
     <b-col
       style="min-width: 135px"
-      class="px-4 py-2 market-odd">
+      class="px-4 py-1 market-odd">
       <b-row no-gutters>
-        <b-col class="px-3 text-truncate text-center">
-          <span class="mb-2 text-arc-clr-iron team-name font-weight-bold font-size-12 line-height-14">
+        <b-col class="px-3 py-1 text-truncate text-center">
+          <span class="mb-2 text-arc-clr-iron team-name font-weight-bold font-size-12 line-height-14 letter-spacing-2">
             {{ secondTeam.name }}
           </span>
         </b-col>
@@ -102,7 +99,6 @@
         </b-col>
       </b-row>
     </b-col>
-
   </b-row>
 </template>
 <script>

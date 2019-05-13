@@ -9,7 +9,7 @@
     </b-row>
     <b-alert
       show
-      class="text-center"
+      class="text-center mb-4"
       variant="warning">
       {{ $t('account.withdraw.warning') }}
     </b-alert>
@@ -49,6 +49,7 @@
         <b-form-input
           id="amount"
           v-model="form.amount"
+          min="0"
           step="0.01"
           class="ml-4 text-left w-50"
           type="number"/>
@@ -94,7 +95,7 @@
           class="ml-2 w-50"
           variant="user-profile-button"
           @click.prevent="submitWithdraw()">
-          {{ $t('account.cta.withdraw') }}:
+          {{ $t('account.cta.withdraw') }}
         </b-button>
       </b-col>
       <b-col/>

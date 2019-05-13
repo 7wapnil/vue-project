@@ -5,9 +5,6 @@
   .modal-content {
     background-color: unset !important;
   }
-  .form-control {
-    font-size: $h6-font-size;
-  }
   .custom-select {
     background: $arc-clr-white;
   }
@@ -20,6 +17,7 @@
 .auth-modal {
   &-header {
     padding: 24px 24px 24px 30px;
+    box-shadow: inset 0 1px 0 0 rgba(255,255,255, .11);
   }
   &-content {
     padding: 50px 80px;
@@ -43,12 +41,15 @@
     font-size: 21px;
   }
   &-sidebar {
-    max-width: 330px;
     letter-spacing: .02em;
     padding: 0;
+    max-width: 330px;
+    min-width: 330px;
+    background: $arc-clr-soil-dark;
     &-inner {
-      position: sticky;
-      top: 0;
+      position: fixed;
+      width: 330px;
     }
   }
 }
+

@@ -1,6 +1,6 @@
 <template>
   <b-row
-    class="p-4 bg-arc-clr-soil-darker border-4"
+    class="p-4 bg-arc-clr-soil-dark border-4"
     no-gutters>
     <b-col
       v-for="(method, index) in depositMethods"

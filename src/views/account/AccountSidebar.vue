@@ -1,9 +1,8 @@
 <template>
   <b-row no-gutters>
-    <b-col class="profile-modal-sidebar bg-arc-clr-soil-dark">
+    <b-col class="profile-modal-sidebar">
       <div class="profile-modal-sidebar-inner">
         <profile-wallet @open-account-deposit-tab="changeTabIndex(depositTabIndex)"/>
-
         <b-nav vertical>
           <b-nav-item
             v-for="(tab, index) in tabs"

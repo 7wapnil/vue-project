@@ -11,13 +11,13 @@
         role="tab">
         <b-col style="max-width: 148px; min-width: 120px">
           <b-row
-            style="max-height: 80px"
+            style="max-height: 80px; min-height: 80px"
             no-gutters
             class="p-3">
             <b-col class="text-truncate text-center">
               <b-row no-gutters>
                 <b-col class="mb-2 d-inline-flex justify-content-center mt-1">
-                  <span class="font-weight-bold text-arc-clr-iron text-uppercase font-size-10">
+                  <span class="font-weight-bold text-arc-clr-iron text-uppercase font-size-10 hover-item">
                     {{ event.start_at | asCalendarDate({
                       sameDay: '[Today]',
                       nextDay: '[Tomorrow]',
@@ -28,7 +28,7 @@
                 </b-col>
                 <div class="w-100"/>
                 <b-col class="d-inline-flex justify-content-center">
-                  <span class="font-weight-bold text-arc-clr-iron text-uppercase font-size-10">
+                  <span class="font-weight-bold text-arc-clr-iron text-uppercase font-size-10 hover-item">
                     {{ event.start_at | asFormattedDate('HH:mm') }}
                   </span>
                 </b-col>
@@ -37,7 +37,7 @@
           </b-row>
         </b-col>
         <b-col
-          class="event-card-inside-border-left pl-4"
+          class="event-card-inside-border-left"
           style="min-width: 487px">
           <slot :icons="icons"/>
         </b-col>

@@ -10,14 +10,13 @@
         role="tab"
         style="height: 76px">
         <b-col
-          class="px-2 py-4"
+          class="d-flex align-items-center justify-content-center position-relative"
           style="min-width: 80px;
            max-width: 80px;
-           min-height: 100%;
-           position: relative">
+           min-height: 100%;">
           <b-row no-gutters>
             <b-col class="d-flex justify-content-center">
-              <span class="font-weight-bold text-arc-clr-iron text-uppercase mb-1 event-card-date letter-spacing-1">
+              <span class="font-weight-bold text-arc-clr-iron text-uppercase event-card-date letter-spacing-2 mb-1">
                 {{ event.start_at | asCalendarDate({
                   sameDay: '[Today]',
                   nextDay: '[Tomorrow]',
@@ -30,26 +29,28 @@
             <div class="w-100"/>
 
             <b-col class="d-flex align-items-start justify-content-center">
-              <span class="text-arc-clr-iron text-uppercase font-weight-bold font-size-10 letter-spacing-2">
+              <span class="text-arc-clr-iron text-uppercase font-weight-bold font-size-10 letter-spacing-2 hover-item">
                 {{ event.start_at | asFormattedDate('HH:mm') }}
               </span>
             </b-col>
           </b-row>
         </b-col>
 
-        <b-col style="max-width: 247px; min-width: 60px">
-          <b-row no-gutters>
+        <b-col
+          class="pr-4"
+          style="max-width: 247px; min-width: 60px">
+          <b-row
+            no-gutters>
             <b-col
-              v-if="event.competitors.length"
-              class="p-3"
+              class="h-100 pl-1 pt-3 pb-auto"
               style="min-width: 40px">
               <b-row
+                v-for="(competitor, index) in event.competitors"
+                :key="index"
                 class="mb-2"
                 no-gutters>
-                <b-col
-                  v-for="(competitor, index) in event.competitors"
-                  :key="index">
-                  <h6 class="m-0 font-weight-bold text-arc-clr-iron team-name text-truncate letter-spacing-2">
+                <b-col>
+                  <h6 class="mb-0 font-weight-bold text-arc-clr-iron team-name text-truncate letter-spacing-2">
                     {{ competitor.name }}
                   </h6>
                 </b-col>
@@ -58,7 +59,7 @@
           </b-row>
         </b-col>
         <b-col
-          class="event-card-inside-border-left pl-3"
+          class="event-card-inside-border-left"
           style="min-width: 459px">
           <slot/>
         </b-col>
