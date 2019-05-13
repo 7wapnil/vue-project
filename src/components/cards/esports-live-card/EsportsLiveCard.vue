@@ -57,9 +57,9 @@
             </b-row>
           </b-link>
           <b-row
+            v-if="marketsCount === 0"
             class="h-100"
             style="pointer-events: none !important"
-            v-if="marketsCount === 0"
             no-gutters>
             <b-col class="d-flex justify-content-center align-items-start">
               <no-data-placeholder/>

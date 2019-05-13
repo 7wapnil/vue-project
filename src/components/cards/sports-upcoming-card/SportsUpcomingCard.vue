@@ -41,7 +41,9 @@
           style="max-width: 247px; min-width: 60px">
           <b-row
             no-gutters>
-            <b-col class="h-100 pl-1 pt-3 pb-auto" style="min-width: 40px">
+            <b-col
+              class="h-100 pl-1 pt-3 pb-auto"
+              style="min-width: 40px">
               <b-row
                 v-for="(competitor, index) in event.competitors"
                 :key="index"

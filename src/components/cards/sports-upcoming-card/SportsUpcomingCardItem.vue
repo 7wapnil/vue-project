@@ -9,21 +9,21 @@
       :key="odd.id"
       class="text-truncate market-odd px-2 pb-2 pt-1">
 
-        <b-col class="text-center text-truncate pb-1">
-          <small class="text-arc-clr-iron team-name">
-            {{ odd.name }}
-          </small>
-        </b-col>
+      <b-col class="text-center text-truncate pb-1">
+        <small class="text-arc-clr-iron team-name">
+          {{ odd.name }}
+        </small>
+      </b-col>
 
       <div class="w-100"/>
 
-        <b-col class="p-0">
-          <odd-button
-            :odd="odd"
-            :disabled="isDisabled"
-            :event="event"
-            :market="market"/>
-        </b-col>
+      <b-col class="p-0">
+        <odd-button
+          :odd="odd"
+          :disabled="isDisabled"
+          :event="event"
+          :market="market"/>
+      </b-col>
 
     </b-col>
   </b-row>

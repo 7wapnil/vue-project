@@ -38,7 +38,7 @@
 
     <!--Draw-->
     <b-col
-            v-if="hasDraw"
+      v-if="hasDraw"
       style="min-width: 135px; padding-top: 9px">
       <b-row no-gutters>
         <b-col>

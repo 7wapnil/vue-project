@@ -32,7 +32,7 @@
             </span>
           </b-nav-item>
         </b-nav>
-        </div>
+      </div>
     </b-col>
     <b-col class="profile-modal-nav-content p-5">
       <component :is="currentComponent"/>
