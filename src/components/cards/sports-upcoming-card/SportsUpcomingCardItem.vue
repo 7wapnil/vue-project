@@ -1,29 +1,30 @@
 <template>
   <b-row
     :data-id="market.id"
-    class="market-odds"
+    style="height: 76px; box-sizing: border-box;"
+    class="market-odds mx-2"
     no-gutters>
-
     <b-col
       v-for="odd in market.odds"
       :key="odd.id"
-      class="mr-2 text-truncate market-odd">
-      <b-row no-gutters>
-        <b-col class="p-1 text-center text-truncate">
+      class="text-truncate market-odd px-2 pb-2 pt-1">
+
+        <b-col class="text-center text-truncate pb-1">
           <small class="text-arc-clr-iron team-name">
             {{ odd.name }}
           </small>
         </b-col>
-      </b-row>
-      <b-row no-gutters>
-        <b-col>
+
+      <div class="w-100"/>
+
+        <b-col class="p-0">
           <odd-button
             :odd="odd"
             :disabled="isDisabled"
             :event="event"
             :market="market"/>
         </b-col>
-      </b-row>
+
     </b-col>
   </b-row>
 </template>

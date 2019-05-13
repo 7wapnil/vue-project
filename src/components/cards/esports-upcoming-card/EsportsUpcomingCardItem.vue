@@ -9,7 +9,7 @@
       class="px-4 py-1 market-odd">
       <b-row no-gutters>
         <b-col class="px-3 py-1 text-truncate text-center">
-          <span class="text-arc-clr-iron team-name font-weight-bold font-size-12 line-height-14 ">
+          <span class="text-arc-clr-iron team-name font-weight-bold font-size-12 line-height-14 letter-spacing-2">
             {{ firstTeam.name }}
           </span>
         </b-col>
@@ -38,13 +38,11 @@
 
     <!--Draw-->
     <b-col
-      v-if="hasDraw"
-      style="min-width: 135px"
-      class="px-4 py-2">
+            v-if="hasDraw"
+      style="min-width: 135px; padding-top: 9px">
       <b-row no-gutters>
         <b-col>
-          <span
-            class="w-100 text-arc-clr-iron team-name font-weight-light font-size-12 d-inline-flex justify-content-center mb-1 line-height-14 opacity-4">
+          <span class="w-100 text-arc-clr-iron team-name font-weight-light font-size-12 d-inline-flex justify-content-center opacity-4 letter-spacing-2 mb-1">
             Draw
           </span>
         </b-col>
@@ -63,7 +61,7 @@
     <b-col
       v-if="!hasDraw"
       cols="auto"
-      class="px-2 d-flex align-items-center justify-content-center">
+      class="d-flex align-items-center justify-content-center">
       <b-row no-gutters>
         <b-col class="px-3">
           <span class="font-weight-light text-arc-clr-iron font-size-12">
@@ -87,7 +85,7 @@
       class="px-4 py-1 market-odd">
       <b-row no-gutters>
         <b-col class="px-3 py-1 text-truncate text-center">
-          <span class="mb-2 text-arc-clr-iron team-name font-weight-bold font-size-12 line-height-14">
+          <span class="mb-2 text-arc-clr-iron team-name font-weight-bold font-size-12 line-height-14 letter-spacing-2">
             {{ secondTeam.name }}
           </span>
         </b-col>

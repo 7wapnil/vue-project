@@ -16,7 +16,7 @@
            min-height: 100%;">
           <b-row no-gutters>
             <b-col class="d-flex justify-content-center">
-              <span class="font-weight-bold text-arc-clr-iron text-uppercase event-card-date letter-spacing-1">
+              <span class="font-weight-bold text-arc-clr-iron text-uppercase event-card-date letter-spacing-2 mb-1">
                 {{ event.start_at | asCalendarDate({
                   sameDay: '[Today]',
                   nextDay: '[Tomorrow]',
@@ -40,12 +40,12 @@
           class="pr-4"
           style="max-width: 247px; min-width: 60px">
           <b-row
-            class="d-flex align-items-center w-100 h-100"
             no-gutters>
-            <b-col style="min-width: 40px">
+            <b-col class="h-100 pl-1 pt-3 pb-auto" style="min-width: 40px">
               <b-row
                 v-for="(competitor, index) in event.competitors"
                 :key="index"
+                class="mb-2"
                 no-gutters>
                 <b-col>
                   <h6 class="mb-0 font-weight-bold text-arc-clr-iron team-name text-truncate letter-spacing-5">
@@ -57,7 +57,7 @@
           </b-row>
         </b-col>
         <b-col
-          class="event-card-inside-border-left pl-3"
+          class="event-card-inside-border-left"
           style="min-width: 459px">
           <slot/>
         </b-col>

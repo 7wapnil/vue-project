@@ -37,7 +37,7 @@
           </b-row>
         </b-col>
         <b-col
-          class="event-card-inside-border-left pl-4"
+          class="event-card-inside-border-left"
           style="min-width: 487px">
           <slot :icons="icons"/>
         </b-col>

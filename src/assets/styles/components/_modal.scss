@@ -41,12 +41,17 @@
     font-size: 21px;
   }
   &-sidebar {
-    max-width: 330px;
     letter-spacing: .02em;
     padding: 0;
+    max-width: 330px;
+    background: $arc-clr-soil-dark;
     &-inner {
-      position: sticky;
-      top: 0;
+      position: fixed;
+      width: 330px;
     }
   }
+  ::-webkit-scrollbar {
+    display: inline;
+  }
 }
+
