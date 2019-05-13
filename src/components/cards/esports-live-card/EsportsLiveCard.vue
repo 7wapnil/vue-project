@@ -34,6 +34,7 @@
           <slot/>
         </b-col>
         <b-col
+          :class="{'pointer-none': marketsCount === 0}"
           class="event-card-inside-border-left event-card-statistics-button"
           style="max-width: 102px">
           <b-link
@@ -59,7 +60,6 @@
           <b-row
             v-if="marketsCount === 0"
             class="h-100"
-            style="pointer-events: none !important"
             no-gutters>
             <b-col class="d-flex justify-content-center align-items-start">
               <no-data-placeholder/>
