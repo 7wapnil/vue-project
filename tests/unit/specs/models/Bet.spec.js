@@ -24,8 +24,7 @@ describe('Bet', () => {
         pending: 'pending',
         accepted: 'accepted',
         failed: 'failed',
-        rejected: 'rejected',
-        validation: 'sent_to_external_validation'
+        rejected: 'rejected'
       })
     })
   })

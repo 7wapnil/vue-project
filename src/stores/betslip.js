@@ -125,8 +125,7 @@ export const getters = {
       return [
         Bet.statuses.submitted,
         Bet.statuses.pending,
-        Bet.statuses.accepted,
-        Bet.statuses.validation
+        Bet.statuses.accepted
       ].includes(bet.status)
     })
   }
