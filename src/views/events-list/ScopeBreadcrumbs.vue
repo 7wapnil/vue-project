@@ -45,15 +45,10 @@ export default {
       return currentTitle
     },
     getTournament () {
-      let currentTournament
-
-      this.getTitle.scopes.filter((scope) => {
-        if (scope.kind === 'tournament' && scope.id === this.$route.params.tournamentId) {
-          currentTournament = scope
-        }
+      return this.getTitle.scopes.find((scope) => {
+        return scope.kind === 'tournament' &&
+                scope.id === this.$route.params.tournamentId
       })
-
-      return currentTournament
     },
     getCategory () {
       let categoryId
@@ -64,14 +59,10 @@ export default {
         categoryId = this.getEventScopeID
       }
 
-      let category
-
-      this.getTitle.scopes.filter((scope) => {
-        if (scope.kind === 'category' && scope.id === categoryId) {
-          category = scope
-        }
+      return this.getTitle.scopes.find((scope) => {
+        return scope.kind === 'category' &&
+                scope.id === categoryId
       })
-      return category
     },
     getEventScopeID () {
       return this.getTournament ? this.getTournament.event_scope_id : null
@@ -82,7 +73,7 @@ export default {
           text: this.getTitle.name,
           to: {
             name: 'title',
-            params: { titleKind: this.$route.params.titleKind, titleId: this.$route.params.titleId, }
+            params: { titleKind: this.$route.params.titleKind, titleId: this.$route.params.titleId }
           }
         }
       }
