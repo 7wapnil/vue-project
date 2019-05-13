@@ -163,7 +163,6 @@ export const actions = {
         error (error) {
           Vue.$log.error(error)
         }
-
       })
 
     Vue.$log.debug(`Subscribed bet ID ${bet.id}`)
