@@ -15,6 +15,9 @@
 // Cursor
 .pointer {
   cursor: pointer;
+  &-none {
+    pointer-events: none;
+  }
 }
 
 // Min width / height
@@ -42,3 +45,5 @@
 a:focus {
   outline: 0;
 }
+
+
