@@ -5,9 +5,9 @@
     <b-col>
       <filter-tabs
         v-if="!showTitles"
-        :title-id="$route.params.titleId"
-        :category-id="$route.params.categoryId"
+        :upcoming-context="upcomingContext"
         @tab-changed="onFilterChange" />
+
       <events-list
         :title-id="$route.params.titleId"
         :category-id="$route.params.categoryId"
@@ -24,6 +24,7 @@
 </template>
 
 <script>
+import { UPCOMING_LIMITED } from '@/constants/graphql/event-context'
 import FilterTabs from '@/views/events-list/FilterTabs'
 import EventsList from '@/components/events/EventsList'
 import HybridCard from '@/views/events-list/HybridCard'
@@ -36,7 +37,8 @@ export default {
   },
   data () {
     return {
-      selectedFilter: {}
+      selectedFilter: {},
+      upcomingContext: UPCOMING_LIMITED
     }
   },
   computed: {
