@@ -44,14 +44,12 @@
     letter-spacing: .02em;
     padding: 0;
     max-width: 330px;
+    min-width: 330px;
     background: $arc-clr-soil-dark;
     &-inner {
       position: fixed;
       width: 330px;
     }
-  }
-  ::-webkit-scrollbar {
-    display: inline;
   }
 }
 

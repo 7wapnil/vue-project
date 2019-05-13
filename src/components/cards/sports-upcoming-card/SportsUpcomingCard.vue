@@ -50,7 +50,7 @@
                 class="mb-2"
                 no-gutters>
                 <b-col>
-                  <h6 class="mb-0 font-weight-bold text-arc-clr-iron team-name text-truncate letter-spacing-5">
+                  <h6 class="mb-0 font-weight-bold text-arc-clr-iron team-name text-truncate letter-spacing-2">
                     {{ competitor.name }}
                   </h6>
                 </b-col>
