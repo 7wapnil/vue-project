@@ -66,5 +66,5 @@ export default {
 </script>
 
 <style lang="scss">
-@include selectInput();
+.box {}
 </style>

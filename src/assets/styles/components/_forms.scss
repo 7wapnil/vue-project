@@ -1,6 +1,10 @@
 // Forms
 @import '../variables';
 
+form:focus {
+  outline: 0;
+}
+
 .form-label {
   margin-right: 20px;
   color: $arc-clr-iron;
@@ -16,5 +20,15 @@
   &-select {
     height: 36px;
     min-width: 364px;
+  }
+}
+.invalid-feedback {
+  margin-top: 8px;
+  margin-left: 8px;
+  letter-spacing: .02em;
+}
+.form-group {
+  .is-invalid {
+    margin-bottom: 8px;
   }
 }

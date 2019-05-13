@@ -9,6 +9,12 @@ import { UPCOMING_FOR_TIME } from '@/constants/graphql/event-context'
 import { LIVE, UPCOMING } from '@/constants/graphql/event-start-statuses'
 
 export default {
+  props: {
+    upcomingContext: {
+      type: [String, null],
+      default: null
+    }
+  },
   data () {
     return {
       defaultTabIndex: 1,
@@ -19,7 +25,7 @@ export default {
       }, {
         value: UPCOMING,
         label: this.$i18n.t('homePage.upcoming'),
-        context: UPCOMING_FOR_TIME
+        context: this.upcomingContext || UPCOMING_FOR_TIME
       }]
     }
   },

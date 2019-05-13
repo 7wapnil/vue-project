@@ -2,10 +2,10 @@
   <div>
 
     <group-header
-      v-if="group.type === 'title'"
+      v-if="isTitle"
       :item="group"/>
     <group-sub-header
-      v-if="group.type === 'tournament' || group.type === 'category'"
+      v-if="isTournament || isCategory"
       :item="group">
       <b-card
         v-for="event in group.children"
@@ -56,6 +56,15 @@ export default {
     },
     children () {
       return this.group.children || []
+    },
+    isTitle () {
+      return this.group.type === 'title'
+    },
+    isTournament () {
+      return this.group.type === 'tournament'
+    },
+    isCategory () {
+      return this.group.type === 'category'
     }
   }
 }

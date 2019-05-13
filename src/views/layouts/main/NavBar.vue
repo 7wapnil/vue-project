@@ -23,17 +23,18 @@
         style="max-width: 268px"
         class="ml-auto">
         <b-button
-          v-b-modal.AuthModal
+
           variant="arc-secondary"
           class="m-2"
-          @mousedown="authTab = 0">
+          @click="showAuthModal(0)">
           Login
         </b-button>
+
         <b-button
-          v-b-modal.AuthModal
+
           variant="arc-primary"
           class="m-2 mr-4"
-          @mousedown="authTab = 1">
+          @click="showAuthModal(1)">
           Sign Up
         </b-button>
       </b-navbar-nav>
@@ -43,13 +44,13 @@
         <balances-list/>
         <user-profile-menu/>
       </b-navbar-nav>
+
     </b-container>
-    <auth-modal :tab="authTab"/>
   </b-navbar>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 import BalancesList from '@/components/navbar/wallet/BalancesList.vue'
 import AuthModal from '@/views/auth/AuthModal'
 import UserProfileMenu from '@/components/navbar/profile/UserProfileMenu'
@@ -79,6 +80,14 @@ export default {
     ...mapGetters([
       'isLoggedIn'
     ])
+  },
+  methods: {
+    ...mapMutations([
+      'updateAuth'
+    ]),
+    showAuthModal (auth) {
+      this.updateAuth(auth)
+    }
   }
 }
 </script>
