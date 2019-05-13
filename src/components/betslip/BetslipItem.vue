@@ -106,7 +106,7 @@
     </b-row>
 
     <b-row
-      v-if="valuesUnconfirmed && !isSubmitted"
+      v-if="valuesUnconfirmed && !getAnyFrozenBet"
       class="alert-odd-value-changed mt-3"
       no-gutters>
       <b-col>
@@ -155,7 +155,7 @@
       {{ successMessage }}
     </b-alert>
     <b-alert
-      :show="isBetDisabled && !isSubmitted"
+      :show="isBetDisabled && !getAnyFrozenBet"
       variant="odd-disabled">
       {{ disabledMessage }}
     </b-alert>
@@ -256,7 +256,8 @@ export default {
     },
     ...mapGetters('betslip', [
       'acceptAllChecked',
-      'getBets'
+      'getBets',
+      'getAnyFrozenBet'
     ]),
     potentialReturn: function () {
       const stake = this.bet.stake > 0 ? this.bet.stake : 0
@@ -292,9 +293,6 @@ export default {
     },
     successMessage () {
       return MESSAGE_SUCCESS
-    },
-    isSubmitted () {
-      return this.bet.status === Bet.statuses.submitted
     }
   },
   mounted () {
