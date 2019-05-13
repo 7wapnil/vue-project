@@ -4,7 +4,8 @@ const STATUSES = {
   pending: 'pending',
   accepted: 'accepted',
   failed: 'failed',
-  rejected: 'rejected'
+  rejected: 'rejected',
+  validation: 'sent_to_external_validation'
 }
 
 export default class Bet {
@@ -42,7 +43,8 @@ export default class Bet {
     return [
       STATUSES.submitted,
       STATUSES.pending,
-      STATUSES.accepted
+      STATUSES.accepted,
+      STATUSES.validation
     ].includes(this.status)
   }
 }

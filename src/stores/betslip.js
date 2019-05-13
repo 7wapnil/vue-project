@@ -125,7 +125,8 @@ export const getters = {
       return [
         Bet.statuses.submitted,
         Bet.statuses.pending,
-        Bet.statuses.accepted
+        Bet.statuses.accepted,
+        Bet.statuses.validation
       ].includes(bet.status)
     })
   }
@@ -163,6 +164,7 @@ export const actions = {
         error (error) {
           Vue.$log.error(error)
         }
+
       })
 
     Vue.$log.debug(`Subscribed bet ID ${bet.id}`)
