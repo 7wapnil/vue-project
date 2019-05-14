@@ -2,60 +2,13 @@
   <b-card
     no-body
     class="p-4">
-    <div
-      v-for="(title, index) in groupedEvents"
-      :key="index">
-      <b-row
-        v-if="!titleId"
-        no-gutters>
-        <b-col class="d-inline-flex px-4 pt-4 events-list-title">
 
-          <icon
-            :name="findTitleIcon(title)"
-            class="ml-2"
-            size="24px"/>
-
-          <h4
-            tabindex="0"
-            class="ml-4 mb-0 text-arc-clr-white font-weight-light letter-spacing-1 pointer"
-            style="outline: 0;"
-            @click="() => emitTitleChange(title.id)">
-            {{ title.name }}
-          </h4>
-
-        </b-col>
-      </b-row>
-      <div
-        v-for="tournament in title.tournaments"
-        :key="tournament.id"
-        class="pt-4">
-        <router-link
-          v-if="!tournamentId"
-          :to="{name: 'tournament', params: {titleId: title.id, tournamentId: tournament.id}}"
-          class="pl-4 text-arc-clr-gold mb-2 d-block font-size-14 letter-spacing-2">
-          {{ tournament.name }}
-        </router-link>
-        <div>
-          <b-card
-            v-for="event in tournament.events"
-            :key="event.id"
-            no-body>
-
-            <slot :event="event"/>
-
-          </b-card>
-        </div>
-        <b-link
-          v-if="categoryId && tournament.events.length === 16"
-          :to="{ name: 'tournament', params: { titleKind: $route.params.titleKind, titleId: titleId, tournamentId: tournament.id } }"
-          exact>
-          <b-button
-            class="mt-2"
-            variant="arc-secondary">
-            More
-          </b-button>
-        </b-link>
-      </div>
+    <div v-if="tabId">
+      <events-group
+        v-for="(group, index) in groupedEvents"
+        :key="index"
+        :group="group"
+        :tab-id="tabId"/>
     </div>
 
     <loader v-if="loading"/>
@@ -78,13 +31,17 @@ import {
   EVENTS_BET_STOPPED
 } from '@/graphql'
 import { updateCacheList } from '@/helpers/graphql'
-import { TITLE_CHANGED } from '@/constants/custom-events'
 import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
 import { CONTEXT_TO_START_STATUS_MAP } from '@/constants/graphql/event-start-statuses'
 import { INACTIVE, SUSPENDED, MARKET_STOP_STATUSES } from '@/constants/graphql/event-market-statuses'
-import { findTitleIcon } from '@/helpers/icon-finder'
+import EventsGroup from '@/components/events/EventsGroup'
+
+const DEFAULT_POSITION = 9999
 
 export default {
+  components: {
+    EventsGroup
+  },
   props: {
     header: {
       type: String,
@@ -103,6 +60,10 @@ export default {
       default: null
     },
     context: {
+      type: String,
+      default: null
+    },
+    tabId: {
       type: String,
       default: null
     }
@@ -142,7 +103,6 @@ export default {
                     .forEach(function (odd) { odd.status = INACTIVE })
                 }
               }
-
               return { events: events }
             }
           }
@@ -166,7 +126,8 @@ export default {
           titleId: this.titleId,
           tournamentId: this.tournamentId,
           categoryId: this.categoryId,
-          context: this.context
+          context: this.context,
+          withScopes: true
         }
       }
     },
@@ -193,47 +154,90 @@ export default {
         variables: variables
       }
     },
-    groupedEvents () {
-      const groupedEvents = [];
+    parentizeEvents () {
+      return this.events.map((event) => {
+        const { title, scopes } = event
+        const category = scopes.find(s => s.kind === 'category')
+        const tournament = scopes.find(s => s.kind === 'tournament')
 
-      this.events.forEach(event => {
-        const currentTitleIndex = groupedEvents.findIndex(title => title.name === event.title.name);
+        const middleBranch = event.title.show_category_in_navigation
+          ? { ...category, type: 'category' }
+          : { ...tournament, type: 'tournament' }
 
-        if (currentTitleIndex > -1) {
-          const currentTournamentIndex = groupedEvents[currentTitleIndex]
-            .tournaments
-            .findIndex(tournament => tournament.id === event.tournament.id);
-
-          if (currentTournamentIndex > -1) {
-            groupedEvents[currentTitleIndex]
-              .tournaments[currentTournamentIndex]
-              .events.push(event)
-          } else {
-            groupedEvents[currentTitleIndex]
-              .tournaments.push({
-                ...event.tournament,
-                events: [event]
-              })
+        return {
+          ...event,
+          type: 'event',
+          title: event.title,
+          parent: {
+            ...middleBranch,
+            name: middleBranch.name,
+            title: event.title,
+            parent: {
+              ...title,
+              type: 'title'
+            }
           }
-        } else {
-          groupedEvents.push({
-            ...event.title,
-            tournaments: [{
-              ...event.tournament,
-              events: [event]
-            }]
-          })
         }
       })
-
-      return groupedEvents
+    },
+    groupedEvents () {
+      return this.buildEventBranch(this.parentizeEvents)
     }
   },
   methods: {
-    emitTitleChange (titleId) {
-      this.$root.$emit(TITLE_CHANGED, titleId)
+    buildEventBranch (items) {
+      const branch = items
+        .reduce(this.addItemToGroup, [])
+        .sort((a, b) => {
+          if (a.position === undefined && b.position === undefined) {
+            return 0
+          }
+
+          if (a.position < DEFAULT_POSITION && b.position < DEFAULT_POSITION) {
+            return a.position - b.position
+          }
+
+          if (a.position === DEFAULT_POSITION && b.position < DEFAULT_POSITION) {
+            return 1
+          }
+
+          if (a.position < DEFAULT_POSITION && b.position === DEFAULT_POSITION) {
+            return -1
+          }
+
+          if (a.position === DEFAULT_POSITION && b.position === DEFAULT_POSITION) {
+            return this.sortByName(a, b)
+          }
+
+          return this.sortByName(a, b)
+        })
+
+      if (branch.length && branch[0].parent) {
+        return this.buildEventBranch(branch)
+      }
+
+      return branch
     },
-    findTitleIcon
+    addItemToGroup (groups, item) {
+      let groupIndex = groups.findIndex(i => i.id === item.parent.id)
+
+      // if group not found - create it
+      if (groupIndex < 0) {
+        groups.push({ ...item.parent, children: [] })
+        groupIndex = groups.length - 1
+      }
+
+      // add item to group
+      groups[groupIndex].children.push(item)
+
+      return groups
+    },
+    sortByName (a, b) {
+      if (a.name < b.name) { return -1 }
+      if (a.name > b.name) { return 1 }
+
+      return 0
+    }
   }
 }
 </script>
