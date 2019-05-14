@@ -31,15 +31,10 @@ export default {
   apollo: {
     markets () {
       return {
-        query: MARKETS_LIST_QUERY,
-        fetchPolicy: NETWORK_ONLY,
-        variables: {
-          eventId: this.event.id,
-          category: this.category.name
-        },
+        ...this.query,
         subscribeToMore: [
           {
-            document: eventUpdatedSubscription(null, this.category.name),
+            document: eventUpdatedSubscription(null, this.category.name.toLowerCase()),
             variables () {
               return {
                 id: this.event.id
@@ -79,6 +74,20 @@ export default {
       loading: 0,
       markets: []
     }
-  }
+  },
+  computed: {
+    query () {
+      return {
+        query: MARKETS_LIST_QUERY,
+        fetchPolicy: NETWORK_ONLY,
+        variables () {
+          return {
+            eventId: this.event.id,
+            category: this.category.name.toLowerCase()
+          }
+        }
+      }
+    }
+  },
 }
 </script>
