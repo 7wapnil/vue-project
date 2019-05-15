@@ -7,7 +7,7 @@
       class="d-flex align-items-center justify-content-center mt-4">
       <div class="text-center">
         <h6 class="mb-0 font-weight-bold letter-spacing-2 text-arc-clr-gold">
-          Bonus achived
+          Bonus achieved
         </h6>
         <span class="font-size-36 font-weight-bold text-arc-clr-white letter-spacing-5" >
           {{ bonusAchieved }}

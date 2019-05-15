@@ -5,7 +5,7 @@
     </h3>
     <information-section
       :bonus-achieved="currentBonusValue"
-      :main-bonus="customer_bonuses[firstBonusIndex]"/>
+      :main-bonus="firstBonus"/>
     <progress-scale :value="percentageValue"/>
     <bonus-items :bonus-items="customer_bonuses"/>
   </div>
@@ -25,8 +25,7 @@ export default {
   },
   data () {
     return {
-      customer_bonuses: [],
-      firstBonusIndex: 0
+      customer_bonuses: []
     }
   },
   apollo: {
@@ -38,10 +37,13 @@ export default {
   },
   computed: {
     percentageValue () {
-      return (this.currentBonusValue / this.customer_bonuses[this.firstBonusIndex].rollover_initial_value) * 100
+      return (this.currentBonusValue / this.firstBonus.rollover_initial_value) * 100
+    },
+    firstBonus () {
+      return this.customer_bonuses.find((bonus) => bonus.status === 'active') || this.customer_bonuses[0]
     },
     currentBonusValue () {
-      return this.customer_bonuses[this.firstBonusIndex].rollover_initial_value - this.customer_bonuses[this.firstBonusIndex].rollover_balance
+      return this.firstBonus.rollover_initial_value - this.firstBonus.rollover_balance
     }
   }
 }
