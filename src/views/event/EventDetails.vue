@@ -117,6 +117,6 @@ export default {
     secondCompetitor () {
       return this.event.competitors[1]
     }
-  },
+  }
 }
 </script>
