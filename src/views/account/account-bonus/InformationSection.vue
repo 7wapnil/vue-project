@@ -10,20 +10,68 @@
           Bonus achived
         </h6>
         <span class="font-size-36 font-weight-bold text-arc-clr-white letter-spacing-5" >
-          436
+          {{ bonusAchieved }}
         </span>
       </div>
     </b-col>
-    <b-col
-      col="8"
-      class="d-flex align-items-center mt-4">
-      <h6
-        class="ml-5 text-arc-clr-iron letter-spacing-2"
-        style="line-height: 24px">
-        In order to follow KYC procedures, we are required<br>
-        to verify your identity before we are able to<br>
-        process any withdrawal requests.
-      </h6>
+    <b-col>
+      <b-row>
+        <b-col>
+          <span class="text-arc-clr-iron font-size-14 letter-spacing-2 mb-0">{{ $t('account.bonus.bonusAwarded') }}:</span>
+        </b-col>
+        <b-col>
+          <span class="ml-4 mb-0 pl-2 text-arc-clr-iron-light font-size-14 letter-spacing-2">{{ mainBonus.rollover_initial_value }}</span>
+        </b-col>
+      </b-row>
+      <b-row>
+        <b-col>
+          <span class="text-arc-clr-iron font-size-14 letter-spacing-2 mb-0">{{ $t('account.bonus.rolloverRequired') }}:</span>
+        </b-col>
+        <b-col>
+          <span class="ml-4 mb-0 pl-2 text-arc-clr-iron-light font-size-14 letter-spacing-2">{{ mainBonus.rollover_initial_value }}</span>
+        </b-col>
+      </b-row>
+      <b-row>
+        <b-col>
+          <span class="text-arc-clr-iron font-size-14 letter-spacing-2 mb-0">{{ $t('account.bonus.minimumOdds') }}:</span>
+        </b-col>
+        <b-col>
+          <span class="ml-4 mb-0 pl-2 text-arc-clr-iron-light font-size-14 letter-spacing-2">{{ mainBonus.min_odds_per_bet }}</span>
+        </b-col>
+
+      </b-row>
+      <b-row>
+        <b-col>
+          <span class="text-arc-clr-iron font-size-14 letter-spacing-2 mb-0">{{ $t('account.bonus.maximumRolloverPerBet') }}:</span>
+        </b-col>
+        <b-col>
+          <span class="ml-4 mb-0 pl-2 text-arc-clr-iron-light font-size-14 letter-spacing-2">{{ mainBonus.max_rollover_per_bet }}</span>
+        </b-col>
+
+      </b-row>
+      <b-row>
+        <b-col>
+          <span class="text-arc-clr-iron font-size-14 letter-spacing-2 mb-0">{{ $t('account.bonus.expiryDate') }}:</span>
+        </b-col>
+        <b-col>
+          <span class="ml-4 mb-0 pl-2 text-arc-clr-iron-light font-size-14 letter-spacing-2">{{ mainBonus.expires_at | dateFormatForBonus('DD.MM.YY', 'DD/MM/YYYY') }}</span>
+        </b-col>
+      </b-row>
     </b-col>
   </b-row>
 </template>
+
+<script>
+export default {
+  props: {
+    bonusAchieved: {
+      type: Number,
+      required: true
+    },
+    mainBonus: {
+      type: Object,
+      required: true
+    }
+  }
+}
+</script>

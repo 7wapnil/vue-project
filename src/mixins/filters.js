@@ -13,6 +13,9 @@ export default {
   dateFormat (date) {
     return moment(date).format('HH:mm MMMM DD')
   },
+  dateFormatForBonus (date, initialFormat, desiredFormat) {
+    return moment(date, initialFormat).format(desiredFormat)
+  },
   round: (value, number = 2) => {
     return value.toFixed(number)
   },

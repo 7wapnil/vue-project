@@ -99,6 +99,32 @@ const messages = {
         notAvailable: 'This is not available to you at the moment.',
         withdrawNoFeeInformation: 'Debit/Credit Card withdrawals come with a 0% withdrawal fee',
         warning: 'Please be aware that requesting a withdrawal while you have an active bonus will result in all of your bonus funds being confiscated. If you wish to check your bonus status, please navigate to the bonus tab on your profile or contact support for further assistance. Be aware that if you initiate a withdrawal and the bonus is confiscated this is NOT reversible.'
+      },
+      bonus: {
+        bonusAwarded: 'Bonus awarded',
+        rolloverRequired: 'Rollover required',
+        minimumOdds: 'Minimum odds',
+        maximumRolloverPerBet: 'Maximum rollover per bet',
+        expiryDate: 'Expiry date',
+        longTerms: {
+          header: 'Bonus rules for code:',
+          paragraph: {
+            main: 'These rules are in addition to the general bonus rules and applicable terms and conditions; these can be found on our terms and conditions page or by clicking ',
+            link: 'here'
+          },
+          list: {
+            list1: 'To convert this bonus into cash you need to reach the rollover of ',
+            list2: 'Total bonus awarded for this offer is ',
+            list3: 'This offer is available to claim until ',
+            list4: 'Once claimed you have ',
+            list4Days: '{n} day | {n} days',
+            list4Part2: ' to reach the rollover before the bonus expires.',
+            list5: 'Only settled bets will count towards rollover. If a selection that is settled is later re-settled to a void, the rollover achieved will be recalculated accordingly',
+            list6: 'You may only have one active bonus at a time',
+            list7: 'You may withdraw at any point, if you do this will confiscate your entire bonus balance if you have not reached the rollover yet',
+            list8: 'You may only use this code once per household per real account. If it is found that there is any attempt to avoid this limitation, we reserve the right to void all bets and confiscate all funds',
+          }
+        }
       }
     }
   }

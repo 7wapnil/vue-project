@@ -1,11 +1,13 @@
 <template>
-  <div>
+  <div v-if="customer_bonuses.length">
     <h3 class="mb-0 font-weight-light">
       Bonus
     </h3>
-    <information-section/>
-    <progress-scale :value="value"/>
-    <bonus-items :bonus-items="bonusItems"/>
+    <information-section
+      :bonus-achieved="currentBonusValue"
+      :main-bonus="customer_bonuses[firstBonusIndex]"/>
+    <progress-scale :value="percentageValue"/>
+    <bonus-items :bonus-items="customer_bonuses"/>
   </div>
 </template>
 
@@ -13,6 +15,7 @@
 import ProgressScale from './ProgressScale'
 import InformationSection from './InformationSection'
 import BonusItems from './BonusItems'
+import { BONUSES_LIST_QUERY } from '@/graphql'
 
 export default {
   components: {
@@ -22,21 +25,23 @@ export default {
   },
   data () {
     return {
-      value: 50,
-      bonusItems: [
-        { name: 'Bonus name',
-          overallStatus: 'Achived'
-        },
-        { name: 'Bonus name',
-          overallStatus: 'Achived'
-        },
-        { name: 'Bonus name',
-          overallStatus: '12 of 15 completed'
-        },
-        { name: 'Bonus name',
-          overallStatus: '9 of 15 completed'
-        }
-      ]
+      customer_bonuses: [],
+      firstBonusIndex: 0
+    }
+  },
+  apollo: {
+    customer_bonuses () {
+      return {
+        query: BONUSES_LIST_QUERY
+      }
+    }
+  },
+  computed: {
+    percentageValue () {
+      return (this.currentBonusValue / this.customer_bonuses[this.firstBonusIndex].rollover_initial_value) * 100
+    },
+    currentBonusValue () {
+      return this.customer_bonuses[this.firstBonusIndex].rollover_initial_value - this.customer_bonuses[this.firstBonusIndex].rollover_balance
     }
   }
 }
