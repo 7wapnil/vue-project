@@ -17,9 +17,11 @@
            min-height: 100%;
            position: relative">
           <b-row no-gutters>
-            <b-col class="d-flex justify-content-center">
+            <b-col
+              v-if="event.time_in_seconds"
+              class="d-flex justify-content-center">
               <span class="font-weight-bold text-arc-clr-iron text-uppercase mb-1 event-card-date letter-spacing-2">
-                {{ event.state.time }}
+                {{ event.time_in_seconds | secondsToNthMinuteAndSuffix }} {{ $t('eventPage.minute') }}
               </span>
             </b-col>
 
@@ -28,7 +30,7 @@
             <b-col class="d-flex align-items-start justify-content-center">
               <span
                 class="font-size-10 text-arc-clr-iron text-uppercase font-weight-bold letter-spacing-2">
-                {{ event.state.status }}
+                {{ event.display_status }}
               </span>
             </b-col>
           </b-row>
@@ -279,8 +281,8 @@ export default {
       return this.event.markets_count - 1
     },
     getScore () {
-      if (this.event.state.score) {
-        return this.event.state.score.split(':')
+      if (this.event.score) {
+        return this.event.score.split(':')
       }
     }
   }

@@ -19,6 +19,9 @@ const messages = {
       esport: 'Esport',
       sport: 'Sport'
     },
+    eventPage: {
+      minute: 'minute'
+    },
     betslip: {
       betslipEmpty: 'Your betslip is currently empty.\n' +
         'Click on any odds to add them\n' +
