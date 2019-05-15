@@ -13,6 +13,7 @@
 </template>
 <script>
 import MarketsCategory from './MarketCategory'
+import { CATEGORY_CHANGED } from '@/constants/custom-events'
 
 export default {
   components: {
@@ -61,7 +62,7 @@ export default {
         this.currentTabIndex = value
         const category = this.categories[this.currentTabIndex]
         if (category) {
-          this.$emit('change-category', category)
+          this.$emit(CATEGORY_CHANGED, category)
         }
       }
     }

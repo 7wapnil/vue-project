@@ -1,6 +1,7 @@
 <template>
   <div>
     <div class="d-flex flex-column position-relative">
+
       <introduction-area :title="activeTitle"/>
 
       <div
@@ -10,16 +11,12 @@
         <filter-tabs @tab-changed="onFilterChange"/>
       </div>
     </div>
+
     <events-list
       v-if="eventListProps"
       :key="key"
-      v-bind="eventListProps">
-      <template slot-scope="{ event }">
-        <hybrid-card
-          :event="event"
-          :tab-id="selectedFilter.value"/>
-      </template>
-    </events-list>
+      :tab-id="selectedFilter.value"
+      v-bind="eventListProps"/>
   </div>
 </template>
 

@@ -3,6 +3,7 @@
     class="pt-2"
     no-gutters>
     <b-col>
+      <scope-breadcrumbs />
       <div
         v-for="(tab, index) in tabsMapping"
         :key="index">
@@ -14,16 +15,9 @@
         <events-list
           :title-id="$route.params.titleId"
           :tournament-id="$route.params.tournamentId"
-          :context="tab.context">
-
-          <template slot-scope="{ event }">
-            <hybrid-card
-              :event="event"
-              :tab-id="tab.id"/>
-          </template>
-        </events-list>
+          :tab-id="tab.value"
+          :context="tab.context"/>
       </div>
-
     </b-col>
   </b-row>
 </template>
@@ -33,25 +27,25 @@ import EventsList from '@/components/events/EventsList'
 import { UPCOMING_UNLIMITED } from '@/constants/graphql/event-context'
 import { LIVE, UPCOMING } from '@/constants/graphql/event-start-statuses'
 import HybridCard from '@/views/events-list/HybridCard'
+import ScopeBreadcrumbs from '@/views/events-list/ScopeBreadcrumbs'
 
 export default {
   components: {
     HybridCard,
-    EventsList
+    EventsList,
+    ScopeBreadcrumbs
   },
   data () {
     return {
       tabsMapping: [{
-        id: LIVE,
+        value: LIVE,
         title: this.$i18n.t('homePage.live'),
         context: LIVE
       }, {
-        id: UPCOMING,
+        value: UPCOMING,
         title: this.$i18n.t('homePage.upcoming'),
         context: UPCOMING_UNLIMITED
-      }],
-      upcoming: UPCOMING,
-      live: LIVE
+      }]
     }
   }
 }

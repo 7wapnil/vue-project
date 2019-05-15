@@ -3,6 +3,7 @@
     class="pt-2"
     no-gutters>
     <b-col>
+      <scope-breadcrumbs />
       <filter-tabs
         v-if="!showTitles"
         :upcoming-context="upcomingContext"
@@ -12,13 +13,8 @@
         :title-id="$route.params.titleId"
         :category-id="$route.params.categoryId"
         :context="selectedFilter.context"
-        :key="selectedFilter.context">
-        <template slot-scope="{ event }">
-          <hybrid-card
-            :event="event"
-            :tab-id="selectedFilter.value"/>
-        </template>
-      </events-list>
+        :key="selectedFilter.context"
+        :tab-id="selectedFilter.value"/>
     </b-col>
   </b-row>
 </template>
@@ -28,12 +24,14 @@ import { UPCOMING_LIMITED } from '@/constants/graphql/event-context'
 import FilterTabs from '@/views/events-list/FilterTabs'
 import EventsList from '@/components/events/EventsList'
 import HybridCard from '@/views/events-list/HybridCard'
+import ScopeBreadcrumbs from '@/views/events-list/ScopeBreadcrumbs'
 
 export default {
   components: {
     FilterTabs,
     HybridCard,
-    EventsList
+    EventsList,
+    ScopeBreadcrumbs
   },
   data () {
     return {

@@ -4,7 +4,7 @@
     <div
       style="max-height: 368px"
       class="position-absolute w-100 h-100 top-0">
-      <header-breadcrumbs :event="event"/>
+      <event-breadcrumbs :event="event"/>
       <event-details
         :event="event"
         :showicons="showicons"/>
@@ -16,13 +16,13 @@
 </template>
 <script>
 import IntroductionArea from '@/components/custom/IntroductionArea'
-import HeaderBreadcrumbs from '@/views/event/HeaderBreadcrumbs'
+import EventBreadcrumbs from '@/views/event/EventBreadcrumbs'
 import EventDetails from '@/views/event/EventDetails'
 
 export default {
   components: {
     IntroductionArea,
-    HeaderBreadcrumbs,
+    EventBreadcrumbs,
     EventDetails
   },
   props: {
