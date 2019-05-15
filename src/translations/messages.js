@@ -106,6 +106,7 @@ const messages = {
         minimumOdds: 'Minimum odds',
         maximumRolloverPerBet: 'Maximum rollover per bet',
         expiryDate: 'Expiry date',
+        bonusAchieved: 'Bonus achieved',
         longTerms: {
           header: 'Bonus rules for code:',
           paragraph: {

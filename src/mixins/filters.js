@@ -1,8 +1,8 @@
 import moment from 'moment'
 
 export default {
-  asFormattedDate (date, format = 'HH:mm MMMM DD') {
-    return moment(date).format(format)
+  asFormattedDate (date, format = 'HH:mm MMMM DD', sourceFormat = null) {
+    return moment(date, sourceFormat).format(format)
   },
   asCalendarDate (date, format) {
     return moment(date).calendar(null, format)
@@ -12,9 +12,6 @@ export default {
   },
   dateFormat (date) {
     return moment(date).format('HH:mm MMMM DD')
-  },
-  dateFormatForBonus (date, initialFormat, desiredFormat) {
-    return moment(date, initialFormat).format(desiredFormat)
   },
   round: (value, number = 2) => {
     return value.toFixed(number)

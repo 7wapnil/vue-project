@@ -7,7 +7,7 @@
       class="d-flex align-items-center justify-content-center mt-4">
       <div class="text-center">
         <h6 class="mb-0 font-weight-bold letter-spacing-2 text-arc-clr-gold">
-          Bonus achieved
+          {{ $t('account.bonus.bonusAchieved') }}
         </h6>
         <span class="font-size-36 font-weight-bold text-arc-clr-white letter-spacing-5" >
           {{ bonusAchieved }}
@@ -54,7 +54,7 @@
           <span class="text-arc-clr-iron font-size-14 letter-spacing-2 mb-0">{{ $t('account.bonus.expiryDate') }}:</span>
         </b-col>
         <b-col>
-          <span class="ml-4 mb-0 pl-2 text-arc-clr-iron-light font-size-14 letter-spacing-2">{{ mainBonus.expires_at | dateFormatForBonus('DD.MM.YY', 'DD/MM/YYYY') }}</span>
+          <span class="ml-4 mb-0 pl-2 text-arc-clr-iron-light font-size-14 letter-spacing-2">{{ mainBonus.expires_at | asFormattedDate('DD/MM/YYYY', 'DD.MM.YY') }}</span>
         </b-col>
       </b-row>
     </b-col>

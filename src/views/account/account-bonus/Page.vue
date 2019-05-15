@@ -1,7 +1,7 @@
 <template>
   <div v-if="customer_bonuses.length">
     <h3 class="mb-0 font-weight-light">
-      Bonus
+      {{ $t('account.tabs.bonus') }}
     </h3>
     <information-section
       :bonus-achieved="currentBonusValue"
