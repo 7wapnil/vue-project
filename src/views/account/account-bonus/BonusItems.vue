@@ -19,27 +19,41 @@
           </b-col>
           <b-col class="d-flex align-items-center pl-2">
             <span class="bonus-item-name text-arc-clr-gold font-weight-bold letter-spacing-2">
-              {{ bonusItem.name }}
+              {{ bonusItem.code }}
             </span>
           </b-col>
           <b-col class="text-right d-flex justify-content-end align-items-center">
             <b-button
               variant="arc-secondary"
-              class="font-weight-bold text-arc-clr-iron font-size-14 letter-spacing-2">
-              {{ bonusItem.overallStatus }}
+              class="text-capitalize font-weight-bold text-arc-clr-iron font-size-14 letter-spacing-2">
+              {{ bonusItem.status }}
             </b-button>
           </b-col>
         </b-row>
         <b-collapse
           :id="`${'account-bonus-' + index}`"
           accordion="bonus-accordion">
-          <p class="px-5 py-4 mb-0 mt-2 text-arc-clr-iron letter-spacing-2">
-            What do motivational thoughts do? They help you take action.
-            This isn’t about positive thinking or motivating quotes.
-            Those have their place in shaping your attitude and thinking.
-            However, what motivates each of us is unique, so you need to have your own thoughts
-            – those which are most effective at getting you going.
+          <p class="px-5 py-1 mb-0 mt-0 text-arc-clr-iron letter-spacing-2">
+            {{ $t('account.bonus.longTerms.header') }} <b>{{ bonusItem.code }}</b>
           </p>
+          <p class="px-5 py-1 mb-0 mt-0 text-arc-clr-iron letter-spacing-2">
+            {{ $t('account.bonus.longTerms.paragraph.main') }}
+            <router-link
+              :to="{name: 'terms and conditions'}"
+              class="text-arc-clr-iron letter-spacing-2 font-weight-bold">{{ $t('account.bonus.longTerms.paragraph.link') }}</router-link>
+          </p>
+          <ul>
+            <li class="text-arc-clr-iron letter-spacing-2">{{ $t('account.bonus.longTerms.list.list1') }} <b>{{ bonusItem.rollover_initial_value }}</b>
+            </li>
+            <li class="text-arc-clr-iron letter-spacing-2">{{ $t('account.bonus.longTerms.list.list2') }}</li>
+            <li class="text-arc-clr-iron letter-spacing-2">{{ $t('account.bonus.longTerms.list.list3') }} <b>{{ bonusItem.expires_at | asFormattedDate('DD/MM/YYYY', 'DD.MM.YY') }}</b></li>
+            <li class="text-arc-clr-iron letter-spacing-2">{{ $t('account.bonus.longTerms.list.list4') }} <b>{{ $tc('account.bonus.longTerms.list.list4Days', bonusItem.valid_for_days, { n: bonusItem.valid_for_days }) }} </b> {{ $t('account.bonus.longTerms.list.list4Part2') }}</li>
+            <li class="text-arc-clr-iron letter-spacing-2">{{ $t('account.bonus.longTerms.list.list5') }}</li>
+            <li class="text-arc-clr-iron letter-spacing-2">{{ $t('account.bonus.longTerms.list.list6') }}</li>
+            <li class="text-arc-clr-iron letter-spacing-2">{{ $t('account.bonus.longTerms.list.list7') }}</li>
+            <li class="text-arc-clr-iron letter-spacing-2">{{ $t('account.bonus.longTerms.list.list8') }}</li>
+          </ul>
+
         </b-collapse>
       </b-list-group-item>
     </b-list-group>

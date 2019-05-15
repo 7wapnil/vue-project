@@ -1,8 +1,8 @@
 import moment from 'moment'
 
 export default {
-  asFormattedDate (date, format = 'HH:mm MMMM DD') {
-    return moment(date).format(format)
+  asFormattedDate (date, format = 'HH:mm MMMM DD', sourceFormat = null) {
+    return moment(date, sourceFormat).format(format)
   },
   asCalendarDate (date, format) {
     return moment(date).calendar(null, format)
