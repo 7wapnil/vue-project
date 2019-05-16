@@ -1,5 +1,5 @@
 import * as Contentful from 'contentful'
-import Vue from 'vue'
+
 let client = null
 
 const ContentfulPlugin = {

@@ -21,7 +21,7 @@
               v-if="event.time_in_seconds"
               class="d-flex justify-content-center">
               <span class="font-weight-bold text-arc-clr-iron text-uppercase mb-1 event-card-date letter-spacing-2">
-                {{ event.time_in_seconds | secondsToNthMinuteAndSuffix }} {{ $t('eventPage.minute') }}
+                {{ formattedTime }} {{ $t('eventPage.minute') }}
               </span>
             </b-col>
 
@@ -284,6 +284,9 @@ export default {
       if (this.event.score) {
         return this.event.score.split(':')
       }
+    },
+    formattedTime () {
+      return this.$i18n.getSuffix(this.event.time_in_seconds)
     }
   }
 }

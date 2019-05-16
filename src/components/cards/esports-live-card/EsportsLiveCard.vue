@@ -18,7 +18,7 @@
               <h6
                 v-if="event.time_in_seconds"
                 class="mb-0 font-weight-bold text-arc-clr-iron-light">
-                {{ event.time_in_seconds | secondsToNthMinuteAndSuffix }} {{ $t('eventPage.minute') }}
+                {{ formattedTime }} {{ $t('eventPage.minute') }}
               </h6>
             </b-col>
           </b-row>
@@ -208,6 +208,9 @@ export default {
       if (this.event.score) {
         return this.event.score.split(':')
       }
+    },
+    formattedTime () {
+      return this.$i18n.getSuffix(this.event.time_in_seconds)
     }
   }
 }
