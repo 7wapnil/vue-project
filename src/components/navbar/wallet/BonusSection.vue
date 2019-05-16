@@ -21,7 +21,7 @@
       class="px-3">
       <b-col>
         <b-progress
-          :value="value"
+          :value="getMainBonusPercentageValue"
           class="arc-wallet-progress-bar"
           height="12px"/>
       </b-col>
@@ -37,14 +37,11 @@
     </b-row>
   </div>
 </template>
+
 <script>
 import { mapGetters } from 'vuex'
+
 export default {
-  data () {
-    return {
-      value: 50
-    }
-  },
   computed: {
     ...mapGetters('bonus', [
       'getBonuses',

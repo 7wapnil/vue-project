@@ -3,7 +3,6 @@
  */
 export default {
   state: {
-    deposit: null,
-    bonusAchieved: null
+    deposit: null
   }
 }
