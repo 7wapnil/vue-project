@@ -121,7 +121,6 @@ export default {
     onSuccess ({ data: { signIn } }) {
       this.login(signIn)
       this.fetchWallets()
-      this.fetchBonuses()
       this.$noty.success('Signed in successfully')
       this.$router.push({ name: 'home' })
       this.$livechat.setUser(signIn.user)
@@ -146,10 +145,7 @@ export default {
       'authenticate',
       'login',
       'rejectLogin'
-    ]),
-    ...mapActions('bonus', [
-      'fetchBonuses'
-    ]),
+    ])
   }
 }
 </script>

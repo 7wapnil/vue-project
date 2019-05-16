@@ -43,7 +43,6 @@ export default {
   created () {
     if (this.isLoggedIn) {
       this.fetchWallets()
-      this.fetchBonuses()
       this.$livechat.setUser(this.getUser)
     }
     this.$livechat.initWidget()
@@ -54,7 +53,6 @@ export default {
       updateProvider: UPDATE_PROVIDER
     }),
     ...mapActions('wallets', ['fetchWallets']),
-    ...mapActions('bonus', ['fetchBonuses']),
     updateAppStatus (status) {
       if (status === RECOVERING) { this.$router.push({ name: 'Maintenance' }) }
       if (status === HEALTHY) { this.$router.push({ name: 'home' }) }

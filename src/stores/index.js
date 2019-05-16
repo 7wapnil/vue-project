@@ -6,7 +6,6 @@ import betslip from './betslip'
 import wallets from './wallets'
 import account from './account'
 import tabs from './tabs'
-import bonus from './bonus'
 
 Vue.use(Vuex)
 
@@ -28,7 +27,6 @@ export default new Vuex.Store({
     betslip,
     wallets,
     account,
-    tabs,
-    bonus
+    tabs
   }
 })

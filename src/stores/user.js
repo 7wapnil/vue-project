@@ -3,7 +3,7 @@ import graphqlClient from '@/libs/apollo/'
 import { AUTH_INFO_QUERY, SIGN_IN_MUTATION, SIGN_UP_MUTATION } from '@/graphql/index'
 import { NO_CACHE } from '@/constants/graphql/fetch-policy'
 import { wsClient } from '@/libs/apollo/ws-link'
-
+import router from '@/routes'
 /**
  * User store module
  */
@@ -14,14 +14,13 @@ export default {
     lastLogin: null
   },
   actions: {
-    logout (context, componentContext) {
+    logout (context) {
       context.commit('clearSession')
       context.commit('wallets/CLEAR_WALLETS')
-      context.commit('bonus/CLEAR_BONUSES')
       arcanebetSession.dropSession()
       context.commit('resetConnection')
-      componentContext.$apollo.getClient().cache.reset()
-      componentContext.$router.push({ name: 'home' })
+      graphqlClient.cache.reset()
+      router.push({ name: 'home' })
     },
     authenticate (context, sessionData) {
       const response = graphqlClient.mutate({
