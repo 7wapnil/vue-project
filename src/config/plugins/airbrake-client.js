@@ -2,7 +2,7 @@ import AirbrakeClient from 'airbrake-js'
 
 let client = null
 
-const AirbrakePlugin = {
+const airbrakeClient = {
   install (Vue, options) {
     client = new AirbrakeClient({
       projectId: options.projectId,
@@ -15,4 +15,4 @@ const AirbrakePlugin = {
   }
 }
 
-export default AirbrakePlugin
+export default airbrakeClient

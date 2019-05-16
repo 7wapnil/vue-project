@@ -73,7 +73,7 @@
         <b-col
           v-if="event.time_in_seconds"
           class="letter-spacing-2">
-          {{ event.time_in_seconds | secondsToNthMinuteAndSuffix }} {{ $t('eventPage.minute') }}
+          {{ formattedTime }} {{ $t('eventPage.minute') }}
         </b-col>
 
       </b-row>
@@ -116,6 +116,9 @@ export default {
     },
     secondCompetitor () {
       return this.event.competitors[1]
+    },
+    formattedTime () {
+      return this.$i18n.getSuffix(this.event.time_in_seconds)
     }
   }
 }
