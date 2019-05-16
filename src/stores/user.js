@@ -17,6 +17,7 @@ export default {
     logout (context, componentContext) {
       context.commit('clearSession')
       context.commit('wallets/CLEAR_WALLETS')
+      context.commit('bonus/CLEAR_BONUSES')
       arcanebetSession.dropSession()
       context.commit('resetConnection')
       componentContext.$apollo.getClient().cache.reset()
