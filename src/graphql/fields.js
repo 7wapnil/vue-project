@@ -24,6 +24,7 @@ export const SCOPE_FIELDS = `
   name
   kind
   event_scope_id
+  position
 `
 
 export const EVENT_FIELDS = `

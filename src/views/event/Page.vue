@@ -10,7 +10,7 @@
         lazy
         tabs-class="event-panel-tabs"
         title-class="event-panel-titles"
-        @change-category="onTabChange"/>
+        @category-changed="onTabChange"/>
     </header-section>
     <market-category
       v-if="category"
