@@ -46,7 +46,7 @@
 
         <b-col class="mt-1">
           <span
-            v-if="event.state.score"
+            v-if="event.score"
             class="text-arc-clr-iron text-uppercase font-size-11 letter-spacing-2">
             Score
           </span>
@@ -55,14 +55,14 @@
         <div class="w-100"/>
 
         <b-col class="mb-4 letter-spacing-2">
-          {{ event.state.score }}
+          {{ event.score }}
         </b-col>
 
         <div class="w-100"/>
 
         <b-col class="mt-1">
           <span
-            v-if="event.state.time"
+            v-if="event.time_in_seconds"
             class="text-arc-clr-iron text-uppercase font-size-11 letter-spacing-2">
             Time
           </span>
@@ -70,8 +70,10 @@
 
         <div class="w-100"/>
 
-        <b-col class="letter-spacing-2">
-          {{ event.state.time }}
+        <b-col
+          v-if="event.time_in_seconds"
+          class="letter-spacing-2">
+          {{ formattedTime }} {{ $t('eventPage.minute') }}
         </b-col>
 
       </b-row>
@@ -114,6 +116,9 @@ export default {
     },
     secondCompetitor () {
       return this.event.competitors[1]
+    },
+    formattedTime () {
+      return this.$i18n.getSuffix(this.event.time_in_seconds)
     }
   }
 }

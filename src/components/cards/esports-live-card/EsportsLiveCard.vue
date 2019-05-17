@@ -15,8 +15,10 @@
           style="max-width: 205px; min-width: 60px">
           <b-row no-gutters>
             <b-col class="mt-1 mb-4 text-truncate d-inline-flex align-items-center justify-content-center">
-              <h6 class="mb-0 font-weight-bold text-arc-clr-iron-light">
-                {{ event.state.time }}
+              <h6
+                v-if="event.time_in_seconds"
+                class="mb-0 font-weight-bold text-arc-clr-iron-light">
+                {{ formattedTime }} {{ $t('eventPage.minute') }}
               </h6>
             </b-col>
           </b-row>
@@ -203,9 +205,12 @@ export default {
       return this.event.markets_count - 1
     },
     getScore () {
-      if (this.event.state.score) {
-        return this.event.state.score.split(':')
+      if (this.event.score) {
+        return this.event.score.split(':')
       }
+    },
+    formattedTime () {
+      return this.$i18n.getSuffix(this.event.time_in_seconds)
     }
   }
 }

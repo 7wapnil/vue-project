@@ -34,6 +34,9 @@ export const EVENT_FIELDS = `
   status
   markets_count
   start_status
+  display_status
+  score
+  time_in_seconds
   title {
     ${TITLE_FIELDS}
   }
@@ -47,20 +50,6 @@ export const EVENT_FIELDS = `
   competitors {
     id
     name
-  }
-  state {
-    id
-    status_code
-    status
-    score
-    time
-    period_scores {
-      id
-      score
-      status_code
-      status
-    }
-    finished
   }
 `
 

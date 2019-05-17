@@ -10,7 +10,7 @@
       </b-col>
 
       <b-col
-        v-if="!!event.state.score"
+        v-if="!!event.score"
         class="text-center pt-4 pb-3 pl-2">
         <span
           v-for="(score, index) in getScore"
@@ -20,7 +20,7 @@
         </span>
       </b-col>
       <b-col
-        v-if="!event.state.score"
+        v-if="!event.score"
         cols="auto"
         class="text-center pt-4">
         <h5
@@ -113,8 +113,8 @@ export default {
       return isDisabledByAPI || isDisabledByAppState
     },
     getScore () {
-      if (this.event.state.score) {
-        return this.event.state.score
+      if (this.event.score) {
+        return this.event.score
       }
     }
   }
