@@ -3,7 +3,7 @@
  */
 import Vue from 'vue'
 import Bet from '@/models/bet'
-import graphqlClient from '@/libs/apollo/'
+import graphqlClient from '@/libs/apollo/client'
 import { BETSLIP_PLACEMENT_QUERY, BET_UPDATED } from '@/graphql/index'
 import { ACTIVE_STATUS } from '@/models/market'
 
