@@ -39,7 +39,8 @@ export default {
       return this.getMainBonus.rollover_initial_value - this.getMainBonus.rollover_balance
     },
     getMainBonusPercentageValue () {
-      return (this.getCurrentBonusValue / this.getMainBonus.rollover_initial_value) * 100
+      let calculatedPercentage = (this.getCurrentBonusValue / this.getMainBonus.rollover_initial_value) * 100
+      return parseFloat(calculatedPercentage).toFixed(2)
     },
     getMainBonus () {
       return this.customer_bonuses.find((bonus) => bonus.status === 'active') || this.customer_bonuses[0]
