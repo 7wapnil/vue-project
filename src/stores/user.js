@@ -32,7 +32,6 @@ export default {
       return response
     },
     registerNewUser (context, sessionData) {
-      console.log(graphqlClient)
       const response = graphqlClient.mutate({
         mutation: SIGN_UP_MUTATION,
         variables: {
