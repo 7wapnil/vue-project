@@ -145,7 +145,7 @@ export default {
       'authenticate',
       'login',
       'rejectLogin'
-    ]),
+    ])
   }
 }
 </script>

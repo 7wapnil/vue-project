@@ -107,6 +107,7 @@ const messages = {
         maximumRolloverPerBet: 'Maximum rollover per bet',
         expiryDate: 'Expiry date',
         bonusAchieved: 'Bonus achieved',
+        noBonus: 'It seems you have no active bonus at the moment. Please make a deposit and enter a bonus code to claim your first one.',
         longTerms: {
           header: 'Bonus rules for code:',
           paragraph: {
