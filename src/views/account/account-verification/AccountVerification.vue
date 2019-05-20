@@ -236,17 +236,16 @@ export default {
         .catch(() => {
           this.$noty.error('Something went wrong')
         })
+        .finally(() => {
+          this.fileSendActive = false
+        })
     },
     handleResult ({ data }) {
       if (data.success) {
         this.$noty.success('Your files has been submitted successfully')
         this.refetch()
-          .then(() => {
-            this.fileSendActive = false
-          })
       } else {
         this.$noty.error(data.message)
-        this.fileSendActive = false
       }
     },
     onFileUpdate (item) {
