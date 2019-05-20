@@ -1,7 +1,7 @@
 <template>
   <b-row
     v-if="event"
-    class="py-5 w-100"
+    class="py-4 w-100"
     no-gutters>
     <b-col
       v-if="firstCompetitor"
@@ -30,7 +30,9 @@
 
         <div class="w-100"/>
 
-        <b-col class="mt-4">
+        <b-col
+          v-if="!isLiveEvent"
+          class="mt-4">
           <span class="text-arc-clr-iron text-uppercase font-size-11 letter-spacing-2">
             Starts
           </span>
@@ -38,13 +40,15 @@
 
         <div class="w-100"/>
 
-        <b-col class="mb-4 letter-spacing-2">
+        <b-col
+          v-if="!isLiveEvent"
+          class="mb-4 letter-spacing-2">
           {{ event.start_at | asFormattedDate('DD MMMM HH:mm') }}
         </b-col>
 
         <div class="w-100"/>
 
-        <b-col class="mt-1">
+        <b-col class="mt-4">
           <span
             v-if="event.score"
             class="text-arc-clr-iron text-uppercase font-size-11 letter-spacing-2">
@@ -54,13 +58,15 @@
 
         <div class="w-100"/>
 
-        <b-col class="mb-4 letter-spacing-2">
+        <b-col class="letter-spacing-2">
           {{ event.score }}
         </b-col>
 
         <div class="w-100"/>
 
-        <b-col class="mt-1">
+        <b-col
+          v-if="isLiveEvent"
+          class="mt-1">
           <span
             v-if="event.time_in_seconds"
             class="text-arc-clr-iron text-uppercase font-size-11 letter-spacing-2">
@@ -71,7 +77,7 @@
         <div class="w-100"/>
 
         <b-col
-          v-if="event.time_in_seconds"
+          v-if="event.time_in_seconds && isLiveEvent"
           class="letter-spacing-2">
           {{ formattedTime }} {{ $t('eventPage.minute') }}
         </b-col>
@@ -99,6 +105,7 @@
   </b-row>
 </template>
 <script>
+import { STARTED, SUSPENDED, INTERRUPTED } from '@/constants/event-statuses'
 export default {
   props: {
     event: {
@@ -119,6 +126,9 @@ export default {
     },
     formattedTime () {
       return this.$i18n.getSuffix(this.event.time_in_seconds)
+    },
+    isLiveEvent () {
+      return [STARTED, SUSPENDED, INTERRUPTED].includes(this.event.status)
     }
   }
 }
