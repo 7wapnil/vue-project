@@ -97,7 +97,10 @@ export default {
     }
   },
   created () {
-    this.tabIndex = 0
+    if (this.$route.params.titleKind) {
+      this.tabIndex = this.tabs.findIndex((tab) => tab.value === this.$route.params.titleId) || 0
+      return this.tabIndex
+    }
   },
   methods: {
     moveTab (side) {
