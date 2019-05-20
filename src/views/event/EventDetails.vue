@@ -78,7 +78,7 @@
 
         <b-col
           v-if="event.time_in_seconds && isLiveEvent"
-          class="mb-4 letter-spacing-2">
+          class="letter-spacing-2">
           {{ formattedTime }} {{ $t('eventPage.minute') }}
         </b-col>
 
