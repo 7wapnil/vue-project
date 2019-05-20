@@ -99,7 +99,7 @@ export default {
     },
     resetCaptcha () {
       this.$refs.recaptcha.reset()
-      this.fields.captcha = ''
+      this.fields.captcha = null
     },
     submit () {
       if (this.isCaptchaEmpty()) {
@@ -116,7 +116,7 @@ export default {
         .finally(this.done)
     },
     removeCaptcha () {
-      this.fields.captcha = ''
+      this.fields.captcha = null
     },
     onSuccess ({ data: { signIn } }) {
       this.login(signIn)
@@ -145,7 +145,7 @@ export default {
       'authenticate',
       'login',
       'rejectLogin'
-    ]),
+    ])
   }
 }
 </script>

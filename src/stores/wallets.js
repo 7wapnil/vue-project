@@ -1,4 +1,4 @@
-import graphqlClient from '@/libs/apollo/'
+import graphqlClient from '@/libs/apollo/client'
 import { WALLETS_LIST_QUERY, WALLET_UPDATED_SUBSCRIPTION } from '@/graphql/index'
 
 export const STORE_WALLETS = 'STORE_WALLETS'
