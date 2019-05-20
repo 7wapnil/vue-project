@@ -99,7 +99,6 @@ export default {
   created () {
     if (this.$route.params.titleKind) {
       this.tabIndex = this.tabs.findIndex((tab) => tab.value === this.$route.params.titleId) || 0
-      return this.tabIndex
     }
   },
   methods: {
