@@ -235,6 +235,7 @@ export default {
         .then(this.handleResult)
         .catch(() => {
           this.$noty.error('Something went wrong')
+          this.fileSendActive = false
         })
     },
     handleResult ({ data }) {
