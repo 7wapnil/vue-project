@@ -32,6 +32,7 @@ import { Form } from '@/helpers'
 import SignupFirstStep from './SignupFirstStep'
 import SignupSecondStep from './SignupSecondStep'
 import SelectInput from '@/components/inputs/SelectInput.vue'
+import {mapActions} from 'vuex'
 
 export default {
   components: {
@@ -63,6 +64,7 @@ export default {
     }
   },
   methods: {
+    ...mapActions('wallets', ['fetchWallets']),
     close () {
       this.$root.$emit('bv::hide::modal', 'AuthModal')
     },
@@ -74,6 +76,7 @@ export default {
         .dispatch('registerNewUser', this.form.values())
         .then(({ data: { signUp } }) => {
           this.$store.dispatch('login', signUp)
+          this.fetchWallets()
           this.$router.push({ name: 'home' })
           this.close()
           this.$noty.success('Welcome to ArcaneBet!')
