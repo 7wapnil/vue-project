@@ -32,7 +32,7 @@ import { Form } from '@/helpers'
 import SignupFirstStep from './SignupFirstStep'
 import SignupSecondStep from './SignupSecondStep'
 import SelectInput from '@/components/inputs/SelectInput.vue'
-import {mapActions} from 'vuex'
+import { mapActions } from 'vuex'
 
 export default {
   components: {
