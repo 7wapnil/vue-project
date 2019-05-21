@@ -13,18 +13,18 @@ export const USER_QUERY = gql`
   query {
     user {
       id
-      date_of_birth
+      dateOfBirth
       email
-      first_name
-      last_name
+      firstName
+      lastName
       gender
       phone
       username
-      address_country
-      address_city
-      address_zip_code
-      address_street_address
-      address_state
+      addressCountry
+      addressCity
+      addressZipCode
+      addressStreetAddress
+      addressState
     }
   }
 `
@@ -74,8 +74,8 @@ export const SIGN_IN_MUTATION = gql`
         id
         email
         username
-        first_name
-        last_name
+        firstName
+        lastName
       }
       token
     }
