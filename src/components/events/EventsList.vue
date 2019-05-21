@@ -161,7 +161,7 @@ export default {
         const tournament = scopes.find(s => s.kind === 'tournament')
 
         const middleBranch = event.title.show_category_in_navigation
-          ? { ...category, type: 'category' }
+          ? { ...category, type: 'category', tournament: event.tournament }
           : { ...tournament, type: 'tournament' }
 
         return {
