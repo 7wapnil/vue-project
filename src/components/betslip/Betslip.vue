@@ -205,12 +205,14 @@ export default {
   },
   created () {
     this.subscribeBets()
+    setTimeout(this.refreshBetslip, 1000)
   },
   methods: {
     ...mapActions('betslip', [
       'subscribeBets',
       'unsubscribeBets',
-      'placeBets'
+      'placeBets',
+      'refreshBetslip'
     ]),
     ...mapMutations('betslip', [
       'setBetStatusAsSubmitted',
