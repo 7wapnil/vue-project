@@ -1,8 +1,8 @@
 import gql from 'graphql-tag';
 
 export const TRANSACTION_LIST_QUERY = gql`
-query transactions ($filter: TransactionKind,  $page: Int, $per_page: Int) {
-  transactions (filter: $filter, page: $page, per_page: $per_page) {
+query transactions ($filter: TransactionKind,  $page: Int, $perPage: Int) {
+  transactions (filter: $filter, page: $page, perPage: $perPage) {
     collection {
       id
       customer_id

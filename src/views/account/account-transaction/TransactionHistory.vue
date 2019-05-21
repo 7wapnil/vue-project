@@ -106,7 +106,7 @@ export default {
         variables: {
           filter: null,
           page: 1,
-          per_page: this.itemsPerPage
+          perPage: this.itemsPerPage
         },
         result ({ data }) {
           this.loadingHistory = false
@@ -127,7 +127,7 @@ export default {
     variables () {
       return {
         page: this.currentPage,
-        per_page: this.itemsPerPage,
+        perPage: this.itemsPerPage,
         filter: this.filter
       }
     },
