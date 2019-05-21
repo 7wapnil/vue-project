@@ -92,7 +92,7 @@ export default {
       loadingBets: true,
       fields: [
         {
-          key: 'created_at',
+          key: 'createdAt',
           label: 'Date'
         },
         'details',

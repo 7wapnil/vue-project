@@ -76,7 +76,7 @@ export const MARKET_CATEGORY_FIELDS = `
 
 export const BET_FIELDS = `
   id
-  created_at
+  createdAt
   amount
   oddValue
   status

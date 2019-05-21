@@ -5,7 +5,7 @@ query betsHistory ($kind: String = null, $page: Int, $perPage: Int) {
   bets (kind: $kind, page: $page, perPage: $perPage) {
     collection {
       id
-      created_at
+      createdAt
       amount
       oddValue
       status
