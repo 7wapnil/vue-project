@@ -77,9 +77,6 @@
             v-model="form.currency"
             :state="form.errors.state('currency')">
             <option
-              value=""
-              disabled>Currency</option>
-            <option
               v-for="(country, index) in countries"
               :key="index"
               :value="country.currency">
