@@ -5,13 +5,13 @@ query transactions ($filter: TransactionKind,  $page: Int, $perPage: Int) {
   transactions (filter: $filter, page: $page, perPage: $perPage) {
     collection {
       id
-      customer_id
-      created_at
+      customerId
+      createdAt
       amount
       comment
       status
       currencyCode
-      updated_at
+      updatedAt
       mode
       }
     pagination {
