@@ -88,17 +88,17 @@ export default {
           {
             document: EVENTS_BET_STOPPED,
             updateQuery ({ events }, { subscriptionData: { data } }) {
-              const subscriptionData = data.events_bet_stopped
-              const marketStatus = subscriptionData.market_status
+              const subscriptionData = data.eventsBetStopped
+              const marketStatus = subscriptionData.marketStatus
 
               if (MARKET_STOP_STATUSES.includes(marketStatus)) {
                 const eventIndex = events
-                  .findIndex(event => event.id === subscriptionData.event_id)
+                  .findIndex(event => event.id === subscriptionData.eventId)
 
                 if (marketStatus === INACTIVE) events.splice(eventIndex, 1)
                 if (marketStatus === SUSPENDED) {
                   events[eventIndex]
-                    .dashboard_market
+                    .dashboardMarket
                     .odds
                     .forEach(function (odd) { odd.status = INACTIVE })
                 }
