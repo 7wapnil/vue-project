@@ -1,6 +1,7 @@
 /**
  * Betslip store module
  */
+/* eslint no-useless-rename: "off" */
 import Vue from 'vue'
 import Bet from '@/models/bet'
 import graphqlClient from '@/libs/apollo/client'
@@ -145,7 +146,7 @@ export const actions = {
         variables: { id: bet.id }
       })
       .subscribe({
-        next ({ data: { bet_updated: betUpdated } }) {
+        next ({ data: { betUpdated: betUpdated } }) {
           commit('updateBet', {
             oddId: bet.oddId,
             payload: {

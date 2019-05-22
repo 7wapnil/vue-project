@@ -33,7 +33,7 @@ export default {
       })
 
       observer.subscribe({
-        next: ({ data }) => commit(UPDATE_WALLET, data.wallet_updated)
+        next: ({ data }) => commit(UPDATE_WALLET, data.walletUpdated)
       })
     }
   },

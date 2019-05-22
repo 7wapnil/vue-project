@@ -11,7 +11,7 @@ export const WALLETS_LIST_QUERY = gql`
 
 export const WALLET_UPDATED_SUBSCRIPTION = gql`
   subscription walletUpdated {
-    wallet_updated {
+    walletUpdated {
       ${WALLET_FIELDS}
     }
   }
