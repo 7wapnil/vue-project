@@ -160,21 +160,22 @@ export default {
         const category = scopes.find(s => s.kind === 'category')
         const tournament = scopes.find(s => s.kind === 'tournament')
 
-        const middleBranch = event.title.show_category_in_navigation
-          ? { ...category, type: 'category', tournament: event.tournament }
-          : { ...tournament, type: 'tournament' }
-
         return {
           ...event,
           type: 'event',
           title: event.title,
           parent: {
-            ...middleBranch,
-            name: middleBranch.name,
+            ...tournament,
+            type: 'tournament',
             title: event.title,
             parent: {
-              ...title,
-              type: 'title'
+              ...category,
+              type: 'category',
+              title: event.title,
+              parent: {
+                ...title,
+                type: 'title'
+              }
             }
           }
         }
