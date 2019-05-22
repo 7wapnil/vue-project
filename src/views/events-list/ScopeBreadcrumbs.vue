@@ -37,7 +37,7 @@ export default {
           currentTitle = {
             id: title.id,
             name: title.name,
-            scopes: title.event_scopes
+            scopes: title.eventScopes
           }
         }
       })
@@ -65,7 +65,7 @@ export default {
       })
     },
     getEventScopeID () {
-      return this.getTournament ? this.getTournament.event_scope_id : null
+      return this.getTournament ? this.getTournament.eventScopeId : null
     },
     titleLink () {
       if (this.getTitle) {
