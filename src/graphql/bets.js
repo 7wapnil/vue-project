@@ -1,11 +1,11 @@
 import gql from 'graphql-tag';
 
 export const BETS_LIST_QUERY = gql`
-query betsHistory ($kind: String = null, $page: Int, $per_page: Int) {
-  bets (kind: $kind, page: $page, per_page: $per_page) {
+query betsHistory ($kind: String = null, $page: Int, $perPage: Int) {
+  bets (kind: $kind, page: $page, perPage: $perPage) {
     collection {
       id
-      created_at
+      createdAt
       amount
       oddValue
       status

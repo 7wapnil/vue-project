@@ -92,7 +92,7 @@ export default {
       loadingBets: true,
       fields: [
         {
-          key: 'created_at',
+          key: 'createdAt',
           label: 'Date'
         },
         'details',
@@ -141,7 +141,7 @@ export default {
     variables () {
       return {
         page: this.currentPage,
-        per_page: this.betsPerPage,
+        perPage: this.betsPerPage,
         kind: this.betKind
       }
     },
@@ -164,7 +164,7 @@ export default {
         fetchPolicy: NETWORK_ONLY,
         variables: {
           page: 1,
-          per_page: this.betsPerPage,
+          perPage: this.betsPerPage,
           kind: null
         },
         result ({ data }) {

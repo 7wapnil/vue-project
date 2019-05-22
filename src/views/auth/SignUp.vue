@@ -45,19 +45,19 @@ export default {
       form: new Form({
         username: '',
         email: '',
-        date_of_birth: '',
+        dateOfBirth: '',
         password: '',
-        password_confirmation: '',
+        passwordConfirmation: '',
         country: '',
-        first_name: '',
-        last_name: '',
+        firstName: '',
+        lastName: '',
         gender: 'male',
         phone: '',
-        street_address: '',
+        streetAddress: '',
         city: '',
         state: '',
-        zip_code: '',
-        agreed_with_promotional: false
+        zipCode: '',
+        agreedWithPromotional: false
       }),
       submitting: false,
       tabIndex: 0

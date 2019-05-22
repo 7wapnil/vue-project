@@ -3,13 +3,13 @@
     <h3 class="mb-0 font-weight-light">
       {{ $t('account.tabs.bonus') }}
     </h3>
-    <bonus-placeholder v-if="!customer_bonuses.length"/>
-    <div v-if="customer_bonuses.length">
+    <bonus-placeholder v-if="!customerBonuses.length"/>
+    <div v-if="customerBonuses.length">
       <information-section
         :bonus-achieved="getCurrentBonusValue"
         :main-bonus="getMainBonus"/>
       <progress-scale :value="getMainBonusPercentageValue"/>
-      <bonus-items :bonus-items="customer_bonuses"/>
+      <bonus-items :bonus-items="customerBonuses"/>
     </div>
   </div>
 
@@ -31,23 +31,23 @@ export default {
   },
   data () {
     return {
-      customer_bonuses: null
+      customerBonuses: null
     }
   },
   computed: {
     getCurrentBonusValue () {
-      return this.getMainBonus.rollover_initial_value - this.getMainBonus.rollover_balance
+      return this.getMainBonus.rolloverInitialValue - this.getMainBonus.rolloverBalance
     },
     getMainBonusPercentageValue () {
-      let calculatedPercentage = (this.getCurrentBonusValue / this.getMainBonus.rollover_initial_value) * 100
+      let calculatedPercentage = (this.getCurrentBonusValue / this.getMainBonus.rolloverInitialValue) * 100
       return parseFloat(calculatedPercentage).toFixed(2)
     },
     getMainBonus () {
-      return this.customer_bonuses.find((bonus) => bonus.status === 'active') || this.customer_bonuses[0]
+      return this.customerBonuses.find((bonus) => bonus.status === 'active') || this.customerBonuses[0]
     }
   },
   apollo: {
-    customer_bonuses () {
+    customerBonuses () {
       return {
         query: BONUSES_LIST_QUERY
       }

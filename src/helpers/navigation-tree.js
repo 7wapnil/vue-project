@@ -10,10 +10,10 @@ import { findTitleIcon } from './icon-finder'
  * @returns {*}
  */
 const buildTournaments = (titleKind, title, route, parentId = null) => {
-  return title.event_scopes
+  return title.eventScopes
     .filter((scope) => {
       return scope.kind === 'tournament' &&
-        (parentId === null ? true : scope.event_scope_id === parentId)
+        (parentId === null ? true : scope.eventScopeId === parentId)
     })
     .map((tournament) => {
       return {
@@ -35,12 +35,12 @@ const buildTournaments = (titleKind, title, route, parentId = null) => {
  * @returns {*}
  */
 const buildSubTree = (titleKind, title, route) => {
-  if (!title.show_category_in_navigation) {
+  if (!title.showCategoryInNavigation) {
     return buildTournaments(titleKind, title, route)
   }
 
   return title
-    .event_scopes
+    .eventScopes
     .filter((scope) => {
       return scope.kind === 'category'
     })

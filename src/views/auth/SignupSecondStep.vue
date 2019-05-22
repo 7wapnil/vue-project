@@ -1,12 +1,12 @@
 <template>
   <div>
     <b-form-group
-      :invalid-feedback="form.errors.get('first_name')"
-      :state="form.errors.state('first_name')">
+      :invalid-feedback="form.errors.get('firstName')"
+      :state="form.errors.state('firstName')">
       <b-form-input
-        id="signup-first_name"
-        v-model="form.first_name"
-        :state="form.errors.state('first_name')"
+        id="signup-firstName"
+        v-model="form.firstName"
+        :state="form.errors.state('firstName')"
         placeholder="First name"/>
     </b-form-group>
     <b-row no-gutters>
@@ -14,12 +14,12 @@
         class="mr-4"
         cols="8">
         <b-form-group
-          :invalid-feedback="form.errors.get('last_name')"
-          :state="form.errors.state('last_name')">
+          :invalid-feedback="form.errors.get('lastName')"
+          :state="form.errors.state('lastName')">
           <b-form-input
-            id="signup-last_name"
-            :state="form.errors.state('last_name')"
-            v-model="form.last_name"
+            id="signup-lastName"
+            :state="form.errors.state('lastName')"
+            v-model="form.lastName"
             placeholder="Last name"/>
         </b-form-group>
       </b-col>
@@ -43,21 +43,21 @@
         placeholder="Phone Number"/>
     </b-form-group>
     <b-form-group
-      :invalid-feedback="form.errors.get('street_address')"
-      :state="form.errors.state('street_address')">
+      :invalid-feedback="form.errors.get('streetAddress')"
+      :state="form.errors.state('streetAddress')">
       <b-form-input
-        id="signup-street_address"
-        v-model="form.street_address"
-        :state="form.errors.state('street_address')"
+        id="signup-streetAddress"
+        v-model="form.streetAddress"
+        :state="form.errors.state('streetAddress')"
         placeholder="Street address"/>
     </b-form-group>
     <b-form-group
-      :invalid-feedback="form.errors.get('zip_code')"
-      :state="form.errors.state('zip_code')">
+      :invalid-feedback="form.errors.get('zipCode')"
+      :state="form.errors.state('zipCode')">
       <b-form-input
-        id="signup-zip_code"
-        v-model="form.zip_code"
-        :state="form.errors.state('zip_code')"
+        id="signup-zipCode"
+        v-model="form.zipCode"
+        :state="form.errors.state('zipCode')"
         placeholder="Postal code"/>
     </b-form-group>
     <b-form-group
@@ -79,14 +79,14 @@
         placeholder="Province"/>
     </b-form-group>
     <b-form-checkbox
-      v-model="form.agreed_with_promotional"
+      v-model="form.agreedWithPromotional"
       class="accept-all-odds-checkbox mb-3">
       <span class="ml-3 font-size-14 text-arc-clr-iron pointer letter-spacing-2">
         I agree to receive promotional content
       </span>
     </b-form-checkbox>
     <b-form-checkbox
-      v-model="agreed_with_privacy"
+      v-model="agreedWithPrivacy"
       class="accept-all-odds-checkbox">
       <span class="d-block font-size-14 text-arc-clr-iron pointer letter-spacing-2 ml-3 mt-1">
         Confirm I am not underage,
@@ -159,7 +159,7 @@ export default {
   },
   data () {
     return {
-      agreed_with_privacy: false,
+      agreedWithPrivacy: false,
       genders: [
         { value: 'male', text: 'Male' },
         { value: 'female', text: 'Female' }

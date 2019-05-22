@@ -6,14 +6,14 @@ const SUBSCRIPTION_FIELDS = `
   scopes {
     ${SCOPE_FIELDS}
   }
-  dashboard_market {
+  dashboardMarket {
     ${MARKET_FIELDS}
   }
 `
 
 export const EVENTS_UPDATED = gql`
   subscription eventsUpdated {
-    events_updated {
+    eventsUpdated {
       ${SUBSCRIPTION_FIELDS}
     }
   }
@@ -21,7 +21,7 @@ export const EVENTS_UPDATED = gql`
 
 export const KIND_EVENT_UPDATED = gql`
   subscription kindEventUpdated ($kind: String) {
-    kind_event_updated (kind: $kind) {
+    kindEventUpdated (kind: $kind) {
       ${SUBSCRIPTION_FIELDS}
     }
   }
@@ -29,7 +29,7 @@ export const KIND_EVENT_UPDATED = gql`
 
 export const SPORT_EVENT_UPDATED = gql`
   subscription sportEventUpdated ($title: ID) {
-    sport_event_updated (title: $title) {
+    sportEventUpdated (title: $title) {
       ${SUBSCRIPTION_FIELDS}
     }
   }
@@ -37,7 +37,7 @@ export const SPORT_EVENT_UPDATED = gql`
 
 export const CATEGORY_EVENT_UPDATED = gql`
   subscription categoryEventUpdated ($category: ID) {
-    category_event_updated (category: $category) {
+    categoryEventUpdated (category: $category) {
       ${SUBSCRIPTION_FIELDS}
     }
   }
@@ -45,7 +45,7 @@ export const CATEGORY_EVENT_UPDATED = gql`
 
 export const TOURNAMENT_EVENT_UPDATED = gql`
   subscription tournamentEventUpdated ($tournament: ID) {
-    tournament_event_updated (tournament: $tournament) {
+    tournamentEventUpdated (tournament: $tournament) {
       ${SUBSCRIPTION_FIELDS}
     }
   }
@@ -53,7 +53,7 @@ export const TOURNAMENT_EVENT_UPDATED = gql`
 
 export const EVENT_UPDATED = gql`
   subscription eventUpdated ($id: ID, $category: String = null) {
-    event_updated (id: $id) {
+    eventUpdated (id: $id) {
       ${EVENT_FIELDS}
       scopes {
         ${SCOPE_FIELDS}
@@ -67,7 +67,7 @@ export const EVENT_UPDATED = gql`
 
 export const EVENTS_BET_STOPPED = gql`
   subscription eventsBetStopped {
-    events_bet_stopped {
+    eventsBetStopped {
       ${EVENT_BET_STOP_FIELDS}
     } 
   }
@@ -75,7 +75,7 @@ export const EVENTS_BET_STOPPED = gql`
 
 export const EVENT_BET_STOPPED = gql`
   subscription eventBetStopped ($id: ID) {
-    event_bet_stopped (id: $id) {
+    eventBetStopped (id: $id) {
       ${EVENT_BET_STOP_FIELDS}
     } 
   }
@@ -93,7 +93,7 @@ export const eventUpdatedSubscription = (marketId = null, category = null) => {
 
   return gql`
     subscription eventUpdated ($id: ID) {
-      event_updated (id: $id) {
+      eventUpdated (id: $id) {
         ${EVENT_FIELDS}
         scopes {
           ${SCOPE_FIELDS}

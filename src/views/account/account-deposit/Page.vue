@@ -317,7 +317,7 @@ export default {
             code: this.fields.bonusCode
           }
         }).then(({ data }) => {
-          this.calculatedBonus = data.deposit_bonus.bonus
+          this.calculatedBonus = data.depositBonus.bonus
           this.bonusError = null
         }).catch(({ graphQLErrors }) => {
           this.calculatedBonus = null
@@ -330,9 +330,9 @@ export default {
     submitDeposit () {
       let queryParams = {
         token: this.token,
-        currency_code: this.currency,
+        currencyCode: this.currency,
         amount: this.fields.amount,
-        bonus_code: this.fields.bonusCode
+        bonusCode: this.fields.bonusCode
       };
 
       let query = Object.keys(queryParams)

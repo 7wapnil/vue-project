@@ -41,7 +41,7 @@ export default {
               }
             },
             updateQuery ({ markets }, { subscriptionData }) {
-              const event = subscriptionData.data.event_updated
+              const event = subscriptionData.data.eventUpdated
               return { markets: event.markets }
             }
           },
@@ -49,8 +49,8 @@ export default {
             document: EVENT_BET_STOPPED,
             variables: { id: this.event.id },
             updateQuery ({ markets }, { subscriptionData: { data } }) {
-              const subscriptionData = data.event_bet_stopped
-              const marketStatus = subscriptionData.market_status
+              const subscriptionData = data.eventBetStopped
+              const marketStatus = subscriptionData.marketStatus
 
               if (MARKET_STOP_STATUSES.includes(marketStatus)) {
                 if (marketStatus === INACTIVE) markets = []
