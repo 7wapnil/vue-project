@@ -204,7 +204,7 @@ export const actions = {
     return graphqlClient
       .query({
         query: BETSLIP_BETS_QUERY,
-        variables: { ids: ids, per_page: idsCount },
+        variables: { ids: ids, perPage: idsCount },
         fetchPolicy: NETWORK_ONLY
       })
       .then(({ data: { bets: { collection } } }) => {
