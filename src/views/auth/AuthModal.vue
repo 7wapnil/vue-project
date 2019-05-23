@@ -57,13 +57,15 @@
 import Login from './Login'
 import SignUp from './SignUp'
 import PasswordResetRequest from './PasswordResetRequest'
+import PasswordResetForm from './PasswordResetForm'
 import { mapGetters, mapMutations } from 'vuex'
 
 export default {
   components: {
     SignUp,
     Login,
-    PasswordResetRequest
+    PasswordResetRequest,
+    PasswordResetForm
   },
   data () {
     return {
@@ -92,6 +94,9 @@ export default {
     if (this.$route.query.auth !== undefined) {
       this.updateAuth(this.$route.query.auth)
     }
+    if (this.$route.query.resetPassword) {
+      this.openResetPasswordForm()
+    }
   },
   methods: {
     ...mapMutations([
@@ -102,6 +107,9 @@ export default {
     },
     goBack () {
       this.formType = Login
+    },
+    openResetPasswordForm () {
+      this.formType = PasswordResetForm
     }
   }
 }

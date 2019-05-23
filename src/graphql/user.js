@@ -66,6 +66,18 @@ export const PASSWORD_RESET_REQUEST_MUTATION = gql`
   }
 `
 
+export const PASSWORD_RESET_MUTATION = gql`
+  mutation ($token: String!,
+            $password: String!,
+            $confirmation: String!) {
+    requestPasswordReset (
+    token: $token,
+    password: $password,
+    confirmation: $confirmation
+    ) 
+  }
+`
+
 export const AUTH_INFO_QUERY = gql`
   query($login: String!) {
     authInfo(login: $login) {
