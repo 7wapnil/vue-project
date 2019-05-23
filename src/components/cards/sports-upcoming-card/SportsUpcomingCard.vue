@@ -17,7 +17,7 @@
           <b-row no-gutters>
             <b-col class="d-flex justify-content-center">
               <span class="font-weight-bold text-arc-clr-iron text-uppercase event-card-date letter-spacing-2 mb-1">
-                {{ event.start_at | asCalendarDate({
+                {{ event.startAt | asCalendarDate({
                   sameDay: '[Today]',
                   nextDay: '[Tomorrow]',
                   lastDay: '[Yesterday]',
@@ -30,7 +30,7 @@
 
             <b-col class="d-flex align-items-start justify-content-center">
               <span class="text-arc-clr-iron text-uppercase font-weight-bold font-size-10 letter-spacing-2 hover-item">
-                {{ event.start_at | asFormattedDate('HH:mm') }}
+                {{ event.startAt | asFormattedDate('HH:mm') }}
               </span>
             </b-col>
           </b-row>
@@ -65,7 +65,7 @@
         </b-col>
         <b-col
           v-b-toggle="'sports-upcoming-event-' + event.id"
-          v-if="event.dashboard_market.length > 1"
+          v-if="event.dashboardMarket.length > 1"
           cols="auto"
           class="px-3 event-card-toggle-button">
           <b-row
@@ -268,7 +268,7 @@ export default {
   },
   computed: {
     marketsCount () {
-      return this.event.markets_count - 1
+      return this.event.marketsCount - 1
     }
   }
 }
