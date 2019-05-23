@@ -1,3 +1,4 @@
+/* eslint no-useless-rename: "off" */
 <template>
   <b-card
     bg-variant="arc-clr-soil-dark"
@@ -225,7 +226,7 @@ export default {
           variables () {
             return { id: this.bet.eventId }
           },
-          result ({ data: { event_updated: eventUpdated } }) {
+          result ({ data: { eventUpdated: eventUpdated } }) {
             this.updateOdds(eventUpdated.markets[0])
             this.handleMarketStatus(eventUpdated.markets[0])
           }
@@ -237,9 +238,9 @@ export default {
           variables () {
             return { id: this.bet.eventId }
           },
-          result ({ data: { event_bet_stopped: eventBetStopped } }) {
-            this.bet.marketStatus = eventBetStopped.market_status
-            this.handleMarketStatus({ status: eventBetStopped.market_status })
+          result ({ data: { eventBetStopped: eventBetStopped } }) {
+            this.bet.marketStatus = eventBetStopped.marketStatus
+            this.handleMarketStatus({ status: eventBetStopped.marketStatus })
           }
         }
       }
