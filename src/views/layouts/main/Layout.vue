@@ -43,6 +43,10 @@ export default {
     if (this.$route.query.depositState) {
       this.$root.$emit('bv::show::modal', 'AccountModal')
     }
+
+    if (this.$route.query.resetPassword) {
+      this.$root.$emit('bv::show::modal', 'AuthModal')
+    }
   }
 }
 </script>

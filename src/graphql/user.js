@@ -60,6 +60,12 @@ export const CHANGE_USER_PASSWORD = gql`
     }
 `
 
+export const PASSWORD_RESET_REQUEST_MUTATION = gql`
+  mutation ($email: String!) {
+    requestPasswordReset (email: $email) 
+  }
+`
+
 export const AUTH_INFO_QUERY = gql`
   query($login: String!) {
     authInfo(login: $login) {

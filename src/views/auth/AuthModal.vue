@@ -17,6 +17,7 @@
           color="arc-clr-iron-light"/>
       </span>
     </template>
+
     <b-tabs
       :value="auth"
       justified
@@ -25,7 +26,23 @@
       <b-tab
         title-link-class="auth-tabs"
         title="Sign in">
-        <login/>
+        <component :is="formType"/>
+        <b-row no-gutters>
+          <b-col align="center">
+            <b-link
+              v-if="isLogin"
+              class="font-size-14 letter-spacing-2 text-arc-clr-iron"
+              @click="openResetModal()">
+              Forgot your password? Recover it here
+            </b-link>
+            <b-link
+              v-if="!isLogin"
+              class="font-size-14 letter-spacing-2 text-arc-clr-iron"
+              @click="goBack()">
+              Back
+            </b-link>
+          </b-col>
+        </b-row>
       </b-tab>
       <b-tab
         title-link-class="auth-tabs"
@@ -39,12 +56,19 @@
 <script>
 import Login from './Login'
 import SignUp from './SignUp'
+import PasswordResetRequest from './PasswordResetRequest'
 import { mapGetters, mapMutations } from 'vuex'
 
 export default {
   components: {
     SignUp,
-    Login
+    Login,
+    PasswordResetRequest
+  },
+  data () {
+    return {
+      formType: Login
+    }
   },
   computed: {
     ...mapGetters([
@@ -59,6 +83,9 @@ export default {
           this.updateAuth(null)
         }
       }
+    },
+    isLogin () {
+      return this.formType === Login
     }
   },
   created () {
@@ -69,7 +96,13 @@ export default {
   methods: {
     ...mapMutations([
       'updateAuth'
-    ])
+    ]),
+    openResetModal () {
+      this.formType = PasswordResetRequest
+    },
+    goBack () {
+      this.formType = Login
+    }
   }
 }
 </script>

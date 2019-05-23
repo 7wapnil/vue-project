@@ -46,13 +46,6 @@
       block>
       Sign in
     </b-button>
-    <b-row no-gutters>
-      <b-col align="center">
-        <b-link class="font-size-14 letter-spacing-2 text-arc-clr-iron">
-          Forgot your password? Recover it here
-        </b-link>
-      </b-col>
-    </b-row>
   </b-form>
 </template>
 

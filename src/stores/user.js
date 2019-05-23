@@ -1,6 +1,6 @@
 import arcanebetSession from '@/services/local-storage/session'
 import graphqlClient from '@/libs/apollo/client'
-import { AUTH_INFO_QUERY, SIGN_IN_MUTATION, SIGN_UP_MUTATION } from '@/graphql/index'
+import { AUTH_INFO_QUERY, SIGN_IN_MUTATION, SIGN_UP_MUTATION, PASSWORD_RESET_REQUEST_MUTATION } from '@/graphql/index'
 import { NO_CACHE } from '@/constants/graphql/fetch-policy'
 import { wsClient } from '@/libs/apollo/ws-link'
 import router from '@/routes'
@@ -27,6 +27,15 @@ export default {
         mutation: SIGN_IN_MUTATION,
         variables: {
           input: sessionData
+        }
+      })
+      return response
+    },
+    requestPasswordReset (context, sessionData) {
+      const response = graphqlClient.mutate({
+        mutation: PASSWORD_RESET_REQUEST_MUTATION,
+        variables: {
+          email: sessionData.email
         }
       })
       return response
