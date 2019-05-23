@@ -225,7 +225,7 @@ export default {
           variables () {
             return { id: this.bet.eventId }
           },
-          result ({ data: { event_updated: eventUpdated } }) {
+          result ({ data: { eventUpdated } }) {
             this.updateOdds(eventUpdated.markets[0])
             this.handleMarketStatus(eventUpdated.markets[0])
           }
@@ -237,9 +237,9 @@ export default {
           variables () {
             return { id: this.bet.eventId }
           },
-          result ({ data: { event_bet_stopped: eventBetStopped } }) {
-            this.bet.marketStatus = eventBetStopped.market_status
-            this.handleMarketStatus({ status: eventBetStopped.market_status })
+          result ({ data: { eventBetStopped } }) {
+            this.bet.marketStatus = eventBetStopped.marketStatus
+            this.handleMarketStatus({ status: eventBetStopped.marketStatus })
           }
         }
       }
