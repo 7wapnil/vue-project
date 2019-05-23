@@ -10,7 +10,7 @@ export const TITLES_QUERY = gql`
   ) {
     titles (kind: $kind, context: $context) {
       ${TITLE_FIELDS}
-      event_scopes @include (if: $withScopes) {
+      eventScopes @include (if: $withScopes) {
         ${SCOPE_FIELDS}
       }
       tournaments @include (if: $withTournaments) {
