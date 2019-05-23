@@ -1,11 +1,13 @@
 /**
  * Betslip store module
  */
+/* eslint no-useless-rename: "off" */
 import Vue from 'vue'
 import Bet from '@/models/bet'
 import graphqlClient from '@/libs/apollo/client'
-import { BETSLIP_PLACEMENT_QUERY, BET_UPDATED } from '@/graphql/index'
+import { BETSLIP_PLACEMENT_QUERY, BETSLIP_BETS_QUERY, BET_UPDATED } from '@/graphql/index'
 import { ACTIVE_STATUS } from '@/models/market'
+import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
 
 const BET_DESTROY_TIMEOUT = 3000
 
@@ -88,6 +90,9 @@ export const getters = {
   getBets (state) {
     return state.bets
   },
+  getPlacedBetIds (state) {
+    return state.bets.map((item) => item.id)
+  },
   acceptAllChecked (state) {
     return state.acceptAll
   },
@@ -145,7 +150,7 @@ export const actions = {
         variables: { id: bet.id }
       })
       .subscribe({
-        next ({ data: { bet_updated: betUpdated } }) {
+        next ({ data: { betUpdated: betUpdated } }) {
           commit('updateBet', {
             oddId: bet.oddId,
             payload: {
@@ -189,6 +194,32 @@ export const actions = {
         bets: betsPayload
       }
     })
+  },
+  refreshBetslip ({ state, commit, getters }) {
+    const ids = getters.getPlacedBetIds
+    const idsCount = ids ? ids.length : 0
+
+    if (!idsCount) return
+
+    return graphqlClient
+      .query({
+        query: BETSLIP_BETS_QUERY,
+        variables: { ids: ids, per_page: idsCount },
+        fetchPolicy: NETWORK_ONLY
+      })
+      .then(({ data: { bets: { collection } } }) => {
+        collection.forEach((bet) => {
+          const oddId = bet.odd.id
+
+          commit('updateBet', {
+            oddId: oddId,
+            payload: {
+              status: bet.status,
+              message: bet.message
+            }
+          })
+        })
+      })
   }
 }
 

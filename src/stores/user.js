@@ -92,7 +92,7 @@ export default {
       arcanebetSession.storeSession(state.session)
     },
     updateLoginInfo (state, data) {
-      state.isSuspicious = data.is_suspicious
+      state.isSuspicious = data.isSuspicious
       state.lastLogin = data.login
     }
   },

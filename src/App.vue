@@ -23,7 +23,7 @@ export default {
         return {
           query: PROVIDER_SUBSCRIPTION,
           result ({ data }) {
-            this.updateProvider(data.provider_updated)
+            this.updateProvider(data.providerUpdated)
           }
         }
       },
@@ -31,7 +31,7 @@ export default {
         return {
           query: MTS_CONNECTION_STATUS_UPDATED,
           result ({ data }) {
-            this.updateAppStatus(data.mts_connection_status_updated.status)
+            this.updateAppStatus(data.mtsConnectionStatusUpdated.status)
           }
         }
       }

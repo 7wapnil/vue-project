@@ -11,16 +11,16 @@ const LiveChatPlugin = {
   setUser (user) {
     let customVariables = [
       { name: 'username', value: user.username },
-      { name: 'name', value: user.first_name + ' ' + user.last_name },
+      { name: 'name', value: user.firstName + ' ' + user.lastName },
       { name: 'email', value: user.email }
     ]
 
     if (!window.LC_API) {
       window.__lc.params = customVariables
-      window.__lc.visitor = { name: user.first_name + ' ' + user.last_name, email: user.email }
+      window.__lc.visitor = { name: user.firstName + ' ' + user.lastName, email: user.email }
     } else {
       window.LC_API.set_custom_variables(customVariables)
-      window.LC_API.set_visitor_name(user.first_name + ' ' + user.last_name)
+      window.LC_API.set_visitor_name(user.firstName + ' ' + user.lastName)
       window.LC_API.set_visitor_email(user.email)
     }
   },

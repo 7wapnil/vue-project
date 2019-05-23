@@ -7,7 +7,7 @@
         <b-col/>
         <b-col class="p-4 user-profile-form">
           <h3 class="font-weight-light ml-2">
-            {{ user.first_name }} {{ user.last_name }}
+            {{ user.firstName }} {{ user.lastName }}
           </h3>
         </b-col>
         <b-col/>
@@ -93,15 +93,15 @@
             no-gutters>
             <b-col class="text-md-right text-sm-left align-self-center">
               <label
-                for="first_name"
+                for="firstName"
                 class="text-arc-clr-iron font-size-14 letter-spacing-2 mb-0">
                 {{ $t('account.accountInfo.firstName') }}:
               </label>
             </b-col>
             <b-col class="user-profile-form">
               <b-form-input
-                id="first_name"
-                :value="user.first_name"
+                id="firstName"
+                :value="user.firstName"
                 class="ml-4"
                 disabled/>
             </b-col>
@@ -113,15 +113,15 @@
             no-gutters>
             <b-col class="text-md-right text-sm-left align-self-center">
               <label
-                for="last_name"
+                for="lastName"
                 class="text-arc-clr-iron font-size-14 letter-spacing-2 mb-0">
                 {{ $t('account.accountInfo.lastName') }}:
               </label>
             </b-col>
             <b-col class="user-profile-form">
               <b-form-input
-                id="last_name"
-                :value="user.last_name"
+                id="lastName"
+                :value="user.lastName"
                 class="ml-4"
                 disabled/>
             </b-col>
@@ -165,7 +165,7 @@
                   <b-form-select
                     id="birthday"
                     :value="null"
-                    :options="[{value: null, text: user.date_of_birth.slice(8, 11)}]"
+                    :options="[{value: null, text: user.dateOfBirth.slice(8, 11)}]"
                     class="h-100"
                     type="date"
                     disabled/>
@@ -173,7 +173,7 @@
                 <b-col class="ml-2">
                   <b-form-select
                     :value="null"
-                    :options="[{value: null, text: user.date_of_birth.slice(5, 7) }]"
+                    :options="[{value: null, text: user.dateOfBirth.slice(5, 7) }]"
                     class="h-100"
                     type="date"
                     disabled/>
@@ -181,7 +181,7 @@
                 <b-col class="ml-2">
                   <b-form-select
                     :value="null"
-                    :options="[{value: null, text: user.date_of_birth.slice(0, 4)}]"
+                    :options="[{value: null, text: user.dateOfBirth.slice(0, 4)}]"
                     class="h-100"
                     type="date"
                     disabled/>
@@ -238,7 +238,7 @@
               <b-form-select
                 id="country"
                 :value="null"
-                :options="[{value: null, text: user.address_country}]"
+                :options="[{value: null, text: user.addressCountry}]"
                 class="ml-4 h-100"
                 disabled/>
             </b-col>
@@ -259,7 +259,7 @@
               <b-form-select
                 id="province"
                 :value="null"
-                :options="[{value: null, text: user.address_state}]"
+                :options="[{value: null, text: user.addressState}]"
                 class="ml-4 h-100"
                 disabled/>
             </b-col>
@@ -280,7 +280,7 @@
               <b-form-select
                 id="city"
                 :value="null"
-                :options="[{value: null, text: user.address_city}]"
+                :options="[{value: null, text: user.addressCity}]"
                 class="ml-4 h-100"
                 disabled/>
             </b-col>
@@ -292,7 +292,7 @@
             no-gutters>
             <b-col class="text-md-right text-sm-left align-self-center">
               <label
-                for="street_address"
+                for="streetAddress"
                 class="text-arc-clr-iron font-size-14 letter-spacing-2 mb-0">
                 {{ $t('account.accountInfo.address') }}:
               </label>
@@ -301,14 +301,14 @@
               <b-row no-gutters>
                 <b-col cols="8">
                   <b-form-input
-                    id="street_address"
-                    :value="user.address_street_address"
+                    id="streetAddress"
+                    :value="user.addressStreetAddress"
                     class="ml-4"
                     disabled/>
                 </b-col>
                 <b-col class="ml-2">
                   <b-form-input
-                    :value="user.address_zip_code"
+                    :value="user.addressZipCode"
                     class="ml-4"
                     disabled/>
                 </b-col>

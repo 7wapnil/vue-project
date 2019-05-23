@@ -35,16 +35,16 @@
           no-gutters>
           <b-col class="text-md-right text-sm-left align-self-center">
             <label
-              for="current_password"
+              for="currentPassword"
               class="text-arc-clr-iron font-size-14 letter-spacing-2 mb-0">
               {{ $t('account.accountInfo.currentPassword') }}:
             </label>
           </b-col>
           <b-col class="align-self-center user-profile-form">
             <b-form-input
-              id="current_password"
-              :state="form.errors.state('existing_password')"
-              v-model="form.existing_password"
+              id="currentPassword"
+              :state="form.errors.state('existingPassword')"
+              v-model="form.existingPassword"
               class="ml-4"
               type="password"/>
           </b-col>
@@ -52,7 +52,7 @@
         </b-row>
         <b-row no-gutters>
           <b-col>
-            {{ form.errors.existing_password }}
+            {{ form.errors.existingPassword }}
           </b-col>
         </b-row>
 
@@ -61,7 +61,7 @@
           no-gutters>
           <b-col class="text-md-right text-sm-left align-self-center">
             <label
-              for="new_password"
+              for="newPassword"
               class="text-arc-clr-iron font-size-14 letter-spacing-2 mb-0">
               {{ $t('account.accountInfo.newPassword') }}:
             </label>
@@ -69,22 +69,22 @@
 
           <b-col class="align-self-center user-profile-form">
             <b-form-input
-              id="new_password"
-              :state="form.errors.state('new_password')"
-              v-model="form.new_password"
+              id="newPassword"
+              :state="form.errors.state('newPassword')"
+              v-model="form.newPassword"
               class="ml-4"
               type="password"/>
           </b-col>
           <b-col/>
         </b-row>
         <b-row
-          v-if="form.errors.has('new_password')"
+          v-if="form.errors.has('newPassword')"
           no-gutters>
           <b-col/>
           <b-col
             class="ml-4 pl-2 text-wp-clr-notif-red font-size-14 d-flex align-items-start user-profile-form"
             style="height: 40px">
-            {{ form.errors.get('new_password') }}
+            {{ form.errors.get('newPassword') }}
           </b-col>
           <b-col/>
         </b-row>
@@ -93,7 +93,7 @@
           no-gutters>
           <b-col class="text-md-right text-sm-left align-self-center">
             <label
-              for="repeat_password"
+              for="repeatPassword"
               class="text-arc-clr-iron font-size-14 letter-spacing-2 mb-0">
               {{ $t('account.accountInfo.repeatPassword') }}:
             </label>
@@ -101,9 +101,9 @@
 
           <b-col class="align-self-center user-profile-form">
             <b-form-input
-              id="repeat_password"
-              :state="form.errors.new_password_confirmation ? false : null"
-              v-model="form.new_password_confirmation"
+              id="repeatPassword"
+              :state="form.errors.newPasswordConfirmation ? false : null"
+              v-model="form.newPasswordConfirmation"
               class="ml-4"
               type="password"/>
           </b-col>
@@ -111,7 +111,7 @@
         </b-row>
         <b-row no-gutters>
           <b-col>
-            {{ form.errors.new_password_confirmation }}
+            {{ form.errors.newPasswordConfirmation }}
           </b-col>
         </b-row>
 
@@ -143,9 +143,9 @@ export default {
   data () {
     return {
       form: new Form({
-        existing_password: '',
-        new_password: '',
-        new_password_confirmation: ''
+        existingPassword: '',
+        newPassword: '',
+        newPasswordConfirmation: ''
       }),
       sending: false
     }
@@ -158,20 +158,20 @@ export default {
     },
     isRepeatCorrect () {
       const values = this.form.values()
-      return values.new_password === values.new_password_confirmation
+      return values.newPassword === values.newPasswordConfirmation
     },
     isReallyNewPassword () {
       const values = this.form.values()
-      return values.existing_password !== values.new_password
+      return values.existingPassword !== values.newPassword
     },
     isLocalValidationSucceeded () {
       const errors = {}
       if (this.hasEmptyFields) return false
       if (!this.isRepeatCorrect) {
-        errors['new_password_confirmation'] = 'Password confirmation is not equal'
+        errors['newPasswordConfirmation'] = 'Password confirmation is not equal'
       }
       if (!this.isReallyNewPassword) {
-        errors['new_password'] = 'New password must be not equal to existing'
+        errors['newPassword'] = 'New password must be not equal to existing'
       }
       if (Object.keys(errors).length) {
         this.form.setErrors(errors)

@@ -142,7 +142,7 @@ export default {
         HANDED_OVER_STATUS
       ].includes(this.market.status)
 
-      const isDisabledByAppState = this.event.start_status === LIVE
+      const isDisabledByAppState = this.event.startStatus === LIVE
         ? !this.isLiveConnected
         : !this.isPreLiveConnected
 

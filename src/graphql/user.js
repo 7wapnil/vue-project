@@ -13,18 +13,18 @@ export const USER_QUERY = gql`
   query {
     user {
       id
-      date_of_birth
+      dateOfBirth
       email
-      first_name
-      last_name
+      firstName
+      lastName
       gender
       phone
       username
-      address_country
-      address_city
-      address_zip_code
-      address_street_address
-      address_state
+      addressCountry
+      addressCity
+      addressZipCode
+      addressStreetAddress
+      addressState
     }
   }
 `
@@ -33,7 +33,7 @@ export const USER_PAYMENT_METHODS_QUERY = gql`
   query {
     user {
       id
-      available_withdraw_methods
+      availableWithdrawMethods
     }
   }
 `
@@ -51,12 +51,12 @@ export const VERIFY_EMAIL = gql`
 `
 
 export const CHANGE_USER_PASSWORD = gql`
-  mutation ($existing_password: String!,
-            $new_password: String!,
-            $new_password_confirmation: String!
-  ) { changePassword(existing_password: $existing_password,
-                     new_password: $new_password,
-                     new_password_confirmation: $new_password_confirmation)
+  mutation ($existingPassword: String!,
+            $newPassword: String!,
+            $newPasswordConfirmation: String!
+  ) { changePassword(existingPassword: $existingPassword,
+                     newPassword: $newPassword,
+                     newPasswordConfirmation: $newPasswordConfirmation)
     }
 `
 
@@ -69,7 +69,7 @@ export const PASSWORD_RESET_REQUEST_MUTATION = gql`
 export const AUTH_INFO_QUERY = gql`
   query($login: String!) {
     authInfo(login: $login) {
-      is_suspicious
+      isSuspicious
     }
   }
 `
@@ -80,8 +80,8 @@ export const SIGN_IN_MUTATION = gql`
         id
         email
         username
-        first_name
-        last_name
+        firstName
+        lastName
       }
       token
     }

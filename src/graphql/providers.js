@@ -11,7 +11,7 @@ export const PROVIDERS_QUERY = gql`
 
 export const PROVIDER_SUBSCRIPTION = gql`
   subscription providerUpdated {
-    provider_updated {
+    providerUpdated {
       ${PROVIDER_FIELDS}
     }
   }

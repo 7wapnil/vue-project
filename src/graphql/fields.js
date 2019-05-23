@@ -17,14 +17,14 @@ export const TITLE_FIELDS = `
   id
   name
   position
-  show_category_in_navigation
+  showCategoryInNavigation
 `
 
 export const SCOPE_FIELDS = `
   id
   name
   kind
-  event_scope_id
+  eventScopeId
   position
 `
 
@@ -33,11 +33,11 @@ export const EVENT_FIELDS = `
   name
   description
   status
-  markets_count
-  start_status
-  display_status
+  marketsCount
+  startStatus
+  displayStatus
   score
-  time_in_seconds
+  timeInSeconds
   title {
     ${TITLE_FIELDS}
   }
@@ -46,8 +46,8 @@ export const EVENT_FIELDS = `
     kind
     name
   }
-  start_at
-  end_at
+  startAt
+  endAt
   competitors {
     id
     name
@@ -76,7 +76,7 @@ export const MARKET_CATEGORY_FIELDS = `
 
 export const BET_FIELDS = `
   id
-  created_at
+  createdAt
   amount
   oddValue
   status
@@ -84,8 +84,8 @@ export const BET_FIELDS = `
 `
 
 export const EVENT_BET_STOP_FIELDS = `
-  event_id
-  market_status
+  eventId
+  marketStatus
 `
 
 export const MTS_CONNECTION_STATUS_FIELDS = `
