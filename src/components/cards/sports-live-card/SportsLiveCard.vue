@@ -18,7 +18,7 @@
            position: relative">
           <b-row no-gutters>
             <b-col
-              v-if="event.time_in_seconds"
+              v-if="event.timeInSeconds"
               class="d-flex justify-content-center">
               <span class="font-weight-bold text-arc-clr-iron text-uppercase mb-1 event-card-date letter-spacing-2">
                 {{ formattedTime }} {{ $t('eventPage.minute') }}
@@ -30,7 +30,7 @@
             <b-col class="d-flex align-items-start justify-content-center">
               <span
                 class="font-size-10 text-arc-clr-iron text-uppercase font-weight-bold letter-spacing-2">
-                {{ event.display_status }}
+                {{ event.displayStatus }}
               </span>
             </b-col>
           </b-row>
@@ -77,7 +77,7 @@
         </b-col>
         <b-col
           v-b-toggle="'sports-live-event-' + event.id"
-          v-if="event.dashboard_market.length > 1"
+          v-if="event.dashboardMarket.length > 1"
           cols="auto"
           class="px-3 event-card-toggle-button">
           <b-row
@@ -278,7 +278,7 @@ export default {
   },
   computed: {
     marketsCount () {
-      return this.event.markets_count - 1
+      return this.event.marketsCount - 1
     },
     getScore () {
       if (this.event.score) {
@@ -286,7 +286,7 @@ export default {
       }
     },
     formattedTime () {
-      return this.$i18n.getSuffix(this.event.time_in_seconds)
+      return this.$i18n.getSuffix(this.event.timeInSeconds)
     }
   }
 }

@@ -17,13 +17,13 @@ class EventsLookup {
   oddsMap () {
     let tree = []
     this.events.forEach(function (event) {
-      let market = event.dashboard_market
+      let market = event.dashboardMarket
 
       if (!market) return
 
       market.odds.forEach(function (odd) {
         const displayEvent = Object.assign({}, event)
-        displayEvent.dashboard_market = null
+        displayEvent.dashboardMarket = null
 
         const displayMarket = Object.assign({}, market)
         displayMarket.odds = {}
