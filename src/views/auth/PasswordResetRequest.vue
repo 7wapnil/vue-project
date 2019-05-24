@@ -58,9 +58,9 @@ export default {
       this
         .requestPasswordReset(this.form.values())
         .then(() => {
-          this.feedback = `Password reset email successfully sent to:
+          this.feedback = `${this.$t('userModal.resetEmailSuccess1')}
           ${this.form.values().email}.
-          Click the link in the email to reset your password.`
+          ${this.$t('userModal.resetEmailSuccess2')}`
           this.form.reset()
         })
         .catch((errors) => {

@@ -48,9 +48,9 @@
             slot="status"
             slot-scope="data">
             <b-badge
-              :variant="badgeStatus[data.item.display_status]"
+              :variant="badgeStatus[data.item.status]"
               class="border-4 text-uppercase font-size-11 text-arc-clr-soil-dark p-2">
-              {{ data.item.display_status }}
+              {{ data.item.status }}
             </b-badge>
           </template>
         </b-table>

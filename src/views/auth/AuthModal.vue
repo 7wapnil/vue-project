@@ -36,10 +36,16 @@
               {{ $t('userModal.forgotPasswordCta') }}
             </b-link>
             <b-link
-              v-if="!isLogin"
+              v-if="isResetRequestForm"
               class="font-size-14 letter-spacing-2 text-arc-clr-iron"
-              @click="goBack()">
+              @click="goBackToLoginForm()">
               {{ $t('userModal.back') }}
+            </b-link>
+            <b-link
+              v-if="isResetForm"
+              class="font-size-14 letter-spacing-2 text-arc-clr-iron"
+              @click="openResetModal()">
+              {{ $t('userModal.backToPasswordRequestForm') }}
             </b-link>
           </b-col>
         </b-row>
@@ -88,6 +94,12 @@ export default {
     },
     isLogin () {
       return this.formType === Login
+    },
+    isResetForm () {
+      return this.formType === PasswordResetForm
+    },
+    isResetRequestForm () {
+      return this.formType === PasswordResetRequest
     }
   },
   created () {
@@ -105,7 +117,7 @@ export default {
     openResetModal () {
       this.formType = PasswordResetRequest
     },
-    goBack () {
+    goBackToLoginForm () {
       this.formType = Login
     },
     openResetPasswordForm () {

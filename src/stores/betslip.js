@@ -150,7 +150,6 @@ export const actions = {
       })
       .subscribe({
         next ({ data: { betUpdated } }) {
-          console.log(betUpdated)
           commit('updateBet', {
             oddId: bet.oddId,
             payload: {

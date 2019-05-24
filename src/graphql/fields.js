@@ -78,7 +78,6 @@ export const BET_FIELDS = `
   id
   createdAt
   amount
-  display_status
   oddValue
   status
   message

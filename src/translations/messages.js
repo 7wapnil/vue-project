@@ -16,9 +16,12 @@ const messages = {
     userModal: {
       forgotPasswordCta: 'Forgot your password? Recover it here',
       back: 'Back',
+      backToPasswordRequestForm: 'Back to password request form',
       resetPasswordHeader: 'Reset your password',
       passwordChangeSuccess: 'Your password has been successfully changed.',
       passwordChangeFail: 'Something went wrong, please check entered details',
+      resetEmailSuccess1: 'Password reset email successfully sent to:',
+      resetEmailSuccess2: 'Click the link in the email to reset your password.'
     },
     homePage: {
       upcoming: 'Upcoming',

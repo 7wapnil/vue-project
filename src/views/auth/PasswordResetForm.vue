@@ -41,6 +41,7 @@
 <script>
 import { Form } from '@/helpers'
 import { mapActions } from 'vuex'
+
 export default {
   data () {
     return {
@@ -49,6 +50,7 @@ export default {
         password: '',
         confirmation: ''
       }),
+      hide: false,
       submitting: false
     }
   },
@@ -64,7 +66,7 @@ export default {
   },
   methods: {
     ...mapActions(['resetPassword']),
-    submit () {
+    submit: function () {
       const input = {
         ...this.form.values(),
         ...{
@@ -79,11 +81,11 @@ export default {
         .resetPassword(input)
         .then(() => {
           this.feedback = this.$t('userModal.passwordChangeSuccess')
-          this.close()
+          setTimeout(() => { this.$root.$emit('bv::hide::modal', 'AuthModal') }, 2000)
         })
         .catch((errors) => {
           this.form.handleGraphQLErrors(errors)
-          this.feedback = this.$t('userModal.passwordChangeFail')
+          this.feedback = errors.graphQLErrors[0].message
         })
         .finally(() => {
           this.submitting = false
