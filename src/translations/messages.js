@@ -113,6 +113,7 @@ const messages = {
         noBonus: 'It seems you have no active bonus at the moment. Please make a deposit and enter a bonus code to claim your first one.',
         longTerms: {
           header: 'Bonus rules for code:',
+          awarded: 'Awarded:',
           paragraph: {
             main: 'These rules are in addition to the general bonus rules and applicable terms and conditions; these can be found on our terms and conditions page or by clicking ',
             link: 'here'
