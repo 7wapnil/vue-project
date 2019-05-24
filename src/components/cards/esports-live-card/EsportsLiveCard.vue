@@ -16,7 +16,7 @@
           <b-row no-gutters>
             <b-col class="mt-1 mb-4 text-truncate d-inline-flex align-items-center justify-content-center">
               <h6
-                v-if="event.time_in_seconds"
+                v-if="event.timeInSeconds"
                 class="mb-0 font-weight-bold text-arc-clr-iron-light">
                 {{ formattedTime }} {{ $t('eventPage.minute') }}
               </h6>
@@ -202,7 +202,7 @@ export default {
   },
   computed: {
     marketsCount () {
-      return this.event.markets_count - 1
+      return this.event.marketsCount - 1
     },
     getScore () {
       if (this.event.score) {
@@ -210,7 +210,7 @@ export default {
       }
     },
     formattedTime () {
-      return this.$i18n.getSuffix(this.event.time_in_seconds)
+      return this.$i18n.getSuffix(this.event.timeInSeconds)
     }
   }
 }

@@ -5,7 +5,7 @@
     <markets-list
       :item-component="itemType"
       :event="event"
-      :markets="[event.dashboard_market]"/>
+      :markets="[event.dashboardMarket]"/>
   </component>
 </template>
 <script>
