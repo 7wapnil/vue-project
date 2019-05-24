@@ -8,6 +8,7 @@ export const BETS_LIST_QUERY = gql`
         createdAt
         amount
         oddValue
+        display_status
         status
         displayStatus
         market {
