@@ -15,8 +15,8 @@ export const BETSLIP_PLACEMENT_QUERY = gql`
 `
 
 export const BETSLIP_BETS_QUERY = gql`
-  query bets ($ids: [ID], $per_page: Int) {
-    bets (ids: $ids, per_page: $per_page) {
+  query bets ($ids: [ID], $perPage: Int) {
+    bets (ids: $ids, perPage: $perPage) {
       collection {
         id
         status
