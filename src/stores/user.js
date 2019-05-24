@@ -45,11 +45,12 @@ export default {
       return response
     },
     resetPassword (context, sessionData) {
-      console.log(sessionData)
       const response = graphqlClient.mutate({
         mutation: PASSWORD_RESET_MUTATION,
         variables: {
-          ...sessionData
+          password: sessionData.password,
+          confirmation: sessionData.confirmation,
+          token: sessionData.token
         }
       })
       return response

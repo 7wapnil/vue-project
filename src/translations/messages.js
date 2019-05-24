@@ -13,6 +13,13 @@ const messages = {
       bonusCode: 'Bonus code',
       transaction: 'Transaction | Transactions'
     },
+    userModal: {
+      forgotPasswordCta: 'Forgot your password? Recover it here',
+      back: 'Back',
+      resetPasswordHeader: 'Reset your password',
+      passwordChangeSuccess: 'Your password has been successfully changed.',
+      passwordChangeFail: 'Something went wrong, please check entered details',
+    },
     homePage: {
       upcoming: 'Upcoming',
       live: 'Live now',

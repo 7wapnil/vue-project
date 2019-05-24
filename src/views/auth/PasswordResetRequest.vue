@@ -5,8 +5,8 @@
       <b-form-input
         id="reset-email"
         v-model="form.email"
-        placeholder="Username"
-        autocomplete="username"
+        placeholder="Email"
+        autocomplete="email"
         class="mb-0"
         required/>
     </b-form-group>
@@ -25,7 +25,7 @@
       type="submit"
       variant="user-profile-button"
       block>
-      Reset Password
+      {{ $t('account.cta.resetPassword') }}
     </b-button>
   </b-form>
 </template>
@@ -46,7 +46,7 @@ export default {
   },
   computed: {
     isSubmitDisabled () {
-      return !this.form.email && !this.submitting
+      return !this.form.email || this.submitting
     }
   },
   methods: {
@@ -58,8 +58,10 @@ export default {
       this
         .requestPasswordReset(this.form.values())
         .then(() => {
+          this.feedback = `Password reset email successfully sent to:
+          ${this.form.values().email}.
+          Click the link in the email to reset your password.`
           this.form.reset()
-          this.feedback = 'All good'
         })
         .catch((errors) => {
           this.form.handleGraphQLErrors(errors)

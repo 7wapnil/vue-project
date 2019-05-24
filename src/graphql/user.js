@@ -70,10 +70,10 @@ export const PASSWORD_RESET_MUTATION = gql`
   mutation ($token: String!,
             $password: String!,
             $confirmation: String!) {
-    requestPasswordReset (
-    token: $token,
-    password: $password,
-    confirmation: $confirmation
+    resetPassword (
+      token: $token,
+      password: $password,
+      confirmation: $confirmation
     ) 
   }
 `

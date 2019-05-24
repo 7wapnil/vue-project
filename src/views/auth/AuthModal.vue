@@ -33,13 +33,13 @@
               v-if="isLogin"
               class="font-size-14 letter-spacing-2 text-arc-clr-iron"
               @click="openResetModal()">
-              Forgot your password? Recover it here
+              {{ $t('userModal.forgotPasswordCta') }}
             </b-link>
             <b-link
               v-if="!isLogin"
               class="font-size-14 letter-spacing-2 text-arc-clr-iron"
               @click="goBack()">
-              Back
+              {{ $t('userModal.back') }}
             </b-link>
           </b-col>
         </b-row>
