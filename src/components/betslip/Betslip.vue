@@ -243,11 +243,13 @@ export default {
         response.data.placeBets.forEach((betPayload) => {
           let bet = bets.find(el => el.oddId === betPayload.id)
           let betId = (betPayload.bet) ? betPayload.bet.id : null
+          let betStatus = (betPayload.bet) ? betPayload.bet.status : Bet.statuses.failed
 
           this.updateBet({
             oddId: bet.oddId,
             payload: {
               id: betId,
+              status: betStatus,
               message: betPayload.message,
               externalId: betPayload.id,
               success: betPayload.success
