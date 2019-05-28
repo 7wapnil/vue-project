@@ -186,6 +186,7 @@ export default {
       let content = this.$i18n.t('betslip.tooltipMessages.defaultLoggedIn')
 
       const conditions = {
+        unacceptableBets: !this.getAllBetsAcceptable,
         oddsNotConfirmed: !this.betslipValuesConfirmed,
         notEnoughMoney: !this.getIsEnoughFundsToBet,
         inactiveMarkets: this.getAnyInactiveMarket,

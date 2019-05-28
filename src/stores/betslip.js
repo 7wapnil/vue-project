@@ -65,7 +65,8 @@ export const getters = {
       getters.getIsEnoughFundsToBet &&
       getters.getTotalStakes > 0 &&
       !getters.getAnyInactiveMarket &&
-      !getters.getAnySubmittedBet && !getters.getAnyEmptyStake && !getters.getAnyFrozenBet
+      !getters.getAnyEmptyStake &&
+      getters.getAllBetsAcceptable
     ) {
       enabled = true
     }
@@ -125,13 +126,10 @@ export const getters = {
     })
   },
   getAnyFrozenBet (state) {
-    return state.bets.some((bet) => {
-      return [
-        Bet.statuses.submitted,
-        Bet.statuses.pending,
-        Bet.statuses.accepted
-      ].includes(bet.status)
-    })
+    return state.bets.some((bet) => bet.frozen)
+  },
+  getAllBetsAcceptable (state) {
+    return state.bets.every((bet) => bet.isAcceptable)
   }
 }
 
