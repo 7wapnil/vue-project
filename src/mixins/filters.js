@@ -21,5 +21,8 @@ export default {
       return ''
     }
     return value.toUpperCase()
+  },
+  capitalizeFirstLetter (value) {
+    return value.charAt(0).toUpperCase() + value.slice(1)
   }
 }

@@ -6,6 +6,7 @@ import NotFound from '@/views/layouts/main/NotFound'
 import Maintenance from '@/views/layouts/main/Maintenance'
 import { setCookie } from '@/helpers/cookies'
 import moment from 'moment'
+import filters from '@/mixins/filters'
 
 const rootChildren = [...mainRoutes, ...InformationPages.routes]
 
@@ -44,6 +45,7 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
+  document.title = `${filters.capitalizeFirstLetter(to.params.titleKind)} - Arcanebet`
   if (to.query.btag) { setCookie('btag', to.query.btag, moment().add(1, 'month').toDate()) }
   next()
 })

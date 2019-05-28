@@ -20,5 +20,8 @@ new Vue({
   store: Store,
   apolloProvider: globalConfig.apolloProvider,
   i18n: globalConfig.i18n,
+  mounted () {
+    document.dispatchEvent(new Event('render-event'))
+  },
   render: h => h(App)
 }).$mount('#app')
