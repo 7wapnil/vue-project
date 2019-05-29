@@ -43,11 +43,11 @@
               class="text-arc-clr-iron letter-spacing-2 font-weight-bold">{{ $t('account.bonus.longTerms.paragraph.link') }}</router-link>
           </p>
           <ul>
-            <li class="text-arc-clr-iron letter-spacing-2">{{ $t('account.bonus.longTerms.list.list1') }} <b>{{ bonusItem.rollover_initial_value }}</b>
+            <li class="text-arc-clr-iron letter-spacing-2">{{ $t('account.bonus.longTerms.list.list1') }} <b>{{ bonusItem.rolloverInitialValue }}</b>
             </li>
             <li class="text-arc-clr-iron letter-spacing-2">{{ $t('account.bonus.longTerms.list.list2') }}</li>
-            <li class="text-arc-clr-iron letter-spacing-2">{{ $t('account.bonus.longTerms.list.list3') }} <b>{{ bonusItem.expires_at | asFormattedDate('DD/MM/YYYY', 'DD.MM.YY') }}</b></li>
-            <li class="text-arc-clr-iron letter-spacing-2">{{ $t('account.bonus.longTerms.list.list4') }} <b>{{ $tc('account.bonus.longTerms.list.list4Days', bonusItem.valid_for_days, { n: bonusItem.valid_for_days }) }} </b> {{ $t('account.bonus.longTerms.list.list4Part2') }}</li>
+            <li class="text-arc-clr-iron letter-spacing-2">{{ $t('account.bonus.longTerms.list.list3') }} <b>{{ bonusItem.expiresAt | asFormattedDate('DD/MM/YYYY', 'DD.MM.YY') }}</b></li>
+            <li class="text-arc-clr-iron letter-spacing-2">{{ $t('account.bonus.longTerms.list.list4') }} <b>{{ $tc('account.bonus.longTerms.list.list4Days', bonusItem.validForDays, { n: bonusItem.validForDays }) }} </b> {{ $t('account.bonus.longTerms.list.list4Part2') }}</li>
             <li class="text-arc-clr-iron letter-spacing-2">{{ $t('account.bonus.longTerms.list.list5') }}</li>
             <li class="text-arc-clr-iron letter-spacing-2">{{ $t('account.bonus.longTerms.list.list6') }}</li>
             <li class="text-arc-clr-iron letter-spacing-2">{{ $t('account.bonus.longTerms.list.list7') }}</li>
