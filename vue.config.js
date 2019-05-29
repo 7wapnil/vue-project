@@ -1,7 +1,3 @@
-var path = require('path')
-const PrerenderSPAPlugin = require('prerender-spa-plugin')
-const Renderer = PrerenderSPAPlugin.PuppeteerRenderer
-
 module.exports = {
   pluginOptions: {
     s3Deploy: {}
@@ -34,18 +30,4 @@ module.exports = {
       ]
     }
   }
-}
-
-if (process.env.NODE_ENV === 'production') {
-  module.exports.configureWebpack.plugins = (module.exports.configureWebpack.plugins || []).concat([
-    new PrerenderSPAPlugin({
-      staticDir: path.join(__dirname, 'dist'),
-      outputDir: path.join(__dirname, 'prerendered'),
-      routes: ['/', '/esports', '/sports'],
-      renderer: new Renderer({
-        headless: true,
-        renderAfterDocumentEvent: 'render-event'
-      })
-    })
-  ])
 }
