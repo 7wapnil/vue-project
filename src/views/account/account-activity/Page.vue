@@ -48,9 +48,9 @@
             slot="status"
             slot-scope="data">
             <b-badge
-              :variant="badgeStatus[data.item.status]"
+              :variant="badgeStatus[data.item.displayStatus]"
               class="border-4 text-uppercase font-size-11 text-arc-clr-soil-dark p-2">
-              {{ data.item.status }}
+              {{ data.item.displayStatus }}
             </b-badge>
           </template>
         </b-table>
@@ -92,7 +92,7 @@ export default {
       loadingBets: true,
       fields: [
         {
-          key: 'created_at',
+          key: 'createdAt',
           label: 'Date'
         },
         'details',
@@ -141,7 +141,7 @@ export default {
     variables () {
       return {
         page: this.currentPage,
-        per_page: this.betsPerPage,
+        perPage: this.betsPerPage,
         kind: this.betKind
       }
     },
@@ -164,7 +164,7 @@ export default {
         fetchPolicy: NETWORK_ONLY,
         variables: {
           page: 1,
-          per_page: this.betsPerPage,
+          perPage: this.betsPerPage,
           kind: null
         },
         result ({ data }) {

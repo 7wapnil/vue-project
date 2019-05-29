@@ -23,9 +23,9 @@
     </b-form-group>
 
     <birth-date-field
-      v-model="form.date_of_birth"
-      :state="form.errors.state('date_of_birth')"
-      :error="form.errors.get('date_of_birth')"/>
+      v-model="form.dateOfBirth"
+      :state="form.errors.state('dateOfBirth')"
+      :error="form.errors.get('dateOfBirth')"/>
 
     <b-form-group
       :invalid-feedback="form.errors.get('password')"
@@ -38,12 +38,12 @@
         placeholder="Password"/>
     </b-form-group>
     <b-form-group
-      :invalid-feedback="form.errors.get('password_confirmation')"
-      :state="form.errors.state('password_confirmation')">
+      :invalid-feedback="form.errors.get('passwordConfirmation')"
+      :state="form.errors.state('passwordConfirmation')">
       <b-form-input
         id="signup-password-confirmation"
-        v-model="form.password_confirmation"
-        :state="form.errors.state('password_confirmation')"
+        v-model="form.passwordConfirmation"
+        :state="form.errors.state('passwordConfirmation')"
         type="password"
         placeholder="Repeat password"/>
     </b-form-group>

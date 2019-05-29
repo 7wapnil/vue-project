@@ -43,7 +43,7 @@
         <b-col
           v-if="!isLiveEvent"
           class="mb-4 letter-spacing-2">
-          {{ event.start_at | asFormattedDate('DD MMMM HH:mm') }}
+          {{ event.startAt | asFormattedDate('DD MMMM HH:mm') }}
         </b-col>
 
         <div class="w-100"/>
@@ -68,7 +68,7 @@
           v-if="isLiveEvent"
           class="mt-1">
           <span
-            v-if="event.time_in_seconds"
+            v-if="event.timeInSeconds"
             class="text-arc-clr-iron text-uppercase font-size-11 letter-spacing-2">
             Time
           </span>
@@ -77,7 +77,7 @@
         <div class="w-100"/>
 
         <b-col
-          v-if="event.time_in_seconds && isLiveEvent"
+          v-if="event.timeInSeconds && isLiveEvent"
           class="letter-spacing-2">
           {{ formattedTime }} {{ $t('eventPage.minute') }}
         </b-col>
@@ -125,7 +125,7 @@ export default {
       return this.event.competitors[1]
     },
     formattedTime () {
-      return this.$i18n.getSuffix(this.event.time_in_seconds)
+      return this.$i18n.getSuffix(this.event.timeInSeconds)
     },
     isLiveEvent () {
       return [STARTED, SUSPENDED, INTERRUPTED].includes(this.event.status)

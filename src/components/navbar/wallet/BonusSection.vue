@@ -1,5 +1,5 @@
 <template>
-  <div v-if="customer_bonuses && customer_bonuses.length">
+  <div v-if="customerBonuses && customerBonuses.length">
     <b-row
       no-gutters
       class="px-3 pt-3 pb-0">
@@ -44,23 +44,23 @@ import { BONUSES_LIST_QUERY } from '@/graphql'
 export default {
   data () {
     return {
-      customer_bonuses: null
+      customerBonuses: null
     }
   },
   computed: {
     getCurrentBonusValue () {
-      return this.getMainBonus.rollover_initial_value - this.getMainBonus.rollover_balance
+      return this.getMainBonus.rolloverInitialValue - this.getMainBonus.rolloverBalance
     },
     getMainBonusPercentageValue () {
-      let calculatedPercentage = (this.getCurrentBonusValue / this.getMainBonus.rollover_initial_value) * 100
+      let calculatedPercentage = (this.getCurrentBonusValue / this.getMainBonus.rolloverInitialValue) * 100
       return parseFloat(calculatedPercentage).toFixed(2)
     },
     getMainBonus () {
-      return this.customer_bonuses.find((bonus) => bonus.status === 'active') || this.customer_bonuses[0]
+      return this.customerBonuses.find((bonus) => bonus.status === 'active') || this.customerBonuses[0]
     }
   },
   apollo: {
-    customer_bonuses () {
+    customerBonuses () {
       return {
         query: BONUSES_LIST_QUERY
       }

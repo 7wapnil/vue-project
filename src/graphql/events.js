@@ -31,7 +31,7 @@ export const EVENTS_LIST_QUERY = gql`
         categoryId: $categoryId
     }) {
       ${EVENT_FIELDS_WITH_SCOPES}
-      dashboard_market {
+      dashboardMarket {
         ${MARKET_FIELDS}
       }
     }

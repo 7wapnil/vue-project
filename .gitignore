@@ -2,6 +2,7 @@
 node_modules
 /dist
 /.wercker
+/prerendered
 
 # local env files
 .env.local

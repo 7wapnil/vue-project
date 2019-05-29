@@ -39,11 +39,11 @@ export default {
   },
   computed: {
     isEventAvailable () {
-      if (this.event.start_status === LIVE && !this.isLiveConnected) {
+      if (this.event.startStatus === LIVE && !this.isLiveConnected) {
         return false
       }
 
-      if (!this.event.start_status === LIVE && !this.isPreLiveConnected) {
+      if (!this.event.startStatus === LIVE && !this.isPreLiveConnected) {
         return false
       }
 

@@ -3,8 +3,9 @@
     <router-link
       :to="tournamentLink"
       class="pl-4 text-arc-clr-gold mb-2 d-block font-size-14 letter-spacing-2">
-      {{ item.name }}
+      {{ categoryName }} - {{ item.name }}
     </router-link>
+
     <div>
       <slot/>
     </div>
@@ -38,6 +39,9 @@ export default {
   computed: {
     showMore () {
       return !!this.$route.params.categoryId && this.item.children.length === 16
+    },
+    categoryName () {
+      return this.item.parent.name
     }
   }
 }

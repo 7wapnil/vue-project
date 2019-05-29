@@ -80,7 +80,7 @@ export default {
               const endpoint = Object.keys(subscriptionData.data)[0]
               const attributes = subscriptionData.data[endpoint]
               const isRemoved =
-                attributes.start_status !== CONTEXT_TO_START_STATUS_MAP[this.context]
+                attributes.startStatus !== CONTEXT_TO_START_STATUS_MAP[this.context]
 
               return { events: updateCacheList(events, attributes, isRemoved) }
             }
@@ -88,17 +88,17 @@ export default {
           {
             document: EVENTS_BET_STOPPED,
             updateQuery ({ events }, { subscriptionData: { data } }) {
-              const subscriptionData = data.events_bet_stopped
-              const marketStatus = subscriptionData.market_status
+              const subscriptionData = data.eventsBetStopped
+              const marketStatus = subscriptionData.marketStatus
 
               if (MARKET_STOP_STATUSES.includes(marketStatus)) {
                 const eventIndex = events
-                  .findIndex(event => event.id === subscriptionData.event_id)
+                  .findIndex(event => event.id === subscriptionData.eventId)
 
                 if (marketStatus === INACTIVE) events.splice(eventIndex, 1)
                 if (marketStatus === SUSPENDED) {
                   events[eventIndex]
-                    .dashboard_market
+                    .dashboardMarket
                     .odds
                     .forEach(function (odd) { odd.status = INACTIVE })
                 }
@@ -160,21 +160,22 @@ export default {
         const category = scopes.find(s => s.kind === 'category')
         const tournament = scopes.find(s => s.kind === 'tournament')
 
-        const middleBranch = event.title.show_category_in_navigation
-          ? { ...category, type: 'category' }
-          : { ...tournament, type: 'tournament' }
-
         return {
           ...event,
           type: 'event',
           title: event.title,
           parent: {
-            ...middleBranch,
-            name: middleBranch.name,
+            ...tournament,
+            type: 'tournament',
             title: event.title,
             parent: {
-              ...title,
-              type: 'title'
+              ...category,
+              type: 'category',
+              title: event.title,
+              parent: {
+                ...title,
+                type: 'title'
+              }
             }
           }
         }

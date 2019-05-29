@@ -1,14 +1,15 @@
 import gql from 'graphql-tag';
 
 export const BETS_LIST_QUERY = gql`
-query betsHistory ($kind: String = null, $page: Int, $per_page: Int) {
-  bets (kind: $kind, page: $page, per_page: $per_page) {
-    collection {
-      id
-      created_at
-      amount
-      oddValue
-      status
+  query bets ($kind: String = null, $page: Int, $perPage: Int) {
+    bets (kind: $kind, page: $page, perPage: $perPage) {
+      collection {
+        id
+        createdAt
+        amount
+        oddValue
+        status
+        displayStatus
         market {
           id
           name
@@ -21,18 +22,18 @@ query betsHistory ($kind: String = null, $page: Int, $per_page: Int) {
           kind
         }
       }
-    pagination {
-      count
-          items
-          page
-          pages
-          offset
-          last
-          next
-          prev
-          from
-          to
+      pagination {
+        count
+        items
+        page
+        pages
+        offset
+        last
+        next
+        prev
+        from
+        to
+      }
     }
   }
-}
 `

@@ -33,6 +33,7 @@ import SignupFirstStep from './SignupFirstStep'
 import SignupSecondStep from './SignupSecondStep'
 import SelectInput from '@/components/inputs/SelectInput.vue'
 import { mapActions } from 'vuex'
+import { getCookie } from '@/helpers/cookies'
 
 export default {
   components: {
@@ -45,20 +46,20 @@ export default {
       form: new Form({
         username: '',
         email: '',
-        date_of_birth: '',
+        dateOfBirth: '',
         password: '',
-        password_confirmation: '',
+        passwordConfirmation: '',
         country: '',
         currency: 'EUR',
         first_name: '',
         last_name: '',
         gender: 'male',
         phone: '',
-        street_address: '',
+        streetAddress: '',
         city: '',
         state: '',
-        zip_code: '',
-        agreed_with_promotional: false
+        zipCode: '',
+        agreedWithPromotional: false
       }),
       submitting: false,
       tabIndex: 0
@@ -73,8 +74,12 @@ export default {
       this.form.clearErrors()
       this.submitting = true
 
+      const input = {
+        ...this.form.values(),
+        bTag: getCookie('btag') || null }
+
       this.$store
-        .dispatch('registerNewUser', this.form.values())
+        .dispatch('registerNewUser', input)
         .then(({ data: { signUp } }) => {
           this.$store.dispatch('login', signUp)
           this.fetchWallets()
