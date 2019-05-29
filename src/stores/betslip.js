@@ -91,7 +91,7 @@ export const getters = {
     return state.bets
   },
   getPlacedBetIds (state) {
-    return state.bets.map((item) => item.id)
+    return state.bets.map((item) => item.id).filter((item) => item)
   },
   acceptAllChecked (state) {
     return state.acceptAll

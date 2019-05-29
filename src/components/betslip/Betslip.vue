@@ -137,6 +137,7 @@
 </template>
 
 <script>
+import Bet from '@/models/bet'
 import BetslipItem from './BetslipItem'
 import NoBetsBlock from './NoBetsBlock'
 import { mapGetters, mapMutations, mapActions } from 'vuex'

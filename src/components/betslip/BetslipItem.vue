@@ -167,7 +167,7 @@ import Bet from '@/models/bet'
 import { mapGetters, mapMutations } from 'vuex'
 import { MESSAGE_SETTLED, MESSAGE_DISABLED, MESSAGE_SUCCESS } from '@/constants/betslip-messages'
 import { MARKET_BY_ID_QUERY, EVENT_BET_STOPPED, eventUpdatedSubscription } from '@/graphql'
-import { SETTLED_STATUS, INACTIVE_STATUSES } from '@/models/market'
+import { INACTIVE_STATUS, SETTLED_STATUS, INACTIVE_STATUSES } from '@/models/market'
 import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
 import MaskedInput from 'vue-text-mask'
 import createNumberMask from 'text-mask-addons/dist/createNumberMask'
@@ -362,10 +362,20 @@ export default {
     disableBetByMarketStatus () {
       this.disabledMessage = MESSAGE_DISABLED
       this.betMarketStatus = DISABLED
+
+      this.updateBet({
+        oddId: this.bet.oddId,
+        payload: { marketStatus: INACTIVE_STATUS }
+      })
     },
     settleBetByMarketStatus () {
       this.disabledMessage = MESSAGE_SETTLED
       this.betMarketStatus = SETTLED
+
+      this.updateBet({
+        oddId: this.bet.oddId,
+        payload: { marketStatus: SETTLED_STATUS }
+      })
     },
     confirmValue () {
       this.updateBet({
