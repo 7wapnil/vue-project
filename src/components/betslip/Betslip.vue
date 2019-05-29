@@ -45,7 +45,7 @@
               <b-col>
                 <div
                   v-for="(bet, index) in getBets"
-                  :key="index">
+                  :key="`${bet.oddId}-${index}`">
                   <betslip-item
                     :parent-refs="$refs"
                     :bet="bet"/>
@@ -167,7 +167,8 @@ export default {
       'getIsEnoughFundsToBet',
       'getAnyInactiveMarket',
       'getAnySubmittedBet',
-      'getAnyEmptyStake'
+      'getAnyEmptyStake',
+      'getAllBetsAcceptable'
     ]),
     ...mapGetters(['isLoggedIn']),
     acceptAllOdds: {
@@ -244,8 +245,10 @@ export default {
       if (response.data && response.data.placeBets) {
         response.data.placeBets.forEach((betPayload) => {
           let bet = bets.find(el => el.oddId === betPayload.id)
-          let betId = (betPayload.bet) ? betPayload.bet.id : null
-          let betStatus = (betPayload.bet) ? betPayload.bet.status : Bet.statuses.failed
+
+          let betFromPayload = betPayload.bet || {}
+          let betId = betFromPayload.id
+          let betStatus = this.betStatusFromResponse(betFromPayload)
 
           this.updateBet({
             oddId: bet.oddId,
@@ -260,6 +263,12 @@ export default {
         })
         this.subscribeBets()
       }
+    },
+    betStatusFromResponse (bet) {
+      if (bet.status === Bet.statuses.initial) { return Bet.statuses.submitted }
+      if (bet.status) { return bet.status }
+
+      return Bet.statuses.failed
     },
     updateBets () {
       this.getBets.forEach(bet => {

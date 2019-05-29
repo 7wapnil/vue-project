@@ -129,7 +129,7 @@ export const getters = {
     return state.bets.some((bet) => bet.frozen)
   },
   getAllBetsAcceptable (state) {
-    return state.bets.every((bet) => bet.isAcceptable)
+    return !(state.bets.length) || state.bets.every((bet) => bet.isAcceptable)
   }
 }
 

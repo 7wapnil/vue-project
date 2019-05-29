@@ -53,6 +53,7 @@ describe('betslip store', () => {
       const validGettersState = {
         getTotalStakes: 2,
         anyInitialBet: true,
+        getAllBetsAcceptable: true,
         betslipValuesConfirmed: true,
         getAnyInactiveMarket: false,
         getIsEnoughFundsToBet: true
@@ -103,17 +104,6 @@ describe('betslip store', () => {
           const invalidGetters = {
             ...validGettersState,
             getAnyInactiveMarket: true
-          }
-
-          expect(getters.betslipSubmittable(state, invalidGetters, {})).to.eql(false)
-        })
-
-        it('fails when at least one bet is in status submitted', () => {
-          const state = {}
-
-          const invalidGetters = {
-            ...validGettersState,
-            getAnySubmittedBet: true
           }
 
           expect(getters.betslipSubmittable(state, invalidGetters, {})).to.eql(false)
