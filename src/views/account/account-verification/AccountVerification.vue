@@ -2,109 +2,48 @@
   <div>
     <verification-status :user="user"/>
     <disclaimer-section/>
-
-    <b-row
+    <div
       v-for="(item, index) in items"
       :key="index"
-      class="h-100 py-4 verification-card"
-      no-gutters>
-      <b-col
-        cols="10"
-        class="d-inline-flex align-items-center">
-        <label
-          :for="item.name"
-          class="m-0 font-weight-light font-size-21 letter-spacing-2 text-arc-clr-white w-100">
-          {{ item.label }}
-        </label>
-        <b-form-invalid-feedback
-          class="m-0"
-          force-show>
-          {{ item.error }}
-        </b-form-invalid-feedback>
-      </b-col>
+      class="py-4 verification-card">
+      <b-row no-gutters>
+        <b-col class="d-flex align-items-center">
+          <label
+            :for="item.name"
+            class="m-0 font-weight-light font-size-21 letter-spacing-2 text-arc-clr-white w-100 pointer">
+            {{ item.label }}
+          </label>
+          <b-form-invalid-feedback
+            class="m-0"
+            force-show>
+            {{ item.error }}
+          </b-form-invalid-feedback>
+        </b-col>
 
-      <b-col
-        cols="2"
-        class="d-flex align-items-center justify-content-end">
-        <label
-          class="btn-arc-secondary m-0 py-2 px-4 text-arc-clr-iron-light letter-spacing-2">
-          Choose file
-          <b-form-file
-            v-model="item.file"
-            :state="item.error.length === 0 ? null : false"
-            :id="item.name"
-            :name="item.name"
-            :accept="item.accept"
-            hidden
-            @input="onFileUpdate(item)"/>
-        </label>
-      </b-col>
-
-      <b-col class="pt-3 pb-4">
-        <b-card
-          v-if="!!item.file"
-          no-body
-          class="bg-arc-clr-soil-dark p-0">
-          <b-row
-            class="p-4"
-            no-gutters>
-            <b-col class="text-truncate pr-4">
-              <span class="font-weight-bold text-arc-clr-white font-size-14 letter-spacing-2">
-                {{ item.file.name }}
-              </span>
-              <span
-                v-if="!item.id && !item.error"
-                class="font-size-14 text-arc-clr-iron letter-spacing-2 d-flex align-items-center mt-1">
-                <arc-circle
-                  :bg-color="'arc-clr-iron'"
-                  :size="18"
-                  class="mr-2"/>
-                Waiting for upload
-              </span>
-              <span
-                v-else
-                class="d-flex align-items-center mt-1">
-                <arc-circle
-                  v-if="!item.error"
-                  :bg-color="statusColors[item.status]"
-                  :size="18"
-                  class="mr-2"/>
-                <span class="font-size-14 text-arc-clr-iron letter-spacing-2 text-capitalize d-flex align-items-center mt-1">
-                  {{ item.status }}
-                </span>
-              </span>
-            </b-col>
-            <b-col
-              cols="auto"
-              class="d-flex align-items-center">
-              <b-link
-                v-if="item.status !== 'confirmed'"
-                class="text-arc-clr-iron-light font-size-14 letter-spacing-1"
-                @click="removeItem(item)">
-                Remove
-              </b-link>
-            </b-col>
-          </b-row>
-        </b-card>
-      </b-col>
-    </b-row>
-    <b-row
-      class="pt-4"
-      no-gutters>
-      <b-col
-        v-if="!isSubmitEnabled"
-        class="mt-2 letter-spacing-2 text-arc-clr-iron">
-        You don’t have any files chosen.<br> Please choose files to upload
-      </b-col>
-      <b-col class="text-right mt-2">
-        <b-button
-          :disabled="!isSubmitEnabled"
-          variant="user-profile-button"
-          @click="submitFiles">
-          Upload Files
-        </b-button>
-      </b-col>
-    </b-row>
+        <b-col
+          cols="auto"
+          class="d-flex align-items-center justify-content-end">
+          <label
+            class="btn-arc-secondary m-0 py-2 px-4 text-arc-clr-iron-light letter-spacing-2">
+            Choose file
+            <b-form-file
+              v-model="item.file"
+              :state="item.error.length === 0 ? null : false"
+              :id="item.name"
+              :name="item.name"
+              :accept="item.accept"
+              hidden
+              @input="onFileUpdate(item)"/>
+          </label>
+        </b-col>
+      </b-row>
+      <uploaded-item
+        :item="item"
+        @item-removed="removeItem"/>
+    </div>
+    <upload-button-section
+      :is-submit-enabled="Boolean(isSubmitEnabled)"
+      @files-submited="submitFiles"/>
   </div>
 </template>
 
@@ -115,11 +54,15 @@ import { DOCUMENTS_QUERY, DELETE_FILE, USER_VERIFICATION_QUERY } from '@/graphql
 import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
 import VerificationStatus from './VerificationStatus'
 import DisclaimerSection from './DisclaimerSection'
+import UploadedItem from './UploadedItem'
+import UploadButtonSection from './UploadButtonSection'
 
 export default {
   components: {
     VerificationStatus,
-    DisclaimerSection
+    DisclaimerSection,
+    UploadedItem,
+    UploadButtonSection
   },
   data () {
     return {
@@ -179,15 +122,7 @@ export default {
     isSubmitEnabled () {
       const haveFilesToUpload = this.items.find(item => item.file && !item.id)
       const haveNoErrors = !this.items.find(item => item.error)
-
       return haveFilesToUpload && haveNoErrors && !this.fileSendActive
-    },
-    statusColors () {
-      return {
-        confirmed: 'arc-clr-sport-glow',
-        rejected: 'wp-clr-notif-red',
-        pending: 'arc-clr-iron'
-      }
     }
   },
   apollo: {
