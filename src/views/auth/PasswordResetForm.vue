@@ -69,11 +69,9 @@ export default {
     submit: function () {
       const input = {
         ...this.form.values(),
-        ...{
-          token: this.$route.query.token || null
-        }
+        token: this.$route.query.token || null
       }
-
+      console.log(input)
       this.form.clearErrors()
       this.submitting = true
 

@@ -21,7 +21,7 @@ const messages = {
       passwordChangeSuccess: 'Your password has been successfully changed.',
       passwordChangeFail: 'Something went wrong, please check entered details',
       resetEmailSuccess1: 'Password reset email successfully sent to:',
-      resetEmailSuccess2: 'Click the link in the email to reset your password.'
+      resetEmailSuccess2: 'Click the link in the email to reset your password. If you didn\'t receive an email please contact live support. '
     },
     homePage: {
       upcoming: 'Upcoming',
