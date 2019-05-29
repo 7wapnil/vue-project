@@ -105,12 +105,12 @@ export default {
   },
   computed: {
     userWithdrawMethods () {
-      if (!this.user || !this.user.available_withdraw_methods.length) {
+      if (!this.user || !this.user.availableWithdrawMethods.length) {
         return []
       }
 
       return this.paymentMethods.filter((method) => {
-        return this.user.available_withdraw_methods.includes(method.code)
+        return this.user.availableWithdrawMethods.includes(method.code)
       })
     },
     activeMethod () {
