@@ -32,6 +32,7 @@ const messages = {
         oddsNotConfirmed: 'Please confirm all odds changes',
         notEnoughMoney: 'Please check your available balance',
         inactiveMarkets: 'Please remove any inactive bets',
+        unacceptableBets: 'Please remove any inactive bets',
         betsBeingSubmitted: 'Bet placement in progress',
         invalidStakeAmount: 'Please make sure your stake is correct'
       },

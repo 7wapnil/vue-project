@@ -4,7 +4,9 @@ const STATUSES = {
   pending: 'pending',
   accepted: 'accepted',
   failed: 'failed',
-  rejected: 'rejected'
+  rejected: 'rejected',
+  disabled: 'disabled',
+  warning: 'warning'
 }
 
 export default class Bet {
@@ -43,6 +45,14 @@ export default class Bet {
       STATUSES.submitted,
       STATUSES.pending,
       STATUSES.accepted
+    ].includes(this.status)
+  }
+
+  get isAcceptable () {
+    return [
+      STATUSES.initial,
+      STATUSES.failed,
+      STATUSES.rejected
     ].includes(this.status)
   }
 }

@@ -167,16 +167,13 @@ import Bet from '@/models/bet'
 import { mapGetters, mapMutations } from 'vuex'
 import { MESSAGE_SETTLED, MESSAGE_DISABLED, MESSAGE_SUCCESS } from '@/constants/betslip-messages'
 import { MARKET_BY_ID_QUERY, EVENT_BET_STOPPED, eventUpdatedSubscription } from '@/graphql'
-import {
-  SUSPENDED_STATUS,
-  INACTIVE_STATUS as MARKET_INACTIVE_STATUS,
-  SETTLED_STATUS,
-  CANCELLED_STATUS,
-  HANDED_OVER_STATUS
-} from '@/models/market'
+import { INACTIVE_STATUS, SETTLED_STATUS, INACTIVE_STATUSES } from '@/models/market'
 import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
 import MaskedInput from 'vue-text-mask'
 import createNumberMask from 'text-mask-addons/dist/createNumberMask'
+
+const DISABLED = 'disabled'
+const SETTLED = 'settled'
 
 export default {
   components: {
@@ -195,9 +192,8 @@ export default {
   },
   data () {
     return {
-      status: null,
-      isDisabled: false,
-      isSettled: false,
+      betMarketStatus: null,
+      betOddStatus: null,
       disabledMessage: null
     }
   },
@@ -213,8 +209,10 @@ export default {
         },
         update: data => data.markets[0],
         result ({ data }) {
-          this.updateOdds(data.markets[0])
-          this.handleMarketStatus(data.markets[0])
+          const market = data.markets[0] || {}
+
+          this.updateOdds(market)
+          this.handleMarketStatus(market)
         }
       }
     },
@@ -226,8 +224,10 @@ export default {
             return { id: this.bet.eventId }
           },
           result ({ data: { eventUpdated } }) {
-            this.updateOdds(eventUpdated.markets[0])
-            this.handleMarketStatus(eventUpdated.markets[0])
+            const market = eventUpdated.markets[0] || {}
+
+            this.updateOdds(market)
+            this.handleMarketStatus(market)
           }
         }
       },
@@ -291,6 +291,12 @@ export default {
     isBetDisabled () {
       return this.isDisabled || this.isSettled
     },
+    isDisabled () {
+      return this.betMarketStatus === DISABLED || this.betOddStatus === DISABLED
+    },
+    isSettled () {
+      return this.status === SETTLED
+    },
     successMessage () {
       return MESSAGE_SUCCESS
     }
@@ -307,35 +313,75 @@ export default {
       'removeBetFromBetslip'
     ]),
     updateOdds (market) {
-      const bets = this.getBets
-      const updateBet = this.updateBet
-      const acceptAllChecked = this.acceptAllChecked
+      if (!market.hasOwnProperty('id')) return
 
-      market.odds.forEach(function (odd) {
+      let marketHasOdd = market.odds.some((odd) => this.bet.oddId === odd.id)
+      if (!marketHasOdd) {
+        return this.disableBetByOddStatus()
+      } else {
+        this.betOddStatus = null
+      }
+
+      let bets = this.getBets
+
+      market.odds.forEach((odd) => {
         let bet = bets.find(el => el.oddId === odd.id)
 
         if (!bet) return
-        updateBet({ oddId: bet.oddId, payload: { currentOddValue: odd.value, marketStatus: market.status } })
 
-        if (acceptAllChecked && bet.currentOddValue !== bet.approvedOddValue) {
-          updateBet({ oddId: bet.oddId, payload: { approvedOddValue: odd.value, status: 'warning', marketStatus: market.status } })
+        this.updateBet({
+          oddId: bet.oddId,
+          payload: { currentOddValue: odd.value, status: Bet.statuses.initial, marketStatus: market.status }
+        })
+
+        if (this.acceptAllChecked && bet.currentOddValue !== bet.approvedOddValue) {
+          this.updateBet({
+            oddId: bet.oddId,
+            payload: { approvedOddValue: odd.value, status: Bet.statuses.warning, marketStatus: market.status }
+          })
         }
       })
     },
+    disableBetByOddStatus () {
+      this.disabledMessage = MESSAGE_DISABLED
+      this.betOddStatus = DISABLED
+
+      this.updateBet({
+        oddId: this.bet.oddId,
+        payload: { status: Bet.statuses.disabled }
+      })
+    },
     handleMarketStatus (market) {
-      this.isSettled = market.status === SETTLED_STATUS
+      if (!market.status || INACTIVE_STATUSES.includes(market.status)) {
+        return this.disableBetByMarketStatus()
+      }
+      if (market.status === SETTLED_STATUS) { return this.settleBetByMarketStatus() }
 
-      this.isDisabled = [
-        SUSPENDED_STATUS,
-        MARKET_INACTIVE_STATUS,
-        HANDED_OVER_STATUS,
-        CANCELLED_STATUS
-      ].includes(market.status)
+      this.betMarketStatus = null
+    },
+    disableBetByMarketStatus () {
+      this.disabledMessage = MESSAGE_DISABLED
+      this.betMarketStatus = DISABLED
 
-      this.disabledMessage = this.isSettled ? MESSAGE_SETTLED : MESSAGE_DISABLED
+      this.updateBet({
+        oddId: this.bet.oddId,
+        payload: { marketStatus: INACTIVE_STATUS }
+      })
+    },
+    settleBetByMarketStatus () {
+      this.disabledMessage = MESSAGE_SETTLED
+      this.betMarketStatus = SETTLED
+
+      this.updateBet({
+        oddId: this.bet.oddId,
+        payload: { marketStatus: SETTLED_STATUS }
+      })
     },
     confirmValue () {
-      this.updateBet({ oddId: this.bet.oddId, payload: { approvedOddValue: this.bet.currentOddValue } })
+      this.updateBet({
+        oddId: this.bet.oddId,
+        payload: { approvedOddValue: this.bet.currentOddValue }
+      })
     },
     removeOdd (oddId) {
       this.removeBetFromBetslip(oddId)

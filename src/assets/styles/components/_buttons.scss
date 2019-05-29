@@ -144,6 +144,11 @@
     color: $arc-clr-soil-black !important;
     border: 1px solid $arc-clr-gold-light;
     box-shadow: 0 0 6px 0 rgba(255,185,96, .7) !important;
+
+    &:disabled {
+      background-color: $arc-clr-gold-disabled !important;
+      border: 1px solid $arc-clr-gold-light-disabled !important;
+    }
   }
   .market-odds .market-odd:first-of-type & {
     border-radius: 8px 0 8px 8px !important;
