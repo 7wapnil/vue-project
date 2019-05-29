@@ -94,7 +94,7 @@
       <b-col
         v-if="!isSubmitEnabled"
         class="mt-2 letter-spacing-2 text-arc-clr-iron">
-        You don’t have any files choosen.<br> Please choose files to upload
+        You don’t have any files chosen.<br> Please choose files to upload
       </b-col>
       <b-col class="text-right mt-2">
         <b-button
@@ -164,7 +164,8 @@ export default {
         error: ''
       }],
       maxTypeSizes: {
-        'image/jpeg': 2000 * 1000
+        'image/jpeg': 2097152,
+        'application/pdf': 2097152
       },
       documents: [],
       fileSendActive: false,
@@ -243,10 +244,16 @@ export default {
     handleResult ({ data }) {
       if (data.success) {
         this.$noty.success('Your files has been submitted successfully')
-        this.refetch()
       } else {
-        this.$noty.error(data.message)
+        if (Array.isArray(data.message)) {
+          data.message.forEach((message) => {
+            this.$noty.error(message)
+          })
+        } else {
+          this.$noty.error(data.message)
+        }
       }
+      this.refetch()
     },
     onFileUpdate (item) {
       item.id = null

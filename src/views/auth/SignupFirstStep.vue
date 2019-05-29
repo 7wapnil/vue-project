@@ -74,11 +74,8 @@
           :invalid-feedback="form.errors.get('currency')"
           :state="form.errors.state('currency')">
           <b-form-select
-            v-model="currency"
+            v-model="form.currency"
             :state="form.errors.state('currency')">
-            <option
-              :value="null"
-              disabled>Currency</option>
             <option
               v-for="(country, index) in countries"
               :key="index"

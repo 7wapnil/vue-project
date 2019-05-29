@@ -20,7 +20,7 @@
           <span class="text-arc-clr-iron font-size-14 letter-spacing-2 mb-0">{{ $t('account.bonus.bonusAwarded') }}:</span>
         </b-col>
         <b-col>
-          <span class="ml-4 mb-0 pl-2 text-arc-clr-iron-light font-size-14 letter-spacing-2">{{ mainBonus.rollover_initial_value }}</span>
+          <span class="ml-4 mb-0 pl-2 text-arc-clr-iron-light font-size-14 letter-spacing-2">{{ mainBonus.amount }}</span>
         </b-col>
       </b-row>
       <b-row>
@@ -28,7 +28,7 @@
           <span class="text-arc-clr-iron font-size-14 letter-spacing-2 mb-0">{{ $t('account.bonus.rolloverRequired') }}:</span>
         </b-col>
         <b-col>
-          <span class="ml-4 mb-0 pl-2 text-arc-clr-iron-light font-size-14 letter-spacing-2">{{ mainBonus.rollover_initial_value }}</span>
+          <span class="ml-4 mb-0 pl-2 text-arc-clr-iron-light font-size-14 letter-spacing-2">{{ mainBonus.rolloverInitialValue }}</span>
         </b-col>
       </b-row>
       <b-row>
@@ -36,7 +36,7 @@
           <span class="text-arc-clr-iron font-size-14 letter-spacing-2 mb-0">{{ $t('account.bonus.minimumOdds') }}:</span>
         </b-col>
         <b-col>
-          <span class="ml-4 mb-0 pl-2 text-arc-clr-iron-light font-size-14 letter-spacing-2">{{ mainBonus.min_odds_per_bet }}</span>
+          <span class="ml-4 mb-0 pl-2 text-arc-clr-iron-light font-size-14 letter-spacing-2">{{ mainBonus.minOddsPerBet }}</span>
         </b-col>
 
       </b-row>
@@ -45,7 +45,7 @@
           <span class="text-arc-clr-iron font-size-14 letter-spacing-2 mb-0">{{ $t('account.bonus.maximumRolloverPerBet') }}:</span>
         </b-col>
         <b-col>
-          <span class="ml-4 mb-0 pl-2 text-arc-clr-iron-light font-size-14 letter-spacing-2">{{ mainBonus.max_rollover_per_bet }}</span>
+          <span class="ml-4 mb-0 pl-2 text-arc-clr-iron-light font-size-14 letter-spacing-2">{{ mainBonus.maxRolloverPerBet }}</span>
         </b-col>
 
       </b-row>
@@ -54,7 +54,7 @@
           <span class="text-arc-clr-iron font-size-14 letter-spacing-2 mb-0">{{ $t('account.bonus.expiryDate') }}:</span>
         </b-col>
         <b-col>
-          <span class="ml-4 mb-0 pl-2 text-arc-clr-iron-light font-size-14 letter-spacing-2">{{ mainBonus.expires_at | asFormattedDate('DD/MM/YYYY', 'DD.MM.YY') }}</span>
+          <span class="ml-4 mb-0 pl-2 text-arc-clr-iron-light font-size-14 letter-spacing-2">{{ mainBonus.expiresAt | asFormattedDate('DD/MM/YYYY', 'DD.MM.YY') }}</span>
         </b-col>
       </b-row>
     </b-col>

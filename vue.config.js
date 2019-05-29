@@ -16,7 +16,6 @@ module.exports = {
       }
     }
   },
-
   configureWebpack: {
     module: {
       rules: [
@@ -31,5 +30,4 @@ module.exports = {
       ]
     }
   }
-
 }

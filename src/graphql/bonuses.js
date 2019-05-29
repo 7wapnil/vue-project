@@ -21,6 +21,7 @@ export const BONUSES_LIST_QUERY = gql`
       maxRolloverPerBet
       minOddsPerBet
       status
+      amount
     }
   }
 `
