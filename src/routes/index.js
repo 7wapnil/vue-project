@@ -45,7 +45,7 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
-  if(to.params.titleKind) {
+  if (to.params.titleKind) {
     document.title = `${filters.capitalizeFirstLetter(to.params.titleKind)} - Arcanebet`
   }
   if (to.query.btag) { setCookie('btag', to.query.btag, moment().add(1, 'month').toDate()) }
