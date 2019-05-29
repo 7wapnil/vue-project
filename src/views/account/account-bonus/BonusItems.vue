@@ -37,6 +37,9 @@
             {{ $t('account.bonus.longTerms.header') }} <b>{{ bonusItem.code }}</b>
           </p>
           <p class="px-5 py-1 mb-0 mt-0 text-arc-clr-iron letter-spacing-2">
+            {{ $t('account.bonus.longTerms.awarded') }} <b>{{ bonusItem.amount }}</b>
+          </p>
+          <p class="px-5 py-1 mb-0 mt-0 text-arc-clr-iron letter-spacing-2">
             {{ $t('account.bonus.longTerms.paragraph.main') }}
             <router-link
               :to="{name: 'terms and conditions'}"

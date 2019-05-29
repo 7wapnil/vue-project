@@ -20,7 +20,7 @@
           <span class="text-arc-clr-iron font-size-14 letter-spacing-2 mb-0">{{ $t('account.bonus.bonusAwarded') }}:</span>
         </b-col>
         <b-col>
-          <span class="ml-4 mb-0 pl-2 text-arc-clr-iron-light font-size-14 letter-spacing-2">{{ mainBonus.rolloverInitialValue }}</span>
+          <span class="ml-4 mb-0 pl-2 text-arc-clr-iron-light font-size-14 letter-spacing-2">{{ mainBonus.amount }}</span>
         </b-col>
       </b-row>
       <b-row>
