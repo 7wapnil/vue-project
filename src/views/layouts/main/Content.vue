@@ -1,6 +1,7 @@
 <template>
-  <b-row style="min-width: 1380px"
-         no-gutters>
+  <b-row
+    style="min-width: 1380px"
+    no-gutters>
     <b-col
       class="bg-arc-clr-soil-black side-menu">
       <vue-scroll :ops="scrollSettings">
