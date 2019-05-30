@@ -1,6 +1,7 @@
 <template>
   <b-nav
     class="side-menu"
+    role="navigation"
     vertical>
     <b-nav-item class="d-inline-flex align-items-center justify-content-start p-3 bg-arc-clr-soil-dark side-menu-categories">
       <span class="text-arc-clr-iron letter-spacing-2">
@@ -12,7 +13,7 @@
       v-b-toggle="`item-${index}`"
       v-for="(item, index) in menuItems"
       :key="index"
-      class="bg-arc-clr-soil-cover">
+      class="bg-arc-clr-soil-cover collapsed">
       <div>
         <div class="d-flex align-items-center information-page-sidemenu">
           <span class="p-3">
@@ -20,7 +21,7 @@
               :name="!!item.icon ? `${ item.icon }` : 'promotional'"
               size="24px"/>
           </span>
-          <span class="text-capitalize font-size-14 font-weight-bold h-100 w-100 d-flex align-items-center item-name letter-spacing-2">
+          <span class="text-capitalize font-size-14 font-weight-bold h-100 w-100 d-flex align-items-center item-name letter-spacing-2 pointer">
             {{ item.title }}
           </span>
           <span class="px-4 d-flex align-items-center h-100">
@@ -32,10 +33,10 @@
         <b-collapse
           :visible="item.path === currentPath"
           :id="`item-${index}`"
-          accordion="information-sidebar"
-          is-nav>
+          accordion="information-sidebar">
           <b-nav
             vertical
+            role="navigation"
             class="bg-arc-clr-soil-darker py-3">
             <b-nav-item
               v-for="(child, childIndex) in item.children"
