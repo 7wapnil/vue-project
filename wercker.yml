@@ -43,7 +43,8 @@ deploy:
         echo $AWS_ACCESS_KEY_ID
         echo $AWS_SECRET_ACCESS_KEY
         yarn deploy
-        
+
     - script:
         name: hack
-        code: ls -la
+        code: |
+          ls -la
