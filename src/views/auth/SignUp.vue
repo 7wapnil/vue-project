@@ -50,6 +50,7 @@ export default {
         password: '',
         passwordConfirmation: '',
         country: '',
+        currency: 'EUR',
         firstName: '',
         lastName: '',
         gender: 'male',

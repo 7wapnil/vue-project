@@ -65,7 +65,8 @@ export const getters = {
       getters.getIsEnoughFundsToBet &&
       getters.getTotalStakes > 0 &&
       !getters.getAnyInactiveMarket &&
-      !getters.getAnySubmittedBet && !getters.getAnyEmptyStake && !getters.getAnyFrozenBet
+      !getters.getAnyEmptyStake &&
+      getters.getAllBetsAcceptable
     ) {
       enabled = true
     }
@@ -90,7 +91,7 @@ export const getters = {
     return state.bets
   },
   getPlacedBetIds (state) {
-    return state.bets.map((item) => item.id)
+    return state.bets.map((item) => item.id).filter((item) => item)
   },
   acceptAllChecked (state) {
     return state.acceptAll
@@ -125,13 +126,10 @@ export const getters = {
     })
   },
   getAnyFrozenBet (state) {
-    return state.bets.some((bet) => {
-      return [
-        Bet.statuses.submitted,
-        Bet.statuses.pending,
-        Bet.statuses.accepted
-      ].includes(bet.status)
-    })
+    return state.bets.some((bet) => bet.frozen)
+  },
+  getAllBetsAcceptable (state) {
+    return !(state.bets.length) || state.bets.every((bet) => bet.isAcceptable)
   }
 }
 
@@ -142,7 +140,7 @@ export const actions = {
       .filter(bet => !!bet.id)
       .forEach(bet => dispatch('subscribeBet', bet))
   },
-  subscribeBet ({ state, commit, getters }, bet) {
+  subscribeBet ({ state, commit, dispatch, getters }, bet) {
     state.subscriptions[bet.id] = graphqlClient
       .subscribe({
         query: BET_UPDATED,
@@ -150,6 +148,8 @@ export const actions = {
       })
       .subscribe({
         next ({ data: { betUpdated } }) {
+          betUpdated.oddId = bet.oddId
+
           commit('updateBet', {
             oddId: bet.oddId,
             payload: {
@@ -158,11 +158,7 @@ export const actions = {
             }
           })
 
-          if (betUpdated.status === 'accepted') {
-            setTimeout(() => {
-              commit('removeBetFromBetslip', bet.oddId)
-            }, BET_DESTROY_TIMEOUT)
-          }
+          dispatch('removeAcceptedBet', betUpdated)
         },
         error (error) {
           Vue.$log.error(error)
@@ -170,6 +166,11 @@ export const actions = {
       })
 
     Vue.$log.debug(`Subscribed bet ID ${bet.id}`)
+  },
+  removeAcceptedBet ({ state, commit }, { oddId, status }) {
+    if (status !== Bet.statuses.accepted) return
+
+    setTimeout(() => { commit('removeBetFromBetslip', oddId) }, BET_DESTROY_TIMEOUT)
   },
   unsubscribeBet ({ state }, bet) {
     if (state.subscriptions[bet.id]) {
@@ -194,7 +195,7 @@ export const actions = {
       }
     })
   },
-  refreshBetslip ({ state, commit, getters }) {
+  refreshBetslip ({ state, commit, getters, dispatch }) {
     const ids = getters.getPlacedBetIds
     const idsCount = ids ? ids.length : 0
 
@@ -208,15 +209,17 @@ export const actions = {
       })
       .then(({ data: { bets: { collection } } }) => {
         collection.forEach((bet) => {
-          const oddId = bet.odd.id
+          bet.oddId = bet.odd.id
 
           commit('updateBet', {
-            oddId: oddId,
+            oddId: bet.oddId,
             payload: {
               status: bet.status,
               message: bet.message
             }
           })
+
+          dispatch('removeAcceptedBet', bet)
         })
       })
   }
