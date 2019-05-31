@@ -140,7 +140,7 @@ export const actions = {
       .filter(bet => !!bet.id)
       .forEach(bet => dispatch('subscribeBet', bet))
   },
-  subscribeBet ({ state, commit, getters }, bet) {
+  subscribeBet ({ state, commit, dispatch, getters }, bet) {
     state.subscriptions[bet.id] = graphqlClient
       .subscribe({
         query: BET_UPDATED,
@@ -148,6 +148,8 @@ export const actions = {
       })
       .subscribe({
         next ({ data: { betUpdated } }) {
+          betUpdated.oddId = bet.oddId
+
           commit('updateBet', {
             oddId: bet.oddId,
             payload: {
@@ -156,11 +158,7 @@ export const actions = {
             }
           })
 
-          if (betUpdated.status === 'accepted') {
-            setTimeout(() => {
-              commit('removeBetFromBetslip', bet.oddId)
-            }, BET_DESTROY_TIMEOUT)
-          }
+          dispatch('removeAcceptedBet', betUpdated)
         },
         error (error) {
           Vue.$log.error(error)
@@ -168,6 +166,11 @@ export const actions = {
       })
 
     Vue.$log.debug(`Subscribed bet ID ${bet.id}`)
+  },
+  removeAcceptedBet ({ state, commit }, { oddId, status }) {
+    if (status !== Bet.statuses.accepted) return
+
+    setTimeout(() => { commit('removeBetFromBetslip', oddId) }, BET_DESTROY_TIMEOUT)
   },
   unsubscribeBet ({ state }, bet) {
     if (state.subscriptions[bet.id]) {
@@ -192,7 +195,7 @@ export const actions = {
       }
     })
   },
-  refreshBetslip ({ state, commit, getters }) {
+  refreshBetslip ({ state, commit, getters, dispatch }) {
     const ids = getters.getPlacedBetIds
     const idsCount = ids ? ids.length : 0
 
@@ -206,15 +209,17 @@ export const actions = {
       })
       .then(({ data: { bets: { collection } } }) => {
         collection.forEach((bet) => {
-          const oddId = bet.odd.id
+          bet.oddId = bet.odd.id
 
           commit('updateBet', {
-            oddId: oddId,
+            oddId: bet.oddId,
             payload: {
               status: bet.status,
               message: bet.message
             }
           })
+
+          dispatch('removeAcceptedBet', bet)
         })
       })
   }

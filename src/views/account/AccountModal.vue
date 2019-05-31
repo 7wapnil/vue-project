@@ -51,7 +51,8 @@ export default {
           gutterOfSide: '6px'
         },
         scrollPanel: {
-          easing: 'easeInCubic'
+          easing: 'easeInCubic',
+          scrollingX: false
         }
       }
     }

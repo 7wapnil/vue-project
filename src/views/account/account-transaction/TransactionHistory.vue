@@ -69,9 +69,13 @@ export default {
       page: 1,
       fields: [
         {
-          key: 'created_at',
+          key: 'createdAt',
           label: this.$i18n.t('generalTerms.date'),
-        }, this.$i18n.t('generalTerms.amount'),
+        },
+        {
+          key: 'amount',
+          label: this.$i18n.t('generalTerms.amount'),
+        },
         { key: 'mode',
           label: this.$i18n.tc('generalTerms.paymentMethod', 1)
         },
