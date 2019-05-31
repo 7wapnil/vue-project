@@ -39,13 +39,14 @@ export default {
       return this.$route.params.titleKind || DEFAULT_KIND
     }
   },
+  updated () {
+    if (this.$route.query.login) {
+      this.$root.$emit('bv::show::modal', 'AuthModal')
+    }
+  },
   mounted () {
     if (this.$route.query.depositState) {
       this.$root.$emit('bv::show::modal', 'AccountModal')
-    }
-
-    if (this.$route.query.resetPassword) {
-      this.$root.$emit('bv::show::modal', 'AuthModal')
     }
   }
 }
