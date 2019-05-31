@@ -1,14 +1,13 @@
 <template>
   <b-nav
-    class="side-menu"
+    class="flex-nowrap"
     role="navigation"
     vertical>
-    <b-nav-item class="d-inline-flex align-items-center justify-content-start p-3 bg-arc-clr-soil-dark side-menu-categories">
+    <b-nav-item class="d-inline-flex align-items-center justify-content-start p-3 bg-arc-clr-soil-dark side-menu-categories w-100">
       <span class="text-arc-clr-iron letter-spacing-2">
         CATEGORIES
       </span>
     </b-nav-item>
-
     <b-nav-item
       v-b-toggle="`item-${index}`"
       v-for="(item, index) in menuItems"
