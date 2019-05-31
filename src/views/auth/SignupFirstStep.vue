@@ -77,10 +77,10 @@
             v-model="form.currency"
             :state="form.errors.state('currency')">
             <option
-              v-for="(country, index) in countries"
+              v-for="(currency, index) in currencies"
               :key="index"
-              :value="country.currency">
-              {{ country.currency }}
+              :value="currency.code">
+              {{ currency.code }}
             </option>
           </b-form-select>
         </b-form-group>
@@ -101,13 +101,13 @@
 import { Form } from '@/helpers'
 import { countries as countriesList } from 'countries-list'
 import BirthDateField from './BirthDateField'
+import { CURRENCIES_LIST_QUERY } from '@/graphql'
 
 const countries = Object
   .values(countriesList)
   .map((country) => ({
     value: country.name,
-    text: country.name,
-    currency: country.currency
+    text: country.name
   }))
 
 export default {
@@ -122,8 +122,15 @@ export default {
   },
   data () {
     return {
-      currency: null,
+      currencies: [],
       countries
+    }
+  },
+  apollo: {
+    currencies () {
+      return {
+        query: CURRENCIES_LIST_QUERY
+      }
     }
   }
 }
