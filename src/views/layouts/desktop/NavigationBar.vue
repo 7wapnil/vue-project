@@ -4,14 +4,18 @@
     class="p-0">
     <b-navbar
       fixed="top"
-      class="p-0">
+      class="navbar-desktop">
       <b-container
         fluid
         style="min-width: 1200px"
         class="p-0 max-container-size">
         <b-navbar-brand
           :to="{ name: 'home' }"
-          class="mr-0"/>
+          class="navbar-brand-desktop">
+          <img
+            :src="require(`@/assets/images/logo/arcanebet-logo.svg`)"
+            alt="arcanebet-logo">
+        </b-navbar-brand>
         <b-navbar-nav id="top-navigation">
           <b-nav-item
             v-for="item in mainMenu"
