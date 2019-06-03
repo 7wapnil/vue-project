@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import ArcFooter from '@/views/layouts/main/ArcFooter'
+import ArcFooter from '@/views/layouts/desktop/Footer'
 
 export default {
   components: {
