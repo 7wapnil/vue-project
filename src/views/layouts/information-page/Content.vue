@@ -2,7 +2,7 @@
   <b-row no-gutters>
     <b-col
       class="bg-arc-clr-soil-darker side-menu">
-      <vue-scroll :ops="scrollSettings">
+      <vue-scroll>
         <info-page-sidemenu/>
       </vue-scroll>
     </b-col>
@@ -10,7 +10,7 @@
       <router-view :key="$route.fullPath"/>
     </b-col>
     <b-col class="bg-arc-clr-soil-black betslip-block">
-      <vue-scroll :ops="scrollSettings">
+      <vue-scroll>
         <promotional-item/>
         <betslip/>
       </vue-scroll>
@@ -27,23 +27,6 @@ export default {
     InfoPageSidemenu,
     Betslip,
     PromotionalItem
-  },
-  data () {
-    return {
-      scrollSettings: {
-        bar: {
-          size: '6px',
-          opacity: 0.6,
-          background: '#5e5e5e',
-        },
-        rail: {
-          gutterOfSide: '4px'
-        },
-        scrollPanel: {
-          easing: 'easeInCubic'
-        }
-      }
-    }
   }
 }
 </script>
