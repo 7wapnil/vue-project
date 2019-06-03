@@ -9,7 +9,7 @@ import VueLogger from 'vuejs-logger'
 import LiveChatPlugin from './plugins/livechat'
 import ContentfulPlugin from '@/libs/contentful/contentful-client'
 import airbrakeClient from './plugins/airbrake-client'
-
+import vSelect from 'vue-select'
 import arcanebetSession from '@/services/local-storage/session'
 const isProduction = process.env.NODE_ENV === 'production'
 
@@ -36,6 +36,8 @@ Vue.use(ContentfulPlugin, {
 Vue.use(GTMPlugin, {
   id: process.env.VUE_APP_GTM_ID
 })
+
+Vue.component('v-select', vSelect)
 
 if (isProduction) {
   Vue.use(airbrakeClient, {
