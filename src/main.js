@@ -5,8 +5,8 @@ import 'vuejs-noty/dist/vuejs-noty.css'
 import 'bootstrap'
 import Vue from 'vue'
 import App from './App'
-import Router from '@/routes'
-import Store from '@/stores/index'
+import router from '@/routes'
+import store from '@/stores/index'
 import globalMixin from '@/mixins/global'
 import '@/components/global-components'
 import globalConfig from '@/config/index'
@@ -16,8 +16,8 @@ Vue.config.productionTip = false
 Vue.mixin(globalMixin)
 
 new Vue({
-  router: Router,
-  store: Store,
+  router,
+  store,
   apolloProvider: globalConfig.apolloProvider,
   i18n: globalConfig.i18n,
   mounted () {
