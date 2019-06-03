@@ -17,8 +17,9 @@
     </b-navbar-brand>
     <b-navbar-nav
       class="ml-auto">
-      <b-button v-if="isLoggedIn"
-                variant="arc-profile-button-mobile"/>
+      <b-button
+        v-if="isLoggedIn"
+        variant="arc-profile-button-mobile"/>
     </b-navbar-nav>
   </b-navbar>
 </template>
