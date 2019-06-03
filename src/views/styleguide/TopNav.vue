@@ -7,8 +7,7 @@
     style="height: 80px">
     <b-container
       fluid
-      style="max-width: 1920px"
-      class="p-0">
+      class="p-0 max-container-size">
       <b-navbar-brand
         :to="{ name: 'home' }"
         class="mr-0"/>

@@ -3,13 +3,13 @@ import i18n from './plugins/I18n'
 import GTMPlugin from './plugins/google-tag-manager'
 import Sticky from 'vue-sticky-directive'
 import vuescroll from 'vuescroll/dist/vuescroll-native'
+import VueScrollConfig from './plugins/vue-scroll'
 import apolloProvider from '@/libs/apollo/'
 import VueNoty from 'vuejs-noty'
 import VueLogger from 'vuejs-logger'
 import LiveChatPlugin from './plugins/livechat'
 import ContentfulPlugin from '@/libs/contentful/contentful-client'
 import airbrakeClient from './plugins/airbrake-client'
-
 import arcanebetSession from '@/services/local-storage/session'
 const isProduction = process.env.NODE_ENV === 'production'
 
@@ -17,7 +17,7 @@ Vue.use(VueLogger, {
   logLevel: isProduction ? 'error' : 'debug'
 })
 
-Vue.use(vuescroll)
+Vue.use(vuescroll, VueScrollConfig)
 Vue.use(Sticky)
 Vue.use(VueNoty, {
   timeout: 2000,
