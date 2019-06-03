@@ -63,13 +63,6 @@
   box-shadow: inset 0 2px 0 0 $betslip-active-tab-border-color;
 }
 
-// Logo
-.navbar-brand {
-  background: url('~@/assets/images/logo/arcanebet-logo.svg') no-repeat 24px 24px;
-  width: 268px;
-  height: 80px;
-}
-
 // Nav Wallet
 .wallet-button {
   background-color: $nav-wallet-button-background;
@@ -116,6 +109,10 @@
 .btn-arc-profile-button {
   border: 3px solid  $profile-button-second-color;
   background: $icon-section-color url('~@/assets/images/account/user-shadow.svg') no-repeat bottom;
+  &-mobile {
+    border: 3px solid  $profile-button-second-color;
+    background: $icon-section-color url('~@/assets/images/account/user-shadow-mobile.svg') no-repeat bottom;;
+  }
 }
 .events-list-title i{
   color: $icon-section-color;
