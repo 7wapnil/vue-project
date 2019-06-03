@@ -10,15 +10,16 @@
     </b-navbar-nav>
     <b-navbar-brand
       :to="{ name: 'home' }"
-      class="navbar-brand-mobile">
+      class="navbar-brand-mobile d-flex align-items-center">
       <img
         :src="require(`@/assets/images/logo/arcanebet-logo-mobile.svg`)"
         alt="arcanebet-logo">
     </b-navbar-brand>
     <b-navbar-nav
-      v-if="isLoggedIn"
       class="ml-auto">
-      <b-button variant="arc-profile-button-mobile"/>
+      <b-button
+        v-if="isLoggedIn"
+        variant="arc-profile-button-mobile"/>
     </b-navbar-nav>
   </b-navbar>
 </template>
