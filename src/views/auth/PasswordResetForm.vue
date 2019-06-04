@@ -2,7 +2,7 @@
   <simple-layout>
     <loader v-if="pageLoading"/>
     <b-row
-      v-if="!pageLoading && isForm"
+      v-if="isFormPresent"
       class="d-flex justify-content-center">
       <b-col md="4">
         <b-form
@@ -45,7 +45,7 @@
       </b-col>
     </b-row>
     <b-row
-      v-if="!isForm && tokenResultFeedback"
+      v-if="!isTokenValid"
       class="d-flex justify-content-center">
       <b-col cols="auto">
         <p class="font-size-18 letter-spacing-2 text-arc-clr-iron">
@@ -54,7 +54,7 @@
       </b-col>
     </b-row>
     <b-row
-      v-if="!isForm && feedback"
+      v-if="isResultMessage"
       class="d-flex justify-content-center">
       <b-col cols="auto">
         <p class="font-size-18 letter-spacing-2 text-arc-clr-iron">
@@ -115,10 +115,16 @@ export default {
     },
     isSubmitDisabled () {
       return this.anyEmptyField || this.submitting
+    },
+    isFormPresent () {
+      return this.isForm && !this.pageLoading
+    },
+    isResultMessage () {
+      return !this.isForm && this.feedback
     }
   },
   methods: {
-    ...mapActions(['resetPassword', 'verifyToken']),
+    ...mapActions(['resetPassword']),
     submit () {
       this.form.clearErrors()
       this.submitting = true
