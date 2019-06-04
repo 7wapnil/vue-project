@@ -36,7 +36,6 @@
 
         </b-nav-item>
       </b-nav>
-
     </b-collapse>
   </div>
 </template>

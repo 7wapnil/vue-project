@@ -3,7 +3,8 @@
 
 $section-top-border: inset 0 1px 0 0 $arc-clr-soil-light;
 
-.footer {
+.footer,
+%footer {
   max-width: 1920px;
   box-shadow: $section-top-border;
   &-wrapper {
@@ -27,5 +28,45 @@ $section-top-border: inset 0 1px 0 0 $arc-clr-soil-light;
   &-list li {
     line-height: 30px;
     list-style-type: none
+  }
+}
+.footer-mobile {
+  @extend %footer;
+  min-width: 100vw;
+  max-width: 100vw;
+  &-bottom-icons-section {
+    padding-bottom: 58px;
+    padding-top: 20px;
+  }
+  &-policy-section {
+    color: #6F6F6F;
+  }
+  &-policy-section-wrapper {
+    padding: 48px 24px;
+    text-align: center;
+  }
+  &-nav-item {
+    box-shadow: $section-top-border;
+    padding: 15px 25px;
+    & > .nav-link {
+      padding: 0 !important;
+      & > div {
+        .collapsed {
+          .arc-sidemenu-chevron-down {
+            transform: rotateX(0deg);
+            transition: transform .3s ease-in-out;
+          }
+        }
+      }
+    }
+  }
+  &-topicons-section {
+    padding: 25px 31px;
+    max-width: 100vw;
+    margin: 0;
+  }
+  .arc-sidemenu-chevron-down {
+    transition: transform .3s ease-in-out;
+    transform: rotateX(180deg);
   }
 }
