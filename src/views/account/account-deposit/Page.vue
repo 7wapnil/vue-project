@@ -82,6 +82,19 @@
                     placeholder="Custom"/>
                 </b-input-group>
                 <b-form-select
+                  v-model="fields.paymentMethod"
+                  class="mb-4">
+                  <option
+                    value=""
+                    disabled>Payment method</option>
+                  <option
+                    v-for="(payment, index) in paymentMethods"
+                    :key="index"
+                    :value="payment.value">
+                    {{ payment.text }}
+                  </option>
+                </b-form-select>
+                <b-form-select
                   v-if="isEmptyWallet"
                   v-model="currency"
                   class="mb-4">
@@ -226,7 +239,8 @@ export default {
     return {
       fields: {
         amount: '',
-        bonusCode: ''
+        bonusCode: '',
+        paymentMethod: ''
       },
       dropdownCurrency: null,
       currencies: [],
@@ -240,7 +254,14 @@ export default {
         success: 'success',
         fail: 'danger'
       },
-      moneyAmounts: [ 10, 25, 50, 75, 100, 150, 200, 250 ]
+      moneyAmounts: [ 10, 25, 50, 75, 100, 150, 200, 250 ],
+      paymentMethods: [
+        { value: 'skrill', text: 'Skrill' },
+        { value: 'neteller', text: 'Netteler' },
+        { value: 'bitcoin', text: 'Bitcoin' },
+        { value: 'credit_card', text: 'VISA/Mastercard' },
+        { value: 'paysafecard', text: 'Paysafecard' }
+      ]
     }
   },
   apollo: {
