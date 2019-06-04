@@ -4,7 +4,7 @@
     no-gutters>
     <b-col
       class="bg-arc-clr-soil-black side-menu">
-      <vue-scroll :ops="scrollSettings">
+      <vue-scroll>
         <side-menu :items="menuItems"/>
       </vue-scroll>
     </b-col>
@@ -15,7 +15,7 @@
     </b-col>
     <b-col
       class="bg-arc-clr-soil-black betslip-block">
-      <vue-scroll :ops="scrollSettings">
+      <vue-scroll>
         <promotional-item/>
         <betslip/>
       </vue-scroll>
@@ -36,7 +36,7 @@ export default {
   components: {
     SideMenu,
     Betslip,
-    PromotionalItem,
+    PromotionalItem
   },
   apollo: {
     titles () {
@@ -55,19 +55,6 @@ export default {
   data () {
     return {
       titles: [],
-      scrollSettings: {
-        bar: {
-          size: '6px',
-          opacity: 0.6,
-          background: '#5e5e5e',
-        },
-        rail: {
-          gutterOfSide: '4px'
-        },
-        scrollPanel: {
-          easing: 'easeInCubic'
-        }
-      }
     }
   },
   computed: {

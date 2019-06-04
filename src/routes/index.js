@@ -2,8 +2,8 @@ import Router from 'vue-router'
 import mainRoutes from './main'
 import StyleGuidePages from './styleguide_pages'
 import InformationPages from '@/routes/information_pages';
-import NotFound from '@/views/layouts/main/NotFound'
-import Maintenance from '@/views/layouts/main/Maintenance'
+import NotFound from '@/views/layouts/common/NotFound'
+import Maintenance from '@/views/layouts/common/Maintenance'
 import { setCookie } from '@/helpers/cookies'
 import moment from 'moment'
 import filters from '@/mixins/filters'
@@ -25,7 +25,7 @@ const router = new Router({
       path: '/',
       redirect: '/esports',
       name: 'home',
-      component: () => import('@/views/layouts/main/Layout'),
+      component: () => import('@/views/layouts/common/Layout'),
       children: rootChildren
     },
     {

@@ -1,32 +1,26 @@
 <template>
   <div :class="titleKind">
-    <b-container
-      fluid
-      class="p-0">
-      <nav-bar/>
-    </b-container>
-    <b-container
-      fluid
-      style="max-width: 1920px"
-      class="p-0">
-      <router-view :key="$route.fullPath"/>
-    </b-container>
-    <arc-footer/>
-    <modal-list/>
+    <component :is="layout"/>
     <cookie-warning/>
+    <modal-list/>
   </div>
 </template>
 
 <script>
-import NavBar from './NavBar'
-import ArcFooter from './ArcFooter'
 import CookieWarning from './CookieWarning'
+import MobileLayout from '../mobile/Layout'
+import DesktopLayout from '../desktop/Layout'
 
 export default {
   components: {
-    NavBar,
-    ArcFooter,
-    CookieWarning
+    CookieWarning,
+    MobileLayout,
+    DesktopLayout
+  },
+  data () {
+    return {
+      mobile: false
+    }
   },
   computed: {
     titleKind () {
@@ -37,12 +31,21 @@ export default {
       }
 
       return this.$route.params.titleKind || DEFAULT_KIND
+    },
+    layout () {
+      return this.mobile ? MobileLayout : DesktopLayout
     }
   },
   updated () {
     if (this.$route.query.login) {
       this.$root.$emit('bv::show::modal', 'AuthModal')
     }
+  },
+  created () {
+    this.mobile = window.innerWidth < 550
+    window.addEventListener('resize', () => {
+      this.mobile = window.innerWidth < 550
+    })
   },
   mounted () {
     if (this.$route.query.depositState) {

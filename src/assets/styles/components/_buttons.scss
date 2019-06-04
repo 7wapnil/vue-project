@@ -89,16 +89,22 @@
 }
 
 // User profile button //
-.btn-arc-profile-button {
-  border-radius: 50px !important;
-  width: 42px !important;
-  height: 42px !important;
+.btn-arc-profile-button,
+%btn-arc-profile-button {
+  border-radius: 50px;
+  width: 42px;
+  height: 42px;
   box-shadow: 0 2px 0 0 rgba($black, .5);
   padding: 0;
   &:hover {
     background-color: $arc-clr-soil-cover;
     color: $arc-clr-white;
   }
+}
+.btn-arc-profile-button-mobile {
+  @extend %btn-arc-profile-button;
+  width: 30px;
+  height: 30px;
 }
 
 // Event cards odd button //

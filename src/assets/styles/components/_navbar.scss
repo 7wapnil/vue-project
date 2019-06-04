@@ -1,7 +1,14 @@
 @import '../variables';
 
 .navbar {
-  min-height: $navbar-height;
+  &-desktop {
+    min-height: $navbar-height;
+    padding: 0;
+  }
+  &-mobile {
+    height: 56px;
+    padding: 0 16px;
+  }
 }
 #top-navigation > .nav-item > a {
   letter-spacing: .02em;
@@ -10,6 +17,18 @@
 }
 .navbar-menu-item {
   font-size: $h6-font-size;
+}
+
+// Logo
+.navbar-brand {
+  &-desktop {
+    padding: 0 27px;
+    margin-right: 1px;
+  }
+  &-mobile {
+    margin-right: 0;
+    padding: 0;
+  }
 }
 
 // Navbar wallet

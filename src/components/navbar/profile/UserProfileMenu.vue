@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="isLoggedIn && user"
-    style="padding: 0 14px 0 14px"
+    style="padding: 0 14px"
     class="d-flex align-items-center justify-content-center">
     <b-button
       variant="arc-profile-button"
