@@ -9,6 +9,7 @@ import VueLogger from 'vuejs-logger'
 import LiveChatPlugin from './plugins/livechat'
 import ContentfulPlugin from '@/libs/contentful/contentful-client'
 import airbrakeClient from './plugins/airbrake-client'
+
 import arcanebetSession from '@/services/local-storage/session'
 const isProduction = process.env.NODE_ENV === 'production'
 
