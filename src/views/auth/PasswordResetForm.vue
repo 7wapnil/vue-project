@@ -1,8 +1,8 @@
 <template>
   <simple-layout>
-    <loader v-if="loading"/>
+    <loader v-if="pageLoading"/>
     <b-row
-      v-if="!loading && !success"
+      v-if="!pageLoading && isForm"
       class="d-flex justify-content-center">
       <b-col md="4">
         <b-form
@@ -45,7 +45,16 @@
       </b-col>
     </b-row>
     <b-row
-      v-if="success"
+      v-if="!isForm && tokenResultFeedback"
+      class="d-flex justify-content-center">
+      <b-col cols="auto">
+        <p class="font-size-18 letter-spacing-2 text-arc-clr-iron">
+          {{ tokenResultFeedback }}
+        </p>
+      </b-col>
+    </b-row>
+    <b-row
+      v-if="!isForm && feedback"
       class="d-flex justify-content-center">
       <b-col cols="auto">
         <p class="font-size-18 letter-spacing-2 text-arc-clr-iron">
@@ -66,19 +75,36 @@
 <script>
 import { Form } from '@/helpers'
 import { mapActions } from 'vuex'
+import { TOKEN_VERIFICATION_QUERY } from '@/graphql/index'
 
 export default {
   data () {
     return {
-      feedback: '',
       form: new Form({
         password: '',
         confirmation: ''
       }),
-      success: false,
-      loading: null,
-      hide: false,
-      submitting: false
+      feedback: '',
+      tokenResultFeedback: '',
+      pageLoading: null,
+      submitting: false,
+      isForm: null
+    }
+  },
+  apollo: {
+    verifyPasswordToken () {
+      this.pageLoading = true
+      return {
+        query: TOKEN_VERIFICATION_QUERY,
+        variables: {
+          token: this.$route.params.token || null
+        },
+        result ({ data: { verifyPasswordToken } }) {
+          this.pageLoading = false
+          this.isForm = verifyPasswordToken.success
+          this.tokenResultFeedback = null || verifyPasswordToken.message
+        }
+      }
     }
   },
   computed: {
@@ -91,21 +117,23 @@ export default {
       return this.anyEmptyField || this.submitting
     }
   },
-  created () {
-    // here goes token verification call
-    this.loading = false
-  },
   methods: {
     ...mapActions(['resetPassword', 'verifyToken']),
     submit () {
       this.form.clearErrors()
       this.submitting = true
+
+      const input = {
+        ...this.form.values(),
+        token: this.$route.params.token || null
+      }
+
       this
-        .resetPassword(this.form.values())
+        .resetPassword(input)
         .then(() => {
           this.feedback = this.$t('userModal.passwordChangeSuccess')
           setTimeout(() => { this.$root.$emit('bv::hide::modal', 'AuthModal') }, 2000)
-          this.success = true
+          this.isForm = false
         })
         .catch((errors) => {
           this.form.handleGraphQLErrors(errors)
