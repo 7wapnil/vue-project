@@ -4,7 +4,8 @@ import { AUTH_INFO_QUERY,
   SIGN_IN_MUTATION,
   SIGN_UP_MUTATION,
   PASSWORD_RESET_REQUEST_MUTATION,
-  PASSWORD_RESET_MUTATION } from '@/graphql/index'
+  PASSWORD_RESET_MUTATION,
+  TOKEN_VERIFICATION_QUERY } from '@/graphql/index'
 import { NO_CACHE } from '@/constants/graphql/fetch-policy'
 import { wsClient } from '@/libs/apollo/ws-link'
 import router from '@/routes'
@@ -50,6 +51,15 @@ export default {
         variables: {
           password: sessionData.password,
           confirmation: sessionData.confirmation,
+          token: sessionData.token
+        }
+      })
+      return response
+    },
+    verifyToken (context, sessionData) {
+      const response = graphqlClient.query({
+        mutation: TOKEN_VERIFICATION_QUERY,
+        variables: {
           token: sessionData.token
         }
       })

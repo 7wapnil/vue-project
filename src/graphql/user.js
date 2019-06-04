@@ -112,3 +112,11 @@ export const SIGN_UP_MUTATION = gql`
     }
   }
 `
+export const TOKEN_VERIFICATION_QUERY = gql`
+  query($token: String!) {
+    verifyPasswordToken(token: $token) {
+      message
+      success
+    }
+  }
+`
