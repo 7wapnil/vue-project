@@ -11,11 +11,12 @@ import SkrillIcon from '@/assets/images/withdraw-methods/skrill.png'
 import SkinwalletIcon from '@/assets/images/withdraw-methods/skinwallet.png'
 import SkinpayIcon from '@/assets/images/withdraw-methods/skinpay.png'
 import QiwiIcon from '@/assets/images/withdraw-methods/qiwi.png'
-import PaysafeIcon from '@/assets/images/withdraw-methods/paysafe.png'
+import PaysafecardIcon from '@/assets/images/withdraw-methods/paysafecard.png'
 import MruIcon from '@/assets/images/withdraw-methods/mru.png'
 import CreditCardIcon from '@/assets/images/withdraw-methods/card.png'
 import BitcoinIcon from '@/assets/images/withdraw-methods/btc.png'
 import YandexIcon from '@/assets/images/withdraw-methods/yandex.png'
+import NetellerIcon from '@/assets/images/withdraw-methods/neteller.png'
 
 export default {
   props: {
@@ -31,12 +32,13 @@ export default {
         yandex: YandexIcon,
         mru: MruIcon,
         bitcoin: BitcoinIcon,
-        paysafe: PaysafeIcon,
+        paysafecard: PaysafecardIcon,
         qiwi: QiwiIcon,
         skinpay: SkinpayIcon,
         skinwallet: SkinwalletIcon,
         skrill: SkrillIcon,
-        sofort: SofortIcon
+        sofort: SofortIcon,
+        neteller: NetellerIcon
       }
     }
   },

@@ -118,7 +118,7 @@ export default {
           'master-card',
           'skrill',
           'neteller',
-          'paysafe',
+          'paysafecard',
           'skinpay',
           'bitcoin'],
       bottomicons:

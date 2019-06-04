@@ -3,8 +3,8 @@ import { toIdValue } from 'apollo-utilities'
 
 const dataIdFromObject = object => {
   switch (object.__typename) {
-    case 'PaymentMethod' :
-    case 'PaymentDetails' : return `${object.__typename}:${object.code}`
+    case 'WithdrawalsPaymentMethod' :
+    case 'DepositsPaymentMethod' : return `${object.__typename}:${object.code}`
     default: return `${object.__typename}:${object.id}`
   }
 }

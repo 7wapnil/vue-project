@@ -17,11 +17,12 @@ import Skrill from '@/assets/images/withdraw-methods/skrill.png'
 import Skinwallet from '@/assets/images/withdraw-methods/skinwallet.png'
 import Skinpay from '@/assets/images/withdraw-methods/skinpay.png'
 import Qiwi from '@/assets/images/withdraw-methods/qiwi.png'
-import Paysafe from '@/assets/images/withdraw-methods/paysafe.png'
+import Paysafecard from '@/assets/images/withdraw-methods/paysafecard.png'
 import Mru from '@/assets/images/withdraw-methods/mru.png'
 import CreditCard from '@/assets/images/withdraw-methods/card.png'
 import Bitcoin from '@/assets/images/withdraw-methods/btc.png'
 import Yandex from '@/assets/images/withdraw-methods/yandex.png'
+import Neteller from '@/assets/images/withdraw-methods/neteller.png'
 
 export default {
   data () {
@@ -32,11 +33,12 @@ export default {
         Skinwallet,
         Skinpay,
         Qiwi,
-        Paysafe,
+        Paysafecard,
         Mru,
         CreditCard,
         Bitcoin,
-        Yandex
+        Yandex,
+        Neteller
       ]
     }
   }

@@ -32,7 +32,7 @@
             </span>
           </b-col>
           <b-col
-            v-if="paymentMethods.length > 1"
+            v-if="withdrawalMethods.length > 1"
             cols="auto">
             <b-button variant="arc-secondary">
               {{ $t('account.cta.changeWithdrawMethod') }}
@@ -40,10 +40,10 @@
           </b-col>
         </b-row>
         <b-collapse
-          v-if="paymentMethods.length > 1"
+          v-if="withdrawalMethods.length > 1"
           id="withdrawMethod">
           <withdraw-methods-switch
-            :methods="paymentMethods"
+            :methods="withdrawalMethods"
             :active-methods="userWithdrawMethods"
             @change="changeMethod"/>
         </b-collapse>
@@ -59,9 +59,9 @@
 import WithdrawMethodsSwitch from './WithdrawMethodsSwitch'
 import WithdrawPlaceholder from './WithdrawPlaceholder'
 import WithdrawForm from './WithdrawForm'
-import { PAYMENT_METHODS_QUERY, USER_PAYMENT_METHODS_QUERY } from '@/graphql'
+import { WITHDRAWAL_METHODS_QUERY, USER_WITHDRAWAL_METHODS_QUERY } from '@/graphql'
 
-const paymentMethodsAdapter = (methods) => {
+const withdrawalMethodsAdapter = (methods) => {
   if (methods.length === 0 || !methods[0].hasOwnProperty('availability')) {
     return methods
   }
@@ -70,8 +70,7 @@ const paymentMethodsAdapter = (methods) => {
     return {
       code: method.code,
       name: method.name,
-      note: method.payment_note,
-      kind: method.type
+      note: method.note
     }
   })
 }
@@ -84,24 +83,24 @@ export default {
   },
   data () {
     return {
-      paymentMethods: [],
+      withdrawalMethods: [],
       selectedMethod: null,
       user: null,
       loading: 0
     }
   },
   apollo: {
-    paymentMethods () {
+    withdrawalMethods () {
       return {
-        query: PAYMENT_METHODS_QUERY,
-        update ({ paymentMethods }) {
-          return paymentMethodsAdapter(paymentMethods)
+        query: WITHDRAWAL_METHODS_QUERY,
+        update ({ withdrawalMethods }) {
+          return withdrawalMethodsAdapter(withdrawalMethods)
         }
       }
     },
     user () {
       return {
-        query: USER_PAYMENT_METHODS_QUERY
+        query: USER_WITHDRAWAL_METHODS_QUERY
       }
     }
   },
@@ -111,7 +110,7 @@ export default {
         return []
       }
 
-      return this.paymentMethods.filter((method) => {
+      return this.withdrawalMethods.filter((method) => {
         return this.user.availableWithdrawMethods.includes(method.code)
       })
     },

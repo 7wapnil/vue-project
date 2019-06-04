@@ -29,7 +29,7 @@ export const USER_QUERY = gql`
   }
 `
 
-export const USER_PAYMENT_METHODS_QUERY = gql`
+export const USER_WITHDRAWAL_METHODS_QUERY = gql`
   query {
     user {
       id

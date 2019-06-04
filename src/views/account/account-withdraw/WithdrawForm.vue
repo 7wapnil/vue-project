@@ -109,10 +109,11 @@ import { mapGetters } from 'vuex'
 import { Form } from '@/helpers'
 import Sofort from './withdraw-methods/Sofort'
 import Skrill from './withdraw-methods/Skrill'
+import Neteller from './withdraw-methods/Neteller'
 import Skinwallet from './withdraw-methods/Skinwallet'
 import Skinpay from './withdraw-methods/Skinpay'
 import Qiwi from './withdraw-methods/Qiwi'
-import Paysafe from './withdraw-methods/Paysafe'
+import Paysafecard from './withdraw-methods/Paysafecard'
 import Mru from './withdraw-methods/Mru'
 import CreditCard from './withdraw-methods/CreditCard'
 import Bitcoin from './withdraw-methods/Bitcoin'
@@ -138,10 +139,11 @@ export default {
         'skinwallet': Skinwallet,
         'skinpay': Skinpay,
         'qiwi': Qiwi,
-        'paysafe': Paysafe,
+        'paysafecard': Paysafecard,
         'mru': Mru,
         'bitcoin': Bitcoin,
-        'yandex': Yandex
+        'yandex': Yandex,
+        'neteller': Neteller
       },
       form: new Form({
         amount: null,
