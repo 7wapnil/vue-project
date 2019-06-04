@@ -128,7 +128,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['resetPassword']),
+    ...mapActions(['resetPassword', 'verifyToken']),
     submit () {
       this.form.clearErrors()
       this.submitting = true
