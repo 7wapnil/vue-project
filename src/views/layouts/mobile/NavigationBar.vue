@@ -10,10 +10,9 @@
     </b-navbar-nav>
     <b-navbar-brand
       :to="{ name: 'home' }"
+      :class="{ 'mr-4': !isLoggedIn }"
       class="navbar-brand-mobile d-flex align-items-center">
-      <img
-        :src="require(`@/assets/images/logo/arcanebet-logo-mobile.svg`)"
-        alt="arcanebet-logo">
+      <img :src="require(`@/assets/images/logo/arcanebet-logo-mobile.svg`)">
     </b-navbar-brand>
     <b-navbar-nav
       class="ml-auto">
