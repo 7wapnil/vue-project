@@ -82,16 +82,15 @@
                     placeholder="Custom"/>
                 </b-input-group>
                 <b-form-select
-                  v-model="fields.paymentMethod"
+                  v-model="fields.depositMethod"
                   class="mb-4">
                   <option
                     value=""
-                    disabled>Payment method</option>
+                    disabled>Deposit method</option>
                   <option
-                    v-for="(payment, index) in paymentMethods"
-                    :key="index"
-                    :value="payment.value">
-                    {{ payment.text }}
+                    v-for="(payment, index) in depositMethods"
+                    :key="index">
+                    {{ payment.name }}
                   </option>
                 </b-form-select>
                 <b-form-select
@@ -204,7 +203,7 @@
         <b-row no-gutters>
           <b-col class="px-2 mt-4 mb-2">
             <b-button
-              :disabled="fields.amount < 1"
+              :disabled="buttonDisabled"
               variant="user-profile-button"
               class="w-100"
               @click.prevent="submitDeposit">
@@ -225,7 +224,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { CURRENCIES_LIST_QUERY, BONUS_CALCULATION_MUTATION } from '@/graphql'
+import { CURRENCIES_LIST_QUERY, BONUS_CALCULATION_MUTATION, DEPOSIT_METHODS_QUERY } from '@/graphql'
 import DepositHeader from './DepositHeader'
 import DepositMethods from './DepositMethods'
 
@@ -240,7 +239,7 @@ export default {
       fields: {
         amount: '',
         bonusCode: '',
-        paymentMethod: ''
+        depositMethod: ''
       },
       dropdownCurrency: null,
       currencies: [],
@@ -255,19 +254,21 @@ export default {
         fail: 'danger'
       },
       moneyAmounts: [ 10, 25, 50, 75, 100, 150, 200, 250 ],
-      paymentMethods: [
-        { value: 'skrill', text: 'Skrill' },
-        { value: 'neteller', text: 'Netteler' },
-        { value: 'bitcoin', text: 'Bitcoin' },
-        { value: 'credit_card', text: 'VISA/Mastercard' },
-        { value: 'paysafecard', text: 'Paysafecard' }
-      ]
+      depositMethods: []
     }
   },
   apollo: {
     currencies () {
       return {
         query: CURRENCIES_LIST_QUERY
+      }
+    },
+    depositMethods () {
+      return {
+        query: DEPOSIT_METHODS_QUERY,
+        result ({ data: { depositMethods } }) {
+          this.depositMethods = depositMethods
+        }
       }
     }
   },
@@ -326,6 +327,9 @@ export default {
       })
 
       return currencyList
+    },
+    buttonDisabled () {
+      return this.fields.amount < 1 || this.fields.depositMethod === ''
     }
   },
   methods: {
