@@ -8,6 +8,9 @@
       class="mobile-container d-flex align-items-center justify-content-center">
       I'm a mobile version
     </b-container>
+    <navigation-sidebar
+      v-if="isNavigationShown"
+      class="bg-arc-clr-soil-dark"/>
     <mobile-footer/>
   </div>
 </template>
@@ -15,15 +18,23 @@
 <script>
 import MobileNavigationBar from './NavigationBar'
 import MobileFooter from './Footer/Footer'
+import NavigationSidebar from '@/mobile/components/NavigationSidebar'
 
 export default {
   components: {
     MobileNavigationBar,
-    MobileFooter
+    MobileFooter,
+    NavigationSidebar
+  },
+  data () {
+    return {
+      isNavigationShown: false,
+      isProfileShown: false
+    }
   },
   methods: {
     toggleNavigationSidebar () {
-      console.log('burger-clicked')
+      this.isNavigationShown = !this.isNavigationShown
     },
     toggleUserProfile () {
       console.log('user-profile-clicked')

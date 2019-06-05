@@ -128,3 +128,31 @@ $sidemenu-box-shadow: inset 0 -1px 0 0 rgba($black, .3);
   }
 
 }
+
+.mobile-navigation-sidemenu {
+  height: 100vh;
+  width: 85vw;
+  margin-left: 0;
+  &-logo-section {
+    height: 60px;
+  }
+  &-category {
+    .nav-link {
+      background: $arc-clr-esport-bg;
+      font-size: 14px;
+      font-weight: bold;
+      line-height: 18px;
+      padding: 11px;
+    }
+    .active {
+      background: $arc-clr-esport-bg-second;
+      box-shadow: inset 0 -4px 0 0 #4290FF;
+    }
+  }
+  &-category-switch-section {
+
+  }
+  &-list-section {
+
+  }
+}

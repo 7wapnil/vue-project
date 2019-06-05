@@ -2,7 +2,9 @@
   <b-navbar
     fixed="top"
     class="navbar-mobile">
-    <b-row no-gutters class="w-100 h-100">
+    <b-row
+      no-gutters
+      class="w-100 h-100">
       <b-col
         class="navbar-mobile-burger-section d-flex align-items-center justify-content-start"
         @click="$emit('burger-clicked')">
@@ -20,8 +22,8 @@
       </b-col>
       <b-col class="navbar-mobile-profile-section">
         <div
-          class="h-100 w-100 d-flex align-items-center justify-content-end"
           v-if="isLoggedIn"
+          class="h-100 w-100 d-flex align-items-center justify-content-end"
           @click="$emit('user-profile-clicked')">
           <b-button variant="arc-profile-button-mobile"/>
         </div>
