@@ -86,7 +86,7 @@
                   class="mb-4">
                   <option
                     value=""
-                    disabled>Deposit method</option>
+                    disabled>{{ $t('account.deposit.paymentMethodsPlaceholder') }}</option>
                   <option
                     v-for="(payment, index) in depositMethods"
                     :key="index">
@@ -238,7 +238,7 @@ export default {
     return {
       fields: {
         amount: '',
-        bonusCode: '',
+        bonusCode: null,
         depositMethod: ''
       },
       dropdownCurrency: null,
@@ -265,10 +265,7 @@ export default {
     },
     depositMethods () {
       return {
-        query: DEPOSIT_METHODS_QUERY,
-        result ({ data: { depositMethods } }) {
-          this.depositMethods = depositMethods
-        }
+        query: DEPOSIT_METHODS_QUERY
       }
     }
   },
@@ -329,7 +326,7 @@ export default {
       return currencyList
     },
     buttonDisabled () {
-      return this.fields.amount < 1 || this.fields.depositMethod === ''
+      return this.fields.amount == null || this.fields.depositMethod === ''
     }
   },
   methods: {

@@ -173,6 +173,7 @@ const messages = {
         noActivity: 'You don\'t have any activity'
       },
       deposit: {
+        paymentMethodsPlaceholder: 'Deposit methods',
         depositHeader: 'Deposit Funds',
         depositSummary: 'Deposit summary',
         total: 'Total to be added',
