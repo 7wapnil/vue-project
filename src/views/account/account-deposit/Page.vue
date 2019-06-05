@@ -89,7 +89,8 @@
                     disabled>{{ $t('account.deposit.paymentMethodsPlaceholder') }}</option>
                   <option
                     v-for="(payment, index) in depositMethods"
-                    :key="index">
+                    :key="index"
+                    :value="payment.code">
                     {{ payment.name }}
                   </option>
                 </b-form-select>
