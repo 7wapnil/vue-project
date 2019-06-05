@@ -1,6 +1,8 @@
 <template>
   <div>
-    <mobile-navigation-bar/>
+    <mobile-navigation-bar
+      @burger-clicked="toggleNavigationSidebar"
+      @user-profile-clicked="toggleUserProfile"/>
     <b-container
       fluid
       class="mobile-container d-flex align-items-center justify-content-center">
@@ -18,6 +20,14 @@ export default {
   components: {
     MobileNavigationBar,
     MobileFooter
+  },
+  methods: {
+    toggleNavigationSidebar () {
+      console.log('burger-clicked')
+    },
+    toggleUserProfile () {
+      console.log('user-profile-clicked')
+    }
   }
 }
 </script>
