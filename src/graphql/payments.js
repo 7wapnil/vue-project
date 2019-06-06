@@ -18,3 +18,18 @@ export const DEPOSIT_METHODS_QUERY = gql`
     }
   }
 `
+
+export const WITHDRAW_MUTATION = gql`
+  mutation ($input: WithdrawInput!) {
+    withdraw(input: $input)
+  }
+`
+
+export const DEPOSIT_MUTATION = gql`
+  mutation ($input: DepositInput!) {
+    deposit(input: $input) {
+      url
+      message
+    }
+  }
+`

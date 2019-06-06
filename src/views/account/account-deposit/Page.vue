@@ -29,7 +29,7 @@
         <b-alert
           :show="!!depositState"
           :variant="mapDepositState">
-          {{ getMessage }}
+          {{ depositMessage }}
         </b-alert>
         <b-alert
           :show="!!bonusError"
@@ -225,7 +225,12 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { CURRENCIES_LIST_QUERY, BONUS_CALCULATION_MUTATION, DEPOSIT_METHODS_QUERY } from '@/graphql'
+import {
+  CURRENCIES_LIST_QUERY,
+  BONUS_CALCULATION_MUTATION,
+  DEPOSIT_METHODS_QUERY,
+  DEPOSIT_MUTATION
+} from '@/graphql'
 import DepositHeader from './DepositHeader'
 import DepositMethods from './DepositMethods'
 
@@ -249,6 +254,7 @@ export default {
       bonusError: null,
       invalidBonusCode: 'Invalid bonus code',
       depositState: this.$route.query.depositState,
+      depositMessage: this.$route.query.depositStateMessage,
       variantMap: {
         pending: 'warning',
         success: 'success',
@@ -311,9 +317,6 @@ export default {
         return this.walletActive.id === null
       }
     },
-    getMessage () {
-      return this.$route.query.depositStateMessage
-    },
     mapDepositState () {
       return this.variantMap[this.depositState]
     },
@@ -351,17 +354,24 @@ export default {
       }
     },
     submitDeposit () {
-      let queryParams = {
-        token: this.token,
+      const input = {
+        paymentMethod: this.fields.depositMethod,
         currencyCode: this.currency,
-        amount: this.fields.amount,
+        amount: parseFloat(parseFloat(this.fields.amount).toFixed(2)),
         bonusCode: this.fields.bonusCode
-      };
+      }
 
-      let query = Object.keys(queryParams)
-        .map(param => param + '=' + queryParams[param])
-        .join('&');
-      window.location.href = this.redirectUrl += query
+      this.$apollo.mutate({
+        mutation: DEPOSIT_MUTATION,
+        variables: { input }
+      }).then(({ data: { deposit } }) => {
+        this.depositState = 'success'
+        this.depositMessage = deposit.message
+        window.location.href = deposit.url
+      }).catch(({ graphQLErrors }) => {
+        this.depositState = 'fail'
+        this.depositMessage = graphQLErrors[0].message
+      })
     },
     addPresetAmount (amount) {
       this.fields.amount = amount.toString()
