@@ -35,8 +35,8 @@
         </b-alert>
       </b-col>
     </b-row>
-    <b-form-invalid-feedback>
-      Feedback
+    <b-form-invalid-feedback :state="isError">
+      {{ feedback }}
     </b-form-invalid-feedback>
     <b-button
       :disabled="isSubmitDisabled"
@@ -76,7 +76,8 @@ export default {
       },
       recaptchaSiteKey: process.env.VUE_APP_RECAPTCHA_SITE_KEY,
       submitting: false,
-      isCaptchaMissing: false
+      isCaptchaMissing: false,
+      isError: null
     }
   },
   computed: {
@@ -107,6 +108,7 @@ export default {
         return
       }
       this.submitting = true
+      this.isError = false
 
       if (this.lastLogin !== this.fields.login) { this.removeCaptcha() }
 

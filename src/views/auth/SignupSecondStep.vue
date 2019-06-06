@@ -5,7 +5,7 @@
       :state="form.errors.state('firstName')">
       <b-form-input
         id="signup-firstName"
-        v-model="form.firstName"
+        v-model="form.secondStep.firstName"
         :state="form.errors.state('firstName')"
         placeholder="First name"/>
     </b-form-group>
@@ -19,7 +19,7 @@
           <b-form-input
             id="signup-lastName"
             :state="form.errors.state('lastName')"
-            v-model="form.lastName"
+            v-model="form.secondStep.lastName"
             placeholder="Last name"/>
         </b-form-group>
       </b-col>
@@ -27,7 +27,7 @@
         <b-form-select
           id="gender"
           :options="genders"
-          v-model="form.gender"
+          v-model="form.secondStep.gender"
         />
       </b-col>
     </b-row>
@@ -37,7 +37,7 @@
       <b-form-input
         v-mask="'+############'"
         id="signup-phone"
-        v-model="form.phone"
+        v-model="form.secondStep.phone"
         :state="form.errors.state('phone')"
         type="tel"
         placeholder="Phone Number"/>
@@ -47,7 +47,7 @@
       :state="form.errors.state('streetAddress')">
       <b-form-input
         id="signup-streetAddress"
-        v-model="form.streetAddress"
+        v-model="form.secondStep.streetAddress"
         :state="form.errors.state('streetAddress')"
         placeholder="Street address"/>
     </b-form-group>
@@ -56,7 +56,7 @@
       :state="form.errors.state('zipCode')">
       <b-form-input
         id="signup-zipCode"
-        v-model="form.zipCode"
+        v-model="form.secondStep.zipCode"
         :state="form.errors.state('zipCode')"
         placeholder="Postal code"/>
     </b-form-group>
@@ -65,7 +65,7 @@
       :state="form.errors.state('city')">
       <b-form-input
         id="signup-city"
-        v-model="form.city"
+        v-model="form.secondStep.city"
         :state="form.errors.state('city')"
         placeholder="City"/>
     </b-form-group>
@@ -74,12 +74,12 @@
       :state="form.errors.state('state')">
       <b-form-input
         id="signup-state"
-        v-model="form.state"
+        v-model="form.secondStep.state"
         :state="form.errors.state('state')"
         placeholder="Province"/>
     </b-form-group>
     <b-form-checkbox
-      v-model="form.agreedWithPromotional"
+      v-model="form.secondStep.agreedWithPromotional"
       class="accept-all-odds-checkbox mb-3">
       <span class="ml-3 font-size-14 text-arc-clr-iron pointer letter-spacing-2">
         I agree to receive promotional content
