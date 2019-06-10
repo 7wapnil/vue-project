@@ -50,8 +50,7 @@
               :key="index"
               class="footer-list">
               <b-link
-                :to="{ name: `${ child.name }` }"
-              >
+                :to="{ name: `${ child.name }` }">
                 {{ child.name }}
               </b-link>
             </li>
