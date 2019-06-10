@@ -51,7 +51,7 @@
               class="footer-list">
               <b-link
                 :to="{ name: `${ child.name }` }"
-                class="text-capitalize">
+              >
                 {{ child.name }}
               </b-link>
             </li>
@@ -63,14 +63,18 @@
         no-gutters>
         <b-col class="d-flex align-items-center justify-content-center pt-5">
           <arc-circle
-            v-for="(socialicon, index) in socialicons"
+            v-for="(icon, index) in socialIcons"
             :key="index"
             :size="50"
             class="mx-2 pointer">
-            <icon
-              :name="socialicon"
-              size="20px"
-              color="arc-clr-soil-darker"/>
+            <b-link
+              :href="icon.path"
+              target="_blank">
+              <icon
+                :name="icon.name"
+                size="20px"
+                color="arc-clr-soil-darker"/>
+            </b-link>
           </arc-circle>
         </b-col>
       </b-row>
@@ -128,7 +132,19 @@ export default {
           name: 'Sport Homepage'
         }
       ],
-      socialicons: ['facebook', 'twitter', 'discord']
+      socialIcons: [
+        {
+          name: 'facebook',
+          path: 'https://www.facebook.com/arcanebet'
+        },
+        {
+          name: 'twitter',
+          path: 'https://twitter.com/ArcaneBet'
+        },
+        { name: 'discord',
+          path: 'https://discordapp.com/invite/SutBDGd'
+        }
+      ]
     }
   }
 }

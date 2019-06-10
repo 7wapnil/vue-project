@@ -1,5 +1,6 @@
 <template>
   <i
+    :href="to"
     :style="{ 'font-size': size }"
     :class="'arc ' + 'arc-' + `${ name }` + `${ color ? ' text-' + `${ color }` : ''}`"/>
 </template>
@@ -20,6 +21,10 @@ export default {
       type: String,
       default: '',
       required: false
+    },
+    to: {
+      type: String,
+      default: '',
     }
   }
 }
