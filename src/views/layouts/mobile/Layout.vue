@@ -1,30 +1,30 @@
 <template>
   <div>
     <mobile-navigation-bar
-      @burger-clicked="toggleNavigationSidebar"
+      @burger-clicked="toggleSidebar"
       @user-profile-clicked="toggleUserProfile"/>
-    <b-container
-      fluid
-      class="mobile-container d-flex align-items-center justify-content-center">
-      I'm a mobile version
-    </b-container>
+    <mobile-content/>
     <navigation-sidebar
-      v-if="isNavigationShown"
-      class="bg-arc-clr-soil-dark"/>
+      v-body-scroll-lock="isSidebarOpen"
+      :is-open="isSidebarOpen"
+      @sidebar-close-button-clicked="toggleSidebar"/>
     <mobile-footer/>
   </div>
 </template>
 
 <script>
 import MobileNavigationBar from './NavigationBar'
-import MobileFooter from './Footer/Footer'
-import NavigationSidebar from '@/mobile/components/NavigationSidebar'
+import MobileFooter from './footer/Footer'
+import NavigationSidebar from '@/views/layouts/mobile/sidemenu/NavigationSidebar'
+import { mapGetters, mapMutations } from 'vuex'
+import MobileContent from '@/views/layouts/mobile/Content'
 
 export default {
   components: {
     MobileNavigationBar,
     MobileFooter,
-    NavigationSidebar
+    NavigationSidebar,
+    MobileContent
   },
   data () {
     return {
@@ -32,10 +32,22 @@ export default {
       isProfileShown: false
     }
   },
+  computed: {
+    ...mapGetters([
+      'isSidebarOpen'
+    ])
+  },
+  watch: {
+    $route (to, from) {
+      if (this.isSidebarOpen) {
+        return this.toggleSidebar()
+      }
+    }
+  },
   methods: {
-    toggleNavigationSidebar () {
-      this.isNavigationShown = !this.isNavigationShown
-    },
+    ...mapMutations([
+      'toggleSidebar'
+    ]),
     toggleUserProfile () {
       console.log('user-profile-clicked')
     }
