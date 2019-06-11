@@ -56,6 +56,11 @@ export default {
           variables: { token: this.token }
         })
         .then(() => {
+          this.$gtm.push({
+            event: 'Email verified',
+            customerID: 'tbi',
+            page: this.$route.fullPath
+          })
           this.$log.info('Email verified')
         })
         .catch(({ graphQLErrors }) => {

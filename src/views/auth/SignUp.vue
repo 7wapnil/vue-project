@@ -83,6 +83,13 @@ export default {
         .then(({ data: { signUp } }) => {
           this.$store.dispatch('login', signUp)
           this.fetchWallets()
+
+          this.$gtm.push({
+            event: 'New registration',
+            customerID: signUp.user.id || null,
+            page: this.$route.fullPath
+          })
+
           this.$router.push({ name: 'home' })
           this.close()
           this.$noty.success('Welcome to ArcaneBet!')

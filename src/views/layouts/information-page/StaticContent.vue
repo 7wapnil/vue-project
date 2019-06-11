@@ -5,6 +5,15 @@
         {{ header }}
       </h2>
       <h6
+        v-if="tableOfContents"
+        class="text-arc-clr-iron letter-spacing-2 line-height-24 text-left px-4 py-2 mb-0"
+        v-html="tableOfContents"/>
+      <h6
+        v-if="mainBody"
+        class="text-arc-clr-iron letter-spacing-2 line-height-24 text-left px-4 py-2 mb-0"
+        v-html="mainBody"/>
+      <h6
+        v-if="mainDocument"
         class="text-arc-clr-iron letter-spacing-2 line-height-24 text-left px-4 py-2 mb-0"
         v-html="mainDocument"/>
     </b-col>
@@ -32,6 +41,14 @@ export default {
     },
     mainDocument () {
       return documentToHtmlString(this.viewItems.body)
+    },
+    tableOfContents () {
+      console.log(this.viewItems)
+      return this.viewItems.tableofcontents
+    },
+    mainBody () {
+      console.log(this.viewItems)
+      return this.viewItems.main
     }
   },
   mounted () {
