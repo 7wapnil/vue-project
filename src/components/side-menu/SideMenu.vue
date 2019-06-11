@@ -3,34 +3,59 @@
     tag="div"
     class="flex-nowrap"
     vertical>
-    <b-nav-item class="d-inline-flex align-items-center justify-content-start p-3 bg-arc-clr-soil-dark side-menu-categories w-100">
-      <span class="text-arc-clr-iron letter-spacing-2">
-        CATEGORIES
-      </span>
-    </b-nav-item>
+    <slot name="header"/>
     <b-nav-item
-      v-for="(item, index) in items"
+      v-for="(item, index) in menuItems"
       :key="index">
-
       <menu-item
         :item="item"
         :index="index"/>
-
     </b-nav-item>
   </b-nav>
 </template>
 
 <script>
 import MenuItem from './MenuItem'
+import { TITLES_QUERY } from '@/graphql'
+import { buildTree } from '@/helpers/navigation-tree'
+
+const POLL_INTERVAL = 10000
 
 export default {
   components: {
     MenuItem
   },
   props: {
-    items: {
-      type: Array,
-      required: true
+    titleKind: {
+      type: String,
+      default: null
+    }
+  },
+  data () {
+    return {
+      titles: [],
+    }
+  },
+  apollo: {
+    titles () {
+      return {
+        query: TITLES_QUERY,
+        variables () {
+          return {
+            kind: this.isKindTriggered,
+            withScopes: true
+          }
+        },
+        pollInterval: POLL_INTERVAL
+      }
+    }
+  },
+  computed: {
+    isKindTriggered () {
+      return this.titleKind ? this.titleKind : this.$route.params.titleKind
+    },
+    menuItems () {
+      return buildTree(this.isKindTriggered, this.titles, this.$route)
     }
   }
 }
