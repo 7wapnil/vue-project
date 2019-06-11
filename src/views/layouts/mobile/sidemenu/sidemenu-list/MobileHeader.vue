@@ -1,6 +1,6 @@
 <template>
   <b-nav-item
-    :to="getSidebarKind"
+    :to="`/${getSidebarKind}`"
     class="d-inline-flex align-items-center justify-content-start bg-arc-clr-soil-dark sidemenu-mobile-header">
     <b-row
       class="item-title"
