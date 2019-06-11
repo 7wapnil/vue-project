@@ -8,21 +8,22 @@
         v-if="isOpen"
         class="mobile-navigation-sidemenu">
 
-        <logo-section/>
-
-        <category-switch @category-changed="changeCategory"/>
+        <div class="mobile-navigation-sidemenu-sticky">
+          <logo-section/>
+          <category-switch @category-changed="changeCategory"/>
+        </div>
 
         <b-row
           class="mobile-navigation-sidemenu-list-section"
           no-gutters>
           <b-col class="bg-arc-clr-soil-black sidemenu-mobile">
-            <vue-scroll>
-              <mobile-side-menu :title-kind="titleKind">
-                <template v-slot:header>
-                  <mobile-header/>
-                </template>
-              </mobile-side-menu>
-            </vue-scroll>
+
+            <mobile-side-menu :title-kind="titleKind">
+              <template v-slot:header>
+                <mobile-header/>
+              </template>
+            </mobile-side-menu>
+
           </b-col>
         </b-row>
       </div>
