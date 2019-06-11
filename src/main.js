@@ -10,10 +10,12 @@ import store from '@/stores/index'
 import globalMixin from '@/mixins/global'
 import '@/components/global-components'
 import globalConfig from '@/config/index'
+import BodyScrollLockDirective from 'v-body-scroll-lock'
 
 Vue.config.productionTip = false
 
 Vue.mixin(globalMixin)
+Vue.use(BodyScrollLockDirective)
 
 new Vue({
   router,
