@@ -23,6 +23,7 @@ const messages = {
       minute: 'minute'
     },
     betslip: {
+      generic: 'Oops, something went wrong. Please refresh the page and try again.',
       betslipEmpty: 'Your betslip is currently empty.\n' +
         'Click on any odds to add them\n' +
         'to betslip.',

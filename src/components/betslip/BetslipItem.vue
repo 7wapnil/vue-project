@@ -143,7 +143,7 @@
       </b-col>
     </b-row>
     <b-alert
-      :show="hasMessage"
+      :show="!isSuccess && hasMessage"
       class="mt-3 mx-auto p-2 text-center"
       variant="danger">
       {{ bet.message }}
