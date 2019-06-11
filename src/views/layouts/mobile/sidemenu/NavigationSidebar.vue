@@ -17,13 +17,11 @@
           class="mobile-navigation-sidemenu-list-section"
           no-gutters>
           <b-col class="bg-arc-clr-soil-black sidemenu-mobile">
-
             <mobile-side-menu :title-kind="titleKind">
               <template v-slot:header>
                 <mobile-header/>
               </template>
             </mobile-side-menu>
-
           </b-col>
         </b-row>
       </div>
