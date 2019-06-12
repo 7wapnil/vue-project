@@ -9,10 +9,6 @@
         class="text-arc-clr-iron letter-spacing-2 line-height-24 text-left px-4 py-2 mb-0"
         v-html="tableOfContents"/>
       <h6
-        v-if="mainBody"
-        class="text-arc-clr-iron letter-spacing-2 line-height-24 text-left px-4 py-2 mb-0"
-        v-html="mainBody"/>
-      <h6
         v-if="mainDocument"
         class="text-arc-clr-iron letter-spacing-2 line-height-24 text-left px-4 py-2 mb-0"
         v-html="mainDocument"/>
@@ -40,15 +36,14 @@ export default {
       return this.viewItems.header
     },
     mainDocument () {
+      if (this.$route.path.includes('terms-and-conditions')) {
+        return this.viewItems.body
+      }
       return documentToHtmlString(this.viewItems.body)
     },
     tableOfContents () {
       console.log(this.viewItems)
       return this.viewItems.tableofcontents || null
-    },
-    mainBody () {
-      console.log(this.viewItems)
-      return this.viewItems.main
     }
   },
   mounted () {
