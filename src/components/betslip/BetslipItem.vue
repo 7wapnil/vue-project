@@ -146,7 +146,7 @@
       :show="!isSuccess && hasMessage"
       class="mt-3 mx-auto p-2 text-center"
       variant="danger">
-      {{ bet.message }}
+      {{ betMessage }}
     </b-alert>
     <b-alert
       :show="isSuccess"
@@ -299,6 +299,9 @@ export default {
     },
     successMessage () {
       return MESSAGE_SUCCESS
+    },
+    betMessage () {
+      return this.bet.message || this.$i18n.t('betslip.generic')
     }
   },
   mounted () {

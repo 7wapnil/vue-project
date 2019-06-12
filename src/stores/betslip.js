@@ -2,7 +2,6 @@
  * Betslip store module
  */
 import Vue from 'vue'
-import i18n from '@/config/plugins/I18n'
 import Bet from '@/models/bet'
 import graphqlClient from '@/libs/apollo/client'
 import { BETSLIP_PLACEMENT_QUERY, BETSLIP_BETS_QUERY, BET_UPDATED } from '@/graphql/index'
@@ -155,7 +154,7 @@ export const actions = {
             oddId: bet.oddId,
             payload: {
               status: betUpdated.status,
-              message: betUpdated.message || i18n.t('betslip.generic')
+              message: betUpdated.message
             }
           })
 
@@ -216,7 +215,7 @@ export const actions = {
             oddId: bet.oddId,
             payload: {
               status: bet.status,
-              message: bet.message || i18n.t('betslip.generic')
+              message: bet.message
             }
           })
 
