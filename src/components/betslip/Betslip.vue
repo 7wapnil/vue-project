@@ -119,7 +119,7 @@
       class="p-2 bg-arc-clr-soil-black">
       <b-col>
         <b-button
-          v-if="!getAnySubmittedBet"
+          v-if="!getAnySubmittedBet && !getAnyBetInValidation"
           :disabled="!betslipSubmittable"
           variant="arc-primary"
           size="lg"
@@ -128,7 +128,7 @@
           PLACE BET
         </b-button>
 
-        <spinner-button v-if="getAnySubmittedBet">
+        <spinner-button v-if="getAnySubmittedBet || getAnyBetInValidation">
           Placing bet
         </spinner-button>
       </b-col>
@@ -168,7 +168,8 @@ export default {
       'getAnyInactiveMarket',
       'getAnySubmittedBet',
       'getAnyEmptyStake',
-      'getAllBetsAcceptable'
+      'getAllBetsAcceptable',
+      'getAnyBetInValidation'
     ]),
     ...mapGetters(['isLoggedIn']),
     acceptAllOdds: {
