@@ -143,7 +143,7 @@
       </b-col>
     </b-row>
     <b-alert
-      :show="!isSuccess && hasMessage"
+      :show="isFail"
       class="mt-3 mx-auto p-2 text-center"
       variant="danger">
       {{ betMessage }}
@@ -168,6 +168,14 @@ import { mapGetters, mapMutations } from 'vuex'
 import { MESSAGE_SETTLED, MESSAGE_DISABLED, MESSAGE_SUCCESS } from '@/constants/betslip-messages'
 import { MARKET_BY_ID_QUERY, EVENT_BET_STOPPED, eventUpdatedSubscription } from '@/graphql'
 import { INACTIVE_STATUS, SETTLED_STATUS, INACTIVE_STATUSES } from '@/models/market'
+import {
+  PENDING_CANCELLATION,
+  ENPENDING_MANUAL_CANCELLATIONDED,
+  CANCELLED,
+  REJECTED,
+  CANCELLED_BY_SYSTEM,
+  FAILED
+} from '@/constants/bet-fail-statuses'
 import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
 import MaskedInput from 'vue-text-mask'
 import createNumberMask from 'text-mask-addons/dist/createNumberMask'
@@ -283,10 +291,19 @@ export default {
       return false
     },
     isSuccess () {
-      return this.bet.status === Bet.statuses.accepted
+      if (!this.bet.status) return
+
+      return this.bet.status === Bet.statuses.accepted || this.bet.status === Bet.statuses.settled
     },
-    hasMessage () {
-      return this.bet.message !== null
+    isFail () {
+      if (!this.bet.status) return
+
+      return [ PENDING_CANCELLATION,
+        ENPENDING_MANUAL_CANCELLATIONDED,
+        CANCELLED,
+        REJECTED,
+        CANCELLED_BY_SYSTEM,
+        FAILED].includes(this.bet.status)
     },
     isBetDisabled () {
       return this.isDisabled || this.isSettled
