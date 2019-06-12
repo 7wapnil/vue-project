@@ -37,9 +37,6 @@ export default {
   },
   data () {
     return {
-      offset: {
-        top: -218
-      },
       selectedCategory: null,
       selectedFilter: null
     }
