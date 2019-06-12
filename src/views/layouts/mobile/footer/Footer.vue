@@ -88,7 +88,7 @@
 
 <script>
 import InformationPages from '@/routes/information_pages'
-import FooterMenuItem from '@/views/layouts/mobile/Footer/FooterMenuItem'
+import FooterMenuItem from '@/views/layouts/mobile/footer/FooterMenuItem'
 
 export default {
   components: {
