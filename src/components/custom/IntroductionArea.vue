@@ -22,7 +22,8 @@ export default {
   },
   computed: {
     background () {
-      return findBackgroundSource({ name: this.title ? this.title.name : null })
+      const route = this.$route.params.titleKind
+      return findBackgroundSource({ name: this.title ? this.title.name : null, route })
     }
   }
 }
