@@ -296,7 +296,6 @@ export default {
       return this.bet.status === Bet.statuses.accepted || this.bet.status === Bet.statuses.settled
     },
     isFail () {
-      console.log(this.bet.status)
       if (!this.bet.status) return
 
       return [ PENDING_CANCELLATION,
