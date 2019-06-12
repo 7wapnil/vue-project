@@ -99,21 +99,8 @@
 
 <script>
 import { Form } from '@/helpers'
-import { countries as countriesList } from 'countries-list'
 import BirthDateField from './BirthDateField'
 import { CURRENCIES_LIST_QUERY } from '@/graphql'
-
-const countries = Object
-  .values(countriesList)
-  .map((country) => ({
-    value: country.name,
-    text: country.name
-  }))
-  .sort((a, b) => {
-    if (a.value < b.value) { return -1 }
-    if (a.value > b.value) { return 1 }
-    return 0
-  })
 
 export default {
   components: {
@@ -123,12 +110,15 @@ export default {
     form: {
       type: Form,
       required: true
+    },
+    countries: {
+      type: Array,
+      required: true
     }
   },
   data () {
     return {
-      currencies: [],
-      countries
+      currencies: []
     }
   },
   apollo: {
