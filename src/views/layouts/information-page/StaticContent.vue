@@ -44,7 +44,7 @@ export default {
     },
     tableOfContents () {
       console.log(this.viewItems)
-      return this.viewItems.tableofcontents
+      return this.viewItems.tableofcontents || null
     },
     mainBody () {
       console.log(this.viewItems)
