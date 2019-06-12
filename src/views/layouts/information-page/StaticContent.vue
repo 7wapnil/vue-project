@@ -1,13 +1,12 @@
 <template>
   <b-row no-gutters>
     <b-col class-name="p-4">
-      <h2 className="font-weight-light m-4">
+      <h2 class="font-weight-light m-4">
         {{ header }}
       </h2>
-      <h6
-        v-if="tableOfContents"
-        class="text-arc-clr-iron letter-spacing-2 line-height-24 text-left px-4 py-2 mb-0"
-        v-html="tableOfContents"/>
+      <table-of-contents
+        :items="items"
+        class="text-arc-clr-iron letter-spacing-2 line-height-24 text-left px-4 py-2 mb-0"/>
       <h6
         v-if="mainDocument"
         class="text-arc-clr-iron letter-spacing-2 line-height-24 text-left px-4 py-2 mb-0"
@@ -18,9 +17,15 @@
 
 <script>
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
+import TableOfContents from './TableOfContents'
 
 export default {
+  components: { TableOfContents },
   props: {
+    items: {
+      type: Array,
+      default: () => []
+    },
     contentfulId: {
       type: String,
       default: null
@@ -40,10 +45,6 @@ export default {
         return this.viewItems.body
       }
       return documentToHtmlString(this.viewItems.body)
-    },
-    tableOfContents () {
-      console.log(this.viewItems)
-      return this.viewItems.tableofcontents || null
     }
   },
   mounted () {
