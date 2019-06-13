@@ -94,7 +94,7 @@ export const InformationPages = {
           path: 'bonus-rules',
           name: 'Bonus Rules',
           title: 'Bonus Rules',
-          component: () => import('@/views/information-pages/promotions/main/Page')
+          component: () => import('@/views/information-pages/promotions/bonus-rules/Page')
         },
       ]
     },

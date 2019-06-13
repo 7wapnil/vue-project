@@ -4,7 +4,7 @@
       <h2 class="font-weight-light m-4">
         {{ header }}
       </h2>
-      <table-of-contents
+      <table-of-content
         :items="items"
         class="text-arc-clr-iron letter-spacing-2 line-height-24 text-left px-4 py-2 mb-0"/>
       <h6
@@ -17,10 +17,10 @@
 
 <script>
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
-import TableOfContents from './TableOfContents'
+import TableOfContent from './TableOfContent'
 
 export default {
-  components: { TableOfContents },
+  components: { TableOfContent },
   props: {
     items: {
       type: Array,
@@ -41,7 +41,7 @@ export default {
       return this.viewItems.header
     },
     mainDocument () {
-      if (this.$route.path.includes('terms-and-conditions')) {
+      if (this.$route.path.includes('terms-and-conditions') || this.$route.path.includes('betting-rules')) {
         return this.viewItems.body
       }
       return documentToHtmlString(this.viewItems.body)
