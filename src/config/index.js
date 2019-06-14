@@ -11,6 +11,7 @@ import LiveChatPlugin from './plugins/livechat'
 import ContentfulPlugin from '@/libs/contentful/contentful-client'
 import airbrakeClient from './plugins/airbrake-client'
 import arcanebetSession from '@/services/local-storage/session'
+import BodyScrollLockDirective from 'v-body-scroll-lock'
 const isProduction = process.env.NODE_ENV === 'production'
 
 Vue.use(VueLogger, {
@@ -23,6 +24,7 @@ Vue.use(VueNoty, {
   timeout: 2000,
   layout: 'topRight'
 })
+Vue.use(BodyScrollLockDirective)
 
 Vue.use(LiveChatPlugin, {
   license: process.env.VUE_APP_LIVECHAT_LICENSE
