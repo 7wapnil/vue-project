@@ -1,8 +1,8 @@
 <template>
   <div :class="titleKind">
-    <component :is="layout"/>
-    <cookie-warning/>
-    <modal-list/>
+    <component :is="layoutName"/>
+    <cookie-warning v-if="!isMobile"/>
+    <modal-list v-if="!isMobile"/>
   </div>
 </template>
 
@@ -17,11 +17,6 @@ export default {
     MobileLayout,
     DesktopLayout
   },
-  data () {
-    return {
-      mobile: false
-    }
-  },
   computed: {
     titleKind () {
       const DEFAULT_KIND = 'esports'
@@ -32,15 +27,12 @@ export default {
 
       return this.$route.params.titleKind || DEFAULT_KIND
     },
-    layout () {
-      return this.mobile ? MobileLayout : DesktopLayout
+    isMobile () {
+      return this.$mq === 'mobile'
+    },
+    layoutName () {
+      return this.isMobile ? MobileLayout : DesktopLayout
     }
-  },
-  created () {
-    this.mobile = window.innerWidth < 550
-    window.addEventListener('resize', () => {
-      this.mobile = window.innerWidth < 550
-    })
   },
   mounted () {
     if (this.$route.query.depositState) {

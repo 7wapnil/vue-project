@@ -26,7 +26,13 @@ Vue.use(VueNoty, {
   layout: 'topRight'
 })
 Vue.use(BodyScrollLockDirective)
-Vue.use(VueMq)
+Vue.use(VueMq, {
+  breakpoints: {
+    mobile: 720,
+    tablet: 1250,
+    desktop: Infinity
+  }
+})
 
 Vue.use(LiveChatPlugin, {
   license: process.env.VUE_APP_LIVECHAT_LICENSE
