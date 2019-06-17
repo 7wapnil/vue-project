@@ -8,9 +8,11 @@ import apolloProvider from '@/libs/apollo/'
 import VueNoty from 'vuejs-noty'
 import VueLogger from 'vuejs-logger'
 import LiveChatPlugin from './plugins/livechat'
+import sourceBusterPlugin from './plugins/sb'
 import ContentfulPlugin from '@/libs/contentful/contentful-client'
 import airbrakeClient from './plugins/airbrake-client'
 import arcanebetSession from '@/services/local-storage/session'
+
 const isProduction = process.env.NODE_ENV === 'production'
 
 Vue.use(VueLogger, {
@@ -19,6 +21,7 @@ Vue.use(VueLogger, {
 
 Vue.use(vuescroll, VueScrollConfig)
 Vue.use(Sticky)
+
 Vue.use(VueNoty, {
   timeout: 2000,
   layout: 'topRight'
@@ -36,6 +39,8 @@ Vue.use(ContentfulPlugin, {
 Vue.use(GTMPlugin, {
   id: process.env.VUE_APP_GTM_ID
 })
+
+Vue.use(sourceBusterPlugin)
 
 if (isProduction) {
   Vue.use(airbrakeClient, {
