@@ -8,7 +8,7 @@ import apolloProvider from '@/libs/apollo/'
 import VueNoty from 'vuejs-noty'
 import VueLogger from 'vuejs-logger'
 import LiveChatPlugin from './plugins/livechat'
-import sourceBusterPlugin from './plugins/sb'
+import SourceBusterPlugin from './plugins/sb'
 import ContentfulPlugin from '@/libs/contentful/contentful-client'
 import airbrakeClient from './plugins/airbrake-client'
 import arcanebetSession from '@/services/local-storage/session'
@@ -40,7 +40,7 @@ Vue.use(GTMPlugin, {
   id: process.env.VUE_APP_GTM_ID
 })
 
-Vue.use(sourceBusterPlugin)
+Vue.use(SourceBusterPlugin)
 
 if (isProduction) {
   Vue.use(airbrakeClient, {
