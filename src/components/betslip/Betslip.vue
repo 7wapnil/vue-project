@@ -263,6 +263,7 @@ export default {
           })
         })
         this.subscribeBets()
+        this.refreshBetslip()
       }
     },
     betStatusFromResponse (bet) {
