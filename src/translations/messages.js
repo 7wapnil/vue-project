@@ -27,6 +27,7 @@ const messages = {
       betslipEmpty: 'Your betslip is currently empty.\n' +
         'Click on any odds to add them\n' +
         'to betslip.',
+      acceptAllCheckbox: 'Accept all odd changes',
       tooltipMessages: {
         default: 'Please login to place a bet',
         defaultLoggedIn: 'Your betslip is empty',
@@ -38,7 +39,8 @@ const messages = {
         invalidStakeAmount: 'Please make sure your stake is correct'
       },
       cta: {
-        placeBet: 'Place Bet'
+        placeBet: 'Place Bet',
+        clearAll: 'Clear all'
       }
     },
     wallet: {

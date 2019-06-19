@@ -14,7 +14,7 @@
           <arc-circle
             v-show="getBets.length > 0"
             :size="24"
-            class="font-weight-bold font-size-12"
+            class="bet-amount font-weight-bold font-size-12"
             bg-color="arc-clr-soil-cover"
             depends
             inline>
@@ -25,9 +25,9 @@
           class="p-0"
           align="right">
           <b-link
-            class="text-arc-clr-iron-light font-size-14"
+            class="clear text-arc-clr-iron-light font-size-14"
             @click="clearBetslip">
-            Clear all
+            {{ $t('betslip.cta.clearAll') }}
           </b-link>
         </b-col>
       </b-row>
@@ -105,7 +105,7 @@
           v-model="acceptAllOdds"
           class="accept-all-odds-checkbox">
           <span class="font-size-14 text-arc-clr-iron letter-spacing-2 ml-2 pointer">
-            Accept all odd changes
+            {{ $t('betslip.acceptAllCheckbox') }}
           </span>
         </b-form-checkbox>
       </b-form-group>
@@ -122,13 +122,16 @@
           v-if="!getAnySubmittedBet && !getAnyBetInValidation"
           :disabled="!betslipSubmittable"
           variant="arc-primary"
+          class="text-uppercase"
           size="lg"
           block
           @click="submit">
-          PLACE BET
+          {{ $t('betslip.cta.placeBet') }}
         </b-button>
 
-        <spinner-button v-if="getAnySubmittedBet || getAnyBetInValidation">
+        <spinner-button
+          v-if="getAnySubmittedBet || getAnyBetInValidation"
+          class="submitting">
           Placing bet
         </spinner-button>
       </b-col>
