@@ -47,7 +47,6 @@
                   v-for="(bet, index) in getBets"
                   :key="`${bet.oddId}-${index}`">
                   <betslip-item
-                    :parent-refs="$refs"
                     :bet="bet"/>
                 </div>
               </b-col>
@@ -81,7 +80,7 @@
             </h6>
           </b-col>
           <b-col class="text-right mr-4">
-            <h6 class="m-0 text-arc-clr-white">
+            <h6 class="total-stake m-0 text-arc-clr-white">
               {{ parseFloat(getTotalStakes.toFixed(2)) }}
             </h6>
           </b-col>
@@ -93,7 +92,7 @@
             </h5>
           </b-col>
           <b-col class="text-right mr-1">
-            <h5 class="m-0 text-arc-clr-white font-weight-bold">
+            <h5 class="total-return m-0 text-arc-clr-white font-weight-bold">
               {{ parseFloat(getTotalReturn.toFixed(2)) }}
             </h5>
           </b-col>
@@ -114,7 +113,6 @@
     <b-row
       v-b-popover.hover.top="getTooltipContent"
       id="betslip-submit"
-      ref="parent-button"
       no-gutters
       class="p-2 bg-arc-clr-soil-black">
       <b-col>
@@ -122,7 +120,7 @@
           v-if="!getAnySubmittedBet && !getAnyBetInValidation"
           :disabled="!betslipSubmittable"
           variant="arc-primary"
-          class="text-uppercase"
+          class="submit-bets text-uppercase"
           size="lg"
           block
           @click="submit">

@@ -11,7 +11,7 @@
       <b-col class="d-flex justify-content-start">
         <span
           :class="[ isBetDisabled ? 'text-arc-clr-iron' : 'text-arc-clr-iron-light']"
-          class="font-size-12 font-weight-bold line-height-10">
+          class="market-name font-size-12 font-weight-bold line-height-10">
           {{ bet.marketName }}
         </span>
       </b-col>
@@ -53,7 +53,7 @@
       <b-col>
         <span
           :class="[ isBetDisabled ? 'text-arc-clr-iron' : 'text-arc-clr-iron-light']"
-          class="font-size-12">
+          class="event-name font-size-12">
           {{ bet.eventName }}
         </span>
       </b-col>
@@ -191,11 +191,6 @@ export default {
     bet: {
       type: Bet,
       required: true
-    },
-    parentRefs: {
-      type: Object,
-      required: false,
-      default: null
     }
   },
   data () {
@@ -323,7 +318,8 @@ export default {
   },
   mounted () {
     this.$nextTick(() => {
-      this.parentRefs['parent-button'].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' })
+      const submitButton = document.getElementById('betslip-submit')
+      submitButton.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' })
     })
   },
   methods: {

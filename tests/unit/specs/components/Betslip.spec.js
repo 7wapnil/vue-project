@@ -35,12 +35,13 @@ describe('Betslip', () => {
     uri = 'https://someurl'
 
     getters = {
-      getBetsCount: () => state.bets.count,
+      getBetsCount: () => state.bets.length,
       getBets: () => state.bets,
-      betslipSubmittable: () => true,
+      betslipSubmittable: () => false,
       getAnySubmittedBet: () => false,
       getAnyBetInValidation: () => false,
-      acceptAllChecked: () => false
+      acceptAllChecked: () => false,
+      isLoggedIn: () => false
     }
 
     i18n = new VueI18n({
@@ -126,29 +127,62 @@ describe('Betslip', () => {
     it('has no checkbox', () => {
       expect(wrapper.contains('.accept-all-odds-checkbox')).to.equal(false)
     })
+
+    it('has submit button as disabled on initial state', () => {
+      expect(wrapper.find('.submit-bets').attributes()['disabled']).to.equal('disabled')
+    })
   })
 
   describe('Has bets', () => {
     before(() => {
       state = {
         bets: [new Bet({
-          id: 1
+          id: null,
+          eventId: '52908',
+          marketStatus: 'active',
+          eventName: 'Cameroon VS New Zealand',
+          marketId: '7091092',
+          marketName: '1x2',
+          oddId: '25838157',
+          oddName: 'New Zealand',
+          stake: 5,
+          status: 'initial',
+          message: null,
+          externalId: null,
+          approvedOddValue: 3.48,
+          currentOddValue: 3.48,
+          success: null
         }),
         new Bet({
-          id: 2
+          id: null,
+          eventId: '67890',
+          marketStatus: 'inactive',
+          eventName: 'Estonia vs Estonia',
+          marketId: '0964783',
+          marketName: '0',
+          oddId: '24321142',
+          oddName: 'Estonia',
+          stake: 5,
+          status: 'initial',
+          message: null,
+          externalId: null,
+          approvedOddValue: 6.78,
+          currentOddValue: 3.45,
+          success: null
         })
         ]
       }
 
       getters = {
         getBets: () => state.bets,
-        getBetsCount: () => 2,
+        getBetsCount: () => state.bets.length,
         betslipSubmittable: () => true,
         getAnySubmittedBet: () => false,
         getAnyBetInValidation: () => false,
         getTotalStakes: () => 10,
         getTotalReturn: () => 15,
-        acceptAllChecked: () => false
+        acceptAllChecked: () => false,
+        isLoggedIn: () => true
       }
 
       mutations = {
@@ -161,7 +195,8 @@ describe('Betslip', () => {
             namespaced: true,
             state,
             getters,
-            mutations
+            mutations,
+            actions
           }
         }
       })
@@ -190,11 +225,14 @@ describe('Betslip', () => {
       expect(wrapper.find('.accept-all-odds-checkbox').text()).to.equal(i18n.t('betslip.acceptAllCheckbox'))
     })
 
-    it('shows spinner when submit bet button is clicked', () => {
-      const button = wrapper.find('button.btn-arc-primary')
-      button.trigger('click')
-      console.log(getters.getAnySubmittedBet())
-      // expect(wrapper.contains('.submitting')).to.equal(true)
+    it('shows total stakes', () => {
+      const value = getters.getTotalStakes().toString()
+      expect(wrapper.find('.total-stake').text()).to.equal(value)
+    })
+
+    it('shows total return', () => {
+      const value = getters.getTotalReturn().toString()
+      expect(wrapper.find('.total-return').text()).to.equal(value)
     })
   })
 })
