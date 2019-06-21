@@ -38,7 +38,7 @@ describe('BetslipItem component', () => {
         message: null,
         externalId: null,
         approvedOddValue: 3.48,
-        currentOddValue: 3.48,
+        currentOddValue: 3.50,
         success: null
       }),
       new Bet({
@@ -72,7 +72,9 @@ describe('BetslipItem component', () => {
       getTotalStakes: () => 10,
       getTotalReturn: () => 15,
       acceptAllChecked: () => false,
-      isLoggedIn: () => true
+      valuesUnconfirmed: () => true,
+      getAnyFrozenBet: () => false,
+      isBetDisabled: () => false
     }
 
     store = new Vuex.Store({
@@ -91,27 +93,8 @@ describe('BetslipItem component', () => {
       locale: 'en',
       messages
     })
-    //
-    // ololo = shallowMount(Betslip, {
-    //   data () {
-    //     return {
-    //       tabIndex: 0
-    //     }
-    //   },
-    //   computed: {
-    //     acceptAllOdds: () => false,
-    //   },
-    //   store,
-    //   localVue,
-    //   i18n
-    // })
 
     wrapper = shallowMount(BetslipItem, {
-      computed: {
-        potentialReturn () {
-          return 13
-        }
-      },
       propsData: {
         bet,
         parentRef
@@ -127,8 +110,40 @@ describe('BetslipItem component', () => {
       expect(wrapper.find('.event-name').text()).to.equal(bet.eventName)
     })
 
-    it('shows bet event name', () => {
+    it('shows bet market name', () => {
       expect(wrapper.find('.market-name').text()).to.equal(bet.marketName)
+    })
+
+    it('potential return has correct value', () => {
+      const potentialRetunValue = (bet.stake * bet.approvedOddValue).toString()
+      expect(wrapper.find('.potential-return').text()).to.equal(potentialRetunValue)
+    })
+
+    it('shows approved value', () => {
+      expect(wrapper.find('.approved').text()).to.equal(bet.approvedOddValue.toString())
+    })
+
+    it('shows current value', () => {
+      expect(wrapper.find('.current').text()).to.equal(bet.currentOddValue.toString())
+    })
+
+    it('dispatches remove odd method', () => {
+      const removeOddStub = sinon.stub()
+      wrapper.setMethods({ removeOdd: removeOddStub })
+      wrapper.vm.removeOdd(bet.oddId)
+      expect(removeOddStub.calledOnce).to.equal(true)
+    })
+
+    it('shows no alert messages on init state', () => {
+      expect(wrapper.contains('.bet-message-alert')).to.equal(false)
+    })
+
+    it('shows no alert messages on init state 2', () => {
+      expect(wrapper.contains('.success-message')).to.equal(false)
+    })
+
+    it('shows no alert messages on init state 3', () => {
+      expect(wrapper.contains('.odd-disabled-message')).to.equal(false)
     })
   })
 })

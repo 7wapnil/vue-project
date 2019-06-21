@@ -17,7 +17,7 @@
       </b-col>
       <b-col
         cols="auto"
-        class="d-flex justify-content-center"
+        class="remove-odd d-flex justify-content-center"
         @click="removeOdd(bet.oddId)">
         <icon
           v-show="!bet.frozen"
@@ -98,7 +98,7 @@
           Potential Return:
         </small>
       </b-col>
-      <b-col class="pr-4 text-right text-truncate">
+      <b-col class="potential-return pr-4 text-right text-truncate">
         <small>
           {{ parseFloat(potentialReturn.toFixed(2)) }}
         </small>
@@ -120,13 +120,13 @@
           </b-col>
           <div class="w-100"/>
           <b-col class="line-height-14">
-            <small>
+            <small class="approved">
               {{ bet.approvedOddValue }}
             </small>
             <small class="text-arc-clr-gold mx-2">
               >
             </small>
-            <small>
+            <small class="current">
               {{ bet.currentOddValue }}
             </small>
           </b-col>
@@ -144,18 +144,19 @@
     </b-row>
     <b-alert
       :show="isFail"
-      class="mt-3 mx-auto p-2 text-center"
+      class="bet-message-alert mt-3 mx-auto p-2 text-center"
       variant="danger">
       {{ betMessage }}
     </b-alert>
     <b-alert
       :show="isSuccess"
-      class="mt-3 mx-auto p-2 text-center"
+      class="success-message mt-3 mx-auto p-2 text-center"
       variant="success">
       {{ successMessage }}
     </b-alert>
     <b-alert
       :show="isBetDisabled && !getAnyFrozenBet"
+      class="odd-disabled-message"
       variant="odd-disabled">
       {{ disabledMessage }}
     </b-alert>
