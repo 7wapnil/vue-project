@@ -1,5 +1,6 @@
 <template>
   <b-card
+    :id="tabId"
     no-body
     class="p-4">
 
