@@ -163,5 +163,23 @@ describe('betslip store', () => {
         expect(getters.betslipValuesConfirmed(state, gettersWithEvents)).to.eql(false)
       })
     })
+
+    describe('getIsEnoughFundsToBet', () => {
+      it('returns false when wallet is empty', () => {
+        const invalidGetters = {
+          'wallet/activeWallet': {
+            id: 1,
+            amount: 0,
+            currency: {
+              code: 'EUR',
+              name: 'Euro'
+            }
+          },
+          getTotalStakes: 1
+        }
+
+        expect(getters.getIsEnoughFundsToBet({}, invalidGetters, {}, invalidGetters)).to.eql(false)
+      })
+    })
   })
 })
