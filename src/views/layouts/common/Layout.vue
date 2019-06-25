@@ -8,14 +8,10 @@
 
 <script>
 import CookieWarning from './CookieWarning'
-import MobileLayout from '../mobile/Layout'
-import DesktopLayout from '../desktop/Layout'
 
 export default {
   components: {
-    CookieWarning,
-    MobileLayout,
-    DesktopLayout
+    CookieWarning
   },
   computed: {
     titleKind () {
@@ -27,11 +23,9 @@ export default {
 
       return this.$route.params.titleKind || DEFAULT_KIND
     },
-    isMobile () {
-      return this.$mq === 'mobile'
-    },
     layoutName () {
-      return this.isMobile ? MobileLayout : DesktopLayout
+      const name = this.isMobile ? 'mobile' : 'desktop'
+      return () => import(`../${name}/Layout`)
     }
   },
   mounted () {
