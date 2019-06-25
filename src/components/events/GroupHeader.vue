@@ -1,15 +1,15 @@
 <template>
   <b-row no-gutters>
-    <b-col class="d-inline-flex px-4 pt-4 events-list-title">
+    <b-col class="px-0 px-md-4 pt-4 d-inline-flex events-list-title">
 
       <icon
         :name="findTitleIcon(item)"
-        class="ml-2"
+        class="ml-4 ml-md-2"
         size="24px"/>
 
       <h4
         tabindex="0"
-        class="ml-4 mb-0 text-arc-clr-white font-weight-light letter-spacing-1 pointer"
+        class="ml-2 ml-md-4 mb-0 text-arc-clr-white font-weight-light letter-spacing-1 pointer"
         style="outline: 0;"
         @click="() => emitTitleChange(item.id)">
         {{ item.name }}

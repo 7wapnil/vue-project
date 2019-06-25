@@ -1,7 +1,7 @@
 <template>
   <b-card
     no-body
-    class="p-4">
+    class="px-1 px-md-4 py-4">
 
     <div v-if="tabId">
       <events-group
