@@ -68,21 +68,12 @@ export const mutations = {
     wsClient.url = `${process.env.VUE_APP_WS_URL}?token=${state.session.token || null}`
     wsClient.connection.reopen()
   },
-  userData (state, data) {
-    const session = state.session
-    if (session.user) {
-      Object.keys(data).forEach((key) => {
-        session.user[key] = data[key]
-      })
-    }
-    state.session = session
-    arcanebetSession.storeSession(state.session)
-  },
   updateLoginInfo (state, data) {
     state.isSuspicious = data.isSuspicious
     state.lastLogin = data.login
   }
 }
+
 export const getters = {
   getToken (state) {
     return state.session.token
@@ -91,7 +82,7 @@ export const getters = {
     return Boolean(state.session.token)
   },
   getUser (state) {
-    return state.session.user
+    return state.session.user || null
   },
   isSuspicious (state) {
     return state.isSuspicious
