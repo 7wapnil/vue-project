@@ -1,6 +1,8 @@
 <template>
   <div :class="titleKind">
-    <component :is="layoutName"/>
+    <component :is="layoutName">
+      <router-view :key="$route.fullPath"/>
+    </component>
     <cookie-warning v-if="!isMobile"/>
     <modal-list v-if="!isMobile"/>
   </div>

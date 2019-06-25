@@ -3,7 +3,9 @@
     <mobile-navigation-bar
       @burger-clicked="toggleSidebar"
       @user-profile-clicked="toggleUserProfile"/>
-    <mobile-content/>
+    <mobile-content>
+      <slot/>
+    </mobile-content>
     <navigation-sidebar
       v-body-scroll-lock="isSidebarOpen"
       v-show="isSidebarOpen"

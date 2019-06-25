@@ -4,7 +4,7 @@
     <b-container
       fluid
       class="desktop-container">
-      <router-view :key="$route.fullPath"/>
+      <slot/>
     </b-container>
     <desktop-footer/>
   </div>
