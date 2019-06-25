@@ -2,18 +2,7 @@ import { expect } from 'chai'
 import { mutations, getters, actions } from '@/stores/betslip'
 
 describe('betslip store', () => {
-  describe('mutations', () => {
-    describe('setBetStatusAsSubmitted', () => {
-      it('change state of all bets to submitted', () => {
-        const state = {
-          bets: [{ status: 'initial' }, { status: 'initial' }]
-        }
-
-        mutations.setBetStatusAsSubmitted(state)
-
-        expect(state.bets).to.eql([{ status: 'submitted' }, { status: 'submitted' }])
-      })
-    })
+  describe('actions', () => {
     describe('pushBet', () => {
       it('adds new bet to empty betslip based on odd', () => {
         const state = {
@@ -36,8 +25,23 @@ describe('betslip store', () => {
         expect(state.bets.length).to.eql(1)
       })
     })
+  })
+
+  describe('mutations', () => {
+    describe('setBetStatusAsSubmitted', () => {
+      it('change state of all bets to submitted', () => {
+        const state = {
+          bets: [{ status: 'initial' }, { status: 'initial' }]
+        }
+
+        mutations.setBetStatusAsSubmitted(state)
+
+        expect(state.bets).to.eql([{ status: 'submitted' }, { status: 'submitted' }])
+      })
+    })
+
     describe('updateBet', () => {
-      it('updates bet with correct id according to payload', () => {
+      it('updates bet accept all boolean value', () => {
         const state = {
           bets: [ { oddId: 1 }, { oddId: 2, status: 'xxx' } ]
         }
@@ -47,12 +51,58 @@ describe('betslip store', () => {
         expect(state.bets).to.eql([{ oddId: 1 }, { oddId: 2, status: 'foo' }])
       })
     })
+
+    describe('removeBetFromBetslip', () => {
+      it('removes one item from betslip', () => {
+        const state = {
+          bets: [ { oddId: 1 }, { oddId: 2, status: 'xxx' } ]
+        }
+
+        mutations.removeBetFromBetslip(state, 1)
+
+        expect(state.bets).to.eql([{ oddId: 2, status: 'xxx' }])
+      })
+    })
+
+    describe('clearBetslip', () => {
+      it('clears all betslip', () => {
+        const state = {
+          bets: [ { oddId: 1 }, { oddId: 2, status: 'xxx' } ]
+        }
+
+        mutations.clearBetslip(state, 1)
+
+        expect(state.bets).to.eql([])
+      })
+    })
+
+    describe('updateAcceptAll', () => {
+      it('updates bet with correct id according to payload', () => {
+        const state = {
+          acceptAll: false
+        }
+
+        mutations.updateAcceptAll(state, true)
+
+        expect(state.acceptAll).to.eql(true)
+      })
+    })
+
+    describe('setBetStake', () => {
+      it('updates bet stake', () => {
+        const state = {
+          bets: [{ oddId: 1, stake: 5 }]
+        }
+        mutations.setBetStake(state, { oddId: 1, stakeValue: 123 })
+        expect(state.bets[0].stake).to.eql(123)
+      })
+    })
   })
+
   describe('getters', () => {
     describe('betslipSubmittable', () => {
       const validGettersState = {
         getTotalStakes: 2,
-        anyInitialBet: true,
         getAllBetsAcceptable: true,
         betslipValuesConfirmed: true,
         getAnyInactiveMarket: false,
@@ -108,17 +158,6 @@ describe('betslip store', () => {
 
           expect(getters.betslipSubmittable(state, invalidGetters, {})).to.eql(false)
         })
-
-        it('does not fail without any initial bet in betslip', () => {
-          const state = {}
-
-          const invalidGetters = {
-            ...validGettersState,
-            anyInitialBet: false
-          }
-
-          expect(getters.betslipSubmittable(state, invalidGetters, {})).to.eql(true)
-        })
       })
     })
 
@@ -167,7 +206,7 @@ describe('betslip store', () => {
     describe('getIsEnoughFundsToBet', () => {
       it('returns false when wallet is empty', () => {
         const invalidGetters = {
-          'wallet/activeWallet': {
+          'wallets/activeWallet': {
             id: 1,
             amount: 0,
             currency: {
@@ -179,6 +218,181 @@ describe('betslip store', () => {
         }
 
         expect(getters.getIsEnoughFundsToBet({}, invalidGetters, {}, invalidGetters)).to.eql(false)
+      })
+
+      it('returns true when wallet has enough funds', () => {
+        const localGetters = {
+          'wallets/activeWallet': {
+            id: 1,
+            amount: 200,
+            currency: {
+              code: 'EUR',
+              name: 'Euro'
+            }
+          },
+          getTotalStakes: 2
+        }
+
+        expect(getters.getIsEnoughFundsToBet({}, localGetters, {}, localGetters)).to.eql(true)
+      })
+
+      it('returns true when there is no wallet', () => {
+        const localGetters = {
+          getTotalStakes: 2
+        }
+
+        expect(getters.getIsEnoughFundsToBet({}, localGetters, {}, localGetters)).to.eql(false)
+      })
+    })
+
+    describe('getPlacedBetIds', () => {
+      it('returns correct array with all bets IDs', () => {
+        const state = {
+          bets: [
+            { id: 1 },
+            { id: 3 },
+            { id: 1142 },
+            { id: 12 }
+          ]
+        }
+        expect(getters.getPlacedBetIds(state)).to.eql([1, 3, 1142, 12])
+      })
+    })
+
+    describe('acceptAllChecked', () => {
+      it('returns correct value of accept All checked boolean', () => {
+        const state = {
+          acceptAll: false
+        }
+        expect(getters.acceptAllChecked(state)).to.eql(false)
+      })
+    })
+
+    describe('getAnyInactiveMarket', () => {
+      it('returns true when there is at least one bet with inactive market', () => {
+        const state = {
+          bets: [
+            { marketStatus: 'inactive' },
+            { marketStatus: 'active' },
+          ]
+        }
+        expect(getters.getAnyInactiveMarket(state)).to.eql(true)
+      })
+
+      it('returns false when there is no bets with inactive market', () => {
+        const state = {
+          bets: [
+            { marketStatus: 'active' }
+          ]
+        }
+        expect(getters.getAnyInactiveMarket(state)).to.eql(false)
+      })
+    })
+
+    describe('getAnyEmptyStake', () => {
+      it('returns true when the stake is 0', () => {
+        const state = {
+          bets: [
+            { stake: 0 }
+          ]
+        }
+        expect(getters.getAnyEmptyStake(state)).to.eql(true)
+      })
+
+      it('returns true when the stake is null', () => {
+        const state = {
+          bets: [
+            { stake: null }
+          ]
+        }
+        expect(getters.getAnyEmptyStake(state)).to.eql(true)
+      })
+
+      it('returns false when the stake is more than 0', () => {
+        const state = {
+          bets: [
+            { stake: 2 }
+          ]
+        }
+        expect(getters.getAnyEmptyStake(state)).to.eql(false)
+      })
+    })
+
+    describe('getAnyBetInValidation', () => {
+      it('returns true when the bet status is "sent to internal validation"', () => {
+        const state = {
+          bets: [
+            { status: 'sent_to_internal_validation' }
+          ]
+        }
+        expect(getters.getAnyBetInValidation(state)).to.eql(true)
+      })
+
+      it('returns true when the bet status is "validated_internally"', () => {
+        const state = {
+          bets: [
+            { status: 'validated_internally' }
+          ]
+        }
+        expect(getters.getAnyBetInValidation(state)).to.eql(true)
+      })
+
+      it('returns true when the bet status is "sent_to_external_validation"', () => {
+        const state = {
+          bets: [
+            { status: 'sent_to_external_validation' }
+          ]
+        }
+        expect(getters.getAnyBetInValidation(state)).to.eql(true)
+      })
+
+      it('returns false when the bet status is something else', () => {
+        const state = {
+          bets: [
+            { status: 'something else' }
+          ]
+        }
+        expect(getters.getAnyBetInValidation(state)).to.eql(false)
+      })
+    })
+
+    describe('getAnySubmittedBet', () => {
+      it('returns true when the bet status is "submitted"', () => {
+        const state = {
+          bets: [
+            { status: 'submitted' }
+          ]
+        }
+        expect(getters.getAnySubmittedBet(state)).to.eql(true)
+      })
+
+      it('returns false when the bet status is "whatever"', () => {
+        const state = {
+          bets: [
+            { status: 'whatever' }
+          ]
+        }
+        expect(getters.getAnySubmittedBet(state)).to.eql(false)
+      })
+    })
+
+    describe('getAnyFrozenBet', () => {
+      it('returns true when the bet status is "submitted"', () => {
+        const state = {
+          bets: [
+            { frozen: true }
+          ]
+        }
+        expect(getters.getAnyFrozenBet(state)).to.eql(true)
+      })
+
+      it('returns false when the bet status is "not frozen"', () => {
+        const state = {
+          bets: [
+            { status: 'not_frozen' }
+          ]
+        }
+        expect(getters.getAnyFrozenBet(state)).to.eql(false)
       })
     })
   })

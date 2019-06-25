@@ -138,11 +138,11 @@ describe('BetslipItem component', () => {
       expect(wrapper.contains('.bet-message-alert')).to.equal(false)
     })
 
-    it('shows no alert messages on init state 2', () => {
+    it('shows no success alert messages on init state', () => {
       expect(wrapper.contains('.success-message')).to.equal(false)
     })
 
-    it('shows no alert messages on init state 3', () => {
+    it('shows no odd disabled alert messages on init state', () => {
       expect(wrapper.contains('.odd-disabled-message')).to.equal(false)
     })
   })
