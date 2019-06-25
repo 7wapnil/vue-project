@@ -25,15 +25,13 @@ import IntroductionArea from '@/components/custom/IntroductionArea'
 import SportTabs from './SportTabs'
 import FilterTabs from './FilterTabs'
 import EventsList from '@/components/events/EventsList'
-import HybridCard from './HybridCard'
 
 export default {
   components: {
     IntroductionArea,
     SportTabs,
     FilterTabs,
-    EventsList,
-    HybridCard
+    EventsList
   },
   data () {
     return {

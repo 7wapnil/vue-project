@@ -23,13 +23,17 @@ import EsportsUpcomingCardItem from '@/components/cards/esports-upcoming-card/Es
 import EsportsLiveCardItem from '@/components/cards/esports-live-card/EsportsLiveCardItem'
 import SportsLiveCardItem from '@/components/cards/sports-live-card/SportsLiveCardItem'
 import SportsUpcomingCardItem from '@/components/cards/sports-upcoming-card/SportsUpcomingCardItem'
+import MobileEsportsUpcomingCardItem from '@/components/cards/mobile-esports-upcoming-card/MobileEsportsUpcomingCardItem'
+import MobileSportsUpcomingCardItem from '@/components/cards/mobile-sports-upcoming-card/MobileSportsUpcomingCardItem'
 
 export default {
   components: {
     EsportsUpcomingCardItem,
     EsportsLiveCardItem,
     SportsLiveCardItem,
-    SportsUpcomingCardItem
+    SportsUpcomingCardItem,
+    MobileEsportsUpcomingCardItem,
+    MobileSportsUpcomingCardItem
   },
   props: {
     event: {
