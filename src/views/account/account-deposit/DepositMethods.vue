@@ -12,17 +12,17 @@
 </template>
 
 <script>
-import Sofort from '@/assets/images/withdraw-methods/sofort.png'
-import Skrill from '@/assets/images/withdraw-methods/skrill.png'
-import Skinwallet from '@/assets/images/withdraw-methods/skinwallet.png'
-import Skinpay from '@/assets/images/withdraw-methods/skinpay.png'
-import Qiwi from '@/assets/images/withdraw-methods/qiwi.png'
-import Paysafecard from '@/assets/images/withdraw-methods/paysafecard.png'
-import Mru from '@/assets/images/withdraw-methods/mru.png'
-import CreditCard from '@/assets/images/withdraw-methods/card.png'
-import Bitcoin from '@/assets/images/withdraw-methods/btc.png'
-import Yandex from '@/assets/images/withdraw-methods/yandex.png'
-import Neteller from '@/assets/images/withdraw-methods/neteller.png'
+import Sofort from '@/assets/images/withdrawal-methods/sofort.png'
+import Skrill from '@/assets/images/withdrawal-methods/skrill.png'
+import Skinwallet from '@/assets/images/withdrawal-methods/skinwallet.png'
+import Skinpay from '@/assets/images/withdrawal-methods/skinpay.png'
+import Qiwi from '@/assets/images/withdrawal-methods/qiwi.png'
+import Paysafecard from '@/assets/images/withdrawal-methods/paysafecard.png'
+import Mru from '@/assets/images/withdrawal-methods/mru.png'
+import CreditCard from '@/assets/images/withdrawal-methods/card.png'
+import Bitcoin from '@/assets/images/withdrawal-methods/btc.png'
+import Yandex from '@/assets/images/withdrawal-methods/yandex.png'
+import Neteller from '@/assets/images/withdrawal-methods/neteller.png'
 
 export default {
   data () {

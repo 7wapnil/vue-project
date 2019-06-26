@@ -140,7 +140,7 @@ const messages = {
       },
       cta: {
         resetPassword: 'Reset password',
-        changeWithdrawMethod: 'Change withdraw method',
+        changeWithdrawalMethod: 'Change withdrawal method',
         withdraw: 'Withdraw',
         deposit: 'Deposit',
         viewWallet: 'View my wallet',

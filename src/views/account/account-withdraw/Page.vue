@@ -3,7 +3,7 @@
     <loader v-if="loading"/>
 
     <div v-if="!loading">
-      <withdraw-placeholder v-if="!activeMethod"/>
+      <withdrawal-placeholder v-if="!activeMethod"/>
 
       <div v-if="activeMethod">
         <h3
@@ -35,19 +35,19 @@
             v-if="withdrawalMethods.length > 1"
             cols="auto">
             <b-button variant="arc-secondary">
-              {{ $t('account.cta.changeWithdrawMethod') }}
+              {{ $t('account.cta.changeWithdrawalMethod') }}
             </b-button>
           </b-col>
         </b-row>
         <b-collapse
           v-if="withdrawalMethods.length > 1"
           id="withdrawMethod">
-          <withdraw-methods-switch
+          <withdrawal-methods-switch
             :methods="withdrawalMethods"
-            :active-methods="userWithdrawMethods"
+            :active-methods="userWithdrawalMethods"
             @change="changeMethod"/>
         </b-collapse>
-        <withdraw-form
+        <withdrawal-form
           v-if="activeMethod"
           :default-method="activeMethod"/>
       </div>
@@ -56,9 +56,9 @@
 </template>
 
 <script>
-import WithdrawMethodsSwitch from './WithdrawMethodsSwitch'
-import WithdrawPlaceholder from './WithdrawPlaceholder'
-import WithdrawForm from './WithdrawForm'
+import WithdrawalMethodsSwitch from './WithdrawalMethodsSwitch'
+import WithdrawalPlaceholder from './WithdrawalPlaceholder'
+import WithdrawalForm from './WithdrawalForm'
 import { WITHDRAWAL_METHODS_QUERY, USER_WITHDRAWAL_METHODS_QUERY } from '@/graphql'
 
 const withdrawalMethodsAdapter = (methods) => {
@@ -77,9 +77,9 @@ const withdrawalMethodsAdapter = (methods) => {
 
 export default {
   components: {
-    WithdrawMethodsSwitch,
-    WithdrawForm,
-    WithdrawPlaceholder
+    WithdrawalMethodsSwitch,
+    WithdrawalForm,
+    WithdrawalPlaceholder
   },
   data () {
     return {
@@ -105,17 +105,17 @@ export default {
     }
   },
   computed: {
-    userWithdrawMethods () {
-      if (!this.user || !this.user.availableWithdrawMethods.length) {
+    userWithdrawalMethods () {
+      if (!this.user || !this.user.availableWithdrawalMethods.length) {
         return []
       }
 
       return this.withdrawalMethods.filter((method) => {
-        return this.user.availableWithdrawMethods.includes(method.code)
+        return this.user.availableWithdrawalMethods.includes(method.code)
       })
     },
     activeMethod () {
-      return this.selectedMethod || this.userWithdrawMethods[0] || null
+      return this.selectedMethod || this.userWithdrawalMethods[0] || null
     }
   },
   methods: {

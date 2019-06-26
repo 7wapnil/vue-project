@@ -33,7 +33,7 @@ export const USER_WITHDRAWAL_METHODS_QUERY = gql`
   query {
     user {
       id
-      availableWithdrawMethods
+      availableWithdrawalMethods
     }
   }
 `
