@@ -35,8 +35,8 @@
         </b-alert>
       </b-col>
     </b-row>
-    <b-form-invalid-feedback>
-      Feedback
+    <b-form-invalid-feedback :state="isRequestSuccessful">
+      {{ feedback }}
     </b-form-invalid-feedback>
     <b-button
       :disabled="isSubmitDisabled"
@@ -69,7 +69,8 @@ export default {
       },
       recaptchaSiteKey: process.env.VUE_APP_RECAPTCHA_SITE_KEY,
       submitting: false,
-      isCaptchaMissing: false
+      isCaptchaMissing: false,
+      isRequestSuccessful: null
     }
   },
   computed: {
@@ -123,6 +124,7 @@ export default {
     onError (err) {
       if (!err.graphQLErrors && err.graphQLErrors.length) return
       this.feedback = err.graphQLErrors[0].message
+      this.isRequestSuccessful = false
       this.rejectLogin({ login: this.fields.login })
         .then(() => {
           if (this.isSuspicious) this.resetCaptcha()
