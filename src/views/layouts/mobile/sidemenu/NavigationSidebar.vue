@@ -19,7 +19,7 @@
           <b-col class="bg-arc-clr-soil-black sidemenu-mobile">
             <mobile-side-menu :title-kind="titleKind">
               <template #header>
-                <mobile-header/>
+                <mobile-header @sidemenu-closed="$emit('sidebar-close-requested')"/>
               </template>
             </mobile-side-menu>
           </b-col>
@@ -29,7 +29,7 @@
     <close-button
       :is-open="isOpen"
       :color="titleKind"
-      @sidemenu-closed="$emit('sidebar-close-button-clicked')"/>
+      @sidemenu-closed="$emit('sidebar-close-requested')"/>
   </div>
 </template>
 <script>

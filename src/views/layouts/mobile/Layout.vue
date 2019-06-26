@@ -10,7 +10,7 @@
       v-body-scroll-lock="isSidebarOpen"
       v-show="isSidebarOpen"
       :is-open="isSidebarOpen"
-      @sidebar-close-button-clicked="toggleSidebar"/>
+      @sidebar-close-requested="toggleSidebar"/>
     <mobile-footer/>
   </div>
 </template>
