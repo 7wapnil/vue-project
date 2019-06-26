@@ -43,6 +43,11 @@ export default [
     ]
   },
   {
+    path: 'password_reset/:token',
+    name: 'password_reset',
+    component: () => import('@/views/auth/PasswordResetForm')
+  },
+  {
     path: 'activation/:token',
     name: 'activation',
     component: () => import('@/views/auth/Activation')
