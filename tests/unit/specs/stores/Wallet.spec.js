@@ -70,7 +70,7 @@ describe('wallet store', () => {
     })
 
     describe('UPDATE_WALLET', () => {
-      it('sets first wallet as active if no active wallet is set before', () => {
+      it('adds new wallet when wallets are empty', () => {
         const state = {
           wallets: [],
           activeWalletId: null
@@ -83,19 +83,52 @@ describe('wallet store', () => {
         expect(getters.wallets(state)).to.eql([newWallet])
       })
 
-      describe('UPDATE_WALLET', () => {
-        it('sets first wallet as active if no active wallet is set before', () => {
-          const state = {
-            wallets: [],
-            activeWalletId: null
-          }
+      it('replaces existing wallet values', () => {
+        const state = {
+          wallets: [{ id: 1, currency: 'EUR' }],
+          activeWalletId: null
+        }
 
-          const newWallet = { id: 1, currency: 'EUR' }
+        const newWallet = { id: 1, currency: 'BTC' }
 
-          mutations['UPDATE_WALLET'](state, newWallet)
+        mutations['UPDATE_WALLET'](state, newWallet)
 
-          expect(getters.wallets(state)).to.eql([newWallet])
-        })
+        expect(getters.wallets(state)).to.eql([newWallet])
+      })
+    })
+
+    describe('SET_ACTIVE_WALLET', () => {
+      it('sets given id as activeWalletId', () => {
+        const state = {
+          wallets: [],
+          activeWalletId: null
+        }
+
+        const id = 2
+
+        mutations['SET_ACTIVE_WALLET'](state, id)
+        expect(state.activeWalletId).to.eql(id)
+      })
+    })
+
+    describe('CLEAR_WALLETS', () => {
+      it('clears activeWalletId', () => {
+        const state = {
+          wallets: [{ id: 1, currency: 'EUR' }, { id: 3, currency: 'BTC' }],
+          activeWalletId: 3
+        }
+
+        mutations['CLEAR_WALLETS'](state)
+        expect(state.activeWalletId).to.eql(null)
+      })
+      it('clears wallets', () => {
+        const state = {
+          wallets: [{ id: 1, currency: 'EUR' }, { id: 3, currency: 'BTC' }],
+          activeWalletId: 3
+        }
+
+        mutations['CLEAR_WALLETS'](state)
+        expect(getters.wallets(state)).to.eql([])
       })
     })
   })
