@@ -1,4 +1,4 @@
-box: kkarczmarczyk/node-yarn:latest
+box: arcanebet/frontend:latest
 
 build:
   steps:
