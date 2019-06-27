@@ -128,8 +128,6 @@ export default {
   },
   data () {
     return {
-      successMessage: 'Your account-withdraw request has been successfully submitted.',
-      errorMessage: 'Something went wrong, please make sure you entered correct details and try again.',
       responseMessage: null,
       sending: false,
       components: {
@@ -184,7 +182,7 @@ export default {
         ...{
           amount: parseFloat(this.form.amount),
           paymentMethod: this.defaultMethod.code,
-          walletId: this.activeWallet.id
+          currencyCode: this.activeWallet.currency.code
         }
       }
 
@@ -202,9 +200,9 @@ export default {
             variables: { input }
           }
         )
-        .then(() => {
+        .then((response) => {
           this.form.reset()
-          this.responseMessage = this.successMessage
+          this.responseMessage = response.data.withdraw
           this.resetPaymentDetailsForm()
         })
         .catch((errors) => {
