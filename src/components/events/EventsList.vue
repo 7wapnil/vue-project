@@ -1,7 +1,7 @@
 <template>
   <b-card
     no-body
-    class="px-1 px-md-4 py-4">
+    class="px-1 px-md-4 py-md-4 min-vh-100">
 
     <div v-if="tabId">
       <events-group
@@ -11,12 +11,14 @@
         :tab-id="tabId"/>
     </div>
 
-    <loader v-if="loading"/>
+    <loader
+      v-if="loading"
+      class="mt-4"/>
 
     <div
       v-if="!loading && !events.length"
       class="text-center">
-      <h6 class="mb-0">No events found</h6>
+      <h6 class="my-4">No events found</h6>
     </div>
   </b-card>
 </template>

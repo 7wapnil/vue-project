@@ -52,12 +52,7 @@ a:focus {
 
 .desktop-container {
   max-width: 1920px;
+  min-width: 1380px;
   margin-top: 80px;
-  padding: 0;
-}
-.mobile-content {
-  max-width: 100vw;
-  min-height: 100vh;
-  margin-top: 30px;
   padding: 0;
 }

@@ -44,9 +44,10 @@
 // Introduction area
 .introduction-area {
   &-wrapper {
+    position: relative;
     max-height: 368px;
-    min-height: 200px;
-    overflow: hidden;
+    min-height: 368px;
+
     img {
       mask-image: linear-gradient(to bottom, rgba($black, 1) 75%, rgba($black, 0));
     }

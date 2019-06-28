@@ -14,7 +14,7 @@
             <b-col class="d-inline-flex justify-content-center">
               <span
                 style="margin-top: 3px"
-                class="font-weight-bold text-arc-clr-iron text-uppercase font-size-10 line-height-14">
+                class="font-weight-bold text-arc-clr-iron text-uppercase font-size-10 line-height-14 letter-spacing-5">
                 {{ event.startAt | asCalendarDate({
                   sameDay: '[Today]',
                   nextDay: '[Tomorrow]',
@@ -25,7 +25,7 @@
             </b-col>
             <div class="w-100"/>
             <b-col class="d-inline-flex justify-content-center">
-              <span class="font-weight-bold text-arc-clr-iron text-uppercase font-size-10 line-height-14">
+              <span class="font-weight-bold text-arc-clr-iron text-uppercase font-size-10 line-height-14 letter-spacing-5">
                 {{ event.startAt | asFormattedDate('HH:mm') }}
               </span>
             </b-col>
@@ -39,7 +39,7 @@
             <b-col
               style="margin-bottom: 2px"
               class="d-inline-flex">
-              <span class="font-weight-bold font-size-12 text-arc-clr-iron line-height-14 letter-spacing-2">
+              <span class="font-weight-bold font-size-12 text-arc-clr-iron line-height-14 letter-spacing-5">
                 {{ competitor.name }}
               </span>
             </b-col>

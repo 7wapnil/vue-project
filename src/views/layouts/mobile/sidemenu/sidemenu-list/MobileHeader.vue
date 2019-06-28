@@ -1,7 +1,7 @@
 <template>
   <b-nav-item
     class="d-inline-flex align-items-center justify-content-start bg-arc-clr-soil-dark sidemenu-mobile-header"
-    @click="closeSidebar">
+    @click="changeCategory">
     <b-row
       class="item-title"
       no-gutters>
@@ -32,11 +32,11 @@ export default {
     ])
   },
   methods: {
-    closeSidebar () {
+    changeCategory () {
       if (this.$route.params.titleKind === this.getSidebarKind) {
         this.$emit('sidemenu-closed')
       }
-      this.$router.push(`${this.getSidebarKind}`)
+      this.$router.push(`/${this.getSidebarKind}`)
     }
   }
 }
