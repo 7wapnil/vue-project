@@ -1,8 +1,5 @@
 <template>
   <div>
-    <div
-      v-if="isOpen"
-      class="mobile-navigation-sidemenu-overlay"/>
     <transition name="mobile-navigation-sidemenu-open-animation">
       <div
         v-if="isOpen"
@@ -30,6 +27,9 @@
       :is-open="isOpen"
       :color="titleKind"
       @sidemenu-closed="$emit('sidebar-close-requested')"/>
+    <overlay
+      v-if="isOpen"
+      @overlay-clicked="$emit('sidebar-close-requested')"/>
   </div>
 </template>
 <script>
@@ -46,7 +46,8 @@ export default {
     MobileHeader,
     CloseButton,
     LogoSection,
-    CategorySwitch
+    CategorySwitch,
+    'Overlay': () => import('@/components/custom/Overlay.vue')
   },
   props: {
     isOpen: {
