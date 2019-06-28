@@ -184,7 +184,6 @@
   .left-side-navigation {
     position: absolute;
     left: 0;
-    top: 0;
     height: 80px;
     display: flex;
     align-items: center;
@@ -202,7 +201,6 @@
   .right-side-navigation {
     position: absolute;
     right: 0;
-    top: 0;
     height: 80px;
     display: flex;
     align-items: center;
@@ -223,7 +221,6 @@
   }
 }
 
-//---------- Custom Components
 // Arc Circle
 .arc-circle {
   color: $second-color;
