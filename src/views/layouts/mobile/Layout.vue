@@ -3,9 +3,7 @@
     <mobile-navigation-bar
       @burger-clicked="toggleSidebar"
       @user-profile-clicked="toggleUserProfile"/>
-    <mobile-content>
-      <slot/>
-    </mobile-content>
+    <mobile-content/>
     <navigation-sidebar
       v-body-scroll-lock="isSidebarOpen"
       v-show="isSidebarOpen"
@@ -51,9 +49,7 @@ export default {
     ...mapMutations([
       'toggleSidebar'
     ]),
-    toggleUserProfile () {
-      console.log('user-profile-clicked')
-    }
+    toggleUserProfile () {}
   }
 }
 </script>
