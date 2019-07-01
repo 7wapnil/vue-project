@@ -30,6 +30,11 @@ export default {
       return () => import(`../${name}/Layout`)
     }
   },
+  updated () {
+    if (this.$route.query.login) {
+      this.$bvModal.show('AuthModal')
+    }
+  },
   mounted () {
     if (this.$route.query.depositState) {
       this.$bvModal.show('AuthModal')

@@ -13,7 +13,7 @@
         title-item-class="sign-form-tabs-title">
         <signup-first-step
           :form="form"
-          @submit="tabIndex = 1"/>
+          @submit="goToStep(1)"/>
       </b-tab>
       <b-tab
         title="Contact information"
@@ -21,7 +21,7 @@
         <signup-second-step
           :submitting="submitting"
           :form="form"
-          @return="tabIndex = 0"/>
+          @return="goToStep(0)"/>
       </b-tab>
     </b-tabs>
   </b-form>
@@ -44,28 +44,35 @@ export default {
   data () {
     return {
       form: new Form({
-        username: '',
-        email: '',
-        dateOfBirth: '',
-        password: '',
-        passwordConfirmation: '',
-        country: '',
-        currency: 'EUR',
-        firstName: '',
-        lastName: '',
-        gender: 'male',
-        phone: '',
-        streetAddress: '',
-        city: '',
-        state: '',
-        zipCode: '',
-        agreedWithPromotional: false
+        firstStep: {
+          username: '',
+          email: '',
+          dateOfBirth: '',
+          password: '',
+          passwordConfirmation: '',
+          country: '',
+          currency: 'EUR',
+        },
+        secondStep: {
+          firstName: '',
+          lastName: '',
+          gender: 'male',
+          phone: '',
+          streetAddress: '',
+          city: '',
+          state: '',
+          zipCode: '',
+          agreedWithPromotional: false
+        }
       }),
       submitting: false,
       tabIndex: 0
     }
   },
   methods: {
+    goToStep (step) {
+      this.tabIndex = step
+    },
     ...mapActions('wallets', ['fetchWallets']),
     close () {
       this.$bvModal.hide('AuthModal')
@@ -75,7 +82,8 @@ export default {
       this.submitting = true
 
       const input = {
-        ...this.form.values(),
+        ...this.form.firstStep,
+        ...this.form.secondStep,
         bTag: getCookie('btag') || null }
 
       this.$store
@@ -87,7 +95,13 @@ export default {
           this.close()
           this.$noty.success('Welcome to ArcaneBet!')
         })
-        .catch((err) => this.form.handleGraphQLErrors(err))
+        .catch((err) => {
+          let { graphQLErrors } = err
+          let firstErrorPath = graphQLErrors[0].path.toString()
+
+          if (this.form.firstStep.hasOwnProperty(firstErrorPath)) { this.goToStep(0) }
+          this.form.handleGraphQLErrors(err)
+        })
         .finally(() => {
           this.submitting = false
         })
