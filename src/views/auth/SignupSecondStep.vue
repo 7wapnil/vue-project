@@ -28,8 +28,8 @@
         <b-form-select
           id="gender"
           :options="genders"
-          class="mb-3 mb-sm-0"
           v-model="form.secondStep.gender"
+          class="mb-3 mb-sm-0"
         />
       </b-col>
     </b-row>
