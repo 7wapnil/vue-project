@@ -4,7 +4,7 @@
       <introduction-area :title="activeTitle"/>
 
       <div class="w-100 position-absolute bottom-0">
-        <auth-block v-if="isMobile"/>
+        <auth-block v-if="isMobile && !isLoggedIn"/>
         <sport-tabs @tab-changed="onCategoryChange"/>
         <filter-tabs @tab-changed="onFilterChange"/>
       </div>

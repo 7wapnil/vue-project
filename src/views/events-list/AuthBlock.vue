@@ -11,17 +11,27 @@
       <b-col class="text-right">
         <b-button
           class="mr-4 w-75"
-          variant="arc-secondary">
+          variant="arc-secondary"
+          @click="showAuthModal(0)">
           Login
         </b-button>
       </b-col>
       <b-col>
         <b-button
           class="w-75"
-          variant="arc-primary">
+          variant="arc-primary"
+          @click="showAuthModal(1)">
           SignUp
         </b-button>
       </b-col>
     </b-row>
   </div>
 </template>
+
+<script>
+import DesktopNavigationBar from '@/views/layouts/desktop/NavigationBar'
+
+export default {
+  extends: DesktopNavigationBar
+}
+</script>
