@@ -1,4 +1,4 @@
-box: arcanebet/frontend:latest
+box: arcanebet/frontend:new-base
 
 build:
   steps:
