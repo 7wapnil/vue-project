@@ -107,7 +107,7 @@ export default {
     },
     goToDepositPage () {
       this.changeTabIndex(3)
-      this.$root.$emit('bv::show::modal', 'AccountModal')
+      this.$bvModal.show('AccountModal')
     }
   },
 }

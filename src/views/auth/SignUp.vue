@@ -68,7 +68,7 @@ export default {
   methods: {
     ...mapActions('wallets', ['fetchWallets']),
     close () {
-      this.$root.$emit('bv::hide::modal', 'AuthModal')
+      this.$bvModal.hide('AuthModal')
     },
     submit () {
       this.form.clearErrors()
