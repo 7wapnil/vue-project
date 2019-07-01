@@ -1,4 +1,8 @@
-box: arcanebet/frontend:new-base
+box:
+  id: arcanebet/frontend
+  username: $DOCKERHUB_USERNAME
+  password: $DOCKERHUB_PASSWORD
+  tag: te
 
 build:
   steps:
