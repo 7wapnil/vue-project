@@ -1,8 +1,4 @@
-box:
-  id: arcanebet/frontend
-  username: $DOCKERHUB_USERNAME
-  password: $DOCKERHUB_PASSWORD
-  tag: te
+box: kkarczmarczyk/node-yarn:latest
 
 build:
   steps:
@@ -23,6 +19,12 @@ build:
         rm -rf ./node_modules
 
 deploy:
+  box:
+    id: arcanebet/frontend
+    username: $DOCKERHUB_USERNAME
+    password: $DOCKERHUB_PASSWORD
+    tag: te
+
   steps:
     - bashaus/yarn-install:
       name: install-dependencies
