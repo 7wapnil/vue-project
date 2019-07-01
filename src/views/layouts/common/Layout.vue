@@ -4,7 +4,7 @@
       <router-view :key="$route.fullPath"/>
     </component>
     <cookie-warning v-if="!isMobile"/>
-    <modal-list v-if="!isMobile"/>
+    <modal-list/>
   </div>
 </template>
 
@@ -32,7 +32,7 @@ export default {
   },
   mounted () {
     if (this.$route.query.depositState) {
-      this.$root.$emit('bv::show::modal', 'AccountModal')
+      this.$bvModal.show('AuthModal')
     }
   }
 }

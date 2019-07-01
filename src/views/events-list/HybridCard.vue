@@ -16,6 +16,7 @@ import SportsUpcomingCard from '@/components/cards/sports-upcoming-card/SportsUp
 import MobileEsportsUpcomingCard from '@/components/cards/mobile-esports-upcoming-card/MobileEsportsUpcomingCard'
 import MobileSportsUpcomingCard from '@/components/cards/mobile-sports-upcoming-card/MobileSportsUpcomingCard'
 import MarketsList from '@/components/markets/MarketsList'
+import MobileSportsLiveCard from '@/components/cards/mobile-sports-live-card/MobileSportsLiveCard'
 
 export default {
   components: {
@@ -25,7 +26,8 @@ export default {
     SportsUpcomingCard,
     MarketsList,
     MobileEsportsUpcomingCard,
-    MobileSportsUpcomingCard
+    MobileSportsUpcomingCard,
+    MobileSportsLiveCard
   },
   props: {
     event: {
