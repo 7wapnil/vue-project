@@ -34,7 +34,9 @@
         </b-nav>
       </div>
     </b-col>
-    <b-col class="profile-modal-nav-content p-5">
+    <b-col
+      v-if="!isMobile"
+      class="profile-modal-nav-content p-5">
       <component :is="currentComponent"/>
     </b-col>
   </b-row>

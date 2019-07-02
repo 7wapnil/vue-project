@@ -92,6 +92,12 @@
             :key="index"
             :src="require(`@/assets/images/footer/${bottomicon}.svg`)"
             class="px-4">
+          <iframe
+            width="147"
+            height="48"
+            src="https://licensing.gaming-curacao.com/validator/?lh=5c65391c57c056b0380cc6159a4fb20d&template=tseal"
+            scrolling="no"
+            frameborder="0"/>
         </b-col>
       </b-row>
     </b-container>
@@ -115,7 +121,6 @@ export default {
       bottomicons:
         ['18years',
           'gamcare',
-          'curacao',
           'esic'],
       footerItems: InformationPages.routes,
       homepageLinks: [

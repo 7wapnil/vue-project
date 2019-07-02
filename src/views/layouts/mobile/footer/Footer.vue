@@ -72,8 +72,13 @@
         <b-row no-gutters>
           <b-col
             cols="7"
-            class="p-3 text-right">
-            <img :src="require('@/assets/images/footer/curacao.svg')">
+            class="p-3 text-right overflow-hidden">
+            <iframe
+              width="147"
+              height="48"
+              src="https://licensing.gaming-curacao.com/validator/?lh=5c65391c57c056b0380cc6159a4fb20d&template=tseal"
+              scrolling="no"
+              frameborder="0"/>
           </b-col>
           <b-col
             cols="5"
