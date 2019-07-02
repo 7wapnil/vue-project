@@ -2,7 +2,6 @@
   <modal
     v-if="user"
     id="AccountModal"
-    ref="AccountModalRef"
     :lazy="false"
     scrollable
     size="lg"
