@@ -12,19 +12,9 @@
     content-class="bg-arc-clr-soil-darker"
     body-class="p-0">
 
-    <template slot="modal-header">
-      <span class="text-capitalize text-arc-clr-white text-text-truncate font-weight-light">
-        {{ user.username + '\'s profile' }}
-      </span>
-      <div @click="hideModal">
-        <icon
-          name="modal-close"
-          size="24px"
-          color="arc-clr-iron-light"/>
-      </div>
-    </template>
+    <modal-header :user="user"/>
 
-    <vue-scroll :ops="scrollSettings">
+    <vue-scroll>
       <account-sidebar/>
     </vue-scroll>
 
@@ -34,38 +24,17 @@
 <script>
 import { mapGetters } from 'vuex'
 import AccountSidebar from './AccountSidebar'
+import ModalHeader from './AccountModalHeader'
 
 export default {
   components: {
-    AccountSidebar
-  },
-  data () {
-    return {
-      scrollSettings: {
-        bar: {
-          size: '6px',
-          opacity: 0.6,
-          background: '#5e5e5e',
-        },
-        rail: {
-          gutterOfSide: '6px'
-        },
-        scrollPanel: {
-          easing: 'easeInCubic',
-          scrollingX: false
-        }
-      }
-    }
+    AccountSidebar,
+    ModalHeader
   },
   computed: {
     ...mapGetters({
       user: 'getUser'
     })
-  },
-  methods: {
-    hideModal () {
-      this.$refs.AccountModalRef.hide()
-    }
   }
 }
 </script>
