@@ -1,6 +1,6 @@
 <template>
   <b-row no-gutters>
-    <b-col class-name="p-4">
+    <b-col class="p-4">
       <h2 class="font-weight-light m-4">
         {{ header }}
       </h2>

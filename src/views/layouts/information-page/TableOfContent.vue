@@ -2,7 +2,7 @@
   <b-row
     v-if="items"
     no-gutters>
-    <b-col class-name="p-4">
+    <b-col class="p-4">
       <div
         v-for="(item, key) in items"
         :key="key">
