@@ -236,8 +236,9 @@ describe('betslip store', () => {
         expect(getters.getIsEnoughFundsToBet({}, localGetters, {}, localGetters)).to.eql(true)
       })
 
-      it('returns true when there is no wallet', () => {
+      it('returns false when there is no wallet', () => {
         const localGetters = {
+          'wallets/activeWallet': null,
           getTotalStakes: 2
         }
 
