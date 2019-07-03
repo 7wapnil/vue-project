@@ -11,7 +11,11 @@ import LiveChatPlugin from './plugins/livechat'
 import ContentfulPlugin from '@/libs/contentful/contentful-client'
 import airbrakeClient from './plugins/airbrake-client'
 import arcanebetSession from '@/services/local-storage/session'
+import VueMeta from 'vue-meta'
+
 const isProduction = process.env.NODE_ENV === 'production'
+
+Vue.use(VueMeta)
 
 Vue.use(VueLogger, {
   logLevel: isProduction ? 'error' : 'debug'

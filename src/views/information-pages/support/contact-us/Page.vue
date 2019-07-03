@@ -13,6 +13,12 @@ export default {
     return {
       id: process.env.VUE_APP_CONTENTFUL_SUPPORT_CONTACT_US_ID
     }
+  },
+  metaInfo () {
+    return {
+      title: this.$i18n.t('meta.support.contact.title'),
+      meta: [{ name: 'description', content: this.$i18n.t('meta.support.contact.description'), vmid: 'desc' }]
+    }
   }
 }
 </script>
