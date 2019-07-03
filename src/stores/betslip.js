@@ -101,11 +101,6 @@ export const getters = {
   acceptAllChecked (state) {
     return state.acceptAll
   },
-  anyInitialBet (state) {
-    return state.bets.some((bet) => {
-      return bet.status === Bet.statuses.initial
-    })
-  },
   getBetsCount (state) {
     return state.bets.length
   },
