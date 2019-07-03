@@ -56,7 +56,10 @@ a:focus {
   margin-top: 80px;
   padding: 0;
 }
-
 iframe {
   overflow: hidden;
+}
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
