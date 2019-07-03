@@ -80,7 +80,7 @@ export const getters = {
   },
   getIsEnoughFundsToBet: (state, getters, rootState, rootGetters) => {
     const activeWallet = rootGetters['wallets/activeWallet']
-    if (activeWallet === undefined) {
+    if (activeWallet === null) {
       return false
     }
 
