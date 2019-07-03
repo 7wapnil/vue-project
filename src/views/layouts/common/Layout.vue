@@ -27,7 +27,7 @@ export default {
     },
     layoutName () {
       const name = this.isMobile ? 'mobile' : 'desktop'
-      return () => import(`../${name}/Layout`)
+      return () => import(`@/views/layouts/${name}/Layout`)
     }
   },
   updated () {
