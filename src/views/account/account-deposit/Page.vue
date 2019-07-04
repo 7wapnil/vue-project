@@ -82,8 +82,9 @@
                     placeholder="Custom"/>
                 </b-input-group>
                 <b-form-select
-                  v-model="fields.depositMethod"
-                  class="mb-4">
+                  value=""
+                  class="mb-4"
+                  @change="selectPaymentMethod">
                   <option
                     value=""
                     disabled>{{ $t('account.deposit.paymentMethodsPlaceholder') }}</option>
@@ -92,17 +93,6 @@
                     :key="index"
                     :value="payment.code">
                     {{ payment.name }}
-                  </option>
-                </b-form-select>
-                <b-form-select
-                  v-if="isEmptyWallet"
-                  v-model="currency"
-                  class="mb-4">
-                  <option :value="null">Choose currency</option>
-                  <option
-                    v-for="(filtredCurrency, index) in filteredCurrencies"
-                    :key="index">
-                    {{ filtredCurrency.value }}
                   </option>
                 </b-form-select>
               </b-col>
@@ -245,9 +235,8 @@ export default {
       fields: {
         amount: '',
         bonusCode: null,
-        depositMethod: ''
       },
-      dropdownCurrency: null,
+      paymentMethod: null,
       currencies: [],
       redirectUrl: process.env.VUE_APP_DEPOSIT_URL,
       calculatedBonus: '',
@@ -277,9 +266,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('wallets', {
-      walletActive: 'activeWallet'
-    }),
+    ...mapGetters('wallets', ['activeWallet']),
     ...mapGetters({
       token: 'getToken'
     }),
@@ -296,44 +283,23 @@ export default {
         return parseFloat(totalValue).toFixed(2)
       }
     },
-    currency: {
-      get () {
-        if (this.dropdownCurrency) {
-          return this.dropdownCurrency
-        }
-
-        if (this.walletActive && !this.isEmptyWallet) {
-          return this.walletActive.currency.code
-        }
-
-        return null
-      },
-      set (value) {
-        this.dropdownCurrency = value
-      }
-    },
-    isEmptyWallet () {
-      if (this.walletActive) {
-        return this.walletActive.id === null
-      }
+    currency () {
+      return (this.paymentMethod && this.paymentMethod.currencyCode) ||
+        (this.activeWallet && this.activeWallet.currency.code)
     },
     mapDepositState () {
       return this.variantMap[this.depositState]
     },
-    filteredCurrencies () {
-      let currencyList = []
-
-      this.currencies.forEach((currency) => {
-        currencyList.push({ label: currency.name, value: currency.code, kind: currency.kind, primary: currency.primary })
-      })
-
-      return currencyList
-    },
     buttonDisabled () {
-      return this.fields.amount == null || this.fields.depositMethod === ''
+      return this.fields.amount == null || !this.paymentMethod
     }
   },
   methods: {
+    selectPaymentMethod (paymentMethodCode) {
+      this.paymentMethod = this.depositMethods.find((method) => method.code === paymentMethodCode)
+      this.calculatedBonus = null
+      this.fields.bonusCode = null
+    },
     calculateBonus () {
       if (this.fields.bonusCode && this.fields.amount) {
         this.$apollo.mutate({
@@ -355,7 +321,7 @@ export default {
     },
     submitDeposit () {
       const input = {
-        paymentMethod: this.fields.depositMethod,
+        paymentMethod: this.paymentMethod.code,
         currencyCode: this.currency,
         amount: parseFloat(parseFloat(this.fields.amount).toFixed(2)),
         bonusCode: this.fields.bonusCode

@@ -8,8 +8,8 @@ export const WALLET_FIELDS = `
   id
   amount
   currency {
-    code
     id
+    code
   }
 `
 

@@ -35,24 +35,27 @@
       </ul>
     </b-row>
     <b-row
-      class="mb-4"
+      class="mb-5"
       no-gutters>
       <b-col class="text-md-right text-sm-left align-self-center">
         <label
           for="amount"
-          class="text-arc-clr-iron font-size-14 letter-spacing-2 mb-0"
-          min="0">
-          {{ $t('generalTerms.amount') }}:
+          class="text-arc-clr-iron font-size-14 letter-spacing-2 mb-0">
+          {{ $t('generalTerms.amount') }}
         </label>
       </b-col>
       <b-col class="user-profile-form">
-        <b-form-input
-          id="amount"
-          v-model="form.amount"
-          min="0"
-          step="0.01"
-          class="ml-4 text-left w-50"
-          type="number"/>
+        <b-input-group
+          v-if="currencyCode"
+          :append="currencyCode"
+          class="ml-4 text-left w-50">
+          <b-form-input
+            id="amount"
+            v-model="form.amount"
+            min="0"
+            step="0.01"
+            type="number"/>
+        </b-input-group>
       </b-col>
       <b-col/>
     </b-row>
@@ -173,6 +176,9 @@ export default {
     currentComponent () {
       return this.components[this.mainMethod.code] || null
     },
+    currencyCode () {
+      return this.defaultMethod.currencyCode || this.activeWallet.currency.code
+    },
     ...mapGetters('wallets', ['activeWallet'])
   },
   methods: {
@@ -182,7 +188,7 @@ export default {
         ...{
           amount: parseFloat(this.form.amount),
           paymentMethod: this.defaultMethod.code,
-          currencyCode: this.activeWallet.currency.code
+          currencyCode: this.currencyCode
         }
       }
 

@@ -6,6 +6,7 @@ export const WITHDRAWAL_METHODS_QUERY = gql`
       code
       name
       note
+      currencyCode
     }
   }
 `
@@ -15,6 +16,8 @@ export const DEPOSIT_METHODS_QUERY = gql`
     depositMethods {
       code
       name
+      note
+      currencyCode
     }
   }
 `
