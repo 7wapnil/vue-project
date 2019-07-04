@@ -1,5 +1,6 @@
 import graphqlClient from '@/libs/apollo/client'
 import { WALLETS_LIST_QUERY, WALLET_UPDATED_SUBSCRIPTION } from '@/graphql/index'
+import { FIAT } from '@/constants/currency-kinds'
 
 export const STORE_WALLETS = 'STORE_WALLETS'
 export const UPDATE_WALLET = 'UPDATE_WALLET'
@@ -60,6 +61,9 @@ export const mutations = {
 export const getters = {
   activeWallet (state) {
     return state.wallets.find(el => el.id === state.activeWalletId) || null
+  },
+  fiatWallet (state) {
+    return state.wallets.find(el => el.currency.kind === FIAT)
   },
   wallets (state) {
     return state.wallets

@@ -223,6 +223,7 @@ import {
 } from '@/graphql'
 import DepositHeader from './DepositHeader'
 import DepositMethods from './DepositMethods'
+import { EUR } from '@/constants/currencies'
 
 export default {
   name: 'DepositFunds',
@@ -266,7 +267,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('wallets', ['activeWallet']),
+    ...mapGetters('wallets', ['fiatWallet']),
     ...mapGetters({
       token: 'getToken'
     }),
@@ -285,7 +286,8 @@ export default {
     },
     currency () {
       return (this.paymentMethod && this.paymentMethod.currencyCode) ||
-        (this.activeWallet && this.activeWallet.currency.code)
+        (this.fiatWallet && this.fiatWallet.currency.code) ||
+        EUR
     },
     mapDepositState () {
       return this.variantMap[this.depositState]

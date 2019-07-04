@@ -110,6 +110,7 @@
 import { WITHDRAW_MUTATION } from '@/graphql'
 import { mapGetters } from 'vuex'
 import { Form } from '@/helpers'
+import { EUR } from '@/constants/currencies'
 import Sofort from './withdrawal-methods/Sofort'
 import Skrill from './withdrawal-methods/Skrill'
 import Neteller from './withdrawal-methods/Neteller'
@@ -177,9 +178,11 @@ export default {
       return this.components[this.mainMethod.code] || null
     },
     currencyCode () {
-      return this.defaultMethod.currencyCode || this.activeWallet.currency.code
+      return this.defaultMethod.currencyCode ||
+        (this.fiatWallet && this.fiatWallet.currency.code) ||
+        EUR
     },
-    ...mapGetters('wallets', ['activeWallet'])
+    ...mapGetters('wallets', ['fiatWallet'])
   },
   methods: {
     submitWithdraw () {

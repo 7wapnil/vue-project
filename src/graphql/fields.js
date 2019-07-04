@@ -10,6 +10,7 @@ export const WALLET_FIELDS = `
   currency {
     id
     code
+    kind
   }
 `
 
