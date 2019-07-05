@@ -45,7 +45,7 @@
       </b-col>
     </b-row>
     <b-row
-      v-if="!isTokenValid"
+      v-if="!isForm"
       class="d-flex justify-content-center">
       <b-col cols="auto">
         <p class="font-size-18 letter-spacing-2 text-arc-clr-iron">
