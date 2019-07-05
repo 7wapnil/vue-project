@@ -23,7 +23,7 @@ export default {
   },
   methods: {
     showModal () {
-      this.$root.$emit('bv::show::modal', 'AccountModal')
+      this.$bvModal.show('AccountModal')
     }
   }
 }

@@ -50,10 +50,10 @@ export default {
     },
     showProfile () {
       this.changeTabIndex(1)
-      this.$root.$emit('bv::show::modal', 'AccountModal')
+      this.$bvModal.show('AccountModal')
     },
     showLogin () {
-      this.$root.$emit('bv::show::modal', 'AuthModal')
+      this.$bvModal.show('AuthModal')
     }
   }
 }

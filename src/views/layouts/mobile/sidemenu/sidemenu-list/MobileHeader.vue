@@ -1,7 +1,7 @@
 <template>
   <b-nav-item
-    :to="`/${getSidebarKind}`"
-    class="d-inline-flex align-items-center justify-content-start bg-arc-clr-soil-dark sidemenu-mobile-header">
+    class="d-inline-flex align-items-center justify-content-start bg-arc-clr-soil-dark sidemenu-mobile-header"
+    @click="changeCategory">
     <b-row
       class="item-title"
       no-gutters>
@@ -30,6 +30,14 @@ export default {
     ...mapGetters([
       'getSidebarKind'
     ])
+  },
+  methods: {
+    changeCategory () {
+      if (this.$route.params.titleKind === this.getSidebarKind) {
+        this.$emit('sidemenu-closed')
+      }
+      this.$router.push(`/${this.getSidebarKind}`)
+    }
   }
 }
 </script>

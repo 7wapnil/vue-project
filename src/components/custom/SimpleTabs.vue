@@ -3,12 +3,12 @@
     :lazy="lazy"
     v-model="tabIndex"
     nav-class="bg-arc-clr-soil-light-cover"
-    nav-wrapper-class="sorting-panel bg-arc-clr-soil-light px-4">
+    nav-wrapper-class="px-0 px-md-4 sorting-panel bg-arc-clr-soil-light">
 
     <b-tab
       v-for="(tab, index) in tabs"
       :key="index"
-      title-link-class="mx-4 py-3 bg-transparent">
+      title-link-class="mx-4 py-4 px-2 px-md-4 bg-transparent">
 
       <template slot="title">
         <b-row no-gutters>

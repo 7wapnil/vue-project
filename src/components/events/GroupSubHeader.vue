@@ -2,7 +2,7 @@
   <div class="pt-4">
     <router-link
       :to="tournamentLink"
-      class="pl-4 text-arc-clr-gold mb-2 d-block font-size-14 letter-spacing-2">
+      class="pl-2 pl-md-4 mb-3 mb-md-2 text-arc-clr-gold d-block font-size-14 letter-spacing-2">
       {{ categoryName }} - {{ item.name }}
     </router-link>
 

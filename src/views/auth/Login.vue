@@ -134,7 +134,7 @@ export default {
       this.submitting = false
     },
     close () {
-      this.$root.$emit('bv::hide::modal', 'AuthModal')
+      this.$bvModal.hide('AuthModal')
     },
     ...mapActions([
       'authenticate',

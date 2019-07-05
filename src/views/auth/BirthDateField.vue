@@ -4,20 +4,26 @@
     :state="state">
     <b-row no-gutters>
       <b-col
-        cols="3"
-        class="mr-3">
+        cols="12"
+        sm="4"
+        class="mr-3 mb-3 mb-sm-0">
         <b-form-select
           v-model="day"
           :state="state"
           :options="days"/>
       </b-col>
-      <b-col class="mr-3">
+      <b-col
+        cols="12"
+        sm="auto"
+        class="mr-0 mr-sm-3 mb-3 mb-sm-0">
         <b-form-select
           v-model="month"
           :state="state"
           :options="months"/>
       </b-col>
-      <b-col cols="3">
+      <b-col
+        cols="12"
+        sm="3">
         <b-form-select
           v-model="year"
           :state="state"

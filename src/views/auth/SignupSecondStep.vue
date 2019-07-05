@@ -12,7 +12,8 @@
     <b-row no-gutters>
       <b-col
         class="mr-4"
-        cols="8">
+        sm="8"
+        cols="12">
         <b-form-group
           :invalid-feedback="form.errors.get('lastName')"
           :state="form.errors.state('lastName')">
@@ -28,6 +29,7 @@
           id="gender"
           :options="genders"
           v-model="form.secondStep.gender"
+          class="mb-3 mb-sm-0"
         />
       </b-col>
     </b-row>
@@ -80,14 +82,14 @@
     </b-form-group>
     <b-form-checkbox
       v-model="form.secondStep.agreedWithPromotional"
-      class="accept-all-odds-checkbox mb-3">
+      class="accept-all-odds-checkbox mb-4">
       <span class="ml-3 font-size-14 text-arc-clr-iron pointer letter-spacing-2">
         I agree to receive promotional content
       </span>
     </b-form-checkbox>
     <b-form-checkbox
       v-model="form.secondStep.agreedWithPrivacy"
-      class="accept-all-odds-checkbox">
+      class="accept-all-odds-checkbox mb-4">
       <span class="d-block font-size-14 text-arc-clr-iron pointer letter-spacing-2 ml-3 mt-1">
         Confirm I am not underage,
         <b-link

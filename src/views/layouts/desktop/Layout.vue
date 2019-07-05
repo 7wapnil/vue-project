@@ -4,7 +4,7 @@
     <b-container
       fluid
       class="desktop-container">
-      <router-view :key="$route.fullPath"/>
+      <slot/>
     </b-container>
     <desktop-footer/>
   </div>
@@ -12,7 +12,7 @@
 
 <script>
 import DesktopNavigationBar from '@/views/layouts/desktop/NavigationBar'
-import DesktopFooter from '@/views/layouts/desktop/Footer'
+import DesktopFooter from './Footer'
 
 export default {
   components: {

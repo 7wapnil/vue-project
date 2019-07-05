@@ -24,7 +24,7 @@
         <div
           v-if="isLoggedIn"
           class="h-100 w-100 d-flex align-items-center justify-content-end"
-          @click="$emit('user-profile-clicked')">
+          @click="showModal">
           <b-button variant="arc-profile-button-mobile"/>
         </div>
       </b-col>
@@ -33,17 +33,9 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 import UserProfileMenu from '@/components/navbar/profile/UserProfileMenu'
 
 export default {
-  components: {
-    UserProfileMenu
-  },
-  computed: {
-    ...mapGetters([
-      'isLoggedIn'
-    ])
-  }
+  extends: UserProfileMenu
 }
 </script>

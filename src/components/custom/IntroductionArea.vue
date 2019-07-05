@@ -1,14 +1,9 @@
 <template>
-  <b-container
+  <b-img
     v-if="title"
-    fluid
-    class="p-0">
-    <div class="introduction-area-wrapper">
-      <b-img
-        :src="background"
-        fluid-grow/>
-    </div>
-  </b-container>
+    :src="background"
+    :alt="`${title.name}-background-image`"
+    fluid-grow/>
 </template>
 <script>
 import { findBackgroundSource } from '@/helpers/background-finder'

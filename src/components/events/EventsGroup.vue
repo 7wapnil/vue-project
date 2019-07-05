@@ -1,6 +1,5 @@
 <template>
   <div>
-
     <group-header
       v-if="isTitle"
       :item="group"/>
@@ -24,7 +23,6 @@
         :group="child"
         :tab-id="tabId"/>
     </div>
-
   </div>
 </template>
 
