@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import MenuItem from './MenuItem'
+import MenuItem from './MobileMenuItem'
 import { TITLES_QUERY } from '@/graphql'
 import { buildTree } from '@/helpers/navigation-tree'
 
