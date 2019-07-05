@@ -1,11 +1,12 @@
 import { expect } from 'chai'
-import { createLocalVue, mount } from '@vue/test-utils'
+import { createLocalVue, mount, shallowMount } from '@vue/test-utils'
 import Vuex from 'vuex'
 import Betslip from '@/components/betslip/Betslip.vue'
 import PromotionalItem from '@/components/promotional/PromotionalItem'
 import contentful from '@/libs/contentful/contentful-client'
 import VueI18n from 'vue-i18n'
 import { messages } from '@/translations/'
+import Bet from '@/models/bet'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
@@ -34,9 +35,13 @@ describe('Betslip', () => {
     uri = 'https://someurl'
 
     getters = {
-      getBetsCount: () => state.bets.count,
+      getBetsCount: () => state.bets.length,
       getBets: () => state.bets,
-      betslipSubmittable: () => true
+      betslipSubmittable: () => false,
+      getAnySubmittedBet: () => false,
+      getAnyBetInValidation: () => false,
+      acceptAllChecked: () => false,
+      isLoggedIn: () => false
     }
 
     i18n = new VueI18n({
@@ -70,10 +75,21 @@ describe('Betslip', () => {
 
     wrapper = mount(Betslip,
       {
+        data () {
+          return {
+            tabIndex: 0
+          }
+        },
+        computed: {
+          acceptAllOdds: () => false,
+        },
         i18n,
         localVue,
         store
       })
+
+    const submit = sinon.stub()
+    wrapper.setMethods({ submit: submit })
   })
 
   describe('Default state', () => {
@@ -105,18 +121,72 @@ describe('Betslip', () => {
     })
 
     it('shows place bet button', () => {
-      expect(wrapper.find('button.btn-arc-primary').text()).to.equal('PLACE BET')
+      expect(wrapper.find('button.btn-arc-primary').text()).to.equal(i18n.t('betslip.cta.placeBet'))
+    })
+
+    it('has no checkbox', () => {
+      expect(wrapper.contains('.accept-all-odds-checkbox')).to.equal(false)
+    })
+
+    it('has submit button as disabled on initial state', () => {
+      expect(wrapper.find('.submit-bets').attributes()['disabled']).to.equal('disabled')
     })
   })
 
   describe('Has bets', () => {
     before(() => {
       state = {
-        bets: [{ event: {}, market: {}, odd: {} }]
+        bets: [new Bet({
+          id: null,
+          eventId: '52908',
+          marketStatus: 'active',
+          eventName: 'Cameroon VS New Zealand',
+          marketId: '7091092',
+          marketName: '1x2',
+          oddId: '25838157',
+          oddName: 'New Zealand',
+          stake: 5,
+          status: 'initial',
+          message: null,
+          externalId: null,
+          approvedOddValue: 3.48,
+          currentOddValue: 3.48,
+          success: null
+        }),
+        new Bet({
+          id: null,
+          eventId: '67890',
+          marketStatus: 'inactive',
+          eventName: 'Estonia vs Estonia',
+          marketId: '0964783',
+          marketName: '0',
+          oddId: '24321142',
+          oddName: 'Estonia',
+          stake: 5,
+          status: 'initial',
+          message: null,
+          externalId: null,
+          approvedOddValue: 6.78,
+          currentOddValue: 3.45,
+          success: null
+        })
+        ]
       }
+
       getters = {
         getBets: () => state.bets,
-        getBetsCount: () => state.bets.length
+        getBetsCount: () => state.bets.length,
+        betslipSubmittable: () => true,
+        getAnySubmittedBet: () => false,
+        getAnyBetInValidation: () => false,
+        getTotalStakes: () => 10,
+        getTotalReturn: () => 15,
+        acceptAllChecked: () => false,
+        isLoggedIn: () => true
+      }
+
+      mutations = {
+        clearBetslip: () => { state.bets = [] }
       }
 
       store = new Vuex.Store({
@@ -124,21 +194,45 @@ describe('Betslip', () => {
           betslip: {
             namespaced: true,
             state,
-            actions,
-            getters
+            getters,
+            mutations,
+            actions
           }
         }
       })
-
-      promotion = mount(PromotionalItem,
+      promotion = shallowMount(PromotionalItem,
         {
           localVue,
           store
         })
+
+      wrapper = shallowMount(Betslip, { store, localVue, i18n })
     })
 
     it('shows no banner', () => {
       expect(promotion.contains('img[alt="arcanebet-promocode"]')).to.equal(false)
+    })
+
+    it('shows amount of bets in betslip on top', () => {
+      expect(wrapper.find('div.bet-amount').text()).to.equal(getters.getBetsCount().toString())
+    })
+
+    it('has correct text in button', () => {
+      expect(wrapper.find('.clear').text()).to.equal(i18n.t('betslip.cta.clearAll'))
+    })
+
+    it('has correct text in checkbox', () => {
+      expect(wrapper.find('.accept-all-odds-checkbox').text()).to.equal(i18n.t('betslip.acceptAllCheckbox'))
+    })
+
+    it('shows total stakes', () => {
+      const value = getters.getTotalStakes().toString()
+      expect(wrapper.find('.total-stake').text()).to.equal(value)
+    })
+
+    it('shows total return', () => {
+      const value = getters.getTotalReturn().toString()
+      expect(wrapper.find('.total-return').text()).to.equal(value)
     })
   })
 })
