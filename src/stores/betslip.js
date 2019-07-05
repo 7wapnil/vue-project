@@ -4,6 +4,11 @@
 import Vue from 'vue'
 import Bet from '@/models/bet'
 import graphqlClient from '@/libs/apollo/client'
+import {
+  SENT_TO_INTERNAL_VALIDATION,
+  VALIDATED_INTERNALLY,
+  SENT_TO_EXTERNAL_VALIDATION
+} from '@/constants/bet-pending-statuses'
 import { BETSLIP_PLACEMENT_QUERY, BETSLIP_BETS_QUERY, BET_UPDATED } from '@/graphql/index'
 import { ACTIVE_STATUS } from '@/models/market'
 import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
@@ -75,7 +80,7 @@ export const getters = {
   },
   getIsEnoughFundsToBet: (state, getters, rootState, rootGetters) => {
     const activeWallet = rootGetters['wallets/activeWallet']
-    if (activeWallet === undefined) {
+    if (activeWallet === null) {
       return false
     }
 
@@ -96,11 +101,6 @@ export const getters = {
   acceptAllChecked (state) {
     return state.acceptAll
   },
-  anyInitialBet (state) {
-    return state.bets.some((bet) => {
-      return bet.status === Bet.statuses.initial
-    })
-  },
   getBetsCount (state) {
     return state.bets.length
   },
@@ -118,6 +118,13 @@ export const getters = {
   getAnyEmptyStake (state) {
     return state.bets.some((bet) => {
       return bet.stake === 0 || bet.stake === null
+    })
+  },
+  getAnyBetInValidation (state) {
+    return state.bets.some((bet) => {
+      return [SENT_TO_INTERNAL_VALIDATION,
+        VALIDATED_INTERNALLY,
+        SENT_TO_EXTERNAL_VALIDATION].includes(bet.status)
     })
   },
   getAnySubmittedBet (state) {

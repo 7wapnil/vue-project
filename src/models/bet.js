@@ -3,6 +3,7 @@ const STATUSES = {
   submitted: 'submitted',
   pending: 'pending',
   accepted: 'accepted',
+  settled: 'settled',
   failed: 'failed',
   rejected: 'rejected',
   disabled: 'disabled',

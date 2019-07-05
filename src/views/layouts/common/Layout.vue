@@ -36,6 +36,11 @@ export default {
       return this.mobile ? MobileLayout : DesktopLayout
     }
   },
+  updated () {
+    if (this.$route.query.login) {
+      this.$root.$emit('bv::show::modal', 'AuthModal')
+    }
+  },
   created () {
     this.mobile = window.innerWidth < 550
     window.addEventListener('resize', () => {
