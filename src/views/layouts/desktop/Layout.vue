@@ -12,7 +12,7 @@
 
 <script>
 import DesktopNavigationBar from '@/views/layouts/desktop/NavigationBar'
-import DesktopFooter from '@/views/layouts/desktop/Footer'
+import DesktopFooter from './Footer'
 
 export default {
   components: {

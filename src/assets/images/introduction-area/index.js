@@ -1,5 +1,3 @@
-export const DEFAULT_BACKGROUND = 'arcanebet-default-background';
-
 export default {
   // Sports
   'badminton': 'background-badminton',
