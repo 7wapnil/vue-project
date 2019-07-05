@@ -11,7 +11,7 @@ export default {
   components: { StaticContent },
   data () {
     return {
-      id: process.env.VUE_APP_CONTENTFUL_BONUS_RULES_ID
+      id: process.env.VUE_APP_CONTENTFUL_PROMOTIONS_BONUS_RULES_ID
     }
   }
 }

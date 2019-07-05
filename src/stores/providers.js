@@ -36,7 +36,7 @@ const getters = {
   },
   isPreLiveConnected (state) {
     return isProviderConnected(state, PRE_LIVE_CODE)
-  },
+  }
 }
 
 export default {

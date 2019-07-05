@@ -95,7 +95,7 @@ export const InformationPages = {
           name: 'Bonus Rules',
           title: 'Bonus Rules',
           component: () => import('@/views/information-pages/promotions/bonus-rules/Page')
-        },
+        }
       ]
     },
     {
@@ -122,7 +122,7 @@ export const InformationPages = {
           name: 'setting limits',
           title: 'setting limits',
           component: () => import('@/views/information-pages/responsible-gaming/limits/Page')
-        },
+        }
       ]
     }
   ]
