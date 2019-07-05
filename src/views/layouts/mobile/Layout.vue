@@ -6,8 +6,9 @@
     <mobile-content/>
     <navigation-sidebar
       v-body-scroll-lock="isSidebarOpen"
+      v-show="isSidebarOpen"
       :is-open="isSidebarOpen"
-      @sidebar-close-button-clicked="toggleSidebar"/>
+      @sidebar-close-requested="toggleSidebar"/>
     <mobile-footer/>
   </div>
 </template>
@@ -48,9 +49,7 @@ export default {
     ...mapMutations([
       'toggleSidebar'
     ]),
-    toggleUserProfile () {
-      console.log('user-profile-clicked')
-    }
+    toggleUserProfile () {}
   }
 }
 </script>

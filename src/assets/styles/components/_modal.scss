@@ -1,10 +1,11 @@
 // Modals //
 @import '../variables';
 
+.modal-content {
+  background-color: unset;
+}
+
 #AccountModal {
-  .modal-content {
-    background-color: unset !important;
-  }
   .custom-select {
     background: $arc-clr-white;
   }
@@ -22,9 +23,19 @@
   &-content {
     padding: 50px 80px;
     background-color: $arc-clr-soil-dark;
+    &-mobile {
+      padding: 30px 24px;
+      background-color: $arc-clr-soil-dark;
+    }
   }
   &-body {
     padding: 0 14px 14px 14px;
+  }
+  &-dialog {
+    margin: .5rem;
+    &-mobile {
+      margin: 0;
+    }
   }
 }
 
@@ -32,6 +43,7 @@
   #AuthModal .modal-dialog {
     max-width: 564px;
   }
+
 }
 .profile-modal {
   &-header {

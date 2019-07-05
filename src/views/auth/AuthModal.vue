@@ -3,6 +3,7 @@
     id="AuthModal"
     :lazy="false"
     v-model="modalVisible"
+    :dialog-class="[ isMobile ? 'auth-modal-dialog-mobile' : '']"
     header-class="auth-modal-header"
     body-class="auth-modal-body">
     <template #modal-header="{ close }">
@@ -20,9 +21,9 @@
 
     <b-tabs
       :value="auth"
+      :content-class="[ isMobile ? 'auth-modal-content-mobile' : 'auth-modal-content']"
       justified
-      active-tab-class="auth-tabs-active"
-      content-class="auth-modal-content">
+      active-tab-class="auth-tabs-active">
       <b-tab
         title-link-class="auth-tabs"
         title="Sign in">

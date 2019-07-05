@@ -12,6 +12,8 @@ import SourceBusterPlugin from './plugins/sb'
 import ContentfulPlugin from '@/libs/contentful/contentful-client'
 import airbrakeClient from './plugins/airbrake-client'
 import arcanebetSession from '@/services/local-storage/session'
+import BodyScrollLockDirective from 'v-body-scroll-lock'
+import VueMq from 'vue-mq'
 
 const isProduction = process.env.NODE_ENV === 'production'
 
@@ -25,6 +27,14 @@ Vue.use(Sticky)
 Vue.use(VueNoty, {
   timeout: 2000,
   layout: 'topRight'
+})
+Vue.use(BodyScrollLockDirective)
+Vue.use(VueMq, {
+  breakpoints: {
+    mobile: 720,
+    tablet: 1250,
+    desktop: Infinity
+  }
 })
 
 Vue.use(LiveChatPlugin, {
