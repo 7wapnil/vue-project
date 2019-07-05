@@ -6,7 +6,6 @@
     <div class="introduction-area-wrapper">
       <b-img
         :src="background"
-        :alt="`${title.name}-background-image`"
         fluid-grow/>
     </div>
   </b-container>
@@ -23,7 +22,8 @@ export default {
   },
   computed: {
     background () {
-      return findBackgroundSource({ name: this.title ? this.title.name : null })
+      const route = this.$route.params.titleKind
+      return findBackgroundSource({ name: this.title ? this.title.name : null, route })
     }
   }
 }

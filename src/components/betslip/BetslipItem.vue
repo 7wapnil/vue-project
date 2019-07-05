@@ -11,13 +11,13 @@
       <b-col class="d-flex justify-content-start">
         <span
           :class="[ isBetDisabled ? 'text-arc-clr-iron' : 'text-arc-clr-iron-light']"
-          class="font-size-12 font-weight-bold line-height-10">
+          class="market-name font-size-12 font-weight-bold line-height-10">
           {{ bet.marketName }}
         </span>
       </b-col>
       <b-col
         cols="auto"
-        class="d-flex justify-content-center"
+        class="remove-odd d-flex justify-content-center"
         @click="removeOdd(bet.oddId)">
         <icon
           v-show="!bet.frozen"
@@ -53,7 +53,7 @@
       <b-col>
         <span
           :class="[ isBetDisabled ? 'text-arc-clr-iron' : 'text-arc-clr-iron-light']"
-          class="font-size-12">
+          class="event-name font-size-12">
           {{ bet.eventName }}
         </span>
       </b-col>
@@ -98,7 +98,7 @@
           Potential Return:
         </small>
       </b-col>
-      <b-col class="pr-4 text-right text-truncate">
+      <b-col class="potential-return pr-4 text-right text-truncate">
         <small>
           {{ parseFloat(potentialReturn.toFixed(2)) }}
         </small>
@@ -120,13 +120,13 @@
           </b-col>
           <div class="w-100"/>
           <b-col class="line-height-14">
-            <small>
+            <small class="approved">
               {{ bet.approvedOddValue }}
             </small>
             <small class="text-arc-clr-gold mx-2">
               >
             </small>
-            <small>
+            <small class="current">
               {{ bet.currentOddValue }}
             </small>
           </b-col>
@@ -144,18 +144,19 @@
     </b-row>
     <b-alert
       :show="isFail"
-      class="mt-3 mx-auto p-2 text-center"
+      class="bet-message-alert mt-3 mx-auto p-2 text-center"
       variant="danger">
       {{ betMessage }}
     </b-alert>
     <b-alert
       :show="isSuccess"
-      class="mt-3 mx-auto p-2 text-center"
+      class="success-message mt-3 mx-auto p-2 text-center"
       variant="success">
       {{ successMessage }}
     </b-alert>
     <b-alert
       :show="isBetDisabled && !getAnyFrozenBet"
+      class="odd-disabled-message"
       variant="odd-disabled">
       {{ disabledMessage }}
     </b-alert>
@@ -191,11 +192,6 @@ export default {
     bet: {
       type: Bet,
       required: true
-    },
-    parentRefs: {
-      type: Object,
-      required: false,
-      default: null
     }
   },
   data () {
@@ -323,7 +319,8 @@ export default {
   },
   mounted () {
     this.$nextTick(() => {
-      this.parentRefs['parent-button'].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' })
+      const submitButton = document.getElementById('betslip-submit')
+      submitButton.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' })
     })
   },
   methods: {
