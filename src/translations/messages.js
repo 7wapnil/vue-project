@@ -13,6 +13,16 @@ const messages = {
       bonusCode: 'Bonus code',
       transaction: 'Transaction | Transactions'
     },
+    userModal: {
+      forgotPasswordCta: 'Forgot your password? Recover it here',
+      back: 'Back',
+      backToPasswordRequestForm: 'Back to password request form',
+      resetPasswordHeader: 'Reset your password',
+      passwordChangeSuccess: 'Your password has been successfully changed.',
+      passwordChangeFail: 'Something went wrong, please check entered details',
+      resetEmailSuccess1: 'Password reset email successfully sent to:',
+      resetEmailSuccess2: 'Click the link in the email to reset your password. If you didn\'t receive an email please contact live support. '
+    },
     homePage: {
       upcoming: 'Upcoming',
       live: 'Live now',
@@ -23,9 +33,11 @@ const messages = {
       minute: 'minute'
     },
     betslip: {
+      generic: 'Bet placement unsuccessful. Please try again or contact support.',
       betslipEmpty: 'Your betslip is currently empty.\n' +
         'Click on any odds to add them\n' +
         'to betslip.',
+      acceptAllCheckbox: 'Accept all odd changes',
       tooltipMessages: {
         default: 'Please login to place a bet',
         defaultLoggedIn: 'Your betslip is empty',
@@ -37,7 +49,8 @@ const messages = {
         invalidStakeAmount: 'Please make sure your stake is correct'
       },
       cta: {
-        placeBet: 'Place Bet'
+        placeBet: 'Place Bet',
+        clearAll: 'Clear all'
       }
     },
     wallet: {
