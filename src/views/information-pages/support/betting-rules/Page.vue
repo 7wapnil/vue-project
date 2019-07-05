@@ -40,6 +40,12 @@ export default {
         { name: 'Dota 2 & League of Legends', id: 'dota-lol' }
       ]
     }
+  },
+  metaInfo () {
+    return {
+      title: this.$i18n.t('meta.support.bettingRules.title'),
+      meta: [{ name: 'description', content: this.$i18n.t('meta.support.bettingRules.description'), vmid: 'desc' }]
+    }
   }
 }
 </script>

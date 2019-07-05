@@ -33,6 +33,12 @@ export default {
         { name: 'Governing law', id: 'law' }
       ]
     }
+  },
+  metaInfo () {
+    return {
+      title: this.$i18n.t('meta.support.terms.title'),
+      meta: [{ name: 'description', content: this.$i18n.t('meta.support.terms.description'), vmid: 'desc' }]
+    }
   }
 }
 </script>

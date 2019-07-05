@@ -13,6 +13,12 @@ export default {
     return {
       id: process.env.VUE_APP_CONTENTFUL_SUPPORT_COOKIE_POLICY_ID
     }
+  },
+  metaInfo () {
+    return {
+      title: this.$i18n.t('meta.support.cookiePolicy.title'),
+      meta: [{ name: 'description', content: this.$i18n.t('meta.support.cookiePolicy.description'), vmid: 'desc' }]
+    }
   }
 }
 </script>

@@ -13,6 +13,12 @@ export default {
     return {
       id: process.env.VUE_APP_CONTENTFUL_RESPONSIBLE_LIMITS_ID
     }
+  },
+  metaInfo () {
+    return {
+      title: this.$i18n.t('meta.responsibleGaming.limits.title'),
+      meta: [{ name: 'description', content: this.$i18n.t('meta.responsibleGaming.limits.description'), vmid: 'desc' }]
+    }
   }
 }
 </script>
