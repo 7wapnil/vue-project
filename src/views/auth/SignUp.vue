@@ -62,7 +62,8 @@ export default {
           city: '',
           state: '',
           zipCode: '',
-          agreedWithPromotional: false
+          agreedWithPromotional: false,
+          agreedWithPrivacy: false,
         }
       }),
       submitting: false,

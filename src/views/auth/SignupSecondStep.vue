@@ -86,7 +86,7 @@
       </span>
     </b-form-checkbox>
     <b-form-checkbox
-      v-model="agreedWithPrivacy"
+      v-model="form.secondStep.agreedWithPrivacy"
       class="accept-all-odds-checkbox">
       <span class="d-block font-size-14 text-arc-clr-iron pointer letter-spacing-2 ml-3 mt-1">
         Confirm I am not underage,
