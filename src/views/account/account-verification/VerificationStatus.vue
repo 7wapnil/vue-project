@@ -4,7 +4,9 @@
     no-gutters
     class="mb-5">
     <b-col class="text-left">
-      <h3 class="m-0 font-weight-light">
+      <h3
+        v-if="!isMobile"
+        class="m-0 font-weight-light">
         Account status
       </h3>
     </b-col>

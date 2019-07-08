@@ -1,6 +1,8 @@
 <template>
   <div>
-    <h3 class="mb-0 font-weight-light">
+    <h3
+      v-if="!isMobile"
+      class="mb-0 font-weight-light">
       {{ $t('account.tabs.bonus') }}
     </h3>
     <bonus-placeholder v-if="!customerBonuses.length"/>
@@ -31,7 +33,7 @@ export default {
   },
   data () {
     return {
-      customerBonuses: null
+      customerBonuses: []
     }
   },
   computed: {

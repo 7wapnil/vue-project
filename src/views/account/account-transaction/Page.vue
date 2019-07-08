@@ -1,6 +1,8 @@
 <template>
   <div>
-    <b-row no-gutters>
+    <b-row
+      v-if="!isMobile"
+      no-gutters>
       <b-col>
         <h3 class="mb-4 font-weight-light letter-spacing-2">
           {{ $tc('generalTerms.transaction', 2) }}
