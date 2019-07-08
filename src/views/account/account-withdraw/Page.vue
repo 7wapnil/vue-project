@@ -6,7 +6,9 @@
       <withdraw-placeholder v-if="!activeMethod"/>
 
       <div v-if="activeMethod">
-        <h3 class="mb-5 font-weight-light">
+        <h3
+          v-if="!isMobile"
+          class="mb-5 font-weight-light">
           {{ $t('account.withdraw.withdrawFunds') }}
         </h3>
         <b-row
