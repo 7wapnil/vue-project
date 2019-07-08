@@ -14,7 +14,7 @@
         <signup-first-step
           :form="form"
           @submit="goToStep(1)"/>
-          :countries="countries"/>
+        :countries="countries"/>
       </b-tab>
       <b-tab
         title="Contact information"
