@@ -346,8 +346,6 @@ export default {
         mutation: DEPOSIT_MUTATION,
         variables: { input }
       }).then(({ data: { deposit } }) => {
-        this.depositState = 'success'
-        this.depositMessage = deposit.message
         if (this.paymentMethod.code === 'bitcoin') {
           document.getElementById('summary').classList.add('d-none');
           document.getElementById('cryptoSection').classList.remove('d-none');
@@ -355,6 +353,8 @@ export default {
           this.qrText = `bitcoin:${this.address}?amount=${this.fields.amount / 1000}`
           QRCode.toCanvas(document.getElementById('qrcode'), this.qrText, { scale: 8, margin: 2 })
         } else {
+          this.depositState = 'success'
+          this.depositMessage = deposit.message
           window.location.href = deposit.url
         }
       }).catch(({ graphQLErrors }) => {
