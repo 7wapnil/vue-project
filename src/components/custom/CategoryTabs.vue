@@ -5,9 +5,11 @@
     content-class="p-0 m-0"
     class="category-tabs"
     nav-wrapper-class="category-tabs-wrapper"
-    nav-class="category-tabs-nav">
+    nav-class="category-tabs-nav mx-2 mx-md-5">
 
-    <template slot="tabs">
+    <template
+      v-if="!isMobile"
+      slot="tabs">
 
       <b-nav-item
         v-if="categoryTabIndex > 0"
@@ -42,7 +44,9 @@
       </template>
     </b-tab>
 
-    <template slot="tabs">
+    <template
+      v-if="!isMobile"
+      slot="tabs">
       <b-nav-item
         v-if="categoryTabIndex !== tabs.length - 1"
         class="right-side-navigation"

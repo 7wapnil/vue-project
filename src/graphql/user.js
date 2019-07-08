@@ -60,6 +60,24 @@ export const CHANGE_USER_PASSWORD = gql`
     }
 `
 
+export const PASSWORD_RESET_REQUEST_MUTATION = gql`
+  mutation ($email: String!) {
+    requestPasswordReset (email: $email) 
+  }
+`
+
+export const PASSWORD_RESET_MUTATION = gql`
+  mutation ($token: String!,
+            $password: String!,
+            $confirmation: String!) {
+    resetPassword (
+      token: $token,
+      password: $password,
+      confirmation: $confirmation
+    ) 
+  }
+`
+
 export const AUTH_INFO_QUERY = gql`
   query($login: String!) {
     authInfo(login: $login) {
@@ -91,6 +109,14 @@ export const SIGN_UP_MUTATION = gql`
         username
       }
       token
+    }
+  }
+`
+export const TOKEN_VERIFICATION_QUERY = gql`
+  query($token: String!) {
+    verifyPasswordToken(token: $token) {
+      message
+      success
     }
   }
 `

@@ -1,15 +1,9 @@
 <template>
-  <b-container
+  <b-img
     v-if="title"
-    fluid
-    class="p-0">
-    <div class="introduction-area-wrapper">
-      <b-img
-        :src="background"
-        :alt="`${title.name}-background-image`"
-        fluid-grow/>
-    </div>
-  </b-container>
+    :src="background"
+    :alt="`${title.name}-background-image`"
+    fluid-grow/>
 </template>
 <script>
 import { findBackgroundSource } from '@/helpers/background-finder'
@@ -23,7 +17,8 @@ export default {
   },
   computed: {
     background () {
-      return findBackgroundSource({ name: this.title ? this.title.name : null })
+      const route = this.$route.params.titleKind
+      return findBackgroundSource({ name: this.title ? this.title.name : null, route })
     }
   }
 }

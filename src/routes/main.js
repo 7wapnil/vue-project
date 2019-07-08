@@ -7,7 +7,7 @@ import Affiliates from '@/views/information-pages/affiliates/main/Page'
 export default [
   {
     path: ':titleKind',
-    component: () => import('@/views/layouts/desktop/Content'),
+    component: () => import('@/views/layouts/common/Content'),
     beforeEnter: (to, from, next) => {
       const isKindSupported = to.params.titleKind === 'esports' || to.params.titleKind === 'sports'
 
@@ -41,6 +41,11 @@ export default [
         props: true
       },
     ]
+  },
+  {
+    path: 'reset_password/:token',
+    name: 'reset_password',
+    component: () => import('@/views/auth/PasswordResetForm')
   },
   {
     path: 'activation/:token',

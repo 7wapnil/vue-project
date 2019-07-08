@@ -13,6 +13,12 @@ export default {
     return {
       id: process.env.VUE_APP_CONTENTFUL_SUPPORT_PAYMENT_METHODS_ID
     }
+  },
+  metaInfo () {
+    return {
+      title: this.$i18n.t('meta.support.paymentMethods.title'),
+      meta: [{ name: 'description', content: this.$i18n.t('meta.support.paymentMethods.description'), vmid: 'desc' }]
+    }
   }
 }
 </script>

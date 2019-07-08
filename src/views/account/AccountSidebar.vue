@@ -126,8 +126,8 @@ export default {
       changeTabIndex: 'changeTabIndex'
     }),
     showConfirmationModal () {
-      this.$root.$emit('bv::hide::modal', 'AccountModal')
-      this.$root.$emit('bv::show::modal', 'AccountLogoutModal')
+      this.$bvModal.hide('AccountModal')
+      this.$bvModal.show('AccountLogoutModal')
     }
   }
 }

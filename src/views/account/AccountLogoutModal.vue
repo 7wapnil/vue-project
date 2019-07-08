@@ -62,8 +62,8 @@ export default {
       this.$noty.success('Signed out successfully')
     },
     hideModal () {
-      this.$root.$emit('bv::hide::modal', 'AccountLogoutModal')
-      this.$root.$emit('bv::show::modal', 'AccountModal')
+      this.$bvModal.hide('AccountLogoutModal')
+      this.$bvModal.show('AccountModal')
     }
   }
 }

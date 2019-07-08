@@ -7,7 +7,16 @@ export default {
     ...mapGetters('providers', [
       'isLiveConnected',
       'isPreLiveConnected'
-    ])
+    ]),
+    isMobile () {
+      return this.$mq === 'mobile'
+    },
+    isTablet () {
+      return this.$mq === 'tablet'
+    },
+    isDesktop () {
+      return this.$mq === 'desktop'
+    }
   },
   methods: {
     gql (query) {

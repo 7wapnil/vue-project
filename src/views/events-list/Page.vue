@@ -1,12 +1,10 @@
 <template>
   <div>
-    <div class="d-flex flex-column position-relative">
-
+    <div class="introduction-area-wrapper">
       <introduction-area :title="activeTitle"/>
 
-      <div
-        class="w-100 position-absolute"
-        style="bottom: 0;">
+      <div class="w-100 position-absolute bottom-0">
+        <auth-block v-if="isMobile && !isLoggedIn"/>
         <sport-tabs @tab-changed="onCategoryChange"/>
         <filter-tabs @tab-changed="onFilterChange"/>
       </div>
@@ -25,7 +23,8 @@ import IntroductionArea from '@/components/custom/IntroductionArea'
 import SportTabs from './SportTabs'
 import FilterTabs from './FilterTabs'
 import EventsList from '@/components/events/EventsList'
-import HybridCard from './HybridCard'
+import AuthBlock from '@/views/events-list/AuthBlock'
+import { mapGetters } from 'vuex'
 
 export default {
   components: {
@@ -33,13 +32,10 @@ export default {
     SportTabs,
     FilterTabs,
     EventsList,
-    HybridCard
+    AuthBlock
   },
   data () {
     return {
-      offset: {
-        top: -218
-      },
       selectedCategory: null,
       selectedFilter: null
     }
@@ -64,7 +60,10 @@ export default {
       }
 
       return { id: this.selectedCategory.value, name: this.selectedCategory.label }
-    }
+    },
+    ...mapGetters([
+      'isLoggedIn'
+    ])
   },
   methods: {
     onCategoryChange (tab) {

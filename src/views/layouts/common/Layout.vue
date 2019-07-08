@@ -1,26 +1,19 @@
 <template>
   <div :class="titleKind">
-    <component :is="layout"/>
-    <cookie-warning/>
+    <component :is="layoutName">
+      <router-view :key="$route.fullPath"/>
+    </component>
+    <cookie-warning v-if="!isMobile"/>
     <modal-list/>
   </div>
 </template>
 
 <script>
 import CookieWarning from './CookieWarning'
-import MobileLayout from '../mobile/Layout'
-import DesktopLayout from '../desktop/Layout'
 
 export default {
   components: {
-    CookieWarning,
-    MobileLayout,
-    DesktopLayout
-  },
-  data () {
-    return {
-      mobile: false
-    }
+    CookieWarning
   },
   computed: {
     titleKind () {
@@ -32,19 +25,19 @@ export default {
 
       return this.$route.params.titleKind || DEFAULT_KIND
     },
-    layout () {
-      return this.mobile ? MobileLayout : DesktopLayout
+    layoutName () {
+      const name = this.isMobile ? 'mobile' : 'desktop'
+      return () => import(`../${name}/Layout`)
     }
   },
-  created () {
-    this.mobile = window.innerWidth < 550
-    window.addEventListener('resize', () => {
-      this.mobile = window.innerWidth < 550
-    })
+  updated () {
+    if (this.$route.query.login) {
+      this.$bvModal.show('AuthModal')
+    }
   },
   mounted () {
     if (this.$route.query.depositState) {
-      this.$root.$emit('bv::show::modal', 'AccountModal')
+      this.$bvModal.show('AuthModal')
     }
   }
 }

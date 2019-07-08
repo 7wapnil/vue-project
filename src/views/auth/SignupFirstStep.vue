@@ -5,7 +5,7 @@
       :state="form.errors.state('username')">
       <b-form-input
         id="signup-username"
-        v-model="form.username"
+        v-model="form.firstStep.username"
         :state="form.errors.state('username')"
         autocomplete="username"
         placeholder="Username"/>
@@ -16,14 +16,14 @@
       :state="form.errors.state('email')">
       <b-form-input
         id="signup-email"
-        v-model="form.email"
+        v-model="form.firstStep.email"
         :state="form.errors.state('email')"
         autocomplete="email"
         placeholder="Email"/>
     </b-form-group>
 
     <birth-date-field
-      v-model="form.dateOfBirth"
+      v-model="form.firstStep.dateOfBirth"
       :state="form.errors.state('dateOfBirth')"
       :error="form.errors.get('dateOfBirth')"/>
 
@@ -32,7 +32,7 @@
       :state="form.errors.state('password')">
       <b-form-input
         id="signup-password"
-        v-model="form.password"
+        v-model="form.firstStep.password"
         :state="form.errors.state('password')"
         type="password"
         placeholder="Password"/>
@@ -42,7 +42,7 @@
       :state="form.errors.state('passwordConfirmation')">
       <b-form-input
         id="signup-password-confirmation"
-        v-model="form.passwordConfirmation"
+        v-model="form.firstStep.passwordConfirmation"
         :state="form.errors.state('passwordConfirmation')"
         type="password"
         placeholder="Repeat password"/>
@@ -55,7 +55,7 @@
           :invalid-feedback="form.errors.get('country')"
           :state="form.errors.state('country')">
           <b-form-select
-            v-model="form.country"
+            v-model="form.firstStep.country"
             :state="form.errors.state('country')">
             <option
               value=""
@@ -74,8 +74,8 @@
           :invalid-feedback="form.errors.get('currency')"
           :state="form.errors.state('currency')">
           <b-form-select
-            v-model="form.currency"
-            :state="form.errors.state('currency')">
+            v-model="form.firstStep.currency"
+            :state="form.errors.state('curr`ency')">
             <option
               v-for="(currency, index) in currencies"
               :key="index"

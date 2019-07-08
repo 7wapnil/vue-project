@@ -1,0 +1,6 @@
+export const PENDING_CANCELLATION = 'pending_cancellation'
+export const ENPENDING_MANUAL_CANCELLATIONDED = 'pending_manual_cancellation'
+export const CANCELLED = 'cancelled'
+export const REJECTED = 'rejected'
+export const CANCELLED_BY_SYSTEM = 'cancelled_by_system'
+export const FAILED = 'failed'

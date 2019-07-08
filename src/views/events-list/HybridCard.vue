@@ -13,7 +13,10 @@ import EsportsLiveCard from '@/components/cards/esports-live-card/EsportsLiveCar
 import EsportsUpcomingCard from '@/components/cards/esports-upcoming-card/EsportsUpcomingCard'
 import SportsLiveCard from '@/components/cards/sports-live-card/SportsLiveCard'
 import SportsUpcomingCard from '@/components/cards/sports-upcoming-card/SportsUpcomingCard'
+import MobileEsportsUpcomingCard from '@/components/cards/mobile-esports-upcoming-card/MobileEsportsUpcomingCard'
+import MobileSportsUpcomingCard from '@/components/cards/mobile-sports-upcoming-card/MobileSportsUpcomingCard'
 import MarketsList from '@/components/markets/MarketsList'
+import MobileSportsLiveCard from '@/components/cards/mobile-sports-live-card/MobileSportsLiveCard'
 
 export default {
   components: {
@@ -21,7 +24,10 @@ export default {
     EsportsUpcomingCard,
     SportsLiveCard,
     SportsUpcomingCard,
-    MarketsList
+    MarketsList,
+    MobileEsportsUpcomingCard,
+    MobileSportsUpcomingCard,
+    MobileSportsLiveCard
   },
   props: {
     event: {
@@ -36,7 +42,11 @@ export default {
   computed: {
     cardType () {
       let routeKind = this.$route.params.titleKind
-      return `${routeKind}-${this.tabId}-card`
+      let cardtype = `${routeKind}-${this.tabId}-card`
+      if (this.isMobile) {
+        return `mobile-${cardtype}`
+      }
+      return cardtype
     },
     itemType () {
       return `${this.cardType}-item`
