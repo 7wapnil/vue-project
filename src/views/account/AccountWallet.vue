@@ -27,10 +27,11 @@
           </b-button>
         </b-col>
       </b-row>
-      <b-row no-gutters>
+      <b-row
+        v-if="inactiveWalletsList.length > 0"
+        no-gutters>
         <b-col class="mt-4">
           <b-col
-            v-if="inactiveWalletsList.length > 0"
             class="p-0 text-uppercase text-arc-clr-iron font-size-10 letter-spacing-2">
             {{ $t('wallet.crypto') }}
           </b-col>
