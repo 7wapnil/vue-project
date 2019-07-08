@@ -3892,7 +3892,7 @@ cosmiconfig@^5.0.0:
     js-yaml "^3.13.0"
     parse-json "^4.0.0"
 
-countries-list@^2.3.2:
+countries-list@^2.4.2:
   version "2.4.2"
   resolved "https://registry.yarnpkg.com/countries-list/-/countries-list-2.4.2.tgz#16d34de32ebd12b4f057ca4f6ee5e22fc6069f65"
   integrity sha512-U8Hlh7L7ipmkCV53sukl7xI1fbwsfoKzvWEuyNSKFHVIDnG/uWmsUnhhKTlG8v4n2FfADhm+bYe1ia53c+J7lw==

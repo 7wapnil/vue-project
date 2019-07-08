@@ -24,7 +24,7 @@
     "bootstrap": "^4.3.1",
     "bootstrap-vue": "^2.0.0-rc.19",
     "contentful": "^7.3.0",
-    "countries-list": "^2.3.2",
+    "countries-list": "^2.4.2",
     "cross-fetch": "^3.0.2",
     "graphql": "^0.13.2",
     "graphql-ruby-client": "^1.6.2",

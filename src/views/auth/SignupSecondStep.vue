@@ -37,12 +37,12 @@
       :invalid-feedback="form.errors.get('phone')"
       :state="form.errors.state('phone')">
       <b-form-input
-        v-mask="'+############'"
         id="signup-phone"
-        v-model="form.secondStep.phone"
+        :value="phoneCode"
         :state="form.errors.state('phone')"
         type="tel"
-        placeholder="Phone Number"/>
+        placeholder="Phone Number"
+        @input="updatePhone"/>
     </b-form-group>
     <b-form-group
       :invalid-feedback="form.errors.get('streetAddress')"
@@ -141,10 +141,8 @@
 </template>
 <script>
 import { Form } from '@/helpers'
-import { mask } from 'vue-the-mask'
 
 export default {
-  directives: { mask },
   props: {
     form: {
       type: Form,
@@ -154,9 +152,9 @@ export default {
       type: Boolean,
       default: false
     },
-    country: {
-      type: String,
-      default: null
+    countries: {
+      type: Array,
+      required: true
     }
   },
   data () {
@@ -165,7 +163,21 @@ export default {
       genders: [
         { value: 'male', text: 'Male' },
         { value: 'female', text: 'Female' }
-      ],
+      ]
+    }
+  },
+  computed: {
+    phoneCode () {
+      const result = this.countries.filter(obj => {
+        return obj.value === this.form.country
+      })
+      return result.length ? `+${result[0].phone}` : ''
+    }
+  },
+  methods: {
+    updatePhone (val) {
+      const phone = val.slice(1)
+      this.form.phone = phone
     }
   }
 }

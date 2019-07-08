@@ -14,12 +14,14 @@
         <signup-first-step
           :form="form"
           @submit="goToStep(1)"/>
+        :countries="countries"/>
       </b-tab>
       <b-tab
         title="Contact information"
         title-item-class="sign-form-tabs-title">
         <signup-second-step
           :submitting="submitting"
+          :countries="countries"
           :form="form"
           @return="goToStep(0)"/>
       </b-tab>
@@ -34,6 +36,20 @@ import SignupSecondStep from './SignupSecondStep'
 import SelectInput from '@/components/inputs/SelectInput.vue'
 import { mapActions } from 'vuex'
 import { getCookie } from '@/helpers/cookies'
+import { countries as countriesList } from 'countries-list'
+
+const countries = Object
+  .values(countriesList)
+  .map((country) => ({
+    value: country.name,
+    text: country.name,
+    phone: country.phone
+  }))
+  .sort((a, b) => {
+    if (a.value < b.value) { return -1 }
+    if (a.value > b.value) { return 1 }
+    return 0
+  })
 
 export default {
   components: {
@@ -67,7 +83,8 @@ export default {
         }
       }),
       submitting: false,
-      tabIndex: 0
+      tabIndex: 0,
+      countries
     }
   },
   methods: {
