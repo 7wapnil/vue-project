@@ -80,7 +80,7 @@ export const getters = {
   },
   getIsEnoughFundsToBet: (state, getters, rootState, rootGetters) => {
     const activeWallet = rootGetters['wallets/activeWallet']
-    if (activeWallet === undefined) {
+    if (activeWallet === null) {
       return false
     }
 
@@ -100,11 +100,6 @@ export const getters = {
   },
   acceptAllChecked (state) {
     return state.acceptAll
-  },
-  anyInitialBet (state) {
-    return state.bets.some((bet) => {
-      return bet.status === Bet.statuses.initial
-    })
   },
   getBetsCount (state) {
     return state.bets.length

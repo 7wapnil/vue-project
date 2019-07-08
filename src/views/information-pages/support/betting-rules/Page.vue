@@ -1,6 +1,8 @@
 <template>
   <div>
-    <static-content :contentful-id="id"/>
+    <static-content
+      :items="tableOfContentItems"
+      :contentful-id="id"/>
   </div>
 </template>
 
@@ -11,7 +13,38 @@ export default {
   components: { StaticContent },
   data () {
     return {
-      id: process.env.VUE_APP_CONTENTFUL_SUPPORT_BETTING_RULES_ID
+      id: process.env.VUE_APP_CONTENTFUL_SUPPORT_BETTING_RULES_ID,
+      tableOfContentItems: [
+        { name: 'General', id: 'general' },
+        { name: 'Soccer', id: 'soccer' },
+        { name: 'Tennis', id: 'tennis' },
+        { name: 'Basketball', id: 'basketball' },
+        { name: 'American Football', id: 'american-football' },
+        { name: 'Ice Hockey', id: 'ice-hockey' },
+        { name: 'Baseball', id: 'baseball' },
+        { name: 'Handball', id: 'handball' },
+        { name: 'Volleyball', id: 'volleyball' },
+        { name: 'Beach Volleyball', id: 'beach-volleyball' },
+        { name: 'Futsal', id: 'futsal' },
+        { name: 'Badminton', id: 'badminton' },
+        { name: 'Rugby Union & League', id: 'rugby-union-league' },
+        { name: 'Darts', id: 'darts' },
+        { name: 'Snooker', id: 'snooker' },
+        { name: 'Table Tennis', id: 'table-tennis' },
+        { name: 'Bowls', id: 'bowls' },
+        { name: 'Cricket T20 & ODI', id: 'cricket' },
+        { name: 'Squash', id: 'squash' },
+        { name: 'Winter Sports', id: 'winter-sports' },
+        { name: 'Esports General', id: 'esport-general' },
+        { name: 'CS:GO', id: 'cs-go' },
+        { name: 'Dota 2 & League of Legends', id: 'dota-lol' }
+      ]
+    }
+  },
+  metaInfo () {
+    return {
+      title: this.$i18n.t('meta.support.bettingRules.title'),
+      meta: [{ name: 'description', content: this.$i18n.t('meta.support.bettingRules.description'), vmid: 'desc' }]
     }
   }
 }

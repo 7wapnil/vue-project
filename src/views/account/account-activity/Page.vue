@@ -2,10 +2,7 @@
   <div>
     <activity-header/>
 
-    <activity-placeholder v-if="!hasBetHistory"/>
-
     <b-tabs
-      v-if="hasBetHistory"
       nav-wrapper-class="border-top-tabs-orange-tabs"
       content-class="py-4">
       <b-tab
@@ -20,6 +17,7 @@
           @table-filtred-by-bet-state="tableBetFilter"/>
 
         <b-table
+          v-if="hasBetHistory && !loadingBets"
           :items="bets.collection"
           :fields="fields"
           thead-class="activity-table-head"
@@ -54,11 +52,14 @@
             </b-badge>
           </template>
         </b-table>
+        <loader v-if="loadingBets"/>
+
+        <activity-placeholder v-if="!hasBetHistory && !loadingBets"/>
       </b-tab>
     </b-tabs>
 
     <b-pagination
-      v-if="paginationProps.count > 0"
+      v-if="paginationProps.count > 0 && !loadingBets"
       v-model="currentPage"
       :total-rows="paginationProps.count"
       :per-page="betsPerPage"

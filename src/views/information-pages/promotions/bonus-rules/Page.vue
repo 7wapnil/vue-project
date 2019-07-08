@@ -11,13 +11,7 @@ export default {
   components: { StaticContent },
   data () {
     return {
-      id: process.env.VUE_APP_CONTENTFUL_SUPPORT_FAQ_ID
-    }
-  },
-  metaInfo () {
-    return {
-      title: this.$i18n.t('meta.support.faq.title'),
-      meta: [{ name: 'description', content: this.$i18n.t('meta.support.faq.description'), vmid: 'desc' }]
+      id: process.env.VUE_APP_CONTENTFUL_PROMOTIONS_BONUS_RULES_ID
     }
   }
 }

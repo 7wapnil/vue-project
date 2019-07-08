@@ -13,6 +13,12 @@ export default {
     return {
       id: process.env.VUE_APP_CONTENTFUL_PROMOTIONS_MAIN_ID
     }
+  },
+  metaInfo () {
+    return {
+      title: this.$i18n.t('meta.promotions.main.title'),
+      meta: [{ name: 'description', content: this.$i18n.t('meta.promotions.main.description'), vmid: 'desc' }]
+    }
   }
 }
 </script>
