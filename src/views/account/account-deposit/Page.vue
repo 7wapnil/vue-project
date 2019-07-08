@@ -128,80 +128,90 @@
         </b-row>
       </b-col>
       <b-col class="bg-arc-clr-soil-dark ml-2 p-4 border-4">
-        <b-row no-gutters>
-          <b-col class="text-center py-2">
-            <h4 class="mt-2 mb-4 font-weight-light letter-spacing-1">
-              {{ $t('account.deposit.depositSummary') }}
-            </h4>
-          </b-col>
-        </b-row>
-        <b-row
-          class="mb-1"
-          no-gutters>
-          <b-col>
-            <h6 class="text-right letter-spacing-2 text-arc-clr-iron">
-              {{ $tc('generalTerms.deposit', 1) }}:
-            </h6>
-          </b-col>
-          <b-col class="pl-2 text-truncate">
-            <h6 class="letter-spacing-2">
-              {{ fields.amount ? fields.amount : 0 }} {{ currency }}
-            </h6>
-          </b-col>
-        </b-row>
-        <b-row
-          class="mb-1"
-          no-gutters>
-          <b-col>
-            <h6 class="text-right letter-spacing-2 text-arc-clr-iron">
-              {{ $tc('generalTerms.bonus', 1) }}:
-            </h6>
-          </b-col>
-          <b-col class="pl-2 text-truncate">
-            <h6 class="letter-spacing-2">
-              {{ calculatedBonus ? calculatedBonus : 0 }} {{ currency }}
-            </h6>
-          </b-col>
-        </b-row>
-        <b-row
-          class="mb-1"
-          no-gutters>
-          <b-col>
-            <h6 class="mb-2 text-right letter-spacing-2 text-arc-clr-iron">
-              {{ $tc('generalTerms.fee', 1) }}:
-            </h6>
-          </b-col>
-          <b-col class="pl-2 text-truncate">
-            <h6 class="mb-2 letter-spacing-2">
-              0.00 {{ currency }}
-            </h6>
-          </b-col>
-        </b-row>
-        <b-row
-          class="mt-2 mb-1"
-          no-gutters>
-          <b-col class="pt-1">
-            <h6 class="mb-0 text-right letter-spacing-2 text-arc-clr-iron">
-              {{ $t('account.deposit.total') }}:
-            </h6>
-          </b-col>
-          <b-col class="pl-2 mb-4 text-truncate">
-            <span class="letter-spacing-2 font-weight-bold">
-              {{ getTotal ? getTotal : 0 }} {{ currency }}
-            </span>
-          </b-col>
-        </b-row>
-        <b-row no-gutters>
-          <b-col class="px-2 mt-4 mb-2">
-            <b-button
-              :disabled="buttonDisabled"
-              variant="user-profile-button"
-              class="w-100"
-              @click.prevent="submitDeposit">
-              {{ $t('account.cta.deposit') }}
-            </b-button>
-          </b-col>
-        </b-row>
+        <div id="summary">
+          <b-row no-gutters>
+            <b-col class="text-center py-2">
+              <h4 class="mt-2 mb-4 font-weight-light letter-spacing-1">
+                {{ $t('account.deposit.depositSummary') }}
+              </h4>
+            </b-col>
+          </b-row>
+          <b-row
+            class="mb-1"
+            no-gutters>
+            <b-col>
+              <h6 class="text-right letter-spacing-2 text-arc-clr-iron">
+                {{ $tc('generalTerms.deposit', 1) }}:
+              </h6>
+            </b-col>
+            <b-col class="pl-2 text-truncate">
+              <h6 class="letter-spacing-2">
+                {{ fields.amount ? fields.amount : 0 }} {{ currency }}
+              </h6>
+            </b-col>
+          </b-row>
+          <b-row
+            class="mb-1"
+            no-gutters>
+            <b-col>
+              <h6 class="text-right letter-spacing-2 text-arc-clr-iron">
+                {{ $tc('generalTerms.bonus', 1) }}:
+              </h6>
+            </b-col>
+            <b-col class="pl-2 text-truncate">
+              <h6 class="letter-spacing-2">
+                {{ calculatedBonus ? calculatedBonus : 0 }} {{ currency }}
+              </h6>
+            </b-col>
+          </b-row>
+          <b-row
+            class="mb-1"
+            no-gutters>
+            <b-col>
+              <h6 class="mb-2 text-right letter-spacing-2 text-arc-clr-iron">
+                {{ $tc('generalTerms.fee', 1) }}:
+              </h6>
+            </b-col>
+            <b-col class="pl-2 text-truncate">
+              <h6 class="mb-2 letter-spacing-2">
+                0.00 {{ currency }}
+              </h6>
+            </b-col>
+          </b-row>
+          <b-row
+            class="mt-2 mb-1"
+            no-gutters>
+            <b-col class="pt-1">
+              <h6 class="mb-0 text-right letter-spacing-2 text-arc-clr-iron">
+                {{ $t('account.deposit.total') }}:
+              </h6>
+            </b-col>
+            <b-col class="pl-2 mb-4 text-truncate">
+              <span class="letter-spacing-2 font-weight-bold">
+                {{ getTotal ? getTotal : 0 }} {{ currency }}
+              </span>
+            </b-col>
+          </b-row>
+          <b-row no-gutters>
+            <b-col class="px-2 mt-4 mb-2">
+              <b-button
+                :disabled="buttonDisabled"
+                variant="user-profile-button"
+                class="w-100"
+                @click.prevent="submitDeposit">
+                {{ $t('account.cta.deposit') }}
+              </b-button>
+            </b-col>
+          </b-row>
+        </div>
+        <div
+          id="cryptoSection"
+          class="d-none">
+          <h5 class="my-4">Scan code</h5>
+          <canvas id="qrcode" />
+          <h5 class="font-italic text">Raw address:</h5>
+          <h5 class="text-break">{{ address }}</h5>
+        </div>
       </b-col>
     </b-row>
     <b-row no-gutters>
@@ -224,6 +234,7 @@ import {
 import DepositHeader from './DepositHeader'
 import DepositMethods from './DepositMethods'
 import { EUR } from '@/constants/currencies'
+import QRCode from 'qrcode'
 
 export default {
   name: 'DepositFunds',
@@ -251,7 +262,9 @@ export default {
         fail: 'danger'
       },
       moneyAmounts: [ 10, 25, 50, 75, 100, 150, 200, 250 ],
-      depositMethods: []
+      depositMethods: [],
+      qrText: '',
+      address: '',
     }
   },
   apollo: {
@@ -335,7 +348,15 @@ export default {
       }).then(({ data: { deposit } }) => {
         this.depositState = 'success'
         this.depositMessage = deposit.message
-        window.location.href = deposit.url
+        if (this.paymentMethod.code === 'bitcoin') {
+          document.getElementById('summary').classList.add('d-none');
+          document.getElementById('cryptoSection').classList.remove('d-none');
+          this.address = deposit.url
+          this.qrText = `bitcoin:${this.address}?amount=${this.fields.amount / 1000}`
+          QRCode.toCanvas(document.getElementById('qrcode'), this.qrText, { scale: 8, margin: 2 })
+        } else {
+          window.location.href = deposit.url
+        }
       }).catch(({ graphQLErrors }) => {
         this.depositState = 'fail'
         this.depositMessage = graphQLErrors[0].message
