@@ -45,7 +45,7 @@
       </b-col>
     </b-row>
     <b-row
-      v-if="!isForm"
+      v-if="isTokenFeedback"
       class="d-flex justify-content-center">
       <b-col cols="auto">
         <p class="font-size-18 letter-spacing-2 text-arc-clr-iron">
@@ -88,7 +88,8 @@ export default {
       tokenResultFeedback: '',
       pageLoading: null,
       submitting: false,
-      isForm: null
+      isForm: true,
+      isTokenValid: null
     }
   },
   apollo: {
@@ -101,7 +102,7 @@ export default {
         },
         result ({ data: { verifyPasswordToken } }) {
           this.pageLoading = false
-          this.isForm = verifyPasswordToken.success
+          this.isTokenValid = verifyPasswordToken.success
           this.tokenResultFeedback = null || verifyPasswordToken.message
         }
       }
@@ -117,10 +118,13 @@ export default {
       return this.anyEmptyField || this.submitting
     },
     isFormPresent () {
-      return this.isForm && !this.pageLoading
+      return this.isForm && !this.pageLoading && !this.isTokenFeedback
     },
     isResultMessage () {
       return !this.isForm && this.feedback
+    },
+    isTokenFeedback () {
+      return !this.isTokenValid && this.tokenResultFeedback !== null
     }
   },
   methods: {
@@ -128,6 +132,8 @@ export default {
     submit () {
       this.form.clearErrors()
       this.submitting = true
+      this.isForm = false
+      this.feedback = ''
 
       const input = {
         ...this.form.values(),
@@ -139,9 +145,9 @@ export default {
         .then(() => {
           this.feedback = this.$t('userModal.passwordChangeSuccess')
           setTimeout(() => { this.$root.$emit('bv::hide::modal', 'AuthModal') }, 2000)
-          this.isForm = false
         })
         .catch((errors) => {
+          this.isForm = true
           this.form.handleGraphQLErrors(errors)
           this.feedback = errors.graphQLErrors[0].message
         })
