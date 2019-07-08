@@ -38,6 +38,11 @@ export default {
       }
     }
   },
+  data () {
+    return {
+      isOnline: navigator.onLine || false
+    }
+  },
   computed: {
     ...mapGetters(['isLoggedIn', 'getUser'])
   },
@@ -57,6 +62,9 @@ export default {
 
     this.$livechat.initWidget()
   },
+  beforeDestroy () {
+    [ONLINE, OFFLINE].forEach(event => window.removeEventListener(event, this.updateOnlineStatus))
+  },
   methods: {
     ...mapMutations('providers', {
       setProviders: SET_PROVIDERS,
@@ -68,7 +76,10 @@ export default {
       if (status === HEALTHY) { this.$router.push({ name: 'home' }) }
     },
     updateOnlineStatus () {
-      navigator.onLine ? this.$router.push({ name: 'home' }) : this.$router.push({ name: 'NoConnection' })
+      console.log('here')
+      this.isOnline = navigator.onLine || false
+      console.log(this.isOnline)
+      this.isOnline ? this.$router.push({ name: 'home' }) : this.$router.push({ name: 'NoConnection' })
     }
   }
 }
