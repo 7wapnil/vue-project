@@ -145,6 +145,8 @@ import { mapGetters, mapMutations, mapActions } from 'vuex'
 import wallets from '@/mixins/wallets'
 import SpinnerButton from './SpinnerButton'
 
+const REFRESH_SLIP_AFTER_PLACING_BET_TIME = 3 * 1000
+
 export default {
   components: {
     BetslipItem,
@@ -264,6 +266,7 @@ export default {
           })
         })
         this.subscribeBets()
+        setTimeout(this.refreshBetslip, REFRESH_SLIP_AFTER_PLACING_BET_TIME);
       }
     },
     betStatusFromResponse (bet) {
