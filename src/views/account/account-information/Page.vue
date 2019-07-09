@@ -5,7 +5,9 @@
       class="px-0">
       <b-row no-gutters>
         <b-col/>
-        <b-col class="p-4 user-profile-form">
+        <b-col
+          v-if="!isMobile"
+          class="p-4 user-profile-form">
           <h3 class="font-weight-light ml-2">
             {{ user.firstName }} {{ user.lastName }}
           </h3>
