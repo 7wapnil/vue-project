@@ -73,7 +73,7 @@ export default {
       if (status === HEALTHY) { this.$router.push({ name: 'home' }) }
     },
     updateOnlineStatus () {
-      navigator.onLine ? this.$router.push({ name: 'home' }) : this.$router.push({ name: 'NoConnection' })
+      !navigator.onLine ? this.$bvModal.show('ConnectionModal') : this.$bvModal.hide('ConnectionModal')
     }
   }
 }

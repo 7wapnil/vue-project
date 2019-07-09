@@ -4,7 +4,6 @@ import StyleGuidePages from './styleguide_pages'
 import InformationPages from '@/routes/information_pages';
 import NotFound from '@/views/layouts/common/NotFound'
 import Maintenance from '@/views/layouts/common/Maintenance'
-import NoConnection from '@/views/layouts/common/NoConnection'
 import { setCookie } from '@/helpers/cookies'
 import moment from 'moment'
 import filters from '@/mixins/filters'
@@ -33,11 +32,6 @@ const router = new Router({
       path: 'maintenance',
       name: 'Maintenance',
       component: Maintenance
-    },
-    {
-      path: 'no-connection',
-      name: 'NoConnection',
-      component: NoConnection
     },
     {
       path: '/*',
