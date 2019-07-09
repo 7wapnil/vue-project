@@ -13,8 +13,8 @@
         title-item-class="sign-form-tabs-title">
         <signup-first-step
           :form="form"
+          :countries="countries"
           @submit="goToStep(1)"/>
-        :countries="countries"/>
       </b-tab>
       <b-tab
         title="Contact information"
