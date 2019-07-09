@@ -9,6 +9,8 @@ import { mapMutations, mapActions, mapGetters } from 'vuex'
 import { HEALTHY, RECOVERING } from './constants/graphql/app-statuses'
 import { ONLINE, OFFLINE } from '@/constants/network-events'
 
+const EVENTS = [ONLINE, OFFLINE]
+
 export default {
   apollo: {
     providers () {
@@ -38,11 +40,6 @@ export default {
       }
     }
   },
-  data () {
-    return {
-      isOnline: navigator.onLine || false
-    }
-  },
   computed: {
     ...mapGetters(['isLoggedIn', 'getUser'])
   },
@@ -54,16 +51,16 @@ export default {
     }
   },
   created () {
-    [ONLINE, OFFLINE].forEach(event => window.addEventListener(event, this.updateOnlineStatus))
+    EVENTS.forEach(event => window.addEventListener(event, this.updateOnlineStatus))
+    this.updateOnlineStatus()
     if (this.isLoggedIn) {
       this.fetchWallets()
       this.$livechat.setUser(this.getUser)
     }
-
     this.$livechat.initWidget()
   },
   beforeDestroy () {
-    [ONLINE, OFFLINE].forEach(event => window.removeEventListener(event, this.updateOnlineStatus))
+    EVENTS.forEach(event => window.removeEventListener(event, this.updateOnlineStatus))
   },
   methods: {
     ...mapMutations('providers', {
@@ -76,10 +73,7 @@ export default {
       if (status === HEALTHY) { this.$router.push({ name: 'home' }) }
     },
     updateOnlineStatus () {
-      console.log('here')
-      this.isOnline = navigator.onLine || false
-      console.log(this.isOnline)
-      this.isOnline ? this.$router.push({ name: 'home' }) : this.$router.push({ name: 'NoConnection' })
+      navigator.onLine ? this.$router.push({ name: 'home' }) : this.$router.push({ name: 'NoConnection' })
     }
   }
 }
