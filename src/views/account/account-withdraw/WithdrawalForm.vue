@@ -2,9 +2,9 @@
   <div v-if="mainMethod">
     <b-row no-gutters>
       <b-col class="pt-4 pb-3">
-        <span class="text-arc-clr-iron">
-          {{ descriptionMap[mainMethod.code] }}
-        </span>
+        <span
+          class="text-arc-clr-iron"
+          v-html="mainMethod.description"/>
       </b-col>
     </b-row>
     <b-alert
@@ -151,10 +151,7 @@ export default {
         amount: null,
         password: null,
         paymentDetails: []
-      }),
-      descriptionMap: {
-        'credit_card': 'Debit/Credit Card withdrawals come with a 0% withdrawal fee'
-      }
+      })
     }
   },
   computed: {

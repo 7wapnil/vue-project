@@ -6,6 +6,7 @@ export const WITHDRAWAL_METHODS_QUERY = gql`
       code
       name
       note
+      description
       currencyCode
     }
   }
