@@ -3,8 +3,7 @@
     <account-sidebar v-if="isMenu"/>
     <component
       v-if="!isMenu"
-      :is="currentComponent"
-      class="p-4"/>
+      :is="currentComponent"/>
   </div>
 </template>
 <script>

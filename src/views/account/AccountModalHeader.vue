@@ -3,7 +3,7 @@
     class="w-100 h-100"
     no-gutters>
     <b-col
-      v-if="!isMenu"
+      v-if="!isMenu && isMobile"
       cols="auto"
       class="d-flex align-items-center justify-content-start mr-2"
       @click="toggleMenu">
@@ -12,8 +12,15 @@
         size="20px"
         color="arc-clr-iron-light"/>
     </b-col>
-    <b-col class="text-capitalize text-arc-clr-white text-text-truncate font-weight-light">
+    <b-col
+      v-if="isMobile"
+      class="text-capitalize text-arc-clr-white text-truncate font-weight-light pr-2">
       {{ modalTitle }}
+    </b-col>
+    <b-col
+      v-if="!isMobile"
+      class="text-capitalize text-arc-clr-white text-truncate font-weight-light">
+      {{ user.username + `'s profile` }}
     </b-col>
     <b-col
       cols="auto"

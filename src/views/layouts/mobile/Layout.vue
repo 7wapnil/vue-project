@@ -14,8 +14,8 @@
 </template>
 
 <script>
-import MobileNavigationBar from './NavigationBar'
-import MobileFooter from './footer/Footer'
+import MobileNavigationBar from '@/views/layouts/mobile/NavigationBar'
+import MobileFooter from '@/views/layouts/mobile/footer/Footer'
 import NavigationSidebar from '@/views/layouts/mobile/sidemenu/NavigationSidebar'
 import { mapGetters, mapMutations } from 'vuex'
 import MobileContent from '@/views/layouts/mobile/Content'

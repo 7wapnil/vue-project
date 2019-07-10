@@ -1,7 +1,7 @@
 <template>
   <b-row no-gutters>
     <b-col>
-      <profile-wallet @open-account-deposit-tab="changeTabIndex(depositTabIndex)"/>
+      <profile-wallet @open-account-deposit-tab="changeTabIndex(depositTabIndex);addTabName('Deposit')"/>
       <b-nav
         class="h-100 bg-arc-clr-soil-black"
         vertical>
