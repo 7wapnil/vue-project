@@ -3,13 +3,12 @@
     :invalid-feedback="error"
     :state="state">
     <b-row no-gutters>
-
       <b-col
         cols="12"
         sm="4"
         class="mr-3 mb-3 mb-sm-0">
         <b-form-select
-          v-model="day"
+          v-model="model.day"
           :state="state"
           :options="days"/>
       </b-col>
@@ -18,7 +17,7 @@
         sm="auto"
         class="mr-0 mr-sm-3 mb-3 mb-sm-0">
         <b-form-select
-          v-model="month"
+          v-model="model.month"
           :state="state"
           :options="months"/>
       </b-col>
@@ -26,12 +25,11 @@
         cols="12"
         sm="3">
         <b-form-select
-          v-model="year"
+          v-model="model.year"
           :state="state"
           :options="years"/>
       </b-col>
     </b-row>
-    {{model}}
   </b-form-group>
 </template>
 
@@ -71,8 +69,8 @@ export default {
       const days = [{ value: null, text: 'Day' }]
       const month = moment()
 
-      if (this.helpFields.month) {
-        month.month(parseInt(this.helpFields.month) - 1)
+      if (this.model.month) {
+        month.month(parseInt(this.model.month) - 1)
       }
 
       for (let i = 1; i <= month.daysInMonth(); ++i) {
@@ -113,35 +111,6 @@ export default {
       }
 
       return years
-    },
-    day: {
-      get () { return this.helpFields.day },
-      set (value) {
-        this.helpFields.day = value
-        this.triggerUpdate()
-      }
-    },
-    month: {
-      get () { return this.helpFields.month },
-      set (value) {
-        this.helpFields.month = value
-        this.triggerUpdate()
-      }
-    },
-    year: {
-      get () { return this.helpFields.year },
-      set (value) {
-        this.helpFields.year = value
-        this.triggerUpdate()
-      }
-    }
-  },
-  methods: {
-    triggerUpdate () {
-      const { year, month, day } = this.helpFields
-      if (year && month && day) {
-        this.$emit('input', `${year}-${month}-${day}`)
-      }
     }
   }
 }

@@ -42,7 +42,7 @@
         :state="form.errors.state('phone')"
         type="tel"
         placeholder="Phone Number"
-       />
+      />
     </b-form-group>
     <b-form-group
       :invalid-feedback="form.errors.get('streetAddress')"
@@ -166,11 +166,6 @@ export default {
       ]
     }
   },
-  mounted(){
-    if(!this.form.secondStep.phone.includes(this.phoneCode)) {
-      this.form.secondStep.phone = this.phoneCode + ' '
-    }
-  },
   computed: {
     phoneCode () {
       const result = this.countries.filter(obj => {
@@ -178,6 +173,11 @@ export default {
       })
 
       return result.length ? `+${result[0].phone}` : ''
+    }
+  },
+  mounted () {
+    if (!this.form.secondStep.phone.includes(this.phoneCode)) {
+      this.form.secondStep.phone = this.phoneCode + ' '
     }
   }
 }
