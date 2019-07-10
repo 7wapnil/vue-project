@@ -7,6 +7,9 @@ import { PROVIDERS_QUERY, PROVIDER_SUBSCRIPTION, MTS_CONNECTION_STATUS_UPDATED }
 import { SET_PROVIDERS, UPDATE_PROVIDER } from '@/stores/providers'
 import { mapMutations, mapActions, mapGetters } from 'vuex'
 import { HEALTHY, RECOVERING } from './constants/graphql/app-statuses'
+import { ONLINE, OFFLINE } from '@/constants/network-events'
+
+const EVENTS = [ONLINE, OFFLINE]
 
 export default {
   apollo: {
@@ -48,11 +51,16 @@ export default {
     }
   },
   created () {
+    EVENTS.forEach(event => window.addEventListener(event, this.updateOnlineStatus))
+    this.updateOnlineStatus()
     if (this.isLoggedIn) {
       this.fetchWallets()
       this.$livechat.setUser(this.getUser)
     }
     this.$livechat.initWidget()
+  },
+  beforeDestroy () {
+    EVENTS.forEach(event => window.removeEventListener(event, this.updateOnlineStatus))
   },
   methods: {
     ...mapMutations('providers', {
@@ -63,6 +71,9 @@ export default {
     updateAppStatus (status) {
       if (status === RECOVERING) { this.$router.push({ name: 'Maintenance' }) }
       if (status === HEALTHY) { this.$router.push({ name: 'home' }) }
+    },
+    updateOnlineStatus () {
+      !navigator.onLine ? this.$bvModal.show('ConnectionModal') : this.$bvModal.hide('ConnectionModal')
     }
   }
 }
