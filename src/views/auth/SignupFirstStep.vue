@@ -23,6 +23,7 @@
     </b-form-group>
 
     <birth-date-field
+            :model="form.firstStep.dateOfBirth"
       v-model="form.firstStep.dateOfBirth"
       :state="form.errors.state('dateOfBirth')"
       :error="form.errors.get('dateOfBirth')"/>

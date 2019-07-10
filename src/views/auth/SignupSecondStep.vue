@@ -38,11 +38,11 @@
       :state="form.errors.state('phone')">
       <b-form-input
         id="signup-phone"
-        :value="phoneCode"
+        v-model="form.secondStep.phone"
         :state="form.errors.state('phone')"
         type="tel"
         placeholder="Phone Number"
-        @input="updatePhone"/>
+       />
     </b-form-group>
     <b-form-group
       :invalid-feedback="form.errors.get('streetAddress')"
@@ -93,14 +93,14 @@
       <span class="d-block font-size-14 text-arc-clr-iron pointer letter-spacing-2 ml-3 mt-1">
         Confirm I am not underage,
         <b-link
-          :to="{ name: 'terms and conditions' }"
+          :to="{ path: 'terms-and-conditions' }"
           target="_blank"
           class="font-weight-bold">
           agree with T&C,
         </b-link>
         agree with
         <b-link
-          :to="{ name: 'privacy policy' }"
+          :to="{ path: 'privacy-policy' }"
           target="_blank"
           class="font-weight-bold">
           privacy policy
@@ -166,18 +166,18 @@ export default {
       ]
     }
   },
+  mounted(){
+    if(!this.form.secondStep.phone.includes(this.phoneCode)) {
+      this.form.secondStep.phone = this.phoneCode + ' '
+    }
+  },
   computed: {
     phoneCode () {
       const result = this.countries.filter(obj => {
-        return obj.value === this.form.country
+        return obj.value === this.form.firstStep.country
       })
+
       return result.length ? `+${result[0].phone}` : ''
-    }
-  },
-  methods: {
-    updatePhone (val) {
-      const phone = val.slice(1)
-      this.form.phone = phone
     }
   }
 }

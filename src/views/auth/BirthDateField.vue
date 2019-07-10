@@ -3,6 +3,7 @@
     :invalid-feedback="error"
     :state="state">
     <b-row no-gutters>
+
       <b-col
         cols="12"
         sm="4"
@@ -30,6 +31,7 @@
           :options="years"/>
       </b-col>
     </b-row>
+    {{model}}
   </b-form-group>
 </template>
 
@@ -45,6 +47,10 @@ export default {
     state: {
       type: [Boolean, null],
       default: false
+    },
+    model: {
+      type: Object,
+      default: null
     },
     error: {
       type: [String, null],

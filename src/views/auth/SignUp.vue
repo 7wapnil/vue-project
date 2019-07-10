@@ -63,7 +63,11 @@ export default {
         firstStep: {
           username: '',
           email: '',
-          dateOfBirth: '',
+          dateOfBirth: {
+            day: '',
+            month: '',
+            year: ''
+          },
           password: '',
           passwordConfirmation: '',
           country: '',
@@ -85,6 +89,12 @@ export default {
       submitting: false,
       tabIndex: 0,
       countries
+    }
+  },
+  computed: {
+    dateOfBirthInput() {
+      const dob = this.form.firstStep.dateOfBirth
+      return dob.year + dob.month + dob.day
     }
   },
   methods: {
