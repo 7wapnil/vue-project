@@ -169,7 +169,7 @@ export default {
   computed: {
     phoneCode () {
       const result = this.countries.filter(obj => {
-        return obj.value === this.form.country
+        return obj.value === this.form.firstStep.country
       })
       return result.length ? `+${result[0].phone}` : ''
     }
@@ -177,7 +177,7 @@ export default {
   methods: {
     updatePhone (val) {
       const phone = val.slice(1)
-      this.form.phone = phone
+      this.form.secondStep.phone = phone
     }
   }
 }
