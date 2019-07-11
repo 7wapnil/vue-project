@@ -3,8 +3,9 @@
     v-if="user"
     no-gutters
     class="mb-md-5 mb-0">
-    <b-col v-if="!isMobile"
-           class="text-left">
+    <b-col
+      v-if="!isMobile"
+      class="text-left">
       <h3 class="m-0 font-weight-light">
         {{ $t('account.tabs.accountStatus') }}
       </h3>
