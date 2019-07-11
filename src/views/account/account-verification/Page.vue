@@ -25,7 +25,7 @@
           class="d-flex align-items-center justify-content-end">
           <label
             class="btn-arc-secondary m-0 py-2 px-4 text-arc-clr-iron-light letter-spacing-2">
-            Choose file
+              {{ $t('account.accountVerification.cta.chooseFile') }}
             <b-form-file
               v-model="item.file"
               :state="item.error.length === 0 ? null : false"

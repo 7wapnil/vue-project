@@ -225,6 +225,9 @@ const messages = {
         disclaimers: {
           description: 'In order to follow KYC procedures, we are required to verify your identity before we are able to process any withdrawal requests. Please upload the neccessary documents and we will verify your account as soon as possible.',
           cardWarning: 'Do note that credit/debit card scans are required only for players that have used a credit/debit card for their deposits. In order to keep your payment details safe, we encourage you to cover the middle 6 digits of the card before uploading.'
+        },
+        cta: {
+          chooseFile: 'Choose file'
         }
       }
     }
