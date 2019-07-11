@@ -3,14 +3,13 @@
     v-if="user"
     no-gutters
     class="mb-5">
-    <b-col class="text-left">
-      <h3
-        v-if="!isMobile"
-        class="m-0 font-weight-light">
-        Account status
+    <b-col v-if="!isMobile"
+           class="text-left">
+      <h3 class="m-0 font-weight-light">
+        {{ $t('account.tabs.accountStatus') }}
       </h3>
     </b-col>
-    <b-col>
+    <b-col class="p-4 p-md-0">
       <span
         v-if="!!user.verified"
         class="d-flex align-items-center justify-content-end">
