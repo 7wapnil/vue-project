@@ -28,21 +28,21 @@
       <b-row
         no-gutters>
         <b-col>
-          <span class="text-arc-clr-iron font-size-14 letter-spacing-2 mb-0">
+          <span class="text-arc-clr-iron font-size-14 letter-spacing-2 mb-0 mr-2">
             {{ $t('account.accountInfo.email') }}:
           </span>
-          <strong class="mb-0 ml-2 text-arc-clr-iron-light font-size-14 letter-spacing-2">
+          <strong class="mb-0 text-arc-clr-iron-light font-size-14 letter-spacing-2">
             {{ user.email }}
           </strong>
         </b-col>
       </b-row>
 
       <b-row no-gutters>
-        <b-col>
-          <span class="text-arc-clr-iron font-size-14 letter-spacing-2 mb-0">
+        <b-col class="text-truncate">
+          <span class="text-arc-clr-iron font-size-14 letter-spacing-2 mb-0 mr-2">
             {{ $t('account.accountInfo.username') }}:
           </span>
-          <strong class="ml-2 mb-0 text-arc-clr-iron-light font-size-14 letter-spacing-2">
+          <strong class="mb-0 text-arc-clr-iron-light font-size-14 letter-spacing-2">
             {{ user.username }}
           </strong>
         </b-col>
