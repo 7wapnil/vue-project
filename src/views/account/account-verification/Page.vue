@@ -52,10 +52,10 @@ import axios from 'axios'
 import { mapGetters } from 'vuex'
 import { DOCUMENTS_QUERY, DELETE_FILE, USER_VERIFICATION_QUERY } from '@/graphql/index'
 import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
-import VerificationStatus from './VerificationStatus'
-import DisclaimerSection from './DisclaimerSection'
-import UploadedItem from './UploadedItem'
-import UploadButtonSection from './UploadButtonSection'
+import VerificationStatus from '@/views/account/account-verification/VerificationStatus'
+import DisclaimerSection from '@/views/account/account-verification/DisclaimerSection'
+import UploadedItem from '@/views/account/account-verification/UploadedItem'
+import UploadButtonSection from '@/views/account/account-verification/UploadButtonSection'
 
 export default {
   components: {
