@@ -19,14 +19,13 @@
         class="mb-4 mb-md-0"
         no-gutters>
         <b-col>
-          <h3 class="font-weight-light mb-0">
+          <h3 class="font-weight-light">
             {{ user.firstName }} {{ user.lastName }}
           </h3>
         </b-col>
       </b-row>
 
       <b-row
-        class="mb-1"
         no-gutters>
         <b-col>
           <span class="text-arc-clr-iron font-size-14 letter-spacing-2 mb-0">
