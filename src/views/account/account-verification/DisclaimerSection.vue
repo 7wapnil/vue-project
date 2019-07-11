@@ -10,9 +10,8 @@
         </p>
       </b-col>
     </b-row>
-    <b-row
-      style="box-shadow: inset 0 -1px 0 0 rgba(0, 0, 0, .3)"
-      no-gutters>
+    <b-row class="border-bottom border-arc-clr-soil-cover"
+           no-gutters>
       <b-col
         class="d-flex align-items-center justify-content-center p-4 mb-4"
         cols="auto">
