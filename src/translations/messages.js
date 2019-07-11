@@ -135,6 +135,7 @@ const messages = {
         withdrawFunds: 'Withdraw funds',
         bonus: 'Bonus',
         accountVerification: 'Account verification',
+        accountStatus: 'Account status',
         transactionHistory: 'Transaction history'
       },
       cta: {
