@@ -227,7 +227,20 @@ const messages = {
           cardWarning: 'Do note that credit/debit card scans are required only for players that have used a credit/debit card for their deposits. In order to keep your payment details safe, we encourage you to cover the middle 6 digits of the card before uploading.'
         },
         cta: {
-          chooseFile: 'Choose file'
+          chooseFile: 'Choose file',
+          uploadFiles: 'Upload Files',
+          remove: 'Remove'
+        },
+        information: {
+          upload: 'You don’t have any files chosen.<br> Please choose files to upload',
+          waiting: 'Waiting for upload'
+        },
+        kinds: {
+          passport: 'Passport or Identity card',
+          bill: 'Utility Bill',
+          bank: 'Bank statement',
+          card: 'Credit/Debit card',
+          other: 'Other'
         }
       }
     }

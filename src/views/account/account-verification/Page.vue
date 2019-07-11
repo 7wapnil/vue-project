@@ -5,7 +5,7 @@
     <div
       v-for="(item, index) in items"
       :key="index"
-      class="py-4 verification-card">
+      class="py-4 px-4 px-md-0 verification-card">
       <b-row no-gutters>
         <b-col class="d-flex align-items-center">
           <label
@@ -70,7 +70,7 @@ export default {
         id: null,
         name: 'personal_id',
         accept: 'image/jpeg, image/png, image/gif, application/pdf',
-        label: 'Passport or Identity card',
+        label: this.$t('account.accountVerification.kinds.passport'),
         file: null,
         error: ''
       },
@@ -78,7 +78,7 @@ export default {
         id: null,
         name: 'utility_bill',
         accept: 'image/jpeg, image/png, image/gif, application/pdf',
-        label: 'Utility Bill',
+        label: this.$t('account.accountVerification.kinds.bill'),
         file: null,
         error: ''
       },
@@ -86,7 +86,7 @@ export default {
         id: null,
         name: 'bank_statement',
         accept: 'image/jpeg, image/png, image/gif, application/pdf',
-        label: 'Bank statement',
+        label: this.$t('account.accountVerification.kinds.bank'),
         file: null,
         error: ''
       },
@@ -94,7 +94,7 @@ export default {
         id: null,
         name: 'credit_card',
         accept: 'image/jpeg, image/png, image/gif, application/pdf',
-        label: 'Credit/Debit card',
+        label: this.$t('account.accountVerification.kinds.card'),
         file: null,
         error: ''
       },
@@ -102,7 +102,7 @@ export default {
         id: null,
         name: 'other_document',
         accept: 'image/jpeg, image/png, image/gif, application/pdf',
-        label: 'Other',
+        label: this.$t('account.accountVerification.kinds.other'),
         file: null,
         error: ''
       }],
