@@ -2,7 +2,7 @@
   <b-row
     v-if="user"
     no-gutters
-    class="mb-5">
+    class="mb-md-5 mb-0">
     <b-col v-if="!isMobile"
            class="text-left">
       <h3 class="m-0 font-weight-light">
@@ -15,7 +15,7 @@
         class="d-flex align-items-center justify-content-end">
         <b-img :src="require('@/assets/images/account/account-verification/verified_user.svg')"/>
         <span class="font-size-18 font-weight-bold letter-spacing-5 text-arc-clr-sport-glow ml-2">
-          Verified
+          {{ $t('account.accountVerification.status.verified') }}
         </span>
       </span>
       <span
@@ -23,7 +23,7 @@
         class="d-flex align-items-center justify-content-end">
         <b-img :src="require('@/assets/images/account/account-verification/not_verified_user.svg')"/>
         <span class="font-size-18 font-weight-bold letter-spacing-5 text-wp-clr-notif-red ml-2">
-          Not Verified
+          {{ $t('account.accountVerification.status.notVerified') }}
         </span>
       </span>
     </b-col>
