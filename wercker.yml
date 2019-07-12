@@ -1,4 +1,4 @@
-box: kkarczmarczyk/node-yarn:latest
+box: node:10.16-alpine
 
 build:
   steps:
