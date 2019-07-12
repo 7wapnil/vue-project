@@ -20,7 +20,7 @@
                 :bg-color="'arc-clr-iron'"
                 :size="18"
                 class="mr-2"/>
-              Waiting for upload
+              {{ $t('account.accountVerification.information.waiting') }}
             </span>
             <span
               v-else
@@ -42,7 +42,7 @@
               v-if="item.status !== 'confirmed'"
               class="text-arc-clr-iron-light font-size-14 letter-spacing-1"
               @click="$emit('item-removed', item)">
-              Remove
+              {{ $t('account.accountVerification.cta.remove') }}
             </b-link>
           </b-col>
         </b-row>

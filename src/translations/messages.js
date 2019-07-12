@@ -135,6 +135,7 @@ const messages = {
         withdrawFunds: 'Withdraw funds',
         bonus: 'Bonus',
         accountVerification: 'Account verification',
+        accountStatus: 'Account status',
         transactionHistory: 'Transaction history'
       },
       cta: {
@@ -214,6 +215,32 @@ const messages = {
             list7: 'You may withdraw at any point, if you do this will confiscate your entire bonus balance if you have not reached the rollover yet',
             list8: 'You may only use this code once per household per real account. If it is found that there is any attempt to avoid this limitation, we reserve the right to void all bets and confiscate all funds',
           }
+        },
+      },
+      accountVerification: {
+        status: {
+          verified: 'Verified',
+          notVerified: 'Not Verified'
+        },
+        disclaimers: {
+          description: 'In order to follow KYC procedures, we are required to verify your identity before we are able to process any withdrawal requests. Please upload the neccessary documents and we will verify your account as soon as possible.',
+          cardWarning: 'Do note that credit/debit card scans are required only for players that have used a credit/debit card for their deposits. In order to keep your payment details safe, we encourage you to cover the middle 6 digits of the card before uploading.'
+        },
+        cta: {
+          chooseFile: 'Choose file',
+          uploadFiles: 'Upload Files',
+          remove: 'Remove'
+        },
+        information: {
+          upload: 'You don’t have any files chosen.<br> Please choose files to upload',
+          waiting: 'Waiting for upload'
+        },
+        kinds: {
+          passport: 'Passport or Identity card',
+          bill: 'Utility Bill',
+          bank: 'Bank statement',
+          card: 'Credit/Debit card',
+          other: 'Other'
         }
       }
     }
