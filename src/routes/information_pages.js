@@ -54,12 +54,6 @@ export const InformationPages = {
       component: () => import('@/views/layouts/information-page/Content'),
       children: [
         {
-          path: 'welcome-to-arcanebet',
-          name: 'Welcome to arcanebet',
-          title: 'Welcome to arcanebet',
-          component: () => import('@/views/information-pages/about/welcome/Page')
-        },
-        {
           path: 'about-arcanebet',
           name: 'About arcanebet',
           title: 'About arcanebet',
