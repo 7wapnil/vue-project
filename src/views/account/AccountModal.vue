@@ -1,7 +1,6 @@
 <template>
   <modal
     id="AccountModal"
-    :lazy="false"
     :dialog-class="[ isMobile ? 'bg-arc-clr-soil-darker h-100 m-0' : '']"
     scrollable
     size="lg"

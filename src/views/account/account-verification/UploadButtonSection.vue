@@ -1,16 +1,22 @@
 <template>
   <b-row
-    class="py-4"
+    class="py-md-4 py-0"
     no-gutters>
-    <b-col class="mt-2 letter-spacing-2 text-arc-clr-iron">
-      You don’t have any files chosen.<br> Please choose files to upload
-    </b-col>
-    <b-col class="text-right mt-2">
+    <b-col
+      cols="12"
+      md="6"
+      class="mt-0 mt-md-2 letter-spacing-2 text-arc-clr-iron p-4 p-md-0"
+      v-html="$t('account.accountVerification.information.upload')"/>
+    <b-col
+      cols="12"
+      md="6"
+      class="text-right mt-0 mt-md-2 p-4 p-md-0">
       <b-button
+        :block="isMobile"
         :disabled="!isSubmitEnabled"
         variant="user-profile-button"
         @click="$emit('files-submited')">
-        Upload Files
+        {{ $t('account.accountVerification.cta.uploadFiles') }}
       </b-button>
     </b-col>
   </b-row>

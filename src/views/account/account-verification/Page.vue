@@ -5,7 +5,7 @@
     <div
       v-for="(item, index) in items"
       :key="index"
-      class="py-4 verification-card">
+      class="py-4 px-4 px-md-0 verification-card">
       <b-row no-gutters>
         <b-col class="d-flex align-items-center">
           <label
@@ -25,7 +25,7 @@
           class="d-flex align-items-center justify-content-end">
           <label
             class="btn-arc-secondary m-0 py-2 px-4 text-arc-clr-iron-light letter-spacing-2">
-            Choose file
+            {{ $t('account.accountVerification.cta.chooseFile') }}
             <b-form-file
               v-model="item.file"
               :state="item.error.length === 0 ? null : false"
@@ -52,10 +52,10 @@ import axios from 'axios'
 import { mapGetters } from 'vuex'
 import { DOCUMENTS_QUERY, DELETE_FILE, USER_VERIFICATION_QUERY } from '@/graphql/index'
 import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
-import VerificationStatus from './VerificationStatus'
-import DisclaimerSection from './DisclaimerSection'
-import UploadedItem from './UploadedItem'
-import UploadButtonSection from './UploadButtonSection'
+import VerificationStatus from '@/views/account/account-verification/VerificationStatus'
+import DisclaimerSection from '@/views/account/account-verification/DisclaimerSection'
+import UploadedItem from '@/views/account/account-verification/UploadedItem'
+import UploadButtonSection from '@/views/account/account-verification/UploadButtonSection'
 
 export default {
   components: {
@@ -70,7 +70,7 @@ export default {
         id: null,
         name: 'personal_id',
         accept: 'image/jpeg, image/png, image/gif, application/pdf',
-        label: 'Passport or Identity card',
+        label: this.$t('account.accountVerification.kinds.passport'),
         file: null,
         error: ''
       },
@@ -78,7 +78,7 @@ export default {
         id: null,
         name: 'utility_bill',
         accept: 'image/jpeg, image/png, image/gif, application/pdf',
-        label: 'Utility Bill',
+        label: this.$t('account.accountVerification.kinds.bill'),
         file: null,
         error: ''
       },
@@ -86,7 +86,7 @@ export default {
         id: null,
         name: 'bank_statement',
         accept: 'image/jpeg, image/png, image/gif, application/pdf',
-        label: 'Bank statement',
+        label: this.$t('account.accountVerification.kinds.bank'),
         file: null,
         error: ''
       },
@@ -94,7 +94,7 @@ export default {
         id: null,
         name: 'credit_card',
         accept: 'image/jpeg, image/png, image/gif, application/pdf',
-        label: 'Credit/Debit card',
+        label: this.$t('account.accountVerification.kinds.card'),
         file: null,
         error: ''
       },
@@ -102,7 +102,7 @@ export default {
         id: null,
         name: 'other_document',
         accept: 'image/jpeg, image/png, image/gif, application/pdf',
-        label: 'Other',
+        label: this.$t('account.accountVerification.kinds.other'),
         file: null,
         error: ''
       }],
