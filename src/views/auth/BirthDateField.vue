@@ -8,6 +8,7 @@
         sm="4"
         class="mr-3 mb-3 mb-sm-0">
         <b-form-select
+          id="signup-day"
           v-model="model.day"
           :state="state"
           :options="days"/>
@@ -17,6 +18,7 @@
         sm="auto"
         class="mr-0 mr-sm-3 mb-3 mb-sm-0">
         <b-form-select
+          id="signup-month"
           v-model="model.month"
           :state="state"
           :options="months"/>
@@ -25,6 +27,7 @@
         cols="12"
         sm="3">
         <b-form-select
+          id="signup-year"
           v-model="model.year"
           :state="state"
           :options="years"/>

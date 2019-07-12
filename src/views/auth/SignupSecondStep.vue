@@ -107,6 +107,11 @@
         </b-link>
       </span>
     </b-form-checkbox>
+    <b-form-invalid-feedback
+      :state="form.errors.state('state')"
+      force-show
+      role="alert"
+      class="invalid-feedback">{{ form.errors.get('agreedWithPrivacy') }}</b-form-invalid-feedback>
     <b-row
       class="mb-4 mt-5"
       no-gutters>
