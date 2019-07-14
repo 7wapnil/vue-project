@@ -11,12 +11,9 @@
         </label>
       </b-col>
       <b-col class="user-profile-form">
-        <b-form-input
-          id="last_four_digits"
-          v-model="fields.neteller_account_id"
-          class="ml-4 text-left w-50"
-          type="number"
-          @input="onInput()"/>
+        <div class="ml-4 text-left w-50">
+          {{ fields.account_id }}
+        </div>
       </b-col>
       <b-col/>
     </b-row>
@@ -31,12 +28,9 @@
         </label>
       </b-col>
       <b-col class="user-profile-form">
-        <b-form-input
-          id="card_holder_name"
-          v-model="fields.secure_id"
-          class="ml-4 text-left w-50"
-          type="number"
-          @input="onInput()"/>
+        <div class="ml-4 text-left w-50">
+          {{ fields.secure_id }}
+        </div>
       </b-col>
       <b-col/>
     </b-row>
@@ -48,18 +42,22 @@ import formReset from '@/mixins/formReset'
 
 export default {
   mixins: [formReset],
+  props: {
+    method: {
+      type: Object,
+      default: () => {}
+    }
+  },
   data () {
     return {
       fields: {
-        secure_id: '',
-        neteller_account_id: ''
+        secure_id: this.method.details.secureId,
+        account_id: this.method.details.accountId
       }
     }
   },
-  methods: {
-    onInput (e) {
-      this.$emit('input', this.fields)
-    }
+  created () {
+    this.$emit('input', this.fields)
   }
 }
 </script>

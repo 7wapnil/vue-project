@@ -8,9 +8,14 @@
       class="d-flex align-items-center justify-content-center">
       <payment-method-icon
         :name="method.code"
-        :class="{ inactive: !isActive(method.code)}"
         class="pointer"
         @click="selectMethod(method)"/>
+      <small
+        v-if="method.details.title"
+        class="text-arc-clr-iron ml-1 letter-spacing-2 pointer"
+        @click="selectMethod(method)">
+        {{ method.details.title }}
+      </small>
     </b-col>
   </b-row>
 </template>
@@ -31,12 +36,6 @@ export default {
   methods: {
     selectMethod (selectedMethod) {
       this.$emit('change', selectedMethod)
-    },
-    isActive (method) {
-      return this
-        .activeMethods
-        .filter(m => m.code === method)
-        .length > 0
     }
   }
 }

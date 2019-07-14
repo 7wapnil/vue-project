@@ -62,7 +62,9 @@
     <component
       ref="paymentDetails"
       v-model="form.paymentDetails"
-      :is="currentComponent"/>
+      :is="currentComponent"
+      :method="mainMethod"
+    />
     <b-row no-gutters>
       <b-col
         class="mr-1"

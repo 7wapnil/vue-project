@@ -11,13 +11,9 @@
         </label>
       </b-col>
       <b-col class="user-profile-form">
-        <b-form-input
-          id="last_four_digits"
-          v-model="fields.last_four_digits"
-          class="ml-4 text-left w-50"
-          type="number"
-          min="0"
-          @input="onInput()"/>
+        <div class="ml-4 text-left w-50">
+          {{ fields.last_four_digits }}
+        </div>
       </b-col>
       <b-col/>
     </b-row>
@@ -32,12 +28,9 @@
         </label>
       </b-col>
       <b-col class="user-profile-form">
-        <b-form-input
-          id="card_holder_name"
-          v-model="fields.holder_name"
-          class="ml-4 text-left w-50"
-          type="text"
-          @input="onInput()"/>
+        <div class="ml-4 text-left w-50">
+          {{ fields.holder_name }}
+        </div>
       </b-col>
       <b-col/>
     </b-row>
@@ -49,18 +42,22 @@ import formReset from '@/mixins/formReset'
 
 export default {
   mixins: [formReset],
+  props: {
+    method: {
+      type: Object,
+      default: () => {}
+    }
+  },
   data () {
     return {
       fields: {
-        holder_name: '',
-        last_four_digits: ''
+        holder_name: this.method.details.holderName,
+        last_four_digits: this.method.details.lastFourDigits,
       }
     }
   },
-  methods: {
-    onInput (e) {
-      this.$emit('input', this.fields)
-    }
+  created () {
+    this.$emit('input', this.fields)
   }
 }
 </script>

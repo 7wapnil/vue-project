@@ -26,6 +26,11 @@
             <span class="font-weight-bold letter-spacing-2 text-arc-clr-white">
               {{ activeMethod.name }}
             </span>
+            <span
+              v-if="!activeMethod.details.isEditable"
+              class="font-size-12 letter-spacing-2 text-arc-clr-iron">
+              ({{ activeMethod.details.title }})
+            </span>
             <br>
             <span class="font-size-14 letter-spacing-2 text-arc-clr-iron">
               {{ activeMethod.note }}
@@ -44,7 +49,6 @@
           id="withdrawMethod">
           <withdrawal-methods-switch
             :methods="withdrawalMethods"
-            :active-methods="userWithdrawalMethods"
             @change="changeMethod"/>
         </b-collapse>
         <withdrawal-form
@@ -59,21 +63,8 @@
 import WithdrawalMethodsSwitch from './WithdrawalMethodsSwitch'
 import WithdrawalPlaceholder from './WithdrawalPlaceholder'
 import WithdrawalForm from './WithdrawalForm'
-import { WITHDRAWAL_METHODS_QUERY, USER_WITHDRAWAL_METHODS_QUERY } from '@/graphql'
-
-const withdrawalMethodsAdapter = (methods) => {
-  if (methods.length === 0 || !methods[0].hasOwnProperty('availability')) {
-    return methods
-  }
-
-  return methods.map((method) => {
-    return {
-      code: method.code,
-      name: method.name,
-      note: method.note
-    }
-  })
-}
+import { USER_WITHDRAWAL_METHODS_QUERY } from '@/graphql'
+import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
 
 export default {
   components: {
@@ -83,39 +74,25 @@ export default {
   },
   data () {
     return {
-      withdrawalMethods: [],
       selectedMethod: null,
       user: null,
       loading: 0
     }
   },
   apollo: {
-    withdrawalMethods () {
-      return {
-        query: WITHDRAWAL_METHODS_QUERY,
-        update ({ withdrawalMethods }) {
-          return withdrawalMethodsAdapter(withdrawalMethods)
-        }
-      }
-    },
     user () {
       return {
-        query: USER_WITHDRAWAL_METHODS_QUERY
+        query: USER_WITHDRAWAL_METHODS_QUERY,
+        fetchPolicy: NETWORK_ONLY
       }
     }
   },
   computed: {
-    userWithdrawalMethods () {
-      if (!this.user || !this.user.availableWithdrawalMethods.length) {
-        return []
-      }
-
-      return this.withdrawalMethods.filter((method) => {
-        return this.user.availableWithdrawalMethods.includes(method.code)
-      })
+    withdrawalMethods () {
+      return this.user ? this.user.availableWithdrawalMethods : []
     },
     activeMethod () {
-      return this.selectedMethod || this.userWithdrawalMethods[0] || null
+      return this.selectedMethod || this.withdrawalMethods[0] || null
     }
   },
   methods: {

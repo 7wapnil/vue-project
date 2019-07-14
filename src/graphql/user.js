@@ -33,7 +33,33 @@ export const USER_WITHDRAWAL_METHODS_QUERY = gql`
   query {
     user {
       id
-      availableWithdrawalMethods
+      availableWithdrawalMethods {
+        code
+        name
+        note
+        description
+        currencyCode
+        details {
+          ... on PaymentMethodCreditCard {
+            title
+            holderName
+            lastFourDigits
+          }
+          ... on PaymentMethodBitcoin {
+            title
+            isEditable
+          }
+          ... on PaymentMethodSkrill {
+            title
+            email
+          }
+          ... on PaymentMethodNeteller {
+            title
+            accountId
+            secureId
+          }
+        }
+      }
     }
   }
 `
