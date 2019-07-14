@@ -1,11 +1,11 @@
 <template>
   <b-row
-    class="p-4 bg-arc-clr-soil-darker border-4"
+    class="pt-4 pl-4 pr-4 bg-arc-clr-soil-darker border-4 mb-n4"
     no-gutters>
     <b-col
       v-for="(method, index) in methods"
       :key="index"
-      class="d-flex align-items-center justify-content-center">
+      class="d-flex align-items-center justify-content-center mb-3 mr-2">
       <payment-method-icon
         :name="method.code"
         class="pointer"

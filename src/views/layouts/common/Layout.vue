@@ -37,7 +37,7 @@ export default {
   },
   mounted () {
     if (this.$route.query.depositState) {
-      this.$bvModal.show('AuthModal')
+      this.$bvModal.show('AccountModal')
     }
 
     if (this.$route.query.resetPassword) {

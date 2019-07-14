@@ -211,7 +211,7 @@ export default {
         .then((response) => {
           this.form.reset()
           this.responseMessage = response.data.withdraw
-          this.resetPaymentDetailsForm()
+          // this.resetPaymentDetailsForm()
         })
         .catch((errors) => {
           this.form.handleGraphQLErrors(errors)

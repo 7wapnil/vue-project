@@ -23,7 +23,7 @@ deploy:
     id: arcanebet/frontend
     username: $DOCKERHUB_USERNAME
     password: $DOCKERHUB_PASSWORD
-    tag: puppeteer
+    tag: puppeteer-v10
 
   steps:
     - bashaus/yarn-install:

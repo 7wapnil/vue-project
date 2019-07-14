@@ -56,7 +56,6 @@ export const USER_WITHDRAWAL_METHODS_QUERY = gql`
           ... on PaymentMethodNeteller {
             title
             accountId
-            secureId
           }
         }
       }
