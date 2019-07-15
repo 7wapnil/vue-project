@@ -39,6 +39,9 @@ describe('SignUp', () => {
         },
         localVue
       })
+
+    const submit = sinon.stub()
+    wrapper.setMethods({ submit: submit })
   })
 
   describe('Sign Up Form Component', () => {
@@ -194,6 +197,10 @@ describe('SignUp', () => {
         it('has correct text', () => {
           expect(firstStepWrapper.find('.btn-user-profile-button').text()).to.equal('Next step')
         })
+
+        it('has correct type', () => {
+          expect(firstStepWrapper.find('.btn-user-profile-button').attributes()['type']).to.equal('button')
+        })
       })
     })
   })
@@ -258,7 +265,7 @@ describe('SignUp', () => {
       })
 
       describe('phone number input', () => {
-        it('contains gender input', () => {
+        it('contains number input', () => {
           expect(secondStepWrapper.contains('#signup-phone')).to.equal(true)
         })
 
@@ -268,7 +275,7 @@ describe('SignUp', () => {
       })
 
       describe('address input', () => {
-        it('contains gender input', () => {
+        it('contains address input', () => {
           expect(secondStepWrapper.contains('#signup-streetAddress')).to.equal(true)
         })
 
@@ -278,7 +285,7 @@ describe('SignUp', () => {
       })
 
       describe('zipCode input', () => {
-        it('contains gender input', () => {
+        it('contains zipCode input', () => {
           expect(secondStepWrapper.contains('#signup-zipCode')).to.equal(true)
         })
 
@@ -288,7 +295,7 @@ describe('SignUp', () => {
       })
 
       describe('city input', () => {
-        it('contains gender input', () => {
+        it('contains city input', () => {
           expect(secondStepWrapper.contains('#signup-city')).to.equal(true)
         })
 
@@ -298,7 +305,7 @@ describe('SignUp', () => {
       })
 
       describe('state input', () => {
-        it('contains gender input', () => {
+        it('contains state input', () => {
           expect(secondStepWrapper.contains('#signup-state')).to.equal(true)
         })
 
@@ -308,7 +315,7 @@ describe('SignUp', () => {
       })
 
       describe('agreedWithPromotional checkbox', () => {
-        it('contains gender input', () => {
+        it('contains agreedWithPromotional checkbox', () => {
           expect(secondStepWrapper.contains('#signup-agreedWithPromotional')).to.equal(true)
         })
 
@@ -318,12 +325,40 @@ describe('SignUp', () => {
       })
 
       describe('agreedWithPrivacy checkbox', () => {
-        it('contains gender input', () => {
+        it('contains agreedWithPrivacy checkbox', () => {
           expect(secondStepWrapper.contains('#signup-agreedWithPrivacy')).to.equal(true)
         })
 
         it('has type checkbox', () => {
           expect(secondStepWrapper.find('#signup-agreedWithPrivacy').attributes()['type']).to.equal('checkbox')
+        })
+      })
+
+      describe('submit button', () => {
+        it('contains submit button', () => {
+          expect(secondStepWrapper.contains('#signup-submit')).to.equal(true)
+        })
+
+        it('has correct text', () => {
+          expect(secondStepWrapper.find('#signup-submit').text()).to.equal('Register')
+        })
+
+        it('has correct type', () => {
+          expect(secondStepWrapper.find('#signup-submit').attributes()['type']).to.equal('submit')
+        })
+      })
+
+      describe('back button', () => {
+        it('contains back button', () => {
+          expect(secondStepWrapper.contains('#signup-back')).to.equal(true)
+        })
+
+        it('has correct text', () => {
+          expect(secondStepWrapper.find('#signup-back').text()).to.equal('Return')
+        })
+
+        it('has correct type', () => {
+          expect(secondStepWrapper.find('#signup-back').attributes()['type']).to.equal('button')
         })
       })
     })

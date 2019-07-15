@@ -119,6 +119,7 @@
       no-gutters>
       <b-col class="mr-4">
         <b-button
+          id="signup-back"
           variant="arc-secondary"
           block
           @click="$emit('return')">
@@ -135,6 +136,7 @@
       </b-col>
       <b-col>
         <b-button
+          id="signup-submit"
           :disabled="submitting"
           variant="user-profile-button"
           type="submit"
