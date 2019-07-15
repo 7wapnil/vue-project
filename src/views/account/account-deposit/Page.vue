@@ -29,7 +29,7 @@
         <b-alert
           :show="!!depositState"
           :variant="mapDepositState">
-          {{ getMessage }}
+          {{ depositMessage }}
         </b-alert>
         <b-alert
           :show="!!bonusError"
@@ -82,14 +82,17 @@
                     placeholder="Custom"/>
                 </b-input-group>
                 <b-form-select
-                  v-if="isEmptyWallet"
-                  v-model="currency"
-                  class="mb-4">
-                  <option :value="null">Choose currency</option>
+                  value=""
+                  class="mb-4"
+                  @change="selectPaymentMethod">
                   <option
-                    v-for="(filtredCurrency, index) in filteredCurrencies"
-                    :key="index">
-                    {{ filtredCurrency.value }}
+                    value=""
+                    disabled>{{ $t('account.deposit.paymentMethodsPlaceholder') }}</option>
+                  <option
+                    v-for="(payment, index) in depositMethods"
+                    :key="index"
+                    :value="payment.code">
+                    {{ payment.name }}
                   </option>
                 </b-form-select>
               </b-col>
@@ -125,80 +128,92 @@
         </b-row>
       </b-col>
       <b-col class="bg-arc-clr-soil-dark ml-2 p-4 border-4">
-        <b-row no-gutters>
-          <b-col class="text-center py-2">
-            <h4 class="mt-2 mb-4 font-weight-light letter-spacing-1">
-              {{ $t('account.deposit.depositSummary') }}
-            </h4>
-          </b-col>
-        </b-row>
-        <b-row
-          class="mb-1"
-          no-gutters>
-          <b-col>
-            <h6 class="text-right letter-spacing-2 text-arc-clr-iron">
-              {{ $tc('generalTerms.deposit', 1) }}:
-            </h6>
-          </b-col>
-          <b-col class="pl-2 text-truncate">
-            <h6 class="letter-spacing-2">
-              {{ fields.amount ? fields.amount : 0 }} {{ currency }}
-            </h6>
-          </b-col>
-        </b-row>
-        <b-row
-          class="mb-1"
-          no-gutters>
-          <b-col>
-            <h6 class="text-right letter-spacing-2 text-arc-clr-iron">
-              {{ $tc('generalTerms.bonus', 1) }}:
-            </h6>
-          </b-col>
-          <b-col class="pl-2 text-truncate">
-            <h6 class="letter-spacing-2">
-              {{ calculatedBonus ? calculatedBonus : 0 }} {{ currency }}
-            </h6>
-          </b-col>
-        </b-row>
-        <b-row
-          class="mb-1"
-          no-gutters>
-          <b-col>
-            <h6 class="mb-2 text-right letter-spacing-2 text-arc-clr-iron">
-              {{ $tc('generalTerms.fee', 1) }}:
-            </h6>
-          </b-col>
-          <b-col class="pl-2 text-truncate">
-            <h6 class="mb-2 letter-spacing-2">
-              0.00 {{ currency }}
-            </h6>
-          </b-col>
-        </b-row>
-        <b-row
-          class="mt-2 mb-1"
-          no-gutters>
-          <b-col class="pt-1">
-            <h6 class="mb-0 text-right letter-spacing-2 text-arc-clr-iron">
-              {{ $t('account.deposit.total') }}:
-            </h6>
-          </b-col>
-          <b-col class="pl-2 mb-4 text-truncate">
-            <span class="letter-spacing-2 font-weight-bold">
-              {{ getTotal ? getTotal : 0 }} {{ currency }}
-            </span>
-          </b-col>
-        </b-row>
-        <b-row no-gutters>
-          <b-col class="px-2 mt-4 mb-2">
-            <b-button
-              :disabled="fields.amount < 1"
-              variant="user-profile-button"
-              class="w-100"
-              @click.prevent="submitDeposit">
-              {{ $t('account.cta.deposit') }}
-            </b-button>
-          </b-col>
-        </b-row>
+        <div
+          id="summary"
+          :class="{ 'd-none' : isCryptoSectionShown }">
+          <b-row no-gutters>
+            <b-col class="text-center py-2">
+              <h4 class="mt-2 mb-4 font-weight-light letter-spacing-1">
+                {{ $t('account.deposit.depositSummary') }}
+              </h4>
+            </b-col>
+          </b-row>
+          <b-row
+            class="mb-1"
+            no-gutters>
+            <b-col>
+              <h6 class="text-right letter-spacing-2 text-arc-clr-iron">
+                {{ $tc('generalTerms.deposit', 1) }}:
+              </h6>
+            </b-col>
+            <b-col class="pl-2 text-truncate">
+              <h6 class="letter-spacing-2">
+                {{ fields.amount ? fields.amount : 0 }} {{ currency }}
+              </h6>
+            </b-col>
+          </b-row>
+          <b-row
+            class="mb-1"
+            no-gutters>
+            <b-col>
+              <h6 class="text-right letter-spacing-2 text-arc-clr-iron">
+                {{ $tc('generalTerms.bonus', 1) }}:
+              </h6>
+            </b-col>
+            <b-col class="pl-2 text-truncate">
+              <h6 class="letter-spacing-2">
+                {{ calculatedBonus ? calculatedBonus : 0 }} {{ currency }}
+              </h6>
+            </b-col>
+          </b-row>
+          <b-row
+            class="mb-1"
+            no-gutters>
+            <b-col>
+              <h6 class="mb-2 text-right letter-spacing-2 text-arc-clr-iron">
+                {{ $tc('generalTerms.fee', 1) }}:
+              </h6>
+            </b-col>
+            <b-col class="pl-2 text-truncate">
+              <h6 class="mb-2 letter-spacing-2">
+                0.00 {{ currency }}
+              </h6>
+            </b-col>
+          </b-row>
+          <b-row
+            class="mt-2 mb-1"
+            no-gutters>
+            <b-col class="pt-1">
+              <h6 class="mb-0 text-right letter-spacing-2 text-arc-clr-iron">
+                {{ $t('account.deposit.total') }}:
+              </h6>
+            </b-col>
+            <b-col class="pl-2 mb-4 text-truncate">
+              <span class="letter-spacing-2 font-weight-bold">
+                {{ getTotal ? getTotal : 0 }} {{ currency }}
+              </span>
+            </b-col>
+          </b-row>
+          <b-row no-gutters>
+            <b-col class="px-2 mt-4 mb-2">
+              <b-button
+                :disabled="buttonDisabled"
+                variant="user-profile-button"
+                class="w-100"
+                @click.prevent="submitDeposit">
+                {{ $t('account.cta.deposit') }}
+              </b-button>
+            </b-col>
+          </b-row>
+        </div>
+        <div
+          id="cryptoSection"
+          :class="{ 'd-none' : !isCryptoSectionShown }">
+          <h5 class="my-4">Scan code</h5>
+          <canvas id="qrcode" />
+          <h5 class="font-italic text">Raw address:</h5>
+          <h5 class="text-break">{{ address }}</h5>
+        </div>
       </b-col>
     </b-row>
     <b-row no-gutters>
@@ -212,9 +227,16 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { CURRENCIES_LIST_QUERY, BONUS_CALCULATION_MUTATION } from '@/graphql'
+import {
+  CURRENCIES_LIST_QUERY,
+  BONUS_CALCULATION_MUTATION,
+  DEPOSIT_METHODS_QUERY,
+  DEPOSIT_MUTATION
+} from '@/graphql'
 import DepositHeader from './DepositHeader'
 import DepositMethods from './DepositMethods'
+import { EUR } from '@/constants/currencies'
+import QRCode from 'qrcode'
 
 export default {
   name: 'DepositFunds',
@@ -226,21 +248,26 @@ export default {
     return {
       fields: {
         amount: '',
-        bonusCode: ''
+        bonusCode: null,
       },
-      dropdownCurrency: null,
+      isCryptoSectionShown: false,
+      paymentMethod: null,
       currencies: [],
       redirectUrl: process.env.VUE_APP_DEPOSIT_URL,
       calculatedBonus: '',
       bonusError: null,
       invalidBonusCode: 'Invalid bonus code',
       depositState: this.$route.query.depositState,
+      depositMessage: this.$route.query.depositStateMessage,
       variantMap: {
         pending: 'warning',
         success: 'success',
         fail: 'danger'
       },
-      moneyAmounts: [ 10, 25, 50, 75, 100, 150, 200, 250 ]
+      moneyAmounts: [ 10, 25, 50, 75, 100, 150, 200, 250 ],
+      depositMethods: [],
+      qrText: '',
+      address: '',
     }
   },
   apollo: {
@@ -248,12 +275,15 @@ export default {
       return {
         query: CURRENCIES_LIST_QUERY
       }
+    },
+    depositMethods () {
+      return {
+        query: DEPOSIT_METHODS_QUERY
+      }
     }
   },
   computed: {
-    ...mapGetters('wallets', {
-      walletActive: 'activeWallet'
-    }),
+    ...mapGetters('wallets', ['fiatWallet']),
     ...mapGetters({
       token: 'getToken'
     }),
@@ -270,44 +300,25 @@ export default {
         return parseFloat(totalValue).toFixed(2)
       }
     },
-    currency: {
-      get () {
-        if (this.dropdownCurrency) {
-          return this.dropdownCurrency
-        }
-
-        if (this.walletActive && !this.isEmptyWallet) {
-          return this.walletActive.currency.code
-        }
-
-        return null
-      },
-      set (value) {
-        this.dropdownCurrency = value
-      }
-    },
-    isEmptyWallet () {
-      if (this.walletActive) {
-        return this.walletActive.id === null
-      }
-    },
-    getMessage () {
-      return this.$route.query.depositStateMessage
+    currency () {
+      return (this.paymentMethod && this.paymentMethod.currencyCode) ||
+        (this.fiatWallet && this.fiatWallet.currency.code) ||
+        EUR
     },
     mapDepositState () {
       return this.variantMap[this.depositState]
     },
-    filteredCurrencies () {
-      let currencyList = []
-
-      this.currencies.forEach((currency) => {
-        currencyList.push({ label: currency.name, value: currency.code, kind: currency.kind, primary: currency.primary })
-      })
-
-      return currencyList
+    buttonDisabled () {
+      return this.fields.amount == null || !this.paymentMethod
     }
   },
   methods: {
+    selectPaymentMethod (paymentMethodCode) {
+      this.paymentMethod = this.depositMethods.find((method) => method.code === paymentMethodCode)
+      this.calculatedBonus = null
+      this.fields.bonusCode = null
+      this.isCryptoSectionShown = false
+    },
     calculateBonus () {
       if (this.fields.bonusCode && this.fields.amount) {
         this.$apollo.mutate({
@@ -328,17 +339,31 @@ export default {
       }
     },
     submitDeposit () {
-      let queryParams = {
-        token: this.token,
+      const input = {
+        paymentMethod: this.paymentMethod.code,
         currencyCode: this.currency,
-        amount: this.fields.amount,
+        amount: parseFloat(parseFloat(this.fields.amount).toFixed(2)),
         bonusCode: this.fields.bonusCode
-      };
+      }
 
-      let query = Object.keys(queryParams)
-        .map(param => param + '=' + queryParams[param])
-        .join('&');
-      window.location.href = this.redirectUrl += query
+      this.$apollo.mutate({
+        mutation: DEPOSIT_MUTATION,
+        variables: { input }
+      }).then(({ data: { deposit } }) => {
+        if (this.paymentMethod.code === 'bitcoin') {
+          this.isCryptoSectionShown = true
+          this.address = deposit.url
+          this.qrText = `bitcoin:${this.address}?amount=${this.fields.amount / 1000}`
+          QRCode.toCanvas(document.getElementById('qrcode'), this.qrText, { scale: 8, margin: 2 })
+        } else {
+          this.depositState = 'success'
+          this.depositMessage = deposit.message
+          window.location.href = deposit.url
+        }
+      }).catch(({ graphQLErrors }) => {
+        this.depositState = 'fail'
+        this.depositMessage = graphQLErrors[0].message
+      })
     },
     addPresetAmount (amount) {
       this.fields.amount = amount.toString()

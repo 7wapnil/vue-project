@@ -23,8 +23,10 @@ export default class Form {
     this.errors.clear()
   }
 
-  reset () {
-    Object.keys(this.defaults).forEach((field) => {
+  reset (fields) {
+    const clearedFields = (fields && fields.length) ? fields : Object.keys(this.defaults)
+
+    clearedFields.forEach((field) => {
       this[field] = this.defaults[field]
     })
   }

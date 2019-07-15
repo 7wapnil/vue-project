@@ -2,9 +2,9 @@
   <div v-if="mainMethod">
     <b-row no-gutters>
       <b-col class="pt-4 pb-3">
-        <span class="text-arc-clr-iron">
-          {{ descriptionMap[mainMethod.code] }}
-        </span>
+        <span
+          class="text-arc-clr-iron"
+          v-html="mainMethod.description"/>
       </b-col>
     </b-row>
     <b-alert
@@ -35,31 +35,36 @@
       </ul>
     </b-row>
     <b-row
-      class="mb-4"
+      class="mb-5"
       no-gutters>
       <b-col class="text-md-right text-sm-left align-self-center">
         <label
           for="amount"
-          class="text-arc-clr-iron font-size-14 letter-spacing-2 mb-0"
-          min="0">
-          {{ $t('generalTerms.amount') }}:
+          class="text-arc-clr-iron font-size-14 letter-spacing-2 mb-0">
+          {{ $t('generalTerms.amount') }}
         </label>
       </b-col>
       <b-col class="user-profile-form">
-        <b-form-input
-          id="amount"
-          v-model="form.amount"
-          min="0"
-          step="0.01"
-          class="ml-4 text-left w-50"
-          type="number"/>
+        <b-input-group
+          v-if="currencyCode"
+          :append="currencyCode"
+          class="ml-4 text-left w-50">
+          <b-form-input
+            id="amount"
+            v-model="form.amount"
+            min="0"
+            step="0.01"
+            type="number"/>
+        </b-input-group>
       </b-col>
       <b-col/>
     </b-row>
     <component
       ref="paymentDetails"
       v-model="form.paymentDetails"
-      :is="currentComponent"/>
+      :is="currentComponent"
+      :method="mainMethod"
+    />
     <b-row no-gutters>
       <b-col
         class="mr-1"
@@ -107,16 +112,18 @@
 import { WITHDRAW_MUTATION } from '@/graphql'
 import { mapGetters } from 'vuex'
 import { Form } from '@/helpers'
-import Sofort from './withdraw-methods/Sofort'
-import Skrill from './withdraw-methods/Skrill'
-import Skinwallet from './withdraw-methods/Skinwallet'
-import Skinpay from './withdraw-methods/Skinpay'
-import Qiwi from './withdraw-methods/Qiwi'
-import Paysafe from './withdraw-methods/Paysafe'
-import Mru from './withdraw-methods/Mru'
-import CreditCard from './withdraw-methods/CreditCard'
-import Bitcoin from './withdraw-methods/Bitcoin'
-import Yandex from './withdraw-methods/Yandex'
+import { EUR } from '@/constants/currencies'
+import Sofort from './withdrawal-methods/Sofort'
+import Skrill from './withdrawal-methods/Skrill'
+import Neteller from './withdrawal-methods/Neteller'
+import Skinwallet from './withdrawal-methods/Skinwallet'
+import Skinpay from './withdrawal-methods/Skinpay'
+import Qiwi from './withdrawal-methods/Qiwi'
+import Paysafecard from './withdrawal-methods/Paysafecard'
+import Mru from './withdrawal-methods/Mru'
+import CreditCard from './withdrawal-methods/CreditCard'
+import Bitcoin from './withdrawal-methods/Bitcoin'
+import Yandex from './withdrawal-methods/Yandex'
 
 export default {
   props: {
@@ -127,8 +134,6 @@ export default {
   },
   data () {
     return {
-      successMessage: 'Your account-withdraw request has been successfully submitted.',
-      errorMessage: 'Something went wrong, please make sure you entered correct details and try again.',
       responseMessage: null,
       sending: false,
       components: {
@@ -138,19 +143,17 @@ export default {
         'skinwallet': Skinwallet,
         'skinpay': Skinpay,
         'qiwi': Qiwi,
-        'paysafe': Paysafe,
+        'paysafecard': Paysafecard,
         'mru': Mru,
         'bitcoin': Bitcoin,
-        'yandex': Yandex
+        'yandex': Yandex,
+        'neteller': Neteller
       },
       form: new Form({
         amount: null,
         password: null,
         paymentDetails: []
-      }),
-      descriptionMap: {
-        'credit_card': 'Debit/Credit Card withdrawals come with a 0% withdrawal fee'
-      }
+      })
     }
   },
   computed: {
@@ -173,7 +176,12 @@ export default {
     currentComponent () {
       return this.components[this.mainMethod.code] || null
     },
-    ...mapGetters('wallets', ['activeWallet'])
+    currencyCode () {
+      return this.defaultMethod.currencyCode ||
+        (this.fiatWallet && this.fiatWallet.currency.code) ||
+        EUR
+    },
+    ...mapGetters('wallets', ['fiatWallet'])
   },
   methods: {
     submitWithdraw () {
@@ -182,7 +190,7 @@ export default {
         ...{
           amount: parseFloat(this.form.amount),
           paymentMethod: this.defaultMethod.code,
-          walletId: this.activeWallet.id
+          currencyCode: this.currencyCode
         }
       }
 
@@ -200,10 +208,9 @@ export default {
             variables: { input }
           }
         )
-        .then(() => {
-          this.form.reset()
-          this.responseMessage = this.successMessage
-          this.resetPaymentDetailsForm()
+        .then((response) => {
+          this.form.reset(['amount', 'password'])
+          this.responseMessage = response.data.withdraw
         })
         .catch((errors) => {
           this.form.handleGraphQLErrors(errors)
@@ -212,9 +219,6 @@ export default {
         .finally(() => {
           this.sending = false
         })
-    },
-    resetPaymentDetailsForm () {
-      this.$refs.paymentDetails.resetForm()
     }
   }
 }

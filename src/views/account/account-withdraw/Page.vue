@@ -3,7 +3,7 @@
     <loader v-if="loading"/>
 
     <div v-if="!loading">
-      <withdraw-placeholder v-if="!activeMethod"/>
+      <withdrawal-placeholder v-if="!activeMethod"/>
 
       <div v-if="activeMethod">
         <h3
@@ -26,28 +26,32 @@
             <span class="font-weight-bold letter-spacing-2 text-arc-clr-white">
               {{ activeMethod.name }}
             </span>
+            <span
+              v-if="!activeMethod.details.isEditable"
+              class="font-size-12 letter-spacing-2 text-arc-clr-iron">
+              ({{ activeMethod.details.title }})
+            </span>
             <br>
             <span class="font-size-14 letter-spacing-2 text-arc-clr-iron">
               {{ activeMethod.note }}
             </span>
           </b-col>
           <b-col
-            v-if="paymentMethods.length > 1"
+            v-if="withdrawalMethods.length > 1"
             cols="auto">
             <b-button variant="arc-secondary">
-              {{ $t('account.cta.changeWithdrawMethod') }}
+              {{ $t('account.cta.changeWithdrawalMethod') }}
             </b-button>
           </b-col>
         </b-row>
         <b-collapse
-          v-if="paymentMethods.length > 1"
+          v-if="withdrawalMethods.length > 1"
           id="withdrawMethod">
-          <withdraw-methods-switch
-            :methods="paymentMethods"
-            :active-methods="userWithdrawMethods"
+          <withdrawal-methods-switch
+            :methods="withdrawalMethods"
             @change="changeMethod"/>
         </b-collapse>
-        <withdraw-form
+        <withdrawal-form
           v-if="activeMethod"
           :default-method="activeMethod"/>
       </div>
@@ -56,67 +60,39 @@
 </template>
 
 <script>
-import WithdrawMethodsSwitch from './WithdrawMethodsSwitch'
-import WithdrawPlaceholder from './WithdrawPlaceholder'
-import WithdrawForm from './WithdrawForm'
-import { PAYMENT_METHODS_QUERY, USER_PAYMENT_METHODS_QUERY } from '@/graphql'
-
-const paymentMethodsAdapter = (methods) => {
-  if (methods.length === 0 || !methods[0].hasOwnProperty('availability')) {
-    return methods
-  }
-
-  return methods.map((method) => {
-    return {
-      code: method.code,
-      name: method.name,
-      note: method.payment_note,
-      kind: method.type
-    }
-  })
-}
+import WithdrawalMethodsSwitch from './WithdrawalMethodsSwitch'
+import WithdrawalPlaceholder from './WithdrawalPlaceholder'
+import WithdrawalForm from './WithdrawalForm'
+import { USER_WITHDRAWAL_METHODS_QUERY } from '@/graphql'
+import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
 
 export default {
   components: {
-    WithdrawMethodsSwitch,
-    WithdrawForm,
-    WithdrawPlaceholder
+    WithdrawalMethodsSwitch,
+    WithdrawalForm,
+    WithdrawalPlaceholder
   },
   data () {
     return {
-      paymentMethods: [],
       selectedMethod: null,
       user: null,
       loading: 0
     }
   },
   apollo: {
-    paymentMethods () {
-      return {
-        query: PAYMENT_METHODS_QUERY,
-        update ({ paymentMethods }) {
-          return paymentMethodsAdapter(paymentMethods)
-        }
-      }
-    },
     user () {
       return {
-        query: USER_PAYMENT_METHODS_QUERY
+        query: USER_WITHDRAWAL_METHODS_QUERY,
+        fetchPolicy: NETWORK_ONLY
       }
     }
   },
   computed: {
-    userWithdrawMethods () {
-      if (!this.user || !this.user.availableWithdrawMethods.length) {
-        return []
-      }
-
-      return this.paymentMethods.filter((method) => {
-        return this.user.availableWithdrawMethods.includes(method.code)
-      })
+    withdrawalMethods () {
+      return this.user ? this.user.availableWithdrawalMethods : []
     },
     activeMethod () {
-      return this.selectedMethod || this.userWithdrawMethods[0] || null
+      return this.selectedMethod || this.withdrawalMethods[0] || null
     }
   },
   methods: {

@@ -140,7 +140,7 @@ const messages = {
       },
       cta: {
         resetPassword: 'Reset password',
-        changeWithdrawMethod: 'Change withdraw method',
+        changeWithdrawalMethod: 'Change withdrawal method',
         withdraw: 'Withdraw',
         deposit: 'Deposit',
         viewWallet: 'View my wallet',
@@ -173,6 +173,7 @@ const messages = {
         noActivity: 'You don\'t have any activity'
       },
       deposit: {
+        paymentMethodsPlaceholder: 'Deposit methods',
         depositHeader: 'Deposit Funds',
         depositSummary: 'Deposit summary',
         total: 'Total to be added',

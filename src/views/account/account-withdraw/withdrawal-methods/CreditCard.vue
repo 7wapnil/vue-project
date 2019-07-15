@@ -7,16 +7,13 @@
         <label
           for="last_four_digits"
           class="text-arc-clr-iron font-size-14 letter-spacing-2 mb-0">
-          Neteller account ID:
+          {{ $t('account.withdraw.cardLastFourDigits') }}:
         </label>
       </b-col>
       <b-col class="user-profile-form">
-        <b-form-input
-          id="last_four_digits"
-          v-model="fields.neteller_account_id"
-          class="ml-4 text-left w-50"
-          type="number"
-          @input="onInput()"/>
+        <div class="ml-4 text-left w-50">
+          {{ method.details.lastFourDigits }}
+        </div>
       </b-col>
       <b-col/>
     </b-row>
@@ -27,16 +24,13 @@
         <label
           for="card_holder_name"
           class="text-arc-clr-iron font-size-14 letter-spacing-2 mb-0">
-          Secure ID:
+          {{ $t('account.withdraw.cardHolderName') }}:
         </label>
       </b-col>
       <b-col class="user-profile-form">
-        <b-form-input
-          id="card_holder_name"
-          v-model="fields.secure_id"
-          class="ml-4 text-left w-50"
-          type="number"
-          @input="onInput()"/>
+        <div class="ml-4 text-left w-50">
+          {{ fields.holder_name }}
+        </div>
       </b-col>
       <b-col/>
     </b-row>
@@ -48,18 +42,23 @@ import formReset from '@/mixins/formReset'
 
 export default {
   mixins: [formReset],
+  props: {
+    method: {
+      type: Object,
+      default: () => {}
+    }
+  },
   data () {
     return {
       fields: {
-        secure_id: '',
-        neteller_account_id: ''
+        holder_name: this.method.details.holderName,
+        masked_account_number: this.method.details.maskedAccountNumber,
+        token_id: this.method.details.tokenId
       }
     }
   },
-  methods: {
-    onInput (e) {
-      this.$emit('input', this.fields)
-    }
+  created () {
+    this.$emit('input', this.fields)
   }
 }
 </script>
