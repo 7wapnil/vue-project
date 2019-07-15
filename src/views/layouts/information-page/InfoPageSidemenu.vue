@@ -42,7 +42,7 @@
               :key="childIndex"
               :to="{ name: `${ child.name }` }"
               link-classes="information-page-sidemenu-item"
-              class="text-capitalize text-arc-clr-iron-light font-size-14 font-weight-bold text-truncate letter-spacing-2"
+              class="text-arc-clr-iron-light font-size-14 font-weight-bold text-truncate letter-spacing-2"
               active-class="information-page-sidemenu-active"
               exact>
               {{ child.title }}
