@@ -118,7 +118,6 @@ export default {
 
           this.$router.push({ name: 'home' })
           this.close()
-          this.$noty.success('Welcome to ArcaneBet!')
         })
         .catch((err) => {
           let { graphQLErrors } = err
