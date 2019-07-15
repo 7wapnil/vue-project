@@ -34,6 +34,7 @@ export const USER_WITHDRAWAL_METHODS_QUERY = gql`
     user {
       id
       availableWithdrawalMethods {
+        id
         code
         name
         note
@@ -41,19 +42,25 @@ export const USER_WITHDRAWAL_METHODS_QUERY = gql`
         currencyCode
         details {
           ... on PaymentMethodCreditCard {
+            id
             title
             holderName
             lastFourDigits
+            tokenId
+            maskedAccountNumber
           }
           ... on PaymentMethodBitcoin {
+            id
             title
             isEditable
           }
           ... on PaymentMethodSkrill {
+            id
             title
             email
           }
           ... on PaymentMethodNeteller {
+            id
             title
             accountId
           }
@@ -87,7 +94,7 @@ export const CHANGE_USER_PASSWORD = gql`
 
 export const PASSWORD_RESET_REQUEST_MUTATION = gql`
   mutation ($email: String!) {
-    requestPasswordReset (email: $email) 
+    requestPasswordReset (email: $email)
   }
 `
 
@@ -99,7 +106,7 @@ export const PASSWORD_RESET_MUTATION = gql`
       token: $token,
       password: $password,
       confirmation: $confirmation
-    ) 
+    )
   }
 `
 

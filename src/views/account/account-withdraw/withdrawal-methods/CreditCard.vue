@@ -12,7 +12,7 @@
       </b-col>
       <b-col class="user-profile-form">
         <div class="ml-4 text-left w-50">
-          {{ fields.last_four_digits }}
+          {{ method.details.lastFourDigits }}
         </div>
       </b-col>
       <b-col/>
@@ -52,7 +52,8 @@ export default {
     return {
       fields: {
         holder_name: this.method.details.holderName,
-        last_four_digits: this.method.details.lastFourDigits,
+        masked_account_number: this.method.details.maskedAccountNumber,
+        token_id: this.method.details.tokenId
       }
     }
   },
