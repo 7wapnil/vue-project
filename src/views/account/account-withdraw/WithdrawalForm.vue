@@ -209,9 +209,8 @@ export default {
           }
         )
         .then((response) => {
-          this.form.reset()
+          this.form.reset(['amount', 'password'])
           this.responseMessage = response.data.withdraw
-          // this.resetPaymentDetailsForm()
         })
         .catch((errors) => {
           this.form.handleGraphQLErrors(errors)
@@ -220,9 +219,6 @@ export default {
         .finally(() => {
           this.sending = false
         })
-    },
-    resetPaymentDetailsForm () {
-      this.$refs.paymentDetails.resetForm()
     }
   }
 }

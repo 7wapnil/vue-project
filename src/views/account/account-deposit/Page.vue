@@ -128,7 +128,9 @@
         </b-row>
       </b-col>
       <b-col class="bg-arc-clr-soil-dark ml-2 p-4 border-4">
-        <div id="summary">
+        <div
+          id="summary"
+          :class="{ 'd-none' : isCryptoSectionShown }">
           <b-row no-gutters>
             <b-col class="text-center py-2">
               <h4 class="mt-2 mb-4 font-weight-light letter-spacing-1">
@@ -206,7 +208,7 @@
         </div>
         <div
           id="cryptoSection"
-          class="d-none">
+          :class="{ 'd-none' : !isCryptoSectionShown }">
           <h5 class="my-4">Scan code</h5>
           <canvas id="qrcode" />
           <h5 class="font-italic text">Raw address:</h5>
@@ -248,6 +250,7 @@ export default {
         amount: '',
         bonusCode: null,
       },
+      isCryptoSectionShown: false,
       paymentMethod: null,
       currencies: [],
       redirectUrl: process.env.VUE_APP_DEPOSIT_URL,
@@ -314,6 +317,7 @@ export default {
       this.paymentMethod = this.depositMethods.find((method) => method.code === paymentMethodCode)
       this.calculatedBonus = null
       this.fields.bonusCode = null
+      this.isCryptoSectionShown = false
     },
     calculateBonus () {
       if (this.fields.bonusCode && this.fields.amount) {
@@ -347,8 +351,7 @@ export default {
         variables: { input }
       }).then(({ data: { deposit } }) => {
         if (this.paymentMethod.code === 'bitcoin') {
-          document.getElementById('summary').classList.add('d-none');
-          document.getElementById('cryptoSection').classList.remove('d-none');
+          this.isCryptoSectionShown = true
           this.address = deposit.url
           this.qrText = `bitcoin:${this.address}?amount=${this.fields.amount / 1000}`
           QRCode.toCanvas(document.getElementById('qrcode'), this.qrText, { scale: 8, margin: 2 })
