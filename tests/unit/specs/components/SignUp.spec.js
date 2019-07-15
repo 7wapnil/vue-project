@@ -1,12 +1,11 @@
 import { expect } from 'chai'
-import { createLocalVue, mount, shallowMount } from '@vue/test-utils'
+import { createLocalVue, mount } from '@vue/test-utils'
 import Vuex from 'vuex'
 import SignUp from '@/views/auth/SignUp.vue'
 import SignupFirstStep from '@/views/auth/SignupFirstStep.vue'
 import SignupSecondStep from '@/views/auth/SignupSecondStep.vue'
 import contentful from '@/libs/contentful/contentful-client'
 import VueI18n from 'vue-i18n'
-import { messages } from '@/translations/'
 import { Form } from '@/helpers'
 
 const localVue = createLocalVue()
@@ -20,7 +19,8 @@ localVue.use(contentful, {
 describe('SignUp', () => {
   let wrapper
   let firstStepWrapper
-  let i18n
+  let secondStepWrapper
+
   let form = new Form({
     firstStep: {
       userName: ''
@@ -30,19 +30,13 @@ describe('SignUp', () => {
   const countries = ['Estonia']
 
   before(() => {
-    i18n = new VueI18n({
-      locale: 'en',
-      messages
-    })
-
-    wrapper = shallowMount(SignUp,
+    wrapper = mount(SignUp,
       {
         data () {
           return {
             form: form,
           }
         },
-        i18n,
         localVue
       })
   })
@@ -53,8 +47,8 @@ describe('SignUp', () => {
         expect(wrapper.contains(SignupFirstStep)).to.equal(true)
       })
 
-      it('doesn\'t render second step component', () => {
-        expect(wrapper.contains(SignupSecondStep)).to.equal(false)
+      it('renders second step component', () => {
+        expect(wrapper.contains(SignupSecondStep)).to.equal(true)
       })
 
       it('renders step switcher', () => {
@@ -98,7 +92,6 @@ describe('SignUp', () => {
                 currencies: []
               }
             },
-            i18n,
             localVue
           })
       })
@@ -178,6 +171,159 @@ describe('SignUp', () => {
 
         it('has correct placeholder ', () => {
           expect(firstStepWrapper.find('#signup-password-confirmation').attributes()['placeholder']).to.equal('Repeat password')
+        })
+      })
+
+      describe('country input', () => {
+        it('contains select input', () => {
+          expect(firstStepWrapper.contains('#signup-country')).to.equal(true)
+        })
+      })
+
+      describe('currency input', () => {
+        it('contains currency input', () => {
+          expect(firstStepWrapper.contains('#signup-currency')).to.equal(true)
+        })
+      })
+
+      describe('next step button', () => {
+        it('has button', () => {
+          expect(firstStepWrapper.contains('.btn-user-profile-button')).to.equal(true)
+        })
+
+        it('has correct text', () => {
+          expect(firstStepWrapper.find('.btn-user-profile-button').text()).to.equal('Next step')
+        })
+      })
+    })
+  })
+
+  describe('Second Step', () => {
+    describe('Inputs', () => {
+      before(() => {
+        const submitting = false
+        secondStepWrapper = mount(SignupSecondStep,
+          {
+            propsData: {
+              form, countries, submitting
+            },
+            data () {
+              return {
+                genders: [
+                  { value: 'male', text: 'Male' },
+                  { value: 'female', text: 'Female' }
+                ]
+              }
+            },
+            localVue
+          })
+      })
+
+      describe('first name input', () => {
+        it('contains first name input', () => {
+          expect(secondStepWrapper.contains('#signup-firstName')).to.equal(true)
+        })
+
+        it('has type text', () => {
+          expect(secondStepWrapper.find('#signup-firstName').attributes()['type']).to.equal('text')
+        })
+
+        it('has correct placeholder ', () => {
+          expect(secondStepWrapper.find('#signup-firstName').attributes()['placeholder']).to.equal('First name')
+        })
+      })
+
+      describe('last name input', () => {
+        it('contains last name input', () => {
+          expect(secondStepWrapper.contains('#signup-lastName')).to.equal(true)
+        })
+
+        it('has type text', () => {
+          expect(secondStepWrapper.find('#signup-lastName').attributes()['type']).to.equal('text')
+        })
+
+        it('has correct placeholder', () => {
+          expect(secondStepWrapper.find('#signup-lastName').attributes()['placeholder']).to.equal('Last name')
+        })
+      })
+
+      describe('gender input', () => {
+        it('contains gender input', () => {
+          expect(secondStepWrapper.contains('#gender')).to.equal(true)
+        })
+
+        it('has correct default value', () => {
+          expect(secondStepWrapper.find('#gender').element.value).to.equal('male')
+        })
+      })
+
+      describe('phone number input', () => {
+        it('contains gender input', () => {
+          expect(secondStepWrapper.contains('#signup-phone')).to.equal(true)
+        })
+
+        it('has type tel', () => {
+          expect(secondStepWrapper.find('#signup-phone').attributes()['type']).to.equal('tel')
+        })
+      })
+
+      describe('address input', () => {
+        it('contains gender input', () => {
+          expect(secondStepWrapper.contains('#signup-streetAddress')).to.equal(true)
+        })
+
+        it('has type text', () => {
+          expect(secondStepWrapper.find('#signup-streetAddress').attributes()['type']).to.equal('text')
+        })
+      })
+
+      describe('zipCode input', () => {
+        it('contains gender input', () => {
+          expect(secondStepWrapper.contains('#signup-zipCode')).to.equal(true)
+        })
+
+        it('has type text', () => {
+          expect(secondStepWrapper.find('#signup-zipCode').attributes()['type']).to.equal('text')
+        })
+      })
+
+      describe('city input', () => {
+        it('contains gender input', () => {
+          expect(secondStepWrapper.contains('#signup-city')).to.equal(true)
+        })
+
+        it('has type text', () => {
+          expect(secondStepWrapper.find('#signup-city').attributes()['type']).to.equal('text')
+        })
+      })
+
+      describe('state input', () => {
+        it('contains gender input', () => {
+          expect(secondStepWrapper.contains('#signup-state')).to.equal(true)
+        })
+
+        it('has type text', () => {
+          expect(secondStepWrapper.find('#signup-state').attributes()['type']).to.equal('text')
+        })
+      })
+
+      describe('agreedWithPromotional checkbox', () => {
+        it('contains gender input', () => {
+          expect(secondStepWrapper.contains('#signup-agreedWithPromotional')).to.equal(true)
+        })
+
+        it('has type checkbox', () => {
+          expect(secondStepWrapper.find('#signup-agreedWithPromotional').attributes()['type']).to.equal('checkbox')
+        })
+      })
+
+      describe('agreedWithPrivacy checkbox', () => {
+        it('contains gender input', () => {
+          expect(secondStepWrapper.contains('#signup-agreedWithPrivacy')).to.equal(true)
+        })
+
+        it('has type checkbox', () => {
+          expect(secondStepWrapper.find('#signup-agreedWithPrivacy').attributes()['type']).to.equal('checkbox')
         })
       })
     })
