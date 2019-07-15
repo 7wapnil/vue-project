@@ -115,7 +115,6 @@ export default {
     onSuccess ({ data: { signIn } }) {
       this.login(signIn)
       this.fetchWallets()
-      this.$noty.success('Signed in successfully')
       this.$router.push({ name: 'home' })
       this.$livechat.setUser(signIn.user)
       this.$livechat.initWidget()

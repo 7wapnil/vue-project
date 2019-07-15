@@ -59,7 +59,6 @@ export default {
     }),
     logout () {
       this.dispatchLogout(this)
-      this.$noty.success('Signed out successfully')
     },
     hideModal () {
       this.$bvModal.hide('AccountLogoutModal')
