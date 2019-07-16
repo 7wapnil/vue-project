@@ -9,7 +9,7 @@
 
     <template
       v-if="!isMobile"
-      slot="tabs">
+      #tabs>
 
       <b-nav-item
         v-if="categoryTabIndex > 0"
@@ -25,7 +25,7 @@
       :key="index"
       no-body
       title-link-class="category-tab px-4 py-3">
-      <template slot="title">
+      <template #title>
         <b-row no-gutters>
           <b-col>
             <icon
@@ -46,7 +46,7 @@
 
     <template
       v-if="!isMobile"
-      slot="tabs">
+      #tabs>
       <b-nav-item
         v-if="categoryTabIndex !== tabs.length - 1"
         class="right-side-navigation"

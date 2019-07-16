@@ -2,13 +2,33 @@
   <b-tabs
     :nav-wrapper-class="tabsClass"
     :content-class="contentClass"
+    :nav-class="navClass"
+    :justified="justified"
     v-model="tabIndex"
-    :lazy="lazy">
+    :lazy="lazy"
+    :style="{ 'margin': isMobile ? '0' : '0 58px' }">
+
     <b-tab
       v-for="(category, index) in categories"
       :key="index"
       :title-link-class="titleClass"
       :title="category.name"/>
+
+    <template
+      v-if="!isMobile"
+      #tabs>
+      <b-nav-item
+
+        class="event-tabs-left-side-navigation position-absolute ml-4 mr-4"
+        @click="moveTab('left')">
+        <icon name="chevron-left"/>
+      </b-nav-item>
+      <b-nav-item
+        class="event-tabs-right-side-navigation position-absolute mr-4"
+        @click="moveTab('right')">
+        <icon name="chevron-right"/>
+      </b-nav-item>
+    </template>
   </b-tabs>
 </template>
 <script>
@@ -43,6 +63,14 @@ export default {
     contentClass: {
       type: String,
       default: ''
+    },
+    justified: {
+      type: Boolean,
+      default: false
+    },
+    navClass: {
+      type: String,
+      default: ''
     }
   },
   data () {
@@ -69,6 +97,19 @@ export default {
   },
   created () {
     this.tabIndex = this.activeIndex
+  },
+  methods: {
+    moveTab (side) {
+      let content = document.querySelector('.event-panel-tabs-nav')
+      let step = document.getElementsByClassName('active event-panel-titles')[0].clientWidth
+      if (side === 'right') {
+        content.scrollLeft += step
+        this.tabIndex++
+      } else {
+        content.scrollLeft -= step
+        this.tabIndex--
+      }
+    }
   }
 }
 </script>

@@ -1,9 +1,14 @@
 <template>
-  <b-img
+  <b-card
     v-if="title"
-    :src="background"
-    :alt="`${title.name}-background-image`"
-    fluid-grow/>
+    :img-src="background"
+    :img-height="isMobile ? '358' : ''"
+    overlay
+    fluid-grow
+    class="introduction-area"
+    body-class="p-0">
+    <slot/>
+  </b-card>
 </template>
 <script>
 import { findBackgroundSource } from '@/helpers/background-finder'
