@@ -1,14 +1,12 @@
 <template>
   <div>
-    <div class="introduction-area-wrapper">
-      <introduction-area :title="activeTitle"/>
-
-      <div class="w-100 position-absolute bottom-0">
+    <introduction-area :title="activeTitle">
+      <div class="introduction-area-tabs-container">
         <auth-block v-if="isMobile && !isLoggedIn"/>
         <sport-tabs @tab-changed="onCategoryChange"/>
         <filter-tabs @tab-changed="onFilterChange"/>
       </div>
-    </div>
+    </introduction-area>
 
     <events-list
       v-if="eventListProps"
@@ -55,11 +53,7 @@ export default {
       return Object.values(this.eventListProps).join(':')
     },
     activeTitle () {
-      if (!this.selectedCategory) {
-        return null
-      }
-
-      return { id: this.selectedCategory.value, name: this.selectedCategory.label }
+      return { name: this.selectedCategory ? this.selectedCategory.label : 'default' }
     },
     ...mapGetters([
       'isLoggedIn'
