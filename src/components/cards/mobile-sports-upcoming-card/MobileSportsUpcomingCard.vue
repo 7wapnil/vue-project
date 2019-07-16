@@ -33,7 +33,7 @@
         </b-col>
         <b-col class="pl-2">
           <b-row
-            v-for="(competitor, index) in event.competitors"
+            v-for="(competitor, index) in orderedCompetitors"
             :key="index"
             no-gutters>
             <b-col

@@ -45,7 +45,7 @@
               class="h-100 pl-1 pt-3 pb-auto"
               style="min-width: 40px">
               <b-row
-                v-for="(competitor, index) in event.competitors"
+                v-for="(competitor, index) in orderedCompetitors"
                 :key="index"
                 class="mb-2"
                 no-gutters>
@@ -251,6 +251,7 @@
 
 <script>
 import NoDataPlaceholder from '@/components/cards/NoDataPlaceholder'
+import { orderByQualifier } from '@/helpers/competitors-order'
 
 export default {
   components: {
@@ -269,6 +270,9 @@ export default {
   computed: {
     marketsCount () {
       return this.event.marketsCount - 1
+    },
+    orderedCompetitors () {
+      return orderByQualifier(this.event.competitors)
     }
   }
 }
