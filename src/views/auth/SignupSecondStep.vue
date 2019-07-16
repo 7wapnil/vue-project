@@ -7,7 +7,8 @@
         id="signup-firstName"
         v-model="form.secondStep.firstName"
         :state="form.errors.state('firstName')"
-        placeholder="First name"/>
+        placeholder="First name"
+        @input="form.clearError(['firstName'])"/>
     </b-form-group>
     <b-row no-gutters>
       <b-col
@@ -21,7 +22,8 @@
             id="signup-lastName"
             :state="form.errors.state('lastName')"
             v-model="form.secondStep.lastName"
-            placeholder="Last name"/>
+            placeholder="Last name"
+            @input="form.clearError(['lastName'])"/>
         </b-form-group>
       </b-col>
       <b-col>
@@ -30,6 +32,7 @@
           :options="genders"
           v-model="form.secondStep.gender"
           class="mb-3 mb-sm-0"
+          @input="form.clearError(['gender'])"
         />
       </b-col>
     </b-row>
@@ -51,7 +54,8 @@
         id="signup-streetAddress"
         v-model="form.secondStep.streetAddress"
         :state="form.errors.state('streetAddress')"
-        placeholder="Street address"/>
+        placeholder="Street address"
+        @input="form.clearError(['streetAddress'])"/>
     </b-form-group>
     <b-form-group
       :invalid-feedback="form.errors.get('zipCode')"
@@ -60,7 +64,8 @@
         id="signup-zipCode"
         v-model="form.secondStep.zipCode"
         :state="form.errors.state('zipCode')"
-        placeholder="Postal code"/>
+        placeholder="Postal code"
+        @input="form.clearError(['zipCode'])"/>
     </b-form-group>
     <b-form-group
       :invalid-feedback="form.errors.get('city')"
@@ -69,7 +74,8 @@
         id="signup-city"
         v-model="form.secondStep.city"
         :state="form.errors.state('city')"
-        placeholder="City"/>
+        placeholder="City"
+        @input="form.clearError(['city'])"/>
     </b-form-group>
     <b-form-group
       :invalid-feedback="form.errors.get('state')"
@@ -78,7 +84,8 @@
         id="signup-state"
         v-model="form.secondStep.state"
         :state="form.errors.state('state')"
-        placeholder="Province"/>
+        placeholder="Province"
+        @input="form.clearError(['state'])"/>
     </b-form-group>
     <b-form-checkbox
       v-model="form.secondStep.agreedWithPromotional"
@@ -89,7 +96,8 @@
     </b-form-checkbox>
     <b-form-checkbox
       v-model="form.secondStep.agreedWithPrivacy"
-      class="accept-all-odds-checkbox mb-4">
+      class="accept-all-odds-checkbox mb-4"
+      @input="form.clearError(['agreedWithPrivacy'])">
       <span class="d-block font-size-14 text-arc-clr-iron pointer letter-spacing-2 ml-3 mt-1">
         Confirm I am not underage,
         <b-link

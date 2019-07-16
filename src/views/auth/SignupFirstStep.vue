@@ -8,7 +8,8 @@
         v-model="form.firstStep.username"
         :state="form.errors.state('username')"
         autocomplete="username"
-        placeholder="Username"/>
+        placeholder="Username"
+        @input="form.clearError(['username'])"/>
     </b-form-group>
 
     <b-form-group
@@ -19,7 +20,8 @@
         v-model="form.firstStep.email"
         :state="form.errors.state('email')"
         autocomplete="email"
-        placeholder="Email"/>
+        placeholder="Email"
+        @input="form.clearError(['email'])"/>
     </b-form-group>
 
     <birth-date-field
@@ -35,7 +37,8 @@
         v-model="form.firstStep.password"
         :state="form.errors.state('password')"
         type="password"
-        placeholder="Password"/>
+        placeholder="Password"
+        @input="form.clearError(['password'])"/>
     </b-form-group>
     <b-form-group
       :invalid-feedback="form.errors.get('passwordConfirmation')"
@@ -45,7 +48,8 @@
         v-model="form.firstStep.passwordConfirmation"
         :state="form.errors.state('passwordConfirmation')"
         type="password"
-        placeholder="Repeat password"/>
+        placeholder="Repeat password"
+        @input="form.clearError(['passwordConfirmation'])"/>
     </b-form-group>
     <b-row no-gutters>
       <b-col
@@ -56,7 +60,8 @@
           :state="form.errors.state('country')">
           <b-form-select
             v-model="form.firstStep.country"
-            :state="form.errors.state('country')">
+            :state="form.errors.state('country')"
+            @input="form.clearError(['country'])">
             <option
               value=""
               disabled>Country</option>
@@ -75,7 +80,8 @@
           :state="form.errors.state('currency')">
           <b-form-select
             v-model="form.firstStep.currency"
-            :state="form.errors.state('curr`ency')">
+            :state="form.errors.state('currency')"
+            @input="form.clearError(['currency'])">
             <option
               v-for="(currency, index) in currencies"
               :key="index"
