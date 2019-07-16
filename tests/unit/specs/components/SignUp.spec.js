@@ -4,17 +4,12 @@ import Vuex from 'vuex'
 import SignUp from '@/views/auth/SignUp.vue'
 import SignupFirstStep from '@/views/auth/SignupFirstStep.vue'
 import SignupSecondStep from '@/views/auth/SignupSecondStep.vue'
-import contentful from '@/libs/contentful/contentful-client'
 import VueI18n from 'vue-i18n'
 import { Form } from '@/helpers'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
 localVue.use(VueI18n)
-localVue.use(contentful, {
-  space: process.env.VUE_APP_CONTENTFUL_SPACE_ID,
-  accessToken: process.env.VUE_APP_CONTENTFUL_ACCESS_TOKEN
-})
 
 describe('SignUp', () => {
   let wrapper
