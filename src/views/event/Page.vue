@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="bg-arc-clr-soil-black">
     <header-section
       v-if="event"
       :event="event"
@@ -9,6 +9,7 @@
         :active-index="activeIndex"
         lazy
         tabs-class="event-panel-tabs"
+        nav-class="event-panel-tabs-nav mx-md-4 mx-1"
         title-class="event-panel-titles"
         @category-changed="onTabChange"/>
     </header-section>
@@ -16,14 +17,13 @@
       v-if="category"
       :event="event"
       :category="category">
-      <template slot-scope="{ markets }">
-        <div class="m-4">
-          <markets-list
-            v-if="event"
-            :event="event"
-            :markets="markets"
-            :item-component="itemComponent"/>
-        </div>
+      <template #default="{ markets }">
+        <markets-list
+          v-if="event"
+          :event="event"
+          :markets="markets"
+          :item-component="itemComponent"
+          class="p-md-4 p-1 bg-arc-clr-soil-light"/>
       </template>
     </market-category>
   </div>

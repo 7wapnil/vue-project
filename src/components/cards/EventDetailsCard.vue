@@ -1,7 +1,6 @@
 <template>
   <b-card
     no-body
-    style="min-width: 714px"
     class="mb-1 upcoming-card"
     bg-variant="arc-clr-soil-dark">
     <b-card-body class="h-100 p-0">

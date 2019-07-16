@@ -14,7 +14,7 @@
       </b-col>
       <b-col
         lg="6"
-        col="9"
+        cols="9"
         class="ml-4">
         <b-form-input
           id="firstName"
@@ -37,7 +37,7 @@
       </b-col>
       <b-col
         class="ml-4"
-        col="9"
+        cols="9"
         lg="6">
         <b-form-input
           id="lastName"
@@ -60,7 +60,7 @@
       </b-col>
       <b-col
         class="ml-4"
-        col="9"
+        cols="9"
         lg="6">
         <b-form-select
           id="gender"
@@ -84,7 +84,7 @@
       </b-col>
       <b-col
         lg="6"
-        col="9"
+        cols="9"
         class="ml-4">
         <b-row no-gutters>
           <b-col>

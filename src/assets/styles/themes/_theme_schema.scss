@@ -221,6 +221,45 @@
   }
 }
 
+.event-tabs {
+  &-left-side-navigation {
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.15);
+    .nav-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    &:hover i {
+      transition: color .3s ease-in-out;
+      color: $icon-section-color;
+    }
+  }
+  &-right-side-navigation {
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.15);
+    .nav-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    &:hover i {
+      transition: color .3s ease-in-out;
+      color: $icon-section-color;
+    }
+  }
+  .nav-link.active i{
+    transition: color .2s ease-in-out;
+    color: $icon-section-color !important;
+  }
+}
+
 // Arc Circle
 .arc-circle {
   color: $second-color;
