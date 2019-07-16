@@ -12,6 +12,7 @@
         title="Personal information"
         title-item-class="sign-form-tabs-title">
         <signup-first-step
+          :dob-proxy="proxyDOB"
           :form="form"
           :countries="countries"
           @submit="goToStep(1)"/>
@@ -84,6 +85,11 @@ export default {
       }),
       submitting: false,
       tabIndex: 0,
+      proxyDOB: {
+        day: null,
+        month: null,
+        year: null
+      },
       countries
     }
   },
@@ -95,9 +101,14 @@ export default {
     close () {
       this.$bvModal.hide('AuthModal')
     },
+    composeDob () {
+      const { year, month, day } = this.proxyDOB
+      this.form.firstStep.dateOfBirth = `${year}-${month}-${day}`
+    },
     submit () {
       this.form.clearErrors()
       this.submitting = true
+      this.composeDob()
 
       const input = {
         ...this.form.firstStep,

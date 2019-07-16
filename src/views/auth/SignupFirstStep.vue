@@ -23,7 +23,7 @@
     </b-form-group>
 
     <birth-date-field
-      v-model="form.firstStep.dateOfBirth"
+      :model="dobProxy"
       :state="form.errors.state('dateOfBirth')"
       :error="form.errors.get('dateOfBirth')"/>
 
@@ -55,6 +55,7 @@
           :invalid-feedback="form.errors.get('country')"
           :state="form.errors.state('country')">
           <b-form-select
+            id="signup-country"
             v-model="form.firstStep.country"
             :state="form.errors.state('country')">
             <option
@@ -74,8 +75,9 @@
           :invalid-feedback="form.errors.get('currency')"
           :state="form.errors.state('currency')">
           <b-form-select
+            id="signup-currency"
             v-model="form.firstStep.currency"
-            :state="form.errors.state('curr`ency')">
+            :state="form.errors.state('currency')">
             <option
               v-for="(currency, index) in currencies"
               :key="index"
@@ -109,6 +111,10 @@ export default {
   props: {
     form: {
       type: Form,
+      required: true
+    },
+    dobProxy: {
+      type: Object,
       required: true
     },
     countries: {

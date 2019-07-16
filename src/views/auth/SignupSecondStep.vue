@@ -38,11 +38,11 @@
       :state="form.errors.state('phone')">
       <b-form-input
         id="signup-phone"
-        :value="phoneCode"
+        v-model="form.secondStep.phone"
         :state="form.errors.state('phone')"
         type="tel"
         placeholder="Phone Number"
-        @input="updatePhone"/>
+      />
     </b-form-group>
     <b-form-group
       :invalid-feedback="form.errors.get('streetAddress')"
@@ -81,6 +81,7 @@
         placeholder="Province"/>
     </b-form-group>
     <b-form-checkbox
+      id="signup-agreedWithPromotional"
       v-model="form.secondStep.agreedWithPromotional"
       class="accept-all-odds-checkbox mb-4">
       <span class="ml-3 font-size-14 text-arc-clr-iron pointer letter-spacing-2">
@@ -88,30 +89,37 @@
       </span>
     </b-form-checkbox>
     <b-form-checkbox
+      id="signup-agreedWithPrivacy"
       v-model="form.secondStep.agreedWithPrivacy"
       class="accept-all-odds-checkbox mb-4">
       <span class="d-block font-size-14 text-arc-clr-iron pointer letter-spacing-2 ml-3 mt-1">
         Confirm I am not underage,
         <b-link
-          :to="{ name: 'terms and conditions' }"
+          :to="{ path: 'terms-and-conditions' }"
           target="_blank"
           class="font-weight-bold">
           agree with T&C,
         </b-link>
         agree with
         <b-link
-          :to="{ name: 'privacy policy' }"
+          :to="{ path: 'privacy-policy' }"
           target="_blank"
           class="font-weight-bold">
           privacy policy
         </b-link>
       </span>
     </b-form-checkbox>
+    <b-form-invalid-feedback
+      :state="form.errors.state('state')"
+      force-show
+      role="alert"
+      class="invalid-feedback">{{ form.errors.get('agreedWithPrivacy') }}</b-form-invalid-feedback>
     <b-row
       class="mb-4 mt-5"
       no-gutters>
       <b-col class="mr-4">
         <b-button
+          id="signup-back"
           variant="arc-secondary"
           block
           @click="$emit('return')">
@@ -128,6 +136,7 @@
       </b-col>
       <b-col>
         <b-button
+          id="signup-submit"
           :disabled="submitting"
           variant="user-profile-button"
           type="submit"
@@ -159,7 +168,6 @@ export default {
   },
   data () {
     return {
-      agreedWithPrivacy: false,
       genders: [
         { value: 'male', text: 'Male' },
         { value: 'female', text: 'Female' }
@@ -171,13 +179,13 @@ export default {
       const result = this.countries.filter(obj => {
         return obj.value === this.form.firstStep.country
       })
+
       return result.length ? `+${result[0].phone}` : ''
     }
   },
-  methods: {
-    updatePhone (val) {
-      const phone = val.slice(1)
-      this.form.secondStep.phone = phone
+  mounted () {
+    if (!this.form.secondStep.phone.includes(this.phoneCode)) {
+      this.form.secondStep.phone = this.phoneCode + ' '
     }
   }
 }
