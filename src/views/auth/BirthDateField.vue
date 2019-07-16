@@ -51,7 +51,7 @@ export default {
     },
     model: {
       type: Object,
-      default: null
+      default: () => {}
     },
     error: {
       type: [String, null],
