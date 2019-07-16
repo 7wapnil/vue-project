@@ -1,21 +1,23 @@
 <template>
   <b-row
     v-if="event"
-    class="py-4 w-100"
     no-gutters>
     <b-col
       v-if="firstCompetitor"
-      class="text-center pt-4">
+      class="text-center">
       <b-row no-gutters>
-        <b-col class="font-weight-bold my-4 letter-spacing-2">
+        <b-col class="font-weight-bold my-4 mx-2 letter-spacing-2">
           {{ firstCompetitor.name }}
         </b-col>
 
-        <div class="w-100"/>
+        <div
+          v-if="showicons"
+          class="w-100"/>
 
-        <b-col class="mt-1">
+        <b-col
+          v-if="showicons"
+          class="mt-1">
           <icon
-            v-if="showicons"
             name="sidemenu-game-icon"
             size="56px"/>
         </b-col>
@@ -87,16 +89,20 @@
 
     <b-col
       v-if="secondCompetitor"
-      class="text-center pt-4">
+      class="text-center">
       <b-row no-gutters>
-        <b-col class="font-weight-bold my-4 letter-spacing-2">
+        <b-col class="font-weight-bold my-4 mx-2 letter-spacing-2">
           {{ secondCompetitor.name }}
         </b-col>
-      </b-row>
-      <b-row no-gutters>
-        <b-col class="mt-1">
+
+        <div
+          v-if="showicons"
+          class="w-100"/>
+
+        <b-col
+          v-if="showicons"
+          class="mt-1">
           <icon
-            v-if="showicons"
             name="sidemenu-game-icon"
             size="56px"/>
         </b-col>
