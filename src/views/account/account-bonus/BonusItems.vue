@@ -1,70 +1,53 @@
 <template>
-  <div class="py-5">
-    <b-list-group>
-      <b-list-group-item
-        v-b-toggle="'account-bonus-' + index"
-        v-for="(bonusItem, index) in bonusItems"
-        :key="index"
-        class="bonus-item bg-arc-clr-soil-light px-0 py-4 border-0">
-        <b-row no-gutters>
-          <b-col
-            cols="auto"
-            class="mr-2 d-flex align-items-center">
-            <span class="bonus-expand-circle">
-              <icon
-                name="bonus-chevron-down"
-                size="8px"
-                color="arc-clr-iron"/>
-            </span>
-          </b-col>
-          <b-col class="d-flex align-items-center pl-2">
-            <span class="bonus-item-name text-arc-clr-gold font-weight-bold letter-spacing-2">
-              {{ bonusItem.code }}
-            </span>
-          </b-col>
-          <b-col class="text-right d-flex justify-content-end align-items-center">
-            <b-button
-              variant="arc-secondary"
-              class="text-capitalize font-weight-bold text-arc-clr-iron font-size-14 letter-spacing-2">
-              {{ bonusItem.status }}
-            </b-button>
-          </b-col>
-        </b-row>
-        <b-collapse
-          :id="`${'account-bonus-' + index}`"
-          accordion="bonus-accordion">
-          <p class="px-5 py-1 mb-0 mt-0 text-arc-clr-iron letter-spacing-2">
-            {{ $t('account.bonus.longTerms.header') }} <b>{{ bonusItem.code }}</b>
-          </p>
-          <p class="px-5 py-1 mb-0 mt-0 text-arc-clr-iron letter-spacing-2">
-            {{ $t('account.bonus.longTerms.awarded') }} <b>{{ bonusItem.amount }}</b>
-          </p>
-          <p class="px-5 py-1 mb-0 mt-0 text-arc-clr-iron letter-spacing-2">
-            {{ $t('account.bonus.longTerms.paragraph.main') }}
-            <router-link
-              :to="{name: 'terms and conditions'}"
-              class="text-arc-clr-iron letter-spacing-2 font-weight-bold">{{ $t('account.bonus.longTerms.paragraph.link') }}</router-link>
-          </p>
-          <ul>
-            <li class="text-arc-clr-iron letter-spacing-2">{{ $t('account.bonus.longTerms.list.list1') }} <b>{{ bonusItem.rolloverInitialValue }}</b>
-            </li>
-            <li class="text-arc-clr-iron letter-spacing-2">{{ $t('account.bonus.longTerms.list.list2') }}</li>
-            <li class="text-arc-clr-iron letter-spacing-2">{{ $t('account.bonus.longTerms.list.list3') }} <b>{{ bonusItem.expiresAt | asFormattedDate('DD/MM/YYYY', 'DD.MM.YY') }}</b></li>
-            <li class="text-arc-clr-iron letter-spacing-2">{{ $t('account.bonus.longTerms.list.list4') }} <b>{{ $tc('account.bonus.longTerms.list.list4Days', bonusItem.validForDays, { n: bonusItem.validForDays }) }} </b> {{ $t('account.bonus.longTerms.list.list4Part2') }}</li>
-            <li class="text-arc-clr-iron letter-spacing-2">{{ $t('account.bonus.longTerms.list.list5') }}</li>
-            <li class="text-arc-clr-iron letter-spacing-2">{{ $t('account.bonus.longTerms.list.list6') }}</li>
-            <li class="text-arc-clr-iron letter-spacing-2">{{ $t('account.bonus.longTerms.list.list7') }}</li>
-            <li class="text-arc-clr-iron letter-spacing-2">{{ $t('account.bonus.longTerms.list.list8') }}</li>
-          </ul>
-
-        </b-collapse>
-      </b-list-group-item>
-    </b-list-group>
-  </div>
+  <b-list-group>
+    <b-list-group-item
+      v-b-toggle="'account-bonus-' + index"
+      v-for="(bonusItem, index) in bonusItems"
+      :key="index"
+      class="bonus-item bg-arc-clr-soil-light px-md-0 px-4 py-4 border-0">
+      <b-row no-gutters>
+        <b-col
+          cols="auto"
+          class="mr-2 d-flex align-items-center">
+          <span class="bonus-expand-circle">
+            <icon
+              name="bonus-chevron-down"
+              size="8px"
+              color="arc-clr-iron"/>
+          </span>
+        </b-col>
+        <b-col class="d-flex align-items-center pl-2">
+          <span class="bonus-item-name text-arc-clr-gold font-weight-bold letter-spacing-2">
+            {{ bonusItem.code }}
+          </span>
+        </b-col>
+        <b-col class="text-right d-flex justify-content-end align-items-center">
+          <b-button
+            variant="arc-secondary"
+            class="text-capitalize font-weight-bold text-arc-clr-iron font-size-14 letter-spacing-2">
+            {{ bonusItem.status }}
+          </b-button>
+        </b-col>
+      </b-row>
+      <b-collapse
+        :id="`${'account-bonus-' + index}`"
+        accordion="bonus-accordion">
+        <bonus-list-header :bonus-item="bonusItem"/>
+        <bonus-list :bonus-item="bonusItem"/>
+      </b-collapse>
+    </b-list-group-item>
+  </b-list-group>
 </template>
 
 <script>
+import BonusList from '@/views/account/account-bonus/bonus-list/BonusList'
+import BonusListHeader from '@/views/account/account-bonus/bonus-list/BonusListHeader'
+
 export default {
+  components: {
+    BonusList,
+    BonusListHeader
+  },
   props: {
     bonusItems: {
       type: Array,

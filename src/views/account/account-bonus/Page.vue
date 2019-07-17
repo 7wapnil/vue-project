@@ -1,35 +1,32 @@
 <template>
   <div>
-    <h3
-      v-if="!isMobile"
-      class="mb-0 font-weight-light">
-      {{ $t('account.tabs.bonus') }}
-    </h3>
+    <bonus-header v-if="!isMobile"/>
     <bonus-placeholder v-if="!customerBonuses.length"/>
     <div v-if="customerBonuses.length">
-      <information-section
+      <bonus-information-section
         :bonus-achieved="getCurrentBonusValue"
         :main-bonus="getMainBonus"/>
       <progress-scale :value="getMainBonusPercentageValue"/>
       <bonus-items :bonus-items="customerBonuses"/>
     </div>
   </div>
-
 </template>
 
 <script>
-import ProgressScale from './ProgressScale'
-import InformationSection from './InformationSection'
-import BonusItems from './BonusItems'
-import BonusPlaceholder from './BonusPlaceholder'
+import ProgressScale from '@/views/account/account-bonus/ProgressScale'
+import BonusInformationSection from '@/views/account/account-bonus/BonusInformationSection'
+import BonusItems from '@/views/account/account-bonus/BonusItems'
+import BonusPlaceholder from '@/views/account/account-bonus/BonusPlaceholder'
+import BonusHeader from '@/views/account/account-bonus/BonusHeader'
 import { BONUSES_LIST_QUERY } from '@/graphql'
 
 export default {
   components: {
     ProgressScale,
-    InformationSection,
+    BonusInformationSection,
     BonusItems,
-    BonusPlaceholder
+    BonusPlaceholder,
+    BonusHeader
   },
   data () {
     return {

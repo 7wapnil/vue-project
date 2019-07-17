@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="px-4 px-md-0 my-md-4 mt-0 mb-4">
     <span
       :style="`${'left:' + value + '%' }`"
       class="arc-bonus-progress-bar-tooltip">
