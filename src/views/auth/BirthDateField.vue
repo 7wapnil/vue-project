@@ -1,7 +1,7 @@
 <template>
   <b-form-group
-    :invalid-feedback="error"
-    :state="state">
+    :invalid-feedback="form.errors.get('dateOfBirth')"
+    :state="form.errors.state('dateOfBirth')">
     <b-row no-gutters>
       <b-col
         cols="12"
@@ -10,8 +10,9 @@
         <b-form-select
           id="signup-day"
           v-model="model.day"
-          :state="state"
-          :options="days"/>
+          :state="form.errors.state('dateOfBirth')"
+          :options="days"
+          @input="form.clearError(['dateOfBirth'])"/>
       </b-col>
       <b-col
         cols="12"
@@ -20,8 +21,9 @@
         <b-form-select
           id="signup-month"
           v-model="model.month"
-          :state="state"
-          :options="months"/>
+          :state="form.errors.state('dateOfBirth')"
+          :options="months"
+          @input="form.clearError(['dateOfBirth'])"/>
       </b-col>
       <b-col
         cols="12"
@@ -29,8 +31,9 @@
         <b-form-select
           id="signup-year"
           v-model="model.year"
-          :state="state"
-          :options="years"/>
+          :state="form.errors.state('dateOfBirth')"
+          :options="years"
+          @input="form.clearError(['dateOfBirth'])"/>
       </b-col>
     </b-row>
   </b-form-group>
@@ -38,6 +41,7 @@
 
 <script>
 import moment from 'moment'
+import { Form } from '@/helpers'
 
 export default {
   value: {
@@ -45,17 +49,13 @@ export default {
     default: ''
   },
   props: {
-    state: {
-      type: [Boolean, null],
-      default: false
-    },
     model: {
       type: Object,
       default: () => {}
     },
-    error: {
-      type: [String, null],
-      default: null
+    form: {
+      type: Form,
+      required: true
     }
   },
   data () {
