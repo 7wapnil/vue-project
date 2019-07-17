@@ -46,7 +46,7 @@
                 class="mb-2"
                 no-gutters>
                 <b-col
-                  v-for="(competitor, index) in event.competitors"
+                  v-for="(competitor, index) in orderedCompetitors"
                   :key="index">
                   <h6 class="m-0 font-weight-bold text-arc-clr-iron team-name text-truncate letter-spacing-2">
                     {{ competitor.name }}
@@ -261,6 +261,7 @@
 
 <script>
 import NoDataPlaceholder from '@/components/cards/NoDataPlaceholder'
+import { orderByQualifier } from '@/helpers/competitors-order'
 
 export default {
   components: {
@@ -287,6 +288,9 @@ export default {
     },
     formattedTime () {
       return this.$i18n.getSuffix(this.event.timeInSeconds)
+    },
+    orderedCompetitors () {
+      return orderByQualifier(this.event.competitors)
     }
   }
 }

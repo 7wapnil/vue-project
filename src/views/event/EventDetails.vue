@@ -125,10 +125,18 @@ export default {
   },
   computed: {
     firstCompetitor () {
-      return this.event.competitors[0]
+      const byQualifier = this.event.competitors.find((competitor) => {
+        return competitor.qualifier === 'home'
+      })
+
+      return byQualifier || this.event.competitors[0]
     },
     secondCompetitor () {
-      return this.event.competitors[1]
+      const byQualifier = this.event.competitors.find((competitor) => {
+        return competitor.qualifier === 'away'
+      })
+
+      return byQualifier || this.event.competitors[1]
     },
     formattedTime () {
       return this.$i18n.getSuffix(this.event.timeInSeconds)

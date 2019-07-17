@@ -51,7 +51,7 @@
           <b-row no-gutters>
             <b-col v-if="event.competitors.length">
               <b-row
-                v-for="(competitor, index) in event.competitors"
+                v-for="(competitor, index) in orderedCompetitors"
                 :key="index"
                 no-gutters>
                 <b-col>

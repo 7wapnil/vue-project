@@ -226,6 +226,7 @@
 </template>
 <script>
 import NoDataPlaceholder from '@/components/cards/NoDataPlaceholder'
+import { orderByQualifier } from '@/helpers/competitors-order'
 
 export default {
   components: {
@@ -244,6 +245,9 @@ export default {
   computed: {
     marketsCount () {
       return this.event.marketsCount - 1
+    },
+    orderedCompetitors () {
+      return orderByQualifier(this.event.competitors)
     }
   }
 }

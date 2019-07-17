@@ -52,6 +52,7 @@ export const EVENT_FIELDS = `
   competitors {
     id
     name
+    qualifier
   }
 `
 
