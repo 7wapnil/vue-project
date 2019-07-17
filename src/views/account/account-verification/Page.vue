@@ -107,8 +107,8 @@ export default {
         error: ''
       }],
       maxTypeSizes: {
-        'image/jpeg': 2097152,
-        'application/pdf': 2097152
+        'image/jpeg': 10485760,
+        'application/pdf': 10485760
       },
       documents: [],
       fileSendActive: false,
