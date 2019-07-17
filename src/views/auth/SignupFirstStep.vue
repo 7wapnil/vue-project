@@ -26,8 +26,7 @@
 
     <birth-date-field
       :model="dobProxy"
-      :state="form.errors.state('dateOfBirth')"
-      :error="form.errors.get('dateOfBirth')"/>
+      :form="form"/>
 
     <b-form-group
       :invalid-feedback="form.errors.get('password')"

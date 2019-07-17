@@ -45,7 +45,7 @@
         :state="form.errors.state('phone')"
         type="tel"
         placeholder="Phone Number"
-      />
+        @input="form.clearError(['phone'])"/>
     </b-form-group>
     <b-form-group
       :invalid-feedback="form.errors.get('streetAddress')"
