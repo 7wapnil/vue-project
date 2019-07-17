@@ -55,10 +55,10 @@ export default {
           mutation: VERIFY_EMAIL,
           variables: { token: this.token }
         })
-        .then(() => {
+        .then(({ data: { verifyEmail } }) => {
           this.$gtm.push({
             event: 'Email verified',
-            customerID: 'tbi',
+            customerID: verifyEmail.userId,
             page: this.$route.fullPath
           })
           this.$log.info('Email verified')
