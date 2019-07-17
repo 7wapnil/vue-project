@@ -43,11 +43,11 @@
               class="p-3"
               style="min-width: 40px">
               <b-row
-                class="mb-2"
+                v-for="(competitor, index) in orderedCompetitors"
+                :key="index"
+                class="mb-1"
                 no-gutters>
-                <b-col
-                  v-for="(competitor, index) in orderedCompetitors"
-                  :key="index">
+                <b-col>
                   <h6 class="m-0 font-weight-bold text-arc-clr-iron team-name text-truncate letter-spacing-2">
                     {{ competitor.name }}
                   </h6>
