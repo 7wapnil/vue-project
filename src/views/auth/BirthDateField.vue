@@ -115,11 +115,6 @@ export default {
 
       return years
     }
-  },
-  methods: {
-    emitEvent () {
-      this.$emit('input')
-    }
   }
 }
 </script>
