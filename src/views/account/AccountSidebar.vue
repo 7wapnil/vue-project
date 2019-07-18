@@ -8,6 +8,7 @@
         <b-nav-item
           v-for="(tab, index) in tabs"
           :key="index"
+          :class="[ isMobile ? 'profile-modal-nav-mobile-item' : 'profile-modal-nav-item' ]"
           class="profile-modal-nav-item bg-arc-clr-soil-black"
           @click="changeTabIndex(index); addTabName(tab.title)">
           <span>
@@ -21,7 +22,8 @@
           </span>
         </b-nav-item>
         <b-nav-item
-          class="profile-modal-nav-item bg-arc-clr-soil-black"
+          :class="[ isMobile ? 'profile-modal-nav-mobile-item' : 'profile-modal-nav-item' ]"
+          class="bg-arc-clr-soil-black"
           @click="showConfirmationModal">
           <icon
             name="logout"
