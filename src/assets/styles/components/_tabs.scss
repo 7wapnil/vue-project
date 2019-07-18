@@ -6,7 +6,8 @@
   outline: none !important;
 }
 // Profile modal sidebar tabs
-.profile-modal-nav {
+.profile-modal-nav,
+%profile-modal-nav {
   &-item {
     height: 56px;
     padding-left: 16px;
