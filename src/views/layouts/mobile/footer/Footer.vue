@@ -106,7 +106,7 @@ export default {
             'master-card',
             'skrill',
             'neteller',
-            'paysafe',
+            'paysafecard',
             'skinpay',
             'bitcoin'],
       footerItems: InformationPages.routes,
