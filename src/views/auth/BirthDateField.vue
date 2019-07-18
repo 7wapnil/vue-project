@@ -5,8 +5,8 @@
     <b-row no-gutters>
       <b-col
         cols="12"
-        sm="4"
-        class="mr-3 mb-3 mb-sm-0">
+        md="4"
+        class="mr-0 mr-md-3 mb-3 mb-md-0">
         <b-form-select
           id="signup-day"
           v-model="model.day"
@@ -16,8 +16,8 @@
       </b-col>
       <b-col
         cols="12"
-        sm="auto"
-        class="mr-0 mr-sm-3 mb-3 mb-sm-0">
+        md="auto"
+        class="mr-0 mr-md-3 mb-3 mb-md-0">
         <b-form-select
           id="signup-month"
           v-model="model.month"
@@ -27,7 +27,7 @@
       </b-col>
       <b-col
         cols="12"
-        sm="3">
+        md="3">
         <b-form-select
           id="signup-year"
           v-model="model.year"
