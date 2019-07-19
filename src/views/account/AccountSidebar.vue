@@ -27,8 +27,8 @@
           @click="showConfirmationModal">
           <icon
             name="logout"
-            class="tab-icon"
-            size="24px"/>
+            class="tab-icon ml-1"
+            size="20px"/>
           <span class="ml-3 font-weight-bold font-size-14 tab-title">
             Logout
           </span>
