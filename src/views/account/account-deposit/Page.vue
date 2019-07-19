@@ -260,7 +260,6 @@ export default {
       redirectUrl: process.env.VUE_APP_DEPOSIT_URL,
       calculatedBonus: '',
       bonusError: null,
-      invalidForm: 'Please make sure you entered correct values.',
       depositState: this.$route.query.depositState,
       depositMessage: this.$route.query.depositStateMessage,
       variantMap: {
@@ -341,8 +340,6 @@ export default {
           this.calculatedBonus = null
           this.bonusError = graphQLErrors[0].message
         })
-      } else {
-        this.bonusError = this.invalidForm
       }
     },
     submitDeposit () {
