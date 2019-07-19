@@ -316,7 +316,7 @@ export default {
       return this.fields.amount == null || !this.paymentMethod
     },
     isFormEmpty () {
-      return Object.values(this.fields.values()).some(x => (x === null || x === ''))
+      return Object.values(this.fields.values()).some(value => (value === null || value === ''))
     }
   },
   methods: {
