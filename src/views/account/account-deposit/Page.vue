@@ -79,7 +79,8 @@
                     v-model="fields.amount"
                     min="1"
                     type="number"
-                    placeholder="Custom"/>
+                    placeholder="Custom"
+                    @blur.prevent="calculateBonus"/>
                 </b-input-group>
                 <b-form-select
                   value=""
@@ -107,7 +108,9 @@
               </b-col>
               <b-col class="ml-4 mr-2">
                 <b-input-group >
-                  <b-form-input v-model="fields.bonusCode"/>
+                  <b-form-input
+                    v-model="fields.bonusCode"
+                    @blur.prevent="calculateBonus"/>
                   <b-input-group-append>
                     <b-button
                       class="px-4 py-1"
@@ -237,6 +240,7 @@ import DepositHeader from './DepositHeader'
 import DepositMethods from './DepositMethods'
 import { EUR } from '@/constants/currencies'
 import QRCode from 'qrcode'
+import { Form } from '@/helpers'
 
 export default {
   name: 'DepositFunds',
@@ -246,17 +250,17 @@ export default {
   },
   data () {
     return {
-      fields: {
-        amount: '',
+      fields: new Form({
+        amount: null,
         bonusCode: null,
-      },
+      }),
       isCryptoSectionShown: false,
       paymentMethod: null,
       currencies: [],
       redirectUrl: process.env.VUE_APP_DEPOSIT_URL,
       calculatedBonus: '',
       bonusError: null,
-      invalidBonusCode: 'Invalid bonus code',
+      invalidForm: 'Please make sure you entered correct values.',
       depositState: this.$route.query.depositState,
       depositMessage: this.$route.query.depositStateMessage,
       variantMap: {
@@ -289,7 +293,7 @@ export default {
     }),
     getTotal () {
       let totalValue
-      if (this.fields.amount.includes(',')) {
+      if (this.fields.amount && this.fields.amount.includes(',')) {
         this.fields.amount.replace(',', '.')
       }
       totalValue = parseFloat(this.fields.amount)
@@ -310,17 +314,20 @@ export default {
     },
     buttonDisabled () {
       return this.fields.amount == null || !this.paymentMethod
+    },
+    isFormEmpty () {
+      return Object.values(this.fields.values()).some(value => (value === null || value === ''))
     }
   },
   methods: {
     selectPaymentMethod (paymentMethodCode) {
       this.paymentMethod = this.depositMethods.find((method) => method.code === paymentMethodCode)
+      this.fields.reset()
       this.calculatedBonus = null
-      this.fields.bonusCode = null
       this.isCryptoSectionShown = false
     },
     calculateBonus () {
-      if (this.fields.bonusCode && this.fields.amount) {
+      if (!this.isFormEmpty) {
         this.$apollo.mutate({
           mutation: BONUS_CALCULATION_MUTATION,
           variables: {
@@ -335,7 +342,7 @@ export default {
           this.bonusError = graphQLErrors[0].message
         })
       } else {
-        this.bonusError = this.invalidBonusCode
+        this.bonusError = this.invalidForm
       }
     },
     submitDeposit () {
@@ -367,6 +374,7 @@ export default {
     },
     addPresetAmount (amount) {
       this.fields.amount = amount.toString()
+      this.calculateBonus()
     }
   }
 }
