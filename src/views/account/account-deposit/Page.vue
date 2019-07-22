@@ -2,25 +2,11 @@
   <div>
     <deposit-header/>
     <deposit-description/>
+    <deposit-errors
+      :deposit-state="depositState"
+      :deposit-message="depositMessage"
+      :bonus-error="bonusError"/>
 
-    <b-row
-      v-if="depositState || bonusError"
-      no-gutters>
-      <b-col class="p-md-0 p-4">
-        <b-alert
-          :show="!!depositState"
-          :variant="mapDepositState"
-          class="mb-0">
-          {{ depositMessage }}
-        </b-alert>
-        <b-alert
-          :show="!!bonusError"
-          class="mb-0"
-          variant="danger">
-          {{ bonusError }}
-        </b-alert>
-      </b-col>
-    </b-row>
     <b-row
       class="my-4"
       no-gutters>
@@ -223,6 +209,7 @@ import {
 import DepositHeader from '@/views/account/account-deposit/DepositHeader'
 import DepositMethods from '@/views/account/account-deposit/DepositMethods'
 import DepositDescription from '@/views/account/account-deposit/DepositDescription'
+import DepositErrors from '@/views/account/account-deposit/DepositErrors'
 import { EUR } from '@/constants/currencies'
 import QRCode from 'qrcode'
 import { Form } from '@/helpers'
@@ -231,7 +218,8 @@ export default {
   components: {
     DepositHeader,
     DepositMethods,
-    DepositDescription
+    DepositDescription,
+    DepositErrors
   },
   data () {
     return {
@@ -247,11 +235,6 @@ export default {
       bonusError: null,
       depositState: this.$route.query.depositState,
       depositMessage: this.$route.query.depositStateMessage,
-      variantMap: {
-        pending: 'warning',
-        success: 'success',
-        fail: 'danger'
-      },
       moneyAmounts: [ 10, 25, 50, 75, 100, 150, 200, 250 ],
       depositMethods: [],
       qrText: '',
@@ -292,9 +275,6 @@ export default {
       return (this.paymentMethod && this.paymentMethod.currencyCode) ||
         (this.fiatWallet && this.fiatWallet.currency.code) ||
         EUR
-    },
-    mapDepositState () {
-      return this.variantMap[this.depositState]
     },
     buttonDisabled () {
       return this.fields.amount == null || !this.paymentMethod
