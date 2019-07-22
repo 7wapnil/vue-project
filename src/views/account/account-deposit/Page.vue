@@ -189,11 +189,7 @@
         </div>
       </b-col>
     </b-row>
-    <b-row no-gutters>
-      <b-col class="text-arc-clr-iron mb-md-2 mb-0 p-4 p-md-0">
-        Payments methods we support:
-      </b-col>
-    </b-row>
+
     <deposit-methods/>
   </div>
 </template>

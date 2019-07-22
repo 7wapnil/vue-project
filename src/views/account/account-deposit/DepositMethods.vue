@@ -1,14 +1,21 @@
 <template>
-  <b-row
-    class="p-4 mx-4 mb-4 mt-0 m-md-0 bg-arc-clr-soil-dark border-4"
-    no-gutters>
-    <b-col
-      v-for="(method, index) in depositMethods"
-      :key="index"
-      class="p-2 p-md-0 d-flex align-items-center justify-content-center">
-      <b-img :src="method"/>
-    </b-col>
-  </b-row>
+  <div>
+    <b-row no-gutters>
+      <b-col class="text-arc-clr-iron mb-md-2 mb-0 p-4 p-md-0">
+        Payments methods we support:
+      </b-col>
+    </b-row>
+    <b-row
+      class="p-4 mx-4 mb-4 mt-0 m-md-0 bg-arc-clr-soil-dark border-4"
+      no-gutters>
+      <b-col
+        v-for="(method, index) in depositMethods"
+        :key="index"
+        class="p-2 p-md-0 d-flex align-items-center justify-content-center">
+        <b-img :src="method"/>
+      </b-col>
+    </b-row>
+  </div>
 </template>
 
 <script>
