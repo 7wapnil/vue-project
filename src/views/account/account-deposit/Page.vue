@@ -1,38 +1,21 @@
 <template>
   <div>
     <deposit-header/>
+    <deposit-description/>
 
     <b-row
-      class="mb-4"
+      v-if="depositState || bonusError"
       no-gutters>
-      <b-col>
-        <p class="mb-0 text-arc-clr-iron letter-spacing-2">
-          This is only a list of payment methods we support.
-          You will select the one that suits you on the next page.
-          <span class="text-arc-clr-gold">
-            We do not charge service fees.
-          </span>
-        </p>
-      </b-col>
-    </b-row>
-    <b-row
-      class="my-4"
-      no-gutters>
-      <b-col>
-        <p class="mb-0 text-arc-clr-iron letter-spacing-2">
-          {{ $t('account.deposit.moneyTransferInformation') }}
-        </p>
-      </b-col>
-    </b-row>
-    <b-row no-gutters>
-      <b-col>
+      <b-col class="p-md-0 p-4">
         <b-alert
           :show="!!depositState"
-          :variant="mapDepositState">
+          :variant="mapDepositState"
+          class="mb-0">
           {{ depositMessage }}
         </b-alert>
         <b-alert
           :show="!!bonusError"
+          class="mb-0"
           variant="danger">
           {{ bonusError }}
         </b-alert>
@@ -46,7 +29,8 @@
         <b-row no-gutters>
           <b-col
             class="text-right pt-2"
-            cols="4">
+            cols="12"
+            md="4">
             <h6 class="text-arc-clr-iron letter-spacing-2">
               {{ $t('generalTerms.amount') }}:
             </h6>
@@ -220,7 +204,7 @@
       </b-col>
     </b-row>
     <b-row no-gutters>
-      <b-col class="text-arc-clr-iron mb-2">
+      <b-col class="text-arc-clr-iron mb-md-2 mb-0 p-4 p-md-0">
         Payments methods we support:
       </b-col>
     </b-row>
@@ -236,17 +220,18 @@ import {
   DEPOSIT_METHODS_QUERY,
   DEPOSIT_MUTATION
 } from '@/graphql'
-import DepositHeader from './DepositHeader'
-import DepositMethods from './DepositMethods'
+import DepositHeader from '@/views/account/account-deposit/DepositHeader'
+import DepositMethods from '@/views/account/account-deposit/DepositMethods'
+import DepositDescription from '@/views/account/account-deposit/DepositDescription'
 import { EUR } from '@/constants/currencies'
 import QRCode from 'qrcode'
 import { Form } from '@/helpers'
 
 export default {
-  name: 'DepositFunds',
   components: {
     DepositHeader,
-    DepositMethods
+    DepositMethods,
+    DepositDescription
   },
   data () {
     return {
