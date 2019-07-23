@@ -36,7 +36,7 @@ export default {
   },
   computed: {
     getCurrentBonusValue () {
-      return this.getMainBonus.rolloverInitialValue - this.getMainBonus.rolloverBalance
+      return (this.getMainBonus.rolloverInitialValue - this.getMainBonus.rolloverBalance).toFixed(2)
     },
     getMainBonusPercentageValue () {
       let calculatedPercentage = (this.getCurrentBonusValue / this.getMainBonus.rolloverInitialValue) * 100
