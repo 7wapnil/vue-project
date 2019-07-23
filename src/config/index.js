@@ -15,6 +15,7 @@ import arcanebetSession from '@/services/local-storage/session'
 import VueMeta from 'vue-meta'
 import BodyScrollLockDirective from 'v-body-scroll-lock'
 import VueMq from 'vue-mq'
+import VueClipboard from './plugins/vue-clipboard'
 
 const isProduction = process.env.NODE_ENV === 'production'
 
@@ -54,6 +55,8 @@ Vue.use(GTMPlugin, {
 })
 
 Vue.use(SourceBusterPlugin)
+
+Vue.use(VueClipboard)
 
 if (isProduction) {
   Vue.use(airbrakeClient, {
