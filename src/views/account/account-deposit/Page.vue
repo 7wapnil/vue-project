@@ -83,9 +83,8 @@
                     @blur.prevent="calculateBonus"/>
                 </b-input-group>
                 <b-form-select
-                  value=""
-                  class="mb-4"
-                  @change="selectPaymentMethod">
+                  v-model="selectedPaymentMethod"
+                  class="mb-4">
                   <option
                     value=""
                     disabled>{{ $t('account.deposit.paymentMethodsPlaceholder') }}</option>
@@ -245,6 +244,8 @@ import {
 import DepositHeader from './DepositHeader'
 import DepositMethods from './DepositMethods'
 import { EUR } from '@/constants/currencies'
+import { BITCOIN, CREDIT_CARD } from '@/constants/payments/methods'
+import { FIAT } from '@/constants/currency-kinds'
 import QRCode from 'qrcode'
 import { Form } from '@/helpers'
 
@@ -292,7 +293,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('wallets', ['fiatWallet']),
+    ...mapGetters('wallets', ['fiatWallet', 'activeWallet', 'wallets']),
     ...mapGetters({
       token: 'getToken'
     }),
@@ -322,15 +323,57 @@ export default {
     },
     isFormEmpty () {
       return Object.values(this.fields.values()).some(value => (value === null || value === ''))
+    },
+    selectedPaymentMethod: {
+      get: function () {
+        let method = this.paymentMethod || this.initialPaymentMethod || {}
+
+        return method.code || ''
+      },
+      set: function (paymentMethodCode) {
+        let newPaymentMethod = this.depositMethods.find((method) => method.code === paymentMethodCode)
+
+        if (this.paymentMethod && newPaymentMethod.currencyKind !== this.paymentMethod.currencyKind) {
+          this.calculatedBonus = null
+          this.fields.amount = ''
+          this.fields.bonusCode = null
+          this.bonusError = null
+        }
+
+        this.paymentMethod = newPaymentMethod
+        this.isCryptoSectionShown = false
+      }
+    },
+    initialPaymentMethod () {
+      let method = this.activeWalletPaymentMethod
+      if (method) return method
+
+      return this.secondaryWalletPaymentMethod
+    },
+    activeWalletPaymentMethod () {
+      if (!this.activeWallet) return
+
+      return this.depositMethods.find((method) => method.currencyCode === this.activeWallet.currency.code)
+    },
+    secondaryWalletPaymentMethod () {
+      if (!this.wallets.length) return
+
+      let foundMethod = null
+
+      this.wallets.some((wallet) => {
+        if (wallet.currency.kind === FIAT) {
+          foundMethod = this.depositMethods.find((method) => method.code === CREDIT_CARD)
+        } else {
+          foundMethod = this.depositMethods.find((method) => method.currencyCode === wallet.currency.code)
+        }
+
+        return foundMethod
+      })
+
+      return foundMethod
     }
   },
   methods: {
-    selectPaymentMethod (paymentMethodCode) {
-      this.paymentMethod = this.depositMethods.find((method) => method.code === paymentMethodCode)
-      this.fields.reset()
-      this.calculatedBonus = null
-      this.isCryptoSectionShown = false
-    },
     calculateBonus () {
       if (!this.isFormEmpty) {
         this.$apollo.mutate({
@@ -360,7 +403,7 @@ export default {
         mutation: DEPOSIT_MUTATION,
         variables: { input }
       }).then(({ data: { deposit } }) => {
-        if (this.paymentMethod.code === 'bitcoin') {
+        if (this.paymentMethod.code === BITCOIN) {
           this.isCryptoSectionShown = true
           this.address = deposit.url
           this.qrText = `bitcoin:${this.address}?amount=${this.fields.amount / 1000}`

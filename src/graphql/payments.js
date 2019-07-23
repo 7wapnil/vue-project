@@ -7,6 +7,7 @@ export const DEPOSIT_METHODS_QUERY = gql`
       name
       note
       currencyCode
+      currencyKind
     }
   }
 `
