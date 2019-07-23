@@ -1,0 +1,59 @@
+<template>
+  <b-col class="bg-arc-clr-soil-dark p-4 border-4 mt-md-4">
+    <deposit-details
+      v-if="!isCryptoSectionShown"
+      :fields="fields"
+      :currency="currency"
+      :calculated-bonus="calculatedBonus"
+      :get-total="getTotal"
+      :button-disabled="buttonDisabled"
+      @submit:deposit="$emit('submit:deposit')"/>
+    <deposit-crypto-section
+      v-if="isCryptoSectionShown"
+      :address="address">
+      <slot/>
+    </deposit-crypto-section>
+  </b-col>
+</template>
+
+<script>
+import DepositCryptoSection from '@/views/account/account-deposit/deposit-summary/DepositCryptoSection'
+import DepositDetails from '@/views/account/account-deposit/deposit-summary/DepositDetails'
+
+export default {
+  components: {
+    DepositCryptoSection,
+    DepositDetails
+  },
+  props: {
+    isCryptoSectionShown: {
+      type: Boolean,
+      default: false
+    },
+    fields: {
+      type: Object,
+      required: true
+    },
+    address: {
+      type: String,
+      default: ''
+    },
+    currency: {
+      type: String,
+      default: 'EUR'
+    },
+    calculatedBonus: {
+      type: String,
+      default: ''
+    },
+    getTotal: {
+      type: String,
+      default: ''
+    },
+    buttonDisabled: {
+      type: Boolean,
+      default: true
+    }
+  },
+}
+</script>

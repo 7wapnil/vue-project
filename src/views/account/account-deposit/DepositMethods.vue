@@ -6,7 +6,7 @@
       </b-col>
     </b-row>
     <b-row
-      class="p-4 mx-4 mb-4 mt-0 m-md-0 bg-arc-clr-soil-dark border-4"
+      class="p-4  m-md-0 bg-arc-clr-soil-dark border-4"
       no-gutters>
       <b-col
         v-for="(method, index) in depositMethods"
