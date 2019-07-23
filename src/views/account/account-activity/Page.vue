@@ -153,7 +153,10 @@ export default {
         rejected: 'arc-clr-grey-light',
         accepted: 'arc-clr-sport-bg-second',
         cancelled: 'wp-clr-notif-red',
-        initial: 'arc-clr-grey-light'
+        initial: 'arc-clr-grey-light',
+        won: 'arc-clr-sport-glow',
+        lost: 'wp-clr-notif-red',
+        voided: 'arc-clr-gold-light'
       }
     }
   },
