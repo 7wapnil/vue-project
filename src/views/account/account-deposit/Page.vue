@@ -335,9 +335,8 @@ export default {
 
         if (this.paymentMethod && newPaymentMethod.currencyKind !== this.paymentMethod.currencyKind) {
           this.calculatedBonus = null
-          this.fields.amount = ''
-          this.fields.bonusCode = null
           this.bonusError = null
+          this.fields.reset()
         }
 
         this.paymentMethod = newPaymentMethod
