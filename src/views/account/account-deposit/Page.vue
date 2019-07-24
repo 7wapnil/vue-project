@@ -17,7 +17,7 @@
           :fields="fields"
           @action:calculate="calculateBonus"
           @update:amount="updateAmount"
-          @update:payment="selectPaymentMethod"
+          @update:payment="selectedPaymentMethodCode"
           @update:bonuscode="updateBonus"/>
       </template>
       <template #summary>
@@ -25,10 +25,10 @@
           :is-crypto-section-shown="isCryptoSectionShown"
           :calculated-bonus="calculatedBonus"
           :address="address"
+          :fields="fields"
           :currency="currency"
           :get-total="getTotal"
           :button-disabled="buttonDisabled"
-          :fields="fields"
           @submit:deposit="submitDeposit">
           <canvas id="qrcode"/>
         </deposit-summary>
