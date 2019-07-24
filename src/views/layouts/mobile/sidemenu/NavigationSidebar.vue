@@ -14,10 +14,10 @@
           class="mobile-navigation-sidemenu-list-section"
           no-gutters>
           <b-col class="bg-arc-clr-soil-black sidemenu-mobile">
-            <mobile-side-menu :title-kind="titleKind">
-              <template #header>
-                <mobile-header @sidemenu-closed="$emit('sidebar-close-requested')"/>
-              </template>
+            <mobile-side-menu
+              :title-kind="titleKind"
+              :is-open="isOpen">
+              <mobile-header-item @sidemenu-closed="$emit('sidebar-close-requested')"/>
             </mobile-side-menu>
           </b-col>
         </b-row>
@@ -34,7 +34,7 @@
 </template>
 <script>
 import MobileSideMenu from '@/views/layouts/mobile/sidemenu/sidemenu-list/MobileSidemenu'
-import MobileHeader from '@/views/layouts/mobile/sidemenu/sidemenu-list/MobileHeader'
+import MobileHeaderItem from '@/views/layouts/mobile/sidemenu/sidemenu-list/MobileHeaderItem'
 import CloseButton from '@/views/layouts/mobile/sidemenu/CloseButton'
 import LogoSection from '@/views/layouts/mobile/sidemenu/LogoSection'
 import CategorySwitch from '@/views/layouts/mobile/sidemenu/CategorySwitch'
@@ -43,7 +43,7 @@ import { mapMutations } from 'vuex'
 export default {
   components: {
     MobileSideMenu,
-    MobileHeader,
+    MobileHeaderItem,
     CloseButton,
     LogoSection,
     CategorySwitch,

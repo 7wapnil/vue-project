@@ -132,11 +132,9 @@ export default {
     isFormEmpty () {
       return Object.values(this.fields.values()).some(value => (value === null || value === ''))
     },
-    selectedPaymentMethod: {
+    selectedPaymentMethodCode: {
       get: function () {
-        let method = this.paymentMethod || this.initialPaymentMethod || {}
-
-        return method.code || ''
+        return this.selectedPaymentMethod ? this.selectedPaymentMethod.code : ''
       },
       set: function (paymentMethodCode) {
         let newPaymentMethod = this.depositMethods.find((method) => method.code === paymentMethodCode)
@@ -150,6 +148,9 @@ export default {
         this.paymentMethod = newPaymentMethod
         this.isCryptoSectionShown = false
       }
+    },
+    selectedPaymentMethod () {
+      return this.paymentMethod || this.initialPaymentMethod
     },
     initialPaymentMethod () {
       let method = this.activeWalletPaymentMethod
@@ -178,6 +179,11 @@ export default {
       })
 
       return foundMethod
+    }
+  },
+  created () {
+    if (this.selectedPaymentMethod) {
+      this.paymentMethod = this.selectedPaymentMethod
     }
   },
   methods: {

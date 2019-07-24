@@ -3,14 +3,21 @@
     tag="div"
     class="flex-nowrap"
     vertical>
-    <slot name="header"/>
-    <b-nav-item
-      v-for="(item, index) in menuItems"
-      :key="index">
-      <menu-item
-        :item="item"
-        :index="index"/>
-    </b-nav-item>
+
+    <slot/>
+
+    <div v-if="isOpen">
+      <b-nav-item
+        v-for="(item, index) in menuItems"
+        :key="index">
+        <menu-item
+          :item="item"
+          :index="index"/>
+      </b-nav-item>
+    </div>
+    <loader
+      v-if="!isOpen"
+      class="py-5 px-4 bg-arc-clr-soil-dark"/>
   </b-nav>
 </template>
 
@@ -29,6 +36,10 @@ export default {
     titleKind: {
       type: String,
       default: null
+    },
+    isOpen: {
+      type: Boolean,
+      required: true
     }
   },
   data () {
