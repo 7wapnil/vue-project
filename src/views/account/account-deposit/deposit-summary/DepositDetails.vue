@@ -17,7 +17,7 @@
       </b-col>
       <b-col class="pl-2 text-truncate">
         <h6 class="letter-spacing-2">
-          {{ fields.amount ? fields.amount : 0 }} {{ currency }}
+          {{ computeAmount }}
         </h6>
       </b-col>
     </b-row>
@@ -31,7 +31,7 @@
       </b-col>
       <b-col class="pl-2 text-truncate">
         <h6 class="letter-spacing-2">
-          {{ calculatedBonus ? calculatedBonus : 0 }} {{ currency }}
+          {{ calculateBonus }}
         </h6>
       </b-col>
     </b-row>
@@ -59,7 +59,7 @@
       </b-col>
       <b-col class="pl-2 mb-4 text-truncate">
         <span class="letter-spacing-2 font-weight-bold">
-          {{ getTotal ? getTotal : 0 }} {{ currency }}
+          {{ computeTotal }}
         </span>
       </b-col>
     </b-row>
@@ -100,6 +100,17 @@ export default {
     buttonDisabled: {
       type: Boolean,
       default: true
+    }
+  },
+  computed: {
+    computeAmount () {
+      return this.fields.amount ? `${this.fields.amount} ${this.currency}` : `0 ${this.currency}`
+    },
+    calculateBonus () {
+      return this.calculatedBonus ? `${this.calculatedBonus} ${this.currency}` : `0 ${this.currency}`
+    },
+    computeTotal () {
+      return this.getTotal ? `${this.getTotal} ${this.currency}` : `0 ${this.currency}`
     }
   }
 }
