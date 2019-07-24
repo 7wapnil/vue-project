@@ -1,12 +1,15 @@
 <template>
   <div
-    v-if="isOpen"
     class="mobile-navigation-sidemenu-close-button"
     @click="$emit('sidemenu-closed')">
-    <icon
-      :color="getSidebarKind === 'esports' ? 'arc-clr-esport-glow' : 'arc-clr-sport-glow'"
-      name="betslip-close"
-      size="20px"/>
+    <transition name="sidemenu-close-button">
+      <div v-if="isOpen">
+        <icon
+          :color="getSidebarKind === 'esports' ? 'arc-clr-esport-glow' : 'arc-clr-sport-glow'"
+          name="betslip-close"
+          size="20px"/>
+      </div>
+    </transition>
   </div>
 </template>
 
