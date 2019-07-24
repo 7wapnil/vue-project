@@ -93,6 +93,16 @@ const messages = {
       resetEmailSuccess1: 'Password reset email successfully sent to:',
       resetEmailSuccess2: 'Click the link in the email to reset your password. If you didn\'t receive an email please contact live support. '
     },
+    cookies: {
+      header: 'We value your privacy',
+      description: 'This website uses cookies to ensure you get the best experience on our site and to provide a\n' +
+      '          comment feature. To analyze our traffic, we use basic Google Analytics implementation with anonymized data.\n' +
+      '          If you continue without changing your settings, we\'ll assume that you are happy to receive\n' +
+      '          all cookies on the Public website. To understand more about how we use cookies, or for information\n' +
+      '          on how to change your cookie settings, please see our',
+      policy: 'Cookie Policy',
+      accept: 'I Accept'
+    },
     homePage: {
       upcoming: 'Upcoming',
       live: 'Live now',
