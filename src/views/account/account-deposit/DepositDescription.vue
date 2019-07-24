@@ -5,10 +5,9 @@
       no-gutters>
       <b-col class="p-3 p-md-0">
         <p class="mb-0 text-arc-clr-iron letter-spacing-2">
-          This is only a list of payment methods we support.
-          You will select the one that suits you on the next page.
+          {{ $t('account.deposit.paymentMethodsSupport') }}
           <span class="text-arc-clr-gold">
-            We do not charge service fees.
+            {{ $t('account.deposit.serviceFees') }}
           </span>
         </p>
       </b-col>
