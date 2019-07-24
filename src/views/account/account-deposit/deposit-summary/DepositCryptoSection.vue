@@ -21,6 +21,11 @@ export default {
       type: String,
       default: ''
     }
+  },
+  methods: {
+    onCopyAddress () {
+      this.$noty.info(this.$t('account.deposit.crypto.addressCopied'))
+    }
   }
 }
 </script>

@@ -235,9 +235,6 @@ export default {
       this.fields.amount = amount.toString()
       this.calculateBonus()
     },
-    onCopyAddress () {
-      this.$noty.info(this.$t('account.deposit.crypto.addressCopied'))
-    },
     updateAmount (payload) {
       this.fields.amount = payload
     },
