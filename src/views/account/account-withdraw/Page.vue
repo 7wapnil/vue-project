@@ -13,6 +13,7 @@
         </h3>
         <b-row
           v-b-toggle.withdrawMethod
+          ref="changeMethodButton"
           no-gutters
           class="d-flex align-items-center"
           style="min-height: 80px; box-shadow: 0 1px 0 0 rgba(0,0,0,0.30)">
@@ -98,6 +99,7 @@ export default {
   methods: {
     changeMethod (value) {
       this.selectedMethod = value
+      this.$refs.changeMethodButton.click()
     }
   }
 }

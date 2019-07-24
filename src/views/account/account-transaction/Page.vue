@@ -139,12 +139,12 @@ export default {
     },
     badgeStatus () {
       return {
-        settled: 'arc-clr-gold',
+        initial: 'arc-clr-grey-light',
+        pending: 'arc-clr-gold-light',
+        processing: 'wp-clr-notif-yellow',
+        rejected: 'wp-clr-notif-red',
         failed: 'wp-clr-notif-red',
-        rejected: 'arc-clr-grey-light',
-        accepted: 'arc-clr-sport-bg-second',
-        cancelled: 'wp-clr-notif-red',
-        initial: 'arc-clr-grey-light'
+        succeeded: 'arc-clr-sport-glow'
       }
     }
   },

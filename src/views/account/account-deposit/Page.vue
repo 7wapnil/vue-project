@@ -36,6 +36,20 @@
     </deposit-form-layout>
     <deposit-methods/>
   </div>
+    <!--<div-->
+            <!--id="cryptoSection"-->
+            <!--:class="{ 'd-none' : !isCryptoSectionShown }">-->
+        <!--<p-->
+                <!--class="text font-size-14 text-justify"-->
+                <!--v-html="$t('account.deposit.crypto.howTo')"/>-->
+        <!--<h5 class="mt-2 mb-1">{{ $t('account.deposit.crypto.copyAddress') }}</h5>-->
+        <!--<p-->
+                <!--v-clipboard:copy="address"-->
+                <!--v-clipboard:success="onCopyAddress"-->
+                <!--class="pointer font-italic font-size-14 text-break mb-0">{{ address }}</p>-->
+        <!--<h5 class="mt-2 mb-1">{{ $t('account.deposit.crypto.scanQRCode') }}</h5>-->
+        <!--<canvas id="qrcode"/>-->
+    <!--</div>-->
 </template>
 
 <script>
@@ -55,10 +69,13 @@ import DepositPresets from '@/views/account/account-deposit/deposit-form/Deposit
 import DepositForm from '@/views/account/account-deposit/deposit-form/DepositForm'
 import DepositFormLayout from '@/views/account/account-deposit/deposit-form/DepositFormLayout'
 import { EUR } from '@/constants/currencies'
+import { BITCOIN, CREDIT_CARD } from '@/constants/payments/methods'
+import { FIAT } from '@/constants/currency-kinds'
 import QRCode from 'qrcode'
 import { Form } from '@/helpers'
 
 export default {
+  name: 'DepositFunds',
   components: {
     DepositHeader,
     DepositMethods,
@@ -101,7 +118,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('wallets', ['fiatWallet']),
+    ...mapGetters('wallets', ['fiatWallet', 'activeWallet', 'wallets']),
     ...mapGetters({
       token: 'getToken'
     }),
@@ -128,15 +145,56 @@ export default {
     },
     isFormEmpty () {
       return Object.values(this.fields.values()).some(value => (value === null || value === ''))
+    },
+    selectedPaymentMethod: {
+      get: function () {
+        let method = this.paymentMethod || this.initialPaymentMethod || {}
+
+        return method.code || ''
+      },
+      set: function (paymentMethodCode) {
+        let newPaymentMethod = this.depositMethods.find((method) => method.code === paymentMethodCode)
+
+        if (this.paymentMethod && newPaymentMethod.currencyKind !== this.paymentMethod.currencyKind) {
+          this.calculatedBonus = null
+          this.bonusError = null
+          this.fields.reset()
+        }
+
+        this.paymentMethod = newPaymentMethod
+        this.isCryptoSectionShown = false
+      }
+    },
+    initialPaymentMethod () {
+      let method = this.activeWalletPaymentMethod
+      if (method) return method
+
+      return this.secondaryWalletPaymentMethod
+    },
+    activeWalletPaymentMethod () {
+      if (!this.activeWallet) return
+
+      return this.depositMethods.find((method) => method.currencyCode === this.activeWallet.currency.code)
+    },
+    secondaryWalletPaymentMethod () {
+      if (!this.wallets.length) return
+
+      let foundMethod = null
+
+      this.wallets.some((wallet) => {
+        if (wallet.currency.kind === FIAT) {
+          foundMethod = this.depositMethods.find((method) => method.code === CREDIT_CARD)
+        } else {
+          foundMethod = this.depositMethods.find((method) => method.currencyCode === wallet.currency.code)
+        }
+
+        return foundMethod
+      })
+
+      return foundMethod
     }
   },
   methods: {
-    selectPaymentMethod (paymentMethodCode) {
-      this.paymentMethod = this.depositMethods.find((method) => method.code === paymentMethodCode)
-      this.fields.reset()
-      this.calculatedBonus = null
-      this.isCryptoSectionShown = false
-    },
     calculateBonus () {
       if (!this.isFormEmpty) {
         this.$apollo.mutate({
@@ -166,11 +224,11 @@ export default {
         mutation: DEPOSIT_MUTATION,
         variables: { input }
       }).then(({ data: { deposit } }) => {
-        if (this.paymentMethod.code === 'bitcoin') {
+        if (this.paymentMethod.code === BITCOIN) {
           this.isCryptoSectionShown = true
           this.address = deposit.url
           this.qrText = `bitcoin:${this.address}?amount=${this.fields.amount / 1000}`
-          QRCode.toCanvas(document.getElementById('qrcode'), this.qrText, { scale: 8, margin: 2 })
+          QRCode.toCanvas(document.getElementById('qrcode'), this.qrText, { scale: 4, margin: 2 })
         } else {
           this.depositState = 'success'
           this.depositMessage = deposit.message
@@ -184,6 +242,9 @@ export default {
     addPresetAmount (amount) {
       this.fields.amount = amount.toString()
       this.calculateBonus()
+    },
+    onCopyAddress () {
+      this.$noty.info(this.$t('account.deposit.crypto.addressCopied'))
     },
     updateAmount (payload) {
       this.fields.amount = payload
