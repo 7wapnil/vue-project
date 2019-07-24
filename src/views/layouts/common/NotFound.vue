@@ -1,55 +1,60 @@
 <template>
-  <div class="bg-arc-clr-soil-darker">
+  <div class="bg-arc-clr-soil-darker min-vh-100">
     <b-row no-gutters>
       <b-col class="text-center mt-4">
-        <b-img :src="require('@/assets/images/logo/arcanebet-logo.png')"/>
+        <b-img :width="300" :src="require('@/assets/images/logo/arcanebet-logo.png')"/>
       </b-col>
     </b-row>
     <b-row no-gutters>
-      <b-col cols="2"/>
-      <b-col class="p-5">
-        <h1 class="font-weight-light text-arc-clr-iron px-5 pb-5">Oops, the page you are looking for doesn't seem to exist</h1>
-        <p class="font-size-18 letter-spacing-2 text-arc-clr-iron px-5 pb-5">
-          We're sorry but the page you are looking for cannot be found. It may
-          have been removed, had its name changed, or is temporarily unavailable.
-          If this is a problem from our end, please be assured we're doing all we
-          can to resolve the situation.
+      <b-col cols="12" md="8" offset-md="2" class="pt-4 pt-md-5 pb-5 px-5">
+        <h1 v-if="!isMobile" class="p-4 text-arc-clr-iron font-weight-light">
+          {{ $t('noFoundPage.header')}}
+        </h1>
+        <span v-if="isMobile"
+              class="px-md-5 font-size-21 text-arc-clr-white font-weight-bold">
+          {{ $t('noFoundPage.header')}}
+        </span>
+        <p class="font-size-18 letter-spacing-2 text-arc-clr-iron px-md-4 pb-4 pb-md-5 my-4">
+          {{ $t('noFoundPage.description')}}
         </p>
         <b-row
-          style="margin-bottom: 200px"
           no-gutters>
-          <b-col class="text-left">
+          <b-col class="text-left px-2 px-md-4">
             <b-button
               :to="{ path: '/esports' }"
               size="lg"
+              :block="isMobile"
               variant="arc-secondary"
-              class="px-5 bg-arc-clr-esport-bg border-0 letter-spacing-2 font-weight-bold">
-              ESPORT HOME
+              class="px-5 bg-arc-clr-esport-bg border-0 letter-spacing-2 font-weight-bold mb-4 text-uppercase">
+              {{ $t('noFoundPage.esportButton') }}
             </b-button>
           </b-col>
-          <b-col class="text-right">
+          <b-col class="text-right px-2 px-md-4">
             <b-button
+              :block="isMobile"
               :to="{ path: '/sports'}"
               size="lg"
               variant="arc-secondary"
-              class="px-5 bg-arc-clr-sport-bg border-0 letter-spacing-2 font-weight-bold">
-              SPORT HOME
+              class="px-5 bg-arc-clr-sport-bg border-0 letter-spacing-2 font-weight-bold text-uppercase">
+              {{ $t('noFoundPage.sportButton') }}
             </b-button>
           </b-col>
         </b-row>
       </b-col>
-      <b-col cols="2"/>
     </b-row>
-    <arc-footer/>
+    <arc-footer v-if="!isMobile"/>
+    <mobile-footer v-if="isMobile"/>
   </div>
 </template>
 
 <script>
 import ArcFooter from '@/views/layouts/desktop/Footer'
+import MobileFooter from '@/views/layouts/mobile/footer/Footer'
 
 export default {
   components: {
-    ArcFooter
+    ArcFooter,
+    MobileFooter
   }
 }
 </script>
