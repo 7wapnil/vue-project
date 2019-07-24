@@ -2,7 +2,8 @@
   <b-card
     v-if="title"
     :img-src="background"
-    :img-height="isMobile ? '358' : ''"
+    :img-height="356"
+    :class="[isMobile ? 'introduction-area-container-mobile' : 'introduction-area-container-desktop']"
     overlay
     fluid-grow
     class="introduction-area"
