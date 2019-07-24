@@ -3,7 +3,7 @@
     <component :is="layoutName">
       <router-view :key="$route.fullPath"/>
     </component>
-    <cookie-warning v-if="!isMobile"/>
+    <cookie-warning/>
     <modal-list/>
   </div>
 </template>
