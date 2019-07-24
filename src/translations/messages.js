@@ -186,7 +186,8 @@ const messages = {
           scanQRCode: 'or scan QR code:'
         },
         serviceFees: 'We do not charge service fees.',
-        paymentMethodsSupport: 'This is only a list of payment methods we support.You will select the one that suits you on the next page.'
+        paymentMethodsSupport: 'This is only a list of payment methods we support.You will select the one that suits you on the next page.',
+        bonusDescription: 'Bonus code description'
       },
       withdraw: {
         withdrawFunds: 'Withdraw funds',

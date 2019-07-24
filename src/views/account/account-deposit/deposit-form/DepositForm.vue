@@ -68,7 +68,7 @@
           md="8"
           class="p-4 ml-md-auto">
           <h6 class="text-center text-arc-clr-iron-light letter-spacing-2">
-            Bonus code description
+            {{ $t('account.deposit.bonusDescription') }}
           </h6>
         </b-col>
       </b-row>
