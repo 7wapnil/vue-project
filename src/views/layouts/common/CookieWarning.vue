@@ -7,11 +7,12 @@
       class="cookie-section"
       no-gutters>
       <b-col
-        class="d-flex align-items-center justify-content-center pl-5"
-        cols="auto">
+        class="d-flex align-items-center justify-content-center py-4 py-md-0 pl-md-5"
+        cols="12"
+        md="auto">
         <img src="~@/assets/images/common/cookies.svg">
       </b-col>
-      <b-col class="p-5">
+      <b-col class="px-5 pb-5 pt-0 p-md-5">
         <h4 class="font-weight-light text-arc-clr-white mb-4 letter-spacing-2">
           We value your privacy
         </h4>
@@ -29,9 +30,11 @@
         </h6>
       </b-col>
       <b-col
-        class="d-flex align-items-center justify-content-center px-5"
-        cols="auto">
+        class="d-flex align-items-center justify-content-center px-5 mb-4 mb-md-0"
+        cols="12"
+        md="auto">
         <b-button
+          :block="isMobile"
           variant="user-profile-button"
           class="text-uppercase letter-spacing-2"
           @click="acceptCookieWarning">
