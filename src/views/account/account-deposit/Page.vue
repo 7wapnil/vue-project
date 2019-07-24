@@ -14,10 +14,11 @@
         <deposit-form
           :currency="currency"
           :deposit-methods="depositMethods"
+          :payment-method-code="selectedPaymentMethodCode"
           :fields="fields"
           @action:calculate="calculateBonus"
           @update:amount="updateAmount"
-          @update:payment="selectedPaymentMethodCode"
+          @update:payment="updatePaymentMethod"
           @update:bonuscode="updateBonus"/>
       </template>
       <template #summary>
@@ -240,6 +241,9 @@ export default {
     },
     updateBonus (payload) {
       this.fields.bonusCode = payload
+    },
+    updatePaymentMethod (payload) {
+      this.selectedPaymentMethodCode = payload
     }
   }
 }

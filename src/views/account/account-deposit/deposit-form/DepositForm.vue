@@ -19,7 +19,7 @@
               @blur.prevent="calculate"/>
           </b-input-group>
           <b-form-select
-            value=""
+            :value="paymentMethodCode"
             @change="updatePaymentMethod">
             <option
               value=""
@@ -89,6 +89,10 @@ export default {
     },
     fields: {
       type: Object,
+      required: true
+    },
+    paymentMethodCode: {
+      type: String,
       required: true
     }
   },
