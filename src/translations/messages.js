@@ -113,6 +113,15 @@ const messages = {
       esport: 'Esport',
       sport: 'Sport'
     },
+    noFoundPage: {
+      header: 'Oops, the page you are looking for doesn\'t seem to exist ',
+      description: 'We\'re sorry but the page you are looking for cannot be found. It may\n' +
+      '          have been removed, had its name changed, or is temporarily unavailable.\n' +
+      '          If this is a problem from our end, please be assured we\'re doing all we\n' +
+      '          can to resolve the situation.',
+      esportButton: 'Esport home',
+      sportButton: 'Sport home'
+    },
     eventPage: {
       minute: 'minute'
     },
