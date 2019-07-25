@@ -319,7 +319,7 @@ export default {
       return this.variantMap[this.depositState]
     },
     buttonDisabled () {
-      return this.fields.amount == null || !this.paymentMethod
+      return !this.fields.amount || !this.paymentMethod
     },
     isFormEmpty () {
       return Object.values(this.fields.values()).some(value => (value === null || value === ''))
