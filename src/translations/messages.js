@@ -93,6 +93,10 @@ const messages = {
       resetEmailSuccess1: 'Password reset email successfully sent to:',
       resetEmailSuccess2: 'Click the link in the email to reset your password. If you didn\'t receive an email please contact live support. '
     },
+    offlineModal: {
+      recconect: 'Reconnect',
+      establishingConnection: 'Establishing <br> connection'
+    },
     homePage: {
       upcoming: 'Upcoming',
       live: 'Live now',
