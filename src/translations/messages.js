@@ -103,6 +103,10 @@ const messages = {
       policy: 'Cookie Policy',
       accept: 'I Accept'
     },
+    offlineModal: {
+      recconect: 'Reconnect',
+      establishingConnection: 'Establishing <br> connection'
+    },
     homePage: {
       upcoming: 'Upcoming',
       live: 'Live now',
