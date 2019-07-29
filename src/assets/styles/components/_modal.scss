@@ -69,9 +69,6 @@
   }
 }
 #ConnectionModal {
-  .modal-dialog {
-  margin: 0;
-  }
   .modal-content {
     height: 100vh;
     width: 100vw;
@@ -81,3 +78,4 @@
     opacity: .8;
   }
 }
+
