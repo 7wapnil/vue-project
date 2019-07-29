@@ -1,11 +1,16 @@
 <template>
   <div>
     <introduction-area :title="activeTitle">
-      <div class="introduction-area-tabs-container">
-        <auth-block v-if="isMobile && !isLoggedIn"/>
+
+      <promo-section>
+        <auth-block/>
+      </promo-section>
+
+      <tabs-section>
         <sport-tabs @tab-changed="onCategoryChange"/>
         <filter-tabs @tab-changed="onFilterChange"/>
-      </div>
+      </tabs-section>
+
     </introduction-area>
 
     <events-list
@@ -22,7 +27,8 @@ import SportTabs from './SportTabs'
 import FilterTabs from './FilterTabs'
 import EventsList from '@/components/events/EventsList'
 import AuthBlock from '@/views/events-list/AuthBlock'
-import { mapGetters } from 'vuex'
+import PromoSection from '@/views/events-list/PromoSection'
+import TabsSection from '@/views/events-list/TabsSection'
 
 export default {
   components: {
@@ -30,7 +36,9 @@ export default {
     SportTabs,
     FilterTabs,
     EventsList,
-    AuthBlock
+    AuthBlock,
+    PromoSection,
+    TabsSection
   },
   data () {
     return {
@@ -54,10 +62,7 @@ export default {
     },
     activeTitle () {
       return { name: this.selectedCategory ? this.selectedCategory.label : 'default' }
-    },
-    ...mapGetters([
-      'isLoggedIn'
-    ])
+    }
   },
   methods: {
     onCategoryChange (tab) {
