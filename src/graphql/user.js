@@ -135,8 +135,8 @@ export const SIGN_IN_MUTATION = gql`
 `
 
 export const SIGN_UP_MUTATION = gql`
-  mutation($input: RegisterInput!) {
-    signUp(input: $input) {
+  mutation($input: RegisterInput!, $customerData: CustomerDataInput) {
+    signUp(input: $input, customerData: $customerData) {
        user {
         id
         email
