@@ -380,7 +380,7 @@ export default {
     }
   },
   methods: {
-    calculateBonus () {
+    calculateBonus (callback = null) {
       if (!this.isFormEmpty) {
         this.$apollo.mutate({
           mutation: BONUS_CALCULATION_MUTATION,
@@ -391,6 +391,9 @@ export default {
         }).then(({ data }) => {
           this.calculatedBonus = data.depositBonus.bonus
           this.bonusError = null
+          if (callback === this.submitDepositCallback) {
+            callback()
+          }
         }).catch(({ graphQLErrors }) => {
           this.calculatedBonus = null
           this.bonusError = graphQLErrors[0].message
@@ -398,6 +401,13 @@ export default {
       }
     },
     submitDeposit () {
+      if (this.isFormEmpty) {
+        this.submitDepositCallback()
+      } else {
+        this.calculateBonus(this.submitDepositCallback)
+      }
+    },
+    submitDepositCallback () {
       const input = {
         paymentMethod: this.paymentMethod.code,
         currencyCode: this.currency,
