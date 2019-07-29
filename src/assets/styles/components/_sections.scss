@@ -63,16 +63,9 @@
 
 // Introduction area
 .introduction-area {
-  &-container-mobile {
-    min-height: auto;
-  }
-  &-container-desktop {
-    min-height: 356px;
-  }
   img {
-    width: 100%;
-    height: auto;
-    vertical-align: middle;
+    object-fit: cover;
+    min-height: 100%;
     mask-image: linear-gradient(to bottom, rgba($black, 1) 75%, rgba($black, 0));
   }
 }
