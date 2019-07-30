@@ -5,14 +5,16 @@
     class="mb-1 p-2 upcoming-card"
     style="height: 124px"
     bg-variant="arc-clr-soil-dark">
-    <b-card-body class="h-100 p-0">
+
       <b-row no-gutters>
         <b-col class="ml-1 mt-1 font-size-12 text-arc-clr-iron line-height-14 letter-spacing-2 text-truncate">
           {{ event.name }}
         </b-col>
       </b-row>
+
       <b-row no-gutters>
-        <b-col class="px-1 py-2 text-center">
+
+        <b-col cols="3" class="px-1 py-2 text-center">
           <b-row no-gutters>
             <b-col
               v-if="event.timeInSeconds"
@@ -82,17 +84,16 @@
             </b-col>
           </b-row>
         </b-link>
-
+        <b-col cols="1" v-if="marketsCount <= 0"/>
       </b-row>
+
       <b-row no-gutters>
         <b-col>
           <slot/>
         </b-col>
       </b-row>
 
-    </b-card-body>
   </b-card>
-
 </template>
 <script>
 import SportsLiveCard from '@/components/cards/sports-live-card/SportsLiveCard'
