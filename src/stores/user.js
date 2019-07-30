@@ -30,11 +30,12 @@ export const actions = {
     })
     return response
   },
-  registerNewUser (context, sessionData) {
+  registerNewUser (context, [sessionData, sbjsData]) {
     const response = graphqlClient.mutate({
       mutation: SIGN_UP_MUTATION,
       variables: {
-        input: sessionData
+        input: sessionData,
+        customerData: sbjsData
       }
     })
     return response

@@ -8,7 +8,9 @@ const SourceBusterPlugin = {
   initAndSetData () {
     sbjs.init({
       lifetime: 6,
-      sessionLength: 30,
+      sessionLength: 30
+    })
+    this.data = {
       trafficTypeLast: sbjs.get.current.typ,
       utmSourceLast: sbjs.get.current.src,
       utmMediumLast: sbjs.get.current.mdm,
@@ -30,8 +32,8 @@ const SourceBusterPlugin = {
       timestampVisitFirst: sbjs.get.first_add.fd,
       entrancePageFirst: sbjs.get.first_add.ep,
       referrerFirst: sbjs.get.first_add.rf,
-      gaClientID: getCookie('_ga').substring('GA1.1.'.length) || null
-    })
+      gaClientID: (getCookie('_ga') || '').substring('GA1.1.'.length) || null
+    }
   }
 }
 
