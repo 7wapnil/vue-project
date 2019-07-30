@@ -14,6 +14,10 @@
 import { findBackgroundSource } from '@/helpers/background-finder'
 import { mapGetters } from 'vuex'
 
+const MOBILE_BACKGROUND_HEIGHT = '168'
+const MOBILE_BACKGROUND_HEIGHT_WITH_AUTH_BLOCK = '266'
+const DESKTOP_BACKGROUND_HEIGHT = '356'
+
 export default {
   props: {
     title: {
@@ -22,19 +26,19 @@ export default {
     }
   },
   computed: {
+    ...mapGetters([
+      'isLoggedIn'
+    ]),
     background () {
       const route = this.$route.params.titleKind
       return findBackgroundSource({ name: this.title ? this.title.name : null, route })
     },
     backgroundHeight () {
       if (this.isMobile && !this.isLoggedIn) {
-        return '266'
+        return MOBILE_BACKGROUND_HEIGHT_WITH_AUTH_BLOCK
       }
-      return this.isMobile ? '168' : '356'
-    },
-    ...mapGetters([
-      'isLoggedIn'
-    ])
+      return this.isMobile ? MOBILE_BACKGROUND_HEIGHT : DESKTOP_BACKGROUND_HEIGHT
+    }
   }
 }
 </script>
