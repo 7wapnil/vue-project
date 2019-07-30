@@ -1,5 +1,5 @@
 <template>
-  <introduction-area :title="{ name: event.title.name }">
+  <event-details-background :title="{ name: event.title.name }">
     <event-breadcrumbs :event="event"/>
     <event-details
       :event="event"
@@ -7,18 +7,20 @@
     <div class="introduction-area-tabs-container">
       <slot/>
     </div>
-  </introduction-area>
+  </event-details-background>
 </template>
 <script>
 import IntroductionArea from '@/components/custom/IntroductionArea'
 import EventBreadcrumbs from '@/views/event/EventBreadcrumbs'
 import EventDetails from '@/views/event/EventDetails'
+import EventDetailsBackground from '@/views/event/EventDetailsBackground'
 
 export default {
   components: {
     IntroductionArea,
     EventBreadcrumbs,
-    EventDetails
+    EventDetails,
+    EventDetailsBackground
   },
   props: {
     event: {

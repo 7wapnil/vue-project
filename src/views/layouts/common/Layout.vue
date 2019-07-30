@@ -41,7 +41,7 @@ export default {
     }
 
     if (this.$route.query.resetPassword) {
-      this.$root.$emit('bv::show::modal', 'AuthModal')
+      this.$bvModal.show('AuthModal')
     }
   }
 }
