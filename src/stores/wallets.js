@@ -1,5 +1,6 @@
+import arcanebetSession from '@/services/local-storage/session'
 import graphqlClient from '@/libs/apollo/client'
-import { WALLETS_LIST_QUERY, WALLET_UPDATED_SUBSCRIPTION } from '@/graphql/index'
+import { WALLET_UPDATED_SUBSCRIPTION } from '@/graphql/index'
 import { FIAT } from '@/constants/currency-kinds'
 
 export const STORE_WALLETS = 'STORE_WALLETS'
@@ -12,11 +13,8 @@ export const CLEAR_WALLETS = 'CLEAR_WALLETS'
  */
 
 export const actions = {
-  fetchWallets: async function ({ commit }) {
-    // Load wallets
-    const { data: { wallets } } = await graphqlClient.query({
-      query: WALLETS_LIST_QUERY
-    })
+  fetchWallets: function ({ commit }) {
+    const wallets = arcanebetSession.getSession().user.wallets
 
     commit(STORE_WALLETS, wallets)
     if (wallets.length) {

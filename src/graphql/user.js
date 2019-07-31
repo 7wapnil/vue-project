@@ -1,4 +1,5 @@
 import gql from 'graphql-tag'
+import { WALLET_FIELDS } from './fields'
 
 export const USER_VERIFICATION_QUERY = gql`
   query {
@@ -128,6 +129,9 @@ export const SIGN_IN_MUTATION = gql`
         username
         firstName
         lastName
+        wallets {
+          ${WALLET_FIELDS}
+        }
       }
       token
     }
@@ -141,6 +145,9 @@ export const SIGN_UP_MUTATION = gql`
         id
         email
         username
+        wallets {
+          ${WALLET_FIELDS}
+        }
       }
       token
     }
