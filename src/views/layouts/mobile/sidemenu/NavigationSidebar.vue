@@ -15,7 +15,6 @@
           no-gutters>
           <b-col class="bg-arc-clr-soil-black sidemenu-mobile">
             <mobile-side-menu
-              v-body-scroll-lock="isOpen"
               :title-kind="titleKind"
               :is-open="isOpen">
               <mobile-header-item @sidemenu-closed="$emit('sidebar-close-requested')"/>
