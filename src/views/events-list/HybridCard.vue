@@ -1,35 +1,19 @@
 <template>
   <component
-    :is="cardType"
+    :is="card"
     :event="event">
     <markets-list
-      :item-component="itemType"
+      :item-component="item"
       :event="event"
       :markets="[event.dashboardMarket]"/>
   </component>
 </template>
 <script>
-import EsportsLiveCard from '@/components/cards/esports-live-card/EsportsLiveCard'
-import EsportsUpcomingCard from '@/components/cards/esports-upcoming-card/EsportsUpcomingCard'
-import SportsLiveCard from '@/components/cards/sports-live-card/SportsLiveCard'
-import SportsUpcomingCard from '@/components/cards/sports-upcoming-card/SportsUpcomingCard'
-import MobileEsportsUpcomingCard from '@/components/cards/mobile-esports-upcoming-card/MobileEsportsUpcomingCard'
-import MobileEsportsLiveCard from '@/components/cards/mobile-esports-live-card/MobileEsportsLiveCard'
-import MobileSportsUpcomingCard from '@/components/cards/mobile-sports-upcoming-card/MobileSportsUpcomingCard'
 import MarketsList from '@/components/markets/MarketsList'
-import MobileSportsLiveCard from '@/components/cards/mobile-sports-live-card/MobileSportsLiveCard'
 
 export default {
   components: {
-    EsportsLiveCard,
-    EsportsUpcomingCard,
-    SportsLiveCard,
-    SportsUpcomingCard,
-    MarketsList,
-    MobileEsportsUpcomingCard,
-    MobileEsportsLiveCard,
-    MobileSportsUpcomingCard,
-    MobileSportsLiveCard
+    MarketsList
   },
   props: {
     event: {
@@ -42,16 +26,27 @@ export default {
     }
   },
   computed: {
-    cardType () {
+    cardName () {
       let routeKind = this.$route.params.titleKind
-      let cardtype = `${routeKind}-${this.tabId}-card`
+      let cardname = `${routeKind}-${this.tabId}-card`
       if (this.isMobile) {
-        return `mobile-${cardtype}`
+        return `mobile-${cardname}`
       }
-      return cardtype
+      return cardname
     },
-    itemType () {
-      return `${this.cardType}-item`
+    formatedName () {
+      const name = this.cardName
+      return name
+        .toLowerCase()
+        .split('-')
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join('')
+    },
+    card () {
+      return () => import(/* webpackChunkName: "card" */`@/components/cards/${this.cardName}/${this.formatedName}`)
+    },
+    item () {
+      return () => import(/* webpackChunkName: "card-item" */`@/components/cards/${this.cardName}/${this.formatedName}Item`)
     }
   }
 }

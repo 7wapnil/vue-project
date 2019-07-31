@@ -2,7 +2,7 @@
   <div>
     <component
       v-for="market in filteredMarkets"
-      :is="itemComponent"
+      :is="item"
       :key="market.id"
       :event="event"
       :showicons="false"
@@ -17,26 +17,9 @@
 </template>
 
 <script>
-import MarketItem from '@/components/markets/MarketItem'
 import { ACTIVE_STATUS, SUSPENDED_STATUS, INACTIVE_STATUS } from '@/models/market'
-import EsportsUpcomingCardItem from '@/components/cards/esports-upcoming-card/EsportsUpcomingCardItem'
-import EsportsLiveCardItem from '@/components/cards/esports-live-card/EsportsLiveCardItem'
-import SportsLiveCardItem from '@/components/cards/sports-live-card/SportsLiveCardItem'
-import SportsUpcomingCardItem from '@/components/cards/sports-upcoming-card/SportsUpcomingCardItem'
-import MobileEsportsUpcomingCardItem from '@/components/cards/mobile-esports-upcoming-card/MobileEsportsUpcomingCardItem'
-import MobileSportsUpcomingCardItem from '@/components/cards/mobile-sports-upcoming-card/MobileSportsUpcomingCardItem'
-import MobileSportsLiveCardItem from '@/components/cards/mobile-sports-live-card/MobileSportsLiveCardItem'
 
 export default {
-  components: {
-    EsportsUpcomingCardItem,
-    EsportsLiveCardItem,
-    SportsLiveCardItem,
-    SportsUpcomingCardItem,
-    MobileEsportsUpcomingCardItem,
-    MobileSportsUpcomingCardItem,
-    MobileSportsLiveCardItem
-  },
   props: {
     event: {
       type: Object,
@@ -47,11 +30,16 @@ export default {
       required: true
     },
     itemComponent: {
-      type: [String, Object],
-      default: () => { return MarketItem }
+      type: Function,
+      default: () => {
+        return () => import(/* webpackChunkName: "market-item" */`@/components/markets/MarketItem`)
+      }
     }
   },
   computed: {
+    item () {
+      return this.itemComponent
+    },
     filteredMarkets () {
       if (!this.markets) {
         return []
