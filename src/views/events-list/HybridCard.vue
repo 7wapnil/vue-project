@@ -14,6 +14,7 @@ import EsportsUpcomingCard from '@/components/cards/esports-upcoming-card/Esport
 import SportsLiveCard from '@/components/cards/sports-live-card/SportsLiveCard'
 import SportsUpcomingCard from '@/components/cards/sports-upcoming-card/SportsUpcomingCard'
 import MobileEsportsUpcomingCard from '@/components/cards/mobile-esports-upcoming-card/MobileEsportsUpcomingCard'
+import MobileEsportsLiveCard from '@/components/cards/mobile-esports-live-card/MobileEsportsLiveCard'
 import MobileSportsUpcomingCard from '@/components/cards/mobile-sports-upcoming-card/MobileSportsUpcomingCard'
 import MarketsList from '@/components/markets/MarketsList'
 import MobileSportsLiveCard from '@/components/cards/mobile-sports-live-card/MobileSportsLiveCard'
@@ -26,6 +27,7 @@ export default {
     SportsUpcomingCard,
     MarketsList,
     MobileEsportsUpcomingCard,
+    MobileEsportsLiveCard,
     MobileSportsUpcomingCard,
     MobileSportsLiveCard
   },
