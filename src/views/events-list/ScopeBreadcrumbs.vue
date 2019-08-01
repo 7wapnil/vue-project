@@ -2,7 +2,7 @@
   <div v-if="titles.length">
     <b-breadcrumb
       :items="composedBreadcrumbs"
-      class="w-100 letter-spacing-2"/>
+      class="px-4 w-100 letter-spacing-2"/>
   </div>
 </template>
 

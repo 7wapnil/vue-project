@@ -1,13 +1,13 @@
 <template>
   <b-row
-    class="pt-2"
+    class="pt-2 bg-arc-clr-soil-light"
     no-gutters>
     <b-col>
-      <scope-breadcrumbs />
+      <scope-breadcrumbs/>
       <div
         v-for="(tab, index) in tabsMapping"
         :key="index">
-        <b-col class="d-inline-flex px-4 pt-4 events-list-title">
+        <b-col class="d-inline-flex px-0 px-md-4 mt-4 events-list-title">
           <h4 class="ml-4 mb-0 text-arc-clr-white">
             {{ tab.title }}
           </h4>
