@@ -125,6 +125,13 @@ const messages = {
     eventPage: {
       minute: 'minute'
     },
+    tournamentPage: {
+      description: {
+        time: 'time',
+        score: 'score',
+        starts: 'starts'
+      }
+    },
     betslip: {
       generic: 'Bet placement unsuccessful. Please try again or contact support.',
       betslipEmpty: 'Your betslip is currently empty.\n' +
