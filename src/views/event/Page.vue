@@ -33,7 +33,7 @@
 import { UNLIMITED_QUERY } from '@/constants/graphql/limits'
 import { EVENT_BY_ID_QUERY } from '@/graphql'
 import MarketsCategories from '@/components/markets/MarketsCategories'
-import HeaderSection from './HeaderSection'
+import HeaderSection from './header-section/HeaderSection'
 import MarketsList from '@/components/markets/MarketsList'
 import MarketCategory from '@/components/markets/MarketCategory'
 

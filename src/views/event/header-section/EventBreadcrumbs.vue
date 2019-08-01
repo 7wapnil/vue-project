@@ -1,7 +1,8 @@
 <template>
   <b-breadcrumb
     :items="composedBreadcrumbs"
-    class="w-100 letter-spacing-2"/>
+    class="w-100 letter-spacing-2 pt-4 py-2 py-md-4 px-4 px-md-5"/>
+
 </template>
 <script>
 export default {

@@ -11,9 +11,9 @@
 </template>
 <script>
 import IntroductionArea from '@/components/custom/IntroductionArea'
-import EventBreadcrumbs from '@/views/event/EventBreadcrumbs'
-import EventDetails from '@/views/event/EventDetails'
-import EventDetailsBackground from '@/views/event/EventDetailsBackground'
+import EventBreadcrumbs from '@/views/event/header-section/EventBreadcrumbs'
+import EventDetails from '@/views/event/header-section/EventDetails'
+import EventDetailsBackground from '@/views/event/header-section/EventBackground'
 
 export default {
   components: {
