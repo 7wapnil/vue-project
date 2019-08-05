@@ -53,8 +53,9 @@ export default {
   created () {
     EVENTS.forEach(event => window.addEventListener(event, this.updateOnlineStatus))
     this.updateOnlineStatus()
+
     if (this.isLoggedIn) {
-      this.fetchWallets()
+      this.requestUser()
       this.$livechat.setUser(this.getUser)
     }
     this.$livechat.initWidget()
@@ -67,7 +68,7 @@ export default {
       setProviders: SET_PROVIDERS,
       updateProvider: UPDATE_PROVIDER
     }),
-    ...mapActions('wallets', ['fetchWallets']),
+    ...mapActions(['requestUser']),
     updateAppStatus (status) {
       if (status === RECOVERING) { this.$router.push({ name: 'Maintenance' }) }
       if (status === HEALTHY) { this.$router.push({ name: 'home' }) }

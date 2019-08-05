@@ -26,6 +26,9 @@ export const USER_QUERY = gql`
       addressZipCode
       addressStreetAddress
       addressState
+      wallets {
+        ${WALLET_FIELDS}
+      }
     }
   }
 `

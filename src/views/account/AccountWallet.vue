@@ -61,10 +61,10 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('wallets', [
-      'wallets',
-      'activeWallet'
-    ]),
+    ...mapGetters({
+      wallets: 'getUserWallets',
+      activeWallet: 'getUserActiveWallet'
+    }),
     inactiveWalletsList () {
       return this.wallets.filter((wallet) => {
         return (wallet.id !== null && wallet.currency.code === 'mBTC')

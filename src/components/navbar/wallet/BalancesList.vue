@@ -78,17 +78,16 @@
 <script>
 import BonusSection from './BonusSection'
 import { mapGetters, mapMutations } from 'vuex'
-import { SET_ACTIVE_WALLET } from '@/stores/wallets'
 
 export default {
   components: {
     BonusSection
   },
   computed: {
-    ...mapGetters('wallets', [
-      'wallets',
-      'activeWallet'
-    ]),
+    ...mapGetters({
+      wallets: 'getUserWallets',
+      activeWallet: 'getUserActiveWallet'
+    }),
     inactiveWalletsList () {
       return this.wallets.filter((wallet) => {
         return (wallet.id !== null && this.activeWallet.id !== wallet.id)
@@ -96,9 +95,7 @@ export default {
     }
   },
   methods: {
-    ...mapMutations('wallets', {
-      setActiveWallet: SET_ACTIVE_WALLET
-    }),
+    ...mapMutations({ setActiveWallet: 'setActiveWallet' }),
     ...mapMutations('tabs', {
       changeTabIndex: 'changeTabIndex'
     }),

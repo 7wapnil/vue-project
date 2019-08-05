@@ -142,7 +142,6 @@ import Bet from '@/models/bet'
 import BetslipItem from './BetslipItem'
 import NoBetsBlock from './NoBetsBlock'
 import { mapGetters, mapMutations, mapActions } from 'vuex'
-import wallets from '@/mixins/wallets'
 import SpinnerButton from './SpinnerButton'
 
 const REFRESH_SLIP_AFTER_PLACING_BET_TIME = 3 * 1000
@@ -153,7 +152,6 @@ export default {
     NoBetsBlock,
     SpinnerButton
   },
-  mixins: [wallets],
   data () {
     return {
       tabIndex: 0
@@ -174,7 +172,7 @@ export default {
       'getAllBetsAcceptable',
       'getAnyBetInValidation'
     ]),
-    ...mapGetters(['isLoggedIn']),
+    ...mapGetters(['isLoggedIn', 'getUserActiveWallet']),
     acceptAllOdds: {
       get () {
         return this.acceptAllChecked
@@ -236,7 +234,7 @@ export default {
           amount: parseFloat(bet.stake),
           oddId: bet.oddId,
           oddValue: bet.approvedOddValue,
-          currencyCode: this.activeWallet.currency.code
+          currencyCode: this.getUserActiveWallet.currency.code
         }
       })
 
