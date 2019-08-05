@@ -73,6 +73,7 @@ const messages = {
     generalTerms: {
       deposit: 'Deposit | Deposits',
       withdraw: 'Withdraw | Withdraws',
+      upcoming: 'Upcoming',
       bonus: 'Bonus | Bonuses',
       all: 'All',
       amount: 'Amount',
@@ -108,7 +109,7 @@ const messages = {
       establishingConnection: 'Establishing <br> connection'
     },
     homePage: {
-      upcoming: 'Upcoming',
+      upcoming: 'Upcoming 6h',
       live: 'Live now',
       esport: 'Esport',
       sport: 'Sport'
