@@ -4,8 +4,8 @@
     no-body
     style="min-width: 714px"
     class="mb-1 esport-card"
+    body-class="p-0"
     bg-variant="arc-clr-soil-dark">
-    <b-card-body class="p-0">
       <b-row
         no-gutters
         role="tab"
@@ -69,7 +69,6 @@
           </b-row>
         </b-col>
       </b-row>
-    </b-card-body>
     <b-row
       no-gutters
       class="bg-arc-clr-soil-darker"

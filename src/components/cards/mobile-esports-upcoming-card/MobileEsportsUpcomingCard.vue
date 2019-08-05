@@ -4,8 +4,8 @@
     no-body
     class="mb-1 border-4"
     style="min-height: 103px"
+    body-class="p-2"
     bg-variant="arc-clr-soil-dark">
-    <b-card-body class="p-2">
       <b-row
         class="mb-3 mt-1"
         no-gutters>
@@ -72,7 +72,6 @@
 
       <slot/>
 
-    </b-card-body>
   </b-card>
 </template>
 
