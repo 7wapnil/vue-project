@@ -43,7 +43,12 @@ export default {
         .join('')
     },
     card () {
-      return () => import(/* webpackChunkName: "card" */`@/components/cards/${this.cardName}/${this.formatedName}`)
+      return () => ({
+        component: import(/* webpackChunkName: "card" */`@/components/cards/${this.cardName}/${this.formatedName}`),
+        loading: import('@/components/custom/Loader'),
+        delay: 200,
+        timeout: 3000
+      })
     },
     item () {
       return () => import(/* webpackChunkName: "card-item" */`@/components/cards/${this.cardName}/${this.formatedName}Item`)
