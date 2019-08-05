@@ -67,17 +67,6 @@
             </small>
           </b-col>
         </b-row>
-        <b-row no-gutters>
-          <b-col class="d-flex align-items-center">
-            <icon
-              name="betslip-stake"
-              size="12px"
-              class="mr-1"/>
-            <small class="ml-1 text-arc-clr-iron-light">
-              Bet max
-            </small>
-          </b-col>
-        </b-row>
       </b-col>
       <b-col class="d-flex align-items-center justify-content-end">
         <masked-input
