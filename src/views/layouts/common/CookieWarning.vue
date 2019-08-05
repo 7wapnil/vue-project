@@ -19,7 +19,7 @@
         <h6 class="text-arc-clr-iron letter-spacing-2 mb-0 line-height-24">
           {{ $t('cookies.description') }}
           <b-link
-            :to="{ name: 'cookie policy'}"
+            :to="{ name: 'Cookie Policy'}"
             class="text-arc-clr-iron-light font-weight-bold letter-spacing-2">
             {{ $t('cookies.policy') }}
           </b-link>
