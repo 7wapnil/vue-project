@@ -6,69 +6,69 @@
     class="mb-1 esport-card"
     body-class="p-0"
     bg-variant="arc-clr-soil-dark">
-      <b-row
-        no-gutters
-        role="tab"
-        style="height: 133px">
-        <b-col
-          class="p-4"
-          style="max-width: 205px; min-width: 60px">
+    <b-row
+      no-gutters
+      role="tab"
+      style="height: 133px">
+      <b-col
+        class="p-4"
+        style="max-width: 205px; min-width: 60px">
+        <b-row no-gutters>
+          <b-col class="mt-1 mb-4 text-truncate d-inline-flex align-items-center justify-content-center">
+            <h6
+              v-if="event.timeInSeconds"
+              class="mb-0 font-weight-bold text-arc-clr-iron-light">
+              {{ formattedTime }} {{ $t('eventPage.minute') }}
+            </h6>
+          </b-col>
+        </b-row>
+        <b-row no-gutters>
+          <b-col class="mb-3 d-inline-flex align-items-center justify-content-center text-truncate">
+            <small class="text-arc-clr-iron">
+              {{ event.tournament.name }}
+            </small>
+          </b-col>
+        </b-row>
+      </b-col>
+      <b-col
+        class="event-card-inside-border-left"
+        style="min-width: 459px">
+        <slot/>
+      </b-col>
+      <b-col
+        :class="{'pointer-none': marketsCount === 0}"
+        class="event-card-inside-border-left event-card-statistics-button"
+        style="max-width: 102px">
+        <b-link
+          v-if="marketsCount > 0"
+          :to="{ name: 'event', params: { id: event.id } }"
+          class="col h-100 w-100 p-0 d-flex justify-content-center align-items-center">
           <b-row no-gutters>
-            <b-col class="mt-1 mb-4 text-truncate d-inline-flex align-items-center justify-content-center">
-              <h6
-                v-if="event.timeInSeconds"
-                class="mb-0 font-weight-bold text-arc-clr-iron-light">
-                {{ formattedTime }} {{ $t('eventPage.minute') }}
+            <b-col class="d-flex align-items-center justify-content-center px-2">
+              <h6 class="m-0 font-weight-bold">
+                +{{ marketsCount }}
               </h6>
             </b-col>
           </b-row>
           <b-row no-gutters>
-            <b-col class="mb-3 d-inline-flex align-items-center justify-content-center text-truncate">
-              <small class="text-arc-clr-iron">
-                {{ event.tournament.name }}
-              </small>
+            <b-col class="d-flex align-items-center justify-content-center px-2">
+              <icon
+                color="arc-clr-soil-light"
+                size="10px"
+                name="upcoming-event-arrow-right"/>
             </b-col>
           </b-row>
-        </b-col>
-        <b-col
-          class="event-card-inside-border-left"
-          style="min-width: 459px">
-          <slot/>
-        </b-col>
-        <b-col
-          :class="{'pointer-none': marketsCount === 0}"
-          class="event-card-inside-border-left event-card-statistics-button"
-          style="max-width: 102px">
-          <b-link
-            v-if="marketsCount > 0"
-            :to="{ name: 'event', params: { id: event.id } }"
-            class="col h-100 w-100 p-0 d-flex justify-content-center align-items-center">
-            <b-row no-gutters>
-              <b-col class="d-flex align-items-center justify-content-center px-2">
-                <h6 class="m-0 font-weight-bold">
-                  +{{ marketsCount }}
-                </h6>
-              </b-col>
-            </b-row>
-            <b-row no-gutters>
-              <b-col class="d-flex align-items-center justify-content-center px-2">
-                <icon
-                  color="arc-clr-soil-light"
-                  size="10px"
-                  name="upcoming-event-arrow-right"/>
-              </b-col>
-            </b-row>
-          </b-link>
-          <b-row
-            v-if="marketsCount === 0"
-            class="h-100"
-            no-gutters>
-            <b-col class="d-flex justify-content-center align-items-start">
-              <no-data-placeholder/>
-            </b-col>
-          </b-row>
-        </b-col>
-      </b-row>
+        </b-link>
+        <b-row
+          v-if="marketsCount === 0"
+          class="h-100"
+          no-gutters>
+          <b-col class="d-flex justify-content-center align-items-start">
+            <no-data-placeholder/>
+          </b-col>
+        </b-row>
+      </b-col>
+    </b-row>
     <b-row
       no-gutters
       class="bg-arc-clr-soil-darker"
