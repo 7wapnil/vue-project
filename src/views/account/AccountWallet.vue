@@ -67,7 +67,7 @@ export default {
     }),
     inactiveWalletsList () {
       return this.wallets.filter((wallet) => {
-        return (wallet.id !== null && wallet.currency.code === 'mTBTC')
+        return (wallet.id !== null && this.activeWallet.id !== wallet.id)
       })
     }
   }

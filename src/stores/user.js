@@ -88,7 +88,6 @@ export const actions = {
     graphqlClient.query({
       query: USER_QUERY
     }).then(res => {
-      console.log(res.data.user)
       arcanebetSession.storeImpersonatedSession(context.getters.getToken, res.data.user)
       context.commit('updateUser', { token: context.getters.getToken, user: res.data.user })
       context.commit('setActiveWallet', res.data.user.wallets[0].id)
