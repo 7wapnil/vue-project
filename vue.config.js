@@ -50,8 +50,8 @@ if (process.env.NODE_ENV === 'production') {
         '/support/cookie-policy',
         '/support/faq',
         '/promotions',
-        'responsible-gaming/introduction',
-        'responsible-gaming/limits',
+        '/responsible-gaming/introduction',
+        '/responsible-gaming/limits',
         '/support/terms-and-conditions'],
       renderer: new Renderer({
         headless: true,
