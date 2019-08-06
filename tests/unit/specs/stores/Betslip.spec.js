@@ -206,7 +206,7 @@ describe('betslip store', () => {
     describe('getIsEnoughFundsToBet', () => {
       it('returns false when wallet is empty', () => {
         const invalidGetters = {
-          'wallets/activeWallet': {
+          'getUserActiveWallet': {
             id: 1,
             amount: 0,
             currency: {
@@ -222,7 +222,7 @@ describe('betslip store', () => {
 
       it('returns true when wallet has enough funds', () => {
         const localGetters = {
-          'wallets/activeWallet': {
+          'getUserActiveWallet': {
             id: 1,
             amount: 200,
             currency: {
@@ -238,7 +238,7 @@ describe('betslip store', () => {
 
       it('returns false when there is no wallet', () => {
         const localGetters = {
-          'wallets/activeWallet': null,
+          'getUserActiveWallet': null,
           getTotalStakes: 2
         }
 

@@ -3,6 +3,49 @@ import { getters, mutations } from '@/stores/user'
 
 describe('user store', () => {
   describe('getters', () => {
+    describe('getUserActiveWallet', () => {
+      it('returns null when active Wallet is not set', () => {
+        const state = {
+          session: {
+            user: {
+              wallets: [],
+            }
+          },
+          activeWalletId: null
+        }
+
+        expect(getters.getUserActiveWallet(state)).to.eql(null)
+      })
+
+      it('returns active wallet', () => {
+        const state = {
+          session: {
+            user: {
+              wallets: [{ id: 1 }],
+            }
+          },
+          activeWalletId: 1
+        }
+
+        expect(getters.getUserActiveWallet(state)).to.eql({ id: 1 })
+      })
+    })
+
+    describe('wallets', () => {
+      it('returns all wallets', () => {
+        const state = {
+          session: {
+            user: {
+              wallets: [{ id: 1 }, { id: 2 }],
+            }
+          },
+          activeWalletId: 1
+        }
+
+        expect(getters.getUserWallets(state)).to.eql([{ id: 1 }, { id: 2 }])
+      })
+    })
+
     describe('getToken', () => {
       it('gets correct token', () => {
         const state = {
@@ -88,6 +131,20 @@ describe('user store', () => {
   })
 
   describe('mutations', () => {
+    describe('SET_ACTIVE_WALLET', () => {
+      it('sets given id as activeWalletId', () => {
+        const state = {
+          user: {},
+          activeWalletId: null
+        }
+
+        const id = 2
+
+        mutations.setActiveWallet(state, id)
+        expect(state.activeWalletId).to.eql(id)
+      })
+    })
+
     describe('storeSession', () => {
       it('stores session when called', () => {
         const state = {}
