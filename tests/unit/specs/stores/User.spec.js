@@ -145,6 +145,23 @@ describe('user store', () => {
       })
     })
 
+    describe('update wallet', () => {
+      it('adds new wallet', () => {
+        const state = {
+          session: {
+            user: {
+              wallets: [{ id: 1 }]
+            }
+          }
+        }
+
+        const newWallet = { id: 2 }
+
+        mutations.updateWallet(state, newWallet)
+        expect(state.session.user.wallets).to.eql([{ id: 1 }, { id: 2 }])
+      })
+    })
+
     describe('storeSession', () => {
       it('stores session when called', () => {
         const state = {}
