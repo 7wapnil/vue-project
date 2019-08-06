@@ -43,7 +43,7 @@ export default {
         context: LIVE
       }, {
         value: UPCOMING,
-        title: this.$i18n.t('homePage.upcoming'),
+        title: this.$i18n.t('generalTerms.upcoming'),
         context: UPCOMING_UNLIMITED
       }]
     }

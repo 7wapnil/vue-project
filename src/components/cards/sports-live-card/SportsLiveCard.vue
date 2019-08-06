@@ -9,9 +9,9 @@
       <b-row
         no-gutters
         role="tab"
-        style="height: 76px">
+        style="min-height: 76px">
         <b-col
-          class="px-2 py-4"
+          class="d-flex align-items-center justify-content-center"
           style="min-width: 80px;
            max-width: 80px;
            min-height: 100%;
@@ -19,7 +19,7 @@
           <b-row no-gutters>
             <b-col
               v-if="event.timeInSeconds"
-              class="d-flex justify-content-center">
+              class="d-flex justify-content-center text-center">
               <span class="font-weight-bold text-arc-clr-iron text-uppercase mb-1 event-card-date letter-spacing-2">
                 {{ formattedTime }} {{ $t('eventPage.minute') }}
               </span>
@@ -27,7 +27,7 @@
 
             <div class="w-100"/>
 
-            <b-col class="d-flex align-items-start justify-content-center">
+            <b-col class="d-flex align-items-start justify-content-center text-center">
               <span
                 class="font-size-10 text-arc-clr-iron text-uppercase font-weight-bold letter-spacing-2">
                 {{ event.displayStatus }}
