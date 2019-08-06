@@ -293,9 +293,11 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('wallets', ['fiatWallet', 'activeWallet', 'wallets']),
     ...mapGetters({
-      token: 'getToken'
+      token: 'getToken',
+      fiatWallet: 'getUserFiatWallet',
+      activeWallet: 'getUserActiveWallet',
+      wallets: 'getUserWallets'
     }),
     getTotal () {
       let totalValue

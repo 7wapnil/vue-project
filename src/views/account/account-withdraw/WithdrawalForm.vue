@@ -178,10 +178,10 @@ export default {
     },
     currencyCode () {
       return this.defaultMethod.currencyCode ||
-        (this.fiatWallet && this.fiatWallet.currency.code) ||
+        (this.getUserFiatWallet && this.getUserFiatWallet.currency.code) ||
         EUR
     },
-    ...mapGetters('wallets', ['fiatWallet'])
+    ...mapGetters(['getUserFiatWallet'])
   },
   methods: {
     submitWithdraw () {

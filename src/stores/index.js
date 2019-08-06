@@ -3,7 +3,6 @@ import Vuex from 'vuex'
 import providers from './providers'
 import user from './user'
 import betslip from './betslip'
-import wallets from './wallets'
 import account from './account'
 import tabs from './tabs'
 import sidebar from './sidebar'
@@ -26,7 +25,6 @@ export default new Vuex.Store({
     providers,
     user,
     betslip,
-    wallets,
     account,
     tabs,
     sidebar

@@ -4,18 +4,22 @@ import { AUTH_INFO_QUERY,
   SIGN_IN_MUTATION,
   SIGN_UP_MUTATION,
   PASSWORD_RESET_REQUEST_MUTATION,
-  PASSWORD_RESET_MUTATION } from '@/graphql/index'
+  PASSWORD_RESET_MUTATION,
+  USER_QUERY,
+  WALLET_UPDATED_SUBSCRIPTION } from '@/graphql/index'
 import { NO_CACHE } from '@/constants/graphql/fetch-policy'
 import { wsClient } from '@/libs/apollo/ws-link'
 import router from '@/routes'
+import { FIAT } from '@/constants/currency-kinds'
 
+export const UPDATE_WALLET = 'updateWallet'
+export const SET_ACTIVE_WALLET = 'setActiveWallet'
 /**
  * User store module
  */
 export const actions = {
   logout (context) {
     context.commit('clearSession')
-    context.commit('wallets/CLEAR_WALLETS')
     arcanebetSession.dropSession()
     context.commit('resetConnection')
     graphqlClient.cache.reset()
@@ -42,7 +46,9 @@ export const actions = {
   },
   login (context, sessionData) {
     context.commit('storeSession', sessionData)
+    context.commit('setActiveWallet', sessionData.user.wallets[0].id)
     arcanebetSession.storeSession(sessionData)
+    context.dispatch('subscribeToWallets')
     context.commit('resetConnection')
   },
   rejectLogin ({ state, commit }, authData) {
@@ -77,6 +83,25 @@ export const actions = {
       }
     })
     return response
+  },
+  requestUser (context) {
+    graphqlClient.query({
+      query: USER_QUERY
+    }).then(res => {
+      arcanebetSession.storeImpersonatedSession(context.getters.getToken, res.data.user)
+      context.commit('updateUser', { token: context.getters.getToken, user: res.data.user })
+      context.commit('setActiveWallet', res.data.user.wallets[0].id)
+      context.dispatch('subscribeToWallets')
+    })
+  },
+  subscribeToWallets ({ commit }) {
+    // Subscribe to updates
+    const observer = graphqlClient.subscribe({
+      query: WALLET_UPDATED_SUBSCRIPTION
+    })
+    observer.subscribe({
+      next: ({ data }) => commit(UPDATE_WALLET, data.walletUpdated)
+    })
   }
 }
 
@@ -85,6 +110,10 @@ export const mutations = {
     state.session = sessionData
     state.isSuspicious = null
     state.lastLogin = null
+  },
+  updateUser (state, { token, user }) {
+    state.session.user = user
+    state.session.token = token
   },
   clearSession (state) {
     state.session = {}
@@ -96,6 +125,17 @@ export const mutations = {
   updateLoginInfo (state, data) {
     state.isSuspicious = data.isSuspicious
     state.lastLogin = data.login
+  },
+  updateWallet (state, wallet) {
+    const index = state.session.user.wallets.findIndex(w => w.id === wallet.id)
+    if (index > -1) {
+      state.session.user.wallets.splice(index, 1, wallet)
+    } else {
+      state.session.user.wallets.push(wallet)
+    }
+  },
+  setActiveWallet (state, id) {
+    state.activeWalletId = id
   }
 }
 
@@ -114,6 +154,15 @@ export const getters = {
   },
   getLastLogin (state) {
     return state.lastLogin
+  },
+  getUserWallets (state) {
+    return state.session.user.wallets
+  },
+  getUserActiveWallet (state) {
+    return state.session.user.wallets.find(el => el.id === state.activeWalletId) || null
+  },
+  getUserFiatWallet (state) {
+    return state.session.user.wallets.find(el => el.currency.kind === FIAT)
   }
 }
 
@@ -121,7 +170,8 @@ export default {
   state: {
     session: arcanebetSession.getSession() || {},
     isSuspicious: null,
-    lastLogin: null
+    lastLogin: null,
+    activeWalletId: null
   },
   actions,
   mutations,

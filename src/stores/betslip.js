@@ -79,7 +79,7 @@ export const getters = {
     return enabled
   },
   getIsEnoughFundsToBet: (state, getters, rootState, rootGetters) => {
-    const activeWallet = rootGetters['wallets/activeWallet']
+    const activeWallet = rootGetters['getUserActiveWallet']
     if (activeWallet === null) {
       return false
     }

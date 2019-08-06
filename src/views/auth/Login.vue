@@ -52,13 +52,11 @@
 <script>
 import VueRecaptcha from 'vue-recaptcha'
 import { mapGetters, mapActions } from 'vuex'
-import wallets from '@/mixins/wallets'
 
 export default {
   components: {
     VueRecaptcha
   },
-  mixins: [wallets],
   data () {
     return {
       feedback: '',
@@ -114,7 +112,6 @@ export default {
     },
     onSuccess ({ data: { signIn } }) {
       this.login(signIn)
-      this.fetchWallets()
       this.$router.push({ name: 'home' })
       this.$livechat.setUser(signIn.user)
       this.$livechat.initWidget()
