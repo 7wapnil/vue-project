@@ -122,11 +122,11 @@ export const mutations = {
     state.lastLogin = data.login
   },
   updateWallet (state, wallet) {
-    const index = state.user.wallets.findIndex(w => w.id === wallet.id)
+    const index = state.session.user.wallets.findIndex(w => w.id === wallet.id)
     if (index > -1) {
-      state.user.wallets.splice(index, 1, wallet)
+      state.session.user.wallets.splice(index, 1, wallet)
     } else {
-      state.user.wallets.push(wallet)
+      state.session.user.wallets.push(wallet)
     }
   },
   setActiveWallet (state, id) {
