@@ -13,8 +13,8 @@
         @click="changeKind(tab)">
 
         <activity-filters
-          @table-filtred-by-time="tableTimeFilter"
-          @table-filtred-by-bet-state="tableBetFilter"/>
+          @table-filtered-by-time="tableTimeFilter"
+          @table-filtered-by-bet-state="tableBetFilter"/>
 
         <b-table
           v-if="hasBetHistory && !loadingBets"
@@ -143,7 +143,8 @@ export default {
       return {
         page: this.currentPage,
         perPage: this.betsPerPage,
-        kind: this.betKind
+        kind: this.betKind,
+        status: this.betFilterState
       }
     },
     badgeStatus () {
@@ -202,6 +203,8 @@ export default {
     },
     tableBetFilter (state) {
       this.betFilterState = state.event
+      this.page = 1
+      this.loadMoreHistory()
     }
   }
 }

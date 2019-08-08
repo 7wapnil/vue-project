@@ -63,19 +63,19 @@ export default {
       stateButtons: [
         {
           name: 'All',
-          event: 'bets-all'
+          event: ''
         },
         {
           name: 'Won',
-          event: 'bets-won'
+          event: 'won'
         },
         {
           name: 'Partically won',
-          event: 'bets-part-won'
+          event: 'voided'
         },
         {
           name: 'Lost',
-          event: 'bets-lost'
+          event: 'lost'
         },
       ]
     }
@@ -84,16 +84,16 @@ export default {
     changeTimeFilter (index) {
       if (index === 4) {
         this.dateSelected = index
-        this.$emit('table-filtred-by-time', { name: 'Calendar',
+        this.$emit('table-filtered-by-time', { name: 'Calendar',
           event: 'time-calendar' })
         return
       }
       this.dateSelected = index
-      this.$emit('table-filtred-by-time', this.timeButtons[index])
+      this.$emit('table-filtered-by-time', this.timeButtons[index])
     },
     changeBetFilter (index) {
       this.betStateSelected = index
-      this.$emit('table-filtred-by-bet-state', this.stateButtons[index])
+      this.$emit('table-filtered-by-bet-state', this.stateButtons[index])
     }
   }
 }
