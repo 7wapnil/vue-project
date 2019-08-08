@@ -4,23 +4,24 @@
       <div
         v-if="isOpen"
         class="mobile-navigation-sidemenu">
+        <vue-scroll>
+          <div class="mobile-navigation-sidemenu-sticky">
+            <logo-section/>
+            <category-switch @category-changed="changeCategory"/>
+          </div>
 
-        <div class="mobile-navigation-sidemenu-sticky">
-          <logo-section/>
-          <category-switch @category-changed="changeCategory"/>
-        </div>
-
-        <b-row
-          class="mobile-navigation-sidemenu-list-section"
-          no-gutters>
-          <b-col class="bg-arc-clr-soil-black sidemenu-mobile">
-            <mobile-side-menu
-              :title-kind="titleKind"
-              :is-open="isOpen">
-              <mobile-header-item @sidemenu-closed="$emit('sidebar-close-requested')"/>
-            </mobile-side-menu>
-          </b-col>
-        </b-row>
+          <b-row
+            class="mobile-navigation-sidemenu-list-section"
+            no-gutters>
+            <b-col class="bg-arc-clr-soil-black sidemenu-mobile">
+              <mobile-side-menu
+                :title-kind="titleKind"
+                :is-open="isOpen">
+                <mobile-header-item @sidemenu-closed="$emit('sidebar-close-requested')"/>
+              </mobile-side-menu>
+            </b-col>
+          </b-row>
+        </vue-scroll>
       </div>
     </transition>
     <close-button
