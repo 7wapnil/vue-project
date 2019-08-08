@@ -38,6 +38,7 @@ import MobileHeaderItem from '@/views/layouts/mobile/sidemenu/sidemenu-list/Mobi
 import CloseButton from '@/views/layouts/mobile/sidemenu/CloseButton'
 import LogoSection from '@/views/layouts/mobile/sidemenu/LogoSection'
 import CategorySwitch from '@/views/layouts/mobile/sidemenu/CategorySwitch'
+import Overlay from '@/components/custom/Overlay.vue'
 import { mapMutations } from 'vuex'
 
 export default {
@@ -47,7 +48,7 @@ export default {
     CloseButton,
     LogoSection,
     CategorySwitch,
-    'Overlay': () => import('@/components/custom/Overlay.vue')
+    Overlay
   },
   props: {
     isOpen: {
