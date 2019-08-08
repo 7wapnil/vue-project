@@ -5,7 +5,7 @@
     <transition name="mobile-betslip-open-animation">
       <div
         v-if="isBetslipOpen"
-        class="mobile-navigation-sidemenu right-0">
+        class="mobile-navigation-sidemenu bg-arc-clr-soil-black right-0">
         <vue-scroll>
           <betslip/>
         </vue-scroll>

@@ -58,7 +58,7 @@
             title="Combo"
             no-body>
             <p
-              style="margin-left: 6px"
+              :style="{ 'margin-left': isMobile ? '0' : '6px' }"
               class="p-5 text-center bg-arc-clr-soil-dark">
               To be implemented
             </p>
