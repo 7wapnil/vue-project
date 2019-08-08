@@ -22,7 +22,7 @@
           v-if="event"
           :event="event"
           :markets="markets"
-          :item-component="item"
+          :item-component="itemComponent"
           class="p-md-4 p-1 bg-arc-clr-soil-light"/>
       </template>
     </market-category>
@@ -35,6 +35,7 @@ import { EVENT_BY_ID_QUERY } from '@/graphql'
 import MarketsCategories from '@/components/markets/MarketsCategories'
 import HeaderSection from './header-section/HeaderSection'
 import MarketsList from '@/components/markets/MarketsList'
+import EventDetailsCard from '@/components/cards/EventDetailsCard'
 import MarketCategory from '@/components/markets/MarketCategory'
 
 export default {
@@ -47,6 +48,7 @@ export default {
   data () {
     return {
       event: null,
+      itemComponent: EventDetailsCard,
       marketsLimit: UNLIMITED_QUERY,
       markets: [],
       category: null,
@@ -56,9 +58,6 @@ export default {
   computed: {
     eventId () {
       return this.$route.params.id
-    },
-    item () {
-      return () => import(/* webpackChunkName: "event-details-card" */`@/components/cards/EventDetailsCard`)
     }
   },
   apollo: {
