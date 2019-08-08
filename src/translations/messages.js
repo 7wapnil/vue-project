@@ -1,5 +1,10 @@
 const messages = {
   en: {
+    auth: {
+      impersonate: {
+        success: "You successfully logged in as '{username}'."
+      }
+    },
     meta: {
       defaultTags: {
         title: 'arcanebet - Esports Betting, Sports Betting, Casino, Live Casino',

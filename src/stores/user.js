@@ -94,6 +94,14 @@ export const actions = {
       context.dispatch('subscribeToWallets')
     })
   },
+  refreshUserFromPayload (context, { token, user }) {
+    arcanebetSession.storeImpersonatedSession(token, user)
+    context.commit('storeSession', arcanebetSession.getSession())
+    context.commit('updateUser', { token: token, user: user })
+    context.commit('setActiveWallet', user.wallets[0].id)
+    context.dispatch('subscribeToWallets')
+    context.commit('resetConnection')
+  },
   subscribeToWallets ({ commit }) {
     // Subscribe to updates
     const observer = graphqlClient.subscribe({
@@ -159,7 +167,7 @@ export const getters = {
     return state.session.user.wallets
   },
   getUserActiveWallet (state) {
-    return state.session.user.wallets.find(el => el.id === state.activeWalletId) || null
+    return (state.session.user && state.session.user.wallets.find(el => el.id === state.activeWalletId)) || null
   },
   getUserFiatWallet (state) {
     return state.session.user.wallets.find(el => el.currency.kind === FIAT)

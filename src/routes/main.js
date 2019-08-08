@@ -1,7 +1,6 @@
 import EventsList from '@/views/events-list/Page.vue'
 import CategoryPage from '@/views/events-list/CategoryPage.vue'
 import TournamentPage from '@/views/events-list/TournamentPage.vue'
-import arcanebetSession from '@/services/local-storage/session'
 import Affiliates from '@/views/information-pages/affiliates/main/Page'
 
 export default [
@@ -59,11 +58,8 @@ export default [
   },
   {
     path: 'impersonate/:token',
-    beforeEnter: (to, from, next) => {
-      const customerAttrs = JSON.parse(to.query.customer)
-      arcanebetSession.storeImpersonatedSession(to.params.token, customerAttrs)
-      next({ path: '/' })
-    }
+    name: 'impersonation',
+    component: () => import('@/views/auth/Impersonation')
   },
   {
     path: 'affiliates',

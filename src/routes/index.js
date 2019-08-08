@@ -34,6 +34,11 @@ const router = new Router({
       component: Maintenance
     },
     {
+      path: '/not-found',
+      name: 'not-found',
+      component: NotFound
+    },
+    {
       path: '/*',
       name: 'NotFound',
       component: NotFound

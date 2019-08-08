@@ -118,7 +118,7 @@ export default {
       this.close()
     },
     onError (err) {
-      if (!err.graphQLErrors && err.graphQLErrors.length) return
+      if (!err.graphQLErrors || !err.graphQLErrors.length) return
       this.feedback = err.graphQLErrors[0].message
       this.isRequestSuccessful = false
       this.rejectLogin({ login: this.fields.login })

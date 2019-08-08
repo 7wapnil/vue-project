@@ -74,6 +74,24 @@ export const USER_WITHDRAWAL_METHODS_QUERY = gql`
   }
 `
 
+export const IMPERSONATE_MUTATION = gql`
+  mutation ($token: String!) {
+    impersonate (token: $token) {
+      user {
+        id
+        email
+        username
+        firstName
+        lastName
+        wallets {
+          ${WALLET_FIELDS}
+        }
+      }
+      token
+    }
+  }
+`
+
 export const ACTIVATE_ACCOUNT = gql`
   mutation ($token: String!) {
     activate (token: $token)
