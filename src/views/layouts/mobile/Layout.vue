@@ -8,7 +8,8 @@
       v-show="isSidebarOpen"
       :is-open="isSidebarOpen"
       @sidebar-close-requested="toggleSidebar"/>
-    <betslip-button v-if="toggleBetslipButton"/>
+    <betslip-button/>
+    <betslip-container/>
     <mobile-footer/>
   </div>
 </template>
@@ -20,6 +21,7 @@ import NavigationSidebar from '@/views/layouts/mobile/sidemenu/NavigationSidebar
 import { mapGetters, mapMutations } from 'vuex'
 import MobileContent from '@/views/layouts/mobile/Content'
 import BetslipButton from '@/views/layouts/mobile/betslip/BetslipButton'
+import BetslipContainer from '@/views/layouts/mobile/betslip/BetslipContainer'
 
 export default {
   components: {
@@ -27,28 +29,13 @@ export default {
     MobileFooter,
     NavigationSidebar,
     MobileContent,
-    BetslipButton
-  },
-  data () {
-    return {
-      isBetslipButtonVisible: true
-    }
+    BetslipButton,
+    BetslipContainer
   },
   computed: {
     ...mapGetters([
       'isSidebarOpen'
     ]),
-    toggleBetslipButton() {
-      return this.isBetslipButtonVisible && !this.isSidebarOpen
-    }
-  },
-  mounted() {
-    this.$root.$on('bv::modal::show', () => {
-      return this.isBetslipButtonVisible = false
-    })
-    this.$root.$on('bv::modal::hide', () => {
-      return this.isBetslipButtonVisible = true
-    })
   },
   watch: {
     $route (to, from) {

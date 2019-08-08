@@ -152,7 +152,8 @@ const messages = {
       cta: {
         placeBet: 'Place Bet',
         clearAll: 'Clear all'
-      }
+      },
+      mobileButton: 'Betslip'
     },
     wallet: {
       balance: 'Balance',
