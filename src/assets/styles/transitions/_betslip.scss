@@ -1,0 +1,43 @@
+.mobile-betslip-open-animation {
+  &-enter-active {
+    animation: slide-left  .2s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+    animation-direction: reverse;
+  }
+  &-leave-active {
+    animation: slide-left .2s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+  }
+  @-webkit-keyframes slide-left {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(100vh);
+    }
+  }
+  @keyframes slide-left {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(100vh);
+    }
+  }
+}
+
+.betslip-button-enter-active {
+  animation: bounce-in .5s;
+}
+.betslip-leave-active {
+  animation: bounce-in .5s reverse;
+}
+@keyframes bounce-in {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
