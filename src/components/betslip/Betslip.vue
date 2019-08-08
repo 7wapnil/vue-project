@@ -6,7 +6,7 @@
       class="p-0">
       <b-row
         no-gutters
-        class="py-3 px-4">
+        class="py-3 px-4 bg-arc-clr-soil-black">
         <b-col class="p-0">
           <span class="mr-2 text-arc-clr-iron letter-spacing-2 font-size-11">
             BETSLIP
