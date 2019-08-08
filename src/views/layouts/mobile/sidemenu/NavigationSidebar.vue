@@ -9,7 +9,6 @@
             <logo-section/>
             <category-switch @category-changed="changeCategory"/>
           </div>
-
           <b-row
             class="mobile-navigation-sidemenu-list-section"
             no-gutters>
@@ -27,6 +26,7 @@
     <close-button
       :is-open="isOpen"
       :color="titleKind"
+      position="right"
       @sidemenu-closed="$emit('sidebar-close-requested')"/>
     <overlay
       v-if="isOpen"
