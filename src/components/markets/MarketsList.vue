@@ -48,7 +48,7 @@ export default {
     },
     itemComponent: {
       type: [String, Object],
-      default: () => { return MarketItem }
+      default: MarketItem
     }
   },
   computed: {

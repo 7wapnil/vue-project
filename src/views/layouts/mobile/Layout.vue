@@ -35,7 +35,7 @@ export default {
   computed: {
     ...mapGetters([
       'isSidebarOpen'
-    ]),
+    ])
   },
   watch: {
     $route (to, from) {
