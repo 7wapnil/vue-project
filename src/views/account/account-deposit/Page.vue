@@ -388,7 +388,8 @@ export default {
           mutation: BONUS_CALCULATION_MUTATION,
           variables: {
             amount: parseFloat(this.fields.amount),
-            code: this.fields.bonusCode
+            code: this.fields.bonusCode,
+            currencyCode: this.currency
           }
         }).then(({ data }) => {
           this.calculatedBonus = data.depositBonus.bonus
