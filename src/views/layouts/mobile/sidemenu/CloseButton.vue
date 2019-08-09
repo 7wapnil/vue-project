@@ -1,5 +1,6 @@
 <template>
   <div
+    :class="position === 'right' ? 'right-0' : 'left-0'"
     class="mobile-navigation-sidemenu-close-button"
     @click="$emit('sidemenu-closed')">
     <transition name="sidemenu-close-button">
@@ -21,6 +22,10 @@ export default {
     isOpen: {
       type: Boolean,
       default: false
+    },
+    position: {
+      type: String,
+      default: 'right'
     }
   },
   computed: {

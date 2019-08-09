@@ -1,7 +1,7 @@
 <template>
   <b-card
+    :style="{ 'margin-left': isMobile ? '0' : '6px' }"
     bg-variant="arc-clr-soil-dark"
-    style="margin-left: 6px"
     class="py-2 pl-3 pr-2 mb-1"
     no-body>
 

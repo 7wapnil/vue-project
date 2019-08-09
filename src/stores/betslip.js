@@ -60,6 +60,9 @@ export const mutations = {
   },
   updateAcceptAll (state, acceptValue) {
     state.acceptAll = acceptValue
+  },
+  toggleBetslip (state) {
+    state.betslipSidebarState = !state.betslipSidebarState
   }
 }
 
@@ -137,6 +140,9 @@ export const getters = {
   },
   getAllBetsAcceptable (state) {
     return !(state.bets.length) || state.bets.every((bet) => bet.isAcceptable)
+  },
+  isBetslipOpen (state) {
+    return state.betslipSidebarState
   }
 }
 
@@ -237,7 +243,8 @@ export default {
   state: {
     bets: getBetsFromStorage(),
     acceptAll: false,
-    subscriptions: {}
+    subscriptions: {},
+    betslipSidebarState: false
   },
   actions,
   mutations,

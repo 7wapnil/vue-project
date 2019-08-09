@@ -216,6 +216,22 @@
   }
 }
 
+// Betslip mobile button
+  .btn-arc-betslip-mobile {
+      height: 31px;
+      width: 62px;
+      border-radius: 6px 0 6px 0;
+      line-height: 14px;
+      color: $arc-clr-white;
+      text-transform: uppercase;
+      font-size: 12px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+  }
+
+
 // Event list upcoming button //
 .btn-arc-events-list-upcoming {
   border-radius: 4px 4px 0 4px !important;
