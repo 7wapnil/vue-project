@@ -45,19 +45,19 @@ export default {
       timeButtons: [
         {
           name: 'All',
-          event: 'time-all'
+          event: ''
         },
         {
           name: 'Today',
-          event: 'time-today'
+          event: 'today'
         },
         {
           name: 'Week',
-          event: 'time-week'
+          event: 'week'
         },
         {
           name: 'Month',
-          event: 'time-month'
+          event: 'month'
         },
       ],
       stateButtons: [
