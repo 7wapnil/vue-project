@@ -144,7 +144,7 @@ export default {
         page: this.currentPage,
         perPage: this.betsPerPage,
         kind: this.betKind,
-        status: this.betFilterState
+        settlement_status: this.betFilterState
       }
     },
     badgeStatus () {
