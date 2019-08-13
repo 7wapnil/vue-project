@@ -2,6 +2,7 @@
   <b-card
     v-if="event"
     no-body
+    @click="goToEventPage"
     class="mb-1 border-4 pt-3 px-2 pb-2"
     style="min-height: 103px"
     bg-variant="arc-clr-soil-dark">
@@ -46,11 +47,9 @@
           </b-col>
         </b-row>
       </b-col>
-      <b-link
-        v-if="marketsCount > 0"
-        :to="{ name: 'event', params: { id: event.id } }"
-        class="col-3">
-
+      <b-col
+        cols="3"
+        v-if="marketsCount > 0">
         <b-row
           class="h-100"
           no-gutters>
@@ -68,7 +67,12 @@
               name="upcoming-event-arrow-right"/>
           </b-col>
         </b-row>
-      </b-link>
+      </b-col>
+      <b-col cols="3"
+             class="d-flex align-items-center justify-content-end"
+             v-if="marketsCount === 0">
+        <no-data-placeholder class="mr-3"/>
+      </b-col>
     </b-row>
 
     <slot/>
