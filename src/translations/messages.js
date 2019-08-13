@@ -162,7 +162,7 @@ const messages = {
     },
     wallet: {
       balance: 'Balance',
-      crypto: 'Crypto'
+      secondWallet: '2nd Wallet'
     },
     account: {
       tabs: {
