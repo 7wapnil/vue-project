@@ -3,6 +3,7 @@
     :disabled="isDisabled"
     :data-id="odd.id"
     :pressed.sync="toggleButton"
+    @click.stop
     variant="arc-odd">
     {{ value }}
   </b-button>

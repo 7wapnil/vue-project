@@ -2,10 +2,10 @@
   <b-card
     v-if="event"
     no-body
+    @click="goToEventPage"
     style="min-width: 800px"
     class="mb-1 upcoming-card"
     bg-variant="arc-clr-soil-dark">
-    <b-card-body class="p-0">
       <b-row
         no-gutters
         role="tab">
@@ -69,10 +69,9 @@
             </b-col>
           </b-row>
         </b-col>
-        <b-link
+        <b-col
           v-if="marketsCount > 0"
-          :to="{ name: 'event', params: { id: event.id } }"
-          class="col event-card-statistics-button event-card-inside-border-left"
+          class="event-card-statistics-button event-card-inside-border-left"
           style="min-width: 70px; max-width: 70px">
           <b-row
             no-gutters
@@ -97,7 +96,7 @@
               </b-col>
             </b-row>
           </b-row>
-        </b-link>
+        </b-col>
         <span
           v-if="marketsCount === 0"
           class="col event-card-statistics-button event-card-inside-border-left"
@@ -111,117 +110,6 @@
           </b-row>
         </span>
       </b-row>
-    </b-card-body>
-    <b-row
-      no-gutters
-      role="tablist">
-      <b-col
-        align="center"
-        style="min-height: 0">
-        <b-collapse
-          :id="'esports-upcoming-card-' + `${event.id}`"
-          accordion="esportcard-upcoming">
-          <b-row
-            no-gutters
-            class="bg-arc-clr-soil-darker"
-            style="border-radius: 0 0 4px 4px">
-            <b-col class="py-2">
-              <b-row no-gutters>
-                <b-col style="max-width: 205px"/>
-                <b-col>
-                  <b-row
-                    class="event-card-inside-border-bottom"
-                    no-gutters>
-                    <b-col class="d-flex justify-content-end align-items-end pb-4 pr-4">
-                      <h6 class="m-0 text-arc-clr-iron">
-                        Over / Under
-                      </h6>
-                    </b-col>
-                    <b-col class="p-2">
-                      <b-col class="mb-1">
-                        <small class="text-arc-clr-iron">
-                          Under 2.15
-                        </small>
-                      </b-col>
-                      <b-button variant="arc-odd">
-                        7.77
-                      </b-button>
-                    </b-col>
-                    <b-col class="p-2">
-                      <b-col class="mb-1">
-                        <small class="text-arc-clr-iron">
-                          Under 2.15
-                        </small>
-                      </b-col>
-                      <b-button variant="arc-odd">
-                        7.77
-                      </b-button>
-                    </b-col>
-                  </b-row>
-                  <b-row
-                    class="event-card-inside-border-bottom"
-                    no-gutters>
-                    <b-col class="d-flex justify-content-end align-items-end pb-4 pr-4">
-                      <h6 class="m-0 text-arc-clr-iron">
-                        Over / Under
-                      </h6>
-                    </b-col>
-                    <b-col class="p-2">
-                      <b-col class="mb-1">
-                        <small class="text-arc-clr-iron">
-                          Under 2.15
-                        </small>
-                      </b-col>
-                      <b-button variant="arc-odd">
-                        7.77
-                      </b-button>
-                    </b-col>
-                    <b-col class="p-2">
-                      <b-col class="mb-1">
-                        <small class="text-arc-clr-iron">
-                          Under 2.15
-                        </small>
-                      </b-col>
-                      <b-button variant="arc-odd">
-                        7.77
-                      </b-button>
-                    </b-col>
-                  </b-row>
-                  <b-row no-gutters>
-                    <b-col class="d-flex justify-content-end align-items-end pb-4 pr-4">
-                      <h6 class="m-0 text-arc-clr-iron">
-                        Over / Under
-                      </h6>
-                    </b-col>
-                    <b-col class="p-2">
-                      <b-col class="mb-1 text-truncate">
-                        <small class="text-arc-clr-iron">
-                          Under 2.15
-                        </small>
-                      </b-col>
-                      <b-button variant="arc-odd">
-                        7.77
-                      </b-button>
-                    </b-col>
-                    <b-col class="p-2">
-                      <b-col class="mb-1">
-                        <small class="text-arc-clr-iron">
-                          Under 2.15
-                        </small>
-                      </b-col>
-                      <b-button variant="arc-odd">
-                        7.77
-                      </b-button>
-                    </b-col>
-                  </b-row>
-                </b-col>
-                <b-col style="max-width: 102px"/>
-              </b-row>
-            </b-col>
-          </b-row>
-        </b-collapse>
-      </b-col>
-    </b-row>
   </b-card>
 </template>
 <script>
@@ -248,6 +136,13 @@ export default {
     },
     orderedCompetitors () {
       return orderByQualifier(this.event.competitors)
+    }
+  },
+  methods: {
+    goToEventPage() {
+     if (this.marketsCount > 0) {
+       this.$router.push({ name: 'event', params: { id: this.event.id }})
+     }
     }
   }
 }
