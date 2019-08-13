@@ -4,17 +4,9 @@ $transition-time: .3s;
 $sidemenu-item-height: 56px;
 $sidemenu-box-shadow: inset 0 -1px 0 0 rgba($black, .3);
 
+
 .side-menu,
 %side-menu {
-  position: sticky !important;
-  top: 80px;
-  max-height: calc(100vh - 80px);
-  overflow-y: auto !important;
-  overflow-x: hidden !important;
-  max-width: 268px;
-  min-width: 268px;
-  cursor: pointer;
-
   .__view {
     width: 100% !important;
   }
@@ -42,7 +34,10 @@ $sidemenu-box-shadow: inset 0 -1px 0 0 rgba($black, .3);
     font-size: $h6-font-size;
     .arc-sidemenu-triangle-down {
       transition: transform $transition-time ease-in-out;
+      -webkit-transition: transform $transition-time ease-in-out;
+
       transform: rotateX(180deg);
+      -webkit-transform: rotateX(180deg);
     }
   }
 
@@ -96,32 +91,37 @@ $sidemenu-box-shadow: inset 0 -1px 0 0 rgba($black, .3);
     box-shadow: $sidemenu-box-shadow;
     user-select: none;
   }
-}
-
-.sidemenu-mobile {
-  @extend %side-menu;
-  overflow-y: auto !important;
-  overflow-x: hidden !important;
-  max-width: 100%;
-  min-width: 100%;
-  max-height: calc(100% - 60px);
-  &-header {
-    box-shadow: $sidemenu-box-shadow;
-    min-height: 60px;
-    & > a {
-      width: 100%;
-    }
+  &-desktop {
+    @extend %side-menu;
+    position: sticky !important;
+    top: 80px;
+    max-height: calc(100vh - 80px);
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    max-width: 268px;
+    min-width: 268px;
+    cursor: pointer;
   }
 }
+
 .mobile-navigation-sidemenu {
+  @extend %side-menu;
   height: 100vh;
   width: calc(100vw - 60px);
-  margin-left: 0;
   position: fixed;
   top: 0;
-  overflow-x: hidden;
+  left: 0;
+  bottom: 0;
   z-index: 1031;
+  overflow-y: auto;
   background-color: $arc-clr-soil-dark;
+  box-shadow: 0 2px 6px rgba($black, .5);
+  display: flex;
+  flex-direction: column;
+  will-change: transform;
+  pointer-events: auto;
+  -webkit-overflow-scrolling: touch;
+
   &-logo-section {
     height: 60px;
   }
@@ -129,7 +129,24 @@ $sidemenu-box-shadow: inset 0 -1px 0 0 rgba($black, .3);
     position: sticky;
     top: 0;
     left: 0;
-    z-index: 1035;
+    z-index: 103500;
+  }
+  &-list {
+    background-color: $arc-clr-soil-black;
+    -webkit-overflow-scrolling: touch;
+    height: 100%;
+
+    .nav-item > a {
+      padding: 0;
+    }
+    &-header {
+      box-shadow: $sidemenu-box-shadow;
+      min-height: 60px;
+      background-color: $arc-clr-soil-dark;
+      & > a {
+        width: 100%;
+      }
+    }
   }
   &-category {
     &-sports {
@@ -137,8 +154,8 @@ $sidemenu-box-shadow: inset 0 -1px 0 0 rgba($black, .3);
         font-size: 14px;
         font-weight: bold;
         line-height: 18px;
-        padding: 21px;
-        background-color: $arc-clr-sport-bg;
+        padding: 21px !important;
+        background-color: $arc-clr-sport-bg !important;
       }
       .active {
         background-color: $arc-clr-sport-bg-second !important;
@@ -150,8 +167,8 @@ $sidemenu-box-shadow: inset 0 -1px 0 0 rgba($black, .3);
         font-size: 14px;
         font-weight: bold;
         line-height: 18px;
-        padding: 21px;
-        background-color: $arc-clr-esport-bg;
+        padding: 21px !important;
+        background-color: $arc-clr-esport-bg !important;
       }
       .active {
         background-color: $arc-clr-esport-bg-second !important;
@@ -170,8 +187,11 @@ $sidemenu-box-shadow: inset 0 -1px 0 0 rgba($black, .3);
       transition: transform .8s;
     }
   }
-  .items-level-1 a:hover {
-    background-color: unset;
+  .items-level-1 {
+    padding: 0 14px;
+    a:hover {
+      background-color: unset !important;
+    }
   }
   .collapsed {
     .arc-sidemenu-triangle-down {
@@ -195,10 +215,12 @@ $sidemenu-box-shadow: inset 0 -1px 0 0 rgba($black, .3);
     }
   }
   .mobile-item-title-1 {
-    padding: 10px;
+    padding: 10px 14px;
+    border-radius: 3px;
   }
   .mobile-item-title-2 {
-    padding: 10px 20px;
+    padding: 10px 14px;
+    border-radius: 3px;
   }
   &-close-button {
     position: fixed;
@@ -211,7 +233,7 @@ $sidemenu-box-shadow: inset 0 -1px 0 0 rgba($black, .3);
   }
   &-open-animation {
     &-enter-active {
-      animation: slide-right  .2s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+      animation: slide-right 130ms cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
       animation-direction: reverse;
     }
     &-leave-active {
@@ -219,10 +241,11 @@ $sidemenu-box-shadow: inset 0 -1px 0 0 rgba($black, .3);
     }
     @-webkit-keyframes slide-right {
       0% {
-        transform: translateX(0);
+        -webkit-transform: translateX(0);
       }
       100% {
-        transform: translateX(-100vh);
+        -webkit-transform: translateX(-103%);
+        will-change: transform;
       }
     }
     @keyframes slide-right {
@@ -230,19 +253,35 @@ $sidemenu-box-shadow: inset 0 -1px 0 0 rgba($black, .3);
         transform: translateX(0);
       }
       100% {
-        transform: translateX(-100vh);
+        transform: translateX(-103%);
+        will-change: transform;
       }
     }
   }
   &-overlay {
-    display: block;
     background-color: rgba($black, .5);
     height: 100vh;
     width: 100vw;
+    overflow: hidden;
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 1029;
+    z-index: 1030;
+    pointer-events: none;
+    //&:after {
+    //    content: '';
+    //    display: block;
+    //    position: absolute;
+    //    left: 0;
+    //    top: 0;
+    //    width: 100%;
+    //    height: 100%;
+    //    background: rgba($black, .4);
+    //    opacity: 0;
+    //    will-change: opacity;
+    //    pointer-events: none;
+    //    transition: opacity 0.6s cubic-bezier(0,0,0.3,1);
+    //}
   }
 }
 

@@ -1,7 +1,5 @@
 <template>
-  <div
-    v-body-scroll-lock="isBetslipOpen"
-    v-show="isBetslipOpen">
+  <div v-show="isBetslipOpen">
     <transition name="mobile-betslip-open-animation">
       <div
         v-if="isBetslipOpen"

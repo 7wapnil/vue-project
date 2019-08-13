@@ -1,5 +1,5 @@
 <template>
-  <div
-    class="mobile-navigation-sidemenu-overlay"
-    @click="$emit('overlay-clicked')"/>
+  <div class="mobile-navigation-sidemenu-overlay">
+    <slot/>
+  </div>
 </template>

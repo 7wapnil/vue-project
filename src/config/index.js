@@ -13,13 +13,14 @@ import ContentfulPlugin from '@/libs/contentful/contentful-client'
 import airbrakeClient from './plugins/airbrake-client'
 import arcanebetSession from '@/services/local-storage/session'
 import VueMeta from 'vue-meta'
-import BodyScrollLockDirective from 'v-body-scroll-lock'
 import VueMq from 'vue-mq'
 import VueClipboard from './plugins/vue-clipboard'
+import VBodyScrollLock from 'v-body-scroll-lock'
 
 const isProduction = process.env.NODE_ENV === 'production'
 
 Vue.use(VueMeta)
+Vue.use(VBodyScrollLock)
 
 Vue.use(VueLogger, {
   logLevel: isProduction ? 'error' : 'debug'
@@ -32,7 +33,6 @@ Vue.use(VueNoty, {
   timeout: 2000,
   layout: 'topRight'
 })
-Vue.use(BodyScrollLockDirective)
 Vue.use(VueMq, {
   breakpoints: {
     mobile: 720,

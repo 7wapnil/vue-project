@@ -2,7 +2,7 @@
   <b-row
     no-gutters>
     <b-col
-      class="bg-arc-clr-soil-black side-menu">
+      class="bg-arc-clr-soil-black side-menu-desktop">
       <vue-scroll>
         <side-menu>
           <template #header>

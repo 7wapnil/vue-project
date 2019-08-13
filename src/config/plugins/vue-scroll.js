@@ -11,7 +11,8 @@ const VueScrollConfig = {
       keepShow: true
     },
     rail: {
-      gutterOfSide: '4px'
+      gutterOfSide: '4px',
+      gutterOfEnds: '6px'
     },
     scrollPanel: {
       easing: 'easeInCubic'

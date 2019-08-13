@@ -1,6 +1,6 @@
 <template>
   <b-nav-item
-    class="d-inline-flex align-items-center justify-content-start bg-arc-clr-soil-dark sidemenu-mobile-header"
+    class="d-inline-flex align-items-center justify-content-start mobile-navigation-sidemenu-list-header"
     @click="changeCategory">
     <b-row
       class="item-title"
