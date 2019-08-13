@@ -4,8 +4,8 @@
     no-body
     style="min-width: 714px"
     class="mb-1 upcoming-card"
-    @click="goToEventPage"
-    bg-variant="arc-clr-soil-dark">
+    bg-variant="arc-clr-soil-dark"
+    @click="goToEventPage">
     <b-card-body class="h-100 p-0">
       <b-row
         no-gutters
@@ -184,9 +184,9 @@ export default {
     }
   },
   methods: {
-    goToEventPage() {
+    goToEventPage () {
       if (this.marketsCount > 0) {
-        this.$router.push({ name: 'event', params: { id: this.event.id }})
+        this.$router.push({ name: 'event', params: { id: this.event.id } })
       }
     }
   }

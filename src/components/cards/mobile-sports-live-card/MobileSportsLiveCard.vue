@@ -4,8 +4,8 @@
     no-body
     class="mb-1 p-2 upcoming-card"
     style="min-height: 132px"
-    @click="goToEventPage"
-    bg-variant="arc-clr-soil-dark">
+    bg-variant="arc-clr-soil-dark"
+    @click="goToEventPage">
 
     <b-row no-gutters>
       <b-col class="ml-1 mt-1 font-size-12 text-arc-clr-iron line-height-14 letter-spacing-2 text-truncate">
@@ -88,9 +88,10 @@
         </b-row>
       </b-col>
 
-      <b-col cols="2"
-             class="d-flex align-items-center justify-content-end"
-             v-if="marketsCount === 0">
+      <b-col
+        v-if="marketsCount === 0"
+        cols="2"
+        class="d-flex align-items-center justify-content-end">
         <no-data-placeholder class="mr-3"/>
       </b-col>
     </b-row>

@@ -11,13 +11,13 @@
         :market="market"/>
     </b-col>
     <b-col
-            v-if="hasDraw"
-            class="mr-2 market-odd">
+      v-if="hasDraw"
+      class="mr-2 market-odd">
       <odd-button
-              :odd="draw"
-              :disabled="isDisabled"
-              :event="event"
-              :market="market"/>
+        :odd="draw"
+        :disabled="isDisabled"
+        :event="event"
+        :market="market"/>
     </b-col>
     <b-col class="market-odd">
       <odd-button

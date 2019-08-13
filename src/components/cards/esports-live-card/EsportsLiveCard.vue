@@ -5,8 +5,8 @@
     style="min-width: 714px"
     class="mb-1 esport-card"
     body-class="p-0"
-    @click="goToEventPage"
-    bg-variant="arc-clr-soil-dark">
+    bg-variant="arc-clr-soil-dark"
+    @click="goToEventPage">
     <b-row
       no-gutters
       role="tab"
@@ -39,8 +39,9 @@
       <b-col
         class="event-card-inside-border-left event-card-statistics-button"
         style="max-width: 102px">
-        <b-col v-if="marketsCount > 0"
-               class="col h-100 w-100 p-0 d-flex justify-content-center align-items-center">
+        <b-col
+          v-if="marketsCount > 0"
+          class="col h-100 w-100 p-0 d-flex justify-content-center align-items-center">
           <b-row no-gutters>
             <b-col class="d-flex align-items-center justify-content-center px-2">
               <h6 class="m-0 font-weight-bold">
@@ -101,9 +102,9 @@ export default {
     }
   },
   methods: {
-    goToEventPage() {
+    goToEventPage () {
       if (this.marketsCount > 0) {
-        this.$router.push({ name: 'event', params: { id: this.event.id }})
+        this.$router.push({ name: 'event', params: { id: this.event.id } })
       }
     }
   }

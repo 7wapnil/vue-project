@@ -2,10 +2,10 @@
   <b-card
     v-if="event"
     no-body
-    @click="goToEventPage"
     class="mb-1 border-4 pt-3 px-2 pb-2"
     style="min-height: 103px"
-    bg-variant="arc-clr-soil-dark">
+    bg-variant="arc-clr-soil-dark"
+    @click="goToEventPage">
     <b-row
       class="mb-2"
       no-gutters>
@@ -48,8 +48,8 @@
         </b-row>
       </b-col>
       <b-col
-        cols="3"
-        v-if="marketsCount > 0">
+        v-if="marketsCount > 0"
+        cols="3">
         <b-row
           class="h-100"
           no-gutters>
@@ -68,9 +68,10 @@
           </b-col>
         </b-row>
       </b-col>
-      <b-col cols="3"
-             class="d-flex align-items-center justify-content-end"
-             v-if="marketsCount === 0">
+      <b-col
+        v-if="marketsCount === 0"
+        cols="3"
+        class="d-flex align-items-center justify-content-end">
         <no-data-placeholder class="mr-3"/>
       </b-col>
     </b-row>
