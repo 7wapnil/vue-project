@@ -89,7 +89,7 @@
       </b-col>
 
       <b-col
-        v-if="marketsCount === 0"
+        v-if="!marketsCount"
         cols="2"
         class="d-flex align-items-center justify-content-end">
         <no-data-placeholder class="mr-3"/>

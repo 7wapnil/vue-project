@@ -122,7 +122,7 @@
         </b-col>
 
         <b-col
-          v-if="marketsCount === 0"
+          v-if="!marketsCount"
           class="event-card-statistics-button event-card-inside-border-left"
           style="min-width: 70px; max-width: 70px; min-height: 100%; position:relative; pointer-events: none">
           <b-row
