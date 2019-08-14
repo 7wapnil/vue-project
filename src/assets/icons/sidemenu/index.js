@@ -23,7 +23,7 @@ export default {
   'futsal': 'sidemenu-futsal',
   'american-football': 'sidemenu-american-football',
   'beach-volley': 'sidemenu-beach-volley',
-  'bowls' :'sidemenu-bowls',
+  'bowls': 'sidemenu-bowls',
   'field-hockey': 'sidemenu-field-hockey',
   'snooker': 'sidemenu-snooker',
 
