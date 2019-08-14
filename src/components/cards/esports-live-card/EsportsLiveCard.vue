@@ -19,7 +19,7 @@
             <h6
               v-if="event.timeInSeconds"
               class="mb-0 font-weight-bold text-arc-clr-iron-light">
-              {{ formattedTime }} {{ $t('eventPage.minute') }}
+              {{ formattedTime }}'
             </h6>
           </b-col>
         </b-row>
@@ -98,7 +98,7 @@ export default {
       }
     },
     formattedTime () {
-      return this.$i18n.getSuffix(this.event.timeInSeconds)
+      return Math.floor(this.event.timeInSeconds / 60)
     }
   },
   methods: {

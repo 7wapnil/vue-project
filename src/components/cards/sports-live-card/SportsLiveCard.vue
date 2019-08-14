@@ -22,7 +22,7 @@
               v-if="event.timeInSeconds"
               class="d-flex justify-content-center text-center">
               <span class="font-weight-bold text-arc-clr-iron text-uppercase mb-1 event-card-date letter-spacing-2">
-                {{ formattedTime }} {{ $t('eventPage.minute') }}
+                {{ formattedTime }}'
               </span>
             </b-col>
 
@@ -177,7 +177,7 @@ export default {
       }
     },
     formattedTime () {
-      return this.$i18n.getSuffix(this.event.timeInSeconds)
+      return Math.floor(this.event.timeInSeconds / 60)
     },
     orderedCompetitors () {
       return orderByQualifier(this.event.competitors)
