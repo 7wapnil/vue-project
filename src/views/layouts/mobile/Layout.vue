@@ -4,7 +4,6 @@
       @burger-clicked="toggleSidebar"/>
     <mobile-content class="mobile-container"/>
     <navigation-sidebar
-      v-body-scroll-lock="isSidebarOpen"
       v-show="isSidebarOpen"
       :is-open="isSidebarOpen"
       @sidebar-close-requested="toggleSidebar"/>
