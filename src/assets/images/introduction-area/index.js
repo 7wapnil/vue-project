@@ -21,6 +21,11 @@ export default {
   'snooker': 'background-snooker',
   'squash': 'background-squash',
   'volleyball': 'background-volleyball',
+  'american-football': 'background-american-football',
+  'beach-volley': 'background-beach-volley',
+  'bowls': 'background-bowls',
+  'field-hockey': 'background-field-hockey',
+  'futsal': 'background-futsal',
 
   // Esports
   'call-of-duty': 'background-call-of-duty',
