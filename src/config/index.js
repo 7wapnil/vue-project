@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import i18n from './plugins/I18n'
 import GTMPlugin from './plugins/google-tag-manager'
-import Sticky from 'vue-sticky-directive'
 import vuescroll from 'vuescroll/dist/vuescroll-native'
 import VueScrollConfig from './plugins/vue-scroll'
 import apolloProvider from '@/libs/apollo/'
@@ -15,19 +14,16 @@ import arcanebetSession from '@/services/local-storage/session'
 import VueMeta from 'vue-meta'
 import VueMq from 'vue-mq'
 import VueClipboard from './plugins/vue-clipboard'
-import VBodyScrollLock from 'v-body-scroll-lock'
 
 const isProduction = process.env.NODE_ENV === 'production'
 
 Vue.use(VueMeta)
-Vue.use(VBodyScrollLock)
 
 Vue.use(VueLogger, {
   logLevel: isProduction ? 'error' : 'debug'
 })
 
 Vue.use(vuescroll, VueScrollConfig)
-Vue.use(Sticky)
 
 Vue.use(VueNoty, {
   timeout: 2000,
