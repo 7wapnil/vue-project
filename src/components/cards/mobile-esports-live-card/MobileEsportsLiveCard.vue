@@ -4,7 +4,8 @@
     no-body
     class="mb-1 p-2 upcoming-card"
     style="min-height: 132px"
-    bg-variant="arc-clr-soil-dark">
+    bg-variant="arc-clr-soil-dark"
+    @click="goToEventPage">
     <b-row no-gutters>
       <b-col class="ml-1 mt-1 font-size-12 text-arc-clr-iron line-height-14 letter-spacing-2 text-truncate">
         {{ event.name }}
@@ -66,10 +67,10 @@
           </b-col>
         </b-row>
       </b-col>
-      <b-link
+      <b-col
         v-if="marketsCount > 0"
-        :to="{ name: 'event', params: { id: event.id } }"
-        class="col-2 event-card-statistics-button d-flex align-items-center justify-content-end">
+        cols="2"
+        class="event-card-statistics-button d-flex align-items-center justify-content-end">
         <b-row no-gutters>
           <b-col class="d-inline-flex justify-content-end align-items-center">
             <h6 class="mt-1 font-weight-bold mr-2">
@@ -84,7 +85,7 @@
               name="upcoming-event-arrow-right"/>
           </b-col>
         </b-row>
-      </b-link>
+      </b-col>
       <b-col
         v-if="marketsCount === 0"
         cols="2"/>
