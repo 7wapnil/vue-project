@@ -16,15 +16,15 @@ query transactions ($filter: TransactionKind,  $page: Int, $perPage: Int) {
       }
     pagination {
       count
-          items
-          page
-          pages
-          offset
-          last
-          next
-          prev
-          from
-          to
+        items
+        page
+        pages
+        offset
+        last
+        next
+        prev
+        from
+        to
     }
   }
 }
