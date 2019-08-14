@@ -21,6 +21,11 @@ export default {
   'floorball': 'sidemenu-floorball',
   'aussie-rules': 'sidemenu-aussie-rules',
   'futsal': 'sidemenu-futsal',
+  'american-football': 'sidemenu-american-football',
+  'beach-volley': 'sidemenu-beach-volley',
+  'bowls' :'sidemenu-bowls',
+  'field-hockey': 'sidemenu-field-hockey',
+  'snooker': 'sidemenu-snooker',
 
   // Esports
   'call-of-duty': 'esports-cod',
