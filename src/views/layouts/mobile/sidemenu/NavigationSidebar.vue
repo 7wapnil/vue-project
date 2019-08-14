@@ -4,16 +4,18 @@
       <transition name="mobile-navigation-sidemenu-open-animation">
         <div
           v-if="isSidebarOpen"
+
           class="mobile-navigation-sidemenu">
           <div class="mobile-navigation-sidemenu-sticky">
             <logo-section/>
             <category-switch @category-changed="changeCategory"/>
           </div>
-          <b-row no-gutters>
-            <b-col v-body-scroll-lock="isSidebarOpen"
-                   class="mobile-navigation-sidemenu-list">
-              <mobile-side-menu v-if="isSidebarOpen"
-                                :title-kind="titleKind">
+          <b-row @touchmove="disableBodyScroll"no-gutters>
+            <b-col   class="mobile-navigation-sidemenu-list">
+              <mobile-side-menu
+
+                v-if="isSidebarOpen"
+                :title-kind="titleKind">
                 <mobile-header-item @sidemenu-closed="$emit('sidebar-close-requested')"/>
               </mobile-side-menu>
             </b-col>
@@ -60,8 +62,16 @@ export default {
     ]),
   },
   methods: {
-    closeSidemenu() {
+    closeSidemenu () {
       this.$emit('sidebar-close-requested')
+    },
+    disableBodyScroll (event) {
+      console.log(event.target.classList)
+      if (!event.target.classList.contains('.mobile-navigation-sidemenu')) {
+        console.log('yopta')
+        event.preventDefault()
+
+      }
     },
     changeCategory (kind) {
       this.titleKind = kind
@@ -69,6 +79,6 @@ export default {
     ...mapMutations([
       'changeSidebarKind'
     ])
-  },
+  }
 }
 </script>
