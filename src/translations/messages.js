@@ -1,5 +1,10 @@
 const messages = {
   en: {
+    auth: {
+      impersonate: {
+        success: "You successfully logged in as '{username}'."
+      }
+    },
     meta: {
       defaultTags: {
         title: 'arcanebet - Esports Betting, Sports Betting, Casino, Live Casino',
@@ -73,6 +78,7 @@ const messages = {
     generalTerms: {
       deposit: 'Deposit | Deposits',
       withdraw: 'Withdraw | Withdraws',
+      upcoming: 'Upcoming',
       bonus: 'Bonus | Bonuses',
       all: 'All',
       amount: 'Amount',
@@ -93,14 +99,44 @@ const messages = {
       resetEmailSuccess1: 'Password reset email successfully sent to:',
       resetEmailSuccess2: 'Click the link in the email to reset your password. If you didn\'t receive an email please contact live support. '
     },
+    cookies: {
+      header: 'We value your privacy',
+      description: 'This website uses cookies to ensure you get the best experience on our site and to provide a\n' +
+      '          comment feature. To analyze our traffic, we use basic Google Analytics implementation with anonymized data.\n' +
+      '          If you continue without changing your settings, we\'ll assume that you are happy to receive\n' +
+      '          all cookies on the Public website. To understand more about how we use cookies, or for information\n' +
+      '          on how to change your cookie settings, please see our',
+      policy: 'Cookie Policy',
+      accept: 'I Accept'
+    },
+    offlineModal: {
+      recconect: 'Reconnect',
+      establishingConnection: 'Establishing <br> connection'
+    },
     homePage: {
-      upcoming: 'Upcoming',
+      upcoming: 'Upcoming 6h',
       live: 'Live now',
       esport: 'Esport',
       sport: 'Sport'
     },
+    noFoundPage: {
+      header: 'Oops, the page you are looking for doesn\'t seem to exist ',
+      description: 'We\'re sorry but the page you are looking for cannot be found. It may\n' +
+      '          have been removed, had its name changed, or is temporarily unavailable.\n' +
+      '          If this is a problem from our end, please be assured we\'re doing all we\n' +
+      '          can to resolve the situation.',
+      esportButton: 'Esport home',
+      sportButton: 'Sport home'
+    },
     eventPage: {
       minute: 'minute'
+    },
+    tournamentPage: {
+      description: {
+        time: 'time',
+        score: 'score',
+        starts: 'starts'
+      }
     },
     betslip: {
       generic: 'Bet placement unsuccessful. Please try again or contact support.',
@@ -121,11 +157,12 @@ const messages = {
       cta: {
         placeBet: 'Place Bet',
         clearAll: 'Clear all'
-      }
+      },
+      mobileButton: 'Betslip'
     },
     wallet: {
       balance: 'Balance',
-      crypto: 'Crypto'
+      secondWallet: '2nd Wallet'
     },
     account: {
       tabs: {

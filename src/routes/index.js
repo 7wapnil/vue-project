@@ -1,14 +1,15 @@
 import Router from 'vue-router'
 import mainRoutes from './main'
 import StyleGuidePages from './styleguide_pages'
-import InformationPages from '@/routes/information_pages';
+import InformationPages from '@/routes/information_pages'
+import Redirects from '@/routes/redirects'
 import NotFound from '@/views/layouts/common/NotFound'
 import Maintenance from '@/views/layouts/common/Maintenance'
 import { setCookie } from '@/helpers/cookies'
 import moment from 'moment'
 import filters from '@/mixins/filters'
 
-const rootChildren = [...mainRoutes, ...InformationPages.routes]
+const rootChildren = [...mainRoutes, ...InformationPages.routes, ...Redirects.routes]
 
 const router = new Router({
   mode: 'history',
@@ -32,6 +33,11 @@ const router = new Router({
       path: 'maintenance',
       name: 'Maintenance',
       component: Maintenance
+    },
+    {
+      path: '/not-found',
+      name: 'not-found',
+      component: NotFound
     },
     {
       path: '/*',

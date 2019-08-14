@@ -105,9 +105,11 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('wallets', ['fiatWallet', 'activeWallet', 'wallets']),
     ...mapGetters({
-      token: 'getToken'
+      token: 'getToken',
+      fiatWallet: 'getUserFiatWallet',
+      activeWallet: 'getUserActiveWallet',
+      wallets: 'getUserWallets'
     }),
     getTotal () {
       let totalValue
@@ -128,7 +130,8 @@ export default {
         EUR
     },
     buttonDisabled () {
-      return this.fields.amount == null || !this.paymentMethod
+      let parsedAmount = parseFloat(this.fields.amount)
+      return parsedAmount <= 0 || isNaN(parsedAmount) || !this.paymentMethod
     },
     isFormEmpty () {
       return Object.values(this.fields.values()).some(value => (value === null || value === ''))
@@ -188,17 +191,21 @@ export default {
     }
   },
   methods: {
-    calculateBonus () {
+    calculateBonus (callback = null) {
       if (!this.isFormEmpty) {
         this.$apollo.mutate({
           mutation: BONUS_CALCULATION_MUTATION,
           variables: {
             amount: parseFloat(this.fields.amount),
-            code: this.fields.bonusCode
+            code: this.fields.bonusCode,
+            currencyCode: this.currency
           }
         }).then(({ data }) => {
           this.calculatedBonus = data.depositBonus.bonus
           this.bonusError = null
+          if (callback === this.submitDepositCallback) {
+            callback()
+          }
         }).catch(({ graphQLErrors }) => {
           this.calculatedBonus = null
           this.bonusError = graphQLErrors[0].message
@@ -206,6 +213,13 @@ export default {
       }
     },
     submitDeposit () {
+      if (this.isFormEmpty) {
+        this.submitDepositCallback()
+      } else {
+        this.calculateBonus(this.submitDepositCallback)
+      }
+    },
+    submitDepositCallback () {
       const input = {
         paymentMethod: this.paymentMethod.code,
         currencyCode: this.currency,

@@ -59,13 +59,23 @@
   &-sidebar {
     letter-spacing: .02em;
     padding: 0;
-    max-width: 330px;
-    min-width: 330px;
     background: $arc-clr-soil-dark;
+    flex: 0 0 330px;
+    -ms-flex: 0 0 330px;
     &-inner {
-      position: fixed;
-      width: 330px;
+      top: 0;
+      bottom: 0;
     }
+  }
+}
+#ConnectionModal {
+  .modal-content {
+    height: 100vh;
+    width: 100vw;
+  }
+  .modal-body {
+    background: linear-gradient(180deg, $black 0%, $arc-clr-soil-light 100%);
+    opacity: .8;
   }
 }
 

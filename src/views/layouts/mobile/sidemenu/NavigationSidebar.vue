@@ -4,28 +4,29 @@
       <div
         v-if="isOpen"
         class="mobile-navigation-sidemenu">
-
-        <div class="mobile-navigation-sidemenu-sticky">
-          <logo-section/>
-          <category-switch @category-changed="changeCategory"/>
-        </div>
-
-        <b-row
-          class="mobile-navigation-sidemenu-list-section"
-          no-gutters>
-          <b-col class="bg-arc-clr-soil-black sidemenu-mobile">
-            <mobile-side-menu
-              :title-kind="titleKind"
-              :is-open="isOpen">
-              <mobile-header-item @sidemenu-closed="$emit('sidebar-close-requested')"/>
-            </mobile-side-menu>
-          </b-col>
-        </b-row>
+        <vue-scroll>
+          <div class="mobile-navigation-sidemenu-sticky">
+            <logo-section/>
+            <category-switch @category-changed="changeCategory"/>
+          </div>
+          <b-row
+            class="mobile-navigation-sidemenu-list-section"
+            no-gutters>
+            <b-col class="bg-arc-clr-soil-black sidemenu-mobile">
+              <mobile-side-menu
+                :title-kind="titleKind"
+                :is-open="isOpen">
+                <mobile-header-item @sidemenu-closed="$emit('sidebar-close-requested')"/>
+              </mobile-side-menu>
+            </b-col>
+          </b-row>
+        </vue-scroll>
       </div>
     </transition>
     <close-button
       :is-open="isOpen"
       :color="titleKind"
+      position="right"
       @sidemenu-closed="$emit('sidebar-close-requested')"/>
     <overlay
       v-if="isOpen"
@@ -38,6 +39,7 @@ import MobileHeaderItem from '@/views/layouts/mobile/sidemenu/sidemenu-list/Mobi
 import CloseButton from '@/views/layouts/mobile/sidemenu/CloseButton'
 import LogoSection from '@/views/layouts/mobile/sidemenu/LogoSection'
 import CategorySwitch from '@/views/layouts/mobile/sidemenu/CategorySwitch'
+import Overlay from '@/components/custom/Overlay.vue'
 import { mapMutations } from 'vuex'
 
 export default {
@@ -47,7 +49,7 @@ export default {
     CloseButton,
     LogoSection,
     CategorySwitch,
-    'Overlay': () => import('@/components/custom/Overlay.vue')
+    Overlay
   },
   props: {
     isOpen: {

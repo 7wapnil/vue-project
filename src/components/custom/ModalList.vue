@@ -17,7 +17,7 @@
 import AccountModal from '@/views/account/AccountModal'
 import AccountLogoutModal from '@/views/account/AccountLogoutModal'
 import AuthModal from '@/views/auth/AuthModal'
-import ConnectionModal from '@/views/layouts/mobile/ConnectionModal'
+import ConnectionModal from '@/views/layouts/common/ConnectionModal'
 import { mapGetters } from 'vuex'
 
 export default {

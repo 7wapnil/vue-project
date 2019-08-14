@@ -3,7 +3,7 @@
     <component :is="layoutName">
       <router-view :key="$route.fullPath"/>
     </component>
-    <cookie-warning v-if="!isMobile"/>
+    <cookie-warning/>
     <modal-list/>
   </div>
 </template>
@@ -41,7 +41,7 @@ export default {
     }
 
     if (this.$route.query.resetPassword) {
-      this.$root.$emit('bv::show::modal', 'AuthModal')
+      this.$bvModal.show('AuthModal')
     }
   }
 }

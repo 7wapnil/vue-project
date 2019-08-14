@@ -33,7 +33,7 @@
         <b-col class="mt-4">
           <b-col
             class="p-0 text-uppercase text-arc-clr-iron font-size-10 letter-spacing-2">
-            {{ $t('wallet.crypto') }}
+            {{ $t('wallet.secondWallet') }}
           </b-col>
           <div class="w-100"/>
           <span
@@ -61,13 +61,13 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('wallets', [
-      'wallets',
-      'activeWallet'
-    ]),
+    ...mapGetters({
+      wallets: 'getUserWallets',
+      activeWallet: 'getUserActiveWallet'
+    }),
     inactiveWalletsList () {
       return this.wallets.filter((wallet) => {
-        return (wallet.id !== null && wallet.currency.code === 'mBTC')
+        return (wallet.id !== null && this.activeWallet.id !== wallet.id)
       })
     }
   }

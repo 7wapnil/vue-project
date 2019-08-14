@@ -35,7 +35,6 @@ import { Form } from '@/helpers'
 import SignupFirstStep from './SignupFirstStep'
 import SignupSecondStep from './SignupSecondStep'
 import SelectInput from '@/components/inputs/SelectInput.vue'
-import { mapActions } from 'vuex'
 import { getCookie } from '@/helpers/cookies'
 import { countries as countriesList } from 'countries-list'
 
@@ -97,7 +96,6 @@ export default {
     goToStep (step) {
       this.tabIndex = step
     },
-    ...mapActions('wallets', ['fetchWallets']),
     close () {
       this.$bvModal.hide('AuthModal')
     },
@@ -109,6 +107,7 @@ export default {
       this.form.clearErrors()
       this.submitting = true
       this.composeDob()
+      this.$sbjs.initAndSetData()
 
       const input = {
         ...this.form.firstStep,
@@ -116,10 +115,9 @@ export default {
         bTag: getCookie('btag') || null }
 
       this.$store
-        .dispatch('registerNewUser', input)
+        .dispatch('registerNewUser', [input, this.$sbjs.data])
         .then(({ data: { signUp } }) => {
           this.$store.dispatch('login', signUp)
-          this.fetchWallets()
 
           this.$gtm.push({
             event: 'New registration',

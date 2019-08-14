@@ -1,8 +1,8 @@
 import gql from 'graphql-tag'
 
 export const BONUS_CALCULATION_MUTATION = gql`
-        mutation depositBonus($amount: Float!, $code: String!) {
-          depositBonus(amount: $amount, code: $code) {
+        mutation depositBonus($amount: Float!, $code: String!, $currencyCode: String!) {
+          depositBonus(amount: $amount, code: $code, currencyCode: $currencyCode) {
             bonus
             realMoney
           }

@@ -1,4 +1,5 @@
 import gql from 'graphql-tag'
+import { WALLET_FIELDS } from './fields'
 
 export const USER_VERIFICATION_QUERY = gql`
   query {
@@ -25,6 +26,9 @@ export const USER_QUERY = gql`
       addressZipCode
       addressStreetAddress
       addressState
+      wallets {
+        ${WALLET_FIELDS}
+      }
     }
   }
 `
@@ -57,15 +61,35 @@ export const USER_WITHDRAWAL_METHODS_QUERY = gql`
           ... on PaymentMethodSkrill {
             id
             title
-            email
+            userPaymentOptionId
+            name
           }
           ... on PaymentMethodNeteller {
             id
             title
-            accountId
+            userPaymentOptionId
+            name
           }
         }
       }
+    }
+  }
+`
+
+export const IMPERSONATE_MUTATION = gql`
+  mutation ($token: String!) {
+    impersonate (token: $token) {
+      user {
+        id
+        email
+        username
+        firstName
+        lastName
+        wallets {
+          ${WALLET_FIELDS}
+        }
+      }
+      token
     }
   }
 `
@@ -128,6 +152,9 @@ export const SIGN_IN_MUTATION = gql`
         username
         firstName
         lastName
+        wallets {
+          ${WALLET_FIELDS}
+        }
       }
       token
     }
@@ -135,12 +162,15 @@ export const SIGN_IN_MUTATION = gql`
 `
 
 export const SIGN_UP_MUTATION = gql`
-  mutation($input: RegisterInput!) {
-    signUp(input: $input) {
+  mutation($input: RegisterInput!, $customerData: CustomerDataInput) {
+    signUp(input: $input, customerData: $customerData) {
        user {
         id
         email
         username
+        wallets {
+          ${WALLET_FIELDS}
+        }
       }
       token
     }

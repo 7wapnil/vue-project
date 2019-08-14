@@ -9,11 +9,23 @@
         autocomplete="email"
         class="mb-0"
         required/>
+      <b-row
+        v-if="form.errors.any()"
+        no-gutters>
+        <ul class="pt-2 mb-0">
+          <li
+            v-for="(errorText, errorName) in form.getErrors()"
+            :key="errorName"
+            class="text-arc-clr-white">
+            {{ errorText }}
+          </li>
+        </ul>
+      </b-row>
     </b-form-group>
     <b-row
       v-if="feedback"
       no-gutters>
-      <b-col class="pb-2">
+      <b-col class="pb-3">
         <span class="text-arc-clr-white">
           {{ feedback }}
         </span>

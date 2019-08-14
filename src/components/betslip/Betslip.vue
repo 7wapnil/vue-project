@@ -6,7 +6,7 @@
       class="p-0">
       <b-row
         no-gutters
-        class="py-3 px-4">
+        class="py-3 px-4 bg-arc-clr-soil-black">
         <b-col class="p-0">
           <span class="mr-2 text-arc-clr-iron letter-spacing-2 font-size-11">
             BETSLIP
@@ -58,7 +58,7 @@
             title="Combo"
             no-body>
             <p
-              style="margin-left: 6px"
+              :style="{ 'margin-left': isMobile ? '0' : '6px' }"
               class="p-5 text-center bg-arc-clr-soil-dark">
               To be implemented
             </p>
@@ -142,7 +142,6 @@ import Bet from '@/models/bet'
 import BetslipItem from './BetslipItem'
 import NoBetsBlock from './NoBetsBlock'
 import { mapGetters, mapMutations, mapActions } from 'vuex'
-import wallets from '@/mixins/wallets'
 import SpinnerButton from './SpinnerButton'
 
 const REFRESH_SLIP_AFTER_PLACING_BET_TIME = 3 * 1000
@@ -153,7 +152,6 @@ export default {
     NoBetsBlock,
     SpinnerButton
   },
-  mixins: [wallets],
   data () {
     return {
       tabIndex: 0
@@ -174,7 +172,7 @@ export default {
       'getAllBetsAcceptable',
       'getAnyBetInValidation'
     ]),
-    ...mapGetters(['isLoggedIn']),
+    ...mapGetters(['isLoggedIn', 'getUserActiveWallet']),
     acceptAllOdds: {
       get () {
         return this.acceptAllChecked
@@ -236,7 +234,7 @@ export default {
           amount: parseFloat(bet.stake),
           oddId: bet.oddId,
           oddValue: bet.approvedOddValue,
-          currencyCode: this.activeWallet.currency.code
+          currencyCode: this.getUserActiveWallet.currency.code
         }
       })
 

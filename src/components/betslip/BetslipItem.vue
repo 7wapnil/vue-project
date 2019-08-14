@@ -1,7 +1,7 @@
 <template>
   <b-card
+    :style="{ 'margin-left': isMobile ? '0' : '6px' }"
     bg-variant="arc-clr-soil-dark"
-    style="margin-left: 6px"
     class="py-2 pl-3 pr-2 mb-1"
     no-body>
 
@@ -64,17 +64,6 @@
           <b-col class="mb-1">
             <small class="text-arc-clr-iron text-uppercase font-weight-bold letter-spacing-2">
               Stake:
-            </small>
-          </b-col>
-        </b-row>
-        <b-row no-gutters>
-          <b-col class="d-flex align-items-center">
-            <icon
-              name="betslip-stake"
-              size="12px"
-              class="mr-1"/>
-            <small class="ml-1 text-arc-clr-iron-light">
-              Bet max
             </small>
           </b-col>
         </b-row>

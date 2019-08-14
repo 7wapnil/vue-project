@@ -2,7 +2,7 @@ import { expect } from 'chai'
 import { createLocalVue, shallowMount } from '@vue/test-utils'
 import Vuex from 'vuex'
 import BalancesList from '@/components/navbar/wallet/BalancesList.vue'
-import { SET_ACTIVE_WALLET } from '@/stores/wallets'
+import { SET_ACTIVE_WALLET } from '@/stores/user'
 
 const wallets = [{
   id: 1,
@@ -58,8 +58,7 @@ describe('BalancesList component', () => {
 
     store = new Vuex.Store({
       modules: {
-        wallets: {
-          namespaced: true,
+        user: {
           state,
           getters,
           actions,

@@ -54,6 +54,7 @@
     "vue-sticky-directive": "^0.0.8",
     "vue-text-mask": "^6.1.2",
     "vue-the-mask": "^0.11.1",
+    "vuejs-datepicker": "^1.6.2",
     "vuejs-logger": "^1.5.3",
     "vuejs-noty": "^0.1.3",
     "vuescroll": "^4.12.2",
