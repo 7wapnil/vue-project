@@ -144,7 +144,8 @@ export default {
         page: this.currentPage,
         perPage: this.betsPerPage,
         kind: this.betKind,
-        settlement_status: this.betFilterState
+        settlement_status: this.betFilterState,
+        date_range: this.timeFilterState
       }
     },
     badgeStatus () {
@@ -200,6 +201,8 @@ export default {
     },
     tableTimeFilter (state) {
       this.timeFilterState = state.event
+      this.page = 1
+      this.loadMoreHistory()
     },
     tableBetFilter (state) {
       this.betFilterState = state.event
