@@ -30,6 +30,10 @@ export default {
     return {
       bonusDetails: [
         {
+          label: this.$t('account.bonus.bonusName'),
+          data: this.mainBonus.code
+        },
+        {
           label: this.$t('account.bonus.bonusAwarded'),
           data: this.mainBonus.amount
         },
