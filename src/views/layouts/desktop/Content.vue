@@ -16,7 +16,9 @@
       </vue-scroll>
     </b-col>
     <b-col class="bg-arc-clr-soil-light min-vh-100">
-      <router-view :key="$route.fullPath"/>
+      <vue-scroll>
+        <router-view :key="$route.fullPath"/>
+      </vue-scroll>
     </b-col>
     <b-col
       class="bg-arc-clr-soil-black betslip-block">
