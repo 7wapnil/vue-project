@@ -1,5 +1,6 @@
 <template>
-  <div class="bg-arc-clr-soil-black">
+  <div v-visibility-change="checkEventStatus"
+       class="bg-arc-clr-soil-black">
     <header-section
       v-if="event"
       :event="event"
@@ -52,7 +53,8 @@ export default {
       marketsLimit: UNLIMITED_QUERY,
       markets: [],
       category: null,
-      activeIndex: 0
+      activeIndex: 0,
+      userLeavedPage: true
     }
   },
   computed: {
@@ -74,6 +76,22 @@ export default {
   methods: {
     onTabChange (tab) {
       this.category = tab
+    },
+    checkEventStatus(evt, hidden) {
+      if (hidden) {
+        this.userLeavedPage = true
+      }
+      if (!hidden && this.userLeavedPage) {
+
+        // if () {
+        //
+        //   // Redirect
+        //   this.$router.push(`/${this.$route.params.titleKind}`)
+        // }
+
+        // Back user leave status
+        this.userLeavedPage = false
+      }
     }
   }
 }
