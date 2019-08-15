@@ -12423,6 +12423,11 @@ vue-virtual-scroller@^1.0.0-rc.2:
     vue-observe-visibility "^0.4.3"
     vue-resize "^0.4.5"
 
+vue-visibility-change@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/vue-visibility-change/-/vue-visibility-change-1.2.1.tgz#d18008bf4f1de2c947afe5441ee044b9e9c60141"
+  integrity sha512-CgnubNhAY+EXqTHba660YY7FRubBuYkSELIlbXBBdgdiM/g5DmgFtLd2XChCqXs56TTfshnlIA900traBZPZQg==
+
 vue@^2.5.17, vue@^2.6.10:
   version "2.6.10"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.6.10.tgz#a72b1a42a4d82a721ea438d1b6bf55e66195c637"

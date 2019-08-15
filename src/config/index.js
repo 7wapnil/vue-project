@@ -14,6 +14,7 @@ import arcanebetSession from '@/services/local-storage/session'
 import VueMeta from 'vue-meta'
 import VueMq from 'vue-mq'
 import VueClipboard from './plugins/vue-clipboard'
+import visibility from 'vue-visibility-change'
 
 const isProduction = process.env.NODE_ENV === 'production'
 
@@ -53,6 +54,8 @@ Vue.use(GTMPlugin, {
 Vue.use(SourceBusterPlugin)
 
 Vue.use(VueClipboard)
+
+Vue.use(visibility)
 
 if (isProduction) {
   Vue.use(airbrakeClient, {
