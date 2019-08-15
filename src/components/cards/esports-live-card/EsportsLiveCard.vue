@@ -59,7 +59,7 @@
           </b-row>
         </b-col>
         <b-row
-          v-if="marketsCount === 0"
+          v-if="!marketsCount"
           class="h-100"
           no-gutters>
           <b-col class="d-flex justify-content-center align-items-start">
@@ -98,7 +98,9 @@ export default {
       }
     },
     formattedTime () {
-      return Math.floor(this.event.timeInSeconds / 60)
+      if (this.event.timeInSeconds) {
+        return Math.floor(this.event.timeInSeconds / 60)
+      }
     }
   },
   methods: {
