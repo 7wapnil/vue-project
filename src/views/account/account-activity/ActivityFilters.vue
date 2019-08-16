@@ -80,10 +80,6 @@ export default {
           event: 'won'
         },
         {
-          name: 'Partically won',
-          event: 'voided'
-        },
-        {
           name: 'Lost',
           event: 'lost'
         },
