@@ -4,16 +4,14 @@
       <transition name="mobile-navigation-sidemenu-open-animation">
         <div
           v-if="isSidebarOpen"
-
           class="mobile-navigation-sidemenu">
           <div class="mobile-navigation-sidemenu-sticky">
             <logo-section/>
             <category-switch @category-changed="changeCategory"/>
           </div>
-          <b-row @touchmove="disableBodyScroll"no-gutters>
+          <b-row no-gutters>
             <b-col   class="mobile-navigation-sidemenu-list">
               <mobile-side-menu
-
                 v-if="isSidebarOpen"
                 :title-kind="titleKind">
                 <mobile-header-item @sidemenu-closed="$emit('sidebar-close-requested')"/>
@@ -50,6 +48,11 @@ export default {
   },
   data () {
     return {
+      menu: null,
+      sticky: null,
+      list: null,
+      overlay: null,
+      menuScrollY: null,
       titleKind: this.$route.params.titleKind,
     }
   },
@@ -61,17 +64,57 @@ export default {
       'isSidebarOpen'
     ]),
   },
+  updated: function () {
+    this.$nextTick(() => {
+      if (this.isSidebarOpen) {
+        this.menu = document.querySelector('.mobile-navigation-sidemenu')
+        this.sticky = document.querySelector('.mobile-navigation-sidemenu-sticky')
+        this.list = document.querySelector('.mobile-navigation-sidemenu-list')
+        this.overlay = document.querySelector('.mobile-navigation-sidemenu-overlay')
+        this.addListeners()
+      }
+    })
+  },
   methods: {
     closeSidemenu () {
       this.$emit('sidebar-close-requested')
+      this.removeListeners()
     },
-    disableBodyScroll (event) {
-      console.log(event.target.classList)
-      if (!event.target.classList.contains('.mobile-navigation-sidemenu')) {
-        console.log('yopta')
-        event.preventDefault()
-
+    addListeners () {
+      document.addEventListener('touchstart', this.handleBodyTouchStart)
+      document.addEventListener('touchmove', this.handleBodyTouchMove)
+    },
+    removeListeners () {
+      document.removeEventListener('touchstart', this.handleBodyTouchStart)
+      document.removeEventListener('touchmove', this.handleBodyTouchMove)
+    },
+    handleBodyTouchStart (event) {
+      if (!this.menu.contains(event.target)) {
+        this.closeSidemenu()
       }
+      this.menuScrollY = event.touches[0].clientY
+    },
+    handleBodyTouchMove (event) {
+      event.preventDefault()
+      const menuScrollYChanged = event.touches[0].clientY;
+      if (!this.menu.contains(event.target) ||
+        (this.menu.scrollTop <= 0 && this.menuScrollY < menuScrollYChanged) ||
+        ((this.menu.scrollTop >= this.sticky.offsetHeight + this.list.offsetHeight - this.overlay.offsetHeight) &&
+          this.menuScrollY > menuScrollYChanged)) {
+        event.preventDefault()
+      }
+
+      console.log('this.menu.scrollTop', this.menu.scrollTop)
+      console.log('this.sticky.offsetHeight', this.sticky.offsetHeight)
+      console.log('this.list.offsetHeight', this.list.offsetHeight)
+      console.log('this.overlay.offsetHeight', this.overlay.offsetHeight)
+
+     if (this.sticky.offsetHeight + this.list.offsetHeight <= this.overlay.offsetHeight) {
+        console.log(event)
+        console.log('hello duh')
+        event.preventDefault()
+     }
+
     },
     changeCategory (kind) {
       this.titleKind = kind
