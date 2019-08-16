@@ -19,7 +19,7 @@
             <h6
               v-if="event.timeInSeconds"
               class="mb-0 font-weight-bold text-arc-clr-iron-light">
-              {{ formattedTime }} {{ $t('eventPage.minute') }}
+              {{ formattedTime }}'
             </h6>
           </b-col>
         </b-row>
@@ -59,7 +59,7 @@
           </b-row>
         </b-col>
         <b-row
-          v-if="marketsCount === 0"
+          v-if="!marketsCount"
           class="h-100"
           no-gutters>
           <b-col class="d-flex justify-content-center align-items-start">
@@ -98,7 +98,9 @@ export default {
       }
     },
     formattedTime () {
-      return this.$i18n.getSuffix(this.event.timeInSeconds)
+      if (this.event.timeInSeconds) {
+        return Math.floor(this.event.timeInSeconds / 60)
+      }
     }
   },
   methods: {

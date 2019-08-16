@@ -22,7 +22,7 @@
               v-if="event.timeInSeconds"
               class="d-flex justify-content-center text-center">
               <span class="font-weight-bold text-arc-clr-iron text-uppercase mb-1 event-card-date letter-spacing-2">
-                {{ formattedTime }} {{ $t('eventPage.minute') }}
+                {{ formattedTime }}'
               </span>
             </b-col>
 
@@ -133,7 +133,7 @@
           </b-row>
         </b-col>
         <b-col
-          v-if="marketsCount === 0"
+          v-if="!marketsCount"
           class="event-card-statistics-button event-card-inside-border-left"
           style="min-width: 70px; max-width: 70px; min-height: 100%; position:relative; pointer-events: none">
           <b-row
@@ -177,7 +177,9 @@ export default {
       }
     },
     formattedTime () {
-      return this.$i18n.getSuffix(this.event.timeInSeconds)
+      if (this.event.timeInSeconds) {
+        return Math.floor(this.event.timeInSeconds / 60)
+      }
     },
     orderedCompetitors () {
       return orderByQualifier(this.event.competitors)
