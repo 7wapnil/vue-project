@@ -16,13 +16,11 @@
       </vue-scroll>
     </b-col>
     <b-col class="bg-arc-clr-soil-light min-vh-100">
-      <vue-scroll>
-        <router-view :key="$route.fullPath"/>
-      </vue-scroll>
+      <router-view :key="$route.fullPath"/>
     </b-col>
     <b-col
       class="bg-arc-clr-soil-black betslip-block">
-      <vue-scroll>
+      <vue-scroll :ops="betslipScrollSettings">
         <promotional-item/>
         <betslip/>
       </vue-scroll>
@@ -40,6 +38,15 @@ export default {
     SideMenu,
     Betslip,
     PromotionalItem
+  },
+  data () {
+    return {
+      betslipScrollSettings: {
+        rail: {
+          gutterOfSide: '2px'
+        }
+      }
+    }
   }
 }
 </script>
