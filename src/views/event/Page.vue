@@ -1,6 +1,7 @@
 <template>
-  <div v-visibility-change="checkEventStatus"
-       class="bg-arc-clr-soil-black">
+  <div
+    v-visibility-change="checkEventStatus"
+    class="bg-arc-clr-soil-black">
     <header-section
       v-if="event"
       :event="event"
@@ -54,7 +55,8 @@ export default {
       markets: [],
       category: null,
       activeIndex: 0,
-      userLeavedPage: true
+      userLeavedPage: false,
+      closingStatuses: ['ended', 'closed', 'cancelled', 'abandoned']
     }
   },
   computed: {
@@ -77,19 +79,14 @@ export default {
     onTabChange (tab) {
       this.category = tab
     },
-    checkEventStatus(evt, hidden) {
+    checkEventStatus (evt, hidden) {
       if (hidden) {
         this.userLeavedPage = true
       }
       if (!hidden && this.userLeavedPage) {
-
-        // if () {
-        //
-        //   // Redirect
-        //   this.$router.push(`/${this.$route.params.titleKind}`)
-        // }
-
-        // Back user leave status
+        if (this.event.status && this.closingStatuses.includes(this.event.status)) {
+          this.$router.push(`/${this.$route.params.titleKind}`)
+        }
         this.userLeavedPage = false
       }
     }
