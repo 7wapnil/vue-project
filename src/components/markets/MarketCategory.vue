@@ -72,7 +72,7 @@ export default {
         variables () {
           return {
             eventId: this.event.id,
-            category: this.category.name.toLowerCase()
+            category: this.category.name.toLowerCase().replace(' ', '_')
           }
         }
       }
