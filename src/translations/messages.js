@@ -115,6 +115,7 @@ const messages = {
     },
     homePage: {
       upcoming: 'Upcoming 6h',
+      upcomingCommon: 'Upcoming',
       live: 'Live now',
       esport: 'Esport',
       sport: 'Sport'
