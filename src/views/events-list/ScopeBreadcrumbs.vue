@@ -109,7 +109,7 @@ export default {
       }
     },
     composedBreadcrumbs () {
-      return [this.titleLink, this.categoryLink, this.tournamentLink].filter((link) => !!link)
+      return [this.titleLink, this.categoryLink, this.tournamentLink, {}].filter((link) => !!link)
     }
   }
 }

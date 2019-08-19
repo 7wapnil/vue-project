@@ -37,7 +37,8 @@ export default {
           {
             text: this.event.tournament.name,
             to: { name: 'tournament', params: { titleKind: this.$route.params.titleKind, titleId: this.event.title.id, tournamentId: this.event.tournament.id } }
-          }]
+          }, {}
+        ]
       }
     }
   }
