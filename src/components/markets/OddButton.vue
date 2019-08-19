@@ -5,7 +5,18 @@
     :pressed.sync="toggleButton"
     variant="arc-odd"
     @click.stop>
-    {{ value }}
+    <b-row no-gutters>
+      <b-col
+        v-if="hasLeftSection"
+        :class="[ toggleButton ? 'text-arc-clr-soil-black' : 'text-arc-clr-iron']"
+        class="font-size-12 font-weight-normal"
+        cols="auto">
+        <slot name="left"/>
+      </b-col>
+      <b-col>
+        {{ value }}
+      </b-col>
+    </b-row>
   </b-button>
 </template>
 
@@ -72,6 +83,9 @@ export default {
         }
         this.pushBetToBetslip()
       }
+    },
+    hasLeftSection () {
+      return !!this.$slots.left
     }
   },
   methods: {
