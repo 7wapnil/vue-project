@@ -91,6 +91,7 @@ export default {
           return this.redirectUser()
         }
         this.userLeavedPage = false
+        this.startTimeout()
       }
     },
     isStatusPositive () {
