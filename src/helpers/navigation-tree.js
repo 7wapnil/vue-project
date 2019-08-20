@@ -1,5 +1,5 @@
 import { findTitleIcon } from './icon-finder'
-import { getTitleShortName } from './title-names'
+import { getTitleName } from './title-names'
 
 /**
  * Build tournaments list by parent ID
@@ -74,7 +74,7 @@ export const buildTree = (titleKind, titles, route) => {
 
     return {
       id: title.id,
-      label: getTitleShortName(title),
+      label: getTitleName(title),
       active: !!children.find(c => c.active),
       icon: findTitleIcon(title),
       children
