@@ -36,7 +36,7 @@ export default {
         if (title.id === this.$route.params.titleId) {
           currentTitle = {
             id: title.id,
-            name: title.name,
+            name: title.shortName,
             scopes: title.eventScopes
           }
         }

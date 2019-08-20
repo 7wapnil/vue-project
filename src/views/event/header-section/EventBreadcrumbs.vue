@@ -27,7 +27,7 @@ export default {
       if (this.event) {
         return [
           {
-            text: this.event.title.name,
+            text: this.event.title.shortName,
             to: { name: 'title', params: { titleKind: this.$route.params.titleKind, titleId: this.event.title.id, } }
           },
           {
