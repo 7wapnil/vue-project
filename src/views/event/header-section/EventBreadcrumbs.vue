@@ -5,6 +5,7 @@
 
 </template>
 <script>
+import { getTitleShortName } from '@/helpers/title-names'
 export default {
   props: {
     event: {
@@ -27,7 +28,7 @@ export default {
       if (this.event) {
         return [
           {
-            text: this.event.title.shortName,
+            text: getTitleShortName(this.event.title),
             to: { name: 'title', params: { titleKind: this.$route.params.titleKind, titleId: this.event.title.id, } }
           },
           {

@@ -16,6 +16,7 @@ export const WALLET_FIELDS = `
 
 export const TITLE_FIELDS = `
   id
+  externalName
   name
   shortName
   position

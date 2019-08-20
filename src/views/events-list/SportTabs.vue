@@ -11,6 +11,7 @@ import { TITLE_CHANGED } from '@/constants/custom-events'
 import FilterTabs from './FilterTabs'
 import { UPCOMING_FOR_TIME_TITLES_CONTEXT } from '@/constants/graphql/title-context'
 import { findTitleIcon } from '@/helpers/icon-finder'
+import { getTitleShortName } from '@/helpers/title-names'
 
 export default {
   components: {
@@ -38,7 +39,7 @@ export default {
       return [
         { value: null, label: 'All', icon: 'arcanebet-default-icon' },
         ...this.titles.map((title) => {
-          return { value: title.id, label: title.shortName, icon: findTitleIcon(title) }
+          return { value: title.id, label: getTitleShortName(title), icon: findTitleIcon(title) }
         })
       ]
     }
