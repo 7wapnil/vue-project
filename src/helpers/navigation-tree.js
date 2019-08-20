@@ -73,7 +73,7 @@ export const buildTree = (titleKind, titles, route) => {
 
     return {
       id: title.id,
-      label: title.name,
+      label: title.shortName,
       active: !!children.find(c => c.active),
       icon: findTitleIcon(title),
       children
