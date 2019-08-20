@@ -17,6 +17,7 @@ export const WALLET_FIELDS = `
 export const TITLE_FIELDS = `
   id
   name
+  shortName
   position
   showCategoryInNavigation
 `
