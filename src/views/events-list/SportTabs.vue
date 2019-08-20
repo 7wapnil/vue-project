@@ -38,7 +38,7 @@ export default {
       return [
         { value: null, label: 'All', icon: 'arcanebet-default-icon' },
         ...this.titles.map((title) => {
-          return { value: title.id, label: title.name, icon: findTitleIcon(title) }
+          return { value: title.id, label: title.shortName, icon: findTitleIcon(title) }
         })
       ]
     }
