@@ -97,7 +97,7 @@ export default {
   watch: {
     oddValue: function (newValue, oldValue) {
       if (oldValue) {
-        return this.oddStatus = (oldValue > newValue) ? 1 : 2
+        this.oddStatus = (oldValue > newValue) ? 1 : 2
       }
     }
   },
