@@ -17,7 +17,7 @@ export default {
       required: false
     },
     color: {
-      type: String,
+      type: [String, Array],
       default: '',
       required: false
     }
