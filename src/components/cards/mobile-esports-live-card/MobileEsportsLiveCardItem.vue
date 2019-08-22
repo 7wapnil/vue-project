@@ -2,14 +2,16 @@
   <b-row
     :data-id="market.id"
     no-gutters>
-    <b-col class="mr-2">
+    <b-col
+      v-if="firstTeam"
+      class="mr-2">
       <odd-button
         :odd="firstTeam"
         :disabled="isDisabled"
         :event="event"
         :market="market"/>
     </b-col>
-    <b-col>
+    <b-col v-if="secondTeam">
       <odd-button
         :odd="secondTeam"
         :disabled="isDisabled"
