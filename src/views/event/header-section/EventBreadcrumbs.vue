@@ -5,6 +5,7 @@
 
 </template>
 <script>
+import { getTitleShortName } from '@/helpers/title-names'
 export default {
   props: {
     event: {
@@ -27,7 +28,7 @@ export default {
       if (this.event) {
         return [
           {
-            text: this.event.title.name,
+            text: getTitleShortName(this.event.title),
             to: { name: 'title', params: { titleKind: this.$route.params.titleKind, titleId: this.event.title.id, } }
           },
           {
@@ -37,8 +38,7 @@ export default {
           {
             text: this.event.tournament.name,
             to: { name: 'tournament', params: { titleKind: this.$route.params.titleKind, titleId: this.event.title.id, tournamentId: this.event.tournament.id } }
-          },
-          { text: this.event.name }]
+          }]
       }
     }
   }

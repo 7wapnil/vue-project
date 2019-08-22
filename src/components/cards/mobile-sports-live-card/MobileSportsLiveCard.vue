@@ -3,15 +3,9 @@
     v-if="event"
     no-body
     class="mb-1 p-2 upcoming-card"
-    style="min-height: 132px"
+    style="min-height: 114px"
     bg-variant="arc-clr-soil-dark"
     @click="goToEventPage">
-
-    <b-row no-gutters>
-      <b-col class="ml-1 mt-1 font-size-12 text-arc-clr-iron line-height-14 letter-spacing-2 text-truncate">
-        {{ event.name }}
-      </b-col>
-    </b-row>
 
     <b-row no-gutters>
 
@@ -23,7 +17,7 @@
             v-if="event.timeInSeconds"
             class="d-flex justify-content-center">
             <span class="font-weight-bold text-arc-clr-iron text-uppercase mb-1 event-card-date letter-spacing-2">
-              {{ formattedTime }} {{ $t('eventPage.minute') }}
+              {{ formattedTime }}'
             </span>
           </b-col>
 

@@ -13,6 +13,10 @@ export default {
     upcomingContext: {
       type: [String, null],
       default: null
+    },
+    upcomingLabel: {
+      type: Boolean,
+      default: false
     }
   },
   data () {
@@ -24,7 +28,7 @@ export default {
         context: LIVE
       }, {
         value: UPCOMING,
-        label: this.$i18n.t('homePage.upcoming'),
+        label: this.upcomingLabel ? this.$i18n.t('homePage.upcomingCommon') : this.$i18n.t('homePage.upcoming'),
         context: this.upcomingContext || UPCOMING_FOR_TIME
       }]
     }

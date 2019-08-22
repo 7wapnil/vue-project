@@ -115,6 +115,7 @@ const messages = {
     },
     homePage: {
       upcoming: 'Upcoming 6h',
+      upcomingCommon: 'Upcoming',
       live: 'Live now',
       esport: 'Esport',
       sport: 'Sport'
@@ -236,6 +237,7 @@ const messages = {
         warning: 'Please be aware that requesting a withdrawal while you have an active bonus will result in all of your bonus funds being confiscated. If you wish to check your bonus status, please navigate to the bonus tab on your profile or contact support for further assistance. Be aware that if you initiate a withdrawal and the bonus is confiscated this is NOT reversible.'
       },
       bonus: {
+        bonusName: 'Bonus name',
         bonusAwarded: 'Bonus awarded',
         rolloverRequired: 'Rollover required',
         minimumOdds: 'Minimum odds',

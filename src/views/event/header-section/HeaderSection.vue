@@ -1,5 +1,5 @@
 <template>
-  <event-details-background :title="{ name: event.title.name }">
+  <event-details-background :title="{ name: getTitleName(event.title) }">
     <event-breadcrumbs :event="event"/>
     <event-details
       :event="event"
@@ -14,6 +14,7 @@ import IntroductionArea from '@/components/custom/IntroductionArea'
 import EventBreadcrumbs from '@/views/event/header-section/EventBreadcrumbs'
 import EventDetails from '@/views/event/header-section/EventDetails'
 import EventDetailsBackground from '@/views/event/header-section/EventBackground'
+import { getTitleName } from '@/helpers/title-names'
 
 export default {
   components: {
@@ -31,6 +32,9 @@ export default {
       type: Boolean,
       default: true
     }
+  },
+  methods: {
+    getTitleName
   }
 }
 </script>

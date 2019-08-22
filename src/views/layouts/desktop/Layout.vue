@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <vue-scroll>
     <desktop-navigation-bar/>
     <b-container
       fluid
@@ -7,7 +7,7 @@
       <slot/>
     </b-container>
     <desktop-footer/>
-  </div>
+  </vue-scroll>
 </template>
 
 <script>
