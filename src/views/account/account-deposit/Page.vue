@@ -30,9 +30,7 @@
           :currency="currency"
           :get-total="getTotal"
           :button-disabled="buttonDisabled"
-          @submit:deposit="submitDeposit">
-          <canvas id="qrcode"/>
-        </deposit-summary>
+          @submit:deposit="submitDeposit"/>
       </template>
     </deposit-form-layout>
     <deposit-methods/>
@@ -209,6 +207,10 @@ export default {
         }).catch(({ graphQLErrors }) => {
           this.calculatedBonus = null
           this.bonusError = graphQLErrors[0].message
+          setTimeout(() => {
+            this.bonusError = null
+            this.updateBonus(null)
+          }, 2000)
         })
       }
     },

@@ -9,7 +9,7 @@
       :button-disabled="buttonDisabled"
       @submit:deposit="$emit('submit:deposit')"/>
     <deposit-crypto-section
-      v-if="isCryptoSectionShown"
+      :is-crypto-section-shown="isCryptoSectionShown"
       :address="address">
       <slot/>
     </deposit-crypto-section>
