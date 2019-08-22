@@ -53,6 +53,7 @@
               @blur.prevent="calculate"/>
             <b-input-group-append>
               <b-button
+                :disabled="!fields.bonusCode"
                 class="px-4 py-1"
                 variant="user-profile-button"
                 @click.prevent="calculate">
