@@ -13,6 +13,7 @@
 import { INACTIVE_STATUS as ODD_INACTIVE_STATUS } from '@/models/odd'
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 import { LIVE } from '@/constants/graphql/event-start-statuses'
+import { getOddValue } from '@/helpers/odds'
 
 export default {
   props: {
@@ -56,7 +57,7 @@ export default {
        !this.isEventAvailable
     },
     value () {
-      return Number(this.odd.value).toFixed(2)
+      return getOddValue(this.odd.value)
     },
     ...mapGetters('betslip', [
       'getBets',
