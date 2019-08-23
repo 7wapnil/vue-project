@@ -36,12 +36,17 @@ export default {
   },
   computed: {
     tabs () {
-      return [
-        { value: null, label: 'All', icon: 'arcanebet-default-icon' },
+      let data = [
         ...this.titles.map((title) => {
           return { value: title.id, label: getTitleShortName(title), icon: findTitleIcon(title) }
         })
       ]
+
+      if (this.isKindEsport) {
+        data.unshift({ value: null, label: 'All', icon: 'arcanebet-default-icon' })
+      }
+
+      return data
     }
   },
   created () {
