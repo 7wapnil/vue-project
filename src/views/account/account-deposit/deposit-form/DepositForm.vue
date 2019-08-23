@@ -19,11 +19,15 @@
               @blur.prevent="calculate"/>
           </b-input-group>
           <b-form-select
-            :value="paymentMethodCode"
-            @change="updatePaymentMethod">
-            <option
-              value=""
-              disabled>{{ $t('account.deposit.paymentMethodsPlaceholder') }}</option>
+            :value="selectedPaymentMethodCode"
+            @input="updatePaymentMethod">
+              <template #first>
+                <option
+                  :value="null"
+                  disabled>
+                    {{ $t('account.deposit.paymentMethodsPlaceholder') }}
+                </option>
+              </template>
             <option
               v-for="(payment, index) in depositMethods"
               :key="index"
@@ -49,6 +53,7 @@
           <b-input-group class="px-2 px-md-0">
             <b-form-input
               :value="fields.bonusCode"
+              placeholder="Enter bonus code"
               @input="updateBonusCode"
               @blur.prevent="calculate"/>
             <b-input-group-append>
@@ -92,9 +97,9 @@ export default {
       type: Object,
       required: true
     },
-    paymentMethodCode: {
+    selectedPaymentMethodCode: {
       type: String,
-      required: true
+      default: null
     }
   },
   methods: {
@@ -110,6 +115,9 @@ export default {
     calculate () {
       this.$emit('action:calculate')
     }
+  },
+  created() {
+    console.log(this.selectedPaymentMethodCode)
   }
 }
 </script>

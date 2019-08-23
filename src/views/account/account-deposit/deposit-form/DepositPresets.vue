@@ -42,6 +42,6 @@ export default {
     return {
       moneyAmounts: [ 10, 25, 50, 75, 100, 150, 200, 250 ]
     }
-  },
+  }
 }
 </script>
