@@ -34,7 +34,7 @@ export default {
         },
         {
           description: this.$t('account.bonus.longTerms.list.list2'),
-          data: '',
+          data: this.bonusItem.amount,
           additionalData: ''
         },
         {
