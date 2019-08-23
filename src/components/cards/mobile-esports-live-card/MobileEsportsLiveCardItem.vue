@@ -29,8 +29,9 @@
         </template>
       </odd-button>
     </b-col>
-    <b-col v-if="secondTeam"
-           class="market-odd">
+    <b-col
+      v-if="secondTeam"
+      class="market-odd">
       <odd-button
         :odd="secondTeam"
         :disabled="isDisabled"
