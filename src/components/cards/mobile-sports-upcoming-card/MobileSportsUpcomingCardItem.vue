@@ -10,7 +10,11 @@
         :odd="firstTeam"
         :disabled="isDisabled"
         :event="event"
-        :market="market"/>
+        :market="market">
+        <template #left>
+          1
+        </template>
+      </odd-button>
     </b-col>
 
     <b-col
@@ -20,7 +24,11 @@
         :odd="draw"
         :disabled="isDisabled"
         :event="event"
-        :market="market"/>
+        :market="market">
+        <template #left>
+          X
+        </template>
+      </odd-button>
     </b-col>
 
     <b-col
@@ -30,7 +38,11 @@
         :odd="secondTeam"
         :disabled="isDisabled"
         :event="event"
-        :market="market"/>
+        :market="market">
+        <template #left>
+          2
+        </template>
+      </odd-button>
     </b-col>
   </b-row>
 </template>
