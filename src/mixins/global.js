@@ -17,9 +17,6 @@ export default {
     isDesktop () {
       return this.$mq === 'desktop'
     },
-    getSportKind () {
-      return this.$route.params.titleKind
-    },
     isKindEsport () {
       return this.$route.params.titleKind === 'esports'
     }
