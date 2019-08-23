@@ -23,11 +23,11 @@
       <slot :tab="tab"/>
 
     </b-tab>
-    <template
-      #empty
+    <div
+      slot="empty"
       class="text-center text-muted">
       No tabs. Try to check your connection.
-    </template>
+    </div>
   </b-tabs>
 </template>
 
@@ -72,6 +72,6 @@ export default {
   },
   created () {
     this.tabIndex = this.activeIndex
-  }
+  },
 }
 </script>

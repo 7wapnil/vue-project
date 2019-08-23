@@ -75,9 +75,6 @@ export default {
       }
     }
   },
-  created () {
-    this.isOutdated()
-  },
   methods: {
     onTabChange (tab) {
       this.category = tab
@@ -87,33 +84,11 @@ export default {
         this.userLeavedPage = true
       }
       if (!hidden && this.userLeavedPage) {
-        if (this.isStatusPositive) {
-          return this.redirectUser()
+        if (this.event.status && this.closingStatuses.includes(this.event.status)) {
+          this.$router.push(`/${this.$route.params.titleKind}`)
         }
         this.userLeavedPage = false
-        this.startTimeout()
       }
-    },
-    isStatusPositive () {
-      return this.event.status && this.closingStatuses.includes(this.event.status)
-    },
-    redirectUser () {
-      this.$router.push(`/${this.$route.params.titleKind}`)
-    },
-    startTimeout () {
-      const duration = 5 * 60 * 1000
-      setTimeout(() => {
-        if (this.isStatusPositive) {
-          this.redirectUser()
-        }
-        this.startTimeout()
-      }, duration)
-    },
-    isOutdated () {
-      if (this.isStatusPositive) {
-        this.redirectUser()
-      }
-      this.startTimeout()
     }
   }
 }
