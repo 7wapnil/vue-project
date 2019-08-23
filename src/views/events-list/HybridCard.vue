@@ -5,7 +5,7 @@
     <markets-list
       :item-component="itemType"
       :event="event"
-      :markets="[event.dashboardMarket]"/>
+      :markets="markets"/>
   </component>
 </template>
 <script>
@@ -52,6 +52,9 @@ export default {
     },
     itemType () {
       return `${this.cardType}-item`
+    },
+    markets () {
+      return [this.event.dashboardMarket].filter((market) => market)
     }
   }
 }
