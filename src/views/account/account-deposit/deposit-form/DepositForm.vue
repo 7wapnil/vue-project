@@ -21,13 +21,13 @@
           <b-form-select
             :value="selectedPaymentMethodCode"
             @input="updatePaymentMethod">
-              <template #first>
-                <option
-                  :value="null"
-                  disabled>
-                    {{ $t('account.deposit.paymentMethodsPlaceholder') }}
-                </option>
-              </template>
+            <template #first>
+              <option
+                :value="null"
+                disabled>
+                {{ $t('account.deposit.paymentMethodsPlaceholder') }}
+              </option>
+            </template>
             <option
               v-for="(payment, index) in depositMethods"
               :key="index"
@@ -102,6 +102,9 @@ export default {
       default: null
     }
   },
+  created () {
+    console.log(this.selectedPaymentMethodCode)
+  },
   methods: {
     updateCustomField (value) {
       this.$emit('update:amount', value)
@@ -116,8 +119,5 @@ export default {
       this.$emit('action:calculate')
     }
   },
-  created() {
-    console.log(this.selectedPaymentMethodCode)
-  }
 }
 </script>

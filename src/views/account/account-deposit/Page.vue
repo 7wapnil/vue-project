@@ -124,9 +124,9 @@ export default {
       }
     },
     currency () {
-        return (this.paymentMethod && this.paymentMethod.currencyCode) ||
+      return (this.paymentMethod && this.paymentMethod.currencyCode) ||
         (this.fiatWallet && this.fiatWallet.currency.code) ||
-        'EUR'
+        EUR
     },
     buttonDisabled () {
       let parsedAmount = parseFloat(this.fields.amount)
