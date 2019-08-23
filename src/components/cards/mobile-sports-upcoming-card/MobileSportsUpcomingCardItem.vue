@@ -4,6 +4,7 @@
     class="market-odds"
     no-gutters>
     <b-col
+      v-if="firstTeam"
       class="mr-2 market-odd">
       <odd-button
         :odd="firstTeam"
@@ -31,6 +32,7 @@
     </b-col>
 
     <b-col
+      v-if="secondTeam"
       class="market-odd">
       <odd-button
         :odd="secondTeam"

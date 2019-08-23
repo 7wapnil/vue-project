@@ -4,6 +4,7 @@
     :data-id="odd.id"
     :pressed.sync="toggleButton"
     variant="arc-odd"
+    class="px-2"
     @click.stop>
     <b-row no-gutters>
       <b-col
@@ -14,8 +15,9 @@
         <slot name="left"/>
       </b-col>
       <b-col>
-        {{ value }}
+        {{ oddValue }}
       </b-col>
+      <odd-status :status="oddStatus"/>
     </b-row>
   </b-button>
 </template>
@@ -24,8 +26,13 @@
 import { INACTIVE_STATUS as ODD_INACTIVE_STATUS } from '@/models/odd'
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 import { LIVE } from '@/constants/graphql/event-start-statuses'
+import { getOddValue } from '@/helpers/odds'
+import OddStatus from '@/components/markets/OddStatus'
 
 export default {
+  components: {
+    OddStatus
+  },
   props: {
     event: {
       type: Object,
@@ -46,7 +53,7 @@ export default {
   },
   data () {
     return {
-      raised: null
+      oddStatus: null
     }
   },
   computed: {
@@ -66,8 +73,8 @@ export default {
         this.odd.status === ODD_INACTIVE_STATUS ||
        !this.isEventAvailable
     },
-    value () {
-      return Number(this.odd.value).toFixed(2)
+    oddValue () {
+      return getOddValue(this.odd.value)
     },
     ...mapGetters('betslip', [
       'getBets',
@@ -86,6 +93,13 @@ export default {
     },
     hasLeftSection () {
       return !!this.$slots.left
+    },
+  },
+  watch: {
+    oddValue: function (newValue, oldValue) {
+      if (oldValue) {
+        this.oddStatus = (oldValue > newValue) ? 1 : 2
+      }
     }
   },
   methods: {

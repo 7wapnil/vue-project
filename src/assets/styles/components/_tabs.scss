@@ -54,8 +54,12 @@
     }
   }
   &-content {
-    min-height: 100vh;
+    min-height: 87vh;
     overflow: hidden;
+
+    @media (max-width: 720px) {
+      min-height: 100vh !important;
+    }
   }
 }
 

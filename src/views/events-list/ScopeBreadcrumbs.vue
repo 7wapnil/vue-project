@@ -8,6 +8,7 @@
 
 <script>
 import { TITLES_QUERY } from '@/graphql'
+import { getTitleShortName } from '@/helpers/title-names'
 
 export default {
   data () {
@@ -36,7 +37,7 @@ export default {
         if (title.id === this.$route.params.titleId) {
           currentTitle = {
             id: title.id,
-            name: title.name,
+            name: getTitleShortName(title),
             scopes: title.eventScopes
           }
         }
@@ -109,7 +110,7 @@ export default {
       }
     },
     composedBreadcrumbs () {
-      return [this.titleLink, this.categoryLink, this.tournamentLink].filter((link) => !!link)
+      return [this.titleLink, this.categoryLink, this.tournamentLink, {}].filter((link) => !!link)
     }
   }
 }

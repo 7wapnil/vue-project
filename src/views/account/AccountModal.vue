@@ -14,9 +14,7 @@
       <modal-header/>
     </template>
 
-    <vue-scroll>
-      <component :is="accountLayout"/>
-    </vue-scroll>
+    <component :is="accountLayout"/>
   </modal>
 </template>
 
