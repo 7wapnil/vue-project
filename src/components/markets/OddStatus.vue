@@ -1,7 +1,7 @@
 <template>
   <b-col
     class="font-size-12 font-weight-normal d-flex align-items-center"
-    cols="auto">
+    cols="1">
 
     <icon
       v-if="status"

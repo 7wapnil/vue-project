@@ -11,7 +11,7 @@
         v-if="hasLeftSection"
         :class="[ toggleButton ? 'text-arc-clr-soil-black' : 'text-arc-clr-iron']"
         class="font-size-12 font-weight-normal"
-        cols="auto">
+        cols="1">
         <slot name="left"/>
       </b-col>
       <b-col>
@@ -28,6 +28,8 @@ import { mapActions, mapGetters, mapMutations } from 'vuex'
 import { LIVE } from '@/constants/graphql/event-start-statuses'
 import { getOddValue } from '@/helpers/odds'
 import OddStatus from '@/components/markets/OddStatus'
+
+const ODDSTATUS_TIMEOUT = 3000
 
 export default {
   components: {
@@ -99,6 +101,9 @@ export default {
     oddValue: function (newValue, oldValue) {
       if (oldValue) {
         this.oddStatus = (oldValue > newValue) ? 1 : 2
+        setTimeout(() => {
+          this.oddStatus = null
+        }, ODDSTATUS_TIMEOUT)
       }
     }
   },
