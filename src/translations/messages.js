@@ -117,8 +117,8 @@ const messages = {
       upcoming: 'Upcoming 6h',
       upcomingCommon: 'Upcoming',
       live: 'Live now',
-      esport: 'Esport',
-      sport: 'Sport'
+      esport: 'Esports',
+      sport: 'Sports'
     },
     noFoundPage: {
       header: 'Oops, the page you are looking for doesn\'t seem to exist ',
