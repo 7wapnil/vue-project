@@ -7,19 +7,6 @@
     nav-wrapper-class="category-tabs-wrapper"
     nav-class="category-tabs-nav mx-2 mx-md-5">
 
-    <template
-      v-if="!isMobile"
-      #tabs>
-
-      <b-nav-item
-        v-if="categoryTabIndex > 0"
-        class="left-side-navigation"
-        @click="moveTab('left')">
-        <icon name="chevron-left"/>
-      </b-nav-item>
-
-    </template>
-
     <b-tab
       v-for="(tab, index) in tabs"
       :key="index"
@@ -54,6 +41,12 @@
         <icon
           class="category-tab"
           name="chevron-right"/>
+      </b-nav-item>
+      <b-nav-item
+        v-if="categoryTabIndex > 0"
+        class="left-side-navigation"
+        @click="moveTab('left')">
+        <icon name="chevron-left"/>
       </b-nav-item>
     </template>
 
