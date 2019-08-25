@@ -14,9 +14,8 @@
         <deposit-form
           :currency="currency"
           :deposit-methods="depositMethods"
-          :payment-method-code="selectedPaymentMethodCode"
           :fields="fields"
-          v-model="selectedPaymentMethodCode"
+          :selected-payment-method-code="selectedPaymentMethodCode"
           @action:calculate="calculateBonus"
           @update:amount="updateAmount"
           @update:payment="updatePaymentMethod"

@@ -6,7 +6,6 @@
           md="8"
           class="px-4 mx-2 mx-md-0 ml-md-auto mb-md-4">
           <b-input-group
-            v-if="currency"
             :append="currency"
             class="mb-4">
             <b-form-input
@@ -30,8 +29,8 @@
             </template>
             <option
               v-for="(payment, index) in depositMethods"
-              :key="index"
-              :value="payment.code">
+              :value="payment.code"
+              :key="index">
               {{ payment.name }}
             </option>
           </b-form-select>
@@ -87,7 +86,7 @@ export default {
   props: {
     currency: {
       type: String,
-      default: 'EUR'
+      required: true
     },
     depositMethods: {
       type: Array,
@@ -101,9 +100,6 @@ export default {
       type: String,
       default: null
     }
-  },
-  created () {
-    console.log(this.selectedPaymentMethodCode)
   },
   methods: {
     updateCustomField (value) {
