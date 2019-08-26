@@ -90,7 +90,7 @@ export default {
       default: 'EUR'
     },
     calculatedBonus: {
-      type: String,
+      type: [String, Number],
       default: ''
     },
     getTotal: {
