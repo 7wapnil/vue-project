@@ -8,15 +8,14 @@
     header-class="profile-modal-header"
     header-border-variant="arc-clr-soil-darker"
     content-class="bg-arc-clr-soil-light h-100"
-    body-class="p-0 h-100">
+    body-class="p-0">
 
     <template #modal-header>
       <modal-header/>
     </template>
 
-    <vue-scroll>
-      <component :is="accountLayout"/>
-    </vue-scroll>
+    <component :is="accountLayout"/>
+
   </modal>
 </template>
 
