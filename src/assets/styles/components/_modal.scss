@@ -59,12 +59,12 @@
   &-sidebar {
     letter-spacing: .02em;
     padding: 0;
+    max-width: 330px;
+    min-width: 330px;
     background: $arc-clr-soil-dark;
-    flex: 0 0 330px;
-    -ms-flex: 0 0 330px;
     &-inner {
-      top: 0;
-      bottom: 0;
+      position: fixed;
+      width: 330px;
     }
   }
 }
