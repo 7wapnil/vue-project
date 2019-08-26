@@ -117,8 +117,8 @@ const messages = {
       upcoming: 'Upcoming 6h',
       upcomingCommon: 'Upcoming',
       live: 'Live now',
-      esport: 'Esport',
-      sport: 'Sport'
+      esport: 'Esports',
+      sport: 'Sports'
     },
     noFoundPage: {
       header: 'Oops, the page you are looking for doesn\'t seem to exist ',
@@ -244,7 +244,7 @@ const messages = {
         maximumRolloverPerBet: 'Maximum rollover per bet',
         expiryDate: 'Expiry date',
         bonusAchieved: 'Rollover achieved',
-        noBonus: 'It seems you have no active bonus at the moment. Please make a deposit and enter a bonus code to claim your first one.',
+        noBonus: 'It seems you have no active bonus at the moment. Please make a deposit and enter a bonus code to claim one.',
         longTerms: {
           header: 'Bonus rules for code:',
           awarded: 'Awarded:',

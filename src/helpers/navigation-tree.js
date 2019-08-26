@@ -47,9 +47,6 @@ const buildSubTree = (titleKind, title, route) => {
     })
     .map((category) => {
       const tournamentList = buildTournaments(titleKind, title, route, category.id)
-      if (tournamentList.length > 1) {
-        tournamentList.unshift({ label: 'All', to: { name: 'category-tournaments', params: { titleKind, titleId: title.id, categoryId: category.id } } })
-      }
 
       return {
         id: category.id,

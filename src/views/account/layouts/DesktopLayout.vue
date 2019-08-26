@@ -1,45 +1,48 @@
 <template>
-  <b-row no-gutters>
-    <b-col class="profile-modal-sidebar">
-      <div class="profile-modal-sidebar-inner">
-        <profile-wallet @open-account-deposit-tab="changeTabIndex(depositTabIndex)"/>
-        <b-nav
-          class="h-100 bg-arc-clr-soil-black"
-          vertical>
-          <b-nav-item
-            v-for="(tab, index) in tabs"
-            :key="index"
-            :class="{'profile-modal-nav-item-active': currentTabIndex === index }"
-            class="profile-modal-nav-item bg-arc-clr-soil-black"
-            @click="changeTabIndex(index)">
-            <span>
+  <vue-scroll>
+    <b-row no-gutters>
+      <b-col class="profile-modal-sidebar">
+        <div class="profile-modal-sidebar-inner position-sticky">
+          <profile-wallet @open-account-deposit-tab="changeTabIndex(depositTabIndex)"/>
+          <b-nav
+            class="h-100 bg-arc-clr-soil-black"
+            vertical>
+            <b-nav-item
+              v-for="(tab, index) in tabs"
+              :key="index"
+              :class="{'profile-modal-nav-item-active': currentTabIndex === index }"
+              class="profile-modal-nav-item bg-arc-clr-soil-black"
+              @click="changeTabIndex(index)">
+              <span>
+                <icon
+                  :name="tab.icon"
+                  :size="tab.size ? tab.size : '24px'"
+                  class="tab-icon"/>
+              </span>
+              <span class="ml-3 font-weight-bold font-size-14 tab-title">
+                {{ tab.title }}
+              </span>
+            </b-nav-item>
+            <b-nav-item
+              class="profile-modal-nav-item bg-arc-clr-soil-black"
+              @click="showConfirmationModal">
               <icon
-                :name="tab.icon"
-                :size="tab.size ? tab.size : '24px'"
-                class="tab-icon"/>
-            </span>
-            <span class="ml-3 font-weight-bold font-size-14 tab-title">
-              {{ tab.title }}
-            </span>
-          </b-nav-item>
-          <b-nav-item
-            class="profile-modal-nav-item bg-arc-clr-soil-black"
-            @click="showConfirmationModal">
-            <icon
-              name="logout"
-              class="tab-icon"
-              size="24px"/>
-            <span class="ml-3 font-weight-bold font-size-14 tab-title">
-              Logout
-            </span>
-          </b-nav-item>
-        </b-nav>
-      </div>
-    </b-col>
-    <b-col class="profile-modal-nav-content p-5">
-      <component :is="currentComponent"/>
-    </b-col>
-  </b-row>
+                name="logout"
+                class="tab-icon"
+                size="24px"/>
+              <span class="ml-3 font-weight-bold font-size-14 tab-title">
+                Logout
+              </span>
+            </b-nav-item>
+          </b-nav>
+        </div>
+      </b-col>
+
+      <b-col class="profile-modal-nav-content p-5">
+        <component :is="currentComponent"/>
+      </b-col>
+    </b-row>
+  </vue-scroll>
 </template>
 <script>
 import ChangePassword from '@/views/account/account-information/ChangePassword'
