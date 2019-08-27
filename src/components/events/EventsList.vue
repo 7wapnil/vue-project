@@ -103,6 +103,9 @@ export default {
 
               if (MARKET_STOP_STATUSES.includes(marketStatus)) {
                 const eventIndex = events.findIndex(event => event.id === subscriptionData.eventId)
+
+                if (eventIndex === -1) return
+
                 const market = events[eventIndex].dashboardMarket
 
                 if (marketStatus === INACTIVE) events.splice(eventIndex, 1)
