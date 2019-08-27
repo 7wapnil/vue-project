@@ -150,6 +150,9 @@ export const getters = {
   },
   isBetslipOpen (state) {
     return state.betslipSidebarState
+  },
+  placingBetInProgress (state, getters) {
+    return getters.getAnySubmittedBet || getters.getAnyBetInValidation
   }
 }
 

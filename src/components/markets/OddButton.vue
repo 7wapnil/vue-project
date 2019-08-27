@@ -79,6 +79,7 @@ export default {
     },
     ...mapGetters('betslip', [
       'getBets',
+      'placingBetInProgress',
       'getAnyFrozenBet'
     ]),
     toggleButton: {
@@ -108,13 +109,15 @@ export default {
       return !!this.getBets.find(item => item.oddId === this.odd.id)
     },
     pushBetToBetslip () {
-      if (!this.getAnyFrozenBet) {
-        this.pushBet({
-          event: this.event,
-          market: this.market,
-          odd: this.odd
-        })
+      if (this.placingBetInProgress || this.getAnyFrozenBet) {
+        return
       }
+
+      this.pushBet({
+        event: this.event,
+        market: this.market,
+        odd: this.odd
+      })
     },
     ...mapActions('betslip', [
       'pushBet'
