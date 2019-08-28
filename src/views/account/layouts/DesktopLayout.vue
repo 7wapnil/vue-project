@@ -2,7 +2,7 @@
   <vue-scroll>
     <b-row no-gutters>
       <b-col class="profile-modal-sidebar">
-        <div class="profile-modal-sidebar-inner position-sticky">
+        <div class="profile-modal-sidebar-inner">
           <profile-wallet @open-account-deposit-tab="changeTabIndex(depositTabIndex)"/>
           <b-nav
             class="h-100 bg-arc-clr-soil-black"
