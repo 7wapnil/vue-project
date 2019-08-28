@@ -49,6 +49,10 @@ export default class Bet {
     ].includes(this.status)
   }
 
+  get isStatusAccepted () {
+    return this.status === STATUSES.accepted
+  }
+
   get isAcceptable () {
     return [
       STATUSES.initial,

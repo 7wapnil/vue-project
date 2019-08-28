@@ -144,7 +144,7 @@
       {{ successMessage }}
     </b-alert>
     <b-alert
-      :show="isBetDisabled && !getAnyFrozenBet"
+      :show="isBetDisabled && !getAnyFrozenBet && !isAccepted"
       class="odd-disabled-message"
       variant="odd-disabled">
       {{ disabledMessage }}
@@ -268,7 +268,7 @@ export default {
     valuesUnconfirmed () {
       if (!this.acceptAllChecked) {
         return (
-          this.bet.status !== Bet.statuses.accepted &&
+          this.bet.status === Bet.statuses.initial &&
                 this.bet.approvedOddValue !== this.bet.currentOddValue
         )
       }
@@ -279,6 +279,11 @@ export default {
       if (!this.bet.status) return
 
       return this.bet.status === Bet.statuses.accepted || this.bet.status === Bet.statuses.settled
+    },
+    isAccepted () {
+      if (!this.bet.status) return
+
+      return this.bet.isStatusAccepted
     },
     isFail () {
       if (!this.bet.status) return
