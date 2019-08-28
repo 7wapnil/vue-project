@@ -1,14 +1,12 @@
 <template>
   <div>
     <desktop-navigation-bar/>
-    <vue-scroll>
-      <b-container
-        fluid
-        class="desktop-container">
-        <slot/>
-      </b-container>
-      <desktop-footer/>
-    </vue-scroll>
+
+    <div class="desktop-container">
+      <slot/>
+    </div>
+
+    <desktop-footer/>
   </div>
 </template>
 

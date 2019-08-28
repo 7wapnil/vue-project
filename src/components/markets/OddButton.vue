@@ -8,7 +8,6 @@
     @click.stop>
     <b-row no-gutters>
       <b-col
-        v-if="hasLeftSection"
         :class="[ toggleButton ? 'text-arc-clr-soil-black' : 'text-arc-clr-iron']"
         class="font-size-12 font-weight-normal"
         cols="1">
@@ -92,10 +91,7 @@ export default {
         }
         this.pushBetToBetslip()
       }
-    },
-    hasLeftSection () {
-      return !!this.$slots.left
-    },
+    }
   },
   watch: {
     oddValue: function (newValue, oldValue) {

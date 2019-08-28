@@ -8,12 +8,6 @@
 
 body {
   -ms-overflow-style: none;
-
-  .__vuescroll.hasVBar.vBarVisible {
-    height: 100vh !important;
-  }
 }
 
-html {
-  scrollbar-width: none;
-}
+* {scrollbar-width: none !important }
