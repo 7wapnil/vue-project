@@ -267,10 +267,7 @@ export default {
     },
     valuesUnconfirmed () {
       if (!this.acceptAllChecked) {
-        return (
-          this.bet.status === Bet.statuses.initial &&
-                this.bet.approvedOddValue !== this.bet.currentOddValue
-        )
+        return this.bet.isAcceptable && this.bet.approvedOddValue !== this.bet.currentOddValue
       }
 
       return false
@@ -342,13 +339,13 @@ export default {
 
         this.updateBet({
           oddId: bet.oddId,
-          payload: { currentOddValue: odd.value, status: Bet.statuses.initial, marketStatus: market.status }
+          payload: { currentOddValue: odd.value, marketStatus: market.status }
         })
 
         if (this.acceptAllChecked && bet.currentOddValue !== bet.approvedOddValue) {
           this.updateBet({
             oddId: bet.oddId,
-            payload: { approvedOddValue: odd.value, status: Bet.statuses.warning, marketStatus: market.status }
+            payload: { approvedOddValue: odd.value, marketStatus: market.status }
           })
         }
       })

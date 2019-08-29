@@ -6,8 +6,7 @@ const STATUSES = {
   settled: 'settled',
   failed: 'failed',
   rejected: 'rejected',
-  disabled: 'disabled',
-  warning: 'warning'
+  disabled: 'disabled'
 }
 
 export default class Bet {
