@@ -46,7 +46,16 @@ const router = new Router({
     }
   ],
   scrollBehavior (to, from, savedPosition) {
-    return { x: 0, y: 0 }
+    return new Promise(() => {
+      const container = document.documentElement
+      const panel = document.querySelector('.__panel')
+
+      if (savedPosition) {
+        (panel || container).scrollTo(savedPosition.x, savedPosition.y)
+      } else {
+        (panel || container).scrollTo(0, 0)
+      }
+    })
   }
 })
 
