@@ -28,7 +28,7 @@
         </h6>
       </b-col>
       <b-col
-        class="d-flex align-items-center justify-content-center px-4 mb-4 mb-md-0"
+        class="d-flex align-items-center justify-content-center px-4 px-md-5 mb-4 mb-md-0"
         cols="12"
         md="auto">
         <b-button
