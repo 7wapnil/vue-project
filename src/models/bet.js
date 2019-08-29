@@ -33,6 +33,7 @@ export default class Bet {
       stake: 5,
       status: STATUSES.initial,
       message: null,
+      notificationCode: null,
       externalId: null,
       approvedOddValue: odd.value,
       currentOddValue: odd.value,
@@ -58,5 +59,9 @@ export default class Bet {
       STATUSES.failed,
       STATUSES.rejected
     ].includes(this.status)
+  }
+
+  get oddsChanged () {
+    return this.approvedOddValue !== this.currentOddValue
   }
 }

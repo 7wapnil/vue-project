@@ -85,6 +85,7 @@ export const BET_FIELDS = `
   oddValue
   status
   message
+  notificationCode
 `
 
 export const EVENT_BET_STOP_FIELDS = `
