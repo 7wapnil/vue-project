@@ -101,11 +101,7 @@ const messages = {
     },
     cookies: {
       header: 'We value your privacy',
-      description: 'This website uses cookies to ensure you get the best experience on our site and to provide a\n' +
-      '          comment feature. To analyze our traffic, we use basic Google Analytics implementation with anonymized data.\n' +
-      '          If you continue without changing your settings, we\'ll assume that you are happy to receive\n' +
-      '          all cookies on the Public website. To understand more about how we use cookies, or for information\n' +
-      '          on how to change your cookie settings, please see our',
+      description: 'This website uses cookies. Please see our',
       policy: 'Cookie Policy',
       accept: 'I Accept'
     },
