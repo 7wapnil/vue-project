@@ -34,5 +34,6 @@ export default {
   'league-of-legends': 'esports-league',
   'overwatch': 'esports-overwatch',
   'starcraft': 'esports-sc2',
-  'fifa': 'esports-fifa'
+  'fifa': 'esports-fifa',
+  'hearthstone': 'esports-hearthstone'
 }
