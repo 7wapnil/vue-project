@@ -28,7 +28,7 @@ Vue.use(VueNoty, {
 })
 Vue.use(VueMq, {
   breakpoints: {
-    mobile: 720,
+    mobile: 800,
     tablet: 1250,
     desktop: Infinity
   }
