@@ -92,11 +92,18 @@ export default {
     }),
     depositTabIndex () {
       return this.tabs.findIndex(tab => tab.id === 'account-deposit') || null
+    },
+    accountInfoTabIndex () {
+      return this.tabs.findIndex(tab => tab.id === 'account-information') || null
     }
   },
   created () {
     if (this.$route.query.depositState) {
       this.changeTabIndex(this.depositTabIndex)
+    }
+
+    if (this.$route.query.changePassword) {
+      this.changeTabIndex(this.accountInfoTabIndex)
     }
   },
   methods: {
