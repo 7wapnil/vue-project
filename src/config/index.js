@@ -1,8 +1,6 @@
 import Vue from 'vue'
 import i18n from './plugins/I18n'
 import GTMPlugin from './plugins/google-tag-manager'
-import vuescroll from 'vuescroll'
-import VueScrollConfig from './plugins/vue-scroll'
 import apolloProvider from '@/libs/apollo/'
 import VueNoty from 'vuejs-noty'
 import VueLogger from 'vuejs-logger'
@@ -23,8 +21,6 @@ Vue.use(VueMeta)
 Vue.use(VueLogger, {
   logLevel: isProduction ? 'error' : 'debug'
 })
-
-Vue.use(vuescroll, VueScrollConfig)
 
 Vue.use(VueNoty, {
   timeout: 2000,

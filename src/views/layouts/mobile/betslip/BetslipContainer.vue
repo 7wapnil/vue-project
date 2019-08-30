@@ -6,9 +6,7 @@
       <div
         v-if="isBetslipOpen"
         class="mobile-navigation-sidemenu bg-arc-clr-soil-black right-0">
-        <vue-scroll>
-          <betslip/>
-        </vue-scroll>
+        <betslip/>
       </div>
     </transition>
     <close-button
