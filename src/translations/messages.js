@@ -101,11 +101,7 @@ const messages = {
     },
     cookies: {
       header: 'We value your privacy',
-      description: 'This website uses cookies to ensure you get the best experience on our site and to provide a\n' +
-      '          comment feature. To analyze our traffic, we use basic Google Analytics implementation with anonymized data.\n' +
-      '          If you continue without changing your settings, we\'ll assume that you are happy to receive\n' +
-      '          all cookies on the Public website. To understand more about how we use cookies, or for information\n' +
-      '          on how to change your cookie settings, please see our',
+      description: 'This website uses cookies. Please see our',
       policy: 'Cookie Policy',
       accept: 'I Accept'
     },
@@ -117,8 +113,8 @@ const messages = {
       upcoming: 'Upcoming 6h',
       upcomingCommon: 'Upcoming',
       live: 'Live now',
-      esport: 'Esport',
-      sport: 'Sport'
+      esport: 'Esports',
+      sport: 'Sports'
     },
     noFoundPage: {
       header: 'Oops, the page you are looking for doesn\'t seem to exist ',
@@ -222,7 +218,10 @@ const messages = {
           copyAddress: 'Copy address:',
           addressCopied: 'Address was copied to clipboard',
           scanQRCode: 'or scan QR code:'
-        }
+        },
+        serviceFees: 'We do not charge service fees.',
+        paymentMethodsSupport: 'This is only a list of payment methods we support.You will select the one that suits you on the next page.',
+        bonusDescription: 'Bonus code description'
       },
       withdraw: {
         withdrawFunds: 'Withdraw funds',
@@ -241,7 +240,7 @@ const messages = {
         maximumRolloverPerBet: 'Maximum rollover per bet',
         expiryDate: 'Expiry date',
         bonusAchieved: 'Rollover achieved',
-        noBonus: 'It seems you have no active bonus at the moment. Please make a deposit and enter a bonus code to claim your first one.',
+        noBonus: 'It seems you have no active bonus at the moment. Please make a deposit and enter a bonus code to claim one.',
         longTerms: {
           header: 'Bonus rules for code:',
           awarded: 'Awarded:',

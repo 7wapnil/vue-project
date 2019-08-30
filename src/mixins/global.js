@@ -16,6 +16,9 @@ export default {
     },
     isDesktop () {
       return this.$mq === 'desktop'
+    },
+    isKindEsport () {
+      return this.$route.params.titleKind === 'esports'
     }
   },
   methods: {

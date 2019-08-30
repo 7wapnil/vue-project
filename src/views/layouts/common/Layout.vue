@@ -1,5 +1,7 @@
 <template>
-  <div :class="titleKind">
+  <div
+    :class="titleKind"
+    class="dynamic-height">
     <component :is="layoutName">
       <router-view :key="$route.fullPath"/>
     </component>
@@ -42,6 +44,10 @@ export default {
 
     if (this.$route.query.resetPassword) {
       this.$bvModal.show('AuthModal')
+    }
+
+    if (this.$route.query.changePassword) {
+      this.$bvModal.show('AccountModal')
     }
   }
 }

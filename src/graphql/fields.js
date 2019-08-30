@@ -16,7 +16,9 @@ export const WALLET_FIELDS = `
 
 export const TITLE_FIELDS = `
   id
+  externalName
   name
+  shortName
   position
   showCategoryInNavigation
 `
@@ -83,6 +85,7 @@ export const BET_FIELDS = `
   oddValue
   status
   message
+  notificationCode
 `
 
 export const EVENT_BET_STOP_FIELDS = `

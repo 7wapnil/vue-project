@@ -1,234 +1,38 @@
 <template>
   <div>
     <deposit-header/>
-
-    <b-row
-      class="mb-4"
-      no-gutters>
-      <b-col>
-        <p class="mb-0 text-arc-clr-iron letter-spacing-2">
-          This is only a list of payment methods we support.
-          You will select the one that suits you on the next page.
-          <span class="text-arc-clr-gold">
-            We do not charge service fees.
-          </span>
-        </p>
-      </b-col>
-    </b-row>
-    <b-row
-      class="my-4"
-      no-gutters>
-      <b-col>
-        <p class="mb-0 text-arc-clr-iron letter-spacing-2">
-          {{ $t('account.deposit.moneyTransferInformation') }}
-        </p>
-      </b-col>
-    </b-row>
-    <b-row no-gutters>
-      <b-col>
-        <b-alert
-          :show="!!depositState"
-          :variant="mapDepositState">
-          {{ depositMessage }}
-        </b-alert>
-        <b-alert
-          :show="!!bonusError"
-          variant="danger">
-          {{ bonusError }}
-        </b-alert>
-      </b-col>
-    </b-row>
-    <b-row
-      class="my-4"
-      no-gutters>
-
-      <b-col class="mr-4">
-        <b-row no-gutters>
-          <b-col
-            class="text-right pt-2"
-            cols="4">
-            <h6 class="text-arc-clr-iron letter-spacing-2">
-              {{ $t('generalTerms.amount') }}:
-            </h6>
-          </b-col>
-          <b-col class="text-right">
-            <b-button
-              v-for="(moneyAmount, index) in moneyAmounts"
-              :key="index"
-              class="mb-2 mr-2"
-              variant="arc-deposit"
-              @click="addPresetAmount(moneyAmount)">
-              {{ moneyAmount }} {{ currency }}
-            </b-button>
-          </b-col>
-        </b-row>
-
-        <b-row no-gutters>
-          <b-col>
-            <b-row no-gutters>
-              <b-col
-                cols="4"
-                class="mr-2"/>
-              <b-col class="pl-4 pr-2 pt-2">
-                <b-input-group
-                  v-if="currency"
-                  :append="currency"
-                  class="mb-4">
-                  <b-form-input
-                    id="deposit-amount-currency"
-                    v-model="fields.amount"
-                    min="1"
-                    type="number"
-                    placeholder="Custom"
-                    @blur.prevent="calculateBonus"/>
-                </b-input-group>
-                <b-form-select
-                  v-model="selectedPaymentMethodCode"
-                  class="mb-4">
-                  <option
-                    value=""
-                    disabled>{{ $t('account.deposit.paymentMethodsPlaceholder') }}</option>
-                  <option
-                    v-for="(payment, index) in depositMethods"
-                    :key="index"
-                    :value="payment.code">
-                    {{ payment.name }}
-                  </option>
-                </b-form-select>
-              </b-col>
-            </b-row>
-            <b-row no-gutters>
-              <b-col
-                cols="4"
-                class="mr-2">
-                <h6 class="text-right mt-2 text-arc-clr-iron letter-spacing-2">
-                  {{ $t('generalTerms.bonusCode') }}:
-                </h6>
-              </b-col>
-              <b-col class="ml-4 mr-2">
-                <b-input-group >
-                  <b-form-input
-                    v-model="fields.bonusCode"
-                    @blur.prevent="calculateBonus"/>
-                  <b-input-group-append>
-                    <b-button
-                      class="px-4 py-1"
-                      variant="user-profile-button"
-                      @click.prevent="calculateBonus">
-                      <span class="font-size-24">
-                        +
-                      </span>
-                    </b-button>
-                  </b-input-group-append>
-                </b-input-group>
-                <h6 class="text-center text-arc-clr-iron-light mt-3 letter-spacing-2">
-                  Bonus code description
-                </h6>
-              </b-col>
-            </b-row>
-          </b-col>
-        </b-row>
-      </b-col>
-      <b-col class="bg-arc-clr-soil-dark ml-2 p-4 border-4">
-        <div
-          id="summary"
-          :class="{ 'd-none' : isCryptoSectionShown }">
-          <b-row no-gutters>
-            <b-col class="text-center py-2">
-              <h4 class="mt-2 mb-4 font-weight-light letter-spacing-1">
-                {{ $t('account.deposit.depositSummary') }}
-              </h4>
-            </b-col>
-          </b-row>
-          <b-row
-            class="mb-1"
-            no-gutters>
-            <b-col>
-              <h6 class="text-right letter-spacing-2 text-arc-clr-iron">
-                {{ $tc('generalTerms.deposit', 1) }}:
-              </h6>
-            </b-col>
-            <b-col class="pl-2 text-truncate">
-              <h6 class="letter-spacing-2">
-                {{ fields.amount ? fields.amount : 0 }} {{ currency }}
-              </h6>
-            </b-col>
-          </b-row>
-          <b-row
-            class="mb-1"
-            no-gutters>
-            <b-col>
-              <h6 class="text-right letter-spacing-2 text-arc-clr-iron">
-                {{ $tc('generalTerms.bonus', 1) }}:
-              </h6>
-            </b-col>
-            <b-col class="pl-2 text-truncate">
-              <h6 class="letter-spacing-2">
-                {{ calculatedBonus ? calculatedBonus : 0 }} {{ currency }}
-              </h6>
-            </b-col>
-          </b-row>
-          <b-row
-            class="mb-1"
-            no-gutters>
-            <b-col>
-              <h6 class="mb-2 text-right letter-spacing-2 text-arc-clr-iron">
-                {{ $tc('generalTerms.fee', 1) }}:
-              </h6>
-            </b-col>
-            <b-col class="pl-2 text-truncate">
-              <h6 class="mb-2 letter-spacing-2">
-                0.00 {{ currency }}
-              </h6>
-            </b-col>
-          </b-row>
-          <b-row
-            class="mt-2 mb-1"
-            no-gutters>
-            <b-col class="pt-1">
-              <h6 class="mb-0 text-right letter-spacing-2 text-arc-clr-iron">
-                {{ $t('account.deposit.total') }}:
-              </h6>
-            </b-col>
-            <b-col class="pl-2 mb-4 text-truncate">
-              <span class="letter-spacing-2 font-weight-bold">
-                {{ getTotal ? getTotal : 0 }} {{ currency }}
-              </span>
-            </b-col>
-          </b-row>
-          <b-row no-gutters>
-            <b-col class="px-2 mt-4 mb-2">
-              <b-button
-                :disabled="buttonDisabled"
-                variant="user-profile-button"
-                class="w-100"
-                @click.prevent="submitDeposit">
-                {{ $t('account.cta.deposit') }}
-              </b-button>
-            </b-col>
-          </b-row>
-        </div>
-        <div
-          id="cryptoSection"
-          :class="{ 'd-none' : !isCryptoSectionShown }">
-          <p
-            class="text font-size-14 text-justify"
-            v-html="$t('account.deposit.crypto.howTo')"/>
-          <h5 class="mt-2 mb-1">{{ $t('account.deposit.crypto.copyAddress') }}</h5>
-          <p
-            v-clipboard:copy="address"
-            v-clipboard:success="onCopyAddress"
-            class="pointer font-italic font-size-14 text-break mb-0">{{ address }}</p>
-          <h5 class="mt-2 mb-1">{{ $t('account.deposit.crypto.scanQRCode') }}</h5>
-          <canvas id="qrcode"/>
-        </div>
-      </b-col>
-    </b-row>
-    <b-row no-gutters>
-      <b-col class="text-arc-clr-iron mb-2">
-        Payments methods we support:
-      </b-col>
-    </b-row>
+    <deposit-description/>
+    <deposit-errors
+      :deposit-state="depositState"
+      :deposit-message="depositMessage"
+      :bonus-error="bonusError"/>
+    <deposit-form-layout>
+      <template #depositform>
+        <deposit-presets
+          :currency="currency"
+          @preset-selected="addPresetAmount"/>
+        <deposit-form
+          :currency="currency"
+          :deposit-methods="depositMethods"
+          :fields="fields"
+          :selected-payment-method-code="selectedPaymentMethodCode"
+          @action:calculate="calculateBonus"
+          @update:amount="updateAmount"
+          @update:payment="updatePaymentMethod"
+          @update:bonuscode="updateBonus"/>
+      </template>
+      <template #summary>
+        <deposit-summary
+          :is-crypto-section-shown="isCryptoSectionShown"
+          :calculated-bonus="calculatedBonus"
+          :address="address"
+          :fields="fields"
+          :currency="currency"
+          :get-total="getTotal"
+          :button-disabled="buttonDisabled"
+          @submit:deposit="submitDeposit"/>
+      </template>
+    </deposit-form-layout>
     <deposit-methods/>
   </div>
 </template>
@@ -241,8 +45,14 @@ import {
   DEPOSIT_METHODS_QUERY,
   DEPOSIT_MUTATION
 } from '@/graphql'
-import DepositHeader from './DepositHeader'
-import DepositMethods from './DepositMethods'
+import DepositHeader from '@/views/account/account-deposit/DepositHeader'
+import DepositMethods from '@/views/account/account-deposit/DepositMethods'
+import DepositDescription from '@/views/account/account-deposit/DepositDescription'
+import DepositErrors from '@/views/account/account-deposit/DepositErrors'
+import DepositSummary from '@/views/account/account-deposit/deposit-summary/DepositSummary'
+import DepositPresets from '@/views/account/account-deposit/deposit-form/DepositPresets'
+import DepositForm from '@/views/account/account-deposit/deposit-form/DepositForm'
+import DepositFormLayout from '@/views/account/account-deposit/deposit-form/DepositFormLayout'
 import { EUR } from '@/constants/currencies'
 import { BITCOIN, CREDIT_CARD } from '@/constants/payments/methods'
 import { FIAT } from '@/constants/currency-kinds'
@@ -253,7 +63,13 @@ export default {
   name: 'DepositFunds',
   components: {
     DepositHeader,
-    DepositMethods
+    DepositMethods,
+    DepositDescription,
+    DepositErrors,
+    DepositSummary,
+    DepositPresets,
+    DepositForm,
+    DepositFormLayout
   },
   data () {
     return {
@@ -269,12 +85,6 @@ export default {
       bonusError: null,
       depositState: this.$route.query.depositState,
       depositMessage: this.$route.query.depositStateMessage,
-      variantMap: {
-        pending: 'warning',
-        success: 'success',
-        fail: 'danger'
-      },
-      moneyAmounts: [ 10, 25, 50, 75, 100, 150, 200, 250 ],
       depositMethods: [],
       qrText: '',
       address: '',
@@ -316,9 +126,6 @@ export default {
       return (this.paymentMethod && this.paymentMethod.currencyCode) ||
         (this.fiatWallet && this.fiatWallet.currency.code) ||
         EUR
-    },
-    mapDepositState () {
-      return this.variantMap[this.depositState]
     },
     buttonDisabled () {
       let parsedAmount = parseFloat(this.fields.amount)
@@ -400,6 +207,10 @@ export default {
         }).catch(({ graphQLErrors }) => {
           this.calculatedBonus = null
           this.bonusError = graphQLErrors[0].message
+          setTimeout(() => {
+            this.bonusError = null
+            this.updateBonus(null)
+          }, 2000)
         })
       }
     },
@@ -441,8 +252,14 @@ export default {
       this.fields.amount = amount.toString()
       this.calculateBonus()
     },
-    onCopyAddress () {
-      this.$noty.info(this.$t('account.deposit.crypto.addressCopied'))
+    updateAmount (payload) {
+      this.fields.amount = payload
+    },
+    updateBonus (payload) {
+      this.fields.bonusCode = payload
+    },
+    updatePaymentMethod (payload) {
+      this.selectedPaymentMethodCode = payload
     }
   }
 }

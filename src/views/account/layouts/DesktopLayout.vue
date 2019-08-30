@@ -36,6 +36,7 @@
         </b-nav>
       </div>
     </b-col>
+
     <b-col class="profile-modal-nav-content p-5">
       <component :is="currentComponent"/>
     </b-col>

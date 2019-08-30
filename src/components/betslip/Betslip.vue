@@ -128,7 +128,7 @@
         </b-button>
 
         <spinner-button
-          v-if="getAnySubmittedBet || getAnyBetInValidation"
+          v-if="placingBetInProgress"
           class="submitting">
           Placing bet
         </spinner-button>
@@ -170,6 +170,7 @@ export default {
       'getAnySubmittedBet',
       'getAnyEmptyStake',
       'getAllBetsAcceptable',
+      'placingBetInProgress',
       'getAnyBetInValidation'
     ]),
     ...mapGetters(['isLoggedIn', 'getUserActiveWallet']),

@@ -1,14 +1,11 @@
 <template>
   <div
-    v-body-scroll-lock="isBetslipOpen"
     v-show="isBetslipOpen">
     <transition name="mobile-betslip-open-animation">
       <div
         v-if="isBetslipOpen"
-        class="mobile-navigation-sidemenu bg-arc-clr-soil-black right-0">
-        <vue-scroll>
-          <betslip/>
-        </vue-scroll>
+        class="mobile-navigation-sidemenu bg-arc-clr-soil-black right-0 overflowed-y">
+        <betslip/>
       </div>
     </transition>
     <close-button

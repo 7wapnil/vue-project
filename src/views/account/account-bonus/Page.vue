@@ -1,12 +1,16 @@
 <template>
   <div>
     <bonus-header v-if="!isMobile"/>
-    <bonus-placeholder v-if="!customerBonuses.length"/>
     <div v-if="customerBonuses.length">
+      <bonus-placeholder
+        v-if="!getMainBonus"/>
       <bonus-information-section
+        v-if="getMainBonus"
         :bonus-achieved="getCurrentBonusValue"
         :main-bonus="getMainBonus"/>
-      <progress-scale :value="getMainBonusPercentageValue"/>
+      <progress-scale
+        v-if="getMainBonus"
+        :value="getMainBonusPercentageValue"/>
       <bonus-items :bonus-items="customerBonuses"/>
     </div>
   </div>
@@ -36,14 +40,18 @@ export default {
   },
   computed: {
     getCurrentBonusValue () {
+      if (!this.getMainBonus) return null
+
       return (this.getMainBonus.rolloverInitialValue - this.getMainBonus.rolloverBalance).toFixed(2)
     },
     getMainBonusPercentageValue () {
+      if (!this.getMainBonus) return null
+
       let calculatedPercentage = (this.getCurrentBonusValue / this.getMainBonus.rolloverInitialValue) * 100
       return parseFloat(calculatedPercentage.toFixed(2))
     },
     getMainBonus () {
-      return this.customerBonuses.find((bonus) => bonus.status === 'active') || this.customerBonuses[0]
+      return this.customerBonuses.find((bonus) => bonus.status === 'active')
     }
   },
   apollo: {

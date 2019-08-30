@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { UPCOMING_FOR_TIME } from '@/constants/graphql/event-context'
+import { UPCOMING_FOR_TIME, UPCOMING_UNLIMITED } from '@/constants/graphql/event-context'
 import { LIVE, UPCOMING } from '@/constants/graphql/event-start-statuses'
 
 export default {
@@ -28,8 +28,8 @@ export default {
         context: LIVE
       }, {
         value: UPCOMING,
-        label: this.upcomingLabel ? this.$i18n.t('homePage.upcomingCommon') : this.$i18n.t('homePage.upcoming'),
-        context: this.upcomingContext || UPCOMING_FOR_TIME
+        label: (this.upcomingLabel || this.$route.params.titleKind === 'esports') ? this.$i18n.t('homePage.upcomingCommon') : this.$i18n.t('homePage.upcoming'),
+        context: this.upcomingContext || (this.$route.params.titleKind === 'esports' ? UPCOMING_UNLIMITED : UPCOMING_FOR_TIME)
       }]
     }
   },

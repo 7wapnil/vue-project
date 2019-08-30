@@ -108,7 +108,7 @@ export default {
       this.updateAuth(this.$route.query.auth)
     }
     if (this.$route.query.resetPassword) {
-      this.openResetPasswordForm()
+      this.openPasswordResetRequestForm()
     }
   },
   methods: {

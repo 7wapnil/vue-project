@@ -34,5 +34,6 @@ export default {
   'league-of-legends': 'background-league-of-legends',
   'overwatch': 'background-overwatch',
   'starcraft': 'background-starcraft',
-  'fifa': 'background-fifa'
+  'fifa': 'background-fifa',
+  'hearthstone': 'background-hearthstone'
 }

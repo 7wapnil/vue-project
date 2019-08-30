@@ -6,8 +6,7 @@ const STATUSES = {
   settled: 'settled',
   failed: 'failed',
   rejected: 'rejected',
-  disabled: 'disabled',
-  warning: 'warning'
+  disabled: 'disabled'
 }
 
 export default class Bet {
@@ -34,6 +33,7 @@ export default class Bet {
       stake: 5,
       status: STATUSES.initial,
       message: null,
+      notificationCode: null,
       externalId: null,
       approvedOddValue: odd.value,
       currentOddValue: odd.value,
@@ -49,11 +49,19 @@ export default class Bet {
     ].includes(this.status)
   }
 
+  get isStatusAccepted () {
+    return this.status === STATUSES.accepted
+  }
+
   get isAcceptable () {
     return [
       STATUSES.initial,
       STATUSES.failed,
       STATUSES.rejected
     ].includes(this.status)
+  }
+
+  get oddsChanged () {
+    return this.approvedOddValue !== this.currentOddValue
   }
 }

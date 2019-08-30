@@ -12,7 +12,7 @@
         class="ml-2 ml-md-4 mb-0 text-arc-clr-white font-weight-light letter-spacing-1 pointer"
         style="outline: 0;"
         @click="() => emitTitleChange(item.id)">
-        {{ item.name }}
+        {{ getTitleName(item) }}
       </h4>
 
     </b-col>
@@ -22,6 +22,7 @@
 <script>
 import { TITLE_CHANGED } from '@/constants/custom-events'
 import { findTitleIcon } from '@/helpers/icon-finder'
+import { getTitleName } from '@/helpers/title-names'
 
 export default {
   props: {
@@ -34,7 +35,8 @@ export default {
     emitTitleChange (id) {
       this.$root.$emit(TITLE_CHANGED, id)
     },
-    findTitleIcon
+    findTitleIcon,
+    getTitleName
   }
 }
 </script>
