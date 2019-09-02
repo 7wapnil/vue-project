@@ -1,5 +1,5 @@
 <template>
-  <div v-if="customerBonuses && customerBonuses.length">
+  <div v-if="customerBonuses && customerBonuses.length && getMainBonus">
     <b-row
       no-gutters
       class="px-3 pt-3 pb-0">
@@ -56,7 +56,7 @@ export default {
       return parseFloat(calculatedPercentage.toFixed(2))
     },
     getMainBonus () {
-      return this.customerBonuses.find((bonus) => bonus.status === 'active') || this.customerBonuses[0]
+      return this.customerBonuses.find((bonus) => bonus.status === 'active')
     }
   },
   apollo: {
