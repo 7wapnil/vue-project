@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import Overlay from '@/components/custom/Overlay'
+import Overlay from '@/views/layouts/mobile/sidemenu/Overlay'
 import CloseButton from '@/views/layouts/mobile/sidemenu/CloseButton'
 import Betslip from '@/components/betslip/Betslip'
 import { mapGetters, mapMutations } from 'vuex'

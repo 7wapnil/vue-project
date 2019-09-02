@@ -2,9 +2,9 @@
   <div
     :class="position === 'right' ? 'right-0' : 'left-0'"
     class="mobile-navigation-sidemenu-close-button"
-    @click="$emit('sidemenu-closed')">
+    @click.stop="toggleSidebar">
     <transition name="sidemenu-close-button">
-      <div v-if="isOpen">
+      <div v-if="isSidebarOpen">
         <icon
           :color="getSidebarKind === 'esports' ? 'arc-clr-esport-glow' : 'arc-clr-sport-glow'"
           name="betslip-close"
@@ -15,14 +15,10 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 
 export default {
   props: {
-    isOpen: {
-      type: Boolean,
-      default: false
-    },
     position: {
       type: String,
       default: 'right'
@@ -30,7 +26,13 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'getSidebarKind'
+      'getSidebarKind',
+      'isSidebarOpen'
+    ])
+  },
+  methods: {
+    ...mapMutations([
+      'toggleSidebar'
     ])
   }
 }

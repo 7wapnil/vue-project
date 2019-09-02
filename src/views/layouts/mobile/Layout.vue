@@ -1,11 +1,8 @@
 <template>
   <div>
-    <mobile-navigation-bar
-      @burger-clicked="toggleSidebar"/>
+    <mobile-navigation-bar @burger-clicked="toggleSidebar"/>
     <mobile-content class="mobile-container"/>
-    <navigation-sidebar
-      v-show="isSidebarOpen"
-      @sidebar-close-requested="toggleSidebar"/>
+    <navigation-sidebar v-show="isSidebarOpen"/>
     <betslip-button/>
     <betslip-container/>
     <mobile-footer/>
@@ -15,7 +12,7 @@
 <script>
 import MobileNavigationBar from '@/views/layouts/mobile/NavigationBar'
 import MobileFooter from '@/views/layouts/mobile/footer/Footer'
-import NavigationSidebar from '@/views/layouts/mobile/sidemenu/NavigationSidebar'
+import NavigationSidebar from '@/views/layouts/mobile/sidemenu/SidebarLayout'
 import { mapGetters, mapMutations } from 'vuex'
 import MobileContent from '@/views/layouts/mobile/Content'
 import BetslipButton from '@/views/layouts/mobile/betslip/BetslipButton'

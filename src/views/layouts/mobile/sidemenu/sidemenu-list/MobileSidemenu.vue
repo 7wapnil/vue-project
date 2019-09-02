@@ -1,5 +1,6 @@
 <template>
   <b-nav
+    v-if="isSidebarOpen"
     class="flex-nowrap"
     vertical>
 
@@ -19,6 +20,7 @@
 import MenuItem from './MobileMenuItem'
 import { TITLES_QUERY } from '@/graphql'
 import { buildTree } from '@/helpers/navigation-tree'
+import { mapGetters } from 'vuex'
 
 const POLL_INTERVAL = 10000
 
@@ -43,7 +45,7 @@ export default {
         query: TITLES_QUERY,
         variables () {
           return {
-            kind: this.isKindTriggered,
+            kind: this.getSidebarKind,
             withScopes: true
           }
         },
@@ -52,12 +54,13 @@ export default {
     }
   },
   computed: {
-    isKindTriggered () {
-      return this.titleKind ? this.titleKind : this.$route.params.titleKind
-    },
     menuItems () {
-      return buildTree(this.isKindTriggered, this.titles, this.$route)
-    }
+      return buildTree(this.getSidebarKind, this.titles, this.$route)
+    },
+    ...mapGetters([
+      'isSidebarOpen',
+      'getSidebarKind'
+    ])
   }
 }
 </script>
