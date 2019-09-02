@@ -10,6 +10,4 @@ body {
   -ms-overflow-style: none;
 }
 
-html {
-  scrollbar-width: none;
-}
+* {scrollbar-width: none !important }

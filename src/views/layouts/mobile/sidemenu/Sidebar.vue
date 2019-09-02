@@ -103,15 +103,7 @@ export default {
           this.menuScrollY > menuScrollYChanged)) {
         event.preventDefault()
       }
-
-      console.log('this.menu.scrollTop', this.menu.scrollTop)
-      console.log('this.sticky.offsetHeight', this.sticky.offsetHeight)
-      console.log('this.list.offsetHeight', this.list.offsetHeight)
-      console.log('this.overlay.offsetHeight', this.overlay.offsetHeight)
-
      if (this.sticky.offsetHeight + this.list.offsetHeight <= this.overlay.offsetHeight) {
-        console.log(event)
-        console.log('hello duh')
         event.preventDefault()
      }
 

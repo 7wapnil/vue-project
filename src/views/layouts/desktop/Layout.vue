@@ -1,11 +1,11 @@
 <template>
   <div>
     <desktop-navigation-bar/>
-    <b-container
-      fluid
-      class="desktop-container">
+
+    <div class="desktop-container">
       <slot/>
-    </b-container>
+    </div>
+
     <desktop-footer/>
   </div>
 </template>

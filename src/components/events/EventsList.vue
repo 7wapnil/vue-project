@@ -79,33 +79,41 @@ export default {
           {
             document: this.eventsSubscription.document,
             variables: this.eventsSubscription.variables,
-            updateQuery ({ events }, { subscriptionData }) {
+            updateQuery (currentData, { subscriptionData }) {
+              const events = currentData.events
+
+              if (!events) return
+
               const endpoint = Object.keys(subscriptionData.data)[0]
               const attributes = subscriptionData.data[endpoint]
-              const isRemoved =
-                attributes.startStatus !== CONTEXT_TO_START_STATUS_MAP[this.context]
+              const isRemoved = attributes.startStatus !== CONTEXT_TO_START_STATUS_MAP[this.context]
 
               return { events: updateCacheList(events, attributes, isRemoved) }
             }
           },
           {
             document: EVENTS_BET_STOPPED,
-            updateQuery ({ events }, { subscriptionData: { data } }) {
+            updateQuery (currentData, { subscriptionData: { data } }) {
+              const events = currentData.events
+
+              if (!events) return
+
               const subscriptionData = data.eventsBetStopped
               const marketStatus = subscriptionData.marketStatus
 
               if (MARKET_STOP_STATUSES.includes(marketStatus)) {
-                const eventIndex = events
-                  .findIndex(event => event.id === subscriptionData.eventId)
+                const eventIndex = events.findIndex(event => event.id === subscriptionData.eventId)
+
+                if (eventIndex === -1) return
+
+                const market = events[eventIndex].dashboardMarket
 
                 if (marketStatus === INACTIVE) events.splice(eventIndex, 1)
-                if (marketStatus === SUSPENDED) {
-                  events[eventIndex]
-                    .dashboardMarket
-                    .odds
-                    .forEach(function (odd) { odd.status = INACTIVE })
+                if (marketStatus === SUSPENDED && market) {
+                  market.odds.forEach(function (odd) { odd.status = INACTIVE })
                 }
               }
+
               return { events: events }
             }
           }

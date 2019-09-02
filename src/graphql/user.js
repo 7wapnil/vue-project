@@ -61,12 +61,14 @@ export const USER_WITHDRAWAL_METHODS_QUERY = gql`
           ... on PaymentMethodSkrill {
             id
             title
-            email
+            userPaymentOptionId
+            name
           }
           ... on PaymentMethodNeteller {
             id
             title
-            accountId
+            userPaymentOptionId
+            name
           }
         }
       }

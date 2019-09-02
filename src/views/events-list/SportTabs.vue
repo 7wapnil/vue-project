@@ -9,8 +9,9 @@
 import { TITLES_QUERY } from '@/graphql'
 import { TITLE_CHANGED } from '@/constants/custom-events'
 import FilterTabs from './FilterTabs'
-import { UPCOMING_FOR_TIME_TITLES_CONTEXT } from '@/constants/graphql/title-context'
+import { UPCOMING_UNLIMITED, UPCOMING_FOR_TIME_TITLES_CONTEXT } from '@/constants/graphql/title-context'
 import { findTitleIcon } from '@/helpers/icon-finder'
+import { getTitleShortName } from '@/helpers/title-names'
 
 export default {
   components: {
@@ -22,7 +23,7 @@ export default {
         query: TITLES_QUERY,
         variables: {
           kind: this.$route.params.titleKind,
-          context: UPCOMING_FOR_TIME_TITLES_CONTEXT
+          context: this.$route.params.titleKind === 'esports' ? UPCOMING_UNLIMITED : UPCOMING_FOR_TIME_TITLES_CONTEXT
         }
       }
     }
@@ -35,12 +36,17 @@ export default {
   },
   computed: {
     tabs () {
-      return [
-        { value: null, label: 'All', icon: 'arcanebet-default-icon' },
+      let data = [
         ...this.titles.map((title) => {
-          return { value: title.id, label: title.name, icon: findTitleIcon(title) }
+          return { value: title.id, label: getTitleShortName(title), icon: findTitleIcon(title) }
         })
       ]
+
+      if (this.isKindEsport) {
+        data.unshift({ value: null, label: 'All', icon: 'arcanebet-default-icon' })
+      }
+
+      return data
     }
   },
   created () {

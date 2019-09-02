@@ -50,7 +50,9 @@
 a:focus {
   outline: 0;
 }
-
+.rotate-180 {
+  transform: rotate(180deg);
+}
 .max-container-size {
   max-width: 1920px;
 }
@@ -59,7 +61,7 @@ a:focus {
   max-width: 1920px;
   min-width: 1380px;
   margin-top: 80px;
-  padding: 0;
+  padding: 0 13px 0 0;
 }
 .mobile-container {
   margin-top: 60px;
@@ -70,4 +72,16 @@ iframe {
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-y: hidden;
+  min-height: 100vh;
 }
+.breadcrumb-item.active {
+  &:before {
+    display: none;
+  }
+}
+
+.dynamic-height {
+  height: calc(100vh - 80px);
+}
+

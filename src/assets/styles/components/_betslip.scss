@@ -5,7 +5,7 @@
   &-block {
     position: sticky !important;
     top: 80px;
-    max-height: calc(100vh - 80px);
+    height: calc(100vh - 80px);
     overflow-y: auto !important;
     overflow-x: hidden !important;
     max-width: 268px;

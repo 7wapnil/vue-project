@@ -14,12 +14,15 @@
         </b-btn>
         <b-btn
           :class="{ active: dateSelected === 4 }"
-          variant="arc-filters"
-          @click="changeTimeFilter(4)">
-          <icon
-            :class="[ dateSelected === 4 ? 'text-arc-clr-soil-dark' : 'text-arc-clr-iron']"
-            name="calender"
-            size="16px"/>
+          variant="arc-filters">
+          <datepicker
+            :v-model="calendarDate"
+            :calendar-button="true"
+            wrapper-class="calendar"
+            input-class="date-input"
+            calendar-button-icon="arc arc-calender text-arc-clr-iron"
+            @selected="calendarChangeTimeFilter"
+          />
         </b-btn>
       </b-button-group>
       <b-button-group class="ml-4">
@@ -37,64 +40,65 @@
 </template>
 
 <script>
+import Datepicker from 'vuejs-datepicker'
+import moment from 'moment'
+
 export default {
+  components: {
+    'datepicker': Datepicker
+  },
   data () {
     return {
+      calendarDate: new Date(),
       dateSelected: 0,
       betStateSelected: 0,
       timeButtons: [
         {
           name: 'All',
-          event: 'time-all'
+          event: ''
         },
         {
           name: 'Today',
-          event: 'time-today'
+          event: 'today'
         },
         {
           name: 'Week',
-          event: 'time-week'
+          event: 'week'
         },
         {
           name: 'Month',
-          event: 'time-month'
+          event: 'month'
         },
       ],
       stateButtons: [
         {
           name: 'All',
-          event: 'bets-all'
+          event: ''
         },
         {
           name: 'Won',
-          event: 'bets-won'
-        },
-        {
-          name: 'Partically won',
-          event: 'bets-part-won'
+          event: 'won'
         },
         {
           name: 'Lost',
-          event: 'bets-lost'
+          event: 'lost'
         },
       ]
     }
   },
   methods: {
+    calendarChangeTimeFilter (date) {
+      this.dateSelected = 4
+      this.$emit('table-filtered-by-time', { event: moment(date).format('DD/MM/YYYY') })
+    },
     changeTimeFilter (index) {
-      if (index === 4) {
-        this.dateSelected = index
-        this.$emit('table-filtred-by-time', { name: 'Calendar',
-          event: 'time-calendar' })
-        return
-      }
       this.dateSelected = index
-      this.$emit('table-filtred-by-time', this.timeButtons[index])
+      this.$emit('table-filtered-by-time', this.timeButtons[index])
     },
     changeBetFilter (index) {
       this.betStateSelected = index
-      this.$emit('table-filtred-by-bet-state', this.stateButtons[index])
+      this.$emit('table-filtered-by-bet-state', this.stateButtons[index])
     }
-  }
+  },
 }
 </script>

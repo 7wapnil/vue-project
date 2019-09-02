@@ -12,8 +12,14 @@ import {
 import { BETSLIP_PLACEMENT_QUERY, BETSLIP_BETS_QUERY, BET_UPDATED } from '@/graphql/index'
 import { ACTIVE_STATUS } from '@/models/market'
 import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
+import VueLogger from 'vuejs-logger'
 
 const BET_DESTROY_TIMEOUT = 3000
+
+const isProduction = process.env.NODE_ENV === 'production'
+Vue.use(VueLogger, {
+  logLevel: isProduction ? 'error' : 'debug'
+})
 
 const getBetsFromStorage = () => {
   const json = localStorage.getItem('bets')
@@ -34,6 +40,7 @@ export const mutations = {
   updateBet (state, { oddId, payload }) {
     let bet = state.bets.find(el => el.oddId === oddId)
     if (!bet) return
+    Vue.$log.debug(`Update bet ID = ${bet.id}, eventName = ${bet.eventName}, marketName = ${bet.marketName}, oddName = ${bet.oddName}, status = ${bet.status}`)
     bet = Object.assign(bet, payload)
     setBetsToStorage(state.bets)
   },
@@ -143,6 +150,9 @@ export const getters = {
   },
   isBetslipOpen (state) {
     return state.betslipSidebarState
+  },
+  placingBetInProgress (state, getters) {
+    return getters.getAnySubmittedBet || getters.getAnyBetInValidation
   }
 }
 

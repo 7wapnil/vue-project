@@ -1,8 +1,8 @@
 import gql from 'graphql-tag';
 
 export const BETS_LIST_QUERY = gql`
-  query bets ($kind: String = null, $page: Int, $perPage: Int) {
-    bets (kind: $kind, page: $page, perPage: $perPage) {
+  query bets ($kind: String = null, $settlementStatus: String = null, $dateRange: String = null, $page: Int, $perPage: Int) {
+    bets (kind: $kind, settlementStatus: $settlementStatus, dateRange: $dateRange, page: $page, perPage: $perPage) {
       collection {
         id
         createdAt

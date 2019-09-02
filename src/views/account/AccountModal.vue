@@ -15,7 +15,6 @@
     </template>
 
     <component :is="accountLayout"/>
-
   </modal>
 </template>
 

@@ -3,10 +3,11 @@
     class="pt-2"
     no-gutters>
     <b-col>
-      <scope-breadcrumbs />
+      <scope-breadcrumbs/>
       <filter-tabs
         v-if="!showTitles"
         :upcoming-context="upcomingContext"
+        upcoming-label
         @tab-changed="onFilterChange" />
 
       <events-list

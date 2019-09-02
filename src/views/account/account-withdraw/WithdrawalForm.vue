@@ -113,17 +113,10 @@ import { WITHDRAW_MUTATION } from '@/graphql'
 import { mapGetters } from 'vuex'
 import { Form } from '@/helpers'
 import { EUR } from '@/constants/currencies'
-import Sofort from './withdrawal-methods/Sofort'
 import Skrill from './withdrawal-methods/Skrill'
 import Neteller from './withdrawal-methods/Neteller'
-import Skinwallet from './withdrawal-methods/Skinwallet'
-import Skinpay from './withdrawal-methods/Skinpay'
-import Qiwi from './withdrawal-methods/Qiwi'
-import Paysafecard from './withdrawal-methods/Paysafecard'
-import Mru from './withdrawal-methods/Mru'
 import CreditCard from './withdrawal-methods/CreditCard'
 import Bitcoin from './withdrawal-methods/Bitcoin'
-import Yandex from './withdrawal-methods/Yandex'
 
 export default {
   props: {
@@ -138,15 +131,8 @@ export default {
       sending: false,
       components: {
         'credit_card': CreditCard,
-        'sofort': Sofort,
         'skrill': Skrill,
-        'skinwallet': Skinwallet,
-        'skinpay': Skinpay,
-        'qiwi': Qiwi,
-        'paysafecard': Paysafecard,
-        'mru': Mru,
         'bitcoin': Bitcoin,
-        'yandex': Yandex,
         'neteller': Neteller
       },
       form: new Form({

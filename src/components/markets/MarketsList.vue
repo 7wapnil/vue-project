@@ -18,7 +18,6 @@
 
 <script>
 import MarketItem from '@/components/markets/MarketItem'
-import { ACTIVE_STATUS, SUSPENDED_STATUS, INACTIVE_STATUS } from '@/models/market'
 import EsportsUpcomingCardItem from '@/components/cards/esports-upcoming-card/EsportsUpcomingCardItem'
 import EsportsLiveCardItem from '@/components/cards/esports-live-card/EsportsLiveCardItem'
 import SportsLiveCardItem from '@/components/cards/sports-live-card/SportsLiveCardItem'
@@ -26,6 +25,7 @@ import SportsUpcomingCardItem from '@/components/cards/sports-upcoming-card/Spor
 import MobileEsportsUpcomingCardItem from '@/components/cards/mobile-esports-upcoming-card/MobileEsportsUpcomingCardItem'
 import MobileSportsUpcomingCardItem from '@/components/cards/mobile-sports-upcoming-card/MobileSportsUpcomingCardItem'
 import MobileSportsLiveCardItem from '@/components/cards/mobile-sports-live-card/MobileSportsLiveCardItem'
+import MobileEsportsLiveCardItem from '@/components/cards/mobile-esports-live-card/MobileEsportsLiveCardItem'
 
 export default {
   components: {
@@ -35,7 +35,8 @@ export default {
     SportsUpcomingCardItem,
     MobileEsportsUpcomingCardItem,
     MobileSportsUpcomingCardItem,
-    MobileSportsLiveCardItem
+    MobileSportsLiveCardItem,
+    MobileEsportsLiveCardItem,
   },
   props: {
     event: {
@@ -57,17 +58,7 @@ export default {
         return []
       }
 
-      const allowedStatuses = [
-        ACTIVE_STATUS,
-        SUSPENDED_STATUS
-      ]
-
-      return this.markets.filter((market) => {
-        if (!market) return false
-
-        return allowedStatuses.includes(market.status) ||
-                (market.priority === 0 && market.status === INACTIVE_STATUS)
-      }).sort((a, b) => {
+      return this.markets.slice(0).sort((a, b) => {
         return a.priority - b.priority || a.id - b.id
       })
     }

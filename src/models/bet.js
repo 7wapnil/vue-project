@@ -6,8 +6,7 @@ const STATUSES = {
   settled: 'settled',
   failed: 'failed',
   rejected: 'rejected',
-  disabled: 'disabled',
-  warning: 'warning'
+  disabled: 'disabled'
 }
 
 export default class Bet {
@@ -47,6 +46,10 @@ export default class Bet {
       STATUSES.pending,
       STATUSES.accepted
     ].includes(this.status)
+  }
+
+  get isStatusAccepted () {
+    return this.status === STATUSES.accepted
   }
 
   get isAcceptable () {
