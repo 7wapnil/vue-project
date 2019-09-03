@@ -1,9 +1,9 @@
 <template>
   <transition name="betslip-button">
     <div
-      v-if="toggleBetslipButton"
+      v-if="hideBetslipButton"
       class="betslip-mobile-button-wrapper m-4 text-center"
-      @click="toggleBetslip">
+      @click.stop="toggleBetslip">
       <arc-circle
         :size="24"
         inline
@@ -39,7 +39,7 @@ export default {
     ...mapGetters([
       'isSidebarOpen'
     ]),
-    toggleBetslipButton () {
+    hideBetslipButton () {
       return this.isProfileOpen &&
             !this.isSidebarOpen &&
             this.getBetsCount > 0 &&
