@@ -106,14 +106,14 @@
           :to="{ path: 'terms-and-conditions' }"
           target="_blank"
           class="font-weight-bold">
-          agree with T&C,
+          agree with T&C
         </b-link>
-        agree with
+        and
         <b-link
           :to="{ path: 'privacy-policy' }"
           target="_blank"
           class="font-weight-bold">
-          privacy policy
+          Privacy policy
         </b-link>
       </span>
     </b-form-checkbox>
