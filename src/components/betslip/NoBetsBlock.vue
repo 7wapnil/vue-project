@@ -3,7 +3,8 @@
     <b-row
       class="m-3"
       no-gutters>
-      <b-col cols="1">
+      <b-col v-if="!!this.$slots.close-button"
+             cols="1">
         <slot name="close-button"/>
       </b-col>
       <b-col>
