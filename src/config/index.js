@@ -13,12 +13,10 @@ import VueMeta from 'vue-meta'
 import VueMq from 'vue-mq'
 import VueClipboard from './plugins/vue-clipboard'
 import visibility from 'vue-visibility-change'
-import VScrollLock from 'v-scroll-lock'
 
 const isProduction = process.env.NODE_ENV === 'production'
 
 Vue.use(VueMeta)
-Vue.use(VScrollLock)
 
 Vue.use(VueLogger, {
   logLevel: isProduction ? 'error' : 'debug'

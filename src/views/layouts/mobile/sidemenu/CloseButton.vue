@@ -2,9 +2,9 @@
   <div
     :class="position === 'right' ? 'right-0' : 'left-0'"
     class="mobile-navigation-sidemenu-close-button"
-    @click.stop="toggleSidebar">
+    @click.stop="$emit('close:sidebar')">
     <transition name="sidemenu-close-button">
-      <div v-if="isSidebarOpen">
+      <div v-if="isOpen">
         <icon
           :color="getSidebarKind === 'esports' ? 'arc-clr-esport-glow' : 'arc-clr-sport-glow'"
           name="betslip-close"
@@ -22,6 +22,10 @@ export default {
     position: {
       type: String,
       default: 'right'
+    },
+    isOpen: {
+      type: Boolean,
+      default: false
     }
   },
   computed: {

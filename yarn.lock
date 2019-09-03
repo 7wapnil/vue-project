@@ -2320,11 +2320,6 @@ body-parser@1.19.0:
     raw-body "2.4.0"
     type-is "~1.6.17"
 
-body-scroll-lock@^2.4.6:
-  version "2.6.4"
-  resolved "https://registry.yarnpkg.com/body-scroll-lock/-/body-scroll-lock-2.6.4.tgz#567abc60ef4d656a79156781771398ef40462e94"
-  integrity sha512-NP08WsovlmxEoZP9pdlqrE+AhNaivlTrz9a0FF37BQsnOrpN48eNqivKkE7SYpM9N+YIPjsdVzfLAUQDBm6OQw==
-
 bonjour@^3.5.0:
   version "3.5.0"
   resolved "https://registry.yarnpkg.com/bonjour/-/bonjour-3.5.0.tgz#8e890a183d8ee9a2393b3844c691a42bcf7bc9f5"
@@ -11329,14 +11324,6 @@ uuid@3.3.2, uuid@^3.0.1, uuid@^3.1.0, uuid@^3.3.2:
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.3.2.tgz#1b4af4955eb3077c501c23872fc6513811587131"
   integrity sha512-yXJmeNaw3DnnKAOKJE51sL/ZaYfWJRl1pK9dr19YFCu0ObS231AB1/LbqTKRAQ5kw8A90rA6fr4riOUpTZvQZA==
 
-v-scroll-lock@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/v-scroll-lock/-/v-scroll-lock-1.0.1.tgz#0f55f6c400a28d220766c263b02d36fe19fdb72b"
-  integrity sha512-foeZoU03blG/bBeNEfZYeWFHZpjCPs71thshyDqKvAWfR561q78xrdyBA4rSe7eZQpLcLfuheQCET6zRuIOakw==
-  dependencies:
-    body-scroll-lock "^2.4.6"
-    vue "^2.5.16"
-
 validate-npm-package-license@^3.0.1:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/validate-npm-package-license/-/validate-npm-package-license-3.0.4.tgz#fc91f6b9c7ba15c857f4cb2c5defeec39d4f410a"
@@ -11565,7 +11552,7 @@ vue-visibility-change@^1.2.1:
   resolved "https://registry.yarnpkg.com/vue-visibility-change/-/vue-visibility-change-1.2.1.tgz#d18008bf4f1de2c947afe5441ee044b9e9c60141"
   integrity sha512-CgnubNhAY+EXqTHba660YY7FRubBuYkSELIlbXBBdgdiM/g5DmgFtLd2XChCqXs56TTfshnlIA900traBZPZQg==
 
-vue@^2.5.16, vue@^2.6.10:
+vue@^2.6.10:
   version "2.6.10"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.6.10.tgz#a72b1a42a4d82a721ea438d1b6bf55e66195c637"
   integrity sha512-ImThpeNU9HbdZL3utgMCq0oiMzAkt1mcgy3/E6zWC/G6AaQoeuFdsl9nDhTDU3X1R6FK7nsIUuRACVcjI+A2GQ==

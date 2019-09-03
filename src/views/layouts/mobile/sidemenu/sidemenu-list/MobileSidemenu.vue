@@ -1,19 +1,24 @@
 <template>
-  <b-nav
-    v-if="isSidebarOpen"
-    class="flex-nowrap"
-    vertical>
+  <div>
+    <b-nav
+      v-if="!$apollo.loading"
+      class="flex-nowrap bg-arc-clr-soil-black"
+      vertical>
 
-    <slot/>
+      <slot/>
 
-    <b-nav-item
-      v-for="(item, index) in menuItems"
-      :key="index">
-      <menu-item
-        :item="item"
-        :index="index"/>
-    </b-nav-item>
-  </b-nav>
+      <b-nav-item
+        v-for="(item, index) in menuItems"
+        :key="index">
+        <menu-item
+          :item="item"
+          :index="index"/>
+      </b-nav-item>
+    </b-nav>
+    <loader
+      v-if="$apollo.loading"
+      class="w-100 m-4"/>
+  </div>
 </template>
 
 <script>
@@ -55,7 +60,9 @@ export default {
   },
   computed: {
     menuItems () {
-      return buildTree(this.getSidebarKind, this.titles, this.$route)
+      if (this.isSidebarOpen) {
+        return buildTree(this.getSidebarKind, this.titles, this.$route)
+      }
     },
     ...mapGetters([
       'isSidebarOpen',

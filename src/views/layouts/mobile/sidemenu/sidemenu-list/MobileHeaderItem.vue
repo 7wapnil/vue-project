@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 
 export default {
   computed: {
@@ -32,9 +32,12 @@ export default {
     ])
   },
   methods: {
+    ...mapMutations([
+      'toggleSidebar'
+    ]),
     changeCategory () {
       if (this.$route.params.titleKind === this.getSidebarKind) {
-        this.$emit('sidemenu-closed')
+        this.toggleSidebar()
       }
       this.$router.push(`/${this.getSidebarKind}`)
     }

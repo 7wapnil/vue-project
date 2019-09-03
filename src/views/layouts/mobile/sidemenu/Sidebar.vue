@@ -1,29 +1,35 @@
 <template>
   <div>
-    <overlay v-scroll-lock="isSidebarOpen">
+    <overlay>
       <transition :name="sidebar.transition">
-        <div v-if="isSidebarOpen"
-             :class="sidebar.position"
-             class="mobile-navigation-sidemenu">
+        <div
+          v-if="isOpen"
+          :class="sidebar.position"
+          class="mobile-navigation-sidemenu">
           <div class="mobile-navigation-sidemenu-header">
             <slot name="header"/>
           </div>
           <b-row no-gutters>
-            <b-col @click.stop
-                   class="mobile-navigation-sidemenu-content">
+            <b-col
+              class="mobile-navigation-sidemenu-content"
+              @click.stop>
               <slot name="content"/>
             </b-col>
           </b-row>
         </div>
       </transition>
     </overlay>
-    <close-button :position="sidebar.closeButtonPosition"/>
+    <close-button
+      v-if="closeTrigger.length"
+      :position="sidebar.closeButtonPosition"
+      :is-open="isOpen"
+      @close:sidebar="closeSidebar"/>
   </div>
 </template>
 <script>
 import CloseButton from '@/views/layouts/mobile/sidemenu/CloseButton'
 import Overlay from '@/views/layouts/mobile/sidemenu/Overlay.vue'
-import { mapGetters } from 'vuex'
+import { mapMutations } from 'vuex'
 
 export default {
   components: {
@@ -34,6 +40,14 @@ export default {
     position: {
       type: String,
       default: 'left'
+    },
+    isOpen: {
+      type: Boolean,
+      default: false
+    },
+    closeTrigger: {
+      type: String,
+      default: ''
     }
   },
   data () {
@@ -45,10 +59,21 @@ export default {
       }
     }
   },
-  computed: {
-    ...mapGetters([
-      'isSidebarOpen'
-    ])
+  methods: {
+    closeSidebar () {
+      if (this.closeTrigger === 'betslip') {
+        return this.toggleBetslip()
+      }
+      if (this.closeTrigger === 'sidemenu') {
+        return this.toggleSidebar()
+      }
+    },
+    ...mapMutations([
+      'toggleSidebar'
+    ]),
+    ...mapMutations('betslip', [
+      'toggleBetslip'
+    ]),
   }
 }
 </script>
