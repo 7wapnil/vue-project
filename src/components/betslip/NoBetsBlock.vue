@@ -1,12 +1,17 @@
 <template>
   <span v-if="!getBets.length">
-    <div class="m-3">
-      <small class="text-arc-clr-iron">
-        <strong>
-          Betslip
-        </strong>
-      </small>
-    </div>
+    <b-row
+      class="m-3"
+      no-gutters>
+      <b-col cols="1">
+        <slot name="close-button"/>
+      </b-col>
+      <b-col>
+        <span class="mr-2 text-arc-clr-iron letter-spacing-2 font-size-11">
+          BETSLIP
+        </span>
+      </b-col>
+    </b-row>
     <b-card
       bg-variant="transparent"
       class="mx-2 mb-2 pb-4 betslip-empty-card"
