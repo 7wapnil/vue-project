@@ -12,21 +12,25 @@
         md="auto">
         <img src="~@/assets/images/common/cookies.svg">
       </b-col>
-      <b-col class="px-5 pb-5 pt-0 p-md-5">
+      <b-col
+        md="auto"
+        class="text-center text-md-left px-4 pb-5 pt-0 p-md-5">
         <h4 class="font-weight-light text-arc-clr-white mb-4 letter-spacing-2">
           {{ $t('cookies.header') }}
         </h4>
         <h6 class="text-arc-clr-iron letter-spacing-2 mb-0 line-height-24">
           {{ $t('cookies.description') }}
-          <b-link
-            :to="{ name: 'Cookie Policy'}"
-            class="text-arc-clr-iron-light font-weight-bold letter-spacing-2">
-            {{ $t('cookies.policy') }}
-          </b-link>
+          <u>
+            <b-link
+              :to="{ name: 'Cookie Policy'}"
+              class="text-arc-clr-iron-light font-weight-bold letter-spacing-2 ">
+              {{ $t('cookies.policy') }}
+            </b-link>
+          </u>
         </h6>
       </b-col>
       <b-col
-        class="d-flex align-items-center justify-content-center px-5 mb-4 mb-md-0"
+        class="d-flex align-items-center justify-content-center px-4 px-md-4 mb-4 mb-md-0"
         cols="12"
         md="auto">
         <b-button

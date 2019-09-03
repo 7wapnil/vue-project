@@ -1,12 +1,10 @@
 <template>
-  <vue-scroll>
-    <div>
-      <account-sidebar v-if="isMenu"/>
-      <component
-        v-if="!isMenu"
-        :is="currentComponent"/>
-    </div>
-  </vue-scroll>
+  <div>
+    <account-sidebar v-if="isMenu"/>
+    <component
+      v-if="!isMenu"
+      :is="currentComponent"/>
+  </div>
 </template>
 <script>
 import DesktopLayout from '@/views/account/layouts/DesktopLayout'

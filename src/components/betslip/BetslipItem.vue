@@ -324,7 +324,7 @@ export default {
       if (!market.hasOwnProperty('id')) return
 
       let marketHasOdd = market.odds.some((odd) => this.bet.oddId === odd.id)
-      if (!marketHasOdd) {
+      if (!marketHasOdd || INACTIVE_STATUSES.includes(market.status)) {
         return this.disableBetByOddStatus()
       } else {
         this.betOddStatus = null

@@ -191,8 +191,11 @@
     flex-wrap: nowrap;
     white-space: nowrap;
     max-width: 100%;
-    overflow: auto !important;
-    scroll-behavior: smooth;
+    overflow: hidden;
+
+    .mobile-container & {
+      overflow: auto;
+    }
   }
 }
 
@@ -222,8 +225,6 @@
       white-space: nowrap;
       max-width: 100%;
       overflow: auto !important;
-      scroll-behavior: smooth;
-
     }
     .nav-link.active {
       color: $arc-clr-white !important;

@@ -1,15 +1,13 @@
 <template>
-  <vue-scroll>
-    <div
-      :class="titleKind"
-      class="dynamic-height">
-      <component :is="layoutName">
-        <router-view :key="$route.fullPath"/>
-      </component>
-      <cookie-warning/>
-      <modal-list/>
-    </div>
-  </vue-scroll>
+  <div
+    :class="titleKind"
+    class="dynamic-height">
+    <component :is="layoutName">
+      <router-view :key="$route.fullPath"/>
+    </component>
+    <cookie-warning/>
+    <modal-list/>
+  </div>
 </template>
 
 <script>
@@ -46,6 +44,10 @@ export default {
 
     if (this.$route.query.resetPassword) {
       this.$bvModal.show('AuthModal')
+    }
+
+    if (this.$route.query.changePassword) {
+      this.$bvModal.show('AccountModal')
     }
   }
 }

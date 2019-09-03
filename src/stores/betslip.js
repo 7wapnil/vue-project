@@ -9,6 +9,9 @@ import {
   VALIDATED_INTERNALLY,
   SENT_TO_EXTERNAL_VALIDATION
 } from '@/constants/bet-pending-statuses'
+import { ODDS_TOO_HIGH_ERROR } from '@/constants/notification-codes'
+import { REJECTED } from '@/constants/bet-fail-statuses'
+import { INITIAL } from '@/constants/bet-ok-statuses'
 import { BETSLIP_PLACEMENT_QUERY, BETSLIP_BETS_QUERY, BET_UPDATED } from '@/graphql/index'
 import { ACTIVE_STATUS } from '@/models/market'
 import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
@@ -40,7 +43,15 @@ export const mutations = {
   updateBet (state, { oddId, payload }) {
     let bet = state.bets.find(el => el.oddId === oddId)
     if (!bet) return
-    Vue.$log.debug(`Update bet ID = ${bet.id}, eventName = ${bet.eventName}, marketName = ${bet.marketName}, oddName = ${bet.oddName}, status = ${bet.status}`)
+
+    if (payload.status === REJECTED && payload.notificationCode === ODDS_TOO_HIGH_ERROR && bet.oddsChanged) {
+      payload.status = INITIAL
+      Vue.$log.debug(`Got status "rejected" when odds has been changed, "Accept new odds" block will be shown instead 
+        of an error`)
+    }
+
+    Vue.$log.debug(`Update bet ID = ${bet.id}, eventName = ${bet.eventName}, marketName = ${bet.marketName}, 
+      oddName = ${bet.oddName}, status = ${bet.status}, new data:`, payload)
     bet = Object.assign(bet, payload)
     setBetsToStorage(state.bets)
   },
@@ -177,6 +188,7 @@ export const actions = {
             oddId: bet.oddId,
             payload: {
               status: betUpdated.status,
+              notificationCode: betUpdated.notificationCode,
               message: betUpdated.message
             }
           })
