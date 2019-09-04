@@ -1,6 +1,10 @@
 <template>
   <div>
-    <no-bets-block/>
+    <no-bets-block>
+      <template #close-button>
+        <slot name="close"/>
+      </template>
+    </no-bets-block>
     <b-container
       v-if="getBets.length > 0"
       class="p-0">
@@ -9,7 +13,6 @@
         class="py-3 px-4 bg-arc-clr-soil-black">
         <b-col
           v-if="!!this.$slots.close"
-          class="mr-2"
           cols="1">
           <slot name="close"/>
         </b-col>
