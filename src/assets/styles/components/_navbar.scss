@@ -2,9 +2,12 @@
 
 .navbar {
   &-desktop {
-    min-height: $navbar-height;
+    max-height: $navbar-height;
     padding: 0;
-    margin-right: 13px;
+    margin-right: 3px;
+    &-inner {
+      max-width: 1920px;
+    }
   }
   &-mobile {
     height: 60px;

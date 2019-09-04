@@ -1,12 +1,21 @@
 <template>
   <div>
-    <no-bets-block/>
+    <no-bets-block>
+      <template #close-button>
+        <slot name="close"/>
+      </template>
+    </no-bets-block>
     <b-container
       v-if="getBets.length > 0"
       class="p-0">
       <b-row
         no-gutters
         class="py-3 px-4 bg-arc-clr-soil-black">
+        <b-col
+          v-if="!!this.$slots.close"
+          cols="1">
+          <slot name="close"/>
+        </b-col>
         <b-col class="p-0">
           <span class="mr-2 text-arc-clr-iron letter-spacing-2 font-size-11">
             BETSLIP

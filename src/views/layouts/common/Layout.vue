@@ -1,7 +1,6 @@
 <template>
   <div
-    :class="titleKind"
-    class="dynamic-height">
+    :class="titleKind">
     <component :is="layoutName">
       <router-view :key="$route.fullPath"/>
     </component>

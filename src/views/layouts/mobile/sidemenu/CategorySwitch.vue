@@ -3,14 +3,14 @@
     <b-tabs
       class="w-100"
       justified>
-      <template slot="tabs">
+      <template #tabs>
         <b-nav-item
           v-for="(category, index) in categories"
           :key="index"
           :active="getSidebarKind === category.name"
           :class="[ getSidebarKind === 'esports' ? 'mobile-navigation-sidemenu-category-esports' : 'mobile-navigation-sidemenu-category-sports' ]"
           class="mobile-navigation-sidemenu-category"
-          @click="changeCategory(category.name)">
+          @click.stop="changeCategory(category.name)">
           {{ category.label }}
         </b-nav-item>
       </template>
@@ -41,9 +41,11 @@ export default {
       'getSidebarKind'
     ])
   },
+  created () {
+    this.changeSidebarKind(this.$route.params.titleKind)
+  },
   methods: {
     changeCategory (kind) {
-      this.$emit('category-changed', kind)
       this.changeSidebarKind(kind)
     },
     ...mapMutations([

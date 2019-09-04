@@ -1,40 +1,32 @@
 <template>
-  <div
-    v-show="isBetslipOpen">
-    <transition name="mobile-betslip-open-animation">
-      <div
-        v-if="isBetslipOpen"
-        class="mobile-navigation-sidemenu bg-arc-clr-soil-black right-0 overflowed-y">
-        <betslip/>
-      </div>
-    </transition>
-    <close-button
-      :is-open="isBetslipOpen"
-      :color="titleKind"
-      position="left"
-      @sidemenu-closed="toggleBetslip"/>
-    <overlay
-      v-if="isBetslipOpen"
-      @overlay-clicked="toggleBetslip"/>
-  </div>
+  <sidebar
+    v-show="isBetslipOpen"
+    :is-open="isBetslipOpen"
+    position="right">
+    <template #content>
+      <betslip>
+        <template #close>
+          <close-button
+            :is-open="isBetslipOpen"
+            position="left"
+            @close:sidebar="closeBetslip"/>
+        </template>
+      </betslip>
+    </template>
+  </sidebar>
 </template>
 
 <script>
-import Overlay from '@/components/custom/Overlay'
-import CloseButton from '@/views/layouts/mobile/sidemenu/CloseButton'
+import Sidebar from '@/views/layouts/mobile/sidemenu/Sidebar'
 import Betslip from '@/components/betslip/Betslip'
 import { mapGetters, mapMutations } from 'vuex'
+import CloseButton from '@/views/layouts/mobile/sidemenu/CloseButton'
 
 export default {
   components: {
-    CloseButton,
-    Overlay,
-    Betslip
-  },
-  data () {
-    return {
-      titleKind: this.$route.params.titleKind
-    }
+    Sidebar,
+    Betslip,
+    CloseButton
   },
   computed: {
     ...mapGetters('betslip', [
@@ -44,7 +36,10 @@ export default {
   methods: {
     ...mapMutations('betslip', [
       'toggleBetslip'
-    ])
+    ]),
+    closeBetslip () {
+      this.toggleBetslip()
+    }
   }
 }
 </script>

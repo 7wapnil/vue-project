@@ -2,8 +2,7 @@
   <div :class="`items-level-${level}`">
     <div
       v-b-toggle="`item-${level}-${index}`"
-      v-if="hasChildren"
-      class="collapsed">
+      v-if="hasChildren">
       <item-content
         :class="[getSidebarKind === 'esports' ? 'blue' : 'green']"
         :item="item"
@@ -22,7 +21,6 @@
     <b-collapse
       v-if="hasChildren"
       :id="`item-${level}-${index}`"
-      :visible="item.active"
       :accordion="`${level}-menu`">
       <b-nav
         vertical

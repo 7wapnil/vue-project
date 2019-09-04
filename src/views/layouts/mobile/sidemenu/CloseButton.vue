@@ -2,7 +2,7 @@
   <div
     :class="position === 'right' ? 'right-0' : 'left-0'"
     class="mobile-navigation-sidemenu-close-button"
-    @click="$emit('sidemenu-closed')">
+    @click.stop="$emit('close:sidebar')">
     <transition name="sidemenu-close-button">
       <div v-if="isOpen">
         <icon
@@ -15,22 +15,28 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 
 export default {
   props: {
-    isOpen: {
-      type: Boolean,
-      default: false
-    },
     position: {
       type: String,
       default: 'right'
+    },
+    isOpen: {
+      type: Boolean,
+      default: false
     }
   },
   computed: {
     ...mapGetters([
-      'getSidebarKind'
+      'getSidebarKind',
+      'isSidebarOpen'
+    ])
+  },
+  methods: {
+    ...mapMutations([
+      'toggleSidebar'
     ])
   }
 }

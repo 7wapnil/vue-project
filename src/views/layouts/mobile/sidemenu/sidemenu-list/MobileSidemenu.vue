@@ -1,12 +1,12 @@
 <template>
-  <b-nav
-    tag="div"
-    class="flex-nowrap"
-    vertical>
+  <div>
+    <b-nav
+      v-if="!$apollo.loading"
+      class="flex-nowrap bg-arc-clr-soil-black"
+      vertical>
 
-    <slot/>
+      <slot/>
 
-    <div v-if="isOpen">
       <b-nav-item
         v-for="(item, index) in menuItems"
         :key="index">
@@ -14,17 +14,18 @@
           :item="item"
           :index="index"/>
       </b-nav-item>
-    </div>
+    </b-nav>
     <loader
-      v-if="!isOpen"
-      class="py-5 px-4 bg-arc-clr-soil-dark"/>
-  </b-nav>
+      v-if="$apollo.loading"
+      class="w-100 m-4"/>
+  </div>
 </template>
 
 <script>
 import MenuItem from './MobileMenuItem'
 import { TITLES_QUERY } from '@/graphql'
 import { buildTree } from '@/helpers/navigation-tree'
+import { mapGetters } from 'vuex'
 
 const POLL_INTERVAL = 10000
 
@@ -36,10 +37,6 @@ export default {
     titleKind: {
       type: String,
       default: null
-    },
-    isOpen: {
-      type: Boolean,
-      required: true
     }
   },
   data () {
@@ -53,7 +50,7 @@ export default {
         query: TITLES_QUERY,
         variables () {
           return {
-            kind: this.isKindTriggered,
+            kind: this.getSidebarKind,
             withScopes: true
           }
         },
@@ -62,12 +59,15 @@ export default {
     }
   },
   computed: {
-    isKindTriggered () {
-      return this.titleKind ? this.titleKind : this.$route.params.titleKind
-    },
     menuItems () {
-      return buildTree(this.isKindTriggered, this.titles, this.$route)
-    }
+      if (this.isSidebarOpen) {
+        return buildTree(this.getSidebarKind, this.titles, this.$route)
+      }
+    },
+    ...mapGetters([
+      'isSidebarOpen',
+      'getSidebarKind'
+    ])
   }
 }
 </script>
