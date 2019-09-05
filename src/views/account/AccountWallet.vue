@@ -10,7 +10,7 @@
             {{ $t('wallet.balance') }}
           </b-col>
           <div class="w-100"/>
-          <b-col class="p-0">
+          <b-col class="p-0 mt-1">
             <span class="font-weight-bold text-arc-clr-white letter-spacing-2">
               {{ activeWallet.amount | round }}
             </span>
@@ -30,29 +30,38 @@
       <b-row
         v-if="inactiveWalletsList.length > 0"
         no-gutters>
-        <b-col class="mt-4">
+        <b-col class="mt-2">
           <b-col
-            class="p-0 text-uppercase text-arc-clr-iron font-size-10 letter-spacing-2">
+            class="p-0 mb-2 text-uppercase text-arc-clr-iron font-size-10 letter-spacing-2">
             {{ $t('wallet.secondWallet') }}
           </b-col>
           <div class="w-100"/>
-          <span
-            v-for="(wallet, index) in inactiveWalletsList"
-            :key="index">
-            <span class="font-weight-bold text-arc-clr-white font-size-12 letter-spacing-2">
-              {{ wallet.amount | round }}
-            </span>
-            <span class="font-weight-bold text-arc-clr-iron font-size-12 ml-1 letter-spacing-2">
-              {{ wallet.currency.code }}
-            </span>
-          </span>
+
+          <b-nav
+            vertical
+            pills
+            class="w-100">
+            <b-nav-item
+              v-for="(wallet, index) in inactiveWalletsList"
+              :key="index"
+              class="mobile-wallet-switch"
+              @click.prevent="selectWallet(wallet)">
+              <span class="font-weight-bold text-arc-clr-white font-size-12 letter-spacing-2">
+                {{ wallet.amount | round }}
+              </span>
+              <span class="font-weight-bold text-arc-clr-iron font-size-12 ml-1 letter-spacing-2">
+                {{ wallet.currency.code }}
+              </span>
+            </b-nav-item>
+          </b-nav>
+
         </b-col>
       </b-row>
     </b-col>
   </b-row>
 </template>
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 
 export default {
   data () {
@@ -69,6 +78,14 @@ export default {
       return this.wallets.filter((wallet) => {
         return (wallet.id !== null && this.activeWallet.id !== wallet.id)
       })
+    }
+  },
+  methods: {
+    ...mapMutations([
+      'setActiveWallet'
+    ]),
+    selectWallet (wallet) {
+      this.setActiveWallet(wallet.id)
     }
   }
 }

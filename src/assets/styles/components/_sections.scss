@@ -1,3 +1,5 @@
+@import '../variables';
+
 // Bonus section
 .bonus-overview-section {
   border-radius: 6px 6px 0 0;
@@ -73,4 +75,16 @@
 // Tournament page header section
 .event-description-section {
   min-height: 170px;
+}
+
+// Mobile wallet section
+.mobile-wallet-switch {
+    border-bottom: 1px solid $arc-clr-soil-cover;
+  &:last-of-type {
+    border: none;
+  }
+  &:active {
+    background-color: #6f6f6f30;
+    border-radius: 3px;
+  }
 }
