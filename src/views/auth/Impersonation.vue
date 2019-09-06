@@ -35,8 +35,7 @@ export default {
           this.$router.push({ name: 'home' })
           this.$noty.success(this.$t('auth.impersonate.success', { username: body.user.username }))
         })
-        .catch((e) => {
-          debugger
+        .catch(() => {
           this.$router.push({ name: 'not-found' })
         })
     }
