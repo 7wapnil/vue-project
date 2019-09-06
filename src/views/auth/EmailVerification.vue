@@ -24,7 +24,7 @@
               v-if="error"
               class="text-center">
               <h4 class="font-weight-bold letter-spacing-2">
-                Error accured!
+                Error occured!
               </h4>
               <p class="letter-spacing-2">
                 {{ error }}
