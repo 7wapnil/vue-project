@@ -1,10 +1,6 @@
 <template>
   <div>
-    <no-bets-block>
-      <template #close-button>
-        <slot name="close"/>
-      </template>
-    </no-bets-block>
+    <no-bets-block/>
     <b-container
       v-if="getBets.length > 0"
       class="p-0">
@@ -35,7 +31,7 @@
           align="right">
           <b-link
             class="clear text-arc-clr-iron-light font-size-14"
-            @click="clearBetslip">
+            @click="callBetslipClear">
             {{ $t('betslip.cta.clearAll') }}
           </b-link>
         </b-col>
@@ -234,7 +230,8 @@ export default {
       'updateBet',
       'removeBetFromBetslip',
       'clearBetslip',
-      'updateAcceptAll'
+      'updateAcceptAll',
+      'toggleBetslip'
     ]),
     submit () {
       this.setBetStatusAsSubmitted()
@@ -297,6 +294,13 @@ export default {
       } else {
         return 'betslipTab'
       }
+    },
+    callBetslipClear () {
+      if (this.isMobile) {
+        this.clearBetslip()
+        this.toggleBetslip()
+      }
+      this.clearBetslip()
     }
   }
 }

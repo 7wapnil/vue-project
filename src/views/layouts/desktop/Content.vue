@@ -1,30 +1,26 @@
 <template>
-  <b-container
-    fluid
-    class="p-0">
-    <b-row
-      no-gutters>
-      <b-col
-        class="bg-arc-clr-soil-black side-menu">
-        <side-menu>
-          <template #header>
-            <b-nav-item class="d-inline-flex align-items-center justify-content-start p-3 bg-arc-clr-soil-dark side-menu-categories w-100">
-              <span class="text-arc-clr-iron letter-spacing-2">
-                CATEGORIES
-              </span>
-            </b-nav-item>
-          </template>
-        </side-menu>
-      </b-col>
-      <b-col class="bg-arc-clr-soil-light min-vh-100">
-        <router-view :key="$route.fullPath"/>
-      </b-col>
-      <b-col class="bg-arc-clr-soil-black betslip-block">
-        <promotional-item/>
-        <betslip/>
-      </b-col>
-    </b-row>
-  </b-container>
+  <b-row
+    no-gutters>
+    <b-col
+      class="bg-arc-clr-soil-black side-menu">
+      <side-menu>
+        <template #header>
+          <b-nav-item class="d-inline-flex align-items-center justify-content-start p-3 bg-arc-clr-soil-dark side-menu-categories w-100">
+            <span class="text-arc-clr-iron letter-spacing-2">
+              CATEGORIES
+            </span>
+          </b-nav-item>
+        </template>
+      </side-menu>
+    </b-col>
+    <b-col class="bg-arc-clr-soil-light min-vh-100">
+      <router-view :key="$route.fullPath"/>
+    </b-col>
+    <b-col class="bg-arc-clr-soil-black betslip-block">
+      <promotional-item/>
+      <betslip/>
+    </b-col>
+  </b-row>
 </template>
 
 <script>

@@ -104,7 +104,7 @@
           no-gutters>
           <b-col class="line-height-14">
             <small class="text-arc-clr-gold letter-spacing-2">
-              Odd changed:
+              Odds changed:
             </small>
           </b-col>
           <div class="w-100"/>
