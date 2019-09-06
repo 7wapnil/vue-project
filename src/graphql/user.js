@@ -94,12 +94,6 @@ export const IMPERSONATE_MUTATION = gql`
   }
 `
 
-export const ACTIVATE_ACCOUNT = gql`
-  mutation ($token: String!) {
-    activate (token: $token)
-  }
-`
-
 export const VERIFY_EMAIL = gql`
   mutation ($token: String!) {
     verifyEmail (token: $token) {
