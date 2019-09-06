@@ -3,11 +3,6 @@
     <b-row
       class="m-3"
       no-gutters>
-      <b-col
-        v-if="!!this.$slots.close-button"
-        cols="1">
-        <slot name="close-button"/>
-      </b-col>
       <b-col>
         <span class="mr-2 text-arc-clr-iron letter-spacing-2 font-size-11">
           BETSLIP
