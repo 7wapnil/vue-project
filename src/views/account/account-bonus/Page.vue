@@ -1,18 +1,16 @@
 <template>
   <div>
     <bonus-header v-if="!isMobile"/>
-    <div v-if="customerBonuses.length">
-      <bonus-placeholder
-        v-if="!getMainBonus"/>
-      <bonus-information-section
-        v-if="getMainBonus"
-        :bonus-achieved="getCurrentBonusValue"
-        :main-bonus="getMainBonus"/>
-      <progress-scale
-        v-if="getMainBonus"
-        :value="getMainBonusPercentageValue"/>
-      <bonus-items :bonus-items="customerBonuses"/>
-    </div>
+    <bonus-placeholder
+      v-if="!getMainBonus"/>
+    <bonus-information-section
+      v-if="getMainBonus"
+      :bonus-achieved="getCurrentBonusValue"
+      :main-bonus="getMainBonus"/>
+    <progress-scale
+      v-if="getMainBonus"
+      :value="getMainBonusPercentageValue"/>
+    <bonus-items :bonus-items="customerBonuses"/>
   </div>
 </template>
 
