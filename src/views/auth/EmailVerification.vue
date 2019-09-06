@@ -68,21 +68,13 @@
         </b-row>
       </b-col>
     </b-row>
-    <arc-footer v-if="!isMobile"/>
-    <mobile-footer v-if="isMobile"/>
   </div>
 </template>
 
 <script>
 import { VERIFY_EMAIL } from '@/graphql'
-import ArcFooter from '@/views/layouts/desktop/Footer'
-import MobileFooter from '@/views/layouts/mobile/footer/Footer'
 
 export default {
-  components: {
-    ArcFooter,
-    MobileFooter
-  },
   data () {
     return {
       sending: true,
