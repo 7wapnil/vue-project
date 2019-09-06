@@ -140,7 +140,7 @@ const messages = {
       betslipEmpty: 'Your betslip is currently empty.\n' +
         'Click on any odds to add them\n' +
         'to betslip.',
-      acceptAllCheckbox: 'Accept all odd changes',
+      acceptAllCheckbox: 'Accept all odds changes',
       tooltipMessages: {
         default: 'Please login to place a bet',
         defaultLoggedIn: 'Your betslip is empty',
