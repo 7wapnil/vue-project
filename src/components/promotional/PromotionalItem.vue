@@ -49,7 +49,7 @@ export default {
       return this.isLoggedIn ? this.showProfile() : this.showLogin()
     },
     showProfile () {
-      this.changeTabIndex(1)
+      this.changeTabIndex(3)
       this.$bvModal.show('AccountModal')
     },
     showLogin () {
