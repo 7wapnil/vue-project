@@ -228,7 +228,7 @@ const messages = {
         cardLastFourDigits: 'Card last four digits',
         cardHolderName: 'Card holder Name',
         arcanebetPassword: 'Arcanebet password',
-        notAvailable: 'For withdrawal information please contact support.',
+        notAvailable: 'Due to the migration to the new website, your bank details - for security reasons - were not imported. This means that, in able to withdraw, you need to make a deposit first, using the method you wish to withdraw to. This deposit can be immediately returned in full with your withdrawal request. We sincerely apologize for the inconvenience.<br/><br/>Skrill & Neteller withdrawals will become available early next week. For now we will be able to process transactions manually, please contact support to request a withdrawal.',
         withdrawNoFeeInformation: 'Debit/Credit Card withdrawals come with a 0% withdrawal fee',
         warning: 'Please be aware that requesting a withdrawal while you have an active bonus will result in all of your bonus funds being confiscated. If you wish to check your bonus status, please navigate to the bonus tab on your profile or contact support for further assistance. Be aware that if you initiate a withdrawal and the bonus is confiscated this is NOT reversible.'
       },
