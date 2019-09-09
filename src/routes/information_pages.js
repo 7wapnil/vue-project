@@ -58,13 +58,13 @@ export const InformationPages = {
           name: 'About arcanebet',
           title: 'About arcanebet',
           component: () => import('@/views/information-pages/about/main/Page')
-        },
-        {
-          path: 'affiliates-arcanebet',
-          name: 'Affiliates',
-          title: 'Affiliates',
-          beforeEnter () { location.href = process.env.VUE_APP_AFFILIATE_URL }
-        }
+        }// , // FIXME: restore when affiliates system is back
+        // {
+        //   path: 'affiliates-arcanebet',
+        //   name: 'Affiliates',
+        //   title: 'Affiliates',
+        //   beforeEnter () { location.href = process.env.VUE_APP_AFFILIATE_URL }
+        // }
       ]
     },
     {
