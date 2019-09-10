@@ -94,12 +94,6 @@ export default {
       countries
     }
   },
-  created () {
-    if (countries) {
-      console.log(unsupportedCountries)
-      console.log(countries)
-    }
-  },
   methods: {
     goToStep (step) {
       this.tabIndex = step
