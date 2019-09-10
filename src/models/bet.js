@@ -30,7 +30,7 @@ export default class Bet {
       marketName: market.name,
       oddId: odd.id,
       oddName: odd.name,
-      stake: 5,
+      stake: null,
       status: STATUSES.initial,
       message: null,
       notificationCode: null,
