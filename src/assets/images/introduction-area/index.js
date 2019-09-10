@@ -29,11 +29,11 @@ export default {
 
   // Esports
   'call-of-duty': 'background-call-of-duty',
-  'counter-strike': 'background-counter-strike',
+  'cs:go': 'background-cs:go',
   'dota-2': 'background-dota-2',
-  'league-of-legends': 'background-league-of-legends',
+  'lol': 'background-lol',
   'overwatch': 'background-overwatch',
-  'starcraft': 'background-starcraft',
+  'starcraft-ii': 'background-starcraft-ii',
   'fifa': 'background-fifa',
   'hearthstone': 'background-hearthstone'
 }
