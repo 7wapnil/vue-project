@@ -191,14 +191,9 @@
     flex-wrap: nowrap;
     white-space: nowrap;
     max-width: 100%;
-    overflow: hidden;
-
-    .mobile-container & {
-      overflow: auto;
-    }
+    overflow: auto;
   }
 }
-
 // Sorting Panel
 .sorting-panel {
   & > ul {

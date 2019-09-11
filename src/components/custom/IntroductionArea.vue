@@ -14,7 +14,7 @@
 import { findBackgroundSource } from '@/helpers/background-finder'
 import { mapGetters } from 'vuex'
 
-const MOBILE_BACKGROUND_HEIGHT = '168'
+const MOBILE_BACKGROUND_HEIGHT = '172'
 const MOBILE_BACKGROUND_HEIGHT_WITH_AUTH_BLOCK = '266'
 const DESKTOP_BACKGROUND_HEIGHT = '356'
 
