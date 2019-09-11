@@ -5,7 +5,7 @@
     content-class="p-0 m-0"
     class="category-tabs"
     nav-wrapper-class="category-tabs-wrapper"
-    nav-class="category-tabs-nav mx-2 mx-md-5">
+    nav-class="category-tabs-nav mx-2 mx-md-5 no-scrollbars">
 
     <b-tab
       v-for="(tab, index) in tabs"
@@ -49,12 +49,6 @@
         <icon name="chevron-left"/>
       </b-nav-item>
     </template>
-
-    <div
-      slot="empty"
-      class="text-center text-muted">
-      No tabs. Try to check your connection.
-    </div>
   </b-tabs>
 </template>
 
