@@ -27,8 +27,23 @@
           <loader v-if="loadingBets"/>
 
           <template
+            slot="time"
+            slot-scope="data">
+            <b-row no-gutters>
+              <b-col v-html="localDate(data.item.createdAt)"/>
+            </b-row>
+            <b-row no-gutters>
+              <b-col v-html="localTime(data.item.createdAt)"/>
+            </b-row>
+          </template>
+          <template
             slot="details"
             slot-scope="data">
+            <b-row no-gutters>
+              <b-col>
+                {{ data.item.event.name }}
+              </b-col>
+            </b-row>
             <b-row no-gutters>
               <b-col>
                 <span class="font-size-11">
@@ -38,7 +53,9 @@
             </b-row>
             <b-row no-gutters>
               <b-col>
-                {{ data.item.event.name }}
+                <span class="font-size-11">
+                  {{ data.item.odd.name }}
+                </span>
               </b-col>
             </b-row>
           </template>
@@ -47,9 +64,8 @@
             slot-scope="data">
             <b-badge
               :variant="badgeStatus[data.item.displayStatus]"
-              class="border-4 text-uppercase font-size-11 text-arc-clr-soil-dark p-2">
-              {{ data.item.displayStatus }}
-            </b-badge>
+              class="border-4 text-uppercase font-size-11 text-arc-clr-soil-dark p-2"
+              v-html="statusText(data.item)" />
           </template>
         </b-table>
         <loader v-if="loadingBets"/>
@@ -76,6 +92,7 @@ import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
 import ActivityFilters from '@/views/account/account-activity/ActivityFilters'
 import ActivityHeader from '@/views/account/account-activity/ActivityHeader'
 import ActivityPlaceholder from '@/views/account/account-activity/ActivityPlaceholder'
+import moment from 'moment'
 
 export default {
   components: {
@@ -92,10 +109,7 @@ export default {
       betKind: null,
       loadingBets: true,
       fields: [
-        {
-          key: 'createdAt',
-          label: 'Date'
-        },
+        'time',
         'details',
         { key: 'amount',
           label: 'Stake'
@@ -104,7 +118,7 @@ export default {
           label: 'Odds'
         },
         { key: 'status',
-          label: 'Status'
+          label: 'Return'
         },
         { key: 'id',
           label: '#'
@@ -208,6 +222,19 @@ export default {
       this.betFilterState = state.event
       this.page = 1
       this.loadMoreHistory()
+    },
+    statusText (item) {
+      if (item.displayStatus === 'won') {
+        return (item.amount * item.oddValue).toFixed(2)
+      }
+
+      return item.displayStatus
+    },
+    localDate (str) {
+      return moment.utc(str, 'D.M.YYYY HH:mm:ss').local().format('D.M.YYYY')
+    },
+    localTime (str) {
+      return moment.utc(str, 'D.M.YYYY HH:mm:ss').local().format('HH:mm:ss')
     }
   }
 }

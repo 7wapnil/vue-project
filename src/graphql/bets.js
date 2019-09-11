@@ -7,6 +7,9 @@ export const BETS_LIST_QUERY = gql`
         id
         createdAt
         amount
+        odd {
+          name
+        }
         oddValue
         status
         displayStatus
