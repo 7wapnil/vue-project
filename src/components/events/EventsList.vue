@@ -86,7 +86,8 @@ export default {
 
               const endpoint = Object.keys(subscriptionData.data)[0]
               const attributes = subscriptionData.data[endpoint]
-              const isRemoved = attributes.startStatus !== CONTEXT_TO_START_STATUS_MAP[this.context]
+              const startStatus = CONTEXT_TO_START_STATUS_MAP[this.context]
+              const isRemoved = attributes.startStatus !== startStatus || !attributes.visible
 
               return { events: updateCacheList(events, attributes, isRemoved) }
             }

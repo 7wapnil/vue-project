@@ -84,7 +84,7 @@ export default {
         this.userLeavedPage = true
       }
       if (!hidden && this.userLeavedPage) {
-        if (this.event.status && this.closingStatuses.includes(this.event.status)) {
+        if (this.event && this.event.status && this.closingStatuses.includes(this.event.status)) {
           this.$router.push(`/${this.$route.params.titleKind}`)
         }
         this.userLeavedPage = false

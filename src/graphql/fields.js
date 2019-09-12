@@ -39,6 +39,7 @@ export const EVENT_FIELDS = `
   marketsCount
   startStatus
   displayStatus
+  visible
   score
   timeInSeconds
   title {
@@ -63,6 +64,7 @@ export const MARKET_FIELDS = `
   name
   priority
   status
+  visible
   category
   odds {
     id

@@ -67,12 +67,20 @@ export default {
         return false
       }
 
+      if (!this.event.visible) {
+        return false
+      }
+
       return true
+    },
+    isMarketVisible () {
+      return this.market.visible
     },
     isDisabled () {
       return this.disabled ||
-        this.odd.status === ODD_INACTIVE_STATUS ||
-       !this.isEventAvailable
+             this.odd.status === ODD_INACTIVE_STATUS ||
+            !this.isEventAvailable ||
+            !this.isMarketVisible
     },
     oddValue () {
       return getOddValue(this.odd.value)

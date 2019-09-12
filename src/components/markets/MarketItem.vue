@@ -69,7 +69,9 @@ export default {
         ? !this.isLiveConnected
         : !this.isPreLiveConnected
 
-      return isDisabledByAPI || isDisabledByAppState
+      const isInvisibleMarket = !this.market.visible
+
+      return isDisabledByAPI || isDisabledByAppState || isInvisibleMarket
     }
   }
 }
