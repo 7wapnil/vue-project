@@ -87,6 +87,7 @@
 </template>
 
 <script>
+import Bet from '@/models/bet'
 import { BETS_LIST_QUERY } from '@/graphql/index'
 import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
 import ActivityFilters from '@/views/account/account-activity/ActivityFilters'
@@ -159,7 +160,8 @@ export default {
         perPage: this.betsPerPage,
         kind: this.betKind,
         settlementStatus: this.betFilterState,
-        dateRange: this.timeFilterState
+        dateRange: this.timeFilterState,
+        excludedStatuses: [Bet.statuses.failed, Bet.statuses.rejected]
       }
     },
     badgeStatus () {
@@ -185,7 +187,8 @@ export default {
         variables: {
           page: 1,
           perPage: this.betsPerPage,
-          kind: null
+          kind: null,
+          excludedStatuses: [Bet.statuses.failed, Bet.statuses.rejected]
         },
         result ({ data }) {
           this.loadingBets = false
