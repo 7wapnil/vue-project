@@ -21,14 +21,5 @@
         </p>
       </b-col>
     </b-row>
-    <b-row
-      class="my-md-4 my-0"
-      no-gutters>
-      <b-col class="py-3 px-4 p-md-0">
-        <p
-          class="ml-2 ml-md-0 mb-0 text-arc-clr-iron letter-spacing-2"
-          v-html="$t('account.deposit.skrillAndNetellerDisabled')"/>
-      </b-col>
-    </b-row>
   </div>
 </template>
