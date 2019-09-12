@@ -52,6 +52,10 @@ export const EVENT_FIELDS = `
   }
   startAt
   endAt
+  visible
+  twitchUrl
+  twitchStartTime
+  twitchEndTime
   competitors {
     id
     name
