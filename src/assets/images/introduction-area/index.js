@@ -26,6 +26,7 @@ export default {
   'bowls': 'background-bowls',
   'field-hockey': 'background-field-hockey',
   'futsal': 'background-futsal',
+  'table-tennis': 'background-table-tennis',
 
   // Esports
   'call-of-duty': 'background-call-of-duty',
@@ -35,5 +36,6 @@ export default {
   'overwatch': 'background-overwatch',
   'starcraft-ii': 'background-starcraft-ii',
   'fifa': 'background-fifa',
-  'hearthstone': 'background-hearthstone'
+  'hearthstone': 'background-hearthstone',
+  'rainbow-six': 'background-rainbow-six'
 }
