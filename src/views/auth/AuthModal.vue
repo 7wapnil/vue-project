@@ -31,12 +31,6 @@
         <b-row no-gutters>
           <b-col align="center">
             <b-link
-              v-if="isLogin"
-              class="font-size-14 letter-spacing-2 text-arc-clr-iron"
-              @click="openPasswordResetRequestForm()">
-              {{ $t('userModal.forgotPasswordCta') }}
-            </b-link>
-            <b-link
               v-if="isResetRequestForm"
               class="font-size-14 letter-spacing-2 text-arc-clr-iron"
               @click="openLoginForm()">
