@@ -70,7 +70,8 @@ export const actions = {
     const response = graphqlClient.mutate({
       mutation: PASSWORD_RESET_REQUEST_MUTATION,
       variables: {
-        email: sessionData.email
+        email: sessionData.email,
+        captcha: sessionData.captcha
       }
     })
     return response
