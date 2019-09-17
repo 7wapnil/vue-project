@@ -99,7 +99,7 @@ export default {
         .requestPasswordReset(this.fields)
         .then(() => {
           this.feedback = `${this.$t('userModal.resetEmailSuccess1')}
-          ${this.form.values().email}.
+          ${this.fields.email}.
           ${this.$t('userModal.resetEmailSuccess2')}`
           this.form.reset()
         })
