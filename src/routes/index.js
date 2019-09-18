@@ -7,6 +7,7 @@ import Maintenance from '@/views/layouts/common/Maintenance'
 import { setCookie } from '@/helpers/cookies'
 import moment from 'moment'
 import filters from '@/mixins/filters'
+import { colors } from '@/constants/android-theme-colors'
 
 const rootChildren = [...mainRoutes, ...InformationPages.routes]
 
@@ -61,6 +62,14 @@ router.beforeEach((to, from, next) => {
   if (to.params.titleKind) {
     document.title = `${filters.capitalizeFirstLetter(to.params.titleKind)} - Arcanebet`
   }
+
+  const section = to.meta.themeColor || to.params.titleKind
+  if (section) {
+    const newColor = colors[section.toString()]
+    const themeColor = document.querySelector('meta[name=theme-color]')
+    themeColor.setAttribute('content', newColor)
+  }
+
   if (to.query.btag) { setCookie('btag', to.query.btag, moment().add(1, 'month').toDate()) }
   next()
 })

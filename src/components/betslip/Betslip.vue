@@ -2,7 +2,7 @@
   <div>
     <no-bets-block/>
     <b-container
-      v-if="getBets.length > 0"
+      v-if="betsLength"
       class="p-0">
       <b-row
         no-gutters
@@ -17,13 +17,13 @@
             BETSLIP
           </span>
           <arc-circle
-            v-show="getBets.length > 0"
+            v-show="betsLength"
             :size="24"
             class="bet-amount font-weight-bold font-size-12"
             bg-color="arc-clr-soil-cover"
             depends
             inline>
-            {{ getBets.length }}
+            {{ betsLength }}
           </arc-circle>
         </b-col>
         <b-col
@@ -31,7 +31,7 @@
           align="right">
           <b-link
             class="clear text-arc-clr-iron-light font-size-14"
-            @click="callBetslipClear">
+            @click="clearBetslip">
             {{ $t('betslip.cta.clearAll') }}
           </b-link>
         </b-col>
@@ -212,6 +212,18 @@ export default {
       })
 
       return content
+    },
+    betsLength () {
+      if (this.getBets) {
+        return this.getBets.length
+      }
+    }
+  },
+  watch: {
+    betsLength (val) {
+      if (this.isMobile && !val) {
+        this.toggleBetslip()
+      }
     }
   },
   created () {
@@ -294,13 +306,6 @@ export default {
       } else {
         return 'betslipTab'
       }
-    },
-    callBetslipClear () {
-      if (this.isMobile) {
-        this.clearBetslip()
-        this.toggleBetslip()
-      }
-      this.clearBetslip()
     }
   }
 }

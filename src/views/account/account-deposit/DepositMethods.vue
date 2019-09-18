@@ -21,7 +21,6 @@
 <script>
 import Sofort from '@/assets/images/withdrawal-methods/sofort.png'
 import Skrill from '@/assets/images/withdrawal-methods/skrill.png'
-import Skinwallet from '@/assets/images/withdrawal-methods/skinwallet.png'
 import Skinpay from '@/assets/images/withdrawal-methods/skinpay.png'
 import Qiwi from '@/assets/images/withdrawal-methods/qiwi.png'
 import Paysafecard from '@/assets/images/withdrawal-methods/paysafecard.png'
@@ -37,7 +36,6 @@ export default {
       depositMethods: [
         Sofort,
         Skrill,
-        Skinwallet,
         Skinpay,
         Qiwi,
         Paysafecard,

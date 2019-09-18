@@ -35,5 +35,6 @@ export default {
   'overwatch': 'esports-overwatch',
   'starcraft': 'esports-sc2',
   'fifa': 'esports-fifa',
-  'hearthstone': 'esports-hearthstone'
+  'hearthstone': 'esports-hearthstone',
+  'rainbow-six': 'esports-rainbow-six'
 }

@@ -11,7 +11,7 @@
         :active-index="activeIndex"
         lazy
         tabs-class="event-panel-tabs"
-        nav-class="event-panel-tabs-nav mx-md-4 mx-1"
+        nav-class="event-panel-tabs-nav mx-md-4 mx-1 no-scrollbars"
         title-class="event-panel-titles"
         @category-changed="onTabChange"/>
     </header-section>
@@ -84,7 +84,7 @@ export default {
         this.userLeavedPage = true
       }
       if (!hidden && this.userLeavedPage) {
-        if (this.event.status && this.closingStatuses.includes(this.event.status)) {
+        if (this.event && this.event.status && this.closingStatuses.includes(this.event.status)) {
           this.$router.push(`/${this.$route.params.titleKind}`)
         }
         this.userLeavedPage = false

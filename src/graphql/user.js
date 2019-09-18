@@ -113,8 +113,8 @@ export const CHANGE_USER_PASSWORD = gql`
 `
 
 export const PASSWORD_RESET_REQUEST_MUTATION = gql`
-  mutation ($email: String!) {
-    requestPasswordReset (email: $email)
+  mutation ($email: String!, $captcha: String!) {
+    requestPasswordReset (email: $email, captcha: $captcha)
   }
 `
 

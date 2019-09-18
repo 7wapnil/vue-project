@@ -3,56 +3,61 @@
     no-body
     class="mb-1 upcoming-card"
     bg-variant="arc-clr-soil-dark">
-    <b-card-body class="h-100 p-0">
-      <b-row
-        v-b-toggle="'event-details-market-' + market.id"
-        no-gutters
-        role="tab"
-        style="height: 44px">
-        <b-col
-          cols="auto"
-          class="px-4 py-3 d-flex align-items-center justify-content-center">
-          <icon
-            role="button"
-            tabindex="0"
-            size="7.5px"
-            name="event-details-chevron-down"/>
-        </b-col>
-        <b-col class="d-flex align-items-center">
-          <h6 class="mb-0 font-weight-bold text-arc-clr-iron-light">
-            {{ market.name }}
-          </h6>
-        </b-col>
-      </b-row>
-    </b-card-body>
+    <b-row
+      v-b-toggle="'event-details-market-' + market.id"
+      no-gutters
+      role="tab"
+      style="height: 44px">
+      <b-col
+        cols="auto"
+        class="px-4 py-3 d-flex align-items-center justify-content-center">
+        <icon
+          role="button"
+          tabindex="0"
+          size="7.5px"
+          name="event-details-chevron-down"/>
+      </b-col>
+      <b-col class="d-flex align-items-center">
+        <h6 class="mb-0 font-weight-bold text-arc-clr-iron-light">
+          {{ market.name }}
+        </h6>
+      </b-col>
+    </b-row>
     <b-row
       no-gutters
       role="tablist">
-      <b-col style="min-height: 0">
+      <b-col>
         <b-collapse
           :id="'event-details-market-' + `${market.id}`"
           visible>
           <b-row
             :data-id="market.id"
             no-gutters
-            class="pb-2 pl-3 market-odds d-flex justify-content-start"
-            style="border-radius: 0 0 4px 4px">
+            class="pl-2">
             <b-col
               v-for="odd in market.odds"
               :cols="computedCols"
               :key="odd.id"
-              class="pr-2 mb-2 text-truncate market-odd">
+              class="pr-2 mb-2">
               <b-row
-                align-v="center"
-                class="bg-arc-clr-soil-darker"
-                style="border-radius: 0 6px 6px 6px"
+                class="bg-arc-clr-soil-darker h-100"
+                style="border-radius: 0 8px 8px 8px"
                 no-gutters>
-                <b-col class="w-100 pl-3 mr-3 d-inline-block text-truncate text-arc-clr-iron-light font-size-14">
-                  {{ odd.name }}
-                </b-col>
                 <b-col
-                  cols="3"
-                  style="min-width: 90px">
+                  md="8"
+                  class="text-break text-center px-4 py-2 d-flex align-items-center justify-content-center justify-content-md-start">
+                  <h6
+                    :class="{'text-truncate': !isMobile}"
+                    class="text-arc-clr-iron-light mb-0">
+                    {{ odd.name }}
+                  </h6>
+                </b-col>
+                <div
+                  v-if="isMobile"
+                  class="w-100"/>
+                <b-col
+                  md="4"
+                  class="d-flex align-items-end">
                   <odd-button
                     :odd="odd"
                     :disabled="isDisabled"
@@ -63,7 +68,6 @@
               </b-row>
             </b-col>
           </b-row>
-
         </b-collapse>
       </b-col>
     </b-row>

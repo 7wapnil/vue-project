@@ -37,6 +37,7 @@ import SignupSecondStep from './SignupSecondStep'
 import SelectInput from '@/components/inputs/SelectInput.vue'
 import { getCookie } from '@/helpers/cookies'
 import { countries as countriesList } from 'countries-list'
+import { unsupportedCountries } from '@/constants/unsupported-countries'
 
 const countries = Object
   .values(countriesList)
@@ -50,6 +51,7 @@ const countries = Object
     if (a.value > b.value) { return 1 }
     return 0
   })
+  .filter(({ value }) => !unsupportedCountries.includes(value))
 
 export default {
   components: {

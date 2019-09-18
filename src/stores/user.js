@@ -45,8 +45,10 @@ export const actions = {
     return response
   },
   login (context, sessionData) {
+    const wallet = sessionData.user.wallets[0]
+
     context.commit('storeSession', sessionData)
-    context.commit('setActiveWallet', sessionData.user.wallets[0].id)
+    if (wallet) context.commit('setActiveWallet', wallet.id)
     arcanebetSession.storeSession(sessionData)
     context.dispatch('subscribeToWallets')
     context.commit('resetConnection')
@@ -68,7 +70,8 @@ export const actions = {
     const response = graphqlClient.mutate({
       mutation: PASSWORD_RESET_REQUEST_MUTATION,
       variables: {
-        email: sessionData.email
+        email: sessionData.email,
+        captcha: sessionData.captcha
       }
     })
     return response

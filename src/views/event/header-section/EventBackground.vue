@@ -2,7 +2,7 @@
   <b-card
     v-if="title"
     :img-src="background"
-    img-height="356"
+    img-height="270"
     overlay
     class="introduction-area"
     body-class="p-0">

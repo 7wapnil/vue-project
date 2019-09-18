@@ -206,6 +206,7 @@ export default {
 
           this.updateOdds(market)
           this.handleMarketStatus(market)
+          this.handleMarketVisibility(market)
         }
       }
     },
@@ -218,9 +219,11 @@ export default {
           },
           result ({ data: { eventUpdated } }) {
             const market = eventUpdated.markets[0] || {}
+            const isMarketVisible = eventUpdated.visible && market.visible
 
             this.updateOdds(market)
             this.handleMarketStatus(market)
+            this.handleMarketVisibility({ visible: isMarketVisible })
           }
         }
       },
@@ -358,6 +361,11 @@ export default {
         oddId: this.bet.oddId,
         payload: { status: Bet.statuses.disabled }
       })
+    },
+    handleMarketVisibility (market) {
+      if (!market.visible) {
+        return this.disableBetByMarketStatus()
+      }
     },
     handleMarketStatus (market) {
       if (!market.status || INACTIVE_STATUSES.includes(market.status)) {

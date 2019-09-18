@@ -39,6 +39,7 @@ export const EVENT_FIELDS = `
   marketsCount
   startStatus
   displayStatus
+  visible
   score
   timeInSeconds
   title {
@@ -51,6 +52,10 @@ export const EVENT_FIELDS = `
   }
   startAt
   endAt
+  visible
+  twitchUrl
+  twitchStartTime
+  twitchEndTime
   competitors {
     id
     name
@@ -63,6 +68,7 @@ export const MARKET_FIELDS = `
   name
   priority
   status
+  visible
   category
   odds {
     id
