@@ -18,6 +18,7 @@ export const BETS_LIST_QUERY = gql`
         createdAt
         amount
         odd {
+          id
           name
         }
         oddValue
