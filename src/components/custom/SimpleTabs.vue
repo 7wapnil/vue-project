@@ -1,6 +1,5 @@
 <template>
   <b-tabs
-    :lazy="lazy"
     v-model="tabIndex"
     nav-class="bg-arc-clr-soil-light-cover"
     nav-wrapper-class="px-0 px-md-4 sorting-panel bg-arc-clr-soil-light">
@@ -33,17 +32,17 @@ export default {
       type: Array,
       default () { return [] }
     },
-    activeIndex: {
-      type: Number,
-      default: 1
-    },
     lazy: {
       type: Boolean,
-      default: true
+      default: false
     },
     variant: {
       type: String,
       default: ''
+    },
+    selectedCategory: {
+      type: Object,
+      required: true
     }
   },
   data () {
@@ -51,22 +50,38 @@ export default {
       currentTabIndex: 0
     }
   },
+  created() {
+    this.setInitialTabStatus()
+  },
   computed: {
     tabIndex: {
       get () {
         return this.currentTabIndex
       },
       set (value) {
-        this.currentTabIndex = value
-        const tab = this.tabs[this.currentTabIndex]
+        const tab = this.tabs[value]
         if (tab) {
           this.$emit('tab-changed', tab)
         }
       }
+    },
+  },
+  watch: {
+    selectedCategory: function (newVal, oldVal) {
+      this.setInitialTabStatus()
+    },
+    tabs: function (newWal, oldWal) {
+      console.log('tabs lenght:', this.tabs.length)
+      console.log('t', (this.tabs.length <= 1) ? 0 : 1)
+      console.log(this.currentTabIndex)
+
+      this.currentTabIndex = (this.tabs.length <= 1) ? 0 : 1
     }
   },
-  created () {
-    this.tabIndex = this.activeIndex
+  methods: {
+    setInitialTabStatus() {
+      this.currentTabIndex = (this.tabs.length <= 1) ? 0 : 1
+    }
   }
 }
 </script>
