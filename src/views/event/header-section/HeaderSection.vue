@@ -1,12 +1,17 @@
 <template>
   <div>
     <event-details-background :title="{ name: getTitleName(event.title) }">
-      <event-breadcrumbs :event="event"/>
+      <event-breadcrumbs
+        :event="event"
+        class="mb-0"/>
       <event-details
+        v-if="!twitchOnline"
         :event="event"
         :showicons="showicons"/>
+      <twitch-stream
+        :original-event="event"
+        @twitch-online="twitchOnline = !twitchOnline"/>
     </event-details-background>
-    <twitch-stream :original-event="event"/>
     <div class="bg-arc-clr-soil-light pt-3">
       <slot/>
     </div>
@@ -37,6 +42,11 @@ export default {
     showicons: {
       type: Boolean,
       default: true
+    }
+  },
+  data () {
+    return {
+      twitchOnline: false
     }
   },
   methods: {
