@@ -30,10 +30,12 @@ export default {
     return {
       eventContexts: [],
       tabs: [{
+        id: 1,
         value: LIVE,
         label: this.$i18n.t('homePage.live'),
         context: LIVE
       }, {
+        id: 2,
         value: UPCOMING,
         label: (this.upcomingLabel || this.$route.params.titleKind === 'esports') ? this.$i18n.t('homePage.upcomingCommon') : this.$i18n.t('homePage.upcoming'),
         context: this.upcomingContext || (this.$route.params.titleKind === 'esports' ? UPCOMING_UNLIMITED : UPCOMING_FOR_TIME)
