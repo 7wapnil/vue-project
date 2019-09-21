@@ -8,7 +8,7 @@
         v-if="!showTitles"
         :upcoming-context="upcomingContext"
         upcoming-label
-        @tab-changed="onFilterChange" />
+        @tab-changed="onFilterChange"/>
 
       <events-list
         :title-id="$route.params.titleId"
