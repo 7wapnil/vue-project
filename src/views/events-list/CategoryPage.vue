@@ -4,7 +4,7 @@
     no-gutters>
     <b-col>
       <scope-breadcrumbs/>
-      <filter-tabs
+      <time-filter-tabs
         v-if="!showTitles"
         :upcoming-context="upcomingContext"
         upcoming-label
@@ -22,14 +22,14 @@
 
 <script>
 import { UPCOMING_LIMITED } from '@/constants/graphql/event-context'
-import FilterTabs from '@/views/events-list/FilterTabs'
+import TimeFilterTabs from '@/views/events-list/TimeFilterTabs'
 import EventsList from '@/components/events/EventsList'
 import HybridCard from '@/views/events-list/HybridCard'
 import ScopeBreadcrumbs from '@/views/events-list/ScopeBreadcrumbs'
 
 export default {
   components: {
-    FilterTabs,
+    TimeFilterTabs,
     HybridCard,
     EventsList,
     ScopeBreadcrumbs
