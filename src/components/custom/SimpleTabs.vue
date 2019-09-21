@@ -2,9 +2,9 @@
   <b-tabs
     v-if="tabs.length"
     :value="currentTabIndex"
-    @input="changeTabIndex"
     nav-class="bg-arc-clr-soil-light-cover"
-    nav-wrapper-class="px-0 px-md-4 sorting-panel bg-arc-clr-soil-light">
+    nav-wrapper-class="px-0 px-md-4 sorting-panel bg-arc-clr-soil-light"
+    @input="changeTabIndex">
 
     <b-tab
       v-for="tab in tabs"
@@ -32,7 +32,7 @@ export default {
   props: {
     tabs: {
       type: Array,
-      default: []
+      default () { return [] }
     },
     selectedCategory: {
       type: Object,
@@ -60,7 +60,7 @@ export default {
     setTabIndex () {
       this.changeTabIndex(this.tabsOrder())
     },
-    changeTabIndex(ev) {
+    changeTabIndex (ev) {
       this.currentTabIndex = ev
       const tab = this.tabs[ev]
       if (tab) {
