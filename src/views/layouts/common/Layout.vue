@@ -1,8 +1,7 @@
 <template>
-  <div
-    :class="titleKind">
-    <component :is="layoutName">
-      <router-view :key="$route.fullPath"/>
+  <div :class="titleKind">
+    <component :is="layoutKind">
+        <router-view :key="$route.fullPath"/>
     </component>
     <cookie-warning/>
     <modal-list/>
@@ -26,9 +25,19 @@ export default {
 
       return this.$route.params.titleKind || DEFAULT_KIND
     },
-    layoutName () {
-      const name = this.isMobile ? 'mobile' : 'desktop'
-      return () => import(`@/views/layouts/${name}/Layout`)
+    layoutKind () {
+      if (!this.$route.meta.layout) {
+        const name = this.isMobile ? 'mobile' : 'desktop'
+        this.returnLayout(name)
+      }
+      if (!this.isMobile && this.$route.meta.layout.desktop) {
+        const name = this.$route.meta.layout.desktop
+        this.returnLayout(name)
+      }
+      if (this.isMobile && this.$route.meta.layout.mobile) {
+        const name = this.$route.meta.layout.mobile
+        this.returnLayout(name)
+      }
     }
   },
   updated () {
@@ -47,6 +56,11 @@ export default {
 
     if (this.$route.query.changePassword) {
       this.$bvModal.show('AccountModal')
+    }
+  },
+  methods: {
+    returnLayout(name) {
+      return () => import(`@/views/layouts/${name}/MobileLayout`)
     }
   }
 }
