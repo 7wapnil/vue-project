@@ -4,7 +4,6 @@ export const InformationPages = {
       path: 'support',
       name: 'support',
       title: 'support',
-      redirect: 'styleguide/typography',
       icon: 'support',
       component: () => import('@/views/layouts/information-page/Content'),
       children: [
