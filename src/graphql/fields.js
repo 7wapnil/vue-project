@@ -63,6 +63,11 @@ export const EVENT_FIELDS = `
   }
 `
 
+export const EVENT_CONTEXTS_FIELDS = `
+  context
+  show
+`
+
 export const MARKET_FIELDS = `
   id
   name
