@@ -16,7 +16,7 @@ export default {
   props: {
     upcomingContext: {
       type: String,
-      default: ''
+      required: true
     },
     upcomingLabel: {
       type: Boolean,
