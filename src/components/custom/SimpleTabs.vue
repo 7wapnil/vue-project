@@ -28,6 +28,9 @@
 </template>
 
 <script>
+const FIRST_TAB_INDEX = 0
+const SECOND_TAB_INDEX = 1
+
 export default {
   props: {
     tabs: {
@@ -51,14 +54,14 @@ export default {
     }
   },
   methods: {
-    tabsOrder () {
-      return this.tabsAmount === 1 ? 0 : 1
+    tabIndexToSelect () {
+      return this.tabsAmount === 1 ? FIRST_TAB_INDEX : SECOND_TAB_INDEX
     },
     tabsAmount () {
       return this.tabs.length
     },
     setTabIndex () {
-      this.changeTabIndex(this.tabsOrder())
+      this.changeTabIndex(this.tabIndexToSelect())
     },
     changeTabIndex (ev) {
       this.currentTabIndex = ev
