@@ -2,10 +2,10 @@ import {
   UPCOMING_FOR_TIME,
   UPCOMING_LIMITED,
   UPCOMING_UNLIMITED,
+  UPCOMING,
   LIVE
 } from './event-context'
 
-export const UPCOMING = 'upcoming'
 export { LIVE }
 
 export const CONTEXT_TO_START_STATUS_MAP = {

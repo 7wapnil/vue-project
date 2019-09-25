@@ -24,8 +24,8 @@
 
 <script>
 import EventsList from '@/components/events/EventsList'
-import { UPCOMING_UNLIMITED } from '@/constants/graphql/event-context'
-import { LIVE, UPCOMING } from '@/constants/graphql/event-start-statuses'
+import { UPCOMING_UNLIMITED, UPCOMING } from '@/constants/graphql/event-context'
+import { LIVE } from '@/constants/graphql/event-start-statuses'
 import HybridCard from '@/views/events-list/HybridCard'
 import ScopeBreadcrumbs from '@/views/events-list/ScopeBreadcrumbs'
 
@@ -36,6 +36,7 @@ export default {
     ScopeBreadcrumbs
   },
   data () {
+    console.log("my data", UPCOMING)
     return {
       tabsMapping: [{
         value: LIVE,
