@@ -1,4 +1,4 @@
-import EventsList from '@/views/events-list/Page.vue'
+import EventsPage from '@/views/events-list/Page.vue'
 import CategoryPage from '@/views/events-list/CategoryPage.vue'
 import TournamentPage from '@/views/events-list/TournamentPage.vue'
 import Affiliates from '@/views/information-pages/affiliates/main/Page'
@@ -28,12 +28,12 @@ export default [
       {
         path: '',
         name: 'title-kind',
-        component: EventsList
+        component: EventsPage
       },
       {
         path: 'title/:titleId',
         name: 'title',
-        component: EventsList
+        component: EventsPage
       },
       {
         path: 'title/:titleId/tour/:tournamentId',
