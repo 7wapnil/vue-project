@@ -1,7 +1,7 @@
 <template>
   <div>
     <mobile-navigation-bar @burger-clicked="toggleSidebar"/>
-    <mobile-content class="mobile-container"/>
+    <mobile-content/>
     <navigation-sidebar v-show="isSidebarOpen"/>
     <betslip-button/>
     <betslip-container/>

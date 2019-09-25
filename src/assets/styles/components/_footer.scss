@@ -14,6 +14,12 @@ $section-top-border: inset 0 1px 0 0 $arc-clr-soil-light;
   }
   &-social-section {
     box-shadow: $section-top-border;
+    &-circle:hover {
+      box-shadow: 0 0 20px 5px $arc-clr-soil-black;
+      .footer-social-section-icon {
+        color: $arc-clr-gold !important;
+      }
+    }
   }
   &-links-section {
     padding: 68px 20px;
@@ -29,33 +35,6 @@ $section-top-border: inset 0 1px 0 0 $arc-clr-soil-light;
     & > li {
       line-height: 30px;
       list-style-type: none;
-      a {
-        position: relative;
-        text-decoration: none;
-        padding-bottom: 4px;
-      }
-      a:hover {
-        color: #FFF;
-      }
-      a:before {
-        content: "";
-        position: absolute;
-        width: 100%;
-        height: 1px;
-        bottom: 0;
-        left: 0;
-        background-color: #FFF;
-        visibility: hidden;
-        -webkit-transform: scaleX(0);
-        transform: scaleX(0);
-        -webkit-transition: all 0.3s ease-in-out 0s;
-        transition: all 0.3s ease-in-out 0s;
-      }
-      a:hover:before {
-        visibility: visible;
-        -webkit-transform: scaleX(1);
-        transform: scaleX(1);
-      }
     }
   }
 }
@@ -75,19 +54,48 @@ $section-top-border: inset 0 1px 0 0 $arc-clr-soil-light;
     text-align: center;
   }
   &-nav-item {
-    box-shadow: $section-top-border;
+    background-color: $arc-clr-soil-darker;
     padding: 21px 25px;
-    & > .nav-link {
-      padding: 0 !important;
-      & > div {
-        .collapsed {
-          .arc-sidemenu-chevron-down {
-            transform: rotateX(0deg);
-            transition: transform .3s ease-in-out;
-          }
-        }
-      }
+    &-active {
+      background-color: #171717;
     }
+    &-exact-active {
+      background-color: unset !important;
+    }
+    &:active {
+      z-index: 1;
+      color: #495057;
+      text-decoration: none;
+      background-color: #171717;
+    }
+    &.list-group-item-action:hover {
+      background-color: unset;
+    }
+    li {
+      padding: 16px 0;
+    }
+
+
+
+
+
+    //box-shadow: $section-top-border;
+    //& > .nav-link {
+    //  padding: 21px 25px;
+    //  height: 100%;
+    //  width: 100%;
+    //  &:active {
+    //    background-color: #171717;
+    //  }
+    //  & > div {
+    //    .collapsed {
+    //      .arc-sidemenu-chevron-down {
+    //        transform: rotateX(0deg);
+    //        transition: transform .3s ease-in-out;
+    //      }
+    //    }
+    //  }
+    //}
   }
   &-topicons-section {
     padding: 25px 31px;

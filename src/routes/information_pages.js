@@ -5,12 +5,23 @@ export const InformationPages = {
       name: 'support',
       title: 'support',
       icon: 'support',
-      component: () => import('@/views/layouts/information-page/Content'),
+      meta: {
+        layout: {
+          mobile: 'information-page',
+          desktop: 'information-page'
+        }
+      },
       children: [
         {
           path: 'contact-us',
           name: 'Contact Us',
           title: 'Contact Us',
+          meta: {
+            layout: {
+              mobile: 'information-page',
+              desktop: 'information-page'
+            }
+          },
           component: () => import('@/views/information-pages/support/contact-us/Page')
         },
         {

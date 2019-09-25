@@ -33,15 +33,19 @@ export default {
     layoutKind () {
       if (this.isMobile) {
         if (this.mobileMeta) {
+          console.log('yoba', this.mobileMeta)
           return () => import(`@/views/layouts/${this.mobileMeta}/layout/MobileLayout`)
+        } else {
+          console.log('pizdec')
+          return () => import('@/views/layouts/mobile/MobileLayout')
         }
-        return () => import('@/views/layouts/mobile/MobileLayout')
       }
       if (!this.isMobile) {
         if (this.desktopMeta) {
           return () => import(`@/views/layouts/${this.mobileMeta}/layout/DesktopLayout`)
+        } else {
+          return () => import('@/views/layouts/desktop/DesktopLayout')
         }
-        return () => import('@/views/layouts/desktop/DesktopLayout')
       }
     }
   },
@@ -72,8 +76,10 @@ export default {
   methods: {
     getMetaData (to) {
       if (to.meta.layout) {
+        console.log('meta')
         this.mobileMeta = to.meta.layout.mobile
         this.desktopMeta = to.meta.layout.desktop
+        this.$forceUpdate()
       }
     }
   }

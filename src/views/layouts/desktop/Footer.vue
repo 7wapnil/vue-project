@@ -26,7 +26,7 @@
             <li
               v-for="(item, index) in homepageLinks"
               :key="index"
-              class="footer-list">
+              class="footer-list animated-underline">
               <b-link
                 :to="`${ item.path }`"
                 class="text-capitalize">
@@ -48,7 +48,7 @@
             <li
               v-for="(child, index) in item.children"
               :key="index"
-              class="footer-list">
+              class="footer-list animated-underline">
               <b-link
                 :to="{ name: `${ child.name }` }">
                 {{ child.name }}
@@ -65,13 +65,15 @@
             v-for="(icon, index) in socialIcons"
             :key="index"
             :size="50"
-            class="mx-2 pointer">
+            class="mx-2 pointer footer-social-section-circle">
             <b-link
+              class="h-100 w-100 d-flex align-items-center justify-content-center"
               :href="icon.path"
               target="_blank">
               <icon
                 :name="icon.name"
-                size="20px"
+                size="18px"
+                class="footer-social-section-icon"
                 color="arc-clr-soil-darker"/>
             </b-link>
           </arc-circle>
@@ -83,7 +85,7 @@
             TH Gambling N.V. E-Commerce Park Vredenberg, Curacao, Ara Hill Top Building Unit A-2 Pletterijweg Oost 1.<br>
             License and regulation is provided by the Government of Curacao, license #365/JAZ.<br>
             All video streaming is provided by various third parties and we do not carry any responsibility for actual content, stream quality, or streaming rights.<br>
-            For customer support related questions, you can reach us through <a href="mailto:contact@arcanebet.com">contact@arcanebet.com</a> or by phone: + 31 6 44 28 36 07<br>
+            For customer support related questions, you can reach us through <span class="animated-underline"><a href="mailto:contact@arcanebet.com">contact@arcanebet.com</a></span> or by phone: + 31 6 44 28 36 07<br>
             © Copyrights 2018 All rights reserved. Gambling can be addictive. Please gamble responsibly.
           </span>
         </b-col>

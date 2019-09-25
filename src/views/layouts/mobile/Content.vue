@@ -1,3 +1,5 @@
 <template>
-  <router-view :key="$route.fullPath"/>
+  <div class="mobile-container">
+    <router-view :key="$route.fullPath"/>
+  </div>
 </template>
