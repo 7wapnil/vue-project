@@ -36,7 +36,6 @@ export default {
     ScopeBreadcrumbs
   },
   data () {
-    console.log("my data", UPCOMING)
     return {
       tabsMapping: [{
         value: LIVE,
