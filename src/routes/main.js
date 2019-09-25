@@ -1,5 +1,4 @@
 import EventsPage from '@/views/events-list/Page.vue'
-import CategoryPage from '@/views/events-list/CategoryPage.vue'
 import TournamentPage from '@/views/events-list/TournamentPage.vue'
 import Affiliates from '@/views/information-pages/affiliates/main/Page'
 import Promotions from '@/views/information-pages/promotions/main/Page'
@@ -39,11 +38,6 @@ export default [
         path: 'title/:titleId/tour/:tournamentId',
         name: 'tournament',
         component: TournamentPage
-      },
-      {
-        path: 'title/:titleId/category/:categoryId/',
-        name: 'category-tournaments',
-        component: CategoryPage
       },
       {
         path: 'event/:id',
