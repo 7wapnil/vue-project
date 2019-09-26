@@ -1,36 +1,38 @@
 <template>
-  <div v-if="categoriesLength > 1"
-       class="bg-arc-clr-soil-light pt-3">
-  <b-tabs
-    :nav-wrapper-class="tabsClass"
-    :content-class="contentClass"
-    :nav-class="navClass"
-    :justified="justified"
-    v-model="tabIndex"
-    :lazy="lazy"
-    :style="{ 'margin': isMobile ? '0' : '0 58px' }">
+  <div
+    v-if="moreThanOneCategory"
+    class="pt-3">
+    <b-tabs
+      :nav-wrapper-class="tabsClass"
+      :content-class="contentClass"
+      :nav-class="navClass"
+      :justified="justified"
+      v-model="tabIndex"
+      :lazy="lazy"
+      :style="{ 'margin': isMobile ? '0' : '0 58px' }">
 
-    <b-tab
-      v-for="(category, index) in categories"
-      :key="index"
-      :title-link-class="titleClass"
-      :title="category.name"/>
+      <b-tab
+        v-for="(category, index) in categories"
+        :key="index"
+        :title-link-class="titleClass"
+        :title="category.name"/>
 
-    <template
-      v-if="!isMobile"
-      #tabs>
-      <b-nav-item
-        class="event-tabs-left-side-navigation position-absolute ml-4 mr-4"
-        @click="moveTab('left')">
-        <icon name="chevron-left"/>
-      </b-nav-item>
-      <b-nav-item
-        class="event-tabs-right-side-navigation position-absolute mr-4"
-        @click="moveTab('right')">
-        <icon name="chevron-right"/>
-      </b-nav-item>
-    </template>
-  </b-tabs>
+      <template
+        v-if="!isMobile"
+        #tabs>
+        <b-nav-item
+
+          class="event-tabs-left-side-navigation position-absolute ml-4 mr-4"
+          @click="moveTab('left')">
+          <icon name="chevron-left"/>
+        </b-nav-item>
+        <b-nav-item
+          class="event-tabs-right-side-navigation position-absolute mr-4"
+          @click="moveTab('right')">
+          <icon name="chevron-right"/>
+        </b-nav-item>
+      </template>
+    </b-tabs>
   </div>
 </template>
 <script>
@@ -84,8 +86,8 @@ export default {
     categories () {
       return this.event.categories
     },
-    categoriesLength () {
-      return this.event.categories.length
+    moreThanOneCategory () {
+      return this.event.categories.length > 1
     },
     tabIndex: {
       get () {
@@ -102,6 +104,9 @@ export default {
   },
   created () {
     this.tabIndex = this.activeIndex
+    if (this.moreThanOneCategory) {
+      this.$emit('update:twitch:size', this.moreThanOneCategory)
+    }
   },
   methods: {
     moveTab (side) {
