@@ -6,14 +6,16 @@
       v-if="event"
       :event="event"
       :showicons="false">
-      <markets-categories
-        :event="event"
-        :active-index="activeIndex"
-        lazy
-        tabs-class="event-panel-tabs"
-        nav-class="event-panel-tabs-nav mx-md-4 mx-1 no-scrollbars"
-        title-class="event-panel-titles"
-        @category-changed="onTabChange"/>
+      <template #tabs>
+        <markets-categories
+          :event="event"
+          :active-index="activeIndex"
+          lazy
+          tabs-class="event-panel-tabs"
+          nav-class="event-panel-tabs-nav mx-md-4 mx-1 no-scrollbars"
+          title-class="event-panel-titles"
+          @category-changed="onTabChange"/>
+      </template>
     </header-section>
     <market-category
       v-if="category"

@@ -1,4 +1,6 @@
 <template>
+  <div v-if="categoriesLength > 1"
+       class="bg-arc-clr-soil-light pt-3">
   <b-tabs
     :nav-wrapper-class="tabsClass"
     :content-class="contentClass"
@@ -18,7 +20,6 @@
       v-if="!isMobile"
       #tabs>
       <b-nav-item
-
         class="event-tabs-left-side-navigation position-absolute ml-4 mr-4"
         @click="moveTab('left')">
         <icon name="chevron-left"/>
@@ -30,6 +31,7 @@
       </b-nav-item>
     </template>
   </b-tabs>
+  </div>
 </template>
 <script>
 import MarketsCategory from './MarketCategory'
@@ -81,6 +83,9 @@ export default {
   computed: {
     categories () {
       return this.event.categories
+    },
+    categoriesLength () {
+      return this.event.categories.length
     },
     tabIndex: {
       get () {
