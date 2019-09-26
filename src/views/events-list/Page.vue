@@ -16,29 +16,29 @@
 
     </introduction-area>
 
-    <events-list
-      v-if="eventListProps"
-      :key="key"
-      :tab-id="selectedFilter.value"
-      v-bind="eventListProps"/>
+    <esport-events
+      v-if="$route.params.titleKind === 'esports' && eventListProps"
+      :selected-category="selectedCategory"
+      :selected-filter="selectedFilter" />
+
   </div>
 </template>
 
 <script>
+import EsportEvents from '@/components/events/EsportEvents'
 import IntroductionArea from '@/components/custom/IntroductionArea'
 import SportTabs from './SportTabs'
 import FilterTabs from './FilterTabs'
-import EventsList from '@/components/events/EventsList'
 import AuthBlock from '@/views/events-list/AuthBlock'
 import PromoSection from '@/views/events-list/PromoSection'
 import TabsSection from '@/views/events-list/TabsSection'
 
 export default {
   components: {
+    EsportEvents,
     IntroductionArea,
     SportTabs,
     FilterTabs,
-    EventsList,
     AuthBlock,
     PromoSection,
     TabsSection
@@ -57,7 +57,7 @@ export default {
       return {
         titleId: this.selectedCategory ? this.selectedCategory.value : null,
         tournamentId: this.$route.params.tournamentId || null,
-        context: this.selectedFilter ? this.selectedFilter.context : null
+        context: this.selectedFilter ? this.selectedFilter.value : null
       }
     },
     key () {
@@ -70,9 +70,11 @@ export default {
   },
   methods: {
     onCategoryChange (tab) {
+      console.log('Category was changed')
       this.selectedCategory = tab
     },
     onFilterChange (tab) {
+      console.log('Filter was changed', tab.value)
       this.selectedFilter = tab
     }
   }

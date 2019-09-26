@@ -14,6 +14,64 @@ const EVENT_FIELDS_WITH_SCOPES = `
   }
 `
 
+export const TOURNAMENT_EVENTS = gql`
+  query tournamentEventList (
+    $tournamentId: ID = null,
+    $withScopes: Boolean = false
+  ) {
+    tournamentEvents (
+      id: $tournamentId 
+    ) {
+      live {
+        ${EVENT_FIELDS_WITH_SCOPES}
+        dashboardMarket {
+          ${MARKET_FIELDS}
+        }
+      },
+      upcoming {
+        ${EVENT_FIELDS_WITH_SCOPES}
+        dashboardMarket {
+          ${MARKET_FIELDS}
+        }
+      }
+    }
+  }
+`
+
+export const ESPORT_EVENTS = gql`
+  query tournamentEventList (
+    $titleId: ID = null,
+    $context: String = null,
+    $withScopes: Boolean = false
+  ) {
+    esportEvents (
+      context: $context,
+      titleId: $titleId,
+    ) {
+      ${EVENT_FIELDS_WITH_SCOPES}
+      dashboardMarket {
+        ${MARKET_FIELDS}
+      }
+    }
+  }
+`
+
+// export const SPORT_EVENTS = gql`
+//   query tournamentEventList (
+//     $context: String = null,
+//     $withScopes: Boolean = false
+//   ) {
+//     sportEvents (
+//       context: $context
+//     ) {
+//       ${EVENT_FIELDS_WITH_SCOPES}
+//       dashboardMarket {
+//         ${MARKET_FIELDS}
+//       }
+//     }
+//   }
+// `
+
 export const EVENTS_LIST_QUERY = gql`
   query eventList (
     $titleId: ID = null,
