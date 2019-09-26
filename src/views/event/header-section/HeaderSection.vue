@@ -12,9 +12,9 @@
         :original-event="event"
         @twitch-online="twitchOnline = !twitchOnline"/>
     </event-details-background>
-    <div class="bg-arc-clr-soil-light pt-3">
-      <slot/>
-    </div>
+
+    <slot name="tabs"/>
+
   </div>
 </template>
 
