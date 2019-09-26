@@ -15,7 +15,7 @@
       <b-col
         lg="6"
         cols="9"
-        class="ml-4">
+        class="pl-4">
         <b-form-select
           id="country"
           :value="null"
@@ -39,7 +39,7 @@
       <b-col
         lg="6"
         cols="9"
-        class="ml-4">
+        class="pl-4">
         <b-form-select
           id="province"
           :value="null"
@@ -63,7 +63,7 @@
       <b-col
         lg="6"
         cols="9"
-        class="ml-4">
+        class="pl-4">
         <b-form-select
           id="city"
           :value="null"
@@ -87,7 +87,7 @@
       <b-col
         lg="6"
         cols="9"
-        class="ml-4">
+        class="pl-4">
         <b-row no-gutters>
           <b-col cols="8">
             <b-form-input
@@ -119,7 +119,7 @@
       <b-col
         lg="6"
         cols="9"
-        class="ml-4">
+        class="pl-4">
         <b-form-input
           id="phone"
           :value="`+${user.phone}`"

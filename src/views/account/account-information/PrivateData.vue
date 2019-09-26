@@ -15,7 +15,7 @@
       <b-col
         lg="6"
         cols="9"
-        class="ml-4">
+        class="pl-4">
         <b-form-input
           id="firstName"
           :value="user.firstName"
@@ -36,7 +36,7 @@
         </label>
       </b-col>
       <b-col
-        class="ml-4"
+        class="pl-4"
         cols="9"
         lg="6">
         <b-form-input
@@ -59,7 +59,7 @@
         </label>
       </b-col>
       <b-col
-        class="ml-4"
+        class="pl-4"
         cols="9"
         lg="6">
         <b-form-select
@@ -85,7 +85,7 @@
       <b-col
         lg="6"
         cols="9"
-        class="ml-4">
+        class="pl-4">
         <b-row no-gutters>
           <b-col>
             <b-form-select
