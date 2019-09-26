@@ -2,7 +2,7 @@
   <b-row
     v-if="twitchStream"
     no-gutters>
-    <b-col class="mx-md-4">
+    <b-col class="mx-md-4 twitch-section">
       <b-embed
         :src="currentEventLink"
         type="iframe"
@@ -18,7 +18,7 @@ import { EVENT_BY_ID_QUERY, EVENT_UPDATED } from '@/graphql'
 import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
 
 const TWITCH_URL = 'https://www.twitch.tv/'
-const EMBED_URL = 'https://player.twitch.tv/?channel='
+const EMBEDDED_URL = 'https://player.twitch.tv/?channel='
 
 export default {
   props: {
@@ -71,7 +71,7 @@ export default {
     currentEventLink () {
       if (this.twitchStream) {
         this.$emit('twitch-online')
-        return `${EMBED_URL + this.twitchChannel()}`
+        return `${EMBEDDED_URL + this.twitchChannel()}`
       }
     }
   },
