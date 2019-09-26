@@ -2,7 +2,9 @@
   <b-row
     v-if="twitchStream"
     no-gutters>
-    <b-col class="mx-md-4 twitch-section">
+    <b-col
+      :class="[twitchSize ? 'mx-md-5' : 'mx-md-4']"
+      class="twitch-section">
       <b-embed
         :src="currentEventLink"
         type="iframe"
@@ -25,6 +27,10 @@ export default {
     originalEvent: {
       type: Object,
       required: true
+    },
+    twitchSize: {
+      type: Boolean,
+      default: false
     }
   },
   data () {
@@ -70,7 +76,7 @@ export default {
     },
     currentEventLink () {
       if (this.twitchStream) {
-        this.$emit('twitch-online')
+        this.$emit('twitch-online', true)
         return `${EMBEDDED_URL + this.twitchChannel()}`
       }
     }

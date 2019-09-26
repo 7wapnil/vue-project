@@ -5,17 +5,17 @@
     <header-section
       v-if="event"
       :event="event"
+      :twitch-size="twitchSize"
       :showicons="false">
-      <template #tabs>
-        <markets-categories
-          :event="event"
-          :active-index="activeIndex"
-          lazy
-          tabs-class="event-panel-tabs"
-          nav-class="event-panel-tabs-nav mx-md-4 mx-1 no-scrollbars"
-          title-class="event-panel-titles"
-          @category-changed="onTabChange"/>
-      </template>
+      <markets-categories
+        :event="event"
+        :active-index="activeIndex"
+        lazy
+        tabs-class="event-panel-tabs"
+        nav-class="event-panel-tabs-nav mx-md-4 mx-1 no-scrollbars"
+        title-class="event-panel-titles"
+        @update:twitch:size="updateTwitchSize"
+        @category-changed="onTabChange"/>
     </header-section>
     <market-category
       v-if="category"
@@ -58,7 +58,8 @@ export default {
       category: null,
       activeIndex: 0,
       userLeavedPage: false,
-      closingStatuses: ['ended', 'closed', 'cancelled', 'abandoned']
+      closingStatuses: ['ended', 'closed', 'cancelled', 'abandoned'],
+      twitchSize: false
     }
   },
   computed: {
@@ -91,6 +92,9 @@ export default {
         }
         this.userLeavedPage = false
       }
+    },
+    updateTwitchSize (val) {
+      this.twitchSize = val
     }
   }
 }
