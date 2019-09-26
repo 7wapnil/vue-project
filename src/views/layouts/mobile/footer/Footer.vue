@@ -14,22 +14,22 @@
       </b-row>
       <b-list-group>
         <b-list-group-item
-                class="footer-mobile-nav-item"
-                active-class="footer-mobile-nav-item-active"
-                exact-active-class="footer-mobile-nav-item-exact-active"
-                v-for="item in homepageLinks"
-                :to="item.path"
-                :key="item.path">
+          v-for="item in homepageLinks"
+          :to="item.path"
+          :key="item.path"
+          class="footer-mobile-nav-item"
+          active-class="footer-mobile-nav-item-active"
+          exact-active-class="footer-mobile-nav-item-exact-active">
           <span class="text-arc-clr-gold font-weight-bold font-size-14 letter-spacing-2 text-truncate text-capitalize">
             {{ item.name }}
           </span>
         </b-list-group-item>
         <b-list-group-item
-                class="footer-mobile-nav-item"
+          v-for="(item, index) in footerItems"
 
-                exact-active-class="footer-mobile-nav-item-exact-active"
-                v-for="(item, index) in footerItems"
-                :key="index">
+          :key="index"
+          class="footer-mobile-nav-item"
+          exact-active-class="footer-mobile-nav-item-exact-active">
           <footer-menu-item :item="item"/>
         </b-list-group-item>
       </b-list-group>
@@ -44,9 +44,9 @@
             :size="50"
             class="mx-2 pointer">
             <b-link
-                    class="h-100 w-100 d-flex align-items-center justify-content-center"
-                    :href="socialicon.path"
-                    target="_blank">
+              :href="socialicon.path"
+              class="h-100 w-100 d-flex align-items-center justify-content-center"
+              target="_blank">
               <icon
                 :name="socialicon.name"
                 size="18px"

@@ -67,8 +67,8 @@
             :size="50"
             class="mx-2 pointer footer-social-section-circle">
             <b-link
-              class="h-100 w-100 d-flex align-items-center justify-content-center"
               :href="icon.path"
+              class="h-100 w-100 d-flex align-items-center justify-content-center"
               target="_blank">
               <icon
                 :name="icon.name"

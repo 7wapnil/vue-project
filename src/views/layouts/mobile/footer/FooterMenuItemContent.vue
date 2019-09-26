@@ -1,5 +1,7 @@
 <template>
-  <b-row class="yoba" no-gutters>
+  <b-row
+    class="yoba"
+    no-gutters>
     <b-col class="d-flex align-items-center justify-content-start">
       <span class="text-truncate text-capitalize font-weight-bold text-arc-clr-gold font-size-14 letter-spacing-2">
         {{ item.title }}

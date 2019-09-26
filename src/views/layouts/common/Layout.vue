@@ -33,10 +33,8 @@ export default {
     layoutKind () {
       if (this.isMobile) {
         if (this.mobileMeta) {
-          console.log('yoba', this.mobileMeta)
           return () => import(`@/views/layouts/${this.mobileMeta}/layout/MobileLayout`)
         } else {
-          console.log('pizdec')
           return () => import('@/views/layouts/mobile/MobileLayout')
         }
       }
@@ -49,6 +47,7 @@ export default {
       }
     }
   },
+
   watch: {
     '$route': {
       handler: 'getMetaData',
@@ -79,7 +78,6 @@ export default {
         console.log('meta')
         this.mobileMeta = to.meta.layout.mobile
         this.desktopMeta = to.meta.layout.desktop
-        this.$forceUpdate()
       }
     }
   }
