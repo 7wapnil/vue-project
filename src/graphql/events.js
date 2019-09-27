@@ -39,12 +39,30 @@ export const TOURNAMENT_EVENTS = gql`
 `
 
 export const ESPORT_EVENTS = gql`
-  query tournamentEventList (
+  query esportEventsList (
     $titleId: ID = null,
     $context: String = null,
     $withScopes: Boolean = false
   ) {
     esportEvents (
+      context: $context,
+      titleId: $titleId,
+    ) {
+      ${EVENT_FIELDS_WITH_SCOPES}
+      dashboardMarket {
+        ${MARKET_FIELDS}
+      }
+    }
+  }
+`
+
+export const SPORT_EVENTS = gql`
+  query sportEventsList (
+    $titleId: ID = null,
+    $context: String = null,
+    $withScopes: Boolean = false
+  ) {
+    sportEvents (
       context: $context,
       titleId: $titleId,
     ) {

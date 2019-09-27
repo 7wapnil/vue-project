@@ -19,13 +19,21 @@
     <esport-events
       v-if="$route.params.titleKind === 'esports' && eventListProps"
       :selected-category="selectedCategory"
-      :selected-filter="selectedFilter" />
+      :selected-filter="selectedFilter"
+      :key="key" />
 
+    <sport-events
+      v-if="$route.params.titleKind === 'sports' && eventListProps"
+      :selected-category="selectedCategory"
+      :selected-filter="selectedFilter"
+      :key="key" />
   </div>
 </template>
 
 <script>
+import EventsList from '@/components/events/EventsList'
 import EsportEvents from '@/components/events/EsportEvents'
+import SportEvents from '@/components/events/SportEvents'
 import IntroductionArea from '@/components/custom/IntroductionArea'
 import SportTabs from './SportTabs'
 import FilterTabs from './FilterTabs'
@@ -35,7 +43,9 @@ import TabsSection from '@/views/events-list/TabsSection'
 
 export default {
   components: {
+    EventsList,
     EsportEvents,
+    SportEvents,
     IntroductionArea,
     SportTabs,
     FilterTabs,
@@ -70,11 +80,9 @@ export default {
   },
   methods: {
     onCategoryChange (tab) {
-      console.log('Category was changed')
       this.selectedCategory = tab
     },
     onFilterChange (tab) {
-      console.log('Filter was changed', tab.value)
       this.selectedFilter = tab
     }
   }

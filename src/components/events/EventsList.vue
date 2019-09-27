@@ -100,7 +100,6 @@ export default {
   //   }
   // },
   data () {
-    console.log('EVENTS CALLED')
     return {
       loading: 0,
       // events: this.events

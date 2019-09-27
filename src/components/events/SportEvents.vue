@@ -1,12 +1,24 @@
 <template>
   <div>
-    <h1>Sport</h1>
-    <events-list :events="[]" />
+    <events-list
+      :events="sportEvents"
+      :tab-id="selectedFilter.value"
+      :key="key" />
   </div>
 </template>
 
 <script>
 import EventsList from '@/components/events/EventsList'
+import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
+import { CONTEXT_TO_START_STATUS_MAP } from '@/constants/graphql/event-start-statuses'
+import { INACTIVE, SUSPENDED, MARKET_STOP_STATUSES } from '@/constants/graphql/event-market-statuses'
+import { updateCacheList } from '@/helpers/graphql'
+import {
+  SPORT_EVENTS,
+  EVENTS_BET_STOPPED,
+  KIND_EVENT_UPDATED,
+  SPORT_EVENT_UPDATED,
+} from '@/graphql'
 
 export default {
   components: {
@@ -15,132 +27,112 @@ export default {
   props: {
     selectedCategory: {
       type: Object,
-      required: true
+      default: () => {}
     },
     selectedFilter: {
       type: Object,
       required: true
     }
   },
-  // apollo: {
-  //   events () {
-  //     return {
-  //       ...this.query,
-  //       subscribeToMore: [
-  //         {
-  //           document: this.eventsSubscription.document,
-  //           variables: this.eventsSubscription.variables,
-  //           updateQuery (currentData, { subscriptionData }) {
-  //             const events = currentData.events
+  apollo: {
+    sportEvents () {
+      return {
+        ...this.query,
+        subscribeToMore: [
+          {
+            document: this.eventsSubscription.document,
+            variables: this.eventsSubscription.variables,
+            updateQuery (currentData, { subscriptionData }) {
+              const sportEvents = currentData.sportEvents
 
-  //             if (!events) return
+              if (!sportEvents) return
 
-  //             const endpoint = Object.keys(subscriptionData.data)[0]
-  //             const attributes = subscriptionData.data[endpoint]
-  //             const startStatus = CONTEXT_TO_START_STATUS_MAP[this.context]
-  //             const isRemoved = attributes.startStatus !== startStatus || !attributes.visible
+              const endpoint = Object.keys(subscriptionData.data)[0]
+              const attributes = subscriptionData.data[endpoint]
+              const startStatus = CONTEXT_TO_START_STATUS_MAP[this.context]
+              const isRemoved = attributes.startStatus !== startStatus || !attributes.visible
 
-  //             return { events: updateCacheList(events, attributes, isRemoved) }
-  //           }
-  //         },
-  //         {
-  //           document: EVENTS_BET_STOPPED,
-  //           updateQuery (currentData, { subscriptionData: { data } }) {
-  //             const events = currentData.events
+              return { sportEvents: updateCacheList(sportEvents, attributes, isRemoved) }
+            }
+          },
+          {
+            document: EVENTS_BET_STOPPED,
+            updateQuery (currentData, { subscriptionData: { data } }) {
+              const sportEvents = currentData.sportEvents
 
-  //             if (!events) return
+              if (!sportEvents) return
 
-  //             const subscriptionData = data.eventsBetStopped
-  //             const marketStatus = subscriptionData.marketStatus
+              const subscriptionData = data.eventsBetStopped
+              const marketStatus = subscriptionData.marketStatus
 
-  //             if (MARKET_STOP_STATUSES.includes(marketStatus)) {
-  //               const eventIndex = events.findIndex(event => event.id === subscriptionData.eventId)
+              if (MARKET_STOP_STATUSES.includes(marketStatus)) {
+                const eventIndex = sportEvents.findIndex(sportEvents => sportEvents.id === subscriptionData.eventId)
 
-  //               if (eventIndex === -1) return
+                if (eventIndex === -1) return
 
-  //               const market = events[eventIndex].dashboardMarket
+                const market = sportEvents[eventIndex].dashboardMarket
 
-  //               if (marketStatus === INACTIVE) events.splice(eventIndex, 1)
-  //               if (marketStatus === SUSPENDED && market) {
-  //                 market.odds.forEach(function (odd) { odd.status = INACTIVE })
-  //               }
-  //             }
+                if (marketStatus === INACTIVE) sportEvents.splice(eventIndex, 1)
+                if (marketStatus === SUSPENDED && market) {
+                  market.odds.forEach(function (odd) { odd.status = INACTIVE })
+                }
+              }
 
-  //             return { events: events }
-  //           }
-  //         }
-  //       ]
-  //     }
-  //   }
-  // },
-  // data () {
-  //   return {
-  //     loading: 0,
-  //     events: []
-  //   }
-  // },
-  // computed: {
-  //   query () {
-  //     return {
-  //       query: EVENTS_LIST_QUERY,
-  //       fetchPolicy: NETWORK_ONLY,
-  //       variables: {
-  //         titleKind: this.$route.params.titleKind,
-  //         titleId: this.titleId,
-  //         tournamentId: this.tournamentId,
-  //         categoryId: this.categoryId,
-  //         context: this.context,
-  //         withScopes: true
-  //       }
-  //     }
-  //   },
-  //   eventsSubscription () {
-  //     let document = null
-  //     let variables = {}
+              return { sportEvents: sportEvents }
+            }
+          }
+        ]
+      }
+    }
+  },
+  data () {
+    return {
+      loading: 0,
+      sportEvents: []
+    }
+  },
+  computed: {
+    query () {
+      return {
+        query: SPORT_EVENTS,
+        fetchPolicy: NETWORK_ONLY,
+        variables: {
+          titleId: this.selectedCategory ? this.selectedCategory.value : null,
+          context: this.selectedFilter.value,
+          withScopes: true
+        }
+      }
+    },
+    key () {
+      if (!this.eventListProps) { return '' }
+      return Object.values(this.eventListProps).join(':')
+    },
+    eventListProps () {
+      if (!this.selectedFilter) { return null }
 
-  //     if (this.titleId) {
-  //       document = SPORT_EVENT_UPDATED
-  //       variables.title = this.titleId
-  //     } else {
-  //       document = KIND_EVENT_UPDATED
-  //       variables.kind = this.$route.params.titleKind
-  //     }
+      return {
+        titleId: this.selectedCategory ? this.selectedCategory.value : null,
+        tournamentId: this.$route.params.tournamentId || null,
+        context: this.selectedFilter ? this.selectedFilter.value : null
+      }
+    },
+    eventsSubscription () {
+      let document = null
+      let variables = {}
 
-  //     return {
-  //       document: document,
-  //       variables: variables
-  //     }
-  //   },
-  //   parentizeEvents () {
-  //     return this.events.map((event) => {
-  //       const { title, scopes } = event
-  //       const category = scopes.find(s => s.kind === 'category')
-  //       const tournament = scopes.find(s => s.kind === 'tournament')
+      if (this.titleId) {
+        document = SPORT_EVENT_UPDATED
+        variables.title = this.titleId
+      } else {
+        document = KIND_EVENT_UPDATED
+        variables.kind = this.$route.params.titleKind
+      }
 
-  //       return {
-  //         ...event,
-  //         type: 'event',
-  //         title: event.title,
-  //         parent: {
-  //           ...tournament,
-  //           type: 'tournament',
-  //           title: event.title,
-  //           parent: {
-  //             ...category,
-  //             type: 'category',
-  //             title: event.title,
-  //             parent: {
-  //               ...title,
-  //               type: 'title'
-  //             }
-  //           }
-  //         }
-  //       }
-  //     })
-  //   },
-  //   groupedEvents () {
-  //     return this.buildEventBranch(this.parentizeEvents)
-  //   }
-  // }
+      return {
+        document: document,
+        variables: variables
+      }
+    }
+  }
 }
 </script>

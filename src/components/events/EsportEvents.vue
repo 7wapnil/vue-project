@@ -1,10 +1,9 @@
 <template>
   <div>
-    <h1>ESport</h1>
-    {{ esportEvents }}
     <events-list
       :events="esportEvents"
-      :key="someVar" />
+      :tab-id="selectedFilter.value"
+      :key="key" />
   </div>
 </template>
 
@@ -37,7 +36,6 @@ export default {
   },
   apollo: {
     esportEvents () {
-      console.log('REQUEST')
       return {
         ...this.query,
         subscribeToMore: [
@@ -88,16 +86,11 @@ export default {
     }
   },
   data () {
-    console.log('ESPORT_EVENTS CALLED')
     return {
-      loading: 0,
       esportEvents: []
     }
   },
   computed: {
-    selectedFilterValue () {
-      return this.selectedFilter.value
-    },
     query () {
       return {
         query: ESPORT_EVENTS,

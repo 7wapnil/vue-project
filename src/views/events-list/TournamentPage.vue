@@ -15,7 +15,7 @@
         <events-list
           :tab-id="tab.value"
           :context="tab.context"
-          :events = "tournamentEvents.upcoming"/>
+          :events = "events_by_time(tab.value)"/>
       </div>
     </b-col>
   </b-row>
@@ -25,6 +25,7 @@
 import {
   TOURNAMENT_EVENTS,
   TOURNAMENT_EVENT_UPDATED,
+  EVENTS_BET_STOPPED
 } from '@/graphql'
 import EventsList from '@/components/events/EventsList'
 import HybridCard from '@/views/events-list/HybridCard'
@@ -33,6 +34,7 @@ import { updateCacheList } from '@/helpers/graphql'
 import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
 import { UPCOMING_UNLIMITED, UPCOMING } from '@/constants/graphql/event-context'
 import { LIVE, CONTEXT_TO_START_STATUS_MAP } from '@/constants/graphql/event-start-statuses'
+import { INACTIVE, SUSPENDED, MARKET_STOP_STATUSES } from '@/constants/graphql/event-market-statuses'
 
 export default {
   components: {
@@ -59,6 +61,32 @@ export default {
               const isRemoved = attributes.startStatus !== startStatus || !attributes.visible
 
               return { tournamentEvents: updateCacheList(tournamentEvents, attributes, isRemoved) }
+            }
+          },
+          {
+            document: EVENTS_BET_STOPPED,
+            updateQuery (currentData, { subscriptionData: { data } }) {
+              const tournamentEvents = currentData.tournamentEvents
+
+              if (!tournamentEvents) return
+
+              const subscriptionData = data.eventsBetStopped
+              const marketStatus = subscriptionData.marketStatus
+
+              if (MARKET_STOP_STATUSES.includes(marketStatus)) {
+                const eventIndex = tournamentEvents.findIndex(event => event.id === subscriptionData.eventId)
+
+                if (eventIndex === -1) return
+
+                const market = tournamentEvents[eventIndex].dashboardMarket
+
+                if (marketStatus === INACTIVE) tournamentEvents.splice(eventIndex, 1)
+                if (marketStatus === SUSPENDED && market) {
+                  market.odds.forEach(function (odd) { odd.status = INACTIVE })
+                }
+              }
+
+              return { tournamentEvents: tournamentEvents }
             }
           }
         ]
@@ -103,5 +131,14 @@ export default {
       }
     }
   },
+  methods: {
+    events_by_time (tabValue) {
+      switch (tabValue) {
+        case LIVE: return this.tournamentEvents.live
+        case UPCOMING: return this.tournamentEvents.upcoming
+        default: return []
+      }
+    }
+  }
 }
 </script>
