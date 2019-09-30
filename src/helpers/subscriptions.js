@@ -21,9 +21,10 @@ export const subscribeToMoreHelper = (params) => {
 
           const endpoint = Object.keys(subscriptionData.data)[0]
           const attributes = subscriptionData.data[endpoint]
-          const startStatus = CONTEXT_TO_START_STATUS_MAP[context]
+          const startStatus = CONTEXT_TO_START_STATUS_MAP[params.context]
           const isRemoved = attributes.startStatus !== startStatus || !attributes.visible
 
+          // TODO: Check for error with different name of key
           return { events: updateCacheList(events, attributes, isRemoved) }
         }
       },
@@ -63,7 +64,7 @@ export const eventsSubscription = (params) => {
 
   if (params.tournamentId) {
     document = TOURNAMENT_EVENT_UPDATED
-    variables.tournament = params.tournamentId 
+    variables.tournament = params.tournamentId
   } else if (params.titleId) {
     document = SPORT_EVENT_UPDATED
     variables.title = params.titleId

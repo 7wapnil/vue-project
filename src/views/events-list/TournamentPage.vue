@@ -22,11 +22,7 @@
 </template>
 
 <script>
-import {
-  TOURNAMENT_EVENTS,
-  TOURNAMENT_EVENT_UPDATED,
-  EVENTS_BET_STOPPED
-} from '@/graphql'
+import { TOURNAMENT_EVENTS } from '@/graphql'
 import EventsList from '@/components/events/EventsList'
 import HybridCard from '@/views/events-list/HybridCard'
 import ScopeBreadcrumbs from '@/views/events-list/ScopeBreadcrumbs'

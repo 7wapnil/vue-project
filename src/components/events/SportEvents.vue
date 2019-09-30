@@ -10,12 +10,7 @@
 <script>
 import EventsList from '@/components/events/EventsList'
 import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
-import {
-  SPORT_EVENTS,
-  EVENTS_BET_STOPPED,
-  KIND_EVENT_UPDATED,
-  SPORT_EVENT_UPDATED,
-} from '@/graphql'
+import { SPORT_EVENTS } from '@/graphql'
 import { subscribeToMoreHelper } from '@/helpers/subscriptions'
 
 export default {
@@ -61,12 +56,12 @@ export default {
     key () {
       if (!this.selectedFilter) { return '' }
 
-      var event_props = {
+      var eventProps = {
         titleId: this.selectedCategory ? this.selectedCategory.value : null,
         tournamentId: this.$route.params.tournamentId || null,
         context: this.selectedFilter ? this.selectedFilter.value : null
       }
-      return Object.values(event_props).join(':')
+      return Object.values(eventProps).join(':')
     },
     subscribeToMore () {
       return subscribeToMoreHelper({
