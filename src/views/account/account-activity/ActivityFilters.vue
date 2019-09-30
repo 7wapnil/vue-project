@@ -17,8 +17,9 @@
             :class="{ active: dateSelected === 4 }"
             variant="arc-filters"
             @click="openCalendar">
-            <icon name="calender"
-                  size="16px"/>
+            <icon
+              name="calender"
+              size="16px"/>
           </b-btn>
         </b-button-group>
         <b-button-group class="ml-0 ml-md-4">
