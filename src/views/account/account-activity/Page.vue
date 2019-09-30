@@ -3,6 +3,7 @@
     <activity-header/>
 
     <b-tabs
+      :fill="isMobile"
       nav-wrapper-class="border-top-tabs-orange-tabs"
       content-class="py-4">
       <b-tab
