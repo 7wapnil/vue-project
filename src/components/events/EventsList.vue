@@ -48,101 +48,12 @@ export default {
       required: true
     }
   },
-  // apollo: {
-  //   events () {
-  //     return {
-  //       ...this.query,
-  //       subscribeToMore: [
-  //         {
-  //           document: this.eventsSubscription.document,
-  //           variables: this.eventsSubscription.variables,
-  //           updateQuery (currentData, { subscriptionData }) {
-  //             const events = currentData.events
-
-  //             if (!events) return
-
-  //             const endpoint = Object.keys(subscriptionData.data)[0]
-  //             const attributes = subscriptionData.data[endpoint]
-  //             const startStatus = CONTEXT_TO_START_STATUS_MAP[this.context]
-  //             const isRemoved = attributes.startStatus !== startStatus || !attributes.visible
-
-  //             return { events: updateCacheList(events, attributes, isRemoved) }
-  //           }
-  //         },
-  //         {
-  //           document: EVENTS_BET_STOPPED,
-  //           updateQuery (currentData, { subscriptionData: { data } }) {
-  //             const events = currentData.events
-
-  //             if (!events) return
-
-  //             const subscriptionData = data.eventsBetStopped
-  //             const marketStatus = subscriptionData.marketStatus
-
-  //             if (MARKET_STOP_STATUSES.includes(marketStatus)) {
-  //               const eventIndex = events.findIndex(event => event.id === subscriptionData.eventId)
-
-  //               if (eventIndex === -1) return
-
-  //               const market = events[eventIndex].dashboardMarket
-
-  //               if (marketStatus === INACTIVE) events.splice(eventIndex, 1)
-  //               if (marketStatus === SUSPENDED && market) {
-  //                 market.odds.forEach(function (odd) { odd.status = INACTIVE })
-  //               }
-  //             }
-
-  //             return { events: events }
-  //           }
-  //         }
-  //       ]
-  //     }
-  //   }
-  // },
   data () {
     return {
       loading: 0,
-      // events: this.events
     }
   },
   computed: {
-    // query () {
-    //   return {
-    //     query: EVENTS_LIST_QUERY,
-    //     fetchPolicy: NETWORK_ONLY,
-    //     variables: {
-    //       titleKind: this.$route.params.titleKind,
-    //       titleId: this.titleId,
-    //       tournamentId: this.tournamentId,
-    //       categoryId: this.categoryId,
-    //       context: this.context,
-    //       withScopes: true
-    //     }
-    //   }
-    // },
-    // eventsSubscription () {
-    //   let document = null
-    //   let variables = {}
-
-    //   if (this.tournamentId) {
-    //     document = TOURNAMENT_EVENT_UPDATED
-    //     variables.tournament = this.tournamentId
-    //   } else if (this.categoryId) {
-    //     document = CATEGORY_EVENT_UPDATED
-    //     variables.category = this.categoryId
-    //   } else if (this.titleId) {
-    //     document = SPORT_EVENT_UPDATED
-    //     variables.title = this.titleId
-    //   } else {
-    //     document = KIND_EVENT_UPDATED
-    //     variables.kind = this.$route.params.titleKind
-    //   }
-
-    //   return {
-    //     document: document,
-    //     variables: variables
-    //   }
-    // },
     parentizeEvents () {
       return this.events.map((event) => {
         const { title, scopes } = event

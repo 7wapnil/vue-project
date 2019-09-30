@@ -30,11 +30,10 @@ import {
 import EventsList from '@/components/events/EventsList'
 import HybridCard from '@/views/events-list/HybridCard'
 import ScopeBreadcrumbs from '@/views/events-list/ScopeBreadcrumbs'
-import { updateCacheList } from '@/helpers/graphql'
 import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
 import { UPCOMING_UNLIMITED, UPCOMING } from '@/constants/graphql/event-context'
-import { LIVE, CONTEXT_TO_START_STATUS_MAP } from '@/constants/graphql/event-start-statuses'
-import { INACTIVE, SUSPENDED, MARKET_STOP_STATUSES } from '@/constants/graphql/event-market-statuses'
+import { LIVE } from '@/constants/graphql/event-start-statuses'
+import { subscribeToMoreHelper } from '@/helpers/subscriptions'
 
 export default {
   components: {
@@ -46,50 +45,7 @@ export default {
     tournamentEvents () {
       return {
         ...this.query,
-        subscribeToMore: [
-          {
-            document: this.eventsSubscription.document,
-            variables: this.eventsSubscription.variables,
-            updateQuery (currentData, { subscriptionData }) {
-              const tournamentEvents = currentData.tournamentEvents
-
-              if (!tournamentEvents) return
-
-              const endpoint = Object.keys(subscriptionData.data)[0]
-              const attributes = subscriptionData.data[endpoint]
-              const startStatus = CONTEXT_TO_START_STATUS_MAP[this.context]
-              const isRemoved = attributes.startStatus !== startStatus || !attributes.visible
-
-              return { tournamentEvents: updateCacheList(tournamentEvents, attributes, isRemoved) }
-            }
-          },
-          {
-            document: EVENTS_BET_STOPPED,
-            updateQuery (currentData, { subscriptionData: { data } }) {
-              const tournamentEvents = currentData.tournamentEvents
-
-              if (!tournamentEvents) return
-
-              const subscriptionData = data.eventsBetStopped
-              const marketStatus = subscriptionData.marketStatus
-
-              if (MARKET_STOP_STATUSES.includes(marketStatus)) {
-                const eventIndex = tournamentEvents.findIndex(event => event.id === subscriptionData.eventId)
-
-                if (eventIndex === -1) return
-
-                const market = tournamentEvents[eventIndex].dashboardMarket
-
-                if (marketStatus === INACTIVE) tournamentEvents.splice(eventIndex, 1)
-                if (marketStatus === SUSPENDED && market) {
-                  market.odds.forEach(function (odd) { odd.status = INACTIVE })
-                }
-              }
-
-              return { tournamentEvents: tournamentEvents }
-            }
-          }
-        ]
+        ...this.subscribeToMore
       }
     }
   },
@@ -120,15 +76,10 @@ export default {
         }
       }
     },
-    eventsSubscription () {
-      let document = TOURNAMENT_EVENT_UPDATED
-      let variables = {}
-      variables.tournament = this.$route.params.tournamentId // todo
-
-      return {
-        document: document,
-        variables: variables
-      }
+    subscribeToMore () {
+      return subscribeToMoreHelper({
+        tournamentId: this.$route.params.tournamentId
+      })
     }
   },
   methods: {
