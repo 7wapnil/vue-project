@@ -25,3 +25,37 @@
     }
   }
 }
+
+.activity-calendar {
+  top: -20px;
+  border-radius: 4px;
+  padding: 8px;
+  background: $arc-clr-soil-light !important;
+  color: $arc-clr-white;
+  box-shadow: 0 0 10px 0 $arc-clr-soil-cover;
+  border: none !important;
+  &-input {
+    display: none;
+  }
+  .next, .prev {
+    &:hover {
+      background-color: $arc-clr-soil-cover !important;
+    }
+  }
+  .day__month_btn:hover {
+    background-color: $arc-clr-soil-cover !important;
+    color: $arc-clr-gold;
+  }
+  .cell {
+    color: $arc-clr-iron;
+    &.selected {
+      background-color: $arc-clr-gold !important;
+      color: $black;
+      font-weight: $font-weight-bold;
+    }
+    &:hover {
+      border: 1px solid $arc-clr-gold !important;
+      font-weight: $font-weight-bold;
+    }
+  }
+}
