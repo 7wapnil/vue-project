@@ -74,22 +74,6 @@ export const SPORT_EVENTS = gql`
   }
 `
 
-// export const SPORT_EVENTS = gql`
-//   query tournamentEventList (
-//     $context: String = null,
-//     $withScopes: Boolean = false
-//   ) {
-//     sportEvents (
-//       context: $context
-//     ) {
-//       ${EVENT_FIELDS_WITH_SCOPES}
-//       dashboardMarket {
-//         ${MARKET_FIELDS}
-//       }
-//     }
-//   }
-// `
-
 export const EVENTS_LIST_QUERY = gql`
   query eventList (
     $titleId: ID = null,

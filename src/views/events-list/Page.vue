@@ -9,8 +9,8 @@
       <tabs-section>
         <sport-tabs @tab-changed="onCategoryChange"/>
         <filter-tabs
-          v-if="selectedCategory"
-          :selected-category="selectedCategory"
+          v-if="selectedEventScope"
+          :selected-category="selectedEventScope"
           @tab-changed="onFilterChange"/>
       </tabs-section>
 
@@ -18,13 +18,13 @@
 
     <esport-events
       v-if="$route.params.titleKind === 'esports' && eventListProps"
-      :selected-category="selectedCategory"
+      :selected-event-scope="selectedEventScope"
       :selected-filter="selectedFilter"
       :key="key" />
 
     <sport-events
       v-if="$route.params.titleKind === 'sports' && eventListProps"
-      :selected-category="selectedCategory"
+      :selected-event-scope="selectedEventScope"
       :selected-filter="selectedFilter"
       :key="key" />
   </div>
@@ -55,7 +55,7 @@ export default {
   },
   data () {
     return {
-      selectedCategory: null,
+      selectedEventScope: null,
       selectedFilter: null,
       isCategoryChanged: false
     }
@@ -65,7 +65,7 @@ export default {
       if (!this.selectedFilter) { return null }
 
       return {
-        titleId: this.selectedCategory ? this.selectedCategory.value : null,
+        titleId: this.selectedEventScope ? this.selectedEventScope.value : null,
         tournamentId: this.$route.params.tournamentId || null,
         context: this.selectedFilter ? this.selectedFilter.value : null
       }
@@ -75,12 +75,12 @@ export default {
       return Object.values(this.eventListProps).join(':')
     },
     activeTitle () {
-      return { name: this.selectedCategory ? this.selectedCategory.label : 'default' }
+      return { name: this.selectedEventScope ? this.selectedEventScope.label : 'default' }
     }
   },
   methods: {
     onCategoryChange (tab) {
-      this.selectedCategory = tab
+      this.selectedEventScope = tab
     },
     onFilterChange (tab) {
       this.selectedFilter = tab

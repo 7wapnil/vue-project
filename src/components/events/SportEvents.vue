@@ -18,7 +18,7 @@ export default {
     EventsList
   },
   props: {
-    selectedCategory: {
+    selectedEventScope: {
       type: Object,
       default: () => {}
     },
@@ -47,17 +47,17 @@ export default {
         query: SPORT_EVENTS,
         fetchPolicy: NETWORK_ONLY,
         variables: {
-          titleId: this.selectedCategory ? this.selectedCategory.value : null,
+          titleId: this.selectedEventScope ? this.selectedEventScope.value : null,
           context: this.selectedFilter.value,
           withScopes: true
         }
       }
     },
     key () {
-      if (!this.selectedFilter) { return '' }
+      if (!this.selectedFilter) return
 
-      var eventProps = {
-        titleId: this.selectedCategory ? this.selectedCategory.value : null,
+      const eventProps = {
+        titleId: this.selectedEventScope ? this.selectedEventScope.value : null,
         tournamentId: this.$route.params.tournamentId || null,
         context: this.selectedFilter ? this.selectedFilter.value : null
       }
@@ -66,7 +66,7 @@ export default {
     subscribeToMore () {
       return eventUpdatedSubscriber({
         titleKind: this.$route.params.titleKind,
-        titleId: this.selectedCategory.value,
+        titleId: this.selectedEventScope.value,
         context: this.selectedFilter.value,
       })
     }
