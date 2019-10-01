@@ -1,12 +1,12 @@
 <template>
   <b-row no-gutters>
-    <b-col class="p-4">
-      <h2 class="font-weight-light m-4">
+    <b-col class="bg-arc-clr-soil-light">
+      <h3 class="font-weight-light m-4">
         {{ header }}
-      </h2>
+      </h3>
       <table-of-content
         :items="items"
-        class="text-arc-clr-iron letter-spacing-2 line-height-24 text-left px-4 py-2 mb-0"/>
+        class="text-arc-clr-iron letter-spacing-2 line-height-24 text-left mb-0"/>
       <h6
         v-if="mainDocument"
         class="text-arc-clr-iron letter-spacing-2 line-height-24 text-left px-4 py-2 mb-0"
@@ -54,8 +54,3 @@ export default {
   }
 }
 </script>
-<style scoped>
-  h4 {
-    color: red !important;
-  }
-</style>
