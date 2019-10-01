@@ -14,7 +14,6 @@
         </b-col>
         <events-list
           :tab-id="tab.value"
-          :context="tab.context"
           :events = "events_by_time(tab.value)"/>
       </div>
     </b-col>
@@ -27,9 +26,8 @@ import EventsList from '@/components/events/EventsList'
 import HybridCard from '@/views/events-list/HybridCard'
 import ScopeBreadcrumbs from '@/views/events-list/ScopeBreadcrumbs'
 import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
-import { UPCOMING_UNLIMITED, UPCOMING } from '@/constants/graphql/event-context'
-import { LIVE } from '@/constants/graphql/event-start-statuses'
-import { subscribeToMoreHelper } from '@/helpers/subscriptions'
+import { UPCOMING, LIVE } from '@/constants/graphql/event-context'
+import { eventUpdatedSubscriber } from '@/helpers/subscriptions'
 
 export default {
   components: {
@@ -50,14 +48,10 @@ export default {
       tournamentEvents: [],
       tabsMapping: [{
         value: LIVE,
-        title: this.$i18n.t('homePage.live'),
-        context: LIVE,
-        events: []
+        title: this.$i18n.t('homePage.live')
       }, {
         value: UPCOMING,
-        title: this.$i18n.t('generalTerms.upcoming'),
-        context: UPCOMING_UNLIMITED,
-        events: [] // todo
+        title: this.$i18n.t('generalTerms.upcoming')
       }]
     }
   },
@@ -67,13 +61,13 @@ export default {
         query: TOURNAMENT_EVENTS,
         fetchPolicy: NETWORK_ONLY,
         variables: {
-          tournamentId: this.$route.params.tournamentId, // todo
+          tournamentId: this.$route.params.tournamentId,
           withScopes: true
         }
       }
     },
     subscribeToMore () {
-      return subscribeToMoreHelper({
+      return eventUpdatedSubscriber({
         tournamentId: this.$route.params.tournamentId
       })
     }

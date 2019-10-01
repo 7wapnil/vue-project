@@ -11,7 +11,7 @@
 import EventsList from '@/components/events/EventsList'
 import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
 import { SPORT_EVENTS } from '@/graphql'
-import { subscribeToMoreHelper } from '@/helpers/subscriptions'
+import { eventUpdatedSubscriber } from '@/helpers/subscriptions'
 
 export default {
   components: {
@@ -64,8 +64,10 @@ export default {
       return Object.values(eventProps).join(':')
     },
     subscribeToMore () {
-      return subscribeToMoreHelper({
-        tournamentId: this.$route.params.tournamentId
+      return eventUpdatedSubscriber({
+        titleKind: this.$route.params.titleKind,
+        titleId: this.selectedCategory.value,
+        context: this.selectedFilter.value,
       })
     }
   }

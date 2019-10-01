@@ -8,7 +8,7 @@ import { CONTEXT_TO_START_STATUS_MAP } from '@/constants/graphql/event-start-sta
 import { INACTIVE, SUSPENDED, MARKET_STOP_STATUSES } from '@/constants/graphql/event-market-statuses'
 import { updateCacheList } from '@/helpers/graphql'
 
-export const subscribeToMoreHelper = (params) => {
+export const eventUpdatedSubscriber = (params) => {
   return {
     subscribeToMore: [
       {
