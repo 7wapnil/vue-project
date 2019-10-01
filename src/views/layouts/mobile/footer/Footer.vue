@@ -26,9 +26,9 @@
         </b-list-group-item>
         <b-list-group-item
           v-for="(item, index) in footerItems"
-
           :key="index"
           class="footer-mobile-nav-item"
+          active-class="footer-mobile-nav-item-active"
           exact-active-class="footer-mobile-nav-item-exact-active">
           <footer-menu-item :item="item"/>
         </b-list-group-item>
