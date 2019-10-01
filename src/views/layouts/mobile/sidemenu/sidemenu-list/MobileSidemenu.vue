@@ -5,11 +5,11 @@
       class="flex-nowrap bg-arc-clr-soil-black"
       vertical>
 
-      <slot/>
+      <mobile-header-item/>
 
       <b-nav-item
         v-for="(item, index) in menuItems"
-        :key="index">
+        :key="item.id">
         <menu-item
           :item="item"
           :index="index"/>
@@ -26,12 +26,14 @@ import MenuItem from './MobileMenuItem'
 import { TITLES_QUERY } from '@/graphql'
 import { buildTree } from '@/helpers/navigation-tree'
 import { mapGetters } from 'vuex'
+import MobileHeaderItem from '@/views/layouts/mobile/sidemenu/sidemenu-list/MobileHeaderItem'
 
 const POLL_INTERVAL = 10000
 
 export default {
   components: {
-    MenuItem
+    MenuItem,
+    MobileHeaderItem
   },
   props: {
     titleKind: {
