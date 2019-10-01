@@ -1,7 +1,5 @@
 <template>
-  <div>
     <static-content :contentful-id="id"/>
-  </div>
 </template>
 
 <script>
