@@ -39,7 +39,7 @@ export const TOURNAMENT_EVENTS = gql`
 `
 
 export const ESPORT_EVENTS = gql`
-  query esportEventsList (
+  query esportEventList (
     $titleId: ID = null,
     $context: String = null,
     $withScopes: Boolean = false
@@ -57,7 +57,7 @@ export const ESPORT_EVENTS = gql`
 `
 
 export const SPORT_EVENTS = gql`
-  query sportEventsList (
+  query sportEventList (
     $titleId: ID = null,
     $context: String = null,
     $withScopes: Boolean = false

@@ -9,7 +9,6 @@ import { INACTIVE, SUSPENDED, MARKET_STOP_STATUSES } from '@/constants/graphql/e
 import { updateCacheList } from '@/helpers/graphql'
 
 export const eventUpdatedSubscriber = (params) => {
-  console.log("HI FROM HELPER")
   return {
     subscribeToMore: [
       {
@@ -36,11 +35,11 @@ export const eventUpdatedSubscriber = (params) => {
 
           if (!events) return
 
-          const subscriptionData = data.eventsBetStopped
-          const marketStatus = subscriptionData.marketStatus
+          const eventBetStopped = data.eventsBetStopped
+          const marketStatus = eventBetStopped.marketStatus
 
           if (MARKET_STOP_STATUSES.includes(marketStatus)) {
-            const eventIndex = events.findIndex(event => event.id === subscriptionData.eventId)
+            const eventIndex = events.findIndex(event => event.id === eventBetStopped.eventId)
 
             if (eventIndex === -1) return
 

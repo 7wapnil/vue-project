@@ -17,13 +17,13 @@
     </introduction-area>
 
     <esport-events
-      v-if="$route.params.titleKind === 'esports' && eventListProps"
+      v-if="checkEventKind('esports')"
       :selected-event-scope="selectedEventScope"
       :selected-filter="selectedFilter"
       :key="key" />
 
     <sport-events
-      v-if="$route.params.titleKind === 'sports' && eventListProps"
+      v-if="checkEventKind('sports')"
       :selected-event-scope="selectedEventScope"
       :selected-filter="selectedFilter"
       :key="key" />
@@ -84,6 +84,9 @@ export default {
     },
     onFilterChange (tab) {
       this.selectedFilter = tab
+    },
+    checkEventKind (kind = 'esports') {
+      return this.$route.params.titleKind === kind && this.eventListProps
     }
   }
 }

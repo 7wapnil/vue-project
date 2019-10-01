@@ -44,7 +44,7 @@ export default {
     },
     events: {
       type: Array,
-      default () { return [] },
+      default: () => { return [] },
       required: true
     }
   },

@@ -1,10 +1,8 @@
 <template>
-  <div>
-    <events-list
-      :events="esportEvents"
-      :tab-id="selectedFilter.value"
-      :key="key" />
-  </div>
+  <events-list
+    :events="esportEvents"
+    :tab-id="selectedFilter.value"
+    :key="key" />
 </template>
 
 <script>
