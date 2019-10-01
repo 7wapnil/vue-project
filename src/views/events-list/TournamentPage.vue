@@ -27,7 +27,7 @@ import HybridCard from '@/views/events-list/HybridCard'
 import ScopeBreadcrumbs from '@/views/events-list/ScopeBreadcrumbs'
 import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
 import { UPCOMING, LIVE } from '@/constants/graphql/event-context'
-import { eventUpdatedSubscriber } from '@/helpers/subscriptions'
+import { eventUpdatedSubscriber } from '@/helpers/event-subscriptions'
 
 export default {
   components: {

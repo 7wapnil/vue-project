@@ -9,6 +9,7 @@ import { INACTIVE, SUSPENDED, MARKET_STOP_STATUSES } from '@/constants/graphql/e
 import { updateCacheList } from '@/helpers/graphql'
 
 export const eventUpdatedSubscriber = (params) => {
+  console.log("HI FROM HELPER")
   return {
     subscribeToMore: [
       {

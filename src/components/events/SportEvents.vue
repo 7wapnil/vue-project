@@ -11,7 +11,7 @@
 import EventsList from '@/components/events/EventsList'
 import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
 import { SPORT_EVENTS } from '@/graphql'
-import { eventUpdatedSubscriber } from '@/helpers/subscriptions'
+import { eventUpdatedSubscriber } from '@/helpers/event-subscriptions'
 
 export default {
   components: {
