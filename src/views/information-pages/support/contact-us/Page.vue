@@ -1,5 +1,5 @@
 <template>
-    <static-content :contentful-id="id"/>
+  <static-content :contentful-id="id"/>
 </template>
 
 <script>
