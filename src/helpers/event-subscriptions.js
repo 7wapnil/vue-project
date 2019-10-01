@@ -21,7 +21,7 @@ export const eventUpdatedSubscriber = (params) => {
         document: eventsSubscription(params).document,
         variables: eventsSubscription(params).variables,
         updateQuery (currentData, { subscriptionData }) {
-          const events = currentData[event_variable_key(params)]
+          const events = currentData[eventVariableKey(params)]
 
           if (!events) return
 
@@ -30,13 +30,13 @@ export const eventUpdatedSubscriber = (params) => {
           const startStatus = CONTEXT_TO_START_STATUS_MAP[params.context]
           const isRemoved = attributes.startStatus !== startStatus || !attributes.visible
 
-          return {[event_variable_key(params)]: updateCacheList(events, attributes, isRemoved)}
+          return { [eventVariableKey(params)]: updateCacheList(events, attributes, isRemoved) }
         }
       },
       {
         document: EVENTS_BET_STOPPED,
         updateQuery (currentData, { subscriptionData: { data } }) {
-          const events = currentData[event_variable_key(params)]
+          const events = currentData[eventVariableKey(params)]
 
           if (!events) return
 
@@ -56,14 +56,14 @@ export const eventUpdatedSubscriber = (params) => {
             }
           }
 
-          return {[event_variable_key(params)]: events}
+          return { [eventVariableKey(params)]: events }
         }
       }
     ]
   }
 }
 
-export const event_variable_key = (params) => {
+export const eventVariableKey = (params) => {
   if (params.tournamentId) {
     return TOURNAMENT_EVENT
   } else if (params.titleKind === SPORT_KIND) {
