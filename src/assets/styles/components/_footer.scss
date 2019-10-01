@@ -64,9 +64,8 @@ $section-top-border: inset 0 1px 0 0 $arc-clr-soil-light;
     }
     &:active {
       z-index: 1;
-      color: #495057;
+      color: $arc-clr-white;
       text-decoration: none;
-      background-color: #171717;
     }
     &.list-group-item-action:hover {
       background-color: unset;
@@ -74,28 +73,14 @@ $section-top-border: inset 0 1px 0 0 $arc-clr-soil-light;
     li {
       padding: 16px 0;
     }
-
-
-
-
-
-    //box-shadow: $section-top-border;
-    //& > .nav-link {
-    //  padding: 21px 25px;
-    //  height: 100%;
-    //  width: 100%;
-    //  &:active {
-    //    background-color: #171717;
-    //  }
-    //  & > div {
-    //    .collapsed {
-    //      .arc-sidemenu-chevron-down {
-    //        transform: rotateX(0deg);
-    //        transition: transform .3s ease-in-out;
-    //      }
-    //    }
-    //  }
-    //}
+    & > div {
+      .collapsed {
+        .arc-sidemenu-chevron-down {
+          transform: rotateX(0deg);
+          transition: transform .3s ease-in-out;
+        }
+      }
+    }
   }
   &-topicons-section {
     padding: 25px 31px;
