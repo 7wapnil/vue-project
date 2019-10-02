@@ -1,13 +1,15 @@
 <template>
   <sidebar
     :is-open="isSidebarOpen"
-    close-trigger="sidemenu">
+    close-trigger="sidemenu"
+    @sidebar-opened="showContent = true"
+    @sidebar-closed="showContent = false">
     <template #header>
       <logo-section/>
       <category-switch/>
     </template>
     <template #content>
-      <mobile-sidemenu>
+      <mobile-sidemenu v-if="showContent">
         <mobile-header-item/>
       </mobile-sidemenu>
     </template>
@@ -29,6 +31,11 @@ export default {
     MobileSidemenu,
     MobileHeaderItem,
     Sidebar
+  },
+  data () {
+    return {
+      showContent: false
+    }
   },
   computed: {
     ...mapGetters([
