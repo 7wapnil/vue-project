@@ -12,9 +12,11 @@
           cols="1">
           <slot name="close"/>
         </b-col>
-        <b-col class="p-0">
-          <span class="mr-2 text-arc-clr-iron letter-spacing-2 font-size-11">
-            BETSLIP
+        <b-col
+          :class="{ 'ml-2' : !!this.$slots.close }"
+          class="p-0">
+          <span class="mr-2 text-arc-clr-iron letter-spacing-2 font-size-11 text-uppercase">
+            Betslip
           </span>
           <arc-circle
             v-show="betsLength"
