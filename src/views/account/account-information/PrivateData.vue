@@ -75,7 +75,7 @@
       no-gutters>
       <b-col
         cols="3"
-        class="d-flex align-items-center justify-content-end">
+        class="d-flex align-items-md-center justify-content-md-end justify-content-end mt-2 mt-md-0">
         <label
           for="birthday"
           class="text-right text-arc-clr-iron font-size-14 letter-spacing-2 mb-0">
