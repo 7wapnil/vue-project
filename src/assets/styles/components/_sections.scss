@@ -100,6 +100,11 @@
   }
 }
 
+// Twitch section
+.twitch-section {
+  box-shadow: 0 0 8px 0 $arc-clr-soil-darker;
+}
+
 .withdrawal-method {
   &-item {
     min-height: 80px;

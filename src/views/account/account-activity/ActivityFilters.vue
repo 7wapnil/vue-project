@@ -1,42 +1,47 @@
 <template>
-  <b-row
-    class="mt-2 mb-5"
-    no-gutters>
-    <b-col>
-      <b-button-group>
-        <b-btn
-          v-for="(timeButton, index) in timeButtons"
-          :key="index"
-          :class="{ active: dateSelected === index }"
-          variant="arc-filters"
-          @click="changeTimeFilter(index)">
-          {{ timeButton.name }}
-        </b-btn>
-        <b-btn
-          :class="{ active: dateSelected === 4 }"
-          variant="arc-filters">
-          <datepicker
-            :v-model="calendarDate"
-            :calendar-button="true"
-            wrapper-class="calendar"
-            input-class="date-input"
-            calendar-button-icon="arc arc-calender text-arc-clr-iron"
-            @selected="calendarChangeTimeFilter"
-          />
-        </b-btn>
-      </b-button-group>
-      <b-button-group class="ml-4">
-        <b-btn
-          v-for="(stateButton, index) in stateButtons"
-          :key="index"
-          :class="{ active: betStateSelected === index }"
-          variant="arc-filters"
-          @click="changeBetFilter(index)">
-          {{ stateButton.name }}
-        </b-btn>
-      </b-button-group>
-    </b-col>
-  </b-row>
+  <div>
+    <b-row
+      class="mt-2 mb-4 mb-md-5"
+      no-gutters>
+      <b-col class="text-center text-md-left">
+        <b-button-group class="mb-4 mb-md-0">
+          <b-btn
+            v-for="(timeButton, index) in timeButtons"
+            :key="index"
+            :class="{ active: dateSelected === index }"
+            variant="arc-filters"
+            @click="changeTimeFilter(index)">
+            {{ timeButton.name }}
+          </b-btn>
+          <b-btn
+            :class="{ active: dateSelected === 4 }"
+            variant="arc-filters"
+            @click="openCalendar">
+            <icon
+              name="calender"
+              size="16px"/>
+          </b-btn>
+        </b-button-group>
+        <b-button-group class="ml-0 ml-md-4">
+          <b-btn
+            v-for="(stateButton, index) in stateButtons"
+            :key="index"
+            :class="{ active: betStateSelected === index }"
+            variant="arc-filters"
+            @click="changeBetFilter(index)">
+            {{ stateButton.name }}
+          </b-btn>
+        </b-button-group>
+      </b-col>
+    </b-row>
+    <datepicker
+      ref="datepicker"
+      v-model="calendarDate"
+      calendar-class="activity-calendar ml-4 ml-md-0"
+      input-class="activity-calendar-input"
+      @selected="calendarChangeTimeFilter"
+    />
+  </div>
 </template>
 
 <script>
@@ -98,6 +103,10 @@ export default {
     changeBetFilter (index) {
       this.betStateSelected = index
       this.$emit('table-filtered-by-bet-state', this.stateButtons[index])
+    },
+    openCalendar () {
+      this.dateSelected !== 4 ? this.dateSelected = 4 : this.dateSelected = 0
+      this.$refs.datepicker.showCalendar()
     }
   },
 }

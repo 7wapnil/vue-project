@@ -9,12 +9,11 @@
         :event="event"
         :showicons="showicons"/>
       <twitch-stream
+        :twitch-size="twitchSize"
         :original-event="event"
-        @twitch-online="twitchOnline = !twitchOnline"/>
-    </event-details-background>
-    <div class="bg-arc-clr-soil-light pt-3">
+        @twitch-online="toogleTwitch"/>
       <slot/>
-    </div>
+    </event-details-background>
   </div>
 </template>
 
@@ -42,6 +41,10 @@ export default {
     showicons: {
       type: Boolean,
       default: true
+    },
+    twitchSize: {
+      type: Boolean,
+      default: false
     }
   },
   data () {
@@ -50,7 +53,10 @@ export default {
     }
   },
   methods: {
-    getTitleName
+    getTitleName,
+    toogleTwitch (val) {
+      this.twitchOnline = val
+    }
   }
 }
 </script>
