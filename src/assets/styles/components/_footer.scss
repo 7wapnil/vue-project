@@ -14,6 +14,12 @@ $section-top-border: inset 0 1px 0 0 $arc-clr-soil-light;
   }
   &-social-section {
     box-shadow: $section-top-border;
+    &-circle:hover {
+      box-shadow: 0 0 20px 5px $arc-clr-soil-black;
+      .footer-social-section-icon {
+        color: $arc-clr-gold !important;
+      }
+    }
   }
   &-links-section {
     padding: 68px 20px;
@@ -25,9 +31,11 @@ $section-top-border: inset 0 1px 0 0 $arc-clr-soil-light;
   &-policy-section {
     color: #6F6F6F;
   }
-  &-list li {
-    line-height: 30px;
-    list-style-type: none
+  &-list {
+    & > li {
+      line-height: 30px;
+      list-style-type: none;
+    }
   }
 }
 .footer-mobile {
@@ -46,16 +54,30 @@ $section-top-border: inset 0 1px 0 0 $arc-clr-soil-light;
     text-align: center;
   }
   &-nav-item {
-    box-shadow: $section-top-border;
+    background-color: $arc-clr-soil-darker;
     padding: 21px 25px;
-    & > .nav-link {
-      padding: 0 !important;
-      & > div {
-        .collapsed {
-          .arc-sidemenu-chevron-down {
-            transform: rotateX(0deg);
-            transition: transform .3s ease-in-out;
-          }
+    &-active {
+      background-color: #171717;
+    }
+    &-exact-active {
+      background-color: unset !important;
+    }
+    &:active {
+      z-index: 1;
+      color: $arc-clr-white;
+      text-decoration: none;
+    }
+    &.list-group-item-action:hover {
+      background-color: unset;
+    }
+    li {
+      padding: 16px 0;
+    }
+    & > div {
+      .collapsed {
+        .arc-sidemenu-chevron-down {
+          transform: rotateX(0deg);
+          transition: transform .3s ease-in-out;
         }
       }
     }

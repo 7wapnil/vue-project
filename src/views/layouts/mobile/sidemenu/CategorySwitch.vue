@@ -22,6 +22,12 @@
 import { mapGetters, mapMutations } from 'vuex'
 
 export default {
+  props: {
+    link: {
+      type: Boolean,
+      default: false
+    }
+  },
   data () {
     return {
       categories: [
@@ -46,7 +52,11 @@ export default {
   },
   methods: {
     changeCategory (kind) {
-      this.changeSidebarKind(kind)
+      if (this.link) {
+        this.$router.push({ path: `/${kind}` })
+      } else {
+        this.changeSidebarKind(kind)
+      }
     },
     ...mapMutations([
       'changeSidebarKind'

@@ -1,20 +1,7 @@
 import EventsPage from '@/views/events-list/Page.vue'
 import TournamentPage from '@/views/events-list/TournamentPage.vue'
-import Affiliates from '@/views/information-pages/affiliates/main/Page'
-import Promotions from '@/views/information-pages/promotions/main/Page'
 
 export default [
-  {
-    path: 'promotions',
-    component: () => import('@/views/layouts/information-page/Content'),
-    children: [
-      {
-        path: '',
-        name: 'Promotions',
-        component: Promotions
-      }
-    ]
-  },
   {
     path: ':titleKind',
     component: () => import('@/views/layouts/common/Content'),
@@ -61,16 +48,5 @@ export default [
     path: 'impersonate/:token',
     name: 'impersonation',
     component: () => import('@/views/auth/Impersonation')
-  },
-  {
-    path: 'affiliates',
-    component: () => import('@/views/layouts/information-page/Content'),
-    children: [
-      {
-        path: '',
-        name: 'affiliates',
-        component: Affiliates
-      }
-    ]
   }
 ]

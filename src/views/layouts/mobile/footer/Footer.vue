@@ -12,38 +12,46 @@
           <b-img :src="require(`@/assets/images/footer/${topicon}.svg`)"/>
         </b-col>
       </b-row>
-      <b-nav
-        vertical
-        class="flex-nowrap">
-        <b-nav-item
+      <b-list-group>
+        <b-list-group-item
           v-for="item in homepageLinks"
           :to="item.path"
           :key="item.path"
-          class="footer-mobile-nav-item">
+          class="footer-mobile-nav-item"
+          active-class="footer-mobile-nav-item-active"
+          exact-active-class="footer-mobile-nav-item-exact-active">
           <span class="text-arc-clr-gold font-weight-bold font-size-14 letter-spacing-2 text-truncate text-capitalize">
             {{ item.name }}
           </span>
-        </b-nav-item>
-        <b-nav-item
+        </b-list-group-item>
+        <b-list-group-item
           v-for="(item, index) in footerItems"
           :key="index"
-          class="footer-mobile-nav-item">
+          class="footer-mobile-nav-item"
+          active-class="footer-mobile-nav-item-active"
+          exact-active-class="footer-mobile-nav-item-exact-active">
           <footer-menu-item :item="item"/>
-        </b-nav-item>
-      </b-nav>
+        </b-list-group-item>
+      </b-list-group>
+
       <b-row
         class="footer-social-section"
         no-gutters>
         <b-col class="d-flex align-items-center justify-content-center pt-5">
           <arc-circle
-            v-for="(socialicon, index) in socialicons"
+            v-for="(socialicon, index) in socialIcons"
             :key="index"
             :size="50"
             class="mx-2 pointer">
-            <icon
-              :name="socialicon"
-              size="20px"
-              color="arc-clr-soil-darker"/>
+            <b-link
+              :href="socialicon.path"
+              class="h-100 w-100 d-flex align-items-center justify-content-center"
+              target="_blank">
+              <icon
+                :name="socialicon.name"
+                size="18px"
+                color="arc-clr-soil-darker"/>
+            </b-link>
           </arc-circle>
         </b-col>
       </b-row>
@@ -120,7 +128,19 @@ export default {
           name: 'Sport Homepage'
         }
       ],
-      socialicons: ['facebook', 'twitter', 'discord']
+      socialIcons: [
+        {
+          name: 'facebook',
+          path: 'https://www.facebook.com/arcanebet'
+        },
+        {
+          name: 'twitter',
+          path: 'https://twitter.com/ArcaneBet'
+        },
+        { name: 'discord',
+          path: 'https://discordapp.com/invite/SutBDGd'
+        }
+      ]
     }
   }
 }
