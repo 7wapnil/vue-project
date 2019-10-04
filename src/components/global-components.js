@@ -27,4 +27,3 @@ Vue.component('modal-list', ModalList)
 Vue.component('arc-circle', ArcCircle)
 Vue.component('payment-method-icon', PaymentMethodIcon)
 Vue.component('arc-separator', ArcSeparator)
-
