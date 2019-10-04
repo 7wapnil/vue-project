@@ -1,7 +1,10 @@
 <template>
   <div>
     <overlay>
-      <transition :name="sidebar.transition">
+      <transition
+        :name="sidebar.transition"
+        @after-enter="$emit('sidebar-opened')"
+        @after-leave="$emit('sidebar-closed')">
         <div
           v-if="isOpen"
           :class="sidebar.position"
@@ -73,7 +76,7 @@ export default {
     ]),
     ...mapMutations('betslip', [
       'toggleBetslip'
-    ]),
+    ])
   }
 }
 </script>
