@@ -64,11 +64,22 @@
 }
 
 // Introduction area
-.introduction-area {
+.introduction-area,
+%introduction-area {
   img {
     object-fit: cover;
     min-height: 100%;
     mask-image: linear-gradient(to bottom, rgba($black, 1) 75%, rgba($black, 0));
+  }
+}
+
+.event-introduction-area {
+  @extend %introduction-area;
+  .card-img-overlay {
+    position: relative;
+  }
+  img {
+    position: absolute;
   }
 }
 
@@ -87,4 +98,9 @@
     background-color: #6f6f6f30;
     border-radius: 3px;
   }
+}
+
+// Twitch section
+.twitch-section {
+  box-shadow: 0 0 8px 0 $arc-clr-soil-darker;
 }

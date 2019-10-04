@@ -2,9 +2,9 @@
   <b-card
     v-if="title"
     :img-src="background"
-    img-height="270"
+    img-height="356"
     overlay
-    class="introduction-area"
+    class="event-introduction-area"
     body-class="p-0">
     <slot/>
   </b-card>

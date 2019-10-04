@@ -8,7 +8,10 @@
 
       <tabs-section>
         <sport-tabs @tab-changed="onCategoryChange"/>
-        <filter-tabs @tab-changed="onFilterChange"/>
+        <filter-tabs
+          v-if="selectedCategory"
+          :selected-category="selectedCategory"
+          @tab-changed="onFilterChange"/>
       </tabs-section>
 
     </introduction-area>
@@ -43,7 +46,8 @@ export default {
   data () {
     return {
       selectedCategory: null,
-      selectedFilter: null
+      selectedFilter: null,
+      isCategoryChanged: false
     }
   },
   computed: {

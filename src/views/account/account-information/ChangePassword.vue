@@ -13,7 +13,7 @@
         </label>
       </b-col>
       <b-col
-        class="ml-4"
+        class="pl-4"
         lg="6"
         cols="9">
         <b-form-input
@@ -25,7 +25,7 @@
     </b-row>
     <b-row no-gutters>
       <b-col cols="2"/>
-      <b-col class="ml-4">
+      <b-col class="pl-4">
         {{ form.errors.existingPassword }}
       </b-col>
     </b-row>
@@ -44,7 +44,7 @@
       </b-col>
 
       <b-col
-        class="ml-4"
+        class="pl-4"
         cols="9"
         lg="6">
         <b-form-input
@@ -79,7 +79,7 @@
       </b-col>
 
       <b-col
-        class="ml-4"
+        class="pl-4"
         cols="9"
         lg="6">
         <b-form-input
@@ -98,7 +98,7 @@
     <b-row no-gutters>
       <b-col cols="3"/>
       <b-col
-        class="ml-4"
+        class="pl-4"
         cols="9"
         lg="6">
         <b-button

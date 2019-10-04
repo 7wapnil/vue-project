@@ -6,6 +6,9 @@
 }
 
 #AccountModal {
+  .modal-dialog-scrollable .modal-content {
+    max-height: 100vh;
+  }
   .custom-select {
     background: $arc-clr-white;
   }

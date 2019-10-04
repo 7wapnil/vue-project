@@ -1,15 +1,19 @@
 <template>
   <div>
     <event-details-background :title="{ name: getTitleName(event.title) }">
-      <event-breadcrumbs :event="event"/>
+      <event-breadcrumbs
+        :event="event"
+        class="mb-0"/>
       <event-details
+        v-if="!twitchOnline"
         :event="event"
         :showicons="showicons"/>
-    </event-details-background>
-    <twitch-stream :original-event="event"/>
-    <div class="bg-arc-clr-soil-light pt-3">
+      <twitch-stream
+        :twitch-size="twitchSize"
+        :original-event="event"
+        @twitch-online="toogleTwitch"/>
       <slot/>
-    </div>
+    </event-details-background>
   </div>
 </template>
 
@@ -37,10 +41,22 @@ export default {
     showicons: {
       type: Boolean,
       default: true
+    },
+    twitchSize: {
+      type: Boolean,
+      default: false
+    }
+  },
+  data () {
+    return {
+      twitchOnline: false
     }
   },
   methods: {
-    getTitleName
+    getTitleName,
+    toogleTwitch (val) {
+      this.twitchOnline = val
+    }
   }
 }
 </script>

@@ -10,7 +10,7 @@
         {{ $t('account.tabs.accountStatus') }}
       </h3>
     </b-col>
-    <b-col class="p-4 p-md-0">
+    <b-col class="px-4 pt-4 pb-2 p-md-0">
       <span
         v-if="!!user.verified"
         class="d-flex align-items-center justify-content-end">
