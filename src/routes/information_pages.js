@@ -74,13 +74,6 @@ export const InformationPages = {
           meta: { sidemenu: 'info' },
           beforeEnter () { location.href = process.env.VUE_APP_AFFILIATE_URL }
         }
-        },
-        {
-          path: 'affiliates-arcanebet',
-          name: 'Affiliates',
-          title: 'Affiliates',
-          beforeEnter () { location.href = process.env.VUE_APP_AFFILIATE_URL }
-        }
       ]
     },
     {
