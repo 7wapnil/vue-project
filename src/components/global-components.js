@@ -10,6 +10,7 @@ import SimpleTabs from '@/components/custom/SimpleTabs'
 import ModalList from '@/components/custom/ModalList'
 import ArcCircle from '@/components/custom/ArcCircle'
 import PaymentMethodIcon from '@/components/PaymentMethodIcon'
+import ArcSeparator from '@/components/custom/ArcSeparator'
 
 Vue.use(Router)
 Vue.use(BootstrapVue)
@@ -22,3 +23,4 @@ Vue.component('simple-tabs', SimpleTabs)
 Vue.component('modal-list', ModalList)
 Vue.component('arc-circle', ArcCircle)
 Vue.component('payment-method-icon', PaymentMethodIcon)
+Vue.component('arc-separator', ArcSeparator)

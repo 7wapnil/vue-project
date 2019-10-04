@@ -35,14 +35,6 @@ export const SPORT_EVENT_UPDATED = gql`
   }
 `
 
-export const CATEGORY_EVENT_UPDATED = gql`
-  subscription categoryEventUpdated ($category: ID) {
-    categoryEventUpdated (category: $category) {
-      ${SUBSCRIPTION_FIELDS}
-    }
-  }
-`
-
 export const TOURNAMENT_EVENT_UPDATED = gql`
   subscription tournamentEventUpdated ($tournament: ID) {
     tournamentEventUpdated (tournament: $tournament) {

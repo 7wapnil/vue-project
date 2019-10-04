@@ -27,6 +27,7 @@ export default {
   'field-hockey': 'background-field-hockey',
   'futsal': 'background-futsal',
   'table-tennis': 'background-table-tennis',
+  'floorball': 'background-floorball',
 
   // Esports
   'call-of-duty': 'background-call-of-duty',

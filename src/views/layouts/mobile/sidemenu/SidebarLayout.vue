@@ -1,7 +1,9 @@
 <template>
   <sidebar
     :is-open="isSidebarOpen"
-    close-trigger="sidemenu">
+    close-trigger="sidemenu"
+    @sidebar-opened="showContent = true"
+    @sidebar-closed="showContent = false">
     <template #header>
       <logo-section/>
       <category-switch :link="isLink"/>
@@ -26,7 +28,8 @@ export default {
   },
   data () {
     return {
-      sidemenuMeta: ''
+      sidemenuMeta: '',
+      showContent: false
     }
   },
   computed: {
