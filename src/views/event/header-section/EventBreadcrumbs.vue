@@ -32,8 +32,7 @@ export default {
             to: { name: 'title', params: { titleKind: this.$route.params.titleKind, titleId: this.event.title.id, } }
           },
           {
-            text: this.category.name,
-            to: { name: 'category-tournaments', params: { titleKind: this.$route.params.titleKind, titleId: this.event.title.id, categoryId: this.category.id } }
+            text: this.category.name
           },
           {
             text: this.event.tournament.name,
