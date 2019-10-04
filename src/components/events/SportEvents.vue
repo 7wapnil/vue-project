@@ -1,6 +1,7 @@
 <template>
   <events-list
     :events="sportEvents"
+    :loading="loading"
     :tab-id="selectedFilter.value"
     :key="key" />
 </template>
