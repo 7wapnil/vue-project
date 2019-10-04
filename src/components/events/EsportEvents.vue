@@ -1,6 +1,7 @@
 <template>
   <events-list
     :events="esportEvents"
+    :loading="loading"
     :tab-id="selectedFilter.value"
     :key="key" />
 </template>
@@ -35,6 +36,7 @@ export default {
   },
   data () {
     return {
+      loading: 0,
       esportEvents: []
     }
   },

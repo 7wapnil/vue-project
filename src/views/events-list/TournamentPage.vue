@@ -14,7 +14,8 @@
         </b-col>
         <events-list
           :tab-id="tab.value"
-          :events = "events_by_time(tab.value)"/>
+          :events = "events_by_time(tab.value)"
+          :loading = "loading" />
       </div>
     </b-col>
   </b-row>
@@ -45,6 +46,7 @@ export default {
   },
   data () {
     return {
+      loading: 0,
       tournamentEvents: [],
       tabsMapping: [{
         value: LIVE,

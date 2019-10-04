@@ -46,6 +46,10 @@ export default {
       type: Array,
       default: () => { return [] },
       required: true
+    },
+    loading: {
+      type: Number,
+      default: 0
     }
   },
   data () {
