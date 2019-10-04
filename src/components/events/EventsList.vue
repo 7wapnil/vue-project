@@ -52,11 +52,6 @@ export default {
       default: 0
     }
   },
-  data () {
-    return {
-      loading: 0,
-    }
-  },
   computed: {
     parentizeEvents () {
       return this.events.map((event) => {
