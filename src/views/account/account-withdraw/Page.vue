@@ -9,7 +9,7 @@
         :withdrawal-methods="withdrawalMethods">
         <withdrawal-methods-switch
           :methods="withdrawalMethods"
-          @change="changeMethod"/>
+          @update:withdraw:method="changeMethod"/>
       </withdraw-method-item>
       <withdrawal-form
         v-if="activeMethod"
@@ -59,7 +59,7 @@ export default {
   methods: {
     changeMethod (value) {
       this.selectedMethod = value
-      this.$refs.changeMethodButton.click()
+      this.$root.$emit('bv::toggle::collapse', 'withdrawMethod')
     }
   }
 }
