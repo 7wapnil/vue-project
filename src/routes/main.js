@@ -1,21 +1,18 @@
+import { TITLE_KINDS } from '@/constants/title-kinds'
 import EventsPage from '@/views/events-list/Page.vue'
 import TournamentPage from '@/views/events-list/TournamentPage.vue'
+import Affiliates from '@/views/information-pages/affiliates/main/Page'
 
 export default [
   {
     path: ':titleKind',
     component: () => import('@/views/layouts/common/Content'),
     beforeEnter: (to, from, next) => {
-      const isKindSupported = to.params.titleKind === 'esports' || to.params.titleKind === 'sports'
+      const isKindSupported = TITLE_KINDS.includes(to.params.titleKind)
 
       isKindSupported ? next() : next({ name: 'NotFound' })
     },
     children: [
-      {
-        path: '',
-        name: 'title-kind',
-        component: EventsPage
-      },
       {
         path: 'title/:titleId',
         name: 'title',
@@ -48,5 +45,16 @@ export default [
     path: 'impersonate/:token',
     name: 'impersonation',
     component: () => import('@/views/auth/Impersonation')
+  },
+  {
+    path: 'affiliates',
+    component: () => import('@/views/layouts/information-page/Content'),
+    children: [
+      {
+        path: '',
+        name: 'affiliates',
+        component: Affiliates
+      }
+    ]
   }
 ]

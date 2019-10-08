@@ -10,6 +10,7 @@
 
 <script>
 import CookieWarning from './CookieWarning'
+import { ESPORTS } from '@/constants/title-kinds'
 
 export default {
   components: {
@@ -17,17 +18,15 @@ export default {
   },
   computed: {
     titleKind () {
-      const DEFAULT_KIND = 'esports'
-
       if (this.$route.name === 'live') {
         return 'live'
       }
 
-      return this.$route.params.titleKind || DEFAULT_KIND
+      return this.$route.params.titleKind || ESPORTS
     },
     layoutName () {
       const name = this.isMobile ? 'mobile' : 'desktop'
-      return () => import(`@/views/layouts/${name}/Layout`)
+      return () => import(`@/views/layouts/${name}/${this.pageType}/Layout`)
     }
   },
   updated () {

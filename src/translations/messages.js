@@ -18,6 +18,14 @@ const messages = {
         title: 'arcanebet - Sports Betting With Pre-Game and Live Odds',
         description: 'Bet on all your favourite Sports at arcanebet. Find popular sports markets for Football to Tennis, Basketball to Cricket. We have the sports betting odds for you.'
       },
+      casino: {
+        title: 'arcanebet - Casino',
+        description: 'Bet on casino'
+      },
+      'live-casino': {
+        title: 'arcanebet - Live casino',
+        description: 'Bet on live casino'
+      },
       support: {
         contact: {
           title: 'arcanebet - Contact us | Support',
@@ -118,7 +126,9 @@ const messages = {
       upcomingCommon: 'Upcoming',
       live: 'Live now',
       esport: 'Esports',
-      sport: 'Sports'
+      sport: 'Sports',
+      casino: 'Casino',
+      liveCasino: 'Live casino'
     },
     noFoundPage: {
       header: 'Oops, the page you are looking for doesn\'t seem to exist ',

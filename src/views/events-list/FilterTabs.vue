@@ -10,6 +10,7 @@ import { UPCOMING_FOR_TIME, UPCOMING_UNLIMITED } from '@/constants/graphql/event
 import { LIVE, UPCOMING } from '@/constants/graphql/event-start-statuses'
 import { EVENT_CONTEXTS } from '@/graphql/events'
 import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
+import { ESPORTS } from '@/constants/title-kinds'
 
 export default {
   props: {
@@ -37,8 +38,8 @@ export default {
       }, {
         id: 2,
         value: UPCOMING,
-        label: (this.upcomingLabel || this.$route.params.titleKind === 'esports') ? this.$i18n.t('homePage.upcomingCommon') : this.$i18n.t('homePage.upcoming'),
-        context: this.upcomingContext || (this.$route.params.titleKind === 'esports' ? UPCOMING_UNLIMITED : UPCOMING_FOR_TIME)
+        label: (this.upcomingLabel || this.$route.params.titleKind === ESPORTS) ? this.$i18n.t('homePage.upcomingCommon') : this.$i18n.t('homePage.upcoming'),
+        context: this.upcomingContext || (this.$route.params.titleKind === ESPORTS ? UPCOMING_UNLIMITED : UPCOMING_FOR_TIME)
       }]
     }
   },

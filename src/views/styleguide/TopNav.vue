@@ -41,21 +41,37 @@
   </b-navbar>
 </template>
 <script>
+import { SPORTS, ESPORTS, CASINO, LIVE_CASINO } from '@/constants/title-kinds'
+
 export default {
   data () {
     return {
       siteColors: [
-        { label: 'Green',
-          background: 'bg-arc-clr-sport-glow',
-          category: 'sports'
-        },
-        { label: 'Blue',
-          background: 'bg-arc-clr-esport-glow',
-          category: 'esports'
-        },
-        { label: 'Orange',
+        {
+          label: 'Orange',
           background: 'bg-arc-clr-inplay-glow',
           category: 'live'
+        },
+
+        {
+          label: 'Green',
+          background: 'bg-arc-clr-sport-glow',
+          category: SPORTS
+        },
+        {
+          label: 'Blue',
+          background: 'bg-arc-clr-esport-glow',
+          category: ESPORTS
+        },
+        {
+          label: 'Mint',
+          background: 'bg-arc-clr-casino-glow',
+          category: CASINO
+        },
+        {
+          label: 'Purple',
+          background: 'bg-arc-clr-live-casino-glow',
+          category: LIVE_CASINO
         }
       ]
     }

@@ -2,11 +2,9 @@
   <sidebar
     v-show="isBetslipOpen"
     :is-open="isBetslipOpen"
-    position="right"
-    @sidebar-opened="showContent = true"
-    @sidebar-closed="showContent = false">
+    position="right">
     <template #content>
-      <betslip v-if="showContent">
+      <betslip>
         <template #close>
           <close-button
             :is-open="isBetslipOpen"
@@ -19,21 +17,16 @@
 </template>
 
 <script>
-import Sidebar from '@/views/layouts/mobile/sidemenu/Sidebar'
+import Sidebar from '../sidemenu/Sidebar'
 import Betslip from '@/components/betslip/Betslip'
 import { mapGetters, mapMutations } from 'vuex'
-import CloseButton from '@/views/layouts/mobile/sidemenu/CloseButton'
+import CloseButton from '../sidemenu/CloseButton'
 
 export default {
   components: {
     Sidebar,
     Betslip,
     CloseButton
-  },
-  data () {
-    return {
-      showContent: false
-    }
   },
   computed: {
     ...mapGetters('betslip', [

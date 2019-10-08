@@ -12,8 +12,7 @@ import FilterTabs from './FilterTabs'
 import { UPCOMING, UPCOMING_FOR_TIME_TITLES_CONTEXT } from '@/constants/graphql/title-context'
 import { findTitleIcon } from '@/helpers/icon-finder'
 import { getTitleShortName } from '@/helpers/title-names'
-
-const POLL_INTERVAL = 10000
+import { ESPORTS } from '@/constants/title-kinds'
 
 export default {
   components: {
@@ -25,9 +24,8 @@ export default {
         query: TITLES_QUERY,
         variables: {
           kind: this.$route.params.titleKind,
-          context: this.$route.params.titleKind === 'esports' ? UPCOMING : UPCOMING_FOR_TIME_TITLES_CONTEXT
-        },
-        pollInterval: POLL_INTERVAL
+          context: this.$route.params.titleKind === ESPORTS ? UPCOMING : UPCOMING_FOR_TIME_TITLES_CONTEXT
+        }
       }
     }
   },
