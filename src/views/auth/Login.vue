@@ -29,9 +29,10 @@
           @verify="onCaptchaVerified"
           @expired="resetCaptcha"/>
         <b-alert
-          v-if="isCaptchaMissing"
+          v-if="!isCaptchaVerification"
+          show
           variant="danger">
-          Please, pass Captcha verification!
+          Please, pass Captcha isCaptchaVerification!
         </b-alert>
       </b-col>
     </b-row>
@@ -67,37 +68,34 @@ export default {
       },
       recaptchaSiteKey: process.env.VUE_APP_RECAPTCHA_SITE_KEY,
       submitting: false,
-      isCaptchaMissing: false,
-      isRequestSuccessful: null
+      isRequestSuccessful: null,
+      isCaptchaVerification: true
     }
   },
   computed: {
+    check_validation () {
+      return !this.isCaptchaVerification
+    },
     ...mapGetters({
       isSuspicious: 'isSuspicious',
       lastLogin: 'getLastLogin'
     }),
     isSubmitDisabled () {
       const hasLength = !!(this.fields.login && this.fields.password)
-      return !hasLength && !this.isCaptchaMissing && !this.submitting
+      return !hasLength || !this.isCaptchaVerification || this.submitting
     }
   },
   methods: {
-    isCaptchaEmpty () {
-      return this.isSuspicious && this.fields.captcha === ''
-    },
     onCaptchaVerified (token) {
       this.fields.captcha = token
-      this.isCaptchaMissing = false
+      this.isCaptchaVerification = true
     },
     resetCaptcha () {
       this.$refs.recaptcha.reset()
       this.fields.captcha = null
+      this.isCaptchaVerification = false
     },
     submit () {
-      if (this.isCaptchaEmpty()) {
-        this.isCaptchaMissing = true
-        return
-      }
       this.submitting = true
 
       if (this.lastLogin !== this.fields.login) { this.removeCaptcha() }
