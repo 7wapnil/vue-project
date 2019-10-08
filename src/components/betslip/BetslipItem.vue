@@ -65,7 +65,7 @@
           <b-row no-gutters>
             <b-col class="mb-1">
               <small class="text-arc-clr-iron text-uppercase font-weight-bold letter-spacing-2">
-                Stake:
+                {{ $t('betslip.stake') }}
               </small>
             </b-col>
           </b-row>
