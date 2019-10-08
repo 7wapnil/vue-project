@@ -25,7 +25,7 @@
             <tr>
               <th
                 v-for="(field,index) in fields"
-                :key="index">{{ field }}</th>
+                :key="`th-${index}`">{{ field }}</th>
             </tr>
           </thead>
 
@@ -45,14 +45,14 @@
                     v-if="isCombo(item.betLegs)"
                   >
                     <div>
-                      Combo bet - {{ item.betLegs.length }} selections
+                      {{ $t('account.activity.comboBet') }} - {{ item.betLegs.length }} {{ $t('account.activity.comboBetSelections') }}
                     </div>
 
                     <div v-show="!displayBetLegs[item.id]">
-                      Click to expand
+                      {{ $t('account.activity.clickToExpand') }}
                     </div>
                     <div v-show="displayBetLegs[item.id]">
-                      Click to close
+                      {{ $t('account.activity.clickToClose') }}
                     </div>
                   </div>
 
@@ -269,12 +269,12 @@ export default {
       betKind: null,
       loadingBets: true,
       fields: [
-        'Time',
-        'Details',
-        'Stake',
-        'Odds',
-        'Return',
-        '#'
+        this.$i18n.t('account.activity.table.headers.time'),
+        this.$i18n.t('account.activity.table.headers.details'),
+        this.$i18n.t('account.activity.table.headers.stake'),
+        this.$i18n.t('account.activity.table.headers.odds'),
+        this.$i18n.t('account.activity.table.headers.return'),
+        this.$i18n.t('account.activity.table.headers.id')
       ],
       tabs: [{
         id: 1,
@@ -462,7 +462,7 @@ export default {
     border-bottom: 1px solid #2A2A2A;
   }
   th{
-    padding: 0.5rem 0;
+    padding: 0.5rem;
   }
   tbody{
     color: $arc-clr-iron;
@@ -471,7 +471,7 @@ export default {
       border-bottom: 1px solid #2A2A2A;
     }
     td{
-      padding: 0.5rem 0;
+      padding: 0.5rem;
     }
   }
   &-row-pointer{

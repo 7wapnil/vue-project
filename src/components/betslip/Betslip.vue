@@ -246,7 +246,7 @@ export default {
     },
     betsLength () {
       if (this.getBets) {
-        return this.getBets.length
+        return (!this.isComboTab) ? this.getBets.length : 1
       }
     },
     betslipLength () {

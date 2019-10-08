@@ -275,7 +275,21 @@ const messages = {
         repeatPassword: 'Repeat new password'
       },
       activity: {
-        noActivity: 'You don\'t have any activity'
+        noActivity: 'You don\'t have any activity',
+        comboBet: 'Combo bet',
+        comboBetSelections: 'selections',
+        clickToExpand: 'Click to expand',
+        clickToClose: 'Click to close',
+        table: {
+          headers: {
+            time: 'Time',
+            details: 'Details',
+            stake: 'Stake',
+            odds: 'Odds',
+            return: 'Return',
+            id: '#'
+          }
+        }
       },
       deposit: {
         paymentMethodsPlaceholder: 'Deposit methods',
