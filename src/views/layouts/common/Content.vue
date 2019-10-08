@@ -7,7 +7,7 @@ export default {
   computed: {
     contentType () {
       const name = this.isMobile ? 'mobile' : 'desktop'
-      return () => import(`../${name}/Content`)
+      return () => import(`../${name}/${this.pageType}/Content`)
     }
   }
 }

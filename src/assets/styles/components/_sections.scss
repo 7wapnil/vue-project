@@ -122,6 +122,74 @@
   }
 }
 
+.casino-content-header {
+  padding-top: 30px;
+  padding-bottom: 30px;
+
+  .promotion-block {
+    padding: 0 25px;
+    margin-bottom: 50px;
+
+    .promotion-title-label {
+      color: $arc-clr-gold;
+      font-size: 14px;
+      margin-bottom: -5px;
+    }
+
+    .promotion-title {
+      font-size: 24px;
+    }
+
+    .promotion-image {
+      min-height: 300px;
+      max-height: 300px;
+    }
+  }
+
+  .header-search {
+    padding: 0 25px;
+
+    input {
+      width: 250px;
+      z-index: 1;
+    }
+  }
+}
+
+.casino-games-list {
+  padding: 5px 25px;
+
+  .casino-games-category {
+    margin: 25px 0;
+
+    .category-header {
+      margin-bottom: 10px;
+
+      .header-icon {
+        color: $arc-clr-casino-glow;
+      }
+
+      .header-title {
+        font-size: 21px;
+      }
+
+      .header-more {
+        a {
+          color: $arc-dropdown-bg;
+
+          &:hover {
+            color: $arc-clr-casino-glow;
+          }
+        }
+      }
+    }
+
+    .category-game {
+      width: 100%;
+    }
+  }
+}
+
 // Twitch section
 .twitch-section {
   box-shadow: 0 0 8px 0 $arc-clr-soil-darker;

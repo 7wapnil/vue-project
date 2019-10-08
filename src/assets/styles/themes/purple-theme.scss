@@ -1,0 +1,43 @@
+@import '../variables';
+
+$navbar-background: $arc-clr-live-casino-bg;
+$nav-item-active-glow: $arc-clr-live-casino-glow;
+$nav-item-active-background: rgba($nav-item-active-glow, $arc-clr-soil-cover-opacity);
+
+// Buttons
+$primary-button-background: $arc-clr-live-casino-glow;
+$nav-wallet-wrapper-background: $arc-clr-live-casino-opacity-like;
+$nav-wallet-button-background: $arc-clr-live-casino-bg-second;
+$profile-button-second-color: $arc-clr-live-casino-glow-second;
+
+// Betslip
+$betslip-active-tab-border-color: $arc-clr-live-casino-glow;
+
+// Close
+$close-color: $arc-clr-live-casino-glow;
+$close-text-shadow: none;
+
+// Dropdowns
+$nav-wallet-dropdown-background: $arc-clr-live-casino-opacity-like;
+$nav-profile-dropdown-background: $arc-clr-live-casino-opacity-like;
+
+// Icons
+$icon-section-color: $arc-clr-live-casino-glow;
+
+// Progress bars
+$nav-wallet-progress-bar-bg: $arc-clr-live-casino-glow;
+
+// Wallet
+$nav-wallet-currency-color: $arc-clr-live-casino-glow;
+
+// Sidemenu
+$sidemenu-chevron-color: $arc-clr-live-casino-glow;
+$sidemenu-main-logo-color: $arc-clr-live-casino-glow;
+
+// Breadcrumbs
+$breadcrumb-divider-color: $arc-clr-live-casino-glow;
+
+// Arc Circle
+$second-color: $arc-clr-live-casino-glow;
+
+@import 'theme_schema';

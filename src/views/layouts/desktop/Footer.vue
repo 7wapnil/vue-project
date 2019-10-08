@@ -136,6 +136,14 @@ export default {
         {
           path: '/sports',
           name: 'Sport Homepage'
+        },
+        {
+          path: '/casino',
+          name: 'Casino Homepage'
+        },
+        {
+          path: '/live-casino',
+          name: 'Live casino Homepage'
         }
       ],
       socialIcons: [

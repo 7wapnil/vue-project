@@ -1,4 +1,5 @@
-import gql from 'graphql-tag';
+import gql from 'graphql-tag'
+import { PAGINATION_FIELDS } from './fields'
 
 export const BETS_LIST_QUERY = gql`
   query bets ($kind: String = null, 
@@ -37,16 +38,7 @@ export const BETS_LIST_QUERY = gql`
         }
       }
       pagination {
-        count
-        items
-        page
-        pages
-        offset
-        last
-        next
-        prev
-        from
-        to
+        ${PAGINATION_FIELDS}
       }
     }
   }

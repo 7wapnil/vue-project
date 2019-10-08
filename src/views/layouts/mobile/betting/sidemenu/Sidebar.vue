@@ -30,8 +30,8 @@
   </div>
 </template>
 <script>
-import CloseButton from '@/views/layouts/mobile/sidemenu/CloseButton'
-import Overlay from '@/views/layouts/mobile/sidemenu/Overlay.vue'
+import CloseButton from './CloseButton'
+import Overlay from './Overlay.vue'
 import { mapMutations } from 'vuex'
 
 export default {

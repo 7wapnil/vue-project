@@ -94,6 +94,7 @@ import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
 import ActivityFilters from '@/views/account/account-activity/ActivityFilters'
 import ActivityHeader from '@/views/account/account-activity/ActivityHeader'
 import ActivityPlaceholder from '@/views/account/account-activity/ActivityPlaceholder'
+import { SPORTS, ESPORTS } from '@/constants/title-kinds'
 import moment from 'moment'
 
 export default {
@@ -133,11 +134,11 @@ export default {
       }, {
         id: 1,
         title: this.$i18n.t('homePage.esport'),
-        kind: 'esports'
+        kind: ESPORTS
       }, {
         id: 2,
         title: this.$i18n.t('homePage.sport'),
-        kind: 'sports'
+        kind: SPORTS
       }],
       timeFilterState: '',
       betFilterState: ''

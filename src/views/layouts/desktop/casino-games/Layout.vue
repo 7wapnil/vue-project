@@ -2,7 +2,7 @@
   <div>
     <desktop-navigation-bar/>
 
-    <div class="desktop-container">
+    <div class="desktop-container casino-games">
       <slot/>
     </div>
 
@@ -11,8 +11,8 @@
 </template>
 
 <script>
-import DesktopNavigationBar from '@/views/layouts/desktop/NavigationBar'
-import DesktopFooter from './Footer'
+import DesktopNavigationBar from '../NavigationBar'
+import DesktopFooter from '../Footer'
 
 export default {
   components: {

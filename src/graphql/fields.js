@@ -122,3 +122,54 @@ export const EVENT_BET_STOP_FIELDS = `
 export const MTS_CONNECTION_STATUS_FIELDS = `
   status
 `
+
+export const GAME_FIELDS = `
+  id
+  backgroundImageUrl
+  categories
+  createdAt
+  currencies
+  defaultCoin
+  description
+  externalCreatedAt
+  externalUpdatedAt
+  fpp
+  hasAnonymityMode
+  hasFunMode
+  hasRealMoneyMode
+  helpUrl
+  isFreeSpinBonusSupported
+  isFreeSpinSupported
+  isLaunchedInHtml5
+  languages
+  largeIconUrl
+  logoUrl
+  mediumIconUrl
+  name
+  popularityCoefficient
+  popularityRanking
+  restrictedTerritories
+  shortName
+  slug
+  smallIconUrl
+  theoreticalPayout
+  thirdPartyFee
+  thumbnailUrl
+  topPrize
+  updatedAt
+  url
+  vendor
+`
+
+export const PAGINATION_FIELDS = `
+  count
+  items
+  page
+  pages
+  offset
+  last
+  next
+  prev
+  from
+  to
+`

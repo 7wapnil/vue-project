@@ -71,6 +71,14 @@ export default {
         {
           path: '/sports',
           label: this.$i18n.t('homePage.sport')
+        },
+        {
+          path: '/casino',
+          label: this.$i18n.t('homePage.casino')
+        },
+        {
+          path: '/live-casino',
+          label: this.$i18n.t('homePage.liveCasino')
         }
       ],
       authTab: 0
