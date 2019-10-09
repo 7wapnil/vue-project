@@ -28,11 +28,6 @@
           theme="dark"
           @verify="onCaptchaVerified"
           @expired="resetCaptcha"/>
-        <b-alert
-          :show="!isCaptchaVerification"
-          variant="danger">
-          Please, pass Captcha verification!
-        </b-alert>
       </b-col>
     </b-row>
     <b-form-invalid-feedback :state="isRequestSuccessful">
@@ -67,8 +62,7 @@ export default {
       },
       recaptchaSiteKey: process.env.VUE_APP_RECAPTCHA_SITE_KEY,
       submitting: false,
-      isRequestSuccessful: null,
-      isCaptchaVerification: true
+      isRequestSuccessful: null
     }
   },
   computed: {
@@ -78,18 +72,16 @@ export default {
     }),
     isSubmitDisabled () {
       const hasLength = !!(this.fields.login && this.fields.password)
-      return !hasLength || !this.isCaptchaVerification || this.submitting
+      return !hasLength || (this.isSuspicious && !this.fields.captcha) || this.submitting
     }
   },
   methods: {
     onCaptchaVerified (token) {
       this.fields.captcha = token
-      this.isCaptchaVerification = true
     },
     resetCaptcha () {
       this.$refs.recaptcha.reset()
       this.fields.captcha = null
-      this.isCaptchaVerification = false
     },
     submit () {
       this.submitting = true
