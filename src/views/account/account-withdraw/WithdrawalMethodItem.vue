@@ -3,15 +3,14 @@
     <withdrawal-header/>
     <b-row
       v-b-toggle.withdrawMethod
-      ref="changeMethodButton"
       no-gutters
       class="d-flex align-items-center withdrawal-method-item">
       <b-col
-        class="py-4 pl-md-0 pl-4 pr-2"
+        class="pl-md-0 pl-4 pr-2 d-flex align-items-center justify-content-center"
         cols="auto">
         <payment-method-icon :name="activeMethod.code"/>
       </b-col>
-      <b-col class="pl-2">
+      <b-col class="px-2 py-4">
         <span class="font-weight-bold letter-spacing-2 text-arc-clr-white">
           {{ activeMethod.name }}
         </span>
@@ -27,8 +26,12 @@
       </b-col>
       <b-col
         v-if="withdrawalMethods.length > 1"
-        cols="auto">
-        <b-button variant="arc-secondary">
+        cols="12"
+        md="auto"
+        class="p-4 p-md-0">
+        <b-button
+          block
+          variant="arc-secondary">
           {{ $t('account.cta.changeWithdrawalMethod') }}
         </b-button>
       </b-col>
