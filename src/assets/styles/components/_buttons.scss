@@ -248,6 +248,15 @@
   height: 36px;
   padding: 6px 8px !important;
   border: none !important;
+  &-menu-item {
+    a {
+      padding: 16px 10px !important;
+    }
+    &:hover {
+      cursor: pointer;
+      background-color: $arc-clr-soil-cover;
+    }
+  }
 }
 
 // User profile / Bonus / Circle button

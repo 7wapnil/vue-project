@@ -92,20 +92,24 @@ export const actions = {
       query: USER_QUERY
     }).then(res => {
       const wallet = res.data.user.wallets[0]
+      const localStorageActiveWalletId = localStorage.getItem('active_wallet')
+      const activeWalletId = localStorageActiveWalletId || wallet.id
 
       arcanebetSession.storeImpersonatedSession(context.getters.getToken, res.data.user)
       context.commit('updateUser', { token: context.getters.getToken, user: res.data.user })
-      if (wallet) context.commit('setActiveWallet', wallet.id)
+      if (wallet) context.commit('setActiveWallet', activeWalletId)
       context.dispatch('subscribeToWallets')
     })
   },
   refreshUserFromPayload (context, { token, user }) {
     const wallet = user.wallets[0]
+    const localStorageActiveWalletId = localStorage.getItem('active_wallet')
+    const activeWalletId = localStorageActiveWalletId || wallet.id
 
     arcanebetSession.storeImpersonatedSession(token, user)
     context.commit('storeSession', arcanebetSession.getSession())
     context.commit('updateUser', { token: token, user: user })
-    if (wallet) context.commit('setActiveWallet', wallet.id)
+    if (wallet) context.commit('setActiveWallet', activeWalletId)
     context.dispatch('subscribeToWallets')
     context.commit('resetConnection')
   },
@@ -151,6 +155,7 @@ export const mutations = {
   },
   setActiveWallet (state, id) {
     state.activeWalletId = id
+    localStorage.setItem('active_wallet', id)
   }
 }
 
