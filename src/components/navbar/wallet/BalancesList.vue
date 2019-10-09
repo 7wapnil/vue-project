@@ -55,8 +55,8 @@
 
         <b-dropdown-divider class="border-arc-dropdown-divider mx-3 my-0"/>
 
-        <b-dropdown-item-button
-          class="text-right wallet-button-menu-item px-3 py-2"
+        <b-dropdown-item
+          class="text-right wallet-button-menu-item"
           @click.prevent="selectWallet(wallet)">
           <span class="font-weight-bold font-size-12 letter-spacing-2">
             {{ wallet.amount | round }}
@@ -64,7 +64,7 @@
           <span class="currency-code font-weight-bold font-size-12 letter-spacing-2">
             {{ wallet.currency.code }}
           </span>
-        </b-dropdown-item-button>
+        </b-dropdown-item>
       </div>
     </template>
 
