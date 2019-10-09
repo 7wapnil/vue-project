@@ -29,10 +29,9 @@
           @verify="onCaptchaVerified"
           @expired="resetCaptcha"/>
         <b-alert
-          v-if="!isCaptchaVerification"
-          show
+          :show="!isCaptchaVerification"
           variant="danger">
-          Please, pass Captcha isCaptchaVerification!
+          Please, pass Captcha verification!
         </b-alert>
       </b-col>
     </b-row>
@@ -73,9 +72,6 @@ export default {
     }
   },
   computed: {
-    check_validation () {
-      return !this.isCaptchaVerification
-    },
     ...mapGetters({
       isSuspicious: 'isSuspicious',
       lastLogin: 'getLastLogin'
