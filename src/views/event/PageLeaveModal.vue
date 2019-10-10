@@ -17,15 +17,14 @@
         class="h-100 w-100"
         no-gutters>
         <b-col class="text-arc-clr-white letter-spacing-2 text-truncate font-weight-light pr-2">
-          Event is over
+          {{ $t('pageLeaveModal.header') }}
         </b-col>
       </b-row>
     </template>
 
     <b-row no-gutters>
       <b-col class="p-5">
-        Unfortunately, this event is over, try your luck in another one!
-        You will be automatically redirected in 5 sec
+        {{ $t('pageLeaveModal.description') }}
       </b-col>
     </b-row>
   </modal>
