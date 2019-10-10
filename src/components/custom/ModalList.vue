@@ -9,6 +9,7 @@
     </div>
     <div>
       <connection-modal/>
+      <page-leave-modal/>
     </div>
   </div>
 </template>
@@ -25,7 +26,8 @@ export default {
     AccountModal,
     AccountLogoutModal,
     AuthModal,
-    ConnectionModal
+    ConnectionModal,
+    'PageLeaveModal': () => import(/* webpackChunkName: "PageLeaveModal" */ '@/views/event/PageLeaveModal')
   },
   computed: {
     ...mapGetters([
