@@ -173,3 +173,7 @@ export const PAGINATION_FIELDS = `
   from
   to
 `
+
+export const EVERY_MATRIX_SESSION_FIELDS = `
+  sessionId
+`

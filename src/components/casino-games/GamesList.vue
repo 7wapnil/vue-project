@@ -32,23 +32,28 @@ export default {
           games: [
             {
               title: 'House of Doom',
-              icon: require('@/assets/images/casino-games/category/asset-1.png')
+              icon: require('@/assets/images/casino-games/category/asset-1.png'),
+              url: 'https://gamelaunch-stage.everymatrix.com/Loader/Start/2068/rainbow-queen-egt?language=en&funMode=False&_sid='
             },
             {
               title: 'House of Doom',
-              icon: require('@/assets/images/casino-games/category/asset-2.png')
+              icon: require('@/assets/images/casino-games/category/asset-2.png'),
+              url: 'https://gamelaunch-stage.everymatrix.com/Loader/Start/2068/rainbow-queen-egt?language=en&funMode=False&_sid='
             },
             {
               title: 'House of Doom',
-              icon: require('@/assets/images/casino-games/category/asset-3.png')
+              icon: require('@/assets/images/casino-games/category/asset-3.png'),
+              url: 'https://gamelaunch-stage.everymatrix.com/Loader/Start/2068/rainbow-queen-egt?language=en&funMode=False&_sid='
             },
             {
               title: 'House of Doom',
-              icon: require('@/assets/images/casino-games/category/asset-4.png')
+              icon: require('@/assets/images/casino-games/category/asset-4.png'),
+              url: 'https://gamelaunch-stage.everymatrix.com/Loader/Start/2068/rainbow-queen-egt?language=en&funMode=False&_sid='
             },
             {
               title: 'House of Doom',
-              icon: require('@/assets/images/casino-games/category/asset-5.png')
+              icon: require('@/assets/images/casino-games/category/asset-5.png'),
+              url: 'https://gamelaunch-stage.everymatrix.com/Loader/Start/2068/rainbow-queen-egt?language=en&funMode=False&_sid='
             },
           ]
         },
@@ -59,23 +64,28 @@ export default {
           games: [
             {
               title: 'House of Doom',
-              icon: require('@/assets/images/casino-games/category/asset-1.png')
+              icon: require('@/assets/images/casino-games/category/asset-1.png'),
+              url: 'https://gamelaunch-stage.everymatrix.com/Loader/Start/2068/rainbow-queen-egt?language=en&funMode=False&_sid='
             },
             {
               title: 'House of Doom',
-              icon: require('@/assets/images/casino-games/category/asset-2.png')
+              icon: require('@/assets/images/casino-games/category/asset-2.png'),
+              url: 'https://gamelaunch-stage.everymatrix.com/Loader/Start/2068/rainbow-queen-egt?language=en&funMode=False&_sid='
             },
             {
               title: 'House of Doom',
-              icon: require('@/assets/images/casino-games/category/asset-3.png')
+              icon: require('@/assets/images/casino-games/category/asset-3.png'),
+              url: 'https://gamelaunch-stage.everymatrix.com/Loader/Start/2068/rainbow-queen-egt?language=en&funMode=False&_sid='
             },
             {
               title: 'House of Doom',
-              icon: require('@/assets/images/casino-games/category/asset-4.png')
+              icon: require('@/assets/images/casino-games/category/asset-4.png'),
+              url: 'https://gamelaunch-stage.everymatrix.com/Loader/Start/2068/rainbow-queen-egt?language=en&funMode=False&_sid='
             },
             {
               title: 'House of Doom',
-              icon: require('@/assets/images/casino-games/category/asset-5.png')
+              icon: require('@/assets/images/casino-games/category/asset-5.png'),
+              url: 'https://gamelaunch-stage.everymatrix.com/Loader/Start/2068/rainbow-queen-egt?language=en&funMode=False&_sid='
             },
           ]
         },
@@ -86,23 +96,28 @@ export default {
           games: [
             {
               title: 'House of Doom',
-              icon: require('@/assets/images/casino-games/category/asset-1.png')
+              icon: require('@/assets/images/casino-games/category/asset-1.png'),
+              url: 'https://gamelaunch-stage.everymatrix.com/Loader/Start/2068/rainbow-queen-egt?language=en&funMode=False&_sid='
             },
             {
               title: 'House of Doom',
-              icon: require('@/assets/images/casino-games/category/asset-2.png')
+              icon: require('@/assets/images/casino-games/category/asset-2.png'),
+              url: 'https://gamelaunch-stage.everymatrix.com/Loader/Start/2068/rainbow-queen-egt?language=en&funMode=False&_sid='
             },
             {
               title: 'House of Doom',
-              icon: require('@/assets/images/casino-games/category/asset-3.png')
+              icon: require('@/assets/images/casino-games/category/asset-3.png'),
+              url: 'https://gamelaunch-stage.everymatrix.com/Loader/Start/2068/rainbow-queen-egt?language=en&funMode=False&_sid='
             },
             {
               title: 'House of Doom',
-              icon: require('@/assets/images/casino-games/category/asset-4.png')
+              icon: require('@/assets/images/casino-games/category/asset-4.png'),
+              url: 'https://gamelaunch-stage.everymatrix.com/Loader/Start/2068/rainbow-queen-egt?language=en&funMode=False&_sid='
             },
             {
               title: 'House of Doom',
-              icon: require('@/assets/images/casino-games/category/asset-5.png')
+              icon: require('@/assets/images/casino-games/category/asset-5.png'),
+              url: 'https://gamelaunch-stage.everymatrix.com/Loader/Start/2068/rainbow-queen-egt?language=en&funMode=False&_sid='
             },
           ]
         }
