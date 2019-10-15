@@ -3,8 +3,7 @@
     <header-section
       v-if="event"
       :event="event"
-      :twitch-size="twitchSize"
-      :showicons="false">
+      :twitch-size="twitchSize">
       <markets-categories
         :event="event"
         :active-index="activeIndex"
