@@ -4,7 +4,8 @@
       v-if="secondCompetitor"
       class="h-100 d-flex align-items-center text-center"
       no-gutters>
-      <b-col class="font-weight-bold my-4 mx-2 letter-spacing-2">
+      <b-col v-if="!isMobile"
+             class="font-weight-bold my-4 mx-2 letter-spacing-2">
         {{ secondCompetitor.name }}
       </b-col>
     </b-row>
