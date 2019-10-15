@@ -6,8 +6,7 @@
         class="mb-0"/>
       <event-details
         v-if="!twitchOnline"
-        :event="event"
-        :showicons="showicons"/>
+        :event="event"/>
       <twitch-stream
         :twitch-size="twitchSize"
         :original-event="event"
@@ -37,10 +36,6 @@ export default {
     event: {
       type: Object,
       default: () => {}
-    },
-    showicons: {
-      type: Boolean,
-      default: true
     },
     twitchSize: {
       type: Boolean,
