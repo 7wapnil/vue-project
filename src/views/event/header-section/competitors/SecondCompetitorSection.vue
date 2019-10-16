@@ -12,7 +12,7 @@
         </span>
         <b-progress
           :variant="progressVariant"
-          class="event-description-scoreboard-progress">
+          class="event-description-scoreboard-progress second-competitor">
           <b-progress-bar
             :value="progressValue"
             class="event-description-scoreboard-progress-bar"/>
