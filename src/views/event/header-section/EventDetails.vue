@@ -3,6 +3,7 @@
     <event-name-section :event="event"/>
     <event-description-wrapper :event="event">
       <first-competitor-section
+        :event="event"
         :first-competitor="firstCompetitor"/>
 
       <event-description
@@ -10,6 +11,7 @@
         :event="event"/>
 
       <second-competitor-section
+        :event="event"
         :second-competitor="secondCompetitor"/>
     </event-description-wrapper>
   </div>
