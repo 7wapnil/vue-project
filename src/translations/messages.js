@@ -99,6 +99,10 @@ const messages = {
       resetEmailSuccess1: 'Password reset email successfully sent to:',
       resetEmailSuccess2: 'Click the link in the email to reset your password. If you didn\'t receive an email please contact live support. '
     },
+    pageLeaveModal: {
+      header: 'Event is over',
+      description: 'Unfortunately, this event is over, try your luck in another one! You will be automatically redirected in 5 sec'
+    },
     cookies: {
       header: 'We value your privacy',
       description: 'This website uses cookies. Please see our',
@@ -159,7 +163,8 @@ const messages = {
     },
     wallet: {
       balance: 'Balance',
-      secondWallet: '2nd Wallet'
+      secondWallet: '2nd Wallet',
+      switch: 'switch'
     },
     account: {
       tabs: {
@@ -226,7 +231,7 @@ const messages = {
       withdraw: {
         withdrawFunds: 'Withdraw funds',
         cardLastFourDigits: 'Card last four digits',
-        cardHolderName: 'Card holder Name',
+        cardHolderName: 'Card holder name',
         arcanebetPassword: 'Arcanebet password',
         notAvailable: 'Due to the migration to the new website, your bank details - for security reasons - were not imported. This means that, in able to withdraw, you need to make a deposit first, using the method you wish to withdraw to. This deposit can be immediately returned in full with your withdrawal request. We sincerely apologize for the inconvenience.<br/><br/>Skrill & Neteller withdrawals will become available early next week. For now we will be able to process transactions manually, please contact support to request a withdrawal.',
         withdrawNoFeeInformation: 'Debit/Credit Card withdrawals come with a 0% withdrawal fee',

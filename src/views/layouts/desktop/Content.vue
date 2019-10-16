@@ -3,15 +3,7 @@
     no-gutters>
     <b-col
       class="bg-arc-clr-soil-black side-menu">
-      <side-menu>
-        <template #header>
-          <b-nav-item class="d-inline-flex align-items-center justify-content-start p-3 bg-arc-clr-soil-dark side-menu-categories w-100">
-            <span class="text-arc-clr-iron letter-spacing-2">
-              CATEGORIES
-            </span>
-          </b-nav-item>
-        </template>
-      </side-menu>
+      <component :is="sidemenuKind"/>
     </b-col>
     <b-col class="bg-arc-clr-soil-light min-vh-100">
       <router-view :key="$route.fullPath"/>
@@ -24,24 +16,37 @@
 </template>
 
 <script>
-import SideMenu from '@/components/side-menu/SideMenu'
 import Betslip from '@/components/betslip/Betslip.vue'
 import PromotionalItem from '@/components/promotional/PromotionalItem'
 
 export default {
   components: {
-    SideMenu,
     Betslip,
     PromotionalItem
   },
   data () {
     return {
-      betslipScrollSettings: {
-        rail: {
-          gutterOfSide: '2px'
-        }
+      sidemenuMeta: ''
+    }
+  },
+  computed: {
+    sidemenuKind () {
+      if (this.sidemenuMeta === 'info') {
+        return () => import('@/views/layouts/information-page/InfoPageSidemenu')
+      } else {
+        return () => import('@/components/side-menu/SideMenu')
       }
     }
-  }
+  },
+  watch: {
+    '$route': {
+      handler: function (to) {
+        if (to.meta.sidemenu) {
+          this.sidemenuMeta = to.meta.sidemenu
+        }
+      },
+      immediate: true
+    }
+  },
 }
 </script>

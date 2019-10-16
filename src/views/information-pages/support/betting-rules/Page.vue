@@ -1,9 +1,7 @@
 <template>
-  <div>
-    <static-content
-      :items="tableOfContentItems"
-      :contentful-id="id"/>
-  </div>
+  <static-content
+    :items="tableOfContentItems"
+    :contentful-id="id"/>
 </template>
 
 <script>

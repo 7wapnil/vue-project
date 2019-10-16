@@ -14,13 +14,6 @@ form:focus {
   font-size: 14px;
   background-color: $arc-clr-white;
 }
-
-.user-profile-form {
-  min-width: 364px;
-  &-select {
-    min-width: 364px;
-  }
-}
 .invalid-feedback {
   margin-top: 8px;
   margin-left: 8px;

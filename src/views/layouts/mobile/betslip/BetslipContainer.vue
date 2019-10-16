@@ -2,9 +2,11 @@
   <sidebar
     v-show="isBetslipOpen"
     :is-open="isBetslipOpen"
-    position="right">
+    position="right"
+    @sidebar-opened="showContent = true"
+    @sidebar-closed="showContent = false">
     <template #content>
-      <betslip>
+      <betslip v-if="showContent">
         <template #close>
           <close-button
             :is-open="isBetslipOpen"
@@ -27,6 +29,11 @@ export default {
     Sidebar,
     Betslip,
     CloseButton
+  },
+  data () {
+    return {
+      showContent: false
+    }
   },
   computed: {
     ...mapGetters('betslip', [

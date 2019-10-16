@@ -1,15 +1,15 @@
 <template>
   <sidebar
     :is-open="isSidebarOpen"
-    close-trigger="sidemenu">
+    close-trigger="sidemenu"
+    @sidebar-opened="showContent = true"
+    @sidebar-closed="showContent = false">
     <template #header>
       <logo-section/>
-      <category-switch/>
+      <category-switch :link="isLink"/>
     </template>
     <template #content>
-      <mobile-sidemenu>
-        <mobile-header-item/>
-      </mobile-sidemenu>
+      <component :is="sidemenuContent"/>
     </template>
   </sidebar>
 </template>
@@ -18,22 +18,46 @@
 import Sidebar from '@/views/layouts/mobile/sidemenu/Sidebar'
 import LogoSection from '@/views/layouts/mobile/sidemenu/LogoSection'
 import CategorySwitch from '@/views/layouts/mobile/sidemenu/CategorySwitch'
-import MobileHeaderItem from '@/views/layouts/mobile/sidemenu/sidemenu-list/MobileHeaderItem'
-import MobileSidemenu from '@/views/layouts/mobile/sidemenu/sidemenu-list/MobileSidemenu'
 import { mapGetters } from 'vuex'
 
 export default {
   components: {
     LogoSection,
     CategorySwitch,
-    MobileSidemenu,
-    MobileHeaderItem,
     Sidebar
+  },
+  data () {
+    return {
+      sidemenuMeta: '',
+      showContent: false
+    }
   },
   computed: {
     ...mapGetters([
       'isSidebarOpen'
-    ])
-  }
+    ]),
+    isLink () {
+      return this.sidemenuMeta === 'info'
+    },
+    sidemenuContent () {
+      if (this.sidemenuMeta === 'info') {
+        return () => import('@/views/layouts/information-page/InfoPageSidemenu')
+      } else {
+        return () => import('@/views/layouts/mobile/sidemenu/sidemenu-list/MobileSidemenu')
+      }
+    }
+  },
+  watch: {
+    '$route': {
+      handler: function (to) {
+        if (to.meta.sidemenu) {
+          this.sidemenuMeta = to.meta.sidemenu
+        } else {
+          this.sidemenuMeta = ''
+        }
+      },
+      immediate: true
+    }
+  },
 }
 </script>

@@ -50,21 +50,35 @@
 
     <template v-if="inactiveWalletsList.length">
       <div
-        v-for="(wallet, index) in inactiveWalletsList"
-        :key="index">
+        v-for="wallet in inactiveWalletsList"
+        :key="wallet.id">
 
         <b-dropdown-divider class="border-arc-dropdown-divider mx-3 my-0"/>
 
-        <b-dropdown-item-button
-          class="text-right wallet-button-menu-item px-3 py-2"
+        <b-dropdown-item
+          class="text-right wallet-button-menu-item"
           @click.prevent="selectWallet(wallet)">
-          <span class="font-weight-bold font-size-12 letter-spacing-2">
-            {{ wallet.amount | round }}
-          </span>
-          <span class="currency-code font-weight-bold font-size-12 letter-spacing-2">
-            {{ wallet.currency.code }}
-          </span>
-        </b-dropdown-item-button>
+          <b-row no-gutters>
+            <b-col class="pr-2">
+              <span class="font-weight-bold font-size-12 letter-spacing-2">
+                {{ wallet.amount | round }}
+              </span>
+              <span class="currency-code font-weight-bold font-size-12 letter-spacing-2">
+                {{ wallet.currency.code }}
+              </span>
+            </b-col>
+            <b-col class="text-right">
+              <span class="font-size-12 letter-spacing-2 d-inline-flex align-items-center justify-content-end ml-2 text-arc-clr-white">
+                {{ $t('wallet.switch') }}
+                <icon
+                  name="chevron-right"
+                  class="ml-1"
+                  color="arc-clr-white"
+                  size="10px"/>
+              </span>
+            </b-col>
+          </b-row>
+        </b-dropdown-item>
       </div>
     </template>
 

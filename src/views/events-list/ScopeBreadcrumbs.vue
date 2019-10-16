@@ -82,15 +82,7 @@ export default {
     categoryLink () {
       if (this.getCategory) {
         return {
-          text: this.getCategory.name,
-          to: {
-            name: 'category-tournaments',
-            params: {
-              titleKind: this.$route.params.titleKind,
-              titleId: this.$route.params.titleId,
-              categoryId: this.getCategory.id
-            }
-          }
+          text: this.getCategory.name
         }
       }
     },

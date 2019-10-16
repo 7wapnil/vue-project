@@ -1,6 +1,5 @@
 <template>
-  <div
-    :class="titleKind">
+  <div :class="titleKind">
     <component :is="layoutName">
       <router-view :key="$route.fullPath"/>
     </component>
