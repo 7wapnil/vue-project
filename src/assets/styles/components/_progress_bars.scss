@@ -63,12 +63,16 @@
 
 .event-description-scoreboard-progress {
   transform: rotate(-90deg);
-  height: 40px;
+  height: 42px;
   width: 82px;
   padding: 2px;
   background-color: $arc-clr-soil-cover;
+  border-radius: 0 10px 0 0;
+  &.second-competitor {
+    transform: scaleY(-1) rotate(90deg);
+  }
   &-bar {
-    border-radius: 0 5px 0 5px;
+    border-radius: 0 8px 0 0;
   }
   &-label {
     position: absolute;
