@@ -2,7 +2,7 @@
   <b-row no-gutters>
     <b-col
       v-if="event"
-      class="px-4 mb-2 letter-spacing-2 text-center">
+      class="px-4 my-2 letter-spacing-2 text-center">
       {{ event.description }}
     </b-col>
   </b-row>
