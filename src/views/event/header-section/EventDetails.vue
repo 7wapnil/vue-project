@@ -3,7 +3,7 @@
     <event-name-section :event="event"/>
     <event-description-wrapper :event="event">
       <first-competitor-section
-        :showicons="showicons"
+        :event="event"
         :first-competitor="firstCompetitor"/>
 
       <event-description
@@ -11,7 +11,7 @@
         :event="event"/>
 
       <second-competitor-section
-        :showicons="showicons"
+        :event="event"
         :second-competitor="secondCompetitor"/>
     </event-description-wrapper>
   </div>
@@ -36,10 +36,6 @@ export default {
     event: {
       type: Object,
       required: true
-    },
-    showicons: {
-      type: Boolean,
-      default: true
     }
   },
   computed: {

@@ -136,7 +136,8 @@ const messages = {
       description: {
         time: 'time',
         score: 'score',
-        starts: 'starts'
+        starts: 'starts',
+        status: 'status'
       }
     },
     betslip: {

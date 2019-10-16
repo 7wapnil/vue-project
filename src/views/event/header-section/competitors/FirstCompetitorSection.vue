@@ -2,22 +2,27 @@
   <b-col>
     <b-row
       v-if="firstCompetitor"
-      class="h-100 d-flex align-items-center text-center"
+      class="h-100 text-center d-flex align-items-center justify-content-center"
       no-gutters>
-      <b-col class="font-weight-bold my-4 mx-2 letter-spacing-2">
+      <b-col
+        v-if="!isMobile"
+        class="font-weight-bold m-4 letter-spacing-2 text-break">
         {{ firstCompetitor.name }}
       </b-col>
-
-      <div
-        v-if="showicons"
-        class="w-100"/>
-
       <b-col
-        v-if="showicons"
-        class="mt-1">
-        <icon
-          name="sidemenu-game-icon"
-          size="56px"/>
+        v-if="isOddsActive"
+        class="h-100 d-flex align-items-center"
+        cols="auto">
+        <span class="event-description-scoreboard-progress-label">
+          {{ winningChance }} <br> %
+        </span>
+        <b-progress
+          :variant="progressVariant"
+          class="event-description-scoreboard-progress">
+          <b-progress-bar
+            :value="winningChance"
+            class="event-description-scoreboard-progress-bar"/>
+        </b-progress>
       </b-col>
     </b-row>
   </b-col>
@@ -30,9 +35,25 @@ export default {
       type: Object,
       required: true
     },
-    showicons: {
-      type: Boolean,
-      default: true
+    event: {
+      type: Object,
+      required: true
+    }
+  },
+  computed: {
+    progressVariant () {
+      return this.$route.params.titleKind === 'esports' ? 'arc-clr-esport-bg' : 'arc-clr-sport-bg'
+    },
+    isOddsActive () {
+      return this.event.dashboardMarket.odds[0].value && this.event.dashboardMarket.odds[1].value
+    },
+    winningChance () {
+      if (this.isOddsActive) {
+        const firstDecimalOdd = Math.floor(1 / this.event.dashboardMarket.odds[0].value * 100)
+        const secondDecimalOdd = Math.floor(1 / this.event.dashboardMarket.odds[1].value * 100)
+        const sumOfDecimalOdds = firstDecimalOdd + secondDecimalOdd
+        return Math.round(firstDecimalOdd / sumOfDecimalOdds * 100)
+      }
     }
   }
 }

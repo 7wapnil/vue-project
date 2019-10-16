@@ -1,16 +1,15 @@
 <template>
-  <div v-if="event.score">
+  <div v-if="isEventStarted && event.displayStatus">
     <b-row no-gutters>
-      <b-col class="mt-4">
+      <b-col class="mt-1">
         <span class="text-arc-clr-iron text-uppercase font-size-11 letter-spacing-2">
-          {{ $t('tournamentPage.description.score') }}
+          {{ $t('tournamentPage.description.status') }}
         </span>
       </b-col>
     </b-row>
-
     <b-row no-gutters>
       <b-col class="letter-spacing-2 mb-2">
-        {{ event.score }}
+        {{ event.displayStatus }}
       </b-col>
     </b-row>
   </div>
@@ -22,6 +21,11 @@ export default {
     event: {
       type: Object,
       required: true
+    }
+  },
+  computed: {
+    isEventStarted () {
+      return this.event.status !== 'not_started'
     }
   }
 }

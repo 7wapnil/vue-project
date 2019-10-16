@@ -4,6 +4,7 @@
       :event="event"
       :is-live-event="isLiveEvent"/>
     <event-score-section :event="event"/>
+    <event-status-section :event="event"/>
     <event-time-section
       :event="event"
       :is-live-event="isLiveEvent"/>
@@ -11,15 +12,12 @@
 </template>
 
 <script>
-import EventStartsSection from '@/views/event/header-section/description/EventStartsSection'
-import EventScoreSection from '@/views/event/header-section/description/EventScoreSection'
-import EventTimeSection from '@/views/event/header-section/description/EventTimeSection'
-
 export default {
   components: {
-    EventStartsSection,
-    EventScoreSection,
-    EventTimeSection
+    'EventStartsSection': () => import(/* webpackChunkName: "EventStartsSection" */'@/views/event/header-section/description/EventStartsSection'),
+    'EventScoreSection': () => import(/* webpackChunkName: "EventScoreSection" */'@/views/event/header-section/description/EventScoreSection'),
+    'EventTimeSection': () => import(/* webpackChunkName: "EventTimeSection" */'@/views/event/header-section/description/EventTimeSection'),
+    'EventStatusSection': () => import(/* webpackChunkName: "EventStatusSection" */'@/views/event/header-section/description/EventStatusSection')
   },
   props: {
     isLiveEvent: {
