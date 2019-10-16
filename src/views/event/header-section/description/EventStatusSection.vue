@@ -25,7 +25,7 @@ export default {
   },
   computed: {
     isEventStarted () {
-      return this.event.displayStatus !== 'Not started'
+      return this.event.status !== 'not_started'
     }
   }
 }
