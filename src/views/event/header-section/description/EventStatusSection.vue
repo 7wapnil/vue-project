@@ -1,5 +1,5 @@
 <template>
-  <div v-if="isEventStarted">
+  <div v-if="isEventStarted && event.displayStatus">
     <b-row no-gutters>
       <b-col class="mt-1">
         <span class="text-arc-clr-iron text-uppercase font-size-11 letter-spacing-2">
@@ -19,13 +19,13 @@
 export default {
   props: {
     event: {
-      type: Boolean,
+      type: Object,
       required: true
     }
   },
   computed: {
     isEventStarted () {
-      return event.displayStatus !== 'Not started'
+      return this.event.displayStatus !== 'Not started'
     }
   }
 }
