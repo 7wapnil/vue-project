@@ -39,6 +39,21 @@ export const EVENT_FIELDS = `
   marketsCount
   startStatus
   displayStatus
+  dashboardMarket {
+    category
+    eventId
+    id
+    name
+    odds {
+      id
+      name
+      status
+      value
+    }
+    priority
+    status
+    visible
+  }
   visible
   score
   timeInSeconds
