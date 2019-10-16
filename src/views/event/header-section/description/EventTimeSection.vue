@@ -8,7 +8,7 @@
       </b-col>
     </b-row>
     <b-row no-gutters>
-      <b-col class="letter-spacing-2">
+      <b-col class="letter-spacing-2 mb-2">
         {{ formattedTime }} {{ $t('eventPage.minute') }}
       </b-col>
     </b-row>
