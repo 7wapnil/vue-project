@@ -5,16 +5,17 @@
       class="h-100 text-center d-flex align-items-center justify-content-center"
       no-gutters>
       <b-col
+        v-if="isOddsActive"
         class="h-100 d-flex align-items-center"
         cols="auto">
         <span class="event-description-scoreboard-progress-label">
-          {{ progressValue }} <br> %
+          {{ winningChance }} <br> %
         </span>
         <b-progress
           :variant="progressVariant"
           class="event-description-scoreboard-progress second-competitor">
           <b-progress-bar
-            :value="progressValue"
+            :value="winningChance"
             class="event-description-scoreboard-progress-bar"/>
         </b-progress>
       </b-col>
@@ -33,16 +34,24 @@ export default {
     secondCompetitor: {
       type: Object,
       required: true
-    }
-  },
-  data () {
-    return {
-      progressValue: 55
+    },
+    event: {
+      type: Object,
+      required: true
     }
   },
   computed: {
     progressVariant () {
       return this.$route.params.titleKind === 'esports' ? 'arc-clr-esport-bg' : 'arc-clr-sport-bg'
+    },
+    isOddsActive () {
+      return this.event.dashboardMarket.odds[0].value && this.event.dashboardMarket.odds[1].value
+    },
+    winningChance () {
+      const firstDecimalOdd = Math.floor(1 / this.event.dashboardMarket.odds[0].value * 100)
+      const secondDecimalOdd = Math.floor(1 / this.event.dashboardMarket.odds[1].value * 100)
+      const sumOfDecimalOdds = firstDecimalOdd + secondDecimalOdd
+      return Math.round(secondDecimalOdd / sumOfDecimalOdds * 100)
     }
   }
 }
