@@ -72,29 +72,122 @@
         <loader v-if="loadingBets"/>
 
         <activity-placeholder v-if="!hasBetHistory && !loadingBets"/>
+
+        <b-pagination
+          v-if="paginationProps.count > 0 && !loadingBets"
+          v-model="currentPage"
+          :total-rows="paginationProps.count"
+          :per-page="betsPerPage"
+          class="table-pagination"
+          align="center"
+          @input="loadMoreHistory"
+        />
+      </b-tab>
+      <b-tab
+        v-for="tab in casinoTabs"
+        :key="tab.id"
+        :title="tab.title"
+        title-link-class="border-top-tabs-orange-titles"
+        @click="changeToEveryMatrixTransactions(tab)">
+
+        <b-table
+          v-if="hasEveryMatrixTransactionsHistory && !loadingEveryMatrixTransactions"
+          :items="everyMatrixTransactions.collection"
+          :fields="casinoFields"
+          thead-class="activity-table-head"
+          tbody-class="activity-table-body"
+          tbody-tr-class="activity-table-body-row">
+
+          <loader v-if="loadingEveryMatrixTransactions"/>
+
+          <template
+            slot="time"
+            slot-scope="data">
+            <b-row no-gutters>
+              <b-col v-html="localDate(data.item.createdAt)"/>
+            </b-row>
+            <b-row no-gutters>
+              <b-col v-html="localTime(data.item.createdAt)"/>
+            </b-row>
+          </template>
+          <template
+            slot="details"
+            slot-scope="data">
+            <b-row no-gutters>
+              <b-col>
+                {{ data.item.gameName }}
+              </b-col>
+            </b-row>
+            <b-row no-gutters>
+              <b-col>
+                <span class="font-size-11">
+                  {{ data.item.vendorName }}
+                </span>
+              </b-col>
+            </b-row>
+            <b-row no-gutters>
+              <b-col>
+                <span class="font-size-11">
+                  {{ data.item.type }}
+                </span>
+              </b-col>
+            </b-row>
+            <b-row no-gutters>
+              <b-col>
+                <span class="font-size-11">
+                  Transaction ID: {{ data.item.transactionId }}
+                </span>
+              </b-col>
+            </b-row>
+          </template>
+          <template
+            slot="debit"
+            slot-scope="data">
+            {{ data.item.debit || '-' }}
+          </template>
+          <template
+            slot="credit"
+            slot-scope="data">
+            {{ data.item.credit || '-' }}
+          </template>
+          <template
+            slot="balance"
+            slot-scope="data">
+            {{ data.item.balance }} {{ data.item.currencyCode }}
+          </template>
+          <template
+            slot="balance"
+            slot-scope="data">
+            {{ data.item.balance }} {{ data.item.currencyCode }}
+          </template>
+        </b-table>
+        <loader v-if="loadingEveryMatrixTransactions"/>
+
+        <activity-placeholder v-if="!hasEveryMatrixTransactionsHistory && !loadingEveryMatrixTransactions"/>
+
+        <b-pagination
+          v-if="paginationProps.count > 0 && !loadingEveryMatrixTransactions"
+          v-model="currentPage"
+          :total-rows="paginationProps.count"
+          :per-page="betsPerPage"
+          class="table-pagination"
+          align="center"
+          @input="loadMoreCasinoHistory"
+        />
       </b-tab>
     </b-tabs>
 
-    <b-pagination
-      v-if="paginationProps.count > 0 && !loadingBets"
-      v-model="currentPage"
-      :total-rows="paginationProps.count"
-      :per-page="betsPerPage"
-      class="table-pagination"
-      align="center"
-      @input="loadMoreHistory"
-    />
   </div>
 </template>
 
 <script>
 import Bet from '@/models/bet'
-import { BETS_LIST_QUERY } from '@/graphql/index'
+import { BETS_LIST_QUERY, EVERY_MATRIX_TRANSACTIONS_LIST_QUERY } from '@/graphql/index'
 import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
 import ActivityFilters from '@/views/account/account-activity/ActivityFilters'
 import ActivityHeader from '@/views/account/account-activity/ActivityHeader'
 import ActivityPlaceholder from '@/views/account/account-activity/ActivityPlaceholder'
-import { SPORTS, ESPORTS } from '@/constants/title-kinds'
+import { SPORTS, ESPORTS, CASINO } from '@/constants/title-kinds'
 import moment from 'moment'
 
 export default {
@@ -128,10 +221,6 @@ export default {
         }
       ],
       tabs: [{
-        id: 0,
-        title: 'All',
-        kind: null
-      }, {
         id: 1,
         title: this.$i18n.t('homePage.esport'),
         kind: ESPORTS
@@ -140,6 +229,20 @@ export default {
         title: this.$i18n.t('homePage.sport'),
         kind: SPORTS
       }],
+      casinoTabs: [{
+        id: 3,
+        title: this.$i18n.t('homePage.casino'),
+        kind: CASINO
+      }],
+      casinoFields: [
+        'time',
+        'details',
+        'debit',
+        'credit',
+        'balance'
+      ],
+      everyMatrixTransactions: {},
+      loadingEveryMatrixTransactions: true,
       timeFilterState: '',
       betFilterState: ''
     }
@@ -147,6 +250,9 @@ export default {
   computed: {
     hasBetHistory () {
       return this.bets.collection && this.bets.collection.length
+    },
+    hasEveryMatrixTransactionsHistory () {
+      return this.everyMatrixTransactions.collection && this.everyMatrixTransactions.collection.length
     },
     currentPage: {
       get () {
@@ -197,6 +303,21 @@ export default {
           this.paginationProps = data.bets.pagination
         }
       }
+    },
+    everyMatrixTransactions () {
+      this.loadingEveryMatrixTransactions = true
+      return {
+        query: EVERY_MATRIX_TRANSACTIONS_LIST_QUERY,
+        fetchPolicy: NETWORK_ONLY,
+        variables: {
+          page: 1,
+          perPage: this.betsPerPage
+        },
+        result ({ data }) {
+          this.loadingEveryMatrixTransactions = false
+          this.paginationProps = data.everyMatrixTransactions.pagination
+        }
+      }
     }
   },
   methods: {
@@ -213,10 +334,27 @@ export default {
         }
       })
     },
+    loadMoreCasinoHistory () {
+      this.loadingEveryMatrixTransactions = true
+      this.$apollo.queries.everyMatrixTransactions.fetchMore({
+        variables: this.variables,
+        updateQuery: (previousResult, { fetchMoreResult }) => {
+          this.loadingEveryMatrixTransactions = false
+          return {
+            everyMatrixTransactions: fetchMoreResult.everyMatrixTransactions,
+            paginationProps: fetchMoreResult.everyMatrixTransactions.pagination
+          }
+        }
+      })
+    },
     changeKind (tab) {
       this.betKind = tab.kind
       this.page = 1
       this.loadMoreHistory()
+    },
+    changeToEveryMatrixTransactions (tab) {
+      this.page = 1
+      this.loadMoreCasinoHistory()
     },
     tableTimeFilter (state) {
       this.timeFilterState = state.event
