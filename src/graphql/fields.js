@@ -177,3 +177,17 @@ export const PAGINATION_FIELDS = `
 export const EVERY_MATRIX_SESSION_FIELDS = `
   sessionId
 `
+
+export const EVERY_MATRIX_TRANSACTION_FIELDS = `
+  id
+  customerId
+  debit
+  credit
+  balance
+  currencyCode
+  type
+  transactionId
+  gameName
+  vendorName
+  createdAt
+`
