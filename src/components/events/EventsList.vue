@@ -1,6 +1,7 @@
 <template>
   <b-card
     :id="tabId"
+    :class="{'event-list-container' : isMobile}"
     no-body
     class="px-1 px-md-4 py-md-4">
 
@@ -14,7 +15,7 @@
 
     <loader
       v-if="loading"
-      class="mt-4"/>
+      class="mt-5"/>
 
     <div
       v-if="!loading && !events.length"
