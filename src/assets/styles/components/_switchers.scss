@@ -1,0 +1,36 @@
+@import '../variables';
+
+.arc-switch {
+  .custom-control-label {
+    cursor: pointer;
+    &:before {
+      border-radius: 4px;
+      width: 38px;
+      height: 20px;
+      border: none;
+      background-color: $arc-clr-soil-cover;
+    }
+    &:after {
+      border-radius: 4px;
+      width: 16px;
+      height: 16px;
+      top: 6px;
+      right: 0;
+      background-color: #717176;
+    }
+  }
+  .custom-control-input:checked ~ .custom-control-label::before {
+    background-color: $arc-clr-soil-cover;
+    border-color: $arc-clr-soil-cover;
+  }
+  .custom-switch .custom-control-label::before {
+    left: 0;
+  }
+  .custom-control-input:checked ~ .custom-control-label::after {
+    background-color: $arc-clr-gold;
+    transform: translateX(14px);
+  }
+  .custom-control-input:not(:disabled):active ~ .custom-control-label::before {
+    background-color: $arc-clr-soil-cover;
+  }
+}
