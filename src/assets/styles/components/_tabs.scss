@@ -53,14 +53,6 @@
       color: $arc-clr-iron;
     }
   }
-  &-content {
-    min-height: 87vh;
-    overflow: hidden;
-
-    @media (max-width: 720px) {
-      min-height: 100vh !important;
-    }
-  }
 }
 
 .profile-modal-nav-mobile {
