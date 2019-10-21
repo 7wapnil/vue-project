@@ -79,6 +79,10 @@ export default {
         title: this.$i18n.t('account.tabs.transactionHistory'),
         icon: 'account-history',
         id: 'account-transaction'
+      }, {
+        title: this.$i18n.t('account.tabs.settings'),
+        icon: 'account-settings',
+        id: 'account-settings'
       }]
     }
   },
