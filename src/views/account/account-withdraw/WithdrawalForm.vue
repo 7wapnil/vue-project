@@ -73,7 +73,7 @@
         offset-md="3"
         md="9"
         class="pl-md-4">
-        <arc-separator/>
+        <arc-separator class="mb-4"/>
       </b-col>
     </b-row>
 
@@ -88,7 +88,7 @@
         offset-md="3"
         md="9"
         class="pl-md-4">
-        <arc-separator/>
+        <arc-separator class="mb-4"/>
       </b-col>
     </b-row>
 
