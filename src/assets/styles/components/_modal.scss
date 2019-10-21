@@ -6,10 +6,7 @@
 }
 
 #AccountModal {
-  .modal-dialog-scrollable .modal-content {
-    max-height: 100vh;
-  }
-  .custom-select {
+  .custom-select:disabled {
     background: $arc-clr-white;
   }
   @media (min-width: 992px) {
@@ -59,6 +56,10 @@
 
 }
 .profile-modal {
+  &-desktop {
+    height: 100%;
+    overflow-y: hidden;
+  }
   &-header {
     height: 80px;
     padding: 26px 24px;
@@ -70,9 +71,22 @@
     padding: 0;
     flex: 0 0 330px;
     background: $arc-clr-soil-dark;
+    overflow-y: scroll;
+    height: 100%;
     &-inner {
-      position: fixed;
-      width: 330px;
+      & > div {
+        position: sticky;
+        top: 0;
+        box-shadow: 0 5px 8px -7px black;
+      }
+    }
+  }
+  &-content {
+    height: 100%;
+    overflow-y: auto;
+
+    @media (max-width: 720px) {
+      min-height: 100vh !important;
     }
   }
 }
