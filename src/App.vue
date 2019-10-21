@@ -58,7 +58,15 @@ export default {
       this.requestUser()
       this.$livechat.setUser(this.getUser)
     }
+
     this.$livechat.initWidget()
+
+    if (localStorage.livechat_visible && window.innerWidth < 800) {
+      const livechatStatus = !JSON.parse(localStorage.getItem('livechat_visible'))
+      if (livechatStatus) {
+        this.$livechat.hideWidgetOnPageLoad()
+      }
+    }
   },
   beforeDestroy () {
     EVENTS.forEach(event => window.removeEventListener(event, this.updateOnlineStatus))
