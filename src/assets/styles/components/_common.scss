@@ -69,8 +69,11 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.breadcrumb-item.active {
-  &:before {
+.breadcrumb-item {
+  &:nth-of-type(2) > a{
+    pointer-events: none;
+  }
+  &.active:before {
     display: none;
   }
 }
