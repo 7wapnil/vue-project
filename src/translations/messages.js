@@ -167,6 +167,11 @@ const messages = {
       secondWallet: '2nd Wallet',
       switch: 'switch'
     },
+    sidemenu: {
+      settings: {
+        livechat: 'livechat'
+      }
+    },
     account: {
       tabs: {
         account: 'Account info & settings',
@@ -176,7 +181,8 @@ const messages = {
         bonus: 'Bonus',
         accountVerification: 'Account verification',
         accountStatus: 'Account status',
-        transactionHistory: 'Transaction history'
+        transactionHistory: 'Transaction history',
+        settings: 'Settings'
       },
       cta: {
         resetPassword: 'Reset password',

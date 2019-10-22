@@ -1,5 +1,7 @@
 <template>
-  <b-row no-gutters>
+  <b-row
+    class="profile-modal-desktop"
+    no-gutters>
     <b-col class="profile-modal-sidebar">
       <div class="profile-modal-sidebar-inner">
         <profile-wallet @open-account-deposit-tab="changeTabIndex(depositTabIndex)"/>
@@ -12,12 +14,10 @@
             :class="{'profile-modal-nav-item-active': currentTabIndex === index }"
             class="profile-modal-nav-item bg-arc-clr-soil-black"
             @click="changeTabIndex(index)">
-            <span>
-              <icon
-                :name="tab.icon"
-                :size="tab.size ? tab.size : '24px'"
-                class="tab-icon"/>
-            </span>
+            <icon
+              :name="tab.icon"
+              :size="tab.size ? tab.size : '24px'"
+              class="tab-icon"/>
             <span class="ml-3 font-weight-bold font-size-14 tab-title">
               {{ tab.title }}
             </span>
@@ -37,7 +37,7 @@
       </div>
     </b-col>
 
-    <b-col class="profile-modal-nav-content p-5">
+    <b-col class="profile-modal-content p-5">
       <component :is="currentComponent"/>
     </b-col>
   </b-row>
@@ -84,6 +84,11 @@ export default {
         title: this.$i18n.t('account.tabs.transactionHistory'),
         icon: 'account-history',
         id: 'account-transaction'
+      },
+      {
+        title: this.$i18n.t('account.tabs.settings'),
+        icon: 'account-settings',
+        id: 'account-settings'
       }]
     }
   },
