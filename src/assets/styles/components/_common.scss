@@ -62,6 +62,9 @@ a:focus {
 .mobile-container {
   margin-top: 60px;
 }
+.event-list-container {
+  min-height: calc(100vh - 172px - 60px);
+}
 iframe {
   overflow: hidden;
 }
