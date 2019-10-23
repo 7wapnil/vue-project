@@ -182,7 +182,10 @@ const messages = {
         accountVerification: 'Account verification',
         accountStatus: 'Account status',
         transactionHistory: 'Transaction history',
-        settings: 'Settings'
+        livechat: {
+          open: 'Open live chat',
+          close: 'Remove live chat'
+        }
       },
       cta: {
         resetPassword: 'Reset password',
