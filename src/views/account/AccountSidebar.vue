@@ -21,6 +21,7 @@
             {{ tab.title }}
           </span>
         </b-nav-item>
+        <livechat-item/>
         <b-nav-item
           :class="[ isMobile ? 'profile-modal-nav-mobile-item' : 'profile-modal-nav-item' ]"
           class="bg-arc-clr-soil-black"
@@ -41,9 +42,11 @@
 import ChangePassword from './account-information/ChangePassword'
 import ProfileWallet from './AccountWallet'
 import { mapGetters, mapMutations } from 'vuex'
+import LivechatItem from '@/views/account/account-menu-items/LivechatItem';
 
 export default {
   components: {
+    LivechatItem,
     ChangePassword,
     ProfileWallet
   },
@@ -79,10 +82,6 @@ export default {
         title: this.$i18n.t('account.tabs.transactionHistory'),
         icon: 'account-history',
         id: 'account-transaction'
-      }, {
-        title: this.$i18n.t('account.tabs.settings'),
-        icon: 'account-settings',
-        id: 'account-settings'
       }]
     }
   },

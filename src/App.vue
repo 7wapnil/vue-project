@@ -61,10 +61,16 @@ export default {
 
     this.$livechat.initWidget()
 
-    if (localStorage.livechat_visible && window.innerWidth < 800) {
+    if (localStorage.livechat_visible) {
       const livechatStatus = !JSON.parse(localStorage.getItem('livechat_visible'))
       if (livechatStatus) {
         this.$livechat.hideWidgetOnPageLoad()
+      }
+    } else {
+      if (window.innerWidth < 800) {
+        this.$livechat.hideWidgetOnPageLoad()
+      } else {
+        this.$livechat.showWidget()
       }
     }
   },
