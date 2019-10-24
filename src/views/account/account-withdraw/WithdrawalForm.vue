@@ -69,7 +69,6 @@
     </b-row>
 
     <b-row
-      v-if="isComponentTemplateExists"
       no-gutters>
       <b-col
         offset-md="3"
@@ -80,14 +79,12 @@
     </b-row>
 
     <component
-      v-if="isComponentTemplateExists"
       ref="paymentDetails"
       v-model="form.paymentDetails"
       :is="currentComponent"
       :method="mainMethod"/>
 
     <b-row
-      v-if="isComponentTemplateExists"
       no-gutters>
       <b-col
         offset-md="3"
@@ -194,9 +191,6 @@ export default {
       return this.defaultMethod.currencyCode ||
         (this.getUserFiatWallet && this.getUserFiatWallet.currency.code) ||
         EUR
-    },
-    isComponentTemplateExists () {
-      return this.mainMethod.code === 'credit_card'
     },
     ...mapGetters(['getUserFiatWallet'])
   },
