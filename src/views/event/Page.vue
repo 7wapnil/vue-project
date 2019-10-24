@@ -33,7 +33,6 @@
 
 <script>
 import { UNLIMITED_QUERY } from '@/constants/graphql/limits'
-import { EVENT_BY_ID_QUERY, EVENT_UPDATED } from '@/graphql'
 import MarketsCategories from '@/components/markets/MarketsCategories'
 import HeaderSection from './header-section/HeaderSection'
 import MarketsList from '@/components/markets/MarketsList'
@@ -62,33 +61,15 @@ export default {
   computed: {
     eventId () {
       return this.$route.params.id
+    },
+    isEventOver () {
+      if (this.event.status === 'ended') {
+        return this.loadModal()
+      }
     }
   },
-  apollo: {
-    event () {
-      return {
-        query: EVENT_BY_ID_QUERY,
-        variables: {
-          id: this.eventId,
-          withScopes: true
-        }
-      }
-    },
-    $subscribe: {
-      eventEnded: {
-        query: EVENT_UPDATED,
-        variables () {
-          return {
-            id: this.eventId
-          }
-        },
-        result ({ data }) {
-          if (data.status === 'ended') {
-            this.loadModal()
-          }
-        },
-      },
-    },
+  created () {
+    this.isEventOver()
   },
   methods: {
     onTabChange (tab) {
