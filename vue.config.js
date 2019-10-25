@@ -23,6 +23,7 @@ module.exports = {
     }
   },
   configureWebpack: {
+    devtool: 'sourcemaps',
     module: {
       rules: [
         {
