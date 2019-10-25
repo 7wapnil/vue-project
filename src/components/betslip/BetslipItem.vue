@@ -7,12 +7,12 @@
 
     <!-- Event name and close bet -->
     <b-row
-      class="mb-2"
+      class="mb-1"
       no-gutters>
       <b-col class="d-flex justify-content-start">
         <span
           :class="[ isBetDisabled ? 'text-arc-clr-iron' : 'text-arc-clr-iron-light']"
-          class="event-name font-size-12">
+          class="event-name font-size-12 font-weight-bold">
           {{ bet.eventName }}
         </span>
       </b-col>
@@ -28,26 +28,26 @@
     </b-row>
     <!-- Market name -->
     <b-row
-      class="mb-2"
+      class="mb-1"
       no-gutters>
       <b-col>
         <span
           :class="[ isBetDisabled ? 'text-arc-clr-iron' : 'text-arc-clr-iron-light']"
-          class="market-name font-size-12 font-weight-bold line-height-10">
+          class="market-name font-size-12 line-height-10">
           {{ bet.marketName }}
         </span>
       </b-col>
     </b-row>
     <!-- Odd name -->
     <b-row
-      class="mb-1"
+      class="mb-2"
       no-gutters>
       <b-col>
         <b-row no-gutters>
           <b-col class="pr-2">
             <span
               :class="[ isBetDisabled ? 'text-arc-clr-iron' : 'text-arc-clr-iron-light']"
-              class="font-size-14 font-weight-bold letter-spacing-2">
+              class="font-size-12 font-weight-bold letter-spacing-2">
               {{ bet.oddName }}
             </span>
           </b-col>
