@@ -5,7 +5,6 @@
     class="py-2 pl-3 pr-2 mb-1"
     no-body>
 
-    <!-- Event name and close bet -->
     <b-row
       class="mb-1"
       no-gutters>
@@ -26,7 +25,6 @@
           name="betslip-close"/>
       </b-col>
     </b-row>
-    <!-- Market name -->
     <b-row
       class="mb-1"
       no-gutters>
@@ -38,7 +36,6 @@
         </span>
       </b-col>
     </b-row>
-    <!-- Odd name -->
     <b-row
       class="mb-2"
       no-gutters>
