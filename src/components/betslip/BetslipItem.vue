@@ -6,13 +6,13 @@
     no-body>
 
     <b-row
-      class="mb-2"
+      class="mb-1"
       no-gutters>
       <b-col class="d-flex justify-content-start">
         <span
           :class="[ isBetDisabled ? 'text-arc-clr-iron' : 'text-arc-clr-iron-light']"
-          class="market-name font-size-12 font-weight-bold line-height-10">
-          {{ bet.marketName }}
+          class="event-name font-size-12 font-weight-bold">
+          {{ bet.eventName }}
         </span>
       </b-col>
       <b-col
@@ -29,11 +29,22 @@
       class="mb-1"
       no-gutters>
       <b-col>
+        <span
+          :class="[ isBetDisabled ? 'text-arc-clr-iron' : 'text-arc-clr-iron-light']"
+          class="market-name font-size-12 line-height-10">
+          {{ bet.marketName }}
+        </span>
+      </b-col>
+    </b-row>
+    <b-row
+      class="mb-2"
+      no-gutters>
+      <b-col>
         <b-row no-gutters>
           <b-col class="pr-2">
             <span
               :class="[ isBetDisabled ? 'text-arc-clr-iron' : 'text-arc-clr-iron-light']"
-              class="font-size-14 font-weight-bold letter-spacing-2">
+              class="font-size-12 font-weight-bold letter-spacing-2">
               {{ bet.oddName }}
             </span>
           </b-col>
@@ -45,17 +56,6 @@
             </b-button>
           </b-col>
         </b-row>
-      </b-col>
-    </b-row>
-    <b-row
-      class="mb-2"
-      no-gutters>
-      <b-col>
-        <span
-          :class="[ isBetDisabled ? 'text-arc-clr-iron' : 'text-arc-clr-iron-light']"
-          class="event-name font-size-12">
-          {{ bet.eventName }}
-        </span>
       </b-col>
     </b-row>
     <b-row no-gutters>
