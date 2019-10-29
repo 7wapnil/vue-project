@@ -6,36 +6,42 @@
           :name="category.icon"
           class="header-icon mr-2"
           size="24px"/>
-        <div class="header-title d-inline text-arc-clr-iron">{{ category.title }}</div>
+        <div class="header-title d-inline text-arc-clr-iron">{{ category.label }}</div>
       </div>
       <div class="header-more">
         View all
         <a href="#">
-          {{ category.totalCount }}
+          {{ playItems.length }}
           ->
         </a>
       </div>
     </div>
-    <div class="d-flex">
-      <category-game
-        v-for="(game, index) in category.games"
-        :key="index"
-        :game="game"/>
-    </div>
+    <b-container>
+      <b-row>
+        <category-play-item
+          v-for="(playItem, index) in playItems"
+          :key="index"
+          :item="playItem"/>
+      </b-row>
+    </b-container>
   </div>
 </template>
 
 <script>
-import CategoryGame from './CategoryGame'
+import CategoryPlayItem from './CategoryPlayItem'
 
 export default {
   components: {
-    CategoryGame
+    CategoryPlayItem
   },
   props: {
     category: {
       type: Object,
       required: true
+    },
+    playItems: {
+      type: Array,
+      default: () => { return [] }
     }
   }
 }

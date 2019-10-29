@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import { GAMES_CATEGORIES_QUERY, GAME_CATEGORIES_UPDATED } from '@/graphql'
+import { TABLES_CATEGORIES_QUERY, TABLE_CATEGORIES_UPDATED } from '@/graphql'
 import { findCategoryIcon } from '@/helpers/icon-finder'
 import { updateCacheList } from '@/helpers/graphql'
 
@@ -17,12 +17,12 @@ export default {
   apollo: {
     categories () {
       return {
-        query: GAMES_CATEGORIES_QUERY,
+        query: TABLES_CATEGORIES_QUERY,
         result ({ data }) {
           this.categories = data.categories
         },
         subscribeToMore: {
-          document: GAME_CATEGORIES_UPDATED,
+          document: TABLE_CATEGORIES_UPDATED,
           updateQuery: (currentCategories, { subscriptionData: { data } }) => {
             return {
               categories: updateCacheList(currentCategories.categories, data.categoriesUpdated)
