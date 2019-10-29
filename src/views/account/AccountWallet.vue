@@ -21,6 +21,7 @@
         </b-col>
         <b-col cols="auto">
           <b-button
+            v-if="currentTabIndex !== 3"
             variant="user-profile-button"
             @click="$emit('open-account-deposit-tab')">
             {{ $t('account.cta.deposit') }}
@@ -90,6 +91,9 @@ export default {
     ...mapGetters({
       wallets: 'getUserWallets',
       activeWallet: 'getUserActiveWallet'
+    }),
+    ...mapGetters('tabs', {
+      currentTabIndex: 'getCurrentTabIndex'
     }),
     inactiveWalletsList () {
       return this.wallets.filter((wallet) => {
