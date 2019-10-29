@@ -5,6 +5,7 @@ const CompressionPlugin = require('compression-webpack-plugin');
 const CompressionLevel = 5
 
 module.exports = {
+  productionSourceMap: false,
   pluginOptions: {
     s3Deploy: {}
   },
