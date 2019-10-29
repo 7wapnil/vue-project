@@ -33,27 +33,27 @@ export default {
             {
               title: 'House of Doom',
               icon: require('@/assets/images/casino-games/category/asset-1.png'),
-              url: 'https://gamelaunch-stage.everymatrix.com/Loader/Start/2067/banana-odyssey-pc?language=en&funMode=False&_sid='
+              url: 'https://gamelaunch-stage.everymatrix.com/Loader/Start/2067/fire--steel-pc?language=en&funMode=False&_sid='
             },
             {
               title: 'House of Doom',
               icon: require('@/assets/images/casino-games/category/asset-2.png'),
-              url: 'https://gamelaunch-stage.everymatrix.com/Loader/Start/2067/banana-odyssey-pc?language=en&funMode=False&_sid='
+              url: 'https://gamelaunch-stage.everymatrix.com/Loader/Start/2067/fire--steel-pc?language=en&funMode=False&_sid='
             },
             {
               title: 'House of Doom',
               icon: require('@/assets/images/casino-games/category/asset-3.png'),
-              url: 'https://gamelaunch-stage.everymatrix.com/Loader/Start/2067/banana-odyssey-pc?language=en&funMode=False&_sid='
+              url: 'https://gamelaunch-stage.everymatrix.com/Loader/Start/2067/fire--steel-pc?language=en&funMode=False&_sid='
             },
             {
               title: 'House of Doom',
               icon: require('@/assets/images/casino-games/category/asset-4.png'),
-              url: 'https://gamelaunch-stage.everymatrix.com/Loader/Start/2067/banana-odyssey-pc?language=en&funMode=False&_sid='
+              url: 'https://gamelaunch-stage.everymatrix.com/Loader/Start/2067/fire--steel-pc?language=en&funMode=False&_sid='
             },
             {
               title: 'House of Doom',
               icon: require('@/assets/images/casino-games/category/asset-5.png'),
-              url: 'https://gamelaunch-stage.everymatrix.com/Loader/Start/2067/banana-odyssey-pc?language=en&funMode=False&_sid='
+              url: 'https://gamelaunch-stage.everymatrix.com/Loader/Start/2067/fire--steel-pc?language=en&funMode=False&_sid='
             },
           ]
         },
@@ -65,27 +65,27 @@ export default {
             {
               title: 'House of Doom',
               icon: require('@/assets/images/casino-games/category/asset-1.png'),
-              url: 'https://gamelaunch-stage.everymatrix.com/Loader/Start/2067/banana-odyssey-pc?language=en&funMode=False&_sid='
+              url: 'https://gamelaunch-stage.everymatrix.com/Loader/Start/2067/fire--steel-pc?language=en&funMode=False&_sid='
             },
             {
               title: 'House of Doom',
               icon: require('@/assets/images/casino-games/category/asset-2.png'),
-              url: 'https://gamelaunch-stage.everymatrix.com/Loader/Start/2067/banana-odyssey-pc?language=en&funMode=False&_sid='
+              url: 'https://gamelaunch-stage.everymatrix.com/Loader/Start/2067/fire--steel-pc?language=en&funMode=False&_sid='
             },
             {
               title: 'House of Doom',
               icon: require('@/assets/images/casino-games/category/asset-3.png'),
-              url: 'https://gamelaunch-stage.everymatrix.com/Loader/Start/2067/banana-odyssey-pc?language=en&funMode=False&_sid='
+              url: 'https://gamelaunch-stage.everymatrix.com/Loader/Start/2067/fire--steel-pc?language=en&funMode=False&_sid='
             },
             {
               title: 'House of Doom',
               icon: require('@/assets/images/casino-games/category/asset-4.png'),
-              url: 'https://gamelaunch-stage.everymatrix.com/Loader/Start/2067/banana-odyssey-pc?language=en&funMode=False&_sid='
+              url: 'https://gamelaunch-stage.everymatrix.com/Loader/Start/2067/fire--steel-pc?language=en&funMode=False&_sid='
             },
             {
               title: 'House of Doom',
               icon: require('@/assets/images/casino-games/category/asset-5.png'),
-              url: 'https://gamelaunch-stage.everymatrix.com/Loader/Start/2067/banana-odyssey-pc?language=en&funMode=False&_sid='
+              url: 'https://gamelaunch-stage.everymatrix.com/Loader/Start/2067/fire--steel-pc?language=en&funMode=False&_sid='
             },
           ]
         },
@@ -97,27 +97,27 @@ export default {
             {
               title: 'House of Doom',
               icon: require('@/assets/images/casino-games/category/asset-1.png'),
-              url: 'https://gamelaunch-stage.everymatrix.com/Loader/Start/2067/banana-odyssey-pc?language=en&funMode=False&_sid='
+              url: 'https://gamelaunch-stage.everymatrix.com/Loader/Start/2067/fire--steel-pc?language=en&funMode=False&_sid='
             },
             {
               title: 'House of Doom',
               icon: require('@/assets/images/casino-games/category/asset-2.png'),
-              url: 'https://gamelaunch-stage.everymatrix.com/Loader/Start/2067/banana-odyssey-pc?language=en&funMode=False&_sid='
+              url: 'https://gamelaunch-stage.everymatrix.com/Loader/Start/2067/fire--steel-pc?language=en&funMode=False&_sid='
             },
             {
               title: 'House of Doom',
               icon: require('@/assets/images/casino-games/category/asset-3.png'),
-              url: 'https://gamelaunch-stage.everymatrix.com/Loader/Start/2067/banana-odyssey-pc?language=en&funMode=False&_sid='
+              url: 'https://gamelaunch-stage.everymatrix.com/Loader/Start/2067/fire--steel-pc?language=en&funMode=False&_sid='
             },
             {
               title: 'House of Doom',
               icon: require('@/assets/images/casino-games/category/asset-4.png'),
-              url: 'https://gamelaunch-stage.everymatrix.com/Loader/Start/2067/banana-odyssey-pc?language=en&funMode=False&_sid='
+              url: 'https://gamelaunch-stage.everymatrix.com/Loader/Start/2067/fire--steel-pc?language=en&funMode=False&_sid='
             },
             {
               title: 'House of Doom',
               icon: require('@/assets/images/casino-games/category/asset-5.png'),
-              url: 'https://gamelaunch-stage.everymatrix.com/Loader/Start/2067/banana-odyssey-pc?language=en&funMode=False&_sid='
+              url: 'https://gamelaunch-stage.everymatrix.com/Loader/Start/2067/fire--steel-pc?language=en&funMode=False&_sid='
             },
           ]
         }
