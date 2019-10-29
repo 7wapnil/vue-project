@@ -103,6 +103,6 @@ export default {
         this.categoryTabIndex--
       }
     }
-  },
+  }
 }
 </script>

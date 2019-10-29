@@ -123,42 +123,21 @@ export const MTS_CONNECTION_STATUS_FIELDS = `
   status
 `
 
-export const GAME_FIELDS = `
+export const PLAY_ITEM_FIELDS = `
   id
-  backgroundImageUrl
-  categories
-  createdAt
-  currencies
-  defaultCoin
-  description
-  externalCreatedAt
-  externalUpdatedAt
-  fpp
-  hasAnonymityMode
-  hasFunMode
-  hasRealMoneyMode
-  helpUrl
-  isFreeSpinBonusSupported
-  isFreeSpinSupported
-  isLaunchedInHtml5
-  languages
-  largeIconUrl
-  logoUrl
-  mediumIconUrl
   name
-  popularityCoefficient
-  popularityRanking
-  restrictedTerritories
   shortName
-  slug
-  smallIconUrl
-  theoreticalPayout
-  thirdPartyFee
-  thumbnailUrl
-  topPrize
-  updatedAt
+  description
+  logoUrl
+  backgroundImageUrl
   url
-  vendor
+`
+
+export const CASINO_CATEGORIES_FIELDS = `
+  id
+  label
+  position
+  context
 `
 
 export const PAGINATION_FIELDS = `
@@ -175,7 +154,7 @@ export const PAGINATION_FIELDS = `
 `
 
 export const EVERY_MATRIX_SESSION_FIELDS = `
-  sessionId
+  launchUrl
 `
 
 export const EVERY_MATRIX_TRANSACTION_FIELDS = `

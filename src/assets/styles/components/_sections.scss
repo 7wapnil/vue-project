@@ -184,8 +184,33 @@
       }
     }
 
-    .category-game {
-      width: 100%;
+    .category-play-item {
+      .play-item-button {
+        display: block;
+        width: 100%;
+        position: relative;
+        height: 100%;
+
+        button.casino {
+          position: absolute;
+          top: -35%;
+          background: #0c103e;
+          transition: .5s ease;
+          opacity: 0;
+          border-radius: 0;
+          min-width: 100%;
+          min-height: 35%;
+        }
+      }
+
+      img.play-item-icon {
+        width: 100%
+      }
+
+      img.play-item-icon:hover ~ .play-item-button > button.casino,
+      .play-item-button > button.casino:hover {
+        opacity: 1
+      }
     }
   }
 }

@@ -1,129 +1,72 @@
 <template>
   <div>
-    <header-section/>
-    <games-list/>
+    <b-card
+      :img-src="background"
+      img-height="290"
+      overlay
+      class="introduction-area"
+      body-class="casino-content-header">
+
+      <promotion-block/>
+
+      <div class="d-flex justify-content-between">
+        <game-categories
+          v-if="checkEventKind('casino')"
+          @tab-changed="onCategoryChange"/>
+        <table-categories
+          v-if="checkEventKind('live-casino')"
+          @tab-changed="onCategoryChange"/>
+        <search/>
+      </div>
+    </b-card>
+
+    <games-list
+      v-if="checkEventKind('casino')"
+      :selected-category="selectedCategory"/>
+    <tables-list
+      v-if="checkEventKind('live-casino')"
+      :selected-category="selectedCategory"/>
   </div>
 </template>
 
 <script>
-import HeaderSection from '@/components/casino-games/HeaderSection'
+import { findBackgroundSource } from '@/helpers/background-finder'
+import PromotionBlock from '@/components/casino-games/header-section/PromotionBlock'
+import GameCategories from '@/components/casino-games/header-section/GameCategories'
+import TableCategories from '@/components/casino-games/header-section/TableCategories'
+import Search from '@/components/casino-games/header-section/Search'
 import GamesList from '@/components/casino-games/GamesList'
-import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
-import { GAMES_QUERY } from '@/graphql/games'
+import TablesList from '@/components/casino-games/TablesList'
 
 export default {
   components: {
-    HeaderSection,
-    GamesList
-  },
-  apollo: {
-    games () {
-      return {
-        query: GAMES_QUERY,
-        fetchPolicy: NETWORK_ONLY
-      }
-    }
+    PromotionBlock,
+    GameCategories,
+    TableCategories,
+    Search,
+    GamesList,
+    TablesList
   },
   data () {
     return {
-      categories: [
-        {
-          icon: 'sidemenu-basketball',
-          title: 'New games',
-          totalCount: 148,
-          games: [
-            {
-              title: 'House of Doom',
-              icon: require('@/assets/images/casino-games/category/asset-1.png')
-            },
-            {
-              title: 'House of Doom',
-              icon: require('@/assets/images/casino-games/category/asset-2.png')
-            },
-            {
-              title: 'House of Doom',
-              icon: require('@/assets/images/casino-games/category/asset-3.png')
-            },
-            {
-              title: 'House of Doom',
-              icon: require('@/assets/images/casino-games/category/asset-4.png')
-            },
-            {
-              title: 'House of Doom',
-              icon: require('@/assets/images/casino-games/category/asset-5.png')
-            },
-          ]
-        },
-        {
-          icon: 'sidemenu-basketball',
-          title: 'ArcaneBet favorites',
-          totalCount: 64,
-          games: [
-            {
-              title: 'House of Doom',
-              icon: require('@/assets/images/casino-games/category/asset-1.png')
-            },
-            {
-              title: 'House of Doom',
-              icon: require('@/assets/images/casino-games/category/asset-2.png')
-            },
-            {
-              title: 'House of Doom',
-              icon: require('@/assets/images/casino-games/category/asset-3.png')
-            },
-            {
-              title: 'House of Doom',
-              icon: require('@/assets/images/casino-games/category/asset-4.png')
-            },
-            {
-              title: 'House of Doom',
-              icon: require('@/assets/images/casino-games/category/asset-5.png')
-            },
-          ]
-        },
-        {
-          icon: 'sidemenu-basketball',
-          title: 'Slot Games',
-          totalCount: 59,
-          games: [
-            {
-              title: 'House of Doom',
-              icon: require('@/assets/images/casino-games/category/asset-1.png')
-            },
-            {
-              title: 'House of Doom',
-              icon: require('@/assets/images/casino-games/category/asset-2.png')
-            },
-            {
-              title: 'House of Doom',
-              icon: require('@/assets/images/casino-games/category/asset-3.png')
-            },
-            {
-              title: 'House of Doom',
-              icon: require('@/assets/images/casino-games/category/asset-4.png')
-            },
-            {
-              title: 'House of Doom',
-              icon: require('@/assets/images/casino-games/category/asset-5.png')
-            },
-          ]
-        }
-      ]
+      selectedCategory: {}
     }
   },
   computed: {
-    // collectedGames() {
-    //   return this.games.reduce(this.collectGameToList, {})
-    // }
+    background () {
+      const name = 'Basketball'
+      const route = 'sports'
+
+      return findBackgroundSource({ name, route })
+    }
   },
   methods: {
-    // collectGameToList (list, game) {
-    //   if (!game.categories.length) {
-    //   }
-    // },
-    // insertGame(list, category, game) {
-    //   return list[category] ? list[category].push(game) : list[category] = [game]
-    // }
-  },
+    onCategoryChange (tab) {
+      this.selectedCategory = tab
+    },
+    checkEventKind (kind) {
+      return this.$route.params.titleKind === kind
+    }
+  }
 }
 </script>

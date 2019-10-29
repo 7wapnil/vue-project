@@ -1,7 +1,7 @@
 <template>
   <div class="casino-games-list">
     <category-play-items
-      :play-items="games"
+      :play-items="tables"
       :category="selectedCategory"/>
   </div>
 </template>
@@ -9,7 +9,7 @@
 <script>
 import CategoryPlayItems from './play-items-list/CategoryPlayItems'
 import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
-import { GAMES_QUERY } from '@/graphql'
+import { TABLES_QUERY } from '@/graphql'
 import { PLAY_ITEMS_UPDATED } from '../../graphql/casino-subscription'
 import { updateCacheList } from '@/helpers/graphql'
 
@@ -25,13 +25,13 @@ export default {
   },
   data () {
     return {
-      games: [],
+      tables: [],
     }
   },
   apollo: {
-    games () {
+    tables () {
       return {
-        query: GAMES_QUERY,
+        query: TABLES_QUERY,
         fetchPolicy: NETWORK_ONLY,
         variables () {
           return {
@@ -47,7 +47,7 @@ export default {
           },
           updateQuery: (currentList, { subscriptionData: { data } }) => {
             return {
-              games: updateCacheList(currentList.games, data.playItemsUpdated)
+              tables: updateCacheList(currentList.tables, data.playItemsUpdated)
             }
           }
         }
