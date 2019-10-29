@@ -3,6 +3,7 @@
     <deposit-header/>
     <deposit-description/>
     <deposit-errors
+       v-if="!isMobile"
       :deposit-state="depositState"
       :deposit-message="depositMessage"
       :bonus-error="bonusError"/>
