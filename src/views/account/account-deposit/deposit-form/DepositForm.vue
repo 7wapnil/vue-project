@@ -45,6 +45,12 @@
             {{ $t('generalTerms.bonusCode') }}:
           </h6>
         </b-col>
+        <b-alert
+          :show="!!bonusError && isMobile"
+          class="bonus-code-alert"
+          variant="danger">
+          {{ bonusError }}
+        </b-alert>
         <b-col
           cols="12"
           md="8"
@@ -97,6 +103,10 @@ export default {
       required: true
     },
     selectedPaymentMethodCode: {
+      type: String,
+      default: null
+    },
+    bonusError: {
       type: String,
       default: null
     }
