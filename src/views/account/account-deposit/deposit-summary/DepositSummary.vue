@@ -7,6 +7,8 @@
       :calculated-bonus="calculatedBonus"
       :get-total="getTotal"
       :button-disabled="buttonDisabled"
+      :deposit-state="depositState"
+      :deposit-message="depositMessage"
       @submit:deposit="$emit('submit:deposit')"/>
     <deposit-crypto-section
       :is-crypto-section-shown="isCryptoSectionShown"
@@ -53,6 +55,14 @@ export default {
     buttonDisabled: {
       type: Boolean,
       default: true
+    },
+    depositState: {
+      type: String,
+      default: null
+    },
+    depositMessage: {
+      type: String,
+      default: null
     }
   },
 }
