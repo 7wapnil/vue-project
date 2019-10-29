@@ -27,6 +27,8 @@
         <deposit-summary
           :is-crypto-section-shown="isCryptoSectionShown"
           :calculated-bonus="calculatedBonus"
+          :deposit-state="depositState"
+          :deposit-message="depositMessage"
           :address="address"
           :fields="fields"
           :currency="currency"
