@@ -38,6 +38,9 @@ const LiveChatPlugin = {
   showWidget () {
     window.LC_API.minimize_chat_window()
   },
+  maximizeWidget () {
+    window.LC_API.open_chat_window()
+  },
   hideWidgetOnPageLoad () {
     window.LC_API = window.LC_API || {}
     let livechatChatStarted = false
