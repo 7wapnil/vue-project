@@ -1,7 +1,7 @@
 <template>
   <div :class="titleKind">
     <component :is="layoutName">
-      <router-view :key="$route.fullPath"/>
+      <router-view/>
     </component>
     <cookie-warning/>
     <modal-list/>
