@@ -122,9 +122,10 @@ export default {
           this.$store.dispatch('login', signUp)
 
           this.$gtm.push({
-            event: 'New registration',
-            customerID: signUp.user.id || null,
-            page: this.$route.fullPath
+            'event': 'customerCreated',
+            'gaClientID': this.computeGaClientID() || null,
+            'customerID': signUp.user.id || null,
+            'affiliateID': this.computeAffiliateID() || null
           })
 
           this.$router.push({ name: 'home' })
@@ -140,6 +141,15 @@ export default {
         .finally(() => {
           this.submitting = false
         })
+    },
+    computeAffiliateID () {
+      const path = this.$route.fullPath
+      if (path.includes('b-tag=')) {
+        return path.substring(path.indexOf('=') + 1, path.lastIndexOf('_'))
+      }
+    },
+    computeGaClientID () {
+      return (getCookie('_ga') || '').substring('GA1.2.'.length)
     }
   }
 }
