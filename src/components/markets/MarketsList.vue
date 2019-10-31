@@ -45,7 +45,7 @@ export default {
     },
     markets: {
       type: Array,
-      required: true
+      default: function () { return [] }
     },
     itemComponent: {
       type: [String, Object],
