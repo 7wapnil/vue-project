@@ -3,7 +3,7 @@
     cols="2"
     class="m-2 category-play-item">
     <b-img
-      :src="itemIcon"
+      v-lazy="itemIcon"
       :alt="itemTitle"
       class="play-item-icon"
       center
@@ -36,7 +36,11 @@ export default {
       isLoggedIn: 'isLoggedIn'
     }),
     itemIcon () {
-      return this.item.logoUrl || require('@/assets/images/logo/arcanebet-logo.png')
+      return {
+        src: this.item.logoUrl || require('@/assets/images/logo/arcanebet-logo.png'),
+        error: require('@/assets/images/logo/arcanebet-logo.png'),
+        loading: require('@/assets/images/logo/arcanebet-logo.png')
+      }
     },
     itemTitle () {
       return this.item.name
