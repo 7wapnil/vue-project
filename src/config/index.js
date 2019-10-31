@@ -11,12 +11,8 @@ import VueMeta from 'vue-meta'
 import VueMq from 'vue-mq'
 import VueClipboard from './plugins/vue-clipboard'
 import visibility from 'vue-visibility-change'
-<<<<<<< HEAD
 import Appsignal from '@appsignal/javascript'
 import { errorHandler } from '@appsignal/vue'
-=======
-import VueLazyload from 'vue-lazyload'
->>>>>>> [2007] Add lazy load for images on casino pages
 
 const isProduction = process.env.NODE_ENV === 'production'
 
@@ -49,11 +45,6 @@ Vue.use(ContentfulPlugin, {
 
 Vue.use(GTMPlugin, {
   id: process.env.VUE_APP_GTM_ID
-})
-
-Vue.use(VueLazyload, {
-  preLoad: 1.3,
-  attempt: 1
 })
 
 Vue.use(SourceBusterPlugin)
