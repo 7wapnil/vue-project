@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-arc-clr-soil-black">
+  <div>
     <header-section
       v-if="event"
       :event="event"
@@ -61,10 +61,12 @@ export default {
   computed: {
     eventId () {
       return this.$route.params.id
-    },
-    isEventOver () {
-      if (this.event.status === 'ended') {
-        return this.loadModal()
+    }
+  },
+  watch: {
+    'event.status': function (value) {
+      if (value === 'ended') {
+        this.loadModal()
       }
     }
   },
@@ -78,9 +80,6 @@ export default {
         }
       }
     }
-  },
-  created () {
-    this.isEventOver()
   },
   methods: {
     onTabChange (tab) {
