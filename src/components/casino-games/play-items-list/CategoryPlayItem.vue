@@ -2,8 +2,9 @@
   <b-col
     cols="2"
     class="m-2 category-play-item">
-    <b-img
-      v-lazy="itemIcon"
+    <b-img-lazy
+      :blank-src="defaultIcon"
+      :src="itemIcon"
       :alt="itemTitle"
       class="play-item-icon"
       center
@@ -31,16 +32,15 @@ export default {
     }
   },
   computed: {
-    ...mapGetters({
-      activeWallet: 'getUserActiveWallet',
-      isLoggedIn: 'isLoggedIn'
-    }),
+    ...mapGetters([
+      'isLoggedIn',
+      { activeWallet: 'getUserActiveWallet' }
+    ]),
     itemIcon () {
-      return {
-        src: this.item.logoUrl || require('@/assets/images/logo/arcanebet-logo.png'),
-        error: require('@/assets/images/logo/arcanebet-logo.png'),
-        loading: require('@/assets/images/logo/arcanebet-logo.png')
-      }
+      return this.item.logoUrl || this.defaultIcon()
+    },
+    defaultIcon () {
+      return require('@/assets/images/logo/arcanebet-logo.png')
     },
     itemTitle () {
       return this.item.name
