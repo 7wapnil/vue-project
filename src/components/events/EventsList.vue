@@ -20,7 +20,9 @@
     <div
       v-if="!loading && !events.length"
       class="text-center">
-      <h6 class="my-4">No events found</h6>
+      <h6 class="my-4">
+        {{ $t('common.noEventsFound') }}
+      </h6>
     </div>
   </b-card>
 </template>
