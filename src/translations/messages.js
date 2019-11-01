@@ -305,6 +305,9 @@ const messages = {
           other: 'Other'
         }
       }
+    },
+    common: {
+      noEventsFound: 'No events found'
     }
   }
 }
