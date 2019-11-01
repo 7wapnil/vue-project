@@ -304,10 +304,10 @@ const messages = {
           card: 'Credit/Debit card',
           other: 'Other'
         }
-      },
-      common: {
-        noEventsFound: 'No events found'
       }
+    },
+    common: {
+      noEventsFound: 'No events found'
     }
   }
 }
