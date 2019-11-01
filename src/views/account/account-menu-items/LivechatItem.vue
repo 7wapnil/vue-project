@@ -32,7 +32,7 @@ export default {
     toggleLivechat () {
       this.show = !this.show
       localStorage.setItem('livechat_visible', JSON.stringify(this.show))
-      return this.$livechat.isHidden() ? this.$livechat.showWidget() : this.$livechat.hideWidget()
+      return this.$livechat.isHidden() ? this.$livechat.maximizeWidget() : this.$livechat.hideWidget()
     },
     loadLocalStorage () {
       if (localStorage.getItem('livechat_visible')) {
