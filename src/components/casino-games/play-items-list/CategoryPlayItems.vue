@@ -9,7 +9,7 @@
         <div class="header-title d-inline text-arc-clr-iron">{{ category.label }}</div>
       </div>
       <div class="header-more">
-        View all
+        {{ this.$i18n.t('casino.viewAll') }}
         <a href="#">
           {{ playItems.length }}
           ->

@@ -39,12 +39,12 @@ export default {
       return this.item.logoUrl || require('@/assets/images/logo/arcanebet-logo.png')
     },
     itemTitle () {
-      return this.item.name || 'Unknown game'
+      return this.item.name
     },
     buttonText () {
-      if (this.isLoggedIn) return 'Play for real'
+      if (this.isLoggedIn) return this.$i18n.t('casino.realModeLaunch')
 
-      return 'Log-in to play for real or click to play in demo'
+      return this.$i18n.t('casino.funModeLaunch')
     },
     walletId () {
       if (this.activeWallet) return parseInt(this.activeWallet.id)

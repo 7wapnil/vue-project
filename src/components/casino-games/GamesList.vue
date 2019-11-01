@@ -9,8 +9,7 @@
 <script>
 import CategoryPlayItems from './play-items-list/CategoryPlayItems'
 import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
-import { GAMES_QUERY } from '@/graphql'
-import { PLAY_ITEMS_UPDATED } from '../../graphql/casino-subscription'
+import { GAMES_QUERY, PLAY_ITEMS_UPDATED } from '@/graphql'
 import { updateCacheList } from '@/helpers/graphql'
 
 export default {

@@ -150,6 +150,11 @@ const messages = {
         status: 'status'
       }
     },
+    casino: {
+      viewAll: 'View all',
+      realModeLaunch: 'Play for real',
+      funModeLaunch: 'Log-in to play for real or click to play in demo'
+    },
     betslip: {
       generic: 'Bet placement unsuccessful. Please try again or contact support.',
       betslipEmpty: 'Your betslip is currently empty.\n' +
