@@ -39,7 +39,7 @@ store:
     - script:
         name: Build docker image
         code: |
-          docker build --network=$DOCKER_NETWORK_NAME -t arcanebet/frontend:$WERCKER_GIT_COMMIT -f deploy/Dockerfile .
+          docker build --network=$DOCKER_NETWORK_NAME -t arcanebet/frontend:$WERCKER_GIT_COMMIT -f deploy/${DOCKERFILE:-Dockerfile} .
 
     - script:
         name: Push
