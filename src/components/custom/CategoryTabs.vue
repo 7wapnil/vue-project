@@ -6,10 +6,9 @@
     class="category-tabs"
     nav-wrapper-class="category-tabs-wrapper"
     nav-class="category-tabs-nav mx-2 mx-md-5 no-scrollbars">
-
     <b-tab
-      v-for="(tab, index) in tabs"
-      :key="index"
+      v-for="tab in tabs"
+      :key="tab.value"
       no-body
       title-link-class="category-tab px-4 py-3">
       <template #title>

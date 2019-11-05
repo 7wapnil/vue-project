@@ -66,12 +66,6 @@ export default {
       if (livechatStatus) {
         this.$livechat.hideWidgetOnPageLoad()
       }
-    } else {
-      if (window.innerWidth < 800) {
-        this.$livechat.hideWidgetOnPageLoad()
-      } else {
-        this.$livechat.showWidget()
-      }
     }
   },
   beforeDestroy () {

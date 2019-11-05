@@ -21,6 +21,24 @@
   resolved "https://registry.yarnpkg.com/@apollographql/graphql-playground-html/-/graphql-playground-html-1.6.6.tgz#022209e28a2b547dcde15b219f0c50f47aa5beb3"
   integrity sha512-lqK94b+caNtmKFs5oUVXlSpN3sm5IXZ+KfhMxOtr0LR2SqErzkoJilitjDvJ1WbjHlxLI7WtCjRmOLdOGJqtMQ==
 
+"@appsignal/javascript@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@appsignal/javascript/-/javascript-1.0.0.tgz#ebbce3e810b9a4b032f4564be2637b3a9e8064c8"
+  integrity sha512-FYO4Q0qIDCBJP4Tjbx7Z3euB1c4wHsLo/fxE44C4T7seUWcgKCNoNUmWsgDVQHy1ZJqneQjsIy2pfymk6QNoJQ==
+  dependencies:
+    "@appsignal/types" "^1.0.0"
+    tslib "^1.10.0"
+
+"@appsignal/types@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@appsignal/types/-/types-1.0.0.tgz#1e28406d414d4d1e875ea55087ab2b3c93750b5d"
+  integrity sha512-09qxLnLxxom44xgJF0x25jpQviyiWh1VtpkK6oqYwbkUnFHhgyEgl+vmp0EaeWaeoZYXInHejveHQCo0wRvchA==
+
+"@appsignal/vue@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@appsignal/vue/-/vue-1.0.0.tgz#7b10ddee9011a1cddb5041791e1fb0866dc0fd20"
+  integrity sha512-sD4bLY9q0MEyH38BqFrKs1M2DTOCvYziPUc6U2ReqWYz/LjJ5Xf1HTJdMsOoq+k4Se4kLErMZWUrqPgK8TyXSw==
+
 "@babel/code-frame@^7.0.0":
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/@babel/code-frame/-/code-frame-7.0.0.tgz#06e2ab19bdb535385559aabb5ba59729482800f8"
@@ -1535,11 +1553,6 @@ aggregate-error@^2.2.0:
   dependencies:
     clean-stack "^2.0.0"
     indent-string "^3.0.0"
-
-airbrake-js@^1.6.6:
-  version "1.6.6"
-  resolved "https://registry.yarnpkg.com/airbrake-js/-/airbrake-js-1.6.6.tgz#9693c17a45883f4b440c89df0cc7a3a22ef1c223"
-  integrity sha512-2oIdVjNarNJ2/hT3f5gv2ZDSOGKm9WKl1fQRfQfhBEy9fWDGu/jrtQxaSO2EvjBdw4CvpfnK8YzRgsRwqDaXNg==
 
 ajv-errors@^1.0.0:
   version "1.0.1"
@@ -11074,6 +11087,11 @@ ts-node@^8.0.3:
     make-error "^1.1.1"
     source-map-support "^0.5.6"
     yn "^3.0.0"
+
+tslib@^1.10.0:
+  version "1.10.0"
+  resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.10.0.tgz#c3c19f95973fb0a62973fb09d90d961ee43e5c8a"
+  integrity sha512-qOebF53frne81cf0S9B41ByenJ3/IuH8yJKngAX35CmiZySA0khhkovshKK+jGCaMnVomla7gVlIcc3EvKPbTQ==
 
 tslib@^1.9.0, tslib@^1.9.3:
   version "1.9.3"

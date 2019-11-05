@@ -33,10 +33,19 @@ const LiveChatPlugin = {
     s.parentNode.insertBefore(lc, s)
   },
   hideWidget () {
-    window.LC_API.hide_chat_window()
+    if (window.LC_API) {
+      window.LC_API.hide_chat_window()
+    }
   },
   showWidget () {
-    window.LC_API.minimize_chat_window()
+    if (window.LC_API) {
+      window.LC_API.minimize_chat_window()
+    }
+  },
+  maximizeWidget () {
+    if (window.LC_API) {
+      window.LC_API.open_chat_window()
+    }
   },
   hideWidgetOnPageLoad () {
     window.LC_API = window.LC_API || {}
@@ -53,7 +62,9 @@ const LiveChatPlugin = {
     }
   },
   isHidden () {
-    return window.LC_API.chat_window_hidden()
+    if (window.LC_API) {
+      return window.LC_API.chat_window_hidden()
+    }
   }
 }
 

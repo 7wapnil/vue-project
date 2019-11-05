@@ -3,6 +3,7 @@
     <deposit-header/>
     <deposit-description/>
     <deposit-errors
+      v-if="!isMobile"
       :deposit-state="depositState"
       :deposit-message="depositMessage"
       :bonus-error="bonusError"/>
@@ -16,6 +17,7 @@
           :deposit-methods="depositMethods"
           :fields="fields"
           :selected-payment-method-code="selectedPaymentMethodCode"
+          :bonus-error="bonusError"
           @action:calculate="calculateBonus"
           @update:amount="updateAmount"
           @update:payment="updatePaymentMethod"
@@ -25,6 +27,8 @@
         <deposit-summary
           :is-crypto-section-shown="isCryptoSectionShown"
           :calculated-bonus="calculatedBonus"
+          :deposit-state="depositState"
+          :deposit-message="depositMessage"
           :address="address"
           :fields="fields"
           :currency="currency"

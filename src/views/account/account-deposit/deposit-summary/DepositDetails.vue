@@ -63,7 +63,19 @@
         </span>
       </b-col>
     </b-row>
-
+    <b-row
+      v-if="!!depositState && isMobile"
+      class="px-2"
+      no-gutters>
+      <b-col>
+        <b-alert
+          :variant="mapDepositState"
+          show
+          class="mb-0">
+          {{ depositMessage }}
+        </b-alert>
+      </b-col>
+    </b-row>
     <b-row no-gutters>
       <b-col class="px-2 mt-4 mb-2">
         <b-button
@@ -100,6 +112,23 @@ export default {
     buttonDisabled: {
       type: Boolean,
       default: true
+    },
+    depositState: {
+      type: String,
+      default: null
+    },
+    depositMessage: {
+      type: String,
+      default: null
+    },
+  },
+  data () {
+    return {
+      variantMap: {
+        pending: 'warning',
+        success: 'success',
+        fail: 'danger'
+      }
     }
   },
   computed: {
@@ -111,6 +140,9 @@ export default {
     },
     computeTotal () {
       return this.getTotal ? `${this.getTotal} ${this.currency}` : `0 ${this.currency}`
+    },
+    mapDepositState () {
+      return this.variantMap[this.depositState]
     }
   }
 }
