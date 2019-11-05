@@ -312,10 +312,7 @@ export default {
     }
   },
   mounted () {
-    this.scrollBetslipIntoView()
-  },
-  updated () {
-    this.scrollBetslipIntoView()
+    this.$emit('mounted:betslip-item')
   },
   methods: {
     ...mapMutations('betslip', [
@@ -323,12 +320,6 @@ export default {
       'updateBet',
       'removeBetFromBetslip'
     ]),
-    scrollBetslipIntoView () {
-      this.$nextTick(() => {
-        const submitButton = document.getElementById('betslip-submit')
-        submitButton.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' })
-      })
-    },
     updateOdds (market) {
       if (!market.hasOwnProperty('id')) return
 
