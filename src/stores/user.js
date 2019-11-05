@@ -156,6 +156,12 @@ export const mutations = {
   setActiveWallet (state, id) {
     state.activeWalletId = id
     localStorage.setItem('active_wallet', id)
+  },
+  storeAuthError (state, msg) {
+    state.errorMessage = msg
+  },
+  clearError (state) {
+    state.errorMessage = null
   }
 }
 
@@ -183,6 +189,9 @@ export const getters = {
   },
   getUserFiatWallet (state) {
     return state.session.user.wallets.find(el => el.currency.kind === FIAT)
+  },
+  getErrorMessage (state) {
+    return state.errorMessage
   }
 }
 

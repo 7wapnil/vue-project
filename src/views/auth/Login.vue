@@ -33,6 +33,11 @@
     <b-form-invalid-feedback :state="isRequestSuccessful">
       {{ feedback }}
     </b-form-invalid-feedback>
+    <b-form-invalid-feedback
+            force-show>
+
+      {{ errorMessage }}
+    </b-form-invalid-feedback>
     <b-button
       :disabled="isSubmitDisabled"
       class="mb-3"
@@ -68,7 +73,8 @@ export default {
   computed: {
     ...mapGetters({
       isSuspicious: 'isSuspicious',
-      lastLogin: 'getLastLogin'
+      lastLogin: 'getLastLogin',
+      errorMessage: 'getErrorMessage'
     }),
     isSubmitDisabled () {
       const hasLength = !!(this.fields.login && this.fields.password)
@@ -117,6 +123,9 @@ export default {
     },
     close () {
       this.$bvModal.hide('AuthModal')
+    },
+    isError() {
+      return Boolean(this.errorMessage)
     },
     ...mapActions([
       'authenticate',
