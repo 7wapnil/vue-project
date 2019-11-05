@@ -55,7 +55,7 @@
                   :key="`${bet.oddId}-${index}`">
                   <betslip-item
                     :bet="bet"
-                    @betslip-item-mounted="scrollSubmit"/>
+                    @mounted:betslip-item="scrollSubmit"/>
                 </div>
               </b-col>
             </b-row>

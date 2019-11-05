@@ -312,7 +312,7 @@ export default {
     }
   },
   mounted () {
-    this.$emit('betslip-item-mounted')
+    this.$emit('mounted:betslip-item')
   },
   methods: {
     ...mapMutations('betslip', [
