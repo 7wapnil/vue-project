@@ -6,10 +6,12 @@ import BetslipItem from '@/components/betslip/BetslipItem.vue'
 import Bet from '@/models/bet'
 import VueI18n from 'vue-i18n'
 import { messages } from '@/translations/'
+import globalMixin from '@/mixins/global'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
 localVue.use(VueI18n)
+localVue.mixin(globalMixin)
 
 describe('BetslipItem component', () => {
   let store
@@ -20,7 +22,6 @@ describe('BetslipItem component', () => {
   let mutations
   let state
   let i18n
-  let parentRef
 
   before(() => {
     state = {
@@ -96,8 +97,7 @@ describe('BetslipItem component', () => {
 
     wrapper = shallowMount(BetslipItem, {
       propsData: {
-        bet,
-        parentRef
+        bet
       },
       store,
       localVue,
