@@ -312,10 +312,7 @@ export default {
     }
   },
   mounted () {
-    this.$nextTick(() => {
-      const submitButton = document.getElementById('betslip-submit')
-      submitButton.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' })
-    })
+    this.$emit('betslip-item-mounted')
   },
   methods: {
     ...mapMutations('betslip', [
