@@ -54,7 +54,8 @@
                   v-for="(bet, index) in getBets"
                   :key="`${bet.oddId}-${index}`">
                   <betslip-item
-                    :bet="bet"/>
+                    :bet="bet"
+                    @betslip-item-mounted="scrollSubmit"/>
                 </div>
               </b-col>
             </b-row>
@@ -119,7 +120,7 @@
 
     <b-row
       v-b-popover.hover.top="getTooltipContent"
-      id="betslip-submit"
+      ref="betslip-submit"
       no-gutters
       class="p-2 bg-arc-clr-soil-black">
       <b-col>
@@ -261,6 +262,10 @@ export default {
 
       this.placeBets(payload)
         .then(this.updateBetsFromResponse)
+    },
+    scrollSubmit () {
+      const submitButton = this.$refs['betslip-submit']
+      submitButton.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' })
     },
     updateBetsFromResponse (response) {
       const bets = this.getBets
