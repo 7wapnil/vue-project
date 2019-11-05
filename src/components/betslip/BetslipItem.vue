@@ -312,10 +312,7 @@ export default {
     }
   },
   mounted () {
-    this.scrollBetslipIntoView()
-  },
-  updated () {
-    this.scrollBetslipIntoView()
+    this.$emit('betslip-item-mounted')
   },
   methods: {
     ...mapMutations('betslip', [
