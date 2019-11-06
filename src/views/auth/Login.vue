@@ -68,8 +68,7 @@ export default {
   computed: {
     ...mapGetters({
       isSuspicious: 'isSuspicious',
-      lastLogin: 'getLastLogin',
-      errorMessage: 'getErrorMessage'
+      lastLogin: 'getLastLogin'
     }),
     isSubmitDisabled () {
       const hasLength = !!(this.fields.login && this.fields.password)
