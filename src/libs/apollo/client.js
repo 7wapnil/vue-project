@@ -5,6 +5,7 @@ import webLink from './web-link'
 import cache from './cache'
 import { onError } from 'apollo-link-error'
 import store from '@/stores/index'
+import arcanebetSession from '@/services/local-storage/session'
 
 /**
  * @todo Add error handler to logout user when unauthorized error received
@@ -12,9 +13,10 @@ import store from '@/stores/index'
 
 const errorLink = onError(({ graphQLErrors, networkError, operation, forward }) => {
   if (graphQLErrors[0].message === 'AUTH_REQUIRED') {
-    store.commit('storeAuthError', graphQLErrors[0].message)
-    store.dispatch('logout')
-    store.commit('updateAuth', 0)
+    store.commit('clearSession')
+    arcanebetSession.dropSession()
+    store.commit('resetConnection')
+    document.location.reload()
   }
 })
 
