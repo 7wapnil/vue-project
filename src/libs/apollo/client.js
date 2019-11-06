@@ -4,7 +4,6 @@ import authLink from './auth-link'
 import webLink from './web-link'
 import cache from './cache'
 import { onError } from 'apollo-link-error'
-import store from '@/stores/index'
 import arcanebetSession from '@/services/local-storage/session'
 
 /**
@@ -13,9 +12,7 @@ import arcanebetSession from '@/services/local-storage/session'
 
 const errorLink = onError(({ graphQLErrors, networkError, operation, forward }) => {
   if (graphQLErrors[0].message === 'AUTH_REQUIRED') {
-    store.commit('clearSession')
     arcanebetSession.dropSession()
-    store.commit('resetConnection')
     document.location.reload()
   }
 })
