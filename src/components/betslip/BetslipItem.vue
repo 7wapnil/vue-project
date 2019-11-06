@@ -131,6 +131,15 @@
         </b-button>
       </b-col>
     </b-row>
+
+    <b-row
+      v-show="oddsChanged"
+      no-gutters>
+      <b-col class="alert-odds-changed">
+        Odds changed
+      </b-col>
+    </b-row>
+
     <b-alert
       :show="isFail"
       class="bet-message-alert mt-3 mx-auto p-2 text-center"
@@ -187,7 +196,8 @@ export default {
     return {
       betMarketStatus: null,
       betOddStatus: null,
-      disabledMessage: null
+      disabledMessage: null,
+      oddsChanged: false
     }
   },
   apollo: {
@@ -342,7 +352,16 @@ export default {
           payload: { currentOddValue: odd.value, marketStatus: market.status }
         })
 
-        if (this.acceptAllChecked && bet.currentOddValue !== bet.approvedOddValue) {
+        // if (this.acceptAllChecked && bet.currentOddValue !== bet.approvedOddValue) {
+        //   this.updateBet({
+        //     oddId: bet.oddId,
+        //     payload: { approvedOddValue: odd.value, marketStatus: market.status }
+        //   })
+        // }
+
+        // Add condition to check if the bet was placed or it returns from the placement process with odds changed error
+        if (bet.oddsChanged) {
+          this.oddsChanged = true;
           this.updateBet({
             oddId: bet.oddId,
             payload: { approvedOddValue: odd.value, marketStatus: market.status }
@@ -402,3 +421,15 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.alert-odds-changed{
+  margin-top:0.3rem;
+  text-align: center;
+  font-size: 0.8rem;
+  border: 1px solid #FFB960;
+  border-radius: 4px;
+  padding: 0.3rem 0;
+  color: #FFB960;
+}
+</style>
