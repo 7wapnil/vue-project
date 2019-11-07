@@ -2,6 +2,7 @@
   <modal
     id="AuthModal"
     :lazy="false"
+    scrollable
     v-model="modalVisible"
     :dialog-class="[ isMobile ? 'auth-modal-dialog-mobile' : '']"
     header-class="auth-modal-header"
