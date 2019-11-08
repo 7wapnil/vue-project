@@ -352,20 +352,9 @@ export default {
           payload: { currentOddValue: odd.value, marketStatus: market.status }
         })
 
-        // if (this.acceptAllChecked && bet.currentOddValue !== bet.approvedOddValue) {
-        //   this.updateBet({
-        //     oddId: bet.oddId,
-        //     payload: { approvedOddValue: odd.value, marketStatus: market.status }
-        //   })
-        // }
-
-        // Add condition to check if the bet was placed or it returns from the placement process with odds changed error
         if (bet.oddsChanged) {
           this.oddsChanged = true;
-          this.updateBet({
-            oddId: bet.oddId,
-            payload: { approvedOddValue: odd.value, marketStatus: market.status }
-          })
+          this.confirmValue()
         }
       })
     },
