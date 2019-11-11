@@ -32,10 +32,10 @@ export default {
     }
   },
   computed: {
-    ...mapGetters([
-      'isLoggedIn',
-      { activeWallet: 'getUserActiveWallet' }
-    ]),
+    ...mapGetters({
+      isLoggedIn: 'isLoggedIn',
+      activeWallet: 'getUserActiveWallet'
+    }),
     itemIcon () {
       return this.item.logoUrl || this.defaultIcon()
     },
