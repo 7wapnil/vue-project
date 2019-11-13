@@ -9,8 +9,8 @@
         <div class="header-title d-inline text-arc-clr-iron">{{ category.label }}</div>
       </div>
       <div class="header-more">
-        <a href="#">
-          {{ this.$i18n.t('casino.return') }}
+        <a @click="$emit('tab-changed', category)">
+          {{ this.$i18n.t('casino.viewAll') }}
         </a>
       </div>
     </div>
@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import CategoryPlayItem from './CategoryPlayItem'
+import CategoryPlayItem from '@/components/casino-games/play-items-list/CategoryPlayItem'
 
 export default {
   components: {

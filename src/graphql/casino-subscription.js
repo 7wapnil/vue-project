@@ -10,16 +10,16 @@ export const PLAY_ITEMS_UPDATED = gql`
 `
 
 export const GAME_CATEGORIES_UPDATED = gql`
-  subscription categoriesUpdated {
-    categoriesUpdated (kind: "casino") {
+  subscription categoriesUpdated ($device: String) {
+    categoriesUpdated (kind: "casino", device: $device) {
       ${CASINO_CATEGORIES_FIELDS}
     }
   }
 `
 
 export const TABLE_CATEGORIES_UPDATED = gql`
-  subscription categoriesUpdated {
-    categoriesUpdated (kind: "live_casino") {
+  subscription categoriesUpdated ($device: String) {
+    categoriesUpdated (kind: "live_casino", device: $device) {
       ${CASINO_CATEGORIES_FIELDS}
     }
   }

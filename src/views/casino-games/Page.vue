@@ -12,19 +12,27 @@
       <div class="d-flex justify-content-between">
         <game-categories
           v-if="checkEventKind('casino')"
+          :current-tab="selectedCategory"
           @tab-changed="onCategoryChange"/>
         <table-categories
           v-if="checkEventKind('live-casino')"
+          :current-tab="selectedCategory"
           @tab-changed="onCategoryChange"/>
         <search/>
       </div>
     </b-card>
 
+    <games-overview
+      v-if="gamesOverview"
+      @tab-changed="onCategoryChange"/>
+    <tables-overview
+      v-if="tablesOverview"
+      @tab-changed="onCategoryChange"/>
     <games-list
-      v-if="checkEventKind('casino')"
+      v-if="checkEventKind('casino') && !defaultTab()"
       :selected-category="selectedCategory"/>
     <tables-list
-      v-if="checkEventKind('live-casino')"
+      v-if="checkEventKind('live-casino') && !defaultTab()"
       :selected-category="selectedCategory"/>
   </div>
 </template>
@@ -37,6 +45,8 @@ import TableCategories from '@/components/casino-games/header-section/TableCateg
 import Search from '@/components/casino-games/header-section/Search'
 import GamesList from '@/components/casino-games/GamesList'
 import TablesList from '@/components/casino-games/TablesList'
+import GamesOverview from '@/components/casino-games/GamesOverview'
+import TablesOverview from '@/components/casino-games/TablesOverview'
 
 export default {
   components: {
@@ -45,7 +55,9 @@ export default {
     TableCategories,
     Search,
     GamesList,
-    TablesList
+    TablesList,
+    GamesOverview,
+    TablesOverview
   },
   data () {
     return {
@@ -58,14 +70,25 @@ export default {
       const route = 'sports'
 
       return findBackgroundSource({ name, route })
+    },
+    gamesOverview () {
+      return this.checkEventKind('casino') && this.defaultTab()
+    },
+    tablesOverview () {
+      return this.checkEventKind('live-casino') && this.defaultTab()
     }
   },
   methods: {
     onCategoryChange (tab) {
       this.selectedCategory = tab
+
+      window.scrollTo(0, 0);
     },
     checkEventKind (kind) {
       return this.$route.params.titleKind === kind
+    },
+    defaultTab () {
+      return this.selectedCategory.context === 'default'
     }
   }
 }
