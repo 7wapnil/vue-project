@@ -3,7 +3,7 @@
     <category-tabs
       :tabs="tabs"
       :arrows="false"
-      v-model="activeTabIndex"
+      :position="currentTabIndex"
       @tab-changed="tab => $emit('tab-changed', tab)"/>
   </div>
 </template>
@@ -23,6 +23,9 @@ export default {
         },
         subscribeToMore: {
           document: TABLE_CATEGORIES_UPDATED,
+          variables: {
+            device: this.deviceType
+          },
           updateQuery: (currentCategories, { subscriptionData: { data } }) => {
             return {
               categories: updateCacheList(currentCategories.categories, data.categoriesUpdated)
@@ -33,18 +36,40 @@ export default {
       }
     }
   },
+  props: {
+    currentTab: {
+      type: Object,
+      default: null
+    }
+  },
   data () {
     return {
-      activeTabIndex: 0,
-      categories: []
+      categories: [],
+      defaultTab: {
+        position: 0,
+        label: 'Live',
+        context: 'default'
+      }
     }
   },
   computed: {
     tabs () {
-      return this.categories.map((tab) => {
-        return { ...tab, icon: findCategoryIcon(tab) }
+      let tabs = this.categories.map((tab, index) => {
+        return { ...tab, icon: findCategoryIcon(tab), index: index + 1 } // + 1 because of default category
       })
+
+      return [{ ...this.defaultTab, icon: findCategoryIcon(this.defaultTab) }, ...tabs]
+    },
+    currentTabIndex () {
+      if (this.currentTab) return this.currentTab.index
+
+      return 0
     }
-  }
+  },
+  methods: {
+    deviceType () {
+      return this.isDesktop ? 'desktop' : 'mobile'
+    }
+  },
 }
 </script>

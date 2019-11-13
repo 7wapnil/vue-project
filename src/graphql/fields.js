@@ -140,6 +140,13 @@ export const CASINO_CATEGORIES_FIELDS = `
   context
 `
 
+export const OVERVIEW_FIELDS = `
+  ${CASINO_CATEGORIES_FIELDS}
+  playItems {
+    ${PLAY_ITEM_FIELDS}
+  }
+`
+
 export const PAGINATION_FIELDS = `
   count
   items

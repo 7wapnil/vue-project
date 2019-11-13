@@ -151,6 +151,7 @@ const messages = {
       }
     },
     casino: {
+      return: 'Return',
       viewAll: 'View all',
       realModeLaunch: 'Play for real',
       funModeLaunch: 'Log-in to play for real or click to play in demo'

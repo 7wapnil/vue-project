@@ -62,6 +62,10 @@ export default {
       type: Number,
       default: 0
     },
+    position: {
+      type: Number,
+      default: 0
+    },
     lazy: {
       type: Boolean,
       default: true
@@ -86,6 +90,11 @@ export default {
       }
     }
   },
+  watch: {
+    position (tab) {
+      this.tabIndex = tab
+    }
+  },
   created () {
     if (this.$route.params.titleKind) {
       this.tabIndex = this.tabs.findIndex((tab) => tab.value === this.$route.params.titleId) || 0
@@ -103,6 +112,6 @@ export default {
         this.categoryTabIndex--
       }
     }
-  }
+  },
 }
 </script>
