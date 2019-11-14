@@ -136,7 +136,7 @@
       v-show="oddsChanged"
       no-gutters>
       <b-col class="alert-odds-changed">
-        Odds changed
+        {{ $t('betslipItem.oddsChanged') }}
       </b-col>
     </b-row>
 
@@ -353,7 +353,7 @@ export default {
         })
 
         if (bet.oddsChanged) {
-          this.oddsChanged = true;
+          this.oddsChanged = true
           this.confirmValue()
         }
       })
@@ -412,6 +412,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
 .alert-odds-changed{
   margin-top:0.3rem;
   text-align: center;
