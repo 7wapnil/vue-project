@@ -412,14 +412,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
-.alert-odds-changed{
+.alert-odds-changed {
   margin-top:0.3rem;
   text-align: center;
   font-size: 0.8rem;
-  border: 1px solid #FFB960;
+  border: 1px solid $arc-clr-gold;
   border-radius: 4px;
   padding: 0.3rem 0;
-  color: #FFB960;
+  color: $arc-clr-gold;
 }
 </style>
