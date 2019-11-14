@@ -162,6 +162,7 @@ describe('BetslipItem component', () => {
         localVue,
         i18n
       })
+      const message = 'Odds Changed'
 
       wrapper.vm.bet.approvedOddValue = 2
       wrapper.vm.bet.currentOddValue = 3
@@ -169,6 +170,7 @@ describe('BetslipItem component', () => {
       wrapper.vm.updateOdds(market)
 
       expect(wrapper.find('.alert-odds-changed').isVisible()).to.equal(true)
+      expect(wrapper.find('.alert-odds-changed').text()).to.equal(message)
     })
 
     it('does not display Odds changed alert when odds are the same', () => {
