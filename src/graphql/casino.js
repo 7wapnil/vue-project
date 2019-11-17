@@ -1,18 +1,28 @@
 import gql from 'graphql-tag'
-import { CASINO_CATEGORIES_FIELDS, PLAY_ITEM_FIELDS, OVERVIEW_FIELDS } from './fields'
+import { CASINO_CATEGORIES_FIELDS, PLAY_ITEM_FIELDS, OVERVIEW_FIELDS, PAGINATION_FIELDS } from './fields'
 
 export const GAMES_QUERY = gql`
-  query games($context: String = null) {
-    games(context: $context)  {
-      ${PLAY_ITEM_FIELDS}
+  query games($context: String = null, $page: Int, $perPage: Int) {
+    games(context: $context, page: $page, perPage: $perPage) {
+      collection {
+        ${PLAY_ITEM_FIELDS}
+      }
+      pagination {
+        ${PAGINATION_FIELDS}
+      }
     }
   }
 `
 
 export const TABLES_QUERY = gql`
-  query tables($context: String = null) {
-    tables(context: $context)  {
-      ${PLAY_ITEM_FIELDS}
+  query tables($context: String = null, $page: Int, $perPage: Int) {
+    tables(context: $context, page: $page, perPage: $perPage) {
+      collection {
+        ${PLAY_ITEM_FIELDS}
+      }
+      pagination {
+        ${PAGINATION_FIELDS}
+      }
     }
   }
 `

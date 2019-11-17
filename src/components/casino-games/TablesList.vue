@@ -1,9 +1,17 @@
 <template>
   <div class="casino-games-list">
     <category-play-items
-      :play-items="tables"
+      :play-items="tablesCollection"
       :category="selectedCategory"
       :casino="false"/>
+    <div v-observe-visibility="onLastItem" />
+    <b-row
+      id="noMoreResults"
+      class="text-left d-none">
+      <b-col class="pl-5">
+        <p>No more games</p>
+      </b-col>
+    </b-row>
   </div>
 </template>
 
@@ -11,8 +19,6 @@
 import CategoryPlayItems from './play-items-list/CategoryPlayItems'
 import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
 import { TABLES_QUERY } from '@/graphql'
-import { PLAY_ITEMS_UPDATED } from '../../graphql/casino-subscription'
-import { updateCacheList } from '@/helpers/graphql'
 
 export default {
   components: {
@@ -26,7 +32,10 @@ export default {
   },
   data () {
     return {
-      tables: [],
+      tablesCollection: [],
+      paginationProps: Object,
+      itemsPerPage: 5,
+      page: 1
     }
   },
   apollo: {
@@ -36,23 +45,54 @@ export default {
         fetchPolicy: NETWORK_ONLY,
         variables () {
           return {
-            context: this.selectedCategory.context
+            context: this.selectedCategory.context,
+            page: 1,
+            perPage: this.itemsPerPage
           }
         },
-        subscribeToMore: {
-          document: PLAY_ITEMS_UPDATED,
-          variables () {
-            return {
-              context: this.selectedCategory.context
-            }
-          },
-          updateQuery: (currentList, { subscriptionData: { data } }) => {
-            return {
-              tables: updateCacheList(currentList.tables, data.playItemsUpdated)
-            }
-          }
+        result ({ data }) {
+          this.tablesCollection = data.tables.collection
+          this.paginationProps = data.tables.pagination
         }
       }
+    }
+  },
+  computed: {
+    lastPage () {
+      return this.paginationProps.next === null
+    }
+  },
+  methods: {
+    onLastItem (isVisible) {
+      if (!isVisible) return;
+
+      if (this.paginationProps.next === null) {
+        document.getElementById('noMoreResults').classList.remove('d-none');
+      } else {
+        document.getElementById('noMoreResults').classList.add('d-none')
+        this.loadMoreTables()
+      }
+    },
+    loadMoreTables () {
+      this.page = this.paginationProps.next
+
+      this.$apollo.queries.tables.fetchMore({
+        variables: {
+          perPage: this.itemsPerPage,
+          page: this.page
+        },
+        updateQuery: (previousResult, { fetchMoreResult }) => {
+          return {
+            tables: this.mergePlayItems(previousResult, fetchMoreResult).tables,
+            paginationProps: fetchMoreResult.tables.pagination
+          }
+        }
+      })
+    },
+    mergePlayItems (oldItems, newItems) {
+      newItems.tables.collection = [...oldItems.tables.collection, ...newItems.tables.collection]
+
+      return newItems
     }
   }
 }

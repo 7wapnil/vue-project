@@ -50,6 +50,7 @@
     "vue-i18n": "^8.10.0",
     "vue-meta": "^2.0.4",
     "vue-mq": "^1.0.1",
+    "vue-observe-visibility": "^0.4.6",
     "vue-recaptcha": "^1.1.1",
     "vue-router": "^3.0.1",
     "vue-text-mask": "^6.1.2",

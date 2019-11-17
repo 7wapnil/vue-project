@@ -11,6 +11,7 @@ import VueMeta from 'vue-meta'
 import VueMq from 'vue-mq'
 import VueClipboard from './plugins/vue-clipboard'
 import visibility from 'vue-visibility-change'
+import VueObserveVisibility from 'vue-observe-visibility'
 import Appsignal from '@appsignal/javascript'
 import { errorHandler } from '@appsignal/vue'
 
@@ -52,6 +53,8 @@ Vue.use(SourceBusterPlugin)
 Vue.use(VueClipboard)
 
 Vue.use(visibility)
+
+Vue.use(VueObserveVisibility)
 
 if (isProduction) {
   const appsignal = new Appsignal({ key: process.env.VUE_APP_APPSIGNAL_KEY })
