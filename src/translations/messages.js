@@ -162,6 +162,9 @@ const messages = {
       },
       mobileButton: 'Betslip'
     },
+    betslipItem: {
+      oddsChanged: 'Odds Changed'
+    },
     wallet: {
       balance: 'Balance',
       secondWallet: '2nd Wallet',

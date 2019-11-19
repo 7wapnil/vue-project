@@ -56,7 +56,7 @@ describe('BetslipItem component', () => {
         message: null,
         externalId: null,
         approvedOddValue: 6.78,
-        currentOddValue: 3.45,
+        currentOddValue: 6.78,
         success: null
       })
       ]
@@ -76,6 +76,10 @@ describe('BetslipItem component', () => {
       valuesUnconfirmed: () => true,
       getAnyFrozenBet: () => false,
       isBetDisabled: () => false
+    }
+
+    mutations = {
+      updateBet: (bet) => {}
     }
 
     store = new Vuex.Store({
@@ -144,6 +148,48 @@ describe('BetslipItem component', () => {
 
     it('shows no odd disabled alert messages on init state', () => {
       expect(wrapper.contains('.odd-disabled-message')).to.equal(false)
+    })
+  })
+
+  describe('behaviour', () => {
+    it('displays Odds changed alert when odds differ', () => {
+      const market = { id: '7091092', odds: [{ id: '25838157' }] }
+      const wrapper = shallowMount(BetslipItem, {
+        propsData: {
+          bet
+        },
+        store,
+        localVue,
+        i18n
+      })
+      const message = 'Odds Changed'
+
+      wrapper.vm.bet.approvedOddValue = 2
+      wrapper.vm.bet.currentOddValue = 3
+
+      wrapper.vm.updateOdds(market)
+
+      expect(wrapper.find('.alert-odds-changed').isVisible()).to.equal(true)
+      expect(wrapper.find('.alert-odds-changed').text()).to.equal(message)
+    })
+
+    it('does not display Odds changed alert when odds are the same', () => {
+      const market = { id: '7091092', odds: [{ id: '25838157' }] }
+      const wrapper = shallowMount(BetslipItem, {
+        propsData: {
+          bet
+        },
+        store,
+        localVue,
+        i18n
+      })
+
+      wrapper.vm.bet.approvedOddValue = 3
+      wrapper.vm.bet.currentOddValue = 3
+
+      wrapper.vm.updateOdds(market)
+
+      expect(wrapper.find('.alert-odds-changed').isVisible()).to.equal(false)
     })
   })
 })
