@@ -58,41 +58,44 @@
         </b-row>
       </b-col>
     </b-row>
-    <b-row no-gutters>
-      <b-col>
-        <b-row no-gutters>
-          <b-col class="mb-1">
-            <small class="text-arc-clr-iron text-uppercase font-weight-bold letter-spacing-2">
-              Stake:
-            </small>
-          </b-col>
-        </b-row>
-      </b-col>
-      <b-col class="d-flex align-items-center justify-content-end">
-        <masked-input
-          :disabled="isDisabled"
-          v-model="betStake"
-          :mask="mask"
-          type="text"
-          name="stake"
-          class="betslip-input form-control"
-        />
-      </b-col>
-    </b-row>
-    <b-row
-      class="pt-3"
-      no-gutters>
-      <b-col>
-        <small class="text-arc-clr-iron letter-spacing-2">
-          Potential Return:
-        </small>
-      </b-col>
-      <b-col class="potential-return pr-4 text-right text-truncate">
-        <small>
-          {{ parseFloat(potentialReturn.toFixed(2)) }}
-        </small>
-      </b-col>
-    </b-row>
+
+    <div v-if="!isCombo">
+      <b-row no-gutters>
+        <b-col>
+          <b-row no-gutters>
+            <b-col class="mb-1">
+              <small class="text-arc-clr-iron text-uppercase font-weight-bold letter-spacing-2">
+                Stake:
+              </small>
+            </b-col>
+          </b-row>
+        </b-col>
+        <b-col class="d-flex align-items-center justify-content-end">
+          <masked-input
+            :disabled="isDisabled"
+            v-model="betStake"
+            :mask="mask"
+            type="text"
+            name="stake"
+            class="betslip-input form-control"
+          />
+        </b-col>
+      </b-row>
+      <b-row
+        class="pt-3"
+        no-gutters>
+        <b-col>
+          <small class="text-arc-clr-iron letter-spacing-2">
+            {{ $t('betslipItem.return') }}
+          </small>
+        </b-col>
+        <b-col class="potential-return pr-4 text-right text-truncate">
+          <small>
+            {{ parseFloat(potentialReturn.toFixed(2)) }}
+          </small>
+        </b-col>
+      </b-row>
+    </div>
 
     <b-row
       v-if="valuesUnconfirmed && !getAnyFrozenBet"
@@ -133,7 +136,7 @@
     </b-row>
 
     <b-row
-      v-show="oddsChanged"
+      v-show="bet.oddChanged"
       no-gutters>
       <b-col class="alert-odds-changed">
         {{ $t('betslip.betslipItem.oddsChanged') }}
@@ -190,14 +193,17 @@ export default {
     bet: {
       type: Bet,
       required: true
+    },
+    isCombo: {
+      type: Boolean,
+      default: false
     }
   },
   data () {
     return {
       betMarketStatus: null,
       betOddStatus: null,
-      disabledMessage: null,
-      oddsChanged: false
+      disabledMessage: null
     }
   },
   apollo: {
@@ -353,7 +359,6 @@ export default {
         })
 
         if (bet.oddsChanged) {
-          this.oddsChanged = true
           this.confirmValue()
         }
       })
@@ -401,7 +406,7 @@ export default {
     confirmValue () {
       this.updateBet({
         oddId: this.bet.oddId,
-        payload: { approvedOddValue: this.bet.currentOddValue }
+        payload: { approvedOddValue: this.bet.currentOddValue, oddChanged: true }
       })
     },
     removeOdd (oddId) {

@@ -40,7 +40,8 @@ describe('BetslipItem component', () => {
         externalId: null,
         approvedOddValue: 3.48,
         currentOddValue: 3.50,
-        success: null
+        success: null,
+        oddChanged: false
       }),
       new Bet({
         id: null,
@@ -57,7 +58,8 @@ describe('BetslipItem component', () => {
         externalId: null,
         approvedOddValue: 6.78,
         currentOddValue: 6.78,
-        success: null
+        success: null,
+        oddChanged: false
       })
       ]
     }
@@ -153,7 +155,6 @@ describe('BetslipItem component', () => {
 
   describe('behaviour', () => {
     it('displays Odds changed alert when odds differ', () => {
-      const market = { id: '7091092', odds: [{ id: '25838157' }] }
       const wrapper = shallowMount(BetslipItem, {
         propsData: {
           bet
@@ -164,10 +165,7 @@ describe('BetslipItem component', () => {
       })
       const message = 'Odds Changed'
 
-      wrapper.vm.bet.approvedOddValue = 2
-      wrapper.vm.bet.currentOddValue = 3
-
-      wrapper.vm.updateOdds(market)
+      wrapper.vm.bet.oddChanged = true
 
       expect(wrapper.find('.alert-odds-changed').isVisible()).to.equal(true)
       expect(wrapper.find('.alert-odds-changed').text()).to.equal(message)
@@ -184,8 +182,7 @@ describe('BetslipItem component', () => {
         i18n
       })
 
-      wrapper.vm.bet.approvedOddValue = 3
-      wrapper.vm.bet.currentOddValue = 3
+      wrapper.vm.bet.oddChanged = false
 
       wrapper.vm.updateOdds(market)
 

@@ -12,7 +12,7 @@ import {
 import { ODDS_TOO_HIGH_ERROR } from '@/constants/notification-codes'
 import { REJECTED } from '@/constants/bet-fail-statuses'
 import { INITIAL } from '@/constants/bet-ok-statuses'
-import { BETSLIP_PLACEMENT_QUERY, BETSLIP_BETS_QUERY, BET_UPDATED } from '@/graphql/index'
+import { BETSLIP_PLACEMENT_QUERY, BETSLIP_PLACEMENT_COMBO_QUERY, BETSLIP_BETS_QUERY, BET_UPDATED } from '@/graphql/index'
 import { ACTIVE_STATUS } from '@/models/market'
 import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
 import VueLogger from 'vuejs-logger'
@@ -46,11 +46,11 @@ export const mutations = {
 
     if (payload.status === REJECTED && payload.notificationCode === ODDS_TOO_HIGH_ERROR && bet.oddsChanged) {
       payload.status = INITIAL
-      Vue.$log.debug(`Got status "rejected" when odds has been changed, "Accept new odds" block will be shown instead 
+      Vue.$log.debug(`Got status "rejected" when odds has been changed, "Accept new odds" block will be shown instead
         of an error`)
     }
 
-    Vue.$log.debug(`Update bet ID = ${bet.id}, eventName = ${bet.eventName}, marketName = ${bet.marketName}, 
+    Vue.$log.debug(`Update bet ID = ${bet.id}, eventName = ${bet.eventName}, marketName = ${bet.marketName},
       oddName = ${bet.oddName}, status = ${bet.status}, new data:`, payload)
     bet = Object.assign(bet, payload)
     setBetsToStorage(state.bets)
@@ -99,6 +99,12 @@ export const getters = {
 
     return enabled
   },
+  betslipComboSubmittable: (state, getters) => {
+    return getters.betslipValuesConfirmed &&
+      !getters.getAnyInactiveMarket &&
+      getters.getAllBetsAcceptable &&
+      getters.getBets.length > 1
+  },
   getIsEnoughFundsToBet: (state, getters, rootState, rootGetters) => {
     const activeWallet = rootGetters['getUserActiveWallet']
     if (activeWallet === null) {
@@ -106,6 +112,14 @@ export const getters = {
     }
 
     return getters.getTotalStakes <= activeWallet.amount
+  },
+  getFundsToBet: (state, getters, rootState, rootGetters) => {
+    const activeWallet = rootGetters['getUserActiveWallet']
+    if (activeWallet === null) {
+      return false
+    }
+
+    return activeWallet.amount
   },
   betslipValuesConfirmed: (state) => {
     const betWithUnconfirmedValue = state.bets.find((bet) => {
@@ -169,9 +183,11 @@ export const getters = {
 
 export const actions = {
   subscribeBets ({ dispatch, getters }) {
-    getters
-      .getBets
+    const bets = getters.getBets
+
+    bets
       .filter(bet => !!bet.id)
+      .filter((bet, index) => bets.findIndex(savedBet => savedBet['id'] === bet['id']) === index)
       .forEach(bet => dispatch('subscribeBet', bet))
   },
   subscribeBet ({ state, commit, dispatch, getters }, bet) {
@@ -202,10 +218,12 @@ export const actions = {
 
     Vue.$log.debug(`Subscribed bet ID ${bet.id}`)
   },
-  removeAcceptedBet ({ state, commit }, { oddId, status }) {
+  removeAcceptedBet ({ state, commit }, { betLegs, status }) {
     if (status !== Bet.statuses.accepted) return
 
-    setTimeout(() => { commit('removeBetFromBetslip', oddId) }, BET_DESTROY_TIMEOUT)
+    betLegs.forEach(betLeg => {
+      setTimeout(() => { commit('removeBetFromBetslip', betLeg.oddId) }, BET_DESTROY_TIMEOUT)
+    })
   },
   unsubscribeBet ({ state }, bet) {
     if (state.subscriptions[bet.id]) {
@@ -222,13 +240,22 @@ export const actions = {
     state.bets.push(Bet.initial(event, market, odd))
     setBetsToStorage(state.bets)
   },
-  placeBets (context, betsPayload) {
-    return graphqlClient.mutate({
-      mutation: BETSLIP_PLACEMENT_QUERY,
-      variables: {
-        bets: betsPayload
-      }
-    })
+  placeBets (context, { payload, isCombo }) {
+    if (isCombo) {
+      return graphqlClient.mutate({
+        mutation: BETSLIP_PLACEMENT_COMBO_QUERY,
+        variables: {
+          bet: payload
+        }
+      })
+    } else {
+      return graphqlClient.mutate({
+        mutation: BETSLIP_PLACEMENT_QUERY,
+        variables: {
+          bets: payload
+        }
+      })
+    }
   },
   refreshBetslip ({ state, commit, getters, dispatch }) {
     const ids = getters.getPlacedBetIds
@@ -244,14 +271,18 @@ export const actions = {
       })
       .then(({ data: { bets: { collection } } }) => {
         collection.forEach((bet) => {
-          bet.oddId = bet.odd.id
+          const betLegs = bet.betLegs || []
 
-          commit('updateBet', {
-            oddId: bet.oddId,
-            payload: {
-              status: bet.status,
-              message: bet.message
-            }
+          betLegs.forEach((betLeg) => {
+            bet.oddId = betLeg.oddId
+
+            commit('updateBet', {
+              oddId: bet.oddId,
+              payload: {
+                status: bet.status,
+                message: bet.message
+              }
+            })
           })
 
           dispatch('removeAcceptedBet', bet)

@@ -207,7 +207,8 @@ const messages = {
         inactiveMarkets: 'Please remove any inactive bets',
         unacceptableBets: 'Please remove any inactive bets',
         betsBeingSubmitted: 'Bet placement in progress',
-        invalidStakeAmount: 'Please make sure your stake is correct'
+        invalidStakeAmount: 'Please make sure your stake is correct',
+        notEnoughBetLegs: 'Please add more odds'
       },
       betslipItem: {
         oddsChanged: 'Odds Changed'
@@ -216,7 +217,12 @@ const messages = {
         placeBet: 'Place Bet',
         clearAll: 'Clear all'
       },
-      mobileButton: 'Betslip'
+      mobileButton: 'Betslip',
+      stake: 'Stake:'
+    },
+    betslipItem: {
+      oddsChanged: 'Odds Changed',
+      return: 'Potential Return:'
     },
     wallet: {
       balance: 'Balance',
@@ -292,6 +298,9 @@ const messages = {
         withdrawFunds: 'Withdraw funds',
         cardLastFourDigits: 'Card last four digits',
         cardHolderName: 'Card holder name',
+        skrillAddress: 'Skrill address',
+        nettelerAddress: 'Neteller address',
+        iDebitAccountId: 'iDebit account id',
         arcanebetPassword: 'Arcanebet password',
         notAvailable: 'Due to the migration to the new website, your bank details - for security reasons - were not imported. This means that, in able to withdraw, you need to make a deposit first, using the method you wish to withdraw to. This deposit can be immediately returned in full with your withdrawal request. We sincerely apologize for the inconvenience.<br/><br/>Skrill & Neteller withdrawals will become available early next week. For now we will be able to process transactions manually, please contact support to request a withdrawal.',
         withdrawNoFeeInformation: 'Debit/Credit Card withdrawals come with a 0% withdrawal fee',

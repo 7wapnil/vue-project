@@ -17,58 +17,122 @@
           @table-filtered-by-time="tableTimeFilter"
           @table-filtered-by-bet-state="tableBetFilter"/>
 
-        <b-table
+        <table
           v-if="hasBetHistory && !loadingBets"
-          :items="bets.collection"
-          :fields="fields"
-          thead-class="activity-table-head"
-          tbody-class="activity-table-body"
-          tbody-tr-class="activity-table-body-row">
+          class="activity-table"
+        >
+          <thead>
+            <tr>
+              <th
+                v-for="(field,index) in fields"
+                :key="index">{{ field }}</th>
+            </tr>
+          </thead>
 
-          <loader v-if="loadingBets"/>
+          <tbody>
+            <template v-for="item in bets.collection">
+              <tr
+                :key="item.id"
+                :class="{ 'activity-table-row-pointer': isCombo(item.betLegs) }"
+                @click="displayComboBets(item)">
+                <td>
+                  <div>{{ localDate(item.createdAt ) }}</div>
+                  <div>{{ localTime(item.createdAt ) }}</div>
+                </td>
 
-          <template
-            slot="time"
-            slot-scope="data">
-            <b-row no-gutters>
-              <b-col v-html="localDate(data.item.createdAt)"/>
-            </b-row>
-            <b-row no-gutters>
-              <b-col v-html="localTime(data.item.createdAt)"/>
-            </b-row>
-          </template>
-          <template
-            slot="details"
-            slot-scope="data">
-            <b-row no-gutters>
-              <b-col>
-                {{ data.item.event.name }}
-              </b-col>
-            </b-row>
-            <b-row no-gutters>
-              <b-col>
-                <span class="font-size-11">
-                  {{ data.item.market.name | capitalize }}
-                </span>
-              </b-col>
-            </b-row>
-            <b-row no-gutters>
-              <b-col>
-                <span class="font-size-11">
-                  {{ data.item.odd.name }}
-                </span>
-              </b-col>
-            </b-row>
-          </template>
-          <template
-            slot="status"
-            slot-scope="data">
-            <b-badge
-              :variant="badgeStatus[data.item.displayStatus]"
-              class="border-4 text-uppercase font-size-11 text-arc-clr-soil-dark p-2"
-              v-html="statusText(data.item)" />
-          </template>
-        </b-table>
+                <td>
+                  <div
+                    v-if="isCombo(item.betLegs)"
+                  >
+                    <div>
+                      Combo bet - {{ item.betLegs.length }} selections
+                    </div>
+
+                    <div v-show="!displayBetLegs[item.id]">
+                      Click to expand
+                    </div>
+                    <div v-show="displayBetLegs[item.id]">
+                      Click to close
+                    </div>
+                  </div>
+
+                  <div
+                    v-for="betLeg in item.betLegs"
+                    :key="betLeg.id"
+                  >
+                    <div v-if="!isCombo(item.betLegs)">
+                      <div>
+                        {{ betLeg.event.name }}
+                      </div>
+
+                      <div>
+                        {{ betLeg.market.name | capitalize }}
+                      </div>
+
+                      <div>
+                        {{ betLeg.odd.name }}
+                      </div>
+                    </div>
+                  </div>
+                </td>
+
+                <td>
+                  {{ item.amount }}
+                </td>
+
+                <td>
+                  {{ item.oddValue }}
+                </td>
+
+                <td>
+                  <b-badge
+                    :variant="badgeStatus[item.displayStatus]"
+                    class="border-4 text-uppercase font-size-11 text-arc-clr-soil-dark p-2"
+                    v-html="statusText(item)" />
+                </td>
+
+                <td>
+                  {{ item.id }}
+                </td>
+              </tr>
+
+              <template
+                v-for="betLeg in item.betLegs">
+                <tr
+                  v-if="isCombo(item.betLegs) && displayBetLegs[item.id]"
+                  :key="betLeg.id" >
+                  <td/>
+
+                  <td>
+                    <div>
+                      {{ betLeg.event.name }}
+                    </div>
+                    <div>
+                      {{ betLeg.market.name | capitalize }}
+                    </div>
+                    <div>
+                      {{ betLeg.odd.name }}
+                    </div>
+                  </td>
+
+                  <td/>
+
+                  <td>
+                    {{ betLeg.oddValue }}
+                  </td>
+
+                  <td>
+                    <b-badge
+                      :variant="badgeStatus[betLeg.displayStatus]"
+                      class="border-4 text-uppercase font-size-11 text-arc-clr-soil-dark p-2"
+                      v-html="statusTextComboLeg(betLeg)" />
+                  </td>
+                </tr>
+              </template>
+            </template>
+          </tbody>
+        </table>
+
         <loader v-if="loadingBets"/>
 
         <activity-placeholder v-if="!hasBetHistory && !loadingBets"/>
@@ -205,20 +269,12 @@ export default {
       betKind: null,
       loadingBets: true,
       fields: [
-        'time',
-        'details',
-        { key: 'amount',
-          label: 'Stake'
-        },
-        { key: 'oddValue',
-          label: 'Odds'
-        },
-        { key: 'status',
-          label: 'Return'
-        },
-        { key: 'id',
-          label: '#'
-        }
+        'Time',
+        'Details',
+        'Stake',
+        'Odds',
+        'Return',
+        '#'
       ],
       tabs: [{
         id: 1,
@@ -244,7 +300,8 @@ export default {
       everyMatrixTransactions: {},
       loadingEveryMatrixTransactions: true,
       timeFilterState: '',
-      betFilterState: ''
+      betFilterState: '',
+      displayBetLegs: {}
     }
   },
   computed: {
@@ -301,6 +358,7 @@ export default {
         result ({ data }) {
           this.loadingBets = false
           this.paginationProps = data.bets.pagination
+          this.displayBetLegs = {}
         }
       }
     },
@@ -373,12 +431,51 @@ export default {
 
       return item.displayStatus
     },
+    statusTextComboLeg (betLeg) {
+      return betLeg.displayStatus
+    },
     localDate (str) {
       return moment.utc(str, 'D.M.YYYY HH:mm:ss').local().format('D.M.YYYY')
     },
     localTime (str) {
       return moment.utc(str, 'D.M.YYYY HH:mm:ss').local().format('HH:mm:ss')
+    },
+    isCombo (betLegs) {
+      return betLegs.length > 1
+    },
+    displayComboBets (item) {
+      if (item.betLegs.length === 1) {
+        return
+      }
+
+      this.$set(this.displayBetLegs, item.id, !this.displayBetLegs[item.id])
     }
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.activity-table{
+  width: 100%;
+  thead{
+    color: $arc-clr-gold;
+    border-bottom: 1px solid #2A2A2A;
+  }
+  th{
+    padding: 0.5rem 0;
+  }
+  tbody{
+    color: $arc-clr-iron;
+    font-size: $h6-font-size;
+    tr{
+      border-bottom: 1px solid #2A2A2A;
+    }
+    td{
+      padding: 0.5rem 0;
+    }
+  }
+  &-row-pointer{
+    cursor: pointer;
+  }
+}
+</style>
