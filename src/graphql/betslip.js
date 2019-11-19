@@ -3,12 +3,32 @@ import gql from 'graphql-tag'
 export const BETSLIP_PLACEMENT_QUERY = gql`
   mutation placeBets($bets: [BetInput]) {
     placeBets(bets: $bets) {
-      id
       success
       message
       bet {
         id
         status
+        betLegs {
+          oddId
+          oddValue
+        }
+      }
+    }
+  }
+`
+
+export const BETSLIP_PLACEMENT_COMBO_QUERY = gql`
+  mutation placeComboBets($bet: BetInput) {
+    placeComboBets(bet: $bet) {
+      success
+      message
+      bet {
+        id
+        status
+        betLegs {
+          oddId
+          oddValue
+        }
       }
     }
   }
@@ -21,8 +41,9 @@ export const BETSLIP_BETS_QUERY = gql`
         id
         status
         message
-        odd {
+        betLegs {
           id
+          oddId
         }
       }
     }

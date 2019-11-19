@@ -125,10 +125,13 @@ export const BET_FIELDS = `
   id
   createdAt
   amount
-  oddValue
   status
   message
   notificationCode
+  betLegs {
+    id
+    oddId
+  }
 `
 
 export const EVENT_BET_STOP_FIELDS = `
