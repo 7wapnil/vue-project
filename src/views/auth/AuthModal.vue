@@ -4,6 +4,7 @@
     :lazy="false"
     v-model="modalVisible"
     :dialog-class="[ isMobile ? 'auth-modal-dialog-mobile' : '']"
+    scrollable
     header-class="auth-modal-header"
     body-class="auth-modal-body">
     <template #modal-header="{ close }">
