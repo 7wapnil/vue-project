@@ -7,8 +7,6 @@
       class="introduction-area"
       body-class="casino-content-header">
 
-      <promotion-block/>
-
       <div class="d-flex justify-content-between">
         <game-categories
           v-if="checkEventKind('casino')"
@@ -18,7 +16,6 @@
           v-if="checkEventKind('live-casino')"
           :current-tab="selectedCategory"
           @tab-changed="onCategoryChange"/>
-        <search/>
       </div>
     </b-card>
 
@@ -36,20 +33,16 @@
 
 <script>
 import { findBackgroundSource } from '@/helpers/background-finder'
-import PromotionBlock from '@/components/casino-games/header-section/PromotionBlock'
 import GameCategories from '@/components/casino-games/header-section/GameCategories'
 import TableCategories from '@/components/casino-games/header-section/TableCategories'
-import Search from '@/components/casino-games/header-section/Search'
 import GamesList from '@/components/casino-games/GamesList'
 import TablesList from '@/components/casino-games/TablesList'
 import GamesOverview from '@/components/casino-games/GamesOverview'
 
 export default {
   components: {
-    PromotionBlock,
     GameCategories,
     TableCategories,
-    Search,
     GamesList,
     TablesList,
     GamesOverview
