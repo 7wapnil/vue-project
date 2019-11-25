@@ -2,7 +2,8 @@
   <div class="casino-games-list">
     <category-play-items
       :play-items="tables"
-      :category="selectedCategory"/>
+      :category="selectedCategory"
+      :casino="false"/>
   </div>
 </template>
 

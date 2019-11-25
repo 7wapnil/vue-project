@@ -8,7 +8,9 @@
           size="24px"/>
         <div class="header-title d-inline text-arc-clr-iron">{{ category.label }}</div>
       </div>
-      <div class="header-more">
+      <div
+        v-if="casino"
+        class="header-more">
         <a href="#">
           {{ this.$i18n.t('casino.return') }}
         </a>
@@ -40,6 +42,10 @@ export default {
     playItems: {
       type: Array,
       default: () => { return [] }
+    },
+    casino: {
+      type: Boolean,
+      default: true
     }
   }
 }
