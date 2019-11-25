@@ -37,7 +37,6 @@ export default {
   'starcraft': 'esports-sc2',
   'fifa': 'esports-fifa',
   'hearthstone': 'esports-hearthstone',
-  'rainbow-six': 'esports-rainbow-six',
+  'rainbow-six': 'esports-rainbow-six'
 
-  // Casino
 }
