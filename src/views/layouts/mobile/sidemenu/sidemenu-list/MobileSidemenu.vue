@@ -23,7 +23,7 @@
 
 <script>
 import MenuItem from './MobileMenuItem'
-import { TITLES_QUERY } from '@/graphql'
+import { TITLES_QUERY } from '@/graphql/index'
 import { buildTree } from '@/helpers/navigation-tree'
 import { mapGetters } from 'vuex'
 
