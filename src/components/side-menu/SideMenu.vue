@@ -3,7 +3,11 @@
     tag="div"
     class="flex-nowrap"
     vertical>
-    <slot name="header"/>
+    <b-nav-item class="d-inline-flex align-items-center justify-content-start p-3 bg-arc-clr-soil-dark side-menu-categories w-100">
+      <span class="text-arc-clr-iron letter-spacing-2 text-uppercase">
+        Categories
+      </span>
+    </b-nav-item>
     <b-nav-item
       v-for="(item, itemIndex) in menuItems"
       :key="itemIndex">
@@ -16,7 +20,7 @@
 
 <script>
 import MenuItem from './MenuItem'
-import { TITLES_QUERY } from '@/graphql'
+import { TITLES_QUERY } from '@/graphql/index'
 import { buildTree } from '@/helpers/navigation-tree'
 
 const POLL_INTERVAL = 10000
