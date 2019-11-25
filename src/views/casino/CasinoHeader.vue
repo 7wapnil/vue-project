@@ -1,18 +1,19 @@
 <template>
-    <b-row
-      no-gutters>
-      <b-col :class="[isMobile ? 'casino-header-mobile-container' :
+  <b-row
+    no-gutters>
+    <b-col
+      :class="[isMobile ? 'casino-header-mobile-container' :
       'casino-header-desktop-container']">
-        <b-img
-          :src="require('@/assets/images/casino-games/arcane-casino-header-promo.png')"
-          :height="backgroundHeight"
-          fluid-grow
-          alt="Arcanebet-Casino-Promo"/>
-        <div class="casino-header-tab-container">
-          <slot/>
-        </div>
-      </b-col>
-    </b-row>
+      <b-img
+        :src="require('@/assets/images/casino-games/arcane-casino-header-promo.png')"
+        :height="backgroundHeight"
+        fluid-grow
+        alt="Arcanebet-Casino-Promo"/>
+      <div class="casino-header-tab-container">
+        <slot/>
+      </div>
+    </b-col>
+  </b-row>
 </template>
 
 <script>

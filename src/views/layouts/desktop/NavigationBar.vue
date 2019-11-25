@@ -65,19 +65,19 @@ export default {
     return {
       mainMenu: [
         { id: 1,
-          route: {name: 'esports'},
+          route: { name: 'esports' },
           label: this.$i18n.t('homePage.esport')
         },
         { id: 2,
-            route: {name: 'sports'},
+          route: { name: 'sports' },
           label: this.$i18n.t('homePage.sport')
         },
         { id: 3,
-            route: {name: 'casino'},
+          route: { name: 'casino' },
           label: this.$i18n.t('homePage.casino')
         },
         { id: 4,
-            route: {name: 'live-casino'},
+          route: { name: 'live-casino' },
           label: this.$i18n.t('homePage.liveCasino')
         }
       ],

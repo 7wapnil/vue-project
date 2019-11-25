@@ -1,21 +1,21 @@
 <template>
-    <div>
-  <b-img-lazy
-    :src="itemIcon"
-    :alt="itemTitle"
-    :class="[isMobile ? 'play-item-mobile' : 'play-item-desktop']"
-    block
-    blank-color="#2F2F2F"/>
+  <div>
+    <b-img-lazy
+      :src="itemIcon"
+      :alt="itemTitle"
+      :class="[isMobile ? 'play-item-mobile' : 'play-item-desktop']"
+      block
+      blank-color="#2F2F2F"/>
 
-    <!--<div class="play-item-button">-->
-        <!--<b-button-->
-        <!--class="casino"-->
-        <!--variant="link"-->
-        <!--@click="launchGame">-->
-        <!--{{ buttonText }}-->
-    <!--</b-button>-->
-    <!--</div>-->
-    </div>
+      <!--<div class="play-item-button">-->
+      <!--<b-button-->
+      <!--class="casino"-->
+      <!--variant="link"-->
+      <!--@click="launchGame">-->
+      <!--{{ buttonText }}-->
+      <!--</b-button>-->
+      <!--</div>-->
+  </div>
 </template>
 
 <script>
@@ -64,7 +64,7 @@ export default {
           }
         })
         .then((payload) => {
-            this.$router.push({name: 'casino-game', params: { gameName: this.item.slug }})
+          this.$router.push({ name: 'casino-game', params: { gameName: this.item.slug } })
           // window.open(payload.data.createEveryMatrixSession.launchUrl, '_blank')
         })
         .catch(() => {
