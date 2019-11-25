@@ -1,23 +1,21 @@
 <template>
-  <b-col
-    cols="2"
-    class="m-2 category-play-item">
-    <b-img-lazy
-      :blank-src="defaultIcon"
-      :src="itemIcon"
-      :alt="itemTitle"
-      class="play-item-icon"
-      center
-      height="156"/>
-    <div class="play-item-button">
-      <b-button
-        class="casino"
-        variant="link"
-        @click="launchGame">
-        {{ buttonText }}
-      </b-button>
+    <div>
+  <b-img-lazy
+    :src="itemIcon"
+    :alt="itemTitle"
+    :class="[isMobile ? 'play-item-mobile' : 'play-item-desktop']"
+    block
+    blank-color="#2F2F2F"/>
+
+    <!--<div class="play-item-button">-->
+        <!--<b-button-->
+        <!--class="casino"-->
+        <!--variant="link"-->
+        <!--@click="launchGame">-->
+        <!--{{ buttonText }}-->
+    <!--</b-button>-->
+    <!--</div>-->
     </div>
-  </b-col>
 </template>
 
 <script>
@@ -66,7 +64,8 @@ export default {
           }
         })
         .then((payload) => {
-          window.open(payload.data.createEveryMatrixSession.launchUrl, '_blank')
+            this.$router.push({name: 'casino-game', params: { gameName: this.item.slug }})
+          // window.open(payload.data.createEveryMatrixSession.launchUrl, '_blank')
         })
         .catch(() => {
           this.$router.push({ name: 'not-found' })
@@ -75,3 +74,27 @@ export default {
   }
 }
 </script>
+<style lang="scss"
+       scoped>
+  .play-item {
+    &-desktop {
+    margin: 10px;
+    cursor: pointer;
+    backface-visibility: hidden;
+    border-radius: 4px;
+    height: 14vw;
+    width: 14vw;
+    min-height: 12vh;
+    min-width: 12vw;
+        img {
+          object-fit: cover;
+          text-align: center;
+        }
+    }
+      &-mobile {
+          height: 35vw;
+          width: 35vw;
+          margin: 10px;
+      }
+  }
+</style>
