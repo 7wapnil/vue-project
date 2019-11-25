@@ -1,7 +1,10 @@
 import Router from 'vue-router'
-import mainRoutes from './main'
-import StyleGuidePages from './styleguide_pages'
-import InformationPages from '@/routes/information_pages'
+import system from '@/routes/system'
+import Esports from '@/routes/esports'
+import Sports from '@/routes/sports'
+import Casino from '@/routes/casino'
+import LiveCasino from '@/routes/live-casino'
+import support from '@/routes/support'
 import NotFound from '@/views/layouts/common/NotFound'
 import Maintenance from '@/views/layouts/common/Maintenance'
 import { setCookie } from '@/helpers/cookies'
@@ -9,25 +12,18 @@ import moment from 'moment'
 import filters from '@/mixins/filters'
 import { colors } from '@/constants/android-theme-colors'
 
-const rootChildren = [...mainRoutes, ...InformationPages.routes]
+const rootChilds = [...Esports, ...Sports, ...LiveCasino, ...Casino, ...support.routes, ...system]
 
 const router = new Router({
   mode: 'history',
   linkActiveClass: 'active',
   routes: [
     {
-      path: '/styleguide',
-      name: 'styleguide',
-      redirect: 'styleguide/typography',
-      component: () => import('@/views/styleguide/Page'),
-      children: StyleGuidePages
-    },
-    {
       path: '/',
       redirect: '/esports',
       name: 'home',
       component: () => import('@/views/layouts/common/Layout'),
-      children: rootChildren
+      children: rootChilds
     },
     {
       path: 'maintenance',
@@ -63,6 +59,16 @@ router.beforeEach((to, from, next) => {
     document.title = `${filters.capitalizeFirstLetter(to.params.titleKind)} - Arcanebet`
   }
 
+  const components = to.matched[to.matched.length - 1].components
+  if (components) {
+    to.meta.components = components
+  }
+
+  const path = to.matched[1].path
+  if (path) {
+    to.params.titleKind = path.slice(1)
+  }
+
   const section = to.meta.themeColor || to.params.titleKind
   if (section) {
     const newColor = colors[section.toString()]
@@ -71,6 +77,7 @@ router.beforeEach((to, from, next) => {
   }
 
   if (to.query.btag) { setCookie('btag', to.query.btag, moment().add(1, 'month').toDate()) }
+
   next()
 })
 
