@@ -16,7 +16,7 @@ $arc-clr-esport-glow-second: #3C7EE1;
 $arc-clr-casino-opacity-like: #093E47;
 $arc-clr-casino-bg: #095965;
 $arc-clr-casino-bg-second: #117686;
-$arc-clr-casino-glow:	#1D9CB1;
+$arc-clr-casino-glow: #1D9CB1;
 $arc-clr-casino-glow-second: #188492;
 
 $arc-clr-live-casino-opacity-like: #2F244A;
@@ -145,7 +145,17 @@ $theme-colors: ("arc-clr-soil-light": $arc-clr-soil-light,
                 "wp-clr-notif-yellow": $wp-clr-notif-yellow,
                 "wp-clr-notif-red": $wp-clr-notif-red,
                 "arc-dropdown-divider": $arc-dropdown-divider,
-                "arc-clr-grey-light": $arc-clr-grey-light
+                "arc-clr-grey-light": $arc-clr-grey-light,
+                "arc-clr-casino-opacity-like": $arc-clr-casino-opacity-like,
+                "arc-clr-casino-bg": $arc-clr-casino-bg,
+                "arc-clr-casino-bg-second": $arc-clr-casino-bg-second,
+                "arc-clr-casino-glow": $arc-clr-casino-glow,
+                "arc-clr-casino-glow-second": $arc-clr-casino-glow-second,
+                "arc-clr-live-casino-opacity-like": $arc-clr-live-casino-opacity-like,
+                "arc-clr-live-casino-bg": $arc-clr-live-casino-bg,
+                "arc-clr-live-casino-bg-second": $arc-clr-live-casino-bg-second,
+                "arc-clr-live-casino-glow": $arc-clr-live-casino-glow,
+                "arc-clr-live-casino-glow-second": $arc-clr-live-casino-glow-second
                 );
 
 // Modals //
