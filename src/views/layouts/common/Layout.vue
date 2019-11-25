@@ -18,15 +18,11 @@ export default {
   },
   computed: {
     titleKind () {
-      if (this.$route.name === 'live') {
-        return 'live'
-      }
-
       return this.$route.params.titleKind || ESPORTS
     },
     layoutName () {
       const name = this.isMobile ? 'mobile' : 'desktop'
-      return () => import(`@/views/layouts/${name}/${this.pageType}/Layout`)
+      return () => import(`@/views/layouts/${name}/Layout`)
     }
   },
   updated () {
