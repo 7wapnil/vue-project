@@ -1,4 +1,4 @@
-export const InformationPages = {
+export const support = {
   routes: [
     {
       path: 'support',
@@ -125,4 +125,4 @@ export const InformationPages = {
   ]
 }
 
-export default InformationPages
+export default support
