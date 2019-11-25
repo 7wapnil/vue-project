@@ -34,7 +34,7 @@
 import { UNLIMITED_QUERY } from '@/constants/graphql/limits'
 import { EVENT_BY_ID_QUERY } from '@/graphql'
 import MarketsCategories from '@/components/markets/MarketsCategories'
-import HeaderSection from './header-section/HeaderSection'
+import HeaderSection from '@/views/event/header-section/HeaderSection'
 import MarketsList from '@/components/markets/MarketsList'
 import EventDetailsCard from '@/components/cards/EventDetailsCard'
 import MarketCategory from '@/components/markets/MarketCategory'
@@ -61,6 +61,9 @@ export default {
   computed: {
     eventId () {
       return this.$route.params.id
+    },
+    eventName () {
+      return this.$route.params.eventName
     }
   },
   watch: {
