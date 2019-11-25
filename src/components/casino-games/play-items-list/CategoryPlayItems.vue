@@ -30,10 +30,9 @@
             class="play-items-container d-flex flex-row flex-wrap align-items-center justify-content-start"
             name="play-items">
             <category-play-item
-              v-for="(playItem, n) in playItems"
+              v-for="playItem in playItems"
               :key="playItem.id"
               :item="playItem"
-              :style="{ transitionDelay: transitionDelay }"
             />
           </transition-group>
         </b-col>
@@ -52,13 +51,6 @@ export default {
     playItems: {
       type: Array,
       default: () => { return [] }
-    }
-  },
-  methods: {
-    transitionDelay () {
-      for (i = 0; i < 4; i++) {
-        this.playItems[i].style.transitionDelay = `${i * 0.1}s`;
-      }
     }
   }
 }

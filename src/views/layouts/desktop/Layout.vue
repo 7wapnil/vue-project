@@ -11,8 +11,9 @@
         <b-col
           v-show="$route.meta.components.content"
           class="bg-arc-clr-soil-light">
-          <router-view v-show="$route.meta.components.header"
-                       name="header">
+          <router-view
+            v-show="$route.meta.components.header"
+            name="header">
             <router-view name="tabs"/>
           </router-view>
           <router-view name="content"/>

@@ -30,10 +30,10 @@ export default [
         gamelist: GamesList
       },
       children: [{
-          path: ':gameName',
-          name: 'casino-game',
-          props: true,
-          component: CasinoGamePage
+        path: ':gameName',
+        name: 'casino-game',
+        props: true,
+        component: CasinoGamePage
       }]
     }]
   },
