@@ -24,7 +24,7 @@ export default {
         subscribeToMore: {
           document: TABLE_CATEGORIES_UPDATED,
           variables: {
-            device: this.deviceType
+            device: this.deviceType()
           },
           updateQuery: (currentCategories, { subscriptionData: { data } }) => {
             return {
@@ -44,21 +44,14 @@ export default {
   },
   data () {
     return {
-      categories: [],
-      defaultTab: {
-        position: 0,
-        label: 'Live',
-        context: 'default'
-      }
+      categories: []
     }
   },
   computed: {
     tabs () {
-      let tabs = this.categories.map((tab, index) => {
-        return { ...tab, icon: findCategoryIcon(tab), index: index + 1 } // + 1 because of default category
+      return this.categories.map((tab, index) => {
+        return { ...tab, icon: findCategoryIcon(tab), index: index }
       })
-
-      return [{ ...this.defaultTab, icon: findCategoryIcon(this.defaultTab) }, ...tabs]
     },
     currentTabIndex () {
       if (this.currentTab) return this.currentTab.index

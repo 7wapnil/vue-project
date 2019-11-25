@@ -25,9 +25,6 @@
     <games-overview
       v-if="gamesOverview"
       @tab-changed="onCategoryChange"/>
-    <tables-overview
-      v-if="tablesOverview"
-      @tab-changed="onCategoryChange"/>
     <games-list
       v-if="checkEventKind('casino') && !defaultTab()"
       :selected-category="selectedCategory"/>
@@ -46,7 +43,6 @@ import Search from '@/components/casino-games/header-section/Search'
 import GamesList from '@/components/casino-games/GamesList'
 import TablesList from '@/components/casino-games/TablesList'
 import GamesOverview from '@/components/casino-games/GamesOverview'
-import TablesOverview from '@/components/casino-games/TablesOverview'
 
 export default {
   components: {
@@ -56,8 +52,7 @@ export default {
     Search,
     GamesList,
     TablesList,
-    GamesOverview,
-    TablesOverview
+    GamesOverview
   },
   data () {
     return {
@@ -73,9 +68,6 @@ export default {
     },
     gamesOverview () {
       return this.checkEventKind('casino') && this.defaultTab()
-    },
-    tablesOverview () {
-      return this.checkEventKind('live-casino') && this.defaultTab()
     }
   },
   methods: {
