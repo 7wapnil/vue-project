@@ -7,9 +7,7 @@
       <category-switch/>
     </template>
     <template #content>
-      <mobile-sidemenu>
-        <mobile-header-item/>
-      </mobile-sidemenu>
+      <router-view name="left"/>
     </template>
   </sidebar>
 </template>
