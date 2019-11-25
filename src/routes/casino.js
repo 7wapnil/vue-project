@@ -10,7 +10,6 @@ export default [
   {
     path: '/casino',
     name: 'casino',
-    redirect: '/casino/new',
     components: {
       left: CasinoSidebar,
       header: CasinoHeader,
