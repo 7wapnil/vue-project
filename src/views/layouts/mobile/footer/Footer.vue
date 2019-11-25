@@ -100,7 +100,7 @@
 </template>
 
 <script>
-import InformationPages from '@/routes/information_pages'
+import InformationPages from '@/routes/support'
 import FooterMenuItem from './FooterMenuItem'
 
 export default {
