@@ -50,3 +50,11 @@ export const GAMES_OVERVIEW_QUERY = gql`
     }
   }
 `
+
+export const TABLES_OVERVIEW_QUERY = gql`
+  query tablesOverview {
+    tablesOverview {
+     ${OVERVIEW_FIELDS}
+    }
+  }
+`
