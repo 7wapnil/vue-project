@@ -1,10 +1,9 @@
 <template>
-  <b-row
-          no-gutters>
+  <b-row no-gutters>
     <b-col :class="[isMobile ? 'live-casino-header-mobile-container' :
       'live-casino-header-desktop-container']">
       <b-img
-              :src="require('@/assets/images/casino-games/arcane-live-casino-header-promo.png')"
+              :src="require('@/assets/images/live-casino-games/arcane-live-casino-header-promo.png')"
               :height="backgroundHeight"
               fluid-grow
               alt="Arcanebet-Casino-Promo"/>
