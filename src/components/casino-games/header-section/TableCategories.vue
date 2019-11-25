@@ -44,14 +44,21 @@ export default {
   },
   data () {
     return {
-      categories: []
+      categories: [],
+      defaultTab: {
+        position: 0,
+        label: 'Live',
+        context: 'default'
+      }
     }
   },
   computed: {
     tabs () {
-      return this.categories.map((tab, index) => {
-        return { ...tab, icon: findCategoryIcon(tab), index: index }
+      let tabs = this.categories.map((tab, index) => {
+        return { ...tab, icon: findCategoryIcon(tab), index: index + 1 } // + 1 because of default category
       })
+
+      return [{ ...this.defaultTab, icon: findCategoryIcon(this.defaultTab) }, ...tabs]
     },
     currentTabIndex () {
       if (this.currentTab) return this.currentTab.index

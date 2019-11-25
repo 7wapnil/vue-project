@@ -2,8 +2,7 @@
   <div class="casino-games-list">
     <category-play-items
       :play-items="tablesCollection"
-      :category="selectedCategory"
-      :casino="false"/>
+      :category="selectedCategory"/>
     <div v-observe-visibility="onLastItem" />
     <b-row
       id="noMoreResults"
