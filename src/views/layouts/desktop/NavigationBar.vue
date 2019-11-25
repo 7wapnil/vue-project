@@ -13,8 +13,8 @@
       <b-navbar-nav id="top-navigation">
         <b-nav-item
           v-for="item in mainMenu"
-          :key="item.path"
-          :to="item.path"
+          :key="item.id"
+          :to="item.route"
           class="navbar-menu-item font-weight-bold">
           {{ item.label }}
         </b-nav-item>
@@ -64,20 +64,20 @@ export default {
   data () {
     return {
       mainMenu: [
-        {
-          path: '/esports',
+        { id: 1,
+          route: {name: 'esports'},
           label: this.$i18n.t('homePage.esport')
         },
-        {
-          path: '/sports',
+        { id: 2,
+            route: {name: 'sports'},
           label: this.$i18n.t('homePage.sport')
         },
-        {
-          path: '/casino',
+        { id: 3,
+            route: {name: 'casino'},
           label: this.$i18n.t('homePage.casino')
         },
-        {
-          path: '/live-casino',
+        { id: 4,
+            route: {name: 'live-casino'},
           label: this.$i18n.t('homePage.liveCasino')
         }
       ],
