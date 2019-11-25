@@ -54,7 +54,7 @@
   </b-nav>
 </template>
 <script>
-import InformationPages from '@/routes/information_pages'
+import InformationPages from '@/routes/support'
 
 export default {
   data () {
