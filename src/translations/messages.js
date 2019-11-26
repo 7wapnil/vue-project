@@ -306,7 +306,8 @@ const messages = {
           bank: 'Bank statement',
           card: 'Credit/Debit card',
           other: 'Other'
-        }
+        },
+        activated: 'Your account has been successfully activated'
       }
     },
     common: {
