@@ -4,9 +4,9 @@
     :state="form.errors.state('dateOfBirth')">
     <b-row no-gutters>
       <b-col
-        cols="12"
+        cols="4"
         md="4"
-        class="mb-3 mb-md-0 pr-0 pr-md-3">
+        class="mb-3 mb-md-0 pr-1 pr-md-3">
         <b-form-select
           id="signup-day"
           v-model="model.day"
@@ -15,9 +15,9 @@
           @input="form.clearError(['dateOfBirth'])"/>
       </b-col>
       <b-col
-        cols="12"
+        cols="4"
         md="4"
-        class="pr-0 pr-md-3 mb-3 mb-md-0">
+        class="pr-1 pr-md-3 mb-3 mb-md-0">
         <b-form-select
           id="signup-month"
           v-model="model.month"
@@ -26,7 +26,7 @@
           @input="form.clearError(['dateOfBirth'])"/>
       </b-col>
       <b-col
-        cols="12"
+        cols="4"
         md="4">
         <b-form-select
           id="signup-year"

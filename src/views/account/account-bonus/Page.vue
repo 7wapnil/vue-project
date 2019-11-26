@@ -10,7 +10,7 @@
     <progress-scale
       v-if="getMainBonus"
       :value="getMainBonusPercentageValue"/>
-    <bonus-items :bonus-items="customerBonuses"/>
+    <bonus-items :bonus-items="bonuses"/>
   </div>
 </template>
 
@@ -22,6 +22,7 @@ import BonusPlaceholder from '@/views/account/account-bonus/BonusPlaceholder'
 import BonusHeader from '@/views/account/account-bonus/BonusHeader'
 import { BONUSES_LIST_QUERY } from '@/graphql'
 import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
+import { ACTIVE } from '@/constants/bonus-statuses'
 
 export default {
   components: {
@@ -33,7 +34,7 @@ export default {
   },
   data () {
     return {
-      customerBonuses: []
+      bonuses: []
     }
   },
   computed: {
@@ -49,11 +50,11 @@ export default {
       return parseFloat(calculatedPercentage.toFixed(2))
     },
     getMainBonus () {
-      return this.customerBonuses.find((bonus) => bonus.status === 'active')
+      return this.bonuses.find((bonus) => bonus.status === ACTIVE)
     }
   },
   apollo: {
-    customerBonuses () {
+    bonuses () {
       return {
         query: BONUSES_LIST_QUERY,
         fetchPolicy: NETWORK_ONLY

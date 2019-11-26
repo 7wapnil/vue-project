@@ -18,17 +18,15 @@ export const USER_QUERY = gql`
       email
       firstName
       lastName
-      gender
       phone
       username
       addressCountry
       addressCity
-      addressZipCode
       addressStreetAddress
-      addressState
       wallets {
         ${WALLET_FIELDS}
       }
+      needMoreInfo
     }
   }
 `
@@ -152,9 +150,11 @@ export const SIGN_IN_MUTATION = gql`
         username
         firstName
         lastName
+        addressCountry
         wallets {
           ${WALLET_FIELDS}
         }
+        needMoreInfo
       }
       token
     }
@@ -162,8 +162,8 @@ export const SIGN_IN_MUTATION = gql`
 `
 
 export const SIGN_UP_MUTATION = gql`
-  mutation($input: RegisterInput!, $customerData: CustomerDataInput) {
-    signUp(input: $input, customerData: $customerData) {
+  mutation($input: RegisterInput!, $userData: UserDataInput) {
+    signUp(input: $input, userData: $userData) {
        user {
         id
         email
@@ -171,6 +171,13 @@ export const SIGN_UP_MUTATION = gql`
         wallets {
           ${WALLET_FIELDS}
         }
+        firstName
+        lastName
+        phone
+        addressCountry
+        addressCity
+        addressStreetAddress
+        needMoreInfo
       }
       token
     }
@@ -181,6 +188,19 @@ export const TOKEN_VERIFICATION_QUERY = gql`
     verifyPasswordToken(token: $token) {
       message
       success
+    }
+  }
+`
+
+export const UPDATE_USER_MUTATION = gql`
+  mutation ($input: UpdateUserInput!) {
+    updateUser(input: $input) {
+      firstName
+      lastName
+      phone
+      addressCity
+      addressStreetAddress
+      needMoreInfo
     }
   }
 `
