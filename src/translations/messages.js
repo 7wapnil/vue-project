@@ -229,7 +229,7 @@ const messages = {
         depositHeader: 'Deposit Funds',
         depositSummary: 'Deposit summary',
         total: 'Total to be added',
-        moneyTransferInformation: 'The money will be transferred directly in to your Arcanebet account. When you have won some bets you can look forward to easy and fast withdrawals without fees!\n',
+        moneyTransferInformation: 'The money will be transferred directly in to your arcanebet account. When you have won some bets you can look forward to easy and fast withdrawals without fees!\n',
         depositPaymentMethodInformation: 'This is only a list of payment methods we support. You will select the one that suits you on the next page. We do not charge service fees.',
         crypto: {
           howTo: "You can send money from your wallet to provided crypto address. Our service will process the payment and fill your balance automatically.</br> <b>Reminder.</b> In case if you want to send another sum of money, applied bonus code could be ignored. If you're experiencing some issues with crypto payment, feel free to contact our support team. We're always glad to help you!",
@@ -238,7 +238,7 @@ const messages = {
           scanQRCode: 'or scan QR code:'
         },
         serviceFees: 'We do not charge service fees.',
-        paymentMethodsSupport: 'This is only a list of payment methods we support.You will select the one that suits you on the next page.',
+        paymentMethodsSupport: 'This is only a list of payment methods we support. You will select the one that suits you on the next page.',
         bonusDescription: 'Bonus code description'
       },
       withdraw: {
