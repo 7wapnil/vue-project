@@ -6,7 +6,9 @@ import { AUTH_INFO_QUERY,
   PASSWORD_RESET_REQUEST_MUTATION,
   PASSWORD_RESET_MUTATION,
   USER_QUERY,
-  WALLET_UPDATED_SUBSCRIPTION } from '@/graphql/index'
+  WALLET_UPDATED_SUBSCRIPTION,
+  UPDATE_USER_MUTATION,
+} from '@/graphql/index'
 import { NO_CACHE } from '@/constants/graphql/fetch-policy'
 import { wsClient } from '@/libs/apollo/ws-link'
 import router from '@/routes'
@@ -39,8 +41,28 @@ export const actions = {
       mutation: SIGN_UP_MUTATION,
       variables: {
         input: sessionData,
-        customerData: sbjsData
+        userData: sbjsData
       }
+    })
+    return response
+  },
+  async updateUserInfo (context, [sessionData, sbjsData]) {
+    const response = await graphqlClient.mutate({
+      mutation: UPDATE_USER_MUTATION,
+      variables: {
+        input: sessionData,
+        customerData: sbjsData
+      },
+      update: (store, { data: { updateUser } }) => {
+        const data = store.readQuery({ query: USER_QUERY });
+        data.user = { ...data.user, ...updateUser };
+        store.writeQuery({ query: USER_QUERY, data });
+      },
+    })
+    const { updateUser } = response.data
+    context.commit('updateUser', {
+      token: context.getters.getToken,
+      user: { ...context.getters.getUser, ...updateUser }
     })
     return response
   },

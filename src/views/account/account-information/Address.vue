@@ -1,6 +1,7 @@
 <template>
   <div>
     <b-row
+      v-if="user.addressCountry"
       class="mb-4"
       no-gutters>
       <b-col
@@ -25,6 +26,7 @@
     </b-row>
 
     <b-row
+      v-if="user.addressState"
       class="mb-4"
       no-gutters>
       <b-col
@@ -49,6 +51,7 @@
     </b-row>
 
     <b-row
+      v-if="user.addressCity"
       class="mb-4"
       no-gutters>
       <b-col
@@ -73,6 +76,7 @@
     </b-row>
 
     <b-row
+      v-if="user.addressZipCode"
       class="mb-4"
       no-gutters>
       <b-col
@@ -106,6 +110,7 @@
     </b-row>
 
     <b-row
+      v-if="user.phone"
       no-gutters>
       <b-col
         cols="3"

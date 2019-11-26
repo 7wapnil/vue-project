@@ -11,8 +11,8 @@ export const BONUS_CALCULATION_MUTATION = gql`
 `
 
 export const BONUSES_LIST_QUERY = gql`
-  query customerBonuses {
-    customerBonuses {
+  query bonuses {
+    bonuses {
       ${BONUSES_LIST_FIELDS}
     }
   }

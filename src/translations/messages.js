@@ -10,6 +10,27 @@ const messages = {
       cta: {
         login: 'Login',
         signup: 'SignUp'
+      },
+      signUpForm: {
+        username: 'Username',
+        email: 'Email',
+        dob: 'Date of Birth',
+        password: 'Password',
+        show: 'SHOW',
+        hide: 'HIDE',
+        country: 'Country',
+        currency: 'Currency',
+        agreedWithPromotional: 'I agree to receive promotional content',
+        register: 'Register'
+      },
+      depositAdditionalInfo: {
+        firstName: 'First Name',
+        lastName: 'Last Name',
+        phone: 'Phone',
+        phoneNumber: 'Phone Number',
+        streetAddress: 'Street Address',
+        city: 'City',
+        next: 'Next'
       }
     },
     meta: {
@@ -274,6 +295,7 @@ const messages = {
       accountInfo: {
         email: 'Email',
         username: 'Username',
+        password: 'Password',
         language: 'Language',
         currency: 'Currency',
         privateData: 'Private Data',

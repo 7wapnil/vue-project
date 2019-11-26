@@ -1,109 +1,55 @@
 <template>
   <b-form @submit.prevent="submit">
-    <b-tabs
-      v-model="tabIndex"
-      active-nav-item-class="sign-form-tabs"
-      nav-class="sign-form-tabs"
-      content-class="sign-form-tabs-content"
-      lazy
-      justified
-      end>
-      <b-tab
-        title="Personal information"
-        title-item-class="sign-form-tabs-title">
-        <signup-first-step
-          :dob-proxy="proxyDOB"
-          :form="form"
-          :countries="countries"
-          @submit="goToStep(1)"/>
-      </b-tab>
-      <b-tab
-        title="Contact information"
-        title-item-class="sign-form-tabs-title">
-        <signup-second-step
-          :submitting="submitting"
-          :countries="countries"
-          :form="form"
-          @return="goToStep(0)"/>
-      </b-tab>
-    </b-tabs>
+    <signup-form
+      :submitting="submitting"
+      :dob-proxy="proxyDOB"
+      :form="form"
+      :countries="countries"/>
   </b-form>
 </template>
 
 <script>
 import { Form } from '@/helpers'
-import SignupFirstStep from './SignupFirstStep'
-import SignupSecondStep from './SignupSecondStep'
+import SignupForm from './SignupForm'
 import SelectInput from '@/components/inputs/SelectInput.vue'
 import { getCookie } from '@/helpers/cookies'
-import { countries as countriesList } from 'countries-list'
-import { unsupportedCountries } from '@/constants/unsupported-countries'
-
-const countries = Object
-  .values(countriesList)
-  .map((country) => ({
-    value: country.name,
-    text: country.name,
-    phone: country.phone
-  }))
-  .sort((a, b) => {
-    if (a.value < b.value) { return -1 }
-    if (a.value > b.value) { return 1 }
-    return 0
-  })
-  .filter(({ value }) => !unsupportedCountries.includes(value))
+import { supportedCountries as countries } from '@/helpers/countries';
 
 export default {
   components: {
     'select-component': SelectInput,
-    SignupFirstStep,
-    SignupSecondStep
+    SignupForm
   },
   data () {
     return {
       form: new Form({
-        firstStep: {
+        registration: {
           username: '',
           email: '',
           dateOfBirth: '',
           password: '',
-          passwordConfirmation: '',
           country: '',
           currency: 'EUR',
-        },
-        secondStep: {
-          firstName: '',
-          lastName: '',
-          gender: 'male',
-          phone: '',
-          streetAddress: '',
-          city: '',
-          state: '',
-          zipCode: '',
           agreedWithPromotional: false,
           agreedWithPrivacy: false,
         }
       }),
       submitting: false,
-      tabIndex: 0,
+      countries,
       proxyDOB: {
         day: null,
         month: null,
         year: null
       },
-      countries
     }
   },
   methods: {
-    goToStep (step) {
-      this.tabIndex = step
-    },
     close () {
       this.$bvModal.hide('AuthModal')
     },
     composeDob () {
       const { year, month, day } = this.proxyDOB
-      this.form.firstStep.dateOfBirth = `${year}-${month}-${day}`
+      this.form.registration.dateOfBirth = `${year}-${month}-${day}`
     },
     submit () {
       this.form.clearErrors()
@@ -112,35 +58,35 @@ export default {
       this.$sbjs.initAndSetData()
 
       const input = {
-        ...this.form.firstStep,
-        ...this.form.secondStep,
-        bTag: getCookie('btag') || null }
+        ...this.form.registration,
+        bTag: getCookie('btag') || null,
+      }
 
       this.$store
         .dispatch('registerNewUser', [input, this.$sbjs.data])
-        .then(({ data: { signUp } }) => {
-          this.$store.dispatch('login', signUp)
+        .then(({ data: { signUp } }) => this.submitSuccess(signUp))
+        .catch(({ graphQLErrors }) => this.submitError(graphQLErrors))
+        .finally(() => (this.submitting = false))
+    },
+    submitSuccess (signUp) {
+      this.$store.dispatch('login', signUp)
 
-          this.$gtm.push({
-            'event': 'customerCreated',
-            'gaClientID': this.computeGaClientID() || null,
-            'customerID': signUp.user.id || null,
-            'affiliateID': this.computeAffiliateID() || null
-          })
+      this.$gtm.push({
+        'event': 'customerCreated',
+        'gaClientID': this.computeGaClientID() || null,
+        'customerID': signUp.user.id || null,
+        'affiliateID': this.computeAffiliateID() || null
+      })
 
-          this.$router.push({ name: 'home' })
-          this.close()
-        })
-        .catch((err) => {
-          let { graphQLErrors } = err
-          let firstErrorPath = graphQLErrors[0].path.toString()
-
-          if (this.form.firstStep.hasOwnProperty(firstErrorPath)) { this.goToStep(0) }
-          this.form.handleGraphQLErrors(err)
-        })
-        .finally(() => {
-          this.submitting = false
-        })
+      this.$router.push({ name: 'home' })
+      this.close()
+    },
+    submitError (graphQLErrors) {
+      const errors = {}
+      graphQLErrors.forEach((error) => {
+        errors[error.path] = error.message
+      })
+      this.form.setErrors(errors)
     },
     computeAffiliateID () {
       const path = this.$route.fullPath

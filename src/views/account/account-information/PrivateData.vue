@@ -1,6 +1,7 @@
 <template>
   <div>
     <b-row
+      v-if="user.firstName"
       class="mb-4"
       no-gutters>
       <b-col
@@ -24,6 +25,7 @@
     </b-row>
 
     <b-row
+      v-if="user.lastName"
       class="mb-4"
       no-gutters>
       <b-col
@@ -42,31 +44,6 @@
         <b-form-input
           id="lastName"
           :value="user.lastName"
-          disabled/>
-      </b-col>
-    </b-row>
-
-    <b-row
-      class="mb-4"
-      no-gutters>
-      <b-col
-        cols="3"
-        class="d-flex align-items-center justify-content-end">
-        <label
-          for="gender"
-          class="text-right text-arc-clr-iron font-size-14 letter-spacing-2 mb-0">
-          {{ $t('account.accountInfo.gender') }}:
-        </label>
-      </b-col>
-      <b-col
-        class="pl-4"
-        cols="9"
-        lg="6">
-        <b-form-select
-          id="gender"
-          :value="null"
-          :options="[{value: null, text: user.gender}]"
-          class="h-100 text-capitalize"
           disabled/>
       </b-col>
     </b-row>

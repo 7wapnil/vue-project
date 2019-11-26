@@ -6,7 +6,6 @@ query transactions ($filter: TransactionKind, $page: Int, $perPage: Int) {
   transactions (filter: $filter, page: $page, perPage: $perPage) {
     collection {
       id
-      customerId
       createdAt
       amount
       comment

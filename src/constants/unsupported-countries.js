@@ -22,5 +22,5 @@ export const unsupportedCountries = [
   'United Arab Emirates',
   'U.S. Virgin Islands',
   'U.S. Minor Outlying Islands',
-  'United States'
+  'United States',
 ]
