@@ -37,7 +37,7 @@
                 Well done!
               </h4>
               <p class="letter-spacing-2">
-                Your account successfully activated
+                {{ $t('account.accountVerification.activated') }}
               </p>
             </div>
           </b-col>
