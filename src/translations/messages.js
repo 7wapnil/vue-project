@@ -247,6 +247,7 @@ const messages = {
         cardHolderName: 'Card holder name',
         skrillAddress: 'Skrill address',
         nettelerAddress: 'Neteller address',
+        iDebitAccountId: 'iDebit account id',
         arcanebetPassword: 'Arcanebet password',
         notAvailable: 'The withdrawal page will only be available once you\'ve made a successful deposit and your account has been verified.<br/><br/>Please make a deposit using your preferred method and upload your documents via our verification tab to unlock this page.',
         withdrawNoFeeInformation: 'Debit/Credit Card withdrawals come with a 0% withdrawal fee',

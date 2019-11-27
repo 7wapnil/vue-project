@@ -12,6 +12,7 @@ import SkinwalletIcon from '@/assets/images/withdrawal-methods/skinwallet.png'
 import SkinpayIcon from '@/assets/images/withdrawal-methods/skinpay.png'
 import QiwiIcon from '@/assets/images/withdrawal-methods/qiwi.png'
 import PaysafecardIcon from '@/assets/images/withdrawal-methods/paysafecard.png'
+import IdebitIcon from '@/assets/images/withdrawal-methods/idebit.png'
 import MruIcon from '@/assets/images/withdrawal-methods/mru.png'
 import CreditCardIcon from '@/assets/images/withdrawal-methods/card.png'
 import BitcoinIcon from '@/assets/images/withdrawal-methods/btc.png'
@@ -33,6 +34,7 @@ export default {
         mru: MruIcon,
         bitcoin: BitcoinIcon,
         paysafecard: PaysafecardIcon,
+        idebit: IdebitIcon,
         qiwi: QiwiIcon,
         skinpay: SkinpayIcon,
         skinwallet: SkinwalletIcon,

@@ -142,6 +142,7 @@ import Skrill from './withdrawal-methods/Skrill'
 import Neteller from './withdrawal-methods/Neteller'
 import CreditCard from './withdrawal-methods/CreditCard'
 import Bitcoin from './withdrawal-methods/Bitcoin'
+import Idebit from './withdrawal-methods/Idebit'
 
 export default {
   props: {
@@ -158,7 +159,8 @@ export default {
         'credit_card': CreditCard,
         'skrill': Skrill,
         'bitcoin': Bitcoin,
-        'neteller': Neteller
+        'neteller': Neteller,
+        'idebit': Idebit
       },
       form: new Form({
         amount: null,
