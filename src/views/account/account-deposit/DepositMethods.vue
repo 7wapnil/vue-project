@@ -24,6 +24,7 @@ import Skrill from '@/assets/images/withdrawal-methods/skrill.png'
 import Skinpay from '@/assets/images/withdrawal-methods/skinpay.png'
 import Qiwi from '@/assets/images/withdrawal-methods/qiwi.png'
 import Paysafecard from '@/assets/images/withdrawal-methods/paysafecard.png'
+import Idebit from '@/assets/images/withdrawal-methods/idebit.png'
 import Mru from '@/assets/images/withdrawal-methods/mru.png'
 import CreditCard from '@/assets/images/withdrawal-methods/card.png'
 import Bitcoin from '@/assets/images/withdrawal-methods/btc.png'
@@ -39,6 +40,7 @@ export default {
         Skinpay,
         Qiwi,
         Paysafecard,
+        Idebit,
         Mru,
         CreditCard,
         Bitcoin,

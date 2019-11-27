@@ -11,7 +11,8 @@ const fragmentMatcher = new IntrospectionFragmentMatcher({
             { name: 'PaymentMethodBitcoin' },
             { name: 'PaymentMethodCreditCard' },
             { name: 'PaymentMethodSkrill' },
-            { name: 'PaymentMethodNeteller' }
+            { name: 'PaymentMethodNeteller' },
+            { name: 'PaymentMethodIdebit' }
           ]
         }
       ]
