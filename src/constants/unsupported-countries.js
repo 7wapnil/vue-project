@@ -17,6 +17,7 @@ export const unsupportedCountries = [
   'Russia',
   'Singapore',
   'Sweden',
+  'Ukraine',
   'United Kingdom',
   'United Arab Emirates',
   'U.S. Virgin Islands',
