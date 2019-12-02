@@ -1,15 +1,16 @@
 <template>
   <i
     :style="{ 'font-size': fontSize }"
-    :class="'arc ' + 'arc-' + `${ name }` + `${ color ? ' text-' + `${ color }` : ''}`"/>
+    :class="iconName, textColor, isDisabled"/>
 </template>
 
 <script>
 export default {
+  name: 'ArcIcon',
   props: {
     name: {
       type: String,
-      default: ''
+      default: 'arcanebet-default-icon',
     },
     size: {
       type: [String, Number],
@@ -24,6 +25,12 @@ export default {
   computed: {
     fontSize () {
       return `${parseInt(this.size)}px`
+    },
+    textColor () {
+      return this.color ? `text-${this.color}` : ''
+    },
+    iconName () {
+      return `arc arc-${this.name}`
     }
   }
 }
