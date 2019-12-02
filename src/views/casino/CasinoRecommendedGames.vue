@@ -21,6 +21,7 @@ import { RECOMMENDED_GAMES_QUERY } from '@/graphql'
 import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
 
 export default {
+  name: 'CasinoRecommendedGames',
   data () {
     return {
       recommendedItems: []

@@ -19,6 +19,7 @@ import { mapMutations } from 'vuex'
 import CasinoRecommendedGames from '@/views/casino/CasinoRecommendedGames'
 
 export default {
+  name: 'CasinoGameSidebar',
   components: {
     CasinoRecommendedGames
   },

@@ -17,7 +17,7 @@
 
 <script>
 import MobileNavigationBar from './NavigationBar'
-import MobileFooter from './footer/Footer'
+import MobileFooter from '@/views/layouts/mobile/footer/Footer'
 import NavigationSidebar from './sidemenu/SidebarLayout'
 import { mapGetters, mapMutations } from 'vuex'
 import BetslipButton from './betslip/BetslipButton'
