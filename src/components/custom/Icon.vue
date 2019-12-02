@@ -1,7 +1,7 @@
 <template>
   <i
     :style="{ 'font-size': fontSize }"
-    :class="iconName, textColor, isDisabled"/>
+    :class="iconName, textColor"/>
 </template>
 
 <script>
