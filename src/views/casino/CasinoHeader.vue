@@ -21,6 +21,7 @@ const MOBILE_BACKGROUND_HEIGHT = '172'
 const DESKTOP_BACKGROUND_HEIGHT = '356'
 
 export default {
+  name: 'CasinoHeader',
   computed: {
     backgroundHeight () {
       return this.isMobile ? MOBILE_BACKGROUND_HEIGHT : DESKTOP_BACKGROUND_HEIGHT

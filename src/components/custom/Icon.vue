@@ -1,6 +1,6 @@
 <template>
   <i
-    :style="{ 'font-size': parseInt(size) + 'px' }"
+    :style="{ 'font-size': fontSize }"
     :class="'arc ' + 'arc-' + `${ name }` + `${ color ? ' text-' + `${ color }` : ''}`"/>
 </template>
 
@@ -19,6 +19,11 @@ export default {
       type: [String, Array],
       default: '',
       required: false
+    }
+  },
+  computed: {
+    fontSize () {
+      return `${parseInt(this.size)}px`
     }
   }
 }

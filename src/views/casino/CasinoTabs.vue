@@ -33,6 +33,7 @@
 
 <script>
 export default {
+  name: 'CasinoTabs',
   data () {
     return {
       arrows: true,

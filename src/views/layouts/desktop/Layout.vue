@@ -32,6 +32,7 @@ import DesktopNavigationBar from './NavigationBar'
 import DesktopFooter from './Footer'
 
 export default {
+  name: 'Layout',
   components: {
     DesktopNavigationBar,
     DesktopFooter

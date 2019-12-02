@@ -31,6 +31,7 @@
 
 <script>
 export default {
+  name: 'CasinoSidemenu',
   data () {
     return {
       menuItems: [

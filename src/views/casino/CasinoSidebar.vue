@@ -20,6 +20,7 @@ import CasinoPromotionalItem from '@/views/casino/CasinoPromotionalItem'
 import CasinoSidemenu from '@/views/casino/CasinoSidemenu'
 
 export default {
+  name: 'CasinoSidebar',
   components: {
     CasinoPromotionalItem,
     CasinoSidemenu

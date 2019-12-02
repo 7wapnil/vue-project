@@ -190,10 +190,3 @@ export const CASINO_RECOMMENDED_GAMES_FIELDS = `
   type
   url
 `
-
-export const OVERVIEW_FIELDS = `
-  ${CASINO_CATEGORIES_FIELDS}
-  playItems {
-    ${PLAY_ITEM_FIELDS}
-  }
-`
