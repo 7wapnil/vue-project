@@ -41,7 +41,7 @@ export default {
       return this.viewItems.header
     },
     mainDocument () {
-      if (this.$route.path.includes('terms-and-conditions') || this.$route.path.includes('betting-rules')) {
+      if (this.$route.path.includes('betting-rules')) {
         return this.viewItems.body
       }
       return documentToHtmlString(this.viewItems.body)
