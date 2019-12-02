@@ -5,12 +5,12 @@ import Sports from '@/routes/sports'
 import Casino from '@/routes/casino'
 import LiveCasino from '@/routes/live-casino'
 import support from '@/routes/support'
-import NotFound from '@/views/layouts/common/NotFound'
 import Maintenance from '@/views/layouts/common/Maintenance'
 import { setCookie } from '@/helpers/cookies'
 import moment from 'moment'
 import filters from '@/mixins/filters'
 import { colors } from '@/constants/android-theme-colors'
+import Layout from '@/views/layouts/common/Layout'
 
 const rootChilds = [...Esports, ...Sports, ...LiveCasino, ...Casino, ...support.routes, ...system]
 
@@ -22,7 +22,7 @@ const router = new Router({
       path: '/',
       redirect: '/esports',
       name: 'home',
-      component: () => import('@/views/layouts/common/Layout'),
+      component: Layout,
       children: rootChilds
     },
     {
@@ -30,16 +30,6 @@ const router = new Router({
       name: 'Maintenance',
       component: Maintenance
     },
-    {
-      path: '/not-found',
-      name: 'not-found',
-      component: NotFound
-    },
-    {
-      path: '/*',
-      name: 'NotFound',
-      component: NotFound
-    }
   ],
   scrollBehavior (to, from, savedPosition) {
     return new Promise((resolve, reject) => {
@@ -55,6 +45,11 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
+  const path = to.matched[1].path.split('/')
+  if (path) {
+    to.params.titleKind = path[1]
+  }
+
   if (to.params.titleKind) {
     document.title = `${filters.capitalizeFirstLetter(to.params.titleKind)} - Arcanebet`
   }
@@ -62,11 +57,6 @@ router.beforeEach((to, from, next) => {
   const components = to.matched[to.matched.length - 1].components
   if (components) {
     to.meta.components = components
-  }
-
-  const path = to.matched[1].path
-  if (path) {
-    to.params.titleKind = path.slice(1)
   }
 
   const section = to.meta.themeColor || to.params.titleKind

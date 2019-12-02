@@ -178,3 +178,22 @@ export const EVERY_MATRIX_TRANSACTION_FIELDS = `
   vendorName
   createdAt
 `
+
+export const CASINO_RECOMMENDED_GAMES_FIELDS = `
+  backgroundImageUrl
+  description
+  id
+  logoUrl
+  name
+  shortName
+  slug
+  type
+  url
+`
+
+export const OVERVIEW_FIELDS = `
+  ${CASINO_CATEGORIES_FIELDS}
+  playItems {
+    ${PLAY_ITEM_FIELDS}
+  }
+`

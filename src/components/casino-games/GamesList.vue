@@ -1,14 +1,12 @@
 <template>
-  <div class="casino-games-list">
-    <category-play-items
-      :play-items="gamesCollection"
-      :category="selectedCategory"/>
-    <div v-observe-visibility="onLastItem" />
+  <div>
+    <category-play-items :play-items="gamesCollection"/>
+    <loader v-if="$apollo.loading"/>
     <b-row
-      id="noMoreResults"
-      class="text-left d-none">
-      <b-col class="pl-5">
-        <p>No more games</p>
+      v-if="!$apollo.loading && !gamesCollection.length"
+      no-gutters>
+      <b-col class="text-center p-4">
+        No result
       </b-col>
     </b-row>
   </div>
@@ -24,9 +22,9 @@ export default {
     CategoryPlayItems
   },
   props: {
-    selectedCategory: {
-      type: Object,
-      required: true
+    category: {
+      type: String,
+      default: ''
     }
   },
   data () {
@@ -44,7 +42,7 @@ export default {
         fetchPolicy: NETWORK_ONLY,
         variables () {
           return {
-            context: this.selectedCategory.context,
+            context: this.computedCategory,
             page: 1,
             perPage: this.itemsPerPage
           }
@@ -57,24 +55,16 @@ export default {
     }
   },
   computed: {
+    computedCategory () {
+      return this.isMobile ? `${this.category}-mobile` : `${this.category}-desktop`
+    },
     lastPage () {
       return this.paginationProps.next === null
     }
   },
   methods: {
-    onLastItem (isVisible) {
-      if (!isVisible) return;
-
-      if (this.paginationProps.next === null) {
-        document.getElementById('noMoreResults').classList.remove('d-none');
-      } else {
-        document.getElementById('noMoreResults').classList.add('d-none')
-        this.loadMoreGames()
-      }
-    },
     loadMoreGames () {
       this.page = this.paginationProps.next
-
       this.$apollo.queries.games.fetchMore({
         variables: {
           perPage: this.itemsPerPage,
@@ -90,7 +80,6 @@ export default {
     },
     mergePlayItems (oldItems, newItems) {
       newItems.games.collection = [...oldItems.games.collection, ...newItems.games.collection]
-
       return newItems
     }
   }

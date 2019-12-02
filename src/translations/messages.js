@@ -167,6 +167,9 @@ const messages = {
           interestingCategories: 'Interesting categories',
           special: 'Special'
         }
+      },
+      cta: {
+        depositNow: 'Deposit Now',
       }
     },
     betslip: {

@@ -1,5 +1,10 @@
 import gql from 'graphql-tag'
-import { CASINO_CATEGORIES_FIELDS, PLAY_ITEM_FIELDS, OVERVIEW_FIELDS, PAGINATION_FIELDS } from './fields'
+import { CASINO_CATEGORIES_FIELDS,
+  PLAY_ITEM_FIELDS,
+  OVERVIEW_FIELDS,
+  PAGINATION_FIELDS,
+  CASINO_RECOMMENDED_GAMES_FIELDS }
+  from '@/graphql/fields'
 
 export const GAMES_QUERY = gql`
   query games($context: String = null, $page: Int, $perPage: Int) {
@@ -43,17 +48,17 @@ export const TABLES_CATEGORIES_QUERY = gql`
   }
 `
 
-export const GAMES_OVERVIEW_QUERY = gql`
-  query gamesOverview {
-    gamesOverview {
-     ${OVERVIEW_FIELDS}
+export const RECOMMENDED_GAMES_QUERY = gql`
+  query recommendedGames($original_game_id: Int!) {
+    recommendedGames(original_game_id: $original_game_id) {
+      ${CASINO_RECOMMENDED_GAMES_FIELDS}
     }
   }
 `
 
-export const TABLES_OVERVIEW_QUERY = gql`
-  query tablesOverview {
-    tablesOverview {
+export const GAMES_OVERVIEW_QUERY = gql`
+  query gamesOverview {
+    gamesOverview {
      ${OVERVIEW_FIELDS}
     }
   }

@@ -1,30 +1,45 @@
 <template>
-  <div class="casino-games-category">
-    <div class="category-header d-flex align-items-center justify-content-between">
-      <div class="header-info d-inline-flex">
+  <div>
+    <b-row
+      class="mt-2"
+      no-gutters>
+      <b-col class="header-title d-flex align-items-center p-4">
         <icon
-          :name="category.icon"
-          class="header-icon mr-2"
-          size="24px"/>
-        <div class="header-title d-inline text-arc-clr-iron">{{ category.label }}</div>
-      </div>
-      <div class="header-more">
-        <a href="#">
-          {{ this.$i18n.t('casino.return') }}
-        </a>
-      </div>
-    </div>
-    <b-container>
-      <b-row>
-        <category-play-item
-          v-for="(playItem, index) in playItems"
-          :key="index"
-          :item="playItem"/>
+          name="casino-popular"
+          class="header-icon mx-4"
+          color="arc-clr-live-casino-glow"
+          size="28px"/>
+        <h4 class="mb-0 font-weight-light">
+          Popular
+        </h4>
+      </b-col>
+      <b-col class="px-4 pt-4 pb-2 mr-4 text-right">
+        <span class="mr-1">
+          {{ this.$i18n.t('casino.viewAll') }}
+        </span>
+        {{ playItems.length }}
+      </b-col>
+    </b-row>
+    <b-container
+      fluid
+      class="p-0">
+      <b-row no-gutters>
+        <b-col class="p-4">
+          <transition-group
+            tag="div"
+            class="play-items-container d-flex flex-row flex-wrap align-items-center justify-content-start"
+            name="play-items">
+            <category-play-item
+              v-for="playItem in playItems"
+              :key="playItem.id"
+              :item="playItem"
+            />
+          </transition-group>
+        </b-col>
       </b-row>
     </b-container>
   </div>
 </template>
-
 <script>
 import CategoryPlayItem from './CategoryPlayItem'
 
@@ -33,10 +48,6 @@ export default {
     CategoryPlayItem
   },
   props: {
-    category: {
-      type: Object,
-      required: true
-    },
     playItems: {
       type: Array,
       default: () => { return [] }
@@ -44,3 +55,14 @@ export default {
   }
 }
 </script>
+
+<style lang="scss"
+       scoped>
+  .play-items-enter-active, .play-items-leave-active {
+    transition: all 1s;
+  }
+  .play-items-enter, .play-items-leave-to {
+    transform: scale(1.1, 1.1);
+  }
+
+</style>

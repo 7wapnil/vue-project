@@ -1,14 +1,12 @@
 <template>
-  <div class="casino-games-list">
-    <category-play-items
-      :play-items="tablesCollection"
-      :category="selectedCategory"/>
-    <div v-observe-visibility="onLastItem" />
+  <div>
+    <category-play-items :play-items="tablesCollection"/>
+    <loader v-if="$apollo.loading"/>
     <b-row
-      id="noMoreResults"
-      class="text-left d-none">
-      <b-col class="pl-5">
-        <p>No more games</p>
+      v-if="!$apollo.loading && !tablesCollection.length"
+      no-gutters>
+      <b-col class="text-center p-4">
+        No result
       </b-col>
     </b-row>
   </div>
@@ -22,12 +20,6 @@ import { TABLES_QUERY } from '@/graphql'
 export default {
   components: {
     CategoryPlayItems
-  },
-  props: {
-    selectedCategory: {
-      type: Object,
-      required: true
-    }
   },
   data () {
     return {
@@ -54,44 +46,6 @@ export default {
           this.paginationProps = data.tables.pagination
         }
       }
-    }
-  },
-  computed: {
-    lastPage () {
-      return this.paginationProps.next === null
-    }
-  },
-  methods: {
-    onLastItem (isVisible) {
-      if (!isVisible) return;
-
-      if (this.paginationProps.next === null) {
-        document.getElementById('noMoreResults').classList.remove('d-none');
-      } else {
-        document.getElementById('noMoreResults').classList.add('d-none')
-        this.loadMoreTables()
-      }
-    },
-    loadMoreTables () {
-      this.page = this.paginationProps.next
-
-      this.$apollo.queries.tables.fetchMore({
-        variables: {
-          perPage: this.itemsPerPage,
-          page: this.page
-        },
-        updateQuery: (previousResult, { fetchMoreResult }) => {
-          return {
-            tables: this.mergePlayItems(previousResult, fetchMoreResult).tables,
-            paginationProps: fetchMoreResult.tables.pagination
-          }
-        }
-      })
-    },
-    mergePlayItems (oldItems, newItems) {
-      newItems.tables.collection = [...oldItems.tables.collection, ...newItems.tables.collection]
-
-      return newItems
     }
   }
 }

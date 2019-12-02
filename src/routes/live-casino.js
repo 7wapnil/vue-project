@@ -3,7 +3,6 @@ import LiveCasinoSidebar from '@/views/live-casino/LiveCasinoSidebar'
 import LiveCasinoTabs from '@/views/live-casino/LiveCasinoTabs'
 import LiveCasinoContent from '@/views/live-casino/LiveCasinoContent'
 import GamesList from '@/components/casino-games/GamesList'
-import NotFound from '@/views/layouts/common/NotFound'
 
 export default [
   {
@@ -32,6 +31,5 @@ export default [
         }
       }
     ]
-  },
-  { path: '*', component: NotFound }
+  }
 ]
