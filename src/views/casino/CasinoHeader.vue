@@ -35,6 +35,7 @@ export default {
         position: absolute;
         bottom: 0;
         left: 0;
+        width: 100%;
       }
       &-mobile-container {
         overflow: hidden;

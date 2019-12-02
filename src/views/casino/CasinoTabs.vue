@@ -6,7 +6,8 @@
       v-for="tab in tabs"
       :key="tab.id"
       :to="tab.route"
-      active-class="casino-tab-active"
+      exact
+      exact-active-class="casino-tab-active"
       link-classes="casino-tab">
       <b-row no-gutters>
         <b-col
@@ -39,49 +40,49 @@ export default {
         {
           id: 0,
           name: 'popular',
-          icon: 'casino-tabs-popular',
+          icon: 'casino-popular',
           label: 'Popular',
-          route: { name: 'casino-category', params: { category: 'skill-games' } }
+          route: { name: 'casino' }
         },
         {
           id: 1,
           name: 'new',
-          icon: 'casino-tabs-new',
+          icon: 'casino-new',
           label: 'New',
           route: { name: 'casino-category', params: { category: 'new' } }
         },
         {
           id: 2,
           name: 'favorites',
-          icon: 'casino-tabs-favorites',
+          icon: 'casino-favorites',
           label: 'Favorites',
           route: { name: 'casino-category', params: { category: 'favorites' } }
         },
         {
           id: 3,
           name: 'slots',
-          icon: 'casino-tabs-slots',
+          icon: 'casino-slots',
           label: 'Slots',
           route: { name: 'casino-category', params: { category: 'slots' } }
         },
         {
           id: 4,
           name: 'jackpots',
-          icon: 'casino-tabs-jackpots',
+          icon: 'casino-jackpots',
           label: 'Jackpots',
           route: { name: 'casino-category', params: { category: 'jackpots' } }
         },
         {
           id: 5,
           name: 'table games',
-          icon: 'casino-tabs-table-games',
+          icon: 'casino-table-games',
           label: 'Table games',
           route: { name: 'casino-category', params: { category: 'table-games' } }
         },
         {
           id: 6,
           name: 'skill games',
-          icon: 'casino-tabs-skill-games',
+          icon: 'casino-skill-games',
           label: 'Skill games',
           route: { name: 'casino-category', params: { category: 'skill-games' } }
         }

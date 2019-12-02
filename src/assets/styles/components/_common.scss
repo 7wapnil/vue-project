@@ -59,6 +59,14 @@ a:focus {
   margin: 80px auto 0 auto;
   padding: 0 3px 0 0;
 }
+
+.casino .desktop-container {
+  min-width: unset;
+}
+.live-casino .desktop-container{
+  min-width: unset;
+}
+
 .mobile-container {
   margin-top: 60px;
   background-color: #3D3D3D;
