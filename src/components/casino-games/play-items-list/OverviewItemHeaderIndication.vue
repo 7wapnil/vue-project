@@ -2,9 +2,10 @@
   <div class="d-flex flex-row">
     <arc-circle
       v-for="n in 5"
-      class="indication-item"
       :class="{'active': n === 2}"
-      :size="6"/>
+      :key="n"
+      :size="6"
+      class="indication-item"/>
   </div>
 </template>
 
