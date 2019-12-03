@@ -1,46 +1,9 @@
 <template>
   <div>
-    <b-row no-gutters>
-      <b-col class="px-4 pt-4 pb-2 d-inline-flex events-list-title">
-        <icon
-          :name="category.icon"
-          :size="26"
-          style="margin-left: 26px"/>
-        <b-link
-          :to="{ name: 'casino-category', params: { category: categoryName } }"
-          router-tag="h4"
-          style="margin-left: 14px"
-          class="mb-0 text-arc-clr-white font-weight-light letter-spacing-1 pointer">
-          {{ category.label }}
-        </b-link>
-      </b-col>
-      <b-col class="px-4 pt-4 pb-2 d-flex justify-content-center flex-row align-items-center">
-        <arc-circle
-          :size="6"
-          style="width: 20px; background-color: #1b9cb0 !important;"/>
-        <arc-circle
-          :size="6"
-          class="ml-4"/>
-        <arc-circle
-          :size="6"
-          class="ml-4"/>
-        <arc-circle
-          :size="6"
-          class="ml-4"/>
-        <arc-circle
-          :size="6"
-          class="ml-4"/>
-      </b-col>
-      <b-col class="text-right px-4 pt-4 pb-2">
-        <b-link
-          :to="{ name: 'casino-category', params: { category: categoryName } }"
-          class="mr-2">
-          {{ this.$i18n.t('casino.viewAll') }}
-        </b-link>
-      </b-col>
-    </b-row>
+    <overview-item-header :category="category"/>
 
-    <div class="position-relative">
+    <div
+      class="position-relative">
       <div class="slider-control-left">
         <arc-circle
           :size="40"
@@ -54,8 +17,7 @@
       </div>
       <transition-group
         tag="div"
-        style="-webkit-overflow-scrolling: touch; margin: 0 24px;"
-        class="d-flex flex-nowrap overflow-auto no-scrollbars"
+        class="no-scrollbars play-items-wrapper"
         name="play-items-appearance"
         appear>
         <category-play-item
@@ -82,10 +44,12 @@
 
 <script>
 import CategoryPlayItem from '@/components/casino-games/play-items-list/CategoryPlayItem'
+import OverviewItemHeader from '@/components/casino-games/play-items-list/OverviewItemHeader'
 
 export default {
   components: {
-    CategoryPlayItem
+    CategoryPlayItem,
+    OverviewItemHeader
   },
   props: {
     category: {
@@ -95,12 +59,6 @@ export default {
     playItems: {
       type: Array,
       default: () => { return [] }
-    }
-  },
-  computed: {
-    categoryName () {
-      const name = this.category.context.split('-')
-      return name[0]
     }
   }
 }
@@ -131,6 +89,13 @@ export default {
             justify-content: center;
             z-index: 9;
         }
+    }
+    .play-items-wrapper {
+      -webkit-overflow-scrolling: touch;
+      margin: 0 24px;
+      display: flex;
+      overflow: auto;
+      flex-wrap: nowrap;
     }
     .play-items-appearance-enter-active {
         transition: all .3s ease-in-out;
