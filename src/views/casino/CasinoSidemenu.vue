@@ -6,7 +6,7 @@
     <b-nav-item
       v-for="item in items"
       :key="item.id"
-      :to="item.route">
+      @click="pushPage(item.route)">
       <b-row
         :class="[item.name ? 'casino-sidemenu-item' : 'casino-sidemenu-separator-item']"
         no-gutters>
@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 
 export default {
   name: 'CasinoSidemenu',
@@ -42,7 +42,7 @@ export default {
           name: 'my cashier',
           label: this.$t('casino.sidemenu.labels.myCashier'),
           icon: { name: 'sidemenu-cashier' },
-          route: '',
+          route: { name: 'cashier' }
         },
         {
           id: 2,
@@ -105,7 +105,19 @@ export default {
           if (this.isLoggedIn) { return this.menuItems }
           return this.menuItems.filter(x => x.name !== 'my cashier')
       }
-  }
+  },
+    methods: {
+        ...mapMutations('tabs', {
+            changeTabIndex: 'changeTabIndex'
+        }),
+      pushPage(route) {
+          if (this.isLoggedIn && route.name === 'cashier') {
+              this.changeTabIndex(3)
+              this.$bvModal.show('AccountModal')
+          }
+          this.$router.push(route)
+      }
+    }
 }
 </script>
 <style lang="scss"
