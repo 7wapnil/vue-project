@@ -4,9 +4,9 @@
     class="flex-nowrap"
     vertical>
     <b-nav-item
-      v-for="item in menuItems"
+      v-for="item in items"
       :key="item.id"
-      @click="goTo(item.name)">
+      :to="item.route">
       <b-row
         :class="[item.name ? 'casino-sidemenu-item' : 'casino-sidemenu-separator-item']"
         no-gutters>
@@ -30,6 +30,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'CasinoSidemenu',
   data () {
@@ -40,64 +42,69 @@ export default {
           name: 'my cashier',
           label: this.$t('casino.sidemenu.labels.myCashier'),
           icon: { name: 'sidemenu-cashier' },
+          route: '',
         },
         {
           id: 2,
-          label: this.$t('casino.sidemenu.labels.interestingCategories')
+          label: this.$t('casino.sidemenu.labels.interestingCategories'),
         },
         {
           id: 3,
           name: 'casino',
           label: this.$t('casino.sidemenu.labels.casinoGames'),
           icon: { name: 'sidemenu-casino-games' },
+          route: { name: 'casino' },
         },
         {
           id: 4,
           name: 'live-casino',
           label: this.$t('casino.sidemenu.labels.liveCasino'),
-          icon: { name: 'sidemenu-live-casino' }
+          icon: { name: 'sidemenu-live-casino' },
+          route: { name: 'live-casino' },
         },
         {
           id: 5,
           name: 'sports',
           label: this.$t('casino.sidemenu.labels.sportsBetting'),
-          icon: { name: 'sidemenu-sports' }
+          icon: { name: 'sidemenu-sports' },
+          route: { name: 'sports' },
         },
         {
           id: 6,
           name: 'esports',
           label: this.$t('casino.sidemenu.labels.esportsBetting'),
-          icon: {
-            name: 'sidemenu-esports',
-            size: 19
-          }
+          icon: { name: 'sidemenu-esports', size: 19 },
+          route: { name: 'esports' },
         },
         {
           id: 7,
-          label: this.$t('casino.sidemenu.labels.special')
+          label: this.$t('casino.sidemenu.labels.special'),
         },
         {
           id: 8,
           name: 'bonuses',
           label: this.$t('casino.sidemenu.labels.bonusesPromos'),
-          icon: { name: 'sidemenu-bonuses',
-            size: 22
-          }
+          icon: { name: 'sidemenu-bonuses', size: 22 },
+          route: { name: 'promotions' },
         },
         {
           id: 9,
           name: 'Contact Us',
           label: this.$t('casino.sidemenu.labels.contactSupport'),
-          icon: { name: 'sidemenu-support',
-            size: 26 },
-        },
+          icon: { name: 'sidemenu-support', size: 26 },
+          route: { name: 'contact us'},
+        }
       ]
     }
   },
-  methods: {
-    goTo (page) {
-      this.$router.push({ name: `${page}` })
-    }
+  computed: {
+      ...mapGetters([
+          'isLoggedIn'
+      ]),
+      items() {
+          if (this.isLoggedIn) { return this.menuItems }
+          return this.menuItems.filter(x => x.name !== 'my cashier')
+      }
   }
 }
 </script>
