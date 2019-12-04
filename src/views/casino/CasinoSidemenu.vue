@@ -92,32 +92,32 @@ export default {
           name: 'Contact Us',
           label: this.$t('casino.sidemenu.labels.contactSupport'),
           icon: { name: 'sidemenu-support', size: 26 },
-          route: { name: 'contact us'},
+          route: { name: 'contact us' },
         }
       ]
     }
   },
   computed: {
-      ...mapGetters([
-          'isLoggedIn'
-      ]),
-      items() {
-          if (this.isLoggedIn) { return this.menuItems }
-          return this.menuItems.filter(x => x.name !== 'my cashier')
-      }
-  },
-    methods: {
-        ...mapMutations('tabs', {
-            changeTabIndex: 'changeTabIndex'
-        }),
-      pushPage(route) {
-          if (this.isLoggedIn && route.name === 'cashier') {
-              this.changeTabIndex(3)
-              this.$bvModal.show('AccountModal')
-          }
-          this.$router.push(route)
-      }
+    ...mapGetters([
+      'isLoggedIn'
+    ]),
+    items () {
+      if (this.isLoggedIn) { return this.menuItems }
+      return this.menuItems.filter(x => x.name !== 'my cashier')
     }
+  },
+  methods: {
+    ...mapMutations('tabs', {
+      changeTabIndex: 'changeTabIndex'
+    }),
+    pushPage (route) {
+      if (this.isLoggedIn && route.name === 'cashier') {
+        this.changeTabIndex(3)
+        this.$bvModal.show('AccountModal')
+      }
+      this.$router.push(route)
+    }
+  }
 }
 </script>
 <style lang="scss"
