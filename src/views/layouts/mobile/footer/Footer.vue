@@ -12,46 +12,38 @@
           <b-img :src="require(`@/assets/images/footer/${topicon}.svg`)"/>
         </b-col>
       </b-row>
-      <b-list-group>
-        <b-list-group-item
+      <b-nav
+        vertical
+        class="flex-nowrap">
+        <b-nav-item
           v-for="item in homepageLinks"
           :to="item.path"
           :key="item.path"
-          class="footer-mobile-nav-item"
-          active-class="footer-mobile-nav-item-active"
-          exact-active-class="footer-mobile-nav-item-exact-active">
+          class="footer-mobile-nav-item">
           <span class="text-arc-clr-gold font-weight-bold font-size-14 letter-spacing-2 text-truncate text-capitalize">
             {{ item.name }}
           </span>
-        </b-list-group-item>
-        <b-list-group-item
-          v-for="(item, index) in footerItems"
-          :key="index"
-          class="footer-mobile-nav-item"
-          active-class="footer-mobile-nav-item-active"
-          exact-active-class="footer-mobile-nav-item-exact-active">
+        </b-nav-item>
+        <b-nav-item
+          v-for="item in footerItems"
+          :key="item.id"
+          class="footer-mobile-nav-item">
           <footer-menu-item :item="item"/>
-        </b-list-group-item>
-      </b-list-group>
-
+        </b-nav-item>
+      </b-nav>
       <b-row
         class="footer-social-section"
         no-gutters>
         <b-col class="d-flex align-items-center justify-content-center pt-5">
           <arc-circle
-            v-for="(socialicon, index) in socialIcons"
+            v-for="(socialicon, index) in socialicons"
             :key="index"
             :size="50"
             class="mx-2 pointer">
-            <b-link
-              :href="socialicon.path"
-              class="h-100 w-100 d-flex align-items-center justify-content-center"
-              target="_blank">
-              <icon
-                :name="socialicon.name"
-                size="18px"
-                color="arc-clr-soil-darker"/>
-            </b-link>
+            <icon
+              :name="socialicon"
+              size="20px"
+              color="arc-clr-soil-darker"/>
           </arc-circle>
         </b-col>
       </b-row>
@@ -100,10 +92,10 @@
 </template>
 
 <script>
-import InformationPages from '@/routes/support'
 import FooterMenuItem from './FooterMenuItem'
 
 export default {
+  name: 'MobileFooter',
   components: {
     FooterMenuItem
   },
@@ -117,7 +109,96 @@ export default {
             'paysafecard',
             'skinpay',
             'bitcoin'],
-      footerItems: InformationPages.routes,
+      footerItems: [
+        {
+          id: 1,
+          title: 'Support',
+          icon: 'support',
+          route: { name: 'support' },
+          children: [
+            {
+              id: 1.1,
+              title: 'Contact us',
+              route: { name: 'contact us' }
+            },
+            {
+              id: 1.2,
+              title: 'Terms and conditions',
+              route: { name: 'terms and conditions' }
+            },
+            {
+              id: 1.3,
+              title: 'Sports betting rules',
+              route: { name: 'sports betting rules' }
+            },
+            {
+              id: 1.4,
+              title: 'Privacy policy',
+              route: { name: 'privacy policy' }
+            },
+            {
+              id: 1.5,
+              title: 'Cookie policy',
+              route: { name: 'cookie policy' }
+            },
+            {
+              id: 1.6,
+              title: 'FAQ',
+              route: { name: 'faq' }
+            }]
+        },
+        {
+          id: 2,
+          title: 'About',
+          icon: 'arcanebet-default-icon',
+          route: { name: 'about' },
+          children: [{
+            id: 2.1,
+            title: 'About Arcanebet',
+            route: { name: 'about arcanebet' }
+          },
+          {
+            id: 2.2,
+            title: 'Affiliates',
+            route: { name: 'affiliates' }
+          }],
+        },
+        {
+          id: 3,
+          title: 'Promotions',
+          icon: 'promotional',
+          route: { name: 'promotions' },
+          children: [
+            {
+              id: 3.1,
+              title: 'Promotions',
+              route: { name: 'promotions' }
+            },
+            {
+              id: 3.2,
+              title: 'Bonus rules',
+              route: { name: 'bonus rules' }
+            }],
+        },
+        {
+          id: 4,
+          title: 'Responsible gaming',
+          icon: 'help',
+          route: { name: 'responsible gaming' },
+          children: [
+            {
+              id: 4.1,
+              title: 'Introduction',
+              route: { name: 'introduction' }
+            },
+            {
+              id: 4.2,
+              title: 'Setting limits',
+              route: { name: 'setting limits' }
+            }],
+        },
+
+      ],
       homepageLinks: [
         {
           path: '/esports',
@@ -136,19 +217,7 @@ export default {
           name: 'Live casino Homepage'
         }
       ],
-      socialIcons: [
-        {
-          name: 'facebook',
-          path: 'https://www.facebook.com/arcanebet'
-        },
-        {
-          name: 'twitter',
-          path: 'https://twitter.com/ArcaneBet'
-        },
-        { name: 'discord',
-          path: 'https://discordapp.com/invite/SutBDGd'
-        }
-      ]
+      socialicons: ['facebook', 'twitter', 'discord']
     }
   }
 }
