@@ -1,23 +1,23 @@
 <template>
   <b-nav
-          tag="div"
-          class="flex-nowrap"
-          vertical>
+    tag="div"
+    class="flex-nowrap"
+    vertical>
     <b-nav-item
-            v-for="item in items"
-            :key="item.id"
-            @click="pushPage(item.route)">
+      v-for="item in items"
+      :key="item.id"
+      @click="pushPage(item.route)">
       <b-row
-              :class="[item.name ? 'casino-sidemenu-item' : 'casino-sidemenu-separator-item']"
-              no-gutters>
+        :class="[item.name ? 'casino-sidemenu-item' : 'casino-sidemenu-separator-item']"
+        no-gutters>
         <b-col
-                v-if="item.icon"
-                cols="auto"
-                class="px-4 py-3 sidemenu-main-logo d-flex align-items-center justify-content-center">
+          v-if="item.icon"
+          cols="auto"
+          class="px-4 py-3 sidemenu-main-logo d-flex align-items-center justify-content-center">
           <icon
-                  :name="item.icon.name"
-                  :size="item.icon.size ? item.icon.size : 24"
-                  class="casino-sidemenu-icon"/>
+            :name="item.icon.name"
+            :size="item.icon.size ? item.icon.size : 24"
+            class="casino-sidemenu-icon"/>
         </b-col>
         <b-col class="py-1 pr-3 d-flex align-items-center justify-content-start letter-spacing-2">
           <span class="text-truncate text-capitalize">
@@ -30,95 +30,95 @@
 </template>
 
 <script>
-    import { mapGetters, mapMutations } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 
-    export default {
-        name: 'LiveCasinoSidemenu',
-        data () {
-            return {
-                menuItems: [
-                    {
-                        id: 1,
-                        name: 'my cashier',
-                        label: this.$t('casino.sidemenu.labels.myCashier'),
-                        icon: { name: 'sidemenu-cashier' },
-                        route: { name: 'cashier' }
-                    },
-                    {
-                        id: 2,
-                        label: this.$t('casino.sidemenu.labels.interestingCategories'),
-                    },
-                    {
-                        id: 3,
-                        name: 'casino',
-                        label: this.$t('casino.sidemenu.labels.casinoGames'),
-                        icon: { name: 'sidemenu-casino-games' },
-                        route: { name: 'casino' },
-                    },
-                    {
-                        id: 4,
-                        name: 'live-casino',
-                        label: this.$t('casino.sidemenu.labels.liveCasino'),
-                        icon: { name: 'sidemenu-live-casino' },
-                        route: { name: 'live-casino' },
-                    },
-                    {
-                        id: 5,
-                        name: 'sports',
-                        label: this.$t('casino.sidemenu.labels.sportsBetting'),
-                        icon: { name: 'sidemenu-sports' },
-                        route: { name: 'sports' },
-                    },
-                    {
-                        id: 6,
-                        name: 'esports',
-                        label: this.$t('casino.sidemenu.labels.esportsBetting'),
-                        icon: { name: 'sidemenu-esports', size: 19 },
-                        route: { name: 'esports' },
-                    },
-                    {
-                        id: 7,
-                        label: this.$t('casino.sidemenu.labels.special'),
-                    },
-                    {
-                        id: 8,
-                        name: 'bonuses',
-                        label: this.$t('casino.sidemenu.labels.bonusesPromos'),
-                        icon: { name: 'sidemenu-bonuses', size: 22 },
-                        route: { name: 'promotions' },
-                    },
-                    {
-                        id: 9,
-                        name: 'Contact Us',
-                        label: this.$t('casino.sidemenu.labels.contactSupport'),
-                        icon: { name: 'sidemenu-support', size: 26 },
-                        route: { name: 'contact us'},
-                    }
-                ]
-            }
+export default {
+  name: 'LiveCasinoSidemenu',
+  data () {
+    return {
+      menuItems: [
+        {
+          id: 1,
+          name: 'my cashier',
+          label: this.$t('casino.sidemenu.labels.myCashier'),
+          icon: { name: 'sidemenu-cashier' },
+          route: { name: 'cashier' }
         },
-        computed: {
-            ...mapGetters([
-                'isLoggedIn'
-            ]),
-            items() {
-                if (this.isLoggedIn) { return this.menuItems }
-                return this.menuItems.filter(x => x.name !== 'my cashier')
-            }
+        {
+          id: 2,
+          label: this.$t('casino.sidemenu.labels.interestingCategories'),
         },
-        methods: {
-            ...mapMutations('tabs', {
-                changeTabIndex: 'changeTabIndex'
-            }),
-            pushPage(route) {
-                if (this.isLoggedIn && route.name === 'cashier') {
-                    this.changeTabIndex(3)
-                    this.$bvModal.show('AccountModal')
-                }
-                this.$router.push(route)
-            }
+        {
+          id: 3,
+          name: 'casino',
+          label: this.$t('casino.sidemenu.labels.casinoGames'),
+          icon: { name: 'sidemenu-casino-games' },
+          route: { name: 'casino' },
+        },
+        {
+          id: 4,
+          name: 'live-casino',
+          label: this.$t('casino.sidemenu.labels.liveCasino'),
+          icon: { name: 'sidemenu-live-casino' },
+          route: { name: 'live-casino' },
+        },
+        {
+          id: 5,
+          name: 'sports',
+          label: this.$t('casino.sidemenu.labels.sportsBetting'),
+          icon: { name: 'sidemenu-sports' },
+          route: { name: 'sports' },
+        },
+        {
+          id: 6,
+          name: 'esports',
+          label: this.$t('casino.sidemenu.labels.esportsBetting'),
+          icon: { name: 'sidemenu-esports', size: 19 },
+          route: { name: 'esports' },
+        },
+        {
+          id: 7,
+          label: this.$t('casino.sidemenu.labels.special'),
+        },
+        {
+          id: 8,
+          name: 'bonuses',
+          label: this.$t('casino.sidemenu.labels.bonusesPromos'),
+          icon: { name: 'sidemenu-bonuses', size: 22 },
+          route: { name: 'promotions' },
+        },
+        {
+          id: 9,
+          name: 'Contact Us',
+          label: this.$t('casino.sidemenu.labels.contactSupport'),
+          icon: { name: 'sidemenu-support', size: 26 },
+          route: { name: 'contact us' },
         }
+      ]
     }
+  },
+  computed: {
+    ...mapGetters([
+      'isLoggedIn'
+    ]),
+    items () {
+      if (this.isLoggedIn) { return this.menuItems }
+      return this.menuItems.filter(x => x.name !== 'my cashier')
+    }
+  },
+  methods: {
+    ...mapMutations('tabs', {
+      changeTabIndex: 'changeTabIndex'
+    }),
+    pushPage (route) {
+      if (this.isLoggedIn && route.name === 'cashier') {
+        this.changeTabIndex(3)
+        this.$bvModal.show('AccountModal')
+      }
+      this.$router.push(route)
+    }
+  }
+}
 </script>
 <style lang="scss"
        scoped>
