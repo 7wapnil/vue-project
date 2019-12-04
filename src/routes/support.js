@@ -1,126 +1,149 @@
+import InfoPageSidemenu from '@/views/layouts/information-page/InfoPageSidemenu'
+import Betslip from '@/components/betslip/Betslip'
+import ContactUsPage from '@/views/information-pages/support/contact-us/Page'
+import TermsConditionPage from '@/views/information-pages/support/terms-and-conditions/Page'
+import BettingRulesPage from '@/views/information-pages/support/betting-rules/Page'
+import PrivacyPolicyPage from '@/views/information-pages/support/privacy-policy/Page'
+import CookiePolicyPage from '@/views/information-pages/support/cookie-policy/Page'
+import FAQPage from '@/views/information-pages/support/faq/Page'
+import AboutPage from '@/views/information-pages/about/main/Page'
+import PromotionsPage from '@/views/information-pages/promotions/main/Page'
+import BonusRulesPage from '@/views/information-pages/promotions/bonus-rules/Page'
+import IntroductionPage from '@/views/information-pages/responsible-gaming/introduction/Page'
+import LimitsPage from '@/views/information-pages/responsible-gaming/limits/Page'
+
 export const support = {
   routes: [
     {
-      path: 'support',
+      path: '/support',
       name: 'support',
-      title: 'support',
-      icon: 'support',
-      meta: { sidemenu: 'info' },
-      component: () => import('@/views/layouts/common/Content'),
-      children: [
-        {
-          path: 'contact-us',
-          name: 'Contact Us',
-          title: 'Contact Us',
-          meta: { sidemenu: 'info' },
-          component: () => import('@/views/information-pages/support/contact-us/Page')
-        },
-        {
-          path: 'terms-and-conditions',
-          name: 'Terms And Conditions',
-          title: 'Terms And Conditions',
-          meta: { sidemenu: 'info' },
-          component: () => import('@/views/information-pages/support/terms-and-conditions/Page')
-        },
-        {
-          path: 'betting-rules',
-          name: 'Sports Betting Rules',
-          title: 'Sports Betting Rules',
-          meta: { sidemenu: 'info' },
-          component: () => import('@/views/information-pages/support/betting-rules/Page')
-        },
-        {
-          path: 'privacy-policy',
-          name: 'Privacy Policy',
-          title: 'Privacy Policy',
-          meta: { sidemenu: 'info' },
-          component: () => import('@/views/information-pages/support/privacy-policy/Page')
-        },
-        {
-          path: 'cookie-policy',
-          name: 'Cookie Policy',
-          title: 'Cookie Policy',
-          meta: { sidemenu: 'info' },
-          component: () => import('@/views/information-pages/support/cookie-policy/Page')
-        },
-        {
-          path: 'faq',
-          name: 'FAQ',
-          title: 'FAQ',
-          meta: { sidemenu: 'info' },
-          component: () => import('@/views/information-pages/support/faq/Page')
-        }
-      ]
+      components: {
+        left: InfoPageSidemenu,
+        content: ContactUsPage,
+        right: Betslip
+      }
     },
     {
-      path: 'about',
+      path: '/support/contact-us',
+      name: 'contact us',
+      components: {
+        left: InfoPageSidemenu,
+        content: ContactUsPage,
+        right: Betslip
+      }
+    },
+    {
+      path: '/support/terms-and-conditions',
+      name: 'terms and conditions',
+      components: {
+        left: InfoPageSidemenu,
+        content: TermsConditionPage,
+        right: Betslip
+      }
+    },
+    {
+      path: '/support/betting-rules',
+      name: 'sports betting rules',
+      components: {
+        left: InfoPageSidemenu,
+        content: BettingRulesPage,
+        right: Betslip
+      }
+    },
+    {
+      path: '/support/privacy-policy',
+      name: 'privacy policy',
+      components: {
+        left: InfoPageSidemenu,
+        content: PrivacyPolicyPage,
+        right: Betslip
+      }
+    },
+    {
+      path: '/support/cookie-policy',
+      name: 'cookie policy',
+      components: {
+        left: InfoPageSidemenu,
+        content: CookiePolicyPage,
+        right: Betslip
+      }
+    },
+    {
+      path: '/support/faq',
+      name: 'faq',
+      components: {
+        left: InfoPageSidemenu,
+        content: FAQPage,
+        right: Betslip
+      }
+    },
+    {
+      path: '/about',
       name: 'about',
-      title: 'about',
-      icon: 'arcanebet-default-icon',
-      meta: { sidemenu: 'info' },
-      component: () => import('@/views/layouts/common/Content'),
-      children: [
-        {
-          path: 'about-arcanebet',
-          name: 'About arcanebet',
-          title: 'About arcanebet',
-          meta: { sidemenu: 'info' },
-          component: () => import('@/views/information-pages/about/main/Page')
-        },
-        {
-          path: 'affiliates-arcanebet',
-          name: 'Affiliates',
-          title: 'Affiliates',
-          meta: { sidemenu: 'info' },
-          beforeEnter () { location.href = process.env.VUE_APP_AFFILIATE_URL }
-        }
-      ]
+      components: {
+        left: InfoPageSidemenu,
+        content: AboutPage,
+        right: Betslip
+      },
     },
     {
-      path: 'promotions',
-      title: 'promotions',
-      meta: { sidemenu: 'info' },
-      component: () => import('@/views/layouts/common/Content'),
-      children: [
-        {
-          path: '',
-          name: 'Promotions',
-          title: 'Promotions',
-          meta: { sidemenu: 'info' },
-          component: () => import('@/views/information-pages/promotions/main/Page')
-        },
-        {
-          path: 'bonus-rules',
-          name: 'Bonus Rules',
-          title: 'Bonus Rules',
-          meta: { sidemenu: 'info' },
-          component: () => import('@/views/information-pages/promotions/bonus-rules/Page')
-        }
-      ]
+      path: '/about/about-arcanebet',
+      name: 'about arcanebet',
+      components: {
+        left: InfoPageSidemenu,
+        content: AboutPage,
+        right: Betslip
+      }
     },
     {
-      path: 'responsible-gaming',
-      name: 'Responsible Gaming',
-      title: 'Responsible Gaming',
-      meta: { sidemenu: 'info' },
-      icon: 'help',
-      component: () => import('@/views/layouts/common/Content'),
-      children: [
-        {
-          path: 'introduction',
-          name: 'Introduction',
-          meta: { sidemenu: 'info' },
-          title: 'Introduction',
-          component: () => import('@/views/information-pages/responsible-gaming/introduction/Page')
-        },
-        {
-          path: 'limits',
-          name: 'Setting Limits',
-          meta: { sidemenu: 'info' },
-          title: 'Setting Limits',
-          component: () => import('@/views/information-pages/responsible-gaming/limits/Page')
-        }
-      ]
+      path: '/about/affiliates-arcanebet',
+      name: 'affiliates',
+      beforeEnter () { location.href = process.env.VUE_APP_AFFILIATE_URL }
+    },
+    {
+      path: '/promotions',
+      name: 'promotions',
+      components: {
+        left: InfoPageSidemenu,
+        content: PromotionsPage,
+        right: Betslip
+      },
+    },
+    {
+      path: '/promotions/bonus-rules',
+      name: 'bonus rules',
+      components: {
+        left: InfoPageSidemenu,
+        content: BonusRulesPage,
+        right: Betslip
+      }
+    },
+    {
+      path: '/responsible-gaming',
+      name: 'responsible gaming',
+      components: {
+        left: InfoPageSidemenu,
+        content: IntroductionPage,
+        right: Betslip
+      },
+    },
+    {
+      path: '/responsible-gaming/introduction',
+      name: 'introduction',
+      components: {
+        left: InfoPageSidemenu,
+        content: IntroductionPage,
+        right: Betslip
+      }
+    },
+    {
+      path: '/responsible-gaming/limits',
+      name: 'setting limits',
+      components: {
+        left: InfoPageSidemenu,
+        content: LimitsPage,
+        right: Betslip
+      }
     }
   ]
 }
