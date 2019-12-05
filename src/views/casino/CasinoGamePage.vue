@@ -5,7 +5,7 @@
     no-gutters>
     <b-col class="game-container">
       <b-embed
-        :src="$attrs.item.url"
+        :src="$attrs.launchUrl"
         type="iframe"
         aspect="16by9"
         allowfullscreen

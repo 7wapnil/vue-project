@@ -77,11 +77,12 @@ export default {
             playItemId: this.item.id
           }
         })
-        .then(() => {
+        .then(({ data }) => {
           this.$router.push({ name: 'casino-game',
             params: { gameName: this.item.slug,
               category: this.categoryName,
-              item: this.item
+              item: this.item,
+              launchUrl: data.createEveryMatrixSession.launchUrl
             }
           })
         })
