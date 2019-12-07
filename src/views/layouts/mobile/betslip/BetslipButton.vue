@@ -44,8 +44,11 @@ export default {
             !this.isSidebarOpen &&
             this.getBetsCount > 0 &&
             !this.isBetslipOpen &&
-            this.$route.params.titleKind === 'sports' ||
-            this.$route.params.titleKind === 'esports'
+            this.isBetslipSupportedPage
+    },
+    isBetslipSupportedPage () {
+      return this.$route.params.titleKind === 'sports' ||
+               this.$route.params.titleKind === 'esports'
     }
   },
   mounted () {
