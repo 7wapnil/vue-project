@@ -30,10 +30,11 @@ export default {
        scoped>
     .game-container {
         min-height: calc(100vh - 80px);
+        max-height: calc(100vh - 80px);
         padding: 20px;
         .embed-responsive {
             border-radius: 6px;
-            box-shadow: 2px 2px 10px 0 black;
+            box-shadow: 2px 2px 10px 0 $black;
         }
     }
     .game-background {
