@@ -107,10 +107,6 @@ const messages = {
       resetEmailSuccess1: 'Password reset email successfully sent to:',
       resetEmailSuccess2: 'Click the link in the email to reset your password. If you didn\'t receive an email please contact live support. '
     },
-    pageLeaveModal: {
-      header: 'Event is over',
-      description: 'Unfortunately, this event is over, try your luck in another one! You will be automatically redirected in 5 sec'
-    },
     cookies: {
       header: 'We value your privacy',
       description: 'This website uses cookies. Please see our',
@@ -146,8 +142,7 @@ const messages = {
       description: {
         time: 'time',
         score: 'score',
-        starts: 'starts',
-        status: 'status'
+        starts: 'starts'
       }
     },
     casino: {
@@ -194,18 +189,9 @@ const messages = {
       },
       mobileButton: 'Betslip'
     },
-    betslipItem: {
-      oddsChanged: 'Odds Changed'
-    },
     wallet: {
       balance: 'Balance',
-      secondWallet: '2nd Wallet',
-      switch: 'switch'
-    },
-    sidemenu: {
-      settings: {
-        livechat: 'livechat'
-      }
+      secondWallet: '2nd Wallet'
     },
     account: {
       tabs: {
@@ -216,11 +202,7 @@ const messages = {
         bonus: 'Bonus',
         accountVerification: 'Account verification',
         accountStatus: 'Account status',
-        transactionHistory: 'Transaction history',
-        livechat: {
-          open: 'Open live chat',
-          close: 'Remove live chat'
-        }
+        transactionHistory: 'Transaction history'
       },
       cta: {
         resetPassword: 'Reset password',
@@ -261,7 +243,7 @@ const messages = {
         depositHeader: 'Deposit Funds',
         depositSummary: 'Deposit summary',
         total: 'Total to be added',
-        moneyTransferInformation: 'The money will be transferred directly in to your arcanebet account. When you have won some bets you can look forward to easy and fast withdrawals without fees!\n',
+        moneyTransferInformation: 'The money will be transferred directly in to your Arcanebet account. When you have won some bets you can look forward to easy and fast withdrawals without fees!\n',
         depositPaymentMethodInformation: 'This is only a list of payment methods we support. You will select the one that suits you on the next page. We do not charge service fees.',
         crypto: {
           howTo: "You can send money from your wallet to provided crypto address. Our service will process the payment and fill your balance automatically.</br> <b>Reminder.</b> In case if you want to send another sum of money, applied bonus code could be ignored. If you're experiencing some issues with crypto payment, feel free to contact our support team. We're always glad to help you!",
@@ -270,18 +252,15 @@ const messages = {
           scanQRCode: 'or scan QR code:'
         },
         serviceFees: 'We do not charge service fees.',
-        paymentMethodsSupport: 'This is only a list of payment methods we support. You will select the one that suits you on the next page.',
+        paymentMethodsSupport: 'This is only a list of payment methods we support.You will select the one that suits you on the next page.',
         bonusDescription: 'Bonus code description'
       },
       withdraw: {
         withdrawFunds: 'Withdraw funds',
         cardLastFourDigits: 'Card last four digits',
         cardHolderName: 'Card holder name',
-        skrillAddress: 'Skrill address',
-        nettelerAddress: 'Neteller address',
-        iDebitAccountId: 'iDebit account id',
         arcanebetPassword: 'Arcanebet password',
-        notAvailable: 'The withdrawal page will only be available once you\'ve made a successful deposit and your account has been verified.<br/><br/>Please make a deposit using your preferred method and upload your documents via our verification tab to unlock this page.',
+        notAvailable: 'Due to the migration to the new website, your bank details - for security reasons - were not imported. This means that, in able to withdraw, you need to make a deposit first, using the method you wish to withdraw to. This deposit can be immediately returned in full with your withdrawal request. We sincerely apologize for the inconvenience.<br/><br/>Skrill & Neteller withdrawals will become available early next week. For now we will be able to process transactions manually, please contact support to request a withdrawal.',
         withdrawNoFeeInformation: 'Debit/Credit Card withdrawals come with a 0% withdrawal fee',
         warning: 'Please be aware that requesting a withdrawal while you have an active bonus will result in all of your bonus funds being confiscated. If you wish to check your bonus status, please navigate to the bonus tab on your profile or contact support for further assistance. Be aware that if you initiate a withdrawal and the bonus is confiscated this is NOT reversible.'
       },
@@ -339,12 +318,14 @@ const messages = {
           bank: 'Bank statement',
           card: 'Credit/Debit card',
           other: 'Other'
-        },
-        activated: 'Your account has been successfully activated'
+        }
       }
     },
-    common: {
-      noEventsFound: 'No events found'
+    bottomNavBar: {
+      sports: 'sports',
+      esports: 'esports',
+      casino: 'casino',
+      liveCasino: 'live casino'
     }
   }
 }
