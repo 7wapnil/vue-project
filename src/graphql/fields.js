@@ -132,6 +132,7 @@ export const PLAY_ITEM_FIELDS = `
   backgroundImageUrl
   url
   slug
+  type
 `
 
 export const CASINO_CATEGORIES_FIELDS = `
