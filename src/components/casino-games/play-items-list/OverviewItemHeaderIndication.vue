@@ -5,7 +5,8 @@
       :class="{'active': n === 2}"
       :key="n"
       :size="6"
-      class="indication-item"/>
+      class="indication-item"
+    />
   </div>
 </template>
 
