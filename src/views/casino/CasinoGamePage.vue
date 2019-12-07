@@ -5,11 +5,40 @@
     no-gutters>
     <b-col class="game-container">
       <b-embed
+        ref="gameContainer"
         :src="$attrs.launchUrl"
         type="iframe"
         aspect="16by9"
         allowfullscreen
       />
+    </b-col>
+    <b-col
+      cols="auto"
+      class="py-4">
+      <b-row no-gutters>
+        <b-col class="iframe-controls-wrapper">
+          <b-row
+            class="h-50"
+            no-gutters>
+            <b-col
+              class="d-flex align-items-center justify-content-center"
+              @click="openFullScreen">
+              <icon name="game-fullscreen"/>
+            </b-col>
+          </b-row>
+          <b-row
+            class="h-50"
+            no-gutters>
+            <b-col
+              class="d-flex align-items-center justify-content-center"
+              @click="pushLobby">
+              <icon
+                :size="13"
+                name="game-close"/>
+            </b-col>
+          </b-row>
+        </b-col>
+      </b-row>
     </b-col>
     <b-col
       v-if="!isMobile"
@@ -24,16 +53,34 @@ import CasinoGameSidebar from '@/views/casino/CasinoGameSidebar'
 
 export default {
   components: { CasinoGameSidebar },
+  methods: {
+    openFullScreen () {
+      const elem = this.$refs.gameContainer
+
+      if (elem.requestFullscreen) {
+        elem.requestFullscreen()
+      } else if (elem.mozRequestFullScreen) {
+        elem.mozRequestFullScreen()
+      } else if (elem.webkitRequestFullscreen) {
+        elem.webkitRequestFullscreen()
+      } else if (elem.msRequestFullscreen) {
+        elem.msRequestFullscreen()
+      }
+    },
+    pushLobby () {
+      const lobby = this.$route.params.titleKind
+      this.$router.push({ name: lobby })
+    }
+  }
 }
 </script>
 <style lang="scss"
        scoped>
     .game-container {
         min-height: calc(100vh - 80px);
-        max-height: calc(100vh - 80px);
-        padding: 20px;
+        padding: 20px 0 20px 20px;
         .embed-responsive {
-            border-radius: 6px;
+            border-radius: 6px 0 6px 6px;
             box-shadow: 2px 2px 10px 0 $black;
         }
     }
@@ -43,5 +90,13 @@ export default {
     }
     .sidebar-container {
         max-width: 268px;
+    }
+    .iframe-controls-wrapper {
+        border-radius: 0 6px 6px 0;
+        background: $arc-clr-soil-darker;
+        width: 40px;
+        height: 80px;
+        opacity: .8;
+        box-shadow: 2px 0 10px 0 $black;
     }
 </style>
