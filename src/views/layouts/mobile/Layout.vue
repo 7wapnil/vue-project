@@ -12,6 +12,7 @@
     <betslip-button/>
     <betslip-container/>
     <mobile-footer/>
+    <footer-nav-bar/>
   </div>
 </template>
 
@@ -22,6 +23,7 @@ import NavigationSidebar from './sidemenu/SidebarLayout'
 import { mapGetters, mapMutations } from 'vuex'
 import BetslipButton from './betslip/BetslipButton'
 import BetslipContainer from './betslip/BetslipContainer'
+import FooterNavBar from '@/views/layouts/mobile/FooterNavBar'
 
 export default {
   components: {
@@ -29,7 +31,8 @@ export default {
     MobileFooter,
     NavigationSidebar,
     BetslipButton,
-    BetslipContainer
+    BetslipContainer,
+    FooterNavBar
   },
   computed: {
     ...mapGetters([
