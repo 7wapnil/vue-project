@@ -45,7 +45,7 @@ export default {
       activeWallet: 'getUserActiveWallet'
     }),
     itemIcon () {
-      return this.item.logoUrl || this.defaultIcon()
+      return this.item.logoUrl || this.defaultIcon
     },
     defaultIcon () {
       return require('@/assets/images/logo/arcanebet-logo.png')
@@ -55,6 +55,7 @@ export default {
     },
     buttonText () {
       if (this.isLoggedIn) return this.$i18n.t('casino.realModeLaunch')
+      if (this.isTableGame) return this.$i18n.t('casino.liveDealerLaunch')
 
       return this.$i18n.t('casino.funModeLaunch')
     },
@@ -68,6 +69,8 @@ export default {
   },
   methods: {
     launchGame () {
+      if (!this.isLoggedIn && this.isTableGame) return
+
       this
         .$apollo
         .mutate({
@@ -78,18 +81,27 @@ export default {
           }
         })
         .then(({ data }) => {
-          this.$router.push({ name: 'casino-game',
-            params: { gameName: this.item.slug,
-              category: this.categoryName,
-              item: this.item,
-              launchUrl: data.createEveryMatrixSession.launchUrl
-            }
-          })
+          if (this.isDesktop) {
+            this.$router.push({
+              name: 'casino-game',
+              params: {
+                gameName: this.item.slug,
+                category: this.categoryName,
+                item: this.item,
+                launchUrl: data.createEveryMatrixSession.launchUrl
+              }
+            })
+          } else {
+            window.location = data.createEveryMatrixSession.launchUrl
+          }
         })
         .catch(() => {
           this.$router.push({ name: 'not-found' })
         })
     }
+  },
+  isTableGame () {
+    return this.item.type === 'table'
   }
 }
 </script>
