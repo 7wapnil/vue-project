@@ -43,7 +43,9 @@ export default {
       return this.isProfileOpen &&
             !this.isSidebarOpen &&
             this.getBetsCount > 0 &&
-            !this.isBetslipOpen
+            !this.isBetslipOpen &&
+            this.$route.params.titleKind === 'sports' ||
+            this.$route.params.titleKind === 'esports'
     }
   },
   mounted () {
