@@ -31,7 +31,7 @@ export default [
       content: GamesList
     }
   }, {
-    path: '/casino/:category/:gameName',
+    path: '/casino/:category/:playItemSlug',
     name: 'casino-game',
     props: {
       content: true,

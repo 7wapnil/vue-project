@@ -1,10 +1,9 @@
 import gql from 'graphql-tag'
-import { CASINO_CATEGORIES_FIELDS,
-  PLAY_ITEM_FIELDS,
-  OVERVIEW_FIELDS,
-  PAGINATION_FIELDS,
-  CASINO_RECOMMENDED_GAMES_FIELDS }
-  from '@/graphql/fields'
+import {
+  CASINO_CATEGORIES_FIELDS, PLAY_ITEM_FIELDS, OVERVIEW_FIELDS,
+  PAGINATION_FIELDS, CASINO_RECOMMENDED_GAMES_FIELDS,
+  EVERY_MATRIX_TRANSACTION_FIELDS, EVERY_MATRIX_SESSION_FIELDS
+} from './fields'
 
 export const GAMES_QUERY = gql`
   query games($context: String = null, $page: Int, $perPage: Int) {
@@ -49,8 +48,8 @@ export const TABLES_CATEGORIES_QUERY = gql`
 `
 
 export const RECOMMENDED_GAMES_QUERY = gql`
-  query recommendedGames($original_game_id: Int!) {
-    recommendedGames(original_game_id: $original_game_id) {
+  query recommendedGames($originalGameId: String!) {
+    recommendedGames(originalGameId: $originalGameId) {
       ${CASINO_RECOMMENDED_GAMES_FIELDS}
     }
   }
@@ -60,6 +59,35 @@ export const GAMES_OVERVIEW_QUERY = gql`
   query gamesOverview {
     gamesOverview {
      ${OVERVIEW_FIELDS}
+    }
+  }
+`
+
+export const TABLES_OVERVIEW_QUERY = gql`
+  query tablesOverview {
+    tablesOverview {
+     ${OVERVIEW_FIELDS}
+    }
+  }
+`
+
+export const EVERY_MATRIX_TRANSACTIONS_LIST_QUERY = gql`
+  query everyMatrixTransactions($page: Int, $perPage: Int) {
+    everyMatrixTransactions(page: $page, perPage: $perPage) {
+      collection {
+        ${EVERY_MATRIX_TRANSACTION_FIELDS}
+      }
+      pagination {
+        ${PAGINATION_FIELDS}
+      }
+    }
+  }
+`
+
+export const CREATE_EVERY_MATRIX_SESSION_MUTATION = gql`
+  mutation ($walletId: Int, $playItemSlug: String!) {
+    createEveryMatrixSession(walletId: $walletId, playItemSlug: $playItemSlug) {
+      ${EVERY_MATRIX_SESSION_FIELDS}
     }
   }
 `
