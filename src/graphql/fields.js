@@ -164,6 +164,9 @@ export const PAGINATION_FIELDS = `
 
 export const EVERY_MATRIX_SESSION_FIELDS = `
   launchUrl
+  playItem {
+    ${PLAY_ITEM_FIELDS}
+  }
 `
 
 export const EVERY_MATRIX_TRANSACTION_FIELDS = `

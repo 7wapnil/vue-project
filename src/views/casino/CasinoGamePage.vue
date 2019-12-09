@@ -1,12 +1,12 @@
 <template>
   <b-row
-    :style="{ backgroundImage: `url(${$attrs.item.backgroundImageUrl})`}"
+    :style="{ backgroundImage: `url(${playItem.backgroundImageUrl})`}"
     class="game-background"
     no-gutters>
     <b-col class="game-container">
       <b-embed
         ref="gameContainer"
-        :src="$attrs.launchUrl"
+        :src="launchUrl"
         type="iframe"
         aspect="16by9"
         allowfullscreen
@@ -43,34 +43,67 @@
     <b-col
       v-if="!isMobile"
       class="sidebar-container">
-      <casino-game-sidebar/>
+      <casino-game-sidebar :play-item="playItem"/>
     </b-col>
   </b-row>
 </template>
 
 <script>
 import CasinoGameSidebar from '@/views/casino/CasinoGameSidebar'
+import { CREATE_EVERY_MATRIX_SESSION_MUTATION } from '@/graphql'
 
 export default {
   components: { CasinoGameSidebar },
-  methods: {
-    openFullScreen () {
-      const elem = this.$refs.gameContainer
-
-      if (elem.requestFullscreen) {
-        elem.requestFullscreen()
-      } else if (elem.mozRequestFullScreen) {
-        elem.mozRequestFullScreen()
-      } else if (elem.webkitRequestFullscreen) {
-        elem.webkitRequestFullscreen()
-      } else if (elem.msRequestFullscreen) {
-        elem.msRequestFullscreen()
-      }
-    },
-    pushLobby () {
-      const lobby = this.$route.params.titleKind
-      this.$router.push({ name: lobby })
+  data () {
+    return {
+      playItem: {
+        id: '',
+        slug: ''
+      },
+      launchUrl: ''
     }
+  },
+  watch: {
+    $route () {
+      this.launchGame()
+    }
+  },
+  mounted () {
+    this.launchGame()
+  },
+  methods: {
+    launchGame () {
+      this
+        .$apollo
+        .mutate({
+          mutation: CREATE_EVERY_MATRIX_SESSION_MUTATION,
+          variables: {
+            walletId: this.walletId,
+            playItemSlug: this.$attrs.playItemSlug
+          }
+        })
+        .then(({ data }) => {
+          this.launchUrl = data.createEveryMatrixSession.launchUrl
+          this.playItem = data.createEveryMatrixSession.playItem
+        })
+    }
+  },
+  openFullScreen () {
+    const elem = this.$refs.gameContainer
+
+    if (elem.requestFullscreen) {
+      elem.requestFullscreen()
+    } else if (elem.mozRequestFullScreen) {
+      elem.mozRequestFullScreen()
+    } else if (elem.webkitRequestFullscreen) {
+      elem.webkitRequestFullscreen()
+    } else if (elem.msRequestFullscreen) {
+      elem.msRequestFullscreen()
+    }
+  },
+  pushLobby () {
+    const lobby = this.$route.params.titleKind
+    this.$router.push({ name: lobby })
   }
 }
 </script>

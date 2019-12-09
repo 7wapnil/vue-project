@@ -71,29 +71,27 @@ export default {
     launchGame () {
       if (!this.isLoggedIn && this.isTableGame) return
 
+      if (this.isDesktop) {
+        return this.$router.push({
+          name: 'casino-game',
+          params: {
+            playItemSlug: this.item.slug,
+            category: this.categoryName
+          }
+        })
+      }
+
       this
         .$apollo
         .mutate({
           mutation: CREATE_EVERY_MATRIX_SESSION_MUTATION,
           variables: {
             walletId: this.walletId,
-            playItemId: this.item.id
+            playItemSlug: this.item.slug
           }
         })
         .then(({ data }) => {
-          if (this.isDesktop) {
-            this.$router.push({
-              name: 'casino-game',
-              params: {
-                gameName: this.item.slug,
-                category: this.categoryName,
-                item: this.item,
-                launchUrl: data.createEveryMatrixSession.launchUrl
-              }
-            })
-          } else {
-            window.location = data.createEveryMatrixSession.launchUrl
-          }
+          window.location = data.createEveryMatrixSession.launchUrl
         })
         .catch(() => {
           this.$router.push({ name: 'not-found' })

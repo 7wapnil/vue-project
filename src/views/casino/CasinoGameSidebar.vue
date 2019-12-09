@@ -10,18 +10,29 @@
         </b-button>
       </b-col>
     </b-row>
-    <casino-recommended-games v-bind="$attrs"/>
+    <casino-recommended-play-items ref="casinoRecommendedPlayItems"/>
   </div>
 </template>
 
 <script>
 import { mapMutations } from 'vuex'
-import CasinoRecommendedGames from '@/views/casino/CasinoRecommendedGames'
+import CasinoRecommendedPlayItems from '@/views/casino/CasinoRecommendedPlayItems'
 
 export default {
   name: 'CasinoGameSidebar',
   components: {
-    CasinoRecommendedGames
+    CasinoRecommendedPlayItems
+  },
+  props: {
+    playItem: {
+      type: Object,
+      required: true
+    }
+  },
+  watch: {
+    playItem: function (playItem) {
+      return this.$refs.casinoRecommendedPlayItems.fetchRecommendedItems(playItem.id)
+    }
   },
   methods: {
     ...mapMutations('tabs', {
