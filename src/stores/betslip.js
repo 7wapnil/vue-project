@@ -10,9 +10,15 @@ import {
   SENT_TO_EXTERNAL_VALIDATION
 } from '@/constants/bet-pending-statuses'
 import { ODDS_TOO_HIGH_ERROR } from '@/constants/notification-codes'
-import { REJECTED } from '@/constants/bet-fail-statuses'
+import { REJECTED, CONFLICTED } from '@/constants/bet-fail-statuses'
 import { INITIAL } from '@/constants/bet-ok-statuses'
-import { BETSLIP_PLACEMENT_QUERY, BETSLIP_PLACEMENT_COMBO_QUERY, BETSLIP_BETS_QUERY, BET_UPDATED } from '@/graphql/index'
+import {
+  BETSLIP_PLACEMENT_QUERY,
+  BETSLIP_PLACEMENT_COMBO_QUERY,
+  BETSLIP_BETS_QUERY,
+  BET_UPDATED,
+  BETSLIP_VALIDATE_COMBO_BETS_QUERY
+} from '@/graphql'
 import { ACTIVE_STATUS } from '@/models/market'
 import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
 import VueLogger from 'vuejs-logger'
@@ -20,9 +26,7 @@ import VueLogger from 'vuejs-logger'
 const BET_DESTROY_TIMEOUT = 3000
 
 const isProduction = process.env.NODE_ENV === 'production'
-Vue.use(VueLogger, {
-  logLevel: isProduction ? 'error' : 'debug'
-})
+Vue.use(VueLogger, { logLevel: isProduction ? 'error' : 'debug' })
 
 const getBetsFromStorage = () => {
   const json = localStorage.getItem('bets')
@@ -37,6 +41,16 @@ const getBetsFromStorage = () => {
 
 const setBetsToStorage = (bets) => {
   localStorage.setItem('bets', JSON.stringify(bets))
+}
+
+const getBettingModeFromStorage = () => {
+  const rawData = localStorage.getItem('isComboBetsMode')
+
+  return rawData ? JSON.parse(rawData) : false
+}
+
+const setBettingModeToStorage = (isComboBetsMode) => {
+  localStorage.setItem('isComboBetsMode', isComboBetsMode)
 }
 
 export const mutations = {
@@ -61,10 +75,6 @@ export const mutations = {
     bet.stake = stakeValue
     setBetsToStorage(state.bets)
   },
-  removeBetFromBetslip (state, oddId) {
-    state.bets = state.bets.filter(e => e.oddId !== oddId)
-    setBetsToStorage(state.bets)
-  },
   clearBetslip (state) {
     state.bets = []
     setBetsToStorage(state.bets)
@@ -81,6 +91,34 @@ export const mutations = {
   },
   toggleBetslip (state) {
     state.betslipSidebarState = !state.betslipSidebarState
+  },
+  setComboBetsMode (state, { enabled }) {
+    state.isComboBetsMode = enabled
+
+    setBettingModeToStorage(enabled)
+  },
+  updateBetAfterValidation (state, { oddId, valid, errorMessages }) {
+    let bet = state.bets.find(el => el.oddId === oddId)
+    if (!bet) return
+
+    let attributes = {}
+
+    if (valid) {
+      attributes = { status: INITIAL, message: null, success: null }
+    } else {
+      attributes = { status: CONFLICTED, message: errorMessages.join('</br>'), success: false }
+    }
+
+    bet = Object.assign(bet, attributes)
+    setBetsToStorage(state.bets)
+  },
+  cleanBetErrors (state) {
+    state.bets.forEach((bet) => {
+      if (!bet.hasFailureStatus) return
+
+      Object.assign(bet, { status: INITIAL, message: null, success: null })
+    })
+    setBetsToStorage(state.bets)
   }
 }
 
@@ -103,6 +141,7 @@ export const getters = {
     return getters.betslipValuesConfirmed &&
       !getters.getAnyInactiveMarket &&
       getters.getAllBetsAcceptable &&
+      !getters.anyConflictedBets &&
       getters.getBets.length > 1
   },
   getIsEnoughFundsToBet: (state, getters, rootState, rootGetters) => {
@@ -133,6 +172,9 @@ export const getters = {
   getPlacedBetIds (state) {
     return state.bets.map((item) => item.id).filter((item) => item)
   },
+  getOddIds (state) {
+    return state.bets.map((bet) => bet.oddId)
+  },
   acceptAllChecked (state) {
     return state.acceptAll
   },
@@ -140,10 +182,16 @@ export const getters = {
     return state.bets.length
   },
   getTotalStakes (state) {
-    return state.bets.map(el => el.stake > 0 ? el.stake : 0).reduce((a, b) => +a + +b, 0)
+    return state
+      .bets
+      .map(el => el.stake > 0 ? el.stake : 0)
+      .reduce((a, b) => Number(a) + Number(b), 0)
   },
   getTotalReturn (state) {
-    return state.bets.map(el => (el.stake > 0 ? el.stake : 0) * el.approvedOddValue).reduce((a, b) => +a + +b, 0)
+    return state
+      .bets
+      .map(el => (el.stake > 0 ? el.stake : 0) * el.approvedOddValue)
+      .reduce((a, b) => Number(a) + Number(b), 0)
   },
   getAnyInactiveMarket (state) {
     return state.bets.some((bet) => {
@@ -178,6 +226,12 @@ export const getters = {
   },
   placingBetInProgress (state, getters) {
     return getters.getAnySubmittedBet || getters.getAnyBetInValidation
+  },
+  isComboBetsMode (state) {
+    return state.isComboBetsMode
+  },
+  anyConflictedBets (state) {
+    return state.bets.filter((bet) => bet.status === CONFLICTED).length > 0
   }
 }
 
@@ -218,11 +272,11 @@ export const actions = {
 
     Vue.$log.debug(`Subscribed bet ID ${bet.id}`)
   },
-  removeAcceptedBet ({ state, commit }, { betLegs, status }) {
+  removeAcceptedBet ({ state, commit, dispatch }, { betLegs, status }) {
     if (status !== Bet.statuses.accepted) return
 
     betLegs.forEach(betLeg => {
-      setTimeout(() => { commit('removeBetFromBetslip', betLeg.oddId) }, BET_DESTROY_TIMEOUT)
+      setTimeout(() => { dispatch('removeBetFromBetslip', betLeg.oddId) }, BET_DESTROY_TIMEOUT)
     })
   },
   unsubscribeBet ({ state }, bet) {
@@ -235,25 +289,27 @@ export const actions = {
   unsubscribeBets ({ dispatch, getters }) {
     getters.getBets.forEach(bet => dispatch('unsubscribeBet', bet))
   },
-  pushBet ({ state }, { event, market, odd }) {
+  pushBet ({ dispatch, state }, { event, market, odd }) {
     if (state.bets.find(bet => bet.oddId === odd.id)) { return }
     state.bets.push(Bet.initial(event, market, odd))
     setBetsToStorage(state.bets)
+    dispatch('validateBets')
   },
-  placeBets (context, { payload, isCombo }) {
-    if (isCombo) {
+  removeBetFromBetslip ({ dispatch, state }, oddId) {
+    state.bets = state.bets.filter(e => e.oddId !== oddId)
+    setBetsToStorage(state.bets)
+    dispatch('validateBets')
+  },
+  placeBets ({ state }, payload) {
+    if (state.isComboBetsMode) {
       return graphqlClient.mutate({
         mutation: BETSLIP_PLACEMENT_COMBO_QUERY,
-        variables: {
-          bet: payload
-        }
+        variables: { bet: payload }
       })
     } else {
       return graphqlClient.mutate({
         mutation: BETSLIP_PLACEMENT_QUERY,
-        variables: {
-          bets: payload
-        }
+        variables: { bets: payload }
       })
     }
   },
@@ -288,7 +344,30 @@ export const actions = {
           dispatch('removeAcceptedBet', bet)
         })
       })
-  }
+  },
+  validateBets ({ dispatch, commit, state }) {
+    (state.isComboBetsMode) ? dispatch('validateComboBets') : dispatch('validateSingleBets')
+  },
+  validateComboBets ({ commit, getters }) {
+    graphqlClient
+      .query({
+        query: BETSLIP_VALIDATE_COMBO_BETS_QUERY,
+        variables: { odds: getters.getOddIds },
+        fetchPolicy: NETWORK_ONLY
+      })
+      .then(({ data }) => {
+        const odds = data.validateComboBets
+
+        odds.forEach((oddResponse) => commit('updateBetAfterValidation', oddResponse))
+      })
+  },
+  validateSingleBets ({ commit }) {
+    commit('cleanBetErrors')
+  },
+  updateComboBetsMode ({ dispatch, commit, state }, { enabled }) {
+    commit('setComboBetsMode', { enabled })
+    dispatch('validateBets')
+  },
 }
 
 export default {
@@ -297,7 +376,8 @@ export default {
     bets: getBetsFromStorage(),
     acceptAll: false,
     subscriptions: {},
-    betslipSidebarState: false
+    betslipSidebarState: false,
+    isComboBetsMode: getBettingModeFromStorage()
   },
   actions,
   mutations,

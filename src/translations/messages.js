@@ -208,7 +208,8 @@ const messages = {
         unacceptableBets: 'Please remove any inactive bets',
         betsBeingSubmitted: 'Bet placement in progress',
         invalidStakeAmount: 'Please make sure your stake is correct',
-        notEnoughBetLegs: 'Please add more odds'
+        notEnoughBetLegs: 'Please add more odds',
+        anyConflictedBets: 'Please remove conflicted bets'
       },
       betslipItem: {
         oddsChanged: 'Odds Changed'
