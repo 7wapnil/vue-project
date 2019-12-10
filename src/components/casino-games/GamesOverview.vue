@@ -6,6 +6,7 @@
         :key="category.id"
         :category="category"
         :play-items="category.playItems"/>
+      <overview-providers/>
     </b-col>
   </b-row>
 </template>
@@ -15,10 +16,12 @@ import OverviewPlayItems from '@/components/casino-games/play-items-list/Overvie
 import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
 import { GAMES_OVERVIEW_QUERY } from '@/graphql'
 import { findCategoryIcon } from '@/helpers/icon-finder'
+import OverviewProviders from '@/components/casino-games/OverviewProviders'
 
 export default {
   components: {
-    OverviewPlayItems
+    OverviewPlayItems,
+    OverviewProviders
   },
   data () {
     return {

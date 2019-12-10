@@ -194,3 +194,11 @@ export const CASINO_RECOMMENDED_GAMES_FIELDS = `
   type
   url
 `
+
+export const GAME_PROVIDERS_FIELDS = `
+  id
+  enabled
+  logoUrl
+  name
+  representationName
+`
