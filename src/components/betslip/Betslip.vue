@@ -55,8 +55,7 @@
                   v-for="betLeg in getBets"
                   :key="`single-${betLeg.oddId}`">
                   <betslip-item
-                    :bet="betLeg"
-                    @mounted:betslip-item="scrollSubmit"/>
+                    :bet="betLeg"/>
                 </div>
               </b-col>
             </b-row>
@@ -70,13 +69,9 @@
               <b-col>
                 <div
                   v-for="betLeg in getBets"
-                  :key="`combo-${betLeg.oddId}`"
-                >
+                  :key="`combo-${betLeg.oddId}`">
                   <betslip-item
-                    :bet="betLeg"
-                    :is-combo="true"
-                    @mounted:betslip-item="scrollSubmit"
-                  />
+                    :bet="betLeg"/>
                 </div>
               </b-col>
             </b-row>
@@ -170,6 +165,8 @@ import BetslipStake from '@/components/betslip/BetslipStake'
 
 const REFRESH_BETSLIP_AFTER_PLACING_BET_TIME = 3000
 const REFRESH_BETSLIP_TIMEOUT = 1000
+const SCROLL_ON_LOAD_TIMEOUT = 1000
+const SCROLL_ON_UPDATE_TIMEOUT = 100
 const SINGLE_BET_TAB_INDEX = 0
 const COMBO_BETS_TAB_INDEX = 1
 
@@ -203,7 +200,8 @@ export default {
       'getAnyBetInValidation',
       'getFundsToBet',
       'isComboBetsMode',
-      'anyConflictedBets'
+      'anyConflictedBets',
+      'isValidating'
     ]),
     ...mapGetters(['isLoggedIn', 'getUserActiveWallet']),
     acceptAllOdds: {
@@ -289,17 +287,26 @@ export default {
         return this.isComboBetsMode ? COMBO_BETS_TAB_INDEX : SINGLE_BET_TAB_INDEX
       },
       set () {}
+    },
+    isValidationInProgress () {
+      return this.isValidating
     }
   },
   watch: {
     betsLength (val) {
       if (this.isMobile && !val) this.toggleBetslip()
       if (!val) this.resetBetslip()
+    },
+    isValidationInProgress (validating) {
+      if (!validating) setTimeout(this.scrollSubmit, SCROLL_ON_UPDATE_TIMEOUT)
     }
   },
   created () {
     this.subscribeBets()
     setTimeout(this.refreshBetslip, REFRESH_BETSLIP_TIMEOUT)
+  },
+  mounted () {
+    setTimeout(this.scrollSubmit, SCROLL_ON_LOAD_TIMEOUT)
   },
   methods: {
     ...mapActions('betslip', [
@@ -414,6 +421,8 @@ export default {
     },
     changeBettingTab (newTab) {
       this.updateComboBetsMode({ enabled: newTab === COMBO_BETS_TAB_INDEX })
+
+      setTimeout(this.scrollSubmit, SCROLL_ON_UPDATE_TIMEOUT)
     }
   }
 }

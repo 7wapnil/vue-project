@@ -119,6 +119,12 @@ export const mutations = {
       Object.assign(bet, { status: INITIAL, message: null, success: null })
     })
     setBetsToStorage(state.bets)
+  },
+  startValidation (state) {
+    state.validating = true
+  },
+  finishValidation (state) {
+    state.validating = false
   }
 }
 
@@ -232,6 +238,9 @@ export const getters = {
   },
   anyConflictedBets (state) {
     return state.bets.filter((bet) => bet.status === CONFLICTED).length > 0
+  },
+  isValidating (state) {
+    return state.validating
   }
 }
 
@@ -346,9 +355,17 @@ export const actions = {
       })
   },
   validateBets ({ dispatch, commit, state }) {
-    (state.isComboBetsMode) ? dispatch('validateComboBets') : dispatch('validateSingleBets')
+    commit('startValidation')
+
+    if (state.isComboBetsMode) {
+      dispatch('validateComboBets')
+    } else {
+      dispatch('validateSingleBets')
+    }
   },
   validateComboBets ({ commit, getters }) {
+    commit('startValidation')
+
     graphqlClient
       .query({
         query: BETSLIP_VALIDATE_COMBO_BETS_QUERY,
@@ -359,10 +376,12 @@ export const actions = {
         const odds = data.validateComboBets
 
         odds.forEach((oddResponse) => commit('updateBetAfterValidation', oddResponse))
+        commit('finishValidation')
       })
   },
   validateSingleBets ({ commit }) {
     commit('cleanBetErrors')
+    commit('finishValidation')
   },
   updateComboBetsMode ({ dispatch, commit, state }, { enabled }) {
     commit('setComboBetsMode', { enabled })
@@ -373,6 +392,7 @@ export const actions = {
 export default {
   namespaced: true,
   state: {
+    validating: false,
     bets: getBetsFromStorage(),
     acceptAll: false,
     subscriptions: {},
