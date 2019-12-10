@@ -32,62 +32,48 @@
 </template>
 
 <script>
+import { GAMES_CATEGORIES_QUERY } from '@/graphql'
+import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
+
 export default {
   name: 'CasinoTabs',
   data () {
     return {
       arrows: true,
-      tabs: [
-        {
-          id: 0,
-          name: 'popular',
-          icon: 'casino-popular',
-          label: 'Popular',
-          route: { name: 'casino' }
-        },
-        {
-          id: 1,
-          name: 'new',
-          icon: 'casino-new',
-          label: 'New',
-          route: { name: 'casino-category', params: { category: 'new' } }
-        },
-        {
-          id: 2,
-          name: 'favorites',
-          icon: 'casino-favorites',
-          label: 'Favorites',
-          route: { name: 'casino-category', params: { category: 'favorites' } }
-        },
-        {
-          id: 3,
-          name: 'slots',
-          icon: 'casino-slots',
-          label: 'Slots',
-          route: { name: 'casino-category', params: { category: 'slots' } }
-        },
-        {
-          id: 4,
-          name: 'jackpots',
-          icon: 'casino-jackpots',
-          label: 'Jackpots',
-          route: { name: 'casino-category', params: { category: 'jackpots' } }
-        },
-        {
-          id: 5,
-          name: 'table games',
-          icon: 'casino-table-games',
-          label: 'Table games',
-          route: { name: 'casino-category', params: { category: 'table-games' } }
-        },
-        {
-          id: 6,
-          name: 'skill games',
-          icon: 'casino-skill-games',
-          label: 'Skill games',
-          route: { name: 'casino-category', params: { category: 'skill-games' } }
+      defaultTab: {
+        id: 0,
+        name: 'popular',
+        icon: 'casino-popular',
+        label: 'Popular',
+        route: { name: 'casino' }
+      },
+      tabs: []
+    }
+  },
+  apollo: {
+    categories () {
+      return {
+        query: GAMES_CATEGORIES_QUERY,
+        fetchPolicy: NETWORK_ONLY,
+        result ({ data }) {
+          let categories = data.categories.map((data, index) => {
+            return {
+              ...data,
+              id: index + 1, // +1 because of default tab
+              icon: `casino-${data.name}`,
+              route: {
+                name: 'casino-category',
+                params: {
+                  category: `${data.name}`,
+                  label: data.label
+                }
+              }
+            }
+          })
+
+          this.tabs = [this.defaultTab, ...categories]
         }
-      ]
+      }
     }
   }
 }

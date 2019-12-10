@@ -1,12 +1,13 @@
 <template>
-  <div class="casino-games-list">
-    <overview-play-items
-      v-for="(category, index) in categories"
-      :key="index"
-      :category="category"
-      :play-items="category.playItems"
-      @tab-changed="tab => $emit('tab-changed', tab)"/>
-  </div>
+  <b-row no-gutters>
+    <b-col class="py-4">
+      <overview-play-items
+        v-for="category in categories"
+        :key="category.id"
+        :category="category"
+        :play-items="category.playItems"/>
+    </b-col>
+  </b-row>
 </template>
 
 <script>
@@ -31,7 +32,11 @@ export default {
         fetchPolicy: NETWORK_ONLY,
         result ({ data: { tablesOverview } }) {
           this.categories = tablesOverview.map((category, index) => {
-            return { ...category, icon: findCategoryIcon(category), index: index + 1 } // + 1 because of default category
+            return {
+              ...category,
+              icon: findCategoryIcon({ context: category.name }),
+              index: index + 1 // + 1 because of default category
+            }
           })
         }
       }

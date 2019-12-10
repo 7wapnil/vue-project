@@ -61,10 +61,6 @@ export default {
     },
     walletId () {
       if (this.activeWallet) return parseInt(this.activeWallet.id)
-    },
-    categoryName () {
-      const name = this.category.context.split('-')
-      return name[0]
     }
   },
   methods: {
@@ -73,10 +69,10 @@ export default {
 
       if (this.isDesktop) {
         return this.$router.push({
-          name: 'casino-game',
+          name: `${this.$route.params.titleKind}-game`,
           params: {
             playItemSlug: this.item.slug,
-            category: this.categoryName
+            category: this.category.name
           }
         })
       }
