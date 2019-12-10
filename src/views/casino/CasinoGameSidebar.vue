@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
+import { mapMutations, mapGetters } from 'vuex'
 import CasinoRecommendedPlayItems from '@/views/casino/CasinoRecommendedPlayItems'
 
 export default {
@@ -29,6 +29,11 @@ export default {
       required: true
     }
   },
+  computed: {
+    ...mapGetters([
+      'isLoggedIn'
+    ])
+  },
   watch: {
     playItem: function (playItem) {
       return this.$refs.casinoRecommendedPlayItems.fetchRecommendedItems(playItem.id)
@@ -39,8 +44,11 @@ export default {
       changeTabIndex: 'changeTabIndex'
     }),
     goToDeposit () {
-      this.changeTabIndex(3)
-      this.$bvModal.show('AccountModal')
+      if (this.isLoggedIn) {
+        this.changeTabIndex(3)
+        this.$bvModal.show('AccountModal')
+      }
+      this.$bvModal.show('AuthModal')
     }
   }
 }
