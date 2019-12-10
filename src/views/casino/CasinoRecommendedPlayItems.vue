@@ -7,9 +7,10 @@
         class="p-4 text-center w-100">
         No recommended items
       </div>
-      <div
+      <b-row
         v-for="recommendedItem in recommendedItems"
-        :key="recommendedItem.id">
+        :key="recommendedItem.id"
+        no-gutters>
         <b-col
           class="play-item"
           @click="launchGame(recommendedItem)"
@@ -21,7 +22,7 @@
             class="image"
             blank-color="#2F2F2F"/>
         </b-col>
-      </div>
+      </b-row>
     </b-col>
   </b-row>
 </template>
@@ -78,8 +79,8 @@ export default {
        scoped>
   .play-item {
     cursor: pointer;
-    margin: 10px;
-
+    margin: 10px 20px;
+    box-shadow: 2px 2px 10px 0 $black;
     .image {
       height: 100%;
       width: 100%;
@@ -89,7 +90,6 @@ export default {
     }
     &:hover {
       & > .image {
-        filter: brightness(0.5);
         transform: scale(1.09);
       }
     }
