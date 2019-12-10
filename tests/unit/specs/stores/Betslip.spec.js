@@ -1,8 +1,6 @@
 import { expect } from 'chai'
 import { mutations, getters, actions } from '@/stores/betslip'
 
-const sinon = require('sinon')
-
 describe('betslip store', () => {
   describe('actions', () => {
     describe('pushBet', () => {

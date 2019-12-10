@@ -4,3 +4,5 @@ import localStorage from './test-helpers/local-storage'
 
 global.sinon = sinon
 global.localStorage = localStorage
+
+window.HTMLElement.prototype.scrollIntoView = function () {}
