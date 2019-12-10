@@ -31,47 +31,48 @@
 </template>
 
 <script>
+import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
+import { TABLES_CATEGORIES_QUERY } from '@/graphql'
+
 export default {
+  name: 'LiveCasinoTabs',
   data () {
     return {
       arrows: true,
-      tabs: [
-        {
-          id: 0,
-          name: 'live-casino',
-          icon: 'live-casino-tabs-live-casino',
-          label: 'Live Casino',
-          route: { name: 'live-casino-category', params: { category: 'skill-games' } }
-        },
-        {
-          id: 1,
-          name: 'roulette',
-          icon: 'live-casino-tabs-roulette',
-          label: 'Roulette',
-          route: { name: 'live-casino-category', params: { category: 'roulette' } }
-        },
-        {
-          id: 2,
-          name: 'blackjack',
-          icon: 'live-casino-tabs-blackjack',
-          label: 'Blackjack',
-          route: { name: 'live-casino-category', params: { category: 'blackjack' } }
-        },
-        {
-          id: 3,
-          name: 'poker',
-          icon: 'live-casino-tabs-poker',
-          label: 'Poker',
-          route: { name: 'live-casino-category', params: { category: 'poker' } }
-        },
-        {
-          id: 4,
-          name: 'hot-tables',
-          icon: 'live-casino-tabs-hot-tables',
-          label: 'Hot Tables',
-          route: { name: 'live-casino-category', params: { category: 'hot-tables' } }
+      defaultTab: {
+        id: 0,
+        name: 'live-casino',
+        icon: 'live-casino-live-casino',
+        label: 'Live Casino',
+        route: { name: 'live-casino' }
+      },
+      tabs: []
+    }
+  },
+  apollo: {
+    categories () {
+      return {
+        query: TABLES_CATEGORIES_QUERY,
+        fetchPolicy: NETWORK_ONLY,
+        result ({ data }) {
+          let categories = data.categories.map((data, index) => {
+            return {
+              ...data,
+              id: index + 1, // +1 because of default tab
+              icon: `live-casino-${data.name}`,
+              route: {
+                name: 'live-casino-category',
+                params: {
+                  category: `${data.name}`,
+                  label: data.label
+                }
+              }
+            }
+          })
+
+          this.tabs = [this.defaultTab, ...categories]
         }
-      ]
+      }
     }
   }
 }

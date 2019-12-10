@@ -35,11 +35,11 @@ export default {
         fetchPolicy: NETWORK_ONLY,
         result ({ data: { gamesOverview } }) {
           this.categories = gamesOverview.map((category, index) => {
-            const categoryIconName = category.context.split('-')
-            return { ...category,
-              icon: findCategoryIcon({ context:
-                                        categoryIconName[0] }),
-              index: index + 1 } // + 1 because of default category
+            return {
+              ...category,
+              icon: findCategoryIcon({ context: category.name }),
+              index: index + 1 // + 1 because of default category
+            }
           })
         }
       }

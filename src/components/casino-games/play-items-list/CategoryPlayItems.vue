@@ -5,12 +5,12 @@
       no-gutters>
       <b-col class="header-title d-flex align-items-center p-4">
         <icon
-          name="casino-popular"
+          :name="categoryIcon"
           class="header-icon mx-4"
           color="arc-clr-live-casino-glow"
           size="28px"/>
         <h4 class="mb-0 font-weight-light">
-          Popular
+          {{ category.label }}
         </h4>
       </b-col>
       <b-col class="px-4 pt-4 pb-2 mr-4 text-right">
@@ -33,6 +33,7 @@
               v-for="playItem in playItems"
               :key="playItem.id"
               :item="playItem"
+              :category="category"
             />
           </transition-group>
         </b-col>
@@ -51,6 +52,17 @@ export default {
     playItems: {
       type: Array,
       default: () => { return [] }
+    }
+  },
+  computed: {
+    category () {
+      return {
+        name: this.$route.params.category,
+        label: this.$route.params.label
+      }
+    },
+    categoryIcon () {
+      return `${this.$route.params.titleKind}-${this.category.name}`
     }
   }
 }

@@ -45,6 +45,11 @@ export default {
   'slots': 'casino-slots',
   'jackpots': 'casino-jackpots',
   'table-games': 'casino-table-games',
-  'skill-games': 'casino-skill-games'
+  'skill-games': 'casino-skill-games',
 
+  // Live Casino
+  'poker': 'live-casino-poker',
+  'hot-tables': 'live-casino-hot-tables',
+  'roulette': 'live-casino-roulette',
+  'blackjack': 'live-casino-blackjack',
 }

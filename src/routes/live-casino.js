@@ -1,35 +1,44 @@
 import LiveCasinoHeader from '@/views/live-casino/LiveCasinoHeader'
 import LiveCasinoSidebar from '@/views/live-casino/LiveCasinoSidebar'
 import LiveCasinoTabs from '@/views/live-casino/LiveCasinoTabs'
-import LiveCasinoContent from '@/views/live-casino/LiveCasinoContent'
-import GamesList from '@/components/casino-games/GamesList'
+import TablesOverview from '@/components/casino-games/TablesOverview'
+import TablesList from '@/components/casino-games/TablesList'
+import CasinoGamePage from '@/views/casino/CasinoGamePage'
 
 export default [
   {
     path: '/live-casino',
     name: 'live-casino',
-    redirect: '/live-casino/skill-games',
+    props: {
+      content: true
+    },
     components: {
       left: LiveCasinoSidebar,
       header: LiveCasinoHeader,
       tabs: LiveCasinoTabs,
-      content: LiveCasinoContent
+      content: TablesOverview
+    }
+  }, {
+    path: '/live-casino/:category',
+    name: 'live-casino-category',
+    props: {
+      content: true
     },
-    children: [
-      {
-        path: ':category',
-        name: 'live-casino-category',
-        props: {
-          gamelist: true
-        },
-        components: {
-          left: LiveCasinoSidebar,
-          header: LiveCasinoHeader,
-          tabs: LiveCasinoTabs,
-          content: LiveCasinoContent,
-          gamelist: GamesList
-        }
-      }
-    ]
+    components: {
+      left: LiveCasinoSidebar,
+      header: LiveCasinoHeader,
+      tabs: LiveCasinoTabs,
+      content: TablesList
+    }
+  }, {
+    path: '/live-casino/:category/:playItemSlug',
+    name: 'live-casino-game',
+    props: {
+      content: true,
+      right: true
+    },
+    components: {
+      content: CasinoGamePage
+    }
   }
 ]

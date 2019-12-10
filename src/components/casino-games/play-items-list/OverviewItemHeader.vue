@@ -6,8 +6,8 @@
         :size="26"
         class="overview-item-header-icon"/>
       <b-link
-        :to="{ name: 'casino-category', params: { category: categoryName } }"
-        :disabled="!categoryName"
+        :to="{ name: 'casino-category', params: { category: category.name } }"
+        :disabled="!category.name"
         router-tag="h4"
         class="overview-item-header-title">
         {{ category.label }}
@@ -18,8 +18,8 @@
     </b-col>
     <b-col class="px-4 pt-4 pb-2 overview-item-header-viewall-block">
       <b-link
-        :to="{ name: 'casino-category', params: { category: categoryName } }"
-        :disabled="!categoryName"
+        :to="{ name: 'casino-category', params: { category: category.name } }"
+        :disabled="!category.name"
         class="mr-2">
         {{ this.$i18n.t('casino.viewAll') }}
       </b-link>
@@ -39,12 +39,6 @@ export default {
     category: {
       type: Object,
       required: true
-    }
-  },
-  computed: {
-    categoryName () {
-      const name = this.category.context.split('-')
-      return name[0]
     }
   }
 }

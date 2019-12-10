@@ -38,7 +38,7 @@ export default [
       right: true
     },
     components: {
-      content: CasinoGamePage,
+      content: CasinoGamePage
     }
   }
 ]

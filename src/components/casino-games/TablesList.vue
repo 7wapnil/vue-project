@@ -21,11 +21,17 @@ export default {
   components: {
     CategoryPlayItems
   },
+  props: {
+    category: {
+      type: String,
+      default: ''
+    }
+  },
   data () {
     return {
       tablesCollection: [],
       paginationProps: Object,
-      itemsPerPage: 5,
+      itemsPerPage: 25,
       page: 1
     }
   },
@@ -36,7 +42,7 @@ export default {
         fetchPolicy: NETWORK_ONLY,
         variables () {
           return {
-            context: this.selectedCategory.context,
+            context: this.computedCategory,
             page: 1,
             perPage: this.itemsPerPage
           }
@@ -46,6 +52,11 @@ export default {
           this.paginationProps = data.tables.pagination
         }
       }
+    }
+  },
+  computed: {
+    computedCategory () {
+      return this.isMobile ? `${this.category}-mobile` : `${this.category}-desktop`
     }
   }
 }
