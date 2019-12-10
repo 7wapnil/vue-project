@@ -49,6 +49,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import CasinoGameSidebar from '@/views/casino/CasinoGameSidebar'
 import { CREATE_EVERY_MATRIX_SESSION_MUTATION } from '@/graphql'
 
@@ -62,6 +63,15 @@ export default {
       },
       launchUrl: ''
     }
+  },
+  computed: {
+    ...mapGetters({
+      isLoggedIn: 'isLoggedIn',
+      activeWallet: 'getUserActiveWallet'
+    }),
+    walletId () {
+      if (this.activeWallet) return parseInt(this.activeWallet.id)
+    },
   },
   watch: {
     $route () {
