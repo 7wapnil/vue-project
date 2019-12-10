@@ -86,24 +86,24 @@ export default {
           this.launchUrl = data.createEveryMatrixSession.launchUrl
           this.playItem = data.createEveryMatrixSession.playItem
         })
-    }
-  },
-  openFullScreen () {
-    const elem = this.$refs.gameContainer
+    },
+    openFullScreen () {
+      const elem = this.$refs.gameContainer
 
-    if (elem.requestFullscreen) {
-      elem.requestFullscreen()
-    } else if (elem.mozRequestFullScreen) {
-      elem.mozRequestFullScreen()
-    } else if (elem.webkitRequestFullscreen) {
-      elem.webkitRequestFullscreen()
-    } else if (elem.msRequestFullscreen) {
-      elem.msRequestFullscreen()
+      if (elem.requestFullscreen) {
+        elem.requestFullscreen()
+      } else if (elem.mozRequestFullScreen) {
+        elem.mozRequestFullScreen()
+      } else if (elem.webkitRequestFullscreen) {
+        elem.webkitRequestFullscreen()
+      } else if (elem.msRequestFullscreen) {
+        elem.msRequestFullscreen()
+      }
+    },
+    pushLobby () {
+      const lobby = this.$route.params.titleKind
+      this.$router.push({ name: lobby })
     }
-  },
-  pushLobby () {
-    const lobby = this.$route.params.titleKind
-    this.$router.push({ name: lobby })
   }
 }
 </script>
