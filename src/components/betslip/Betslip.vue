@@ -111,7 +111,7 @@
           </b-col>
           <b-col class="text-right mr-1">
             <h5 class="total-return m-0 text-arc-clr-white font-weight-bold">
-              {{ getReturn }}
+              {{ formattedReturn }}
             </h5>
           </b-col>
         </b-row>
@@ -169,6 +169,7 @@ const SCROLL_ON_LOAD_TIMEOUT = 1000
 const SCROLL_ON_UPDATE_TIMEOUT = 100
 const SINGLE_BET_TAB_INDEX = 0
 const COMBO_BETS_TAB_INDEX = 1
+const MAX_VALUABLE_RETURN_VALUE = 1000000000
 
 export default {
   components: {
@@ -250,10 +251,15 @@ export default {
       return this.getBets ? this.getBets.length : 0
     },
     getReturn () {
-      if (this.isComboBetsMode) {
-        return this.getComboReturn
+      return (this.isComboBetsMode) ? this.getComboReturn : parseFloat(this.getTotalReturn.toFixed(2))
+    },
+    formattedReturn () {
+      if (this.getReturn <= MAX_VALUABLE_RETURN_VALUE) {
+        return new Intl.NumberFormat().format(this.getReturn)
       } else {
-        return parseFloat(this.getTotalReturn.toFixed(2))
+        return this.$i18n.t('betslip.bigNumber', {
+          number: new Intl.NumberFormat().format(MAX_VALUABLE_RETURN_VALUE)
+        })
       }
     },
     isBetslipSubmittable () {
@@ -276,11 +282,11 @@ export default {
     },
     getComboReturn () {
       const bets = this.getBets
-      const stake = this.comboStake
-      const value = bets
-        .map(el => (stake > 0 ? stake : 0) * el.approvedOddValue)
-        .reduce((a, b) => Number(a) * Number(b), 1)
-      return parseFloat(value.toFixed(2))
+      const totalOdd = bets.reduce((totalOdd, bet) => {
+        return totalOdd * bet.approvedOddValue
+      }, 1)
+
+      return (Number(this.comboStake) * totalOdd).toFixed(2)
     },
     tabIndex: {
       get () {

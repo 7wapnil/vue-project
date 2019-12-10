@@ -195,6 +195,7 @@ const messages = {
     },
     betslip: {
       generic: 'Bet placement unsuccessful. Please try again or contact support.',
+      bigNumber: 'more than {number}',
       betslipEmpty: 'Your betslip is currently empty.\n' +
         'Click on any odds to add them\n' +
         'to betslip.',
