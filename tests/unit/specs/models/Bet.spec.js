@@ -25,7 +25,8 @@ describe('Bet', () => {
         failed: 'failed',
         settled: 'settled',
         rejected: 'rejected',
-        disabled: 'disabled'
+        disabled: 'disabled',
+        conflicted: 'conflicted'
       })
     })
   })

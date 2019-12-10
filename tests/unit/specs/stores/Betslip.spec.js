@@ -1,15 +1,16 @@
 import { expect } from 'chai'
 import { mutations, getters, actions } from '@/stores/betslip'
 
+const sinon = require('sinon')
+
 describe('betslip store', () => {
   describe('actions', () => {
     describe('pushBet', () => {
       it('adds new bet to empty betslip based on odd', () => {
-        const state = {
-          bets: []
-        }
+        const state = { bets: [] }
+        const dispatch = sinon.spy()
 
-        actions.pushBet({ state }, { event: {}, market: {}, odd: { id: 1, value: 2 } })
+        actions.pushBet({ dispatch, state }, { event: {}, market: {}, odd: { id: 1, value: 2 } })
 
         expect(state.bets.length).to.eql(1)
         expect(state.bets[0].oddId).to.eql(1)
@@ -23,6 +24,19 @@ describe('betslip store', () => {
         actions.pushBet({ state }, { event: {}, market: {}, odd: { id: 1, value: 2 } })
 
         expect(state.bets.length).to.eql(1)
+      })
+    })
+
+    describe('removeBetFromBetslip', () => {
+      it('removes one item from betslip', () => {
+        const state = {
+          bets: [ { oddId: 1 }, { oddId: 2, status: 'xxx' } ]
+        }
+        const dispatch = sinon.spy()
+
+        actions.removeBetFromBetslip({ dispatch, state }, 1)
+
+        expect(state.bets).to.eql([{ oddId: 2, status: 'xxx' }])
       })
     })
   })
@@ -49,18 +63,6 @@ describe('betslip store', () => {
         mutations.updateBet(state, { oddId: 2, payload: { status: 'foo' } })
 
         expect(state.bets).to.eql([{ oddId: 1 }, { oddId: 2, status: 'foo' }])
-      })
-    })
-
-    describe('removeBetFromBetslip', () => {
-      it('removes one item from betslip', () => {
-        const state = {
-          bets: [ { oddId: 1 }, { oddId: 2, status: 'xxx' } ]
-        }
-
-        mutations.removeBetFromBetslip(state, 1)
-
-        expect(state.bets).to.eql([{ oddId: 2, status: 'xxx' }])
       })
     })
 

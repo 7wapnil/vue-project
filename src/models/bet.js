@@ -6,7 +6,8 @@ const STATUSES = {
   settled: 'settled',
   failed: 'failed',
   rejected: 'rejected',
-  disabled: 'disabled'
+  disabled: 'disabled',
+  conflicted: 'conflicted'
 }
 
 export default class Bet {
@@ -52,6 +53,14 @@ export default class Bet {
 
   get isStatusAccepted () {
     return this.status === STATUSES.accepted
+  }
+
+  get hasFailureStatus () {
+    return [
+      STATUSES.failed,
+      STATUSES.rejected,
+      STATUSES.conflicted
+    ].includes(this.status)
   }
 
   get isAcceptable () {

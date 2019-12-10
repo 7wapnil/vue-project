@@ -25,7 +25,7 @@
             bg-color="arc-clr-soil-cover"
             depends
             inline>
-            {{ betslipLength }}
+            {{ betsLength }}
           </arc-circle>
         </b-col>
         <b-col
@@ -43,7 +43,8 @@
         bg-variant="arc-clr-soil-black">
         <b-tabs
           v-model="tabIndex"
-          nav-wrapper-class="betslip-nav-wrapper">
+          nav-wrapper-class="betslip-nav-wrapper"
+          @input="changeBettingTab">
           <b-tab
             :title-link-class="changeStyleTab(0)"
             title="Single"
@@ -93,7 +94,7 @@
         class="pl-3 pr-4 py-3"
         no-body>
         <b-row
-          v-if="!isComboTab"
+          v-if="!isComboBetsMode"
           no-gutters
           class="mb-2">
           <b-col cols="8">
@@ -169,7 +170,8 @@ import BetslipStake from '@/components/betslip/BetslipStake'
 
 const REFRESH_BETSLIP_AFTER_PLACING_BET_TIME = 3000
 const REFRESH_BETSLIP_TIMEOUT = 1000
-const COMBO_TAB_INDEX = 1
+const SINGLE_BET_TAB_INDEX = 0
+const COMBO_BETS_TAB_INDEX = 1
 
 export default {
   components: {
@@ -180,7 +182,6 @@ export default {
   },
   data () {
     return {
-      tabIndex: 0,
       comboStake: ''
     }
   },
@@ -200,7 +201,9 @@ export default {
       'getAllBetsAcceptable',
       'placingBetInProgress',
       'getAnyBetInValidation',
-      'getFundsToBet'
+      'getFundsToBet',
+      'isComboBetsMode',
+      'anyConflictedBets'
     ]),
     ...mapGetters(['isLoggedIn', 'getUserActiveWallet']),
     acceptAllOdds: {
@@ -227,10 +230,11 @@ export default {
         betsBeingSubmitted: this.getAnySubmittedBet
       }
 
-      if (this.isComboTab) {
+      if (this.isComboBetsMode) {
         conditions.invalidStakeAmount = !this.isValidComboStake
         conditions.notEnoughBetLegs = !(this.betsLength > 1)
         conditions.notEnoughMoney = !this.isEnoughFundsCombo
+        conditions.anyConflictedBets = this.anyConflictedBets
       } else {
         conditions.invalidStakeAmount = this.getAnyEmptyStake
       }
@@ -245,25 +249,17 @@ export default {
       return content
     },
     betsLength () {
-      if (this.getBets) {
-        return (!this.isComboTab) ? this.getBets.length : 1
-      }
-    },
-    betslipLength () {
-      return this.isComboTab ? 1 : this.betsLength
-    },
-    isComboTab () {
-      return this.tabIndex === COMBO_TAB_INDEX
+      return this.getBets ? this.getBets.length : 0
     },
     getReturn () {
-      if (this.isComboTab) {
+      if (this.isComboBetsMode) {
         return this.getComboReturn
       } else {
         return parseFloat(this.getTotalReturn.toFixed(2))
       }
     },
     isBetslipSubmittable () {
-      if (this.isComboTab) {
+      if (this.isComboBetsMode) {
         return this.isComboBetSubmittable
       } else {
         return this.betslipSubmittable
@@ -287,17 +283,18 @@ export default {
         .map(el => (stake > 0 ? stake : 0) * el.approvedOddValue)
         .reduce((a, b) => Number(a) * Number(b), 1)
       return parseFloat(value.toFixed(2))
+    },
+    tabIndex: {
+      get () {
+        return this.isComboBetsMode ? COMBO_BETS_TAB_INDEX : SINGLE_BET_TAB_INDEX
+      },
+      set () {}
     }
   },
   watch: {
     betsLength (val) {
-      if (this.isMobile && !val) {
-        this.toggleBetslip()
-      }
-
-      if (!val) {
-        this.resetBetslip()
-      }
+      if (this.isMobile && !val) this.toggleBetslip()
+      if (!val) this.resetBetslip()
     }
   },
   created () {
@@ -309,12 +306,13 @@ export default {
       'subscribeBets',
       'unsubscribeBets',
       'placeBets',
-      'refreshBetslip'
+      'refreshBetslip',
+      'removeBetFromBetslip',
+      'updateComboBetsMode'
     ]),
     ...mapMutations('betslip', [
       'setBetStatusAsSubmitted',
       'updateBet',
-      'removeBetFromBetslip',
       'clearBetslip',
       'updateAcceptAll',
       'toggleBetslip'
@@ -322,32 +320,29 @@ export default {
     submit () {
       this.setBetStatusAsSubmitted()
 
-      const payload = this.isComboTab ? this.getComboBetPayload() : this.getSingleBetPayload()
+      const payload = this.isComboBetsMode ? this.getComboBetPayload() : this.getSingleBetPayload()
 
-      this.placeBets({ payload, isCombo: this.isComboTab })
+      this
+        .placeBets(payload)
         .then(this.updateBetsFromResponse)
     },
     getComboBetPayload () {
-      const payload = {
+      return {
         amount: parseFloat(this.comboStake),
         odds: this.getBets.map(bet => {
           return { id: bet.oddId, value: bet.approvedOddValue }
         }),
         currencyCode: this.getUserActiveWallet.currency.code
       }
-
-      return payload
     },
     getSingleBetPayload () {
-      const payload = this.getBets.map((bet) => {
+      return this.getBets.map((bet) => {
         return {
           amount: parseFloat(bet.stake),
           odds: [{ id: bet.oddId, value: bet.approvedOddValue }],
           currencyCode: this.getUserActiveWallet.currency.code
         }
       })
-
-      return payload
     },
     scrollSubmit () {
       const submitButton = this.$refs['betslip-submit']
@@ -406,14 +401,9 @@ export default {
       })
     },
     changeStyleTab (index) {
-      if (this.tabIndex === index) {
-        return 'betslipActiveTab'
-      } else {
-        return 'betslipTab'
-      }
+      return (this.tabIndex === index) ? 'betslipActiveTab' : 'betslipTab'
     },
     resetBetslip () {
-      this.tabIndex = 0
       this.clearComboStake()
     },
     updateComboStake (stake) {
@@ -421,6 +411,9 @@ export default {
     },
     clearComboStake () {
       this.comboStake = ''
+    },
+    changeBettingTab (newTab) {
+      this.updateComboBetsMode({ enabled: newTab === COMBO_BETS_TAB_INDEX })
     }
   }
 }

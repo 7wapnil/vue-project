@@ -59,7 +59,7 @@
       </b-col>
     </b-row>
 
-    <div v-if="!isCombo">
+    <div v-if="!isComboBetsMode">
       <b-row no-gutters>
         <b-col>
           <b-row no-gutters>
@@ -146,9 +146,8 @@
     <b-alert
       :show="isFail"
       class="bet-message-alert mt-3 mx-auto p-2 text-center"
-      variant="danger">
-      {{ betMessage }}
-    </b-alert>
+      variant="danger"
+      v-html="betMessage"/>
     <b-alert
       :show="isSuccess"
       class="success-message mt-3 mx-auto p-2 text-center"
@@ -166,18 +165,11 @@
 
 <script>
 import Bet from '@/models/bet'
-import { mapGetters, mapMutations } from 'vuex'
+import { mapGetters, mapMutations, mapActions } from 'vuex'
 import { MESSAGE_SETTLED, MESSAGE_DISABLED, MESSAGE_SUCCESS } from '@/constants/betslip-messages'
 import { MARKET_BY_ID_QUERY, EVENT_BET_STOPPED, eventUpdatedSubscription } from '@/graphql'
 import { INACTIVE_STATUS, SETTLED_STATUS, INACTIVE_STATUSES } from '@/models/market'
-import {
-  PENDING_CANCELLATION,
-  ENPENDING_MANUAL_CANCELLATIONDED,
-  CANCELLED,
-  REJECTED,
-  CANCELLED_BY_SYSTEM,
-  FAILED
-} from '@/constants/bet-fail-statuses'
+import { STATUSES as FAILURE_STATUSES } from '@/constants/bet-fail-statuses'
 import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
 import MaskedInput from 'vue-text-mask'
 import createNumberMask from 'text-mask-addons/dist/createNumberMask'
@@ -193,10 +185,6 @@ export default {
     bet: {
       type: Bet,
       required: true
-    },
-    isCombo: {
-      type: Boolean,
-      default: false
     }
   },
   data () {
@@ -269,7 +257,8 @@ export default {
     ...mapGetters('betslip', [
       'acceptAllChecked',
       'getBets',
-      'getAnyFrozenBet'
+      'getAnyFrozenBet',
+      'isComboBetsMode'
     ]),
     potentialReturn: function () {
       const stake = this.bet.stake > 0 ? this.bet.stake : 0
@@ -304,12 +293,7 @@ export default {
     isFail () {
       if (!this.bet.status) return
 
-      return [ PENDING_CANCELLATION,
-        ENPENDING_MANUAL_CANCELLATIONDED,
-        CANCELLED,
-        REJECTED,
-        CANCELLED_BY_SYSTEM,
-        FAILED].includes(this.bet.status)
+      return FAILURE_STATUSES.includes(this.bet.status)
     },
     isBetDisabled () {
       return this.isDisabled || this.isSettled
@@ -331,10 +315,10 @@ export default {
     this.$emit('betslip-item-mounted')
   },
   methods: {
+    ...mapActions('betslip', ['removeBetFromBetslip']),
     ...mapMutations('betslip', [
       'setBetStake',
       'updateBet',
-      'removeBetFromBetslip'
     ]),
     updateOdds (market) {
       if (!market.hasOwnProperty('id')) return
