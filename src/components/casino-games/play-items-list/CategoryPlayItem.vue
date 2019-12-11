@@ -61,6 +61,9 @@ export default {
     },
     walletId () {
       if (this.activeWallet) return parseInt(this.activeWallet.id)
+    },
+    isTableGame () {
+      return this.item.type === 'table'
     }
   },
   methods: {
@@ -93,9 +96,6 @@ export default {
           this.$router.push({ name: 'not-found' })
         })
     }
-  },
-  isTableGame () {
-    return this.item.type === 'table'
   }
 }
 </script>

@@ -76,5 +76,9 @@ export default {
   .play-items-enter, .play-items-leave-to {
     transform: scale(1.1, 1.1);
   }
-
+  .play-item {
+    &-desktop:first-child {
+      margin: 10px;
+    }
+  }
 </style>
