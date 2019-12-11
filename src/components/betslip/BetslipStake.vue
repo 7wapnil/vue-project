@@ -6,8 +6,7 @@
       <b-row no-gutters>
         <b-col class="mt-1">
           <small
-            class="text-arc-clr-iron text-uppercase font-weight-bold letter-spacing-2"
-          >
+            class="text-arc-clr-iron text-uppercase font-weight-bold letter-spacing-2">
             {{ $t('betslip.stake') }}
           </small>
         </b-col>
@@ -39,6 +38,14 @@ export default {
     isDisabled: {
       type: Boolean,
       default: false
+    },
+    integerLimit: {
+      type: Number,
+      default: null
+    },
+    decimalLimit: {
+      type: Number,
+      default: null
     }
   },
   data () {
@@ -52,7 +59,9 @@ export default {
         prefix: '',
         allowDecimal: true,
         allowLeadingZeroes: true,
-        includeThousandsSeparator: false
+        includeThousandsSeparator: false,
+        integerLimit: this.integerLimit,
+        decimalLimit: this.decimalLimit
       })
     },
     stake: {
