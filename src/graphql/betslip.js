@@ -53,9 +53,12 @@ export const BETSLIP_BETS_QUERY = gql`
 export const BETSLIP_VALIDATE_COMBO_BETS_QUERY = gql`
   query validateComboBets($odds: [ID]) {
     validateComboBets(odds: $odds) {
-      oddId
-      valid
-      errorMessages
+      generalMessages
+      odds {
+        oddId
+        valid
+        errorMessages
+      } 
     }
   }
 `

@@ -78,6 +78,8 @@
 
             <betslip-stake
               :is-disabled="false"
+              :integer-limit="digitsLimitForStake"
+              :decimal-limit="2"
               @stake-changed:betslip-stake="updateComboStake"/>
           </b-tab>
 
@@ -110,9 +112,16 @@
             </h5>
           </b-col>
           <b-col class="text-right mr-1">
-            <h5 class="total-return m-0 text-arc-clr-white font-weight-bold">
+            <h5
+              id="betslip-total-return"
+              class="total-return m-0 text-arc-clr-white font-weight-bold">
               {{ formattedReturn }}
             </h5>
+            <b-tooltip
+              target="betslip-total-return"
+              triggers="hover">
+              {{ getReturn | numberize }}
+            </b-tooltip>
           </b-col>
         </b-row>
       </b-card>
@@ -170,6 +179,7 @@ const SCROLL_ON_UPDATE_TIMEOUT = 100
 const SINGLE_BET_TAB_INDEX = 0
 const COMBO_BETS_TAB_INDEX = 1
 const MAX_VALUABLE_RETURN_VALUE = 1000000000
+const DIGITS_LIMIT_FOR_STAKE = 7
 
 export default {
   components: {
@@ -177,6 +187,11 @@ export default {
     NoBetsBlock,
     SpinnerButton,
     BetslipStake
+  },
+  filters: {
+    numberize (value) {
+      return value ? new Intl.NumberFormat().format(value) : 0
+    }
   },
   data () {
     return {
@@ -202,7 +217,9 @@ export default {
       'getFundsToBet',
       'isComboBetsMode',
       'anyConflictedBets',
-      'isValidating'
+      'isValidating',
+      'hasValidationMessages',
+      'getValidationMessages'
     ]),
     ...mapGetters(['isLoggedIn', 'getUserActiveWallet']),
     acceptAllOdds: {
@@ -216,34 +233,37 @@ export default {
     },
     getTooltipContent () {
       if (this.isBetslipSubmittable) return
-
       if (!this.isLoggedIn) return this.$i18n.t('betslip.tooltipMessages.default')
+      if (this.hasValidationMessages) return this.getValidationMessages.join('\r\n')
 
       let content = this.$i18n.t('betslip.tooltipMessages.defaultLoggedIn')
-
-      const conditions = {
-        unacceptableBets: !this.getAllBetsAcceptable,
-        oddsNotConfirmed: !this.betslipValuesConfirmed,
-        notEnoughMoney: !this.getIsEnoughFundsToBet,
-        inactiveMarkets: this.getAnyInactiveMarket,
-        betsBeingSubmitted: this.getAnySubmittedBet
-      }
+      let conditions = {}
 
       if (this.isComboBetsMode) {
-        conditions.invalidStakeAmount = !this.isValidComboStake
-        conditions.notEnoughBetLegs = !(this.betsLength > 1)
-        conditions.notEnoughMoney = !this.isEnoughFundsCombo
-        conditions.anyConflictedBets = this.anyConflictedBets
+        conditions = {
+          anyConflictedBets: this.anyConflictedBets,
+          notEnoughMoney: !this.isEnoughFundsCombo,
+          notEnoughBetLegs: !(this.betsLength > 1),
+          invalidStakeAmount: !this.isValidComboStake
+        }
       } else {
-        conditions.invalidStakeAmount = this.getAnyEmptyStake
+        conditions = {
+          invalidStakeAmount: this.getAnyEmptyStake,
+          notEnoughMoney: !this.getIsEnoughFundsToBet
+        }
       }
 
-      Object.keys(conditions).forEach((translationKey) => {
-        const condition = conditions[translationKey]
-        if (condition === true) {
-          content = this.$i18n.t(`betslip.tooltipMessages.${translationKey}`)
-        }
+      Object.assign(conditions, {
+        betsBeingSubmitted: this.getAnySubmittedBet,
+        inactiveMarkets: this.getAnyInactiveMarket,
+        oddsNotConfirmed: !this.betslipValuesConfirmed,
+        unacceptableBets: !this.getAllBetsAcceptable,
       })
+
+      const matchedKey = Object.keys(conditions).find((translationKey) => conditions[translationKey])
+      if (matchedKey) {
+        content = this.$i18n.t(`betslip.tooltipMessages.${matchedKey}`)
+      }
 
       return content
     },
@@ -263,6 +283,8 @@ export default {
       }
     },
     isBetslipSubmittable () {
+      if (this.hasValidationMessages) return false
+
       if (this.isComboBetsMode) {
         return this.isComboBetSubmittable
       } else {
@@ -274,8 +296,8 @@ export default {
     },
     isComboBetSubmittable () {
       return this.betslipComboSubmittable &&
-      this.isValidComboStake &&
-      this.isEnoughFundsCombo
+        this.isValidComboStake &&
+        this.isEnoughFundsCombo
     },
     isEnoughFundsCombo () {
       return this.getFundsToBet > this.comboStake
@@ -296,6 +318,9 @@ export default {
     },
     isValidationInProgress () {
       return this.isValidating
+    },
+    digitsLimitForStake () {
+      return DIGITS_LIMIT_FOR_STAKE
     }
   },
   watch: {

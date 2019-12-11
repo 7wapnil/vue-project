@@ -28,29 +28,16 @@ const BET_DESTROY_TIMEOUT = 3000
 const isProduction = process.env.NODE_ENV === 'production'
 Vue.use(VueLogger, { logLevel: isProduction ? 'error' : 'debug' })
 
-const getBetsFromStorage = () => {
-  const json = localStorage.getItem('bets')
-  if (!json) {
-    return []
-  }
+const getFieldFromStorage = (fieldName, defaultValue) => {
+  const rawData = localStorage.getItem(fieldName)
 
-  return JSON.parse(json).map((betAttributes) => {
-    return new Bet(betAttributes)
-  })
+  return rawData ? JSON.parse(rawData) : defaultValue
 }
 
-const setBetsToStorage = (bets) => {
-  localStorage.setItem('bets', JSON.stringify(bets))
-}
+const setFieldToStorage = (fieldName, value, context = {}) => {
+  const item = context.array ? JSON.stringify(value) : value
 
-const getBettingModeFromStorage = () => {
-  const rawData = localStorage.getItem('isComboBetsMode')
-
-  return rawData ? JSON.parse(rawData) : false
-}
-
-const setBettingModeToStorage = (isComboBetsMode) => {
-  localStorage.setItem('isComboBetsMode', isComboBetsMode)
+  localStorage.setItem(fieldName, item)
 }
 
 export const mutations = {
@@ -67,24 +54,24 @@ export const mutations = {
     Vue.$log.debug(`Update bet ID = ${bet.id}, eventName = ${bet.eventName}, marketName = ${bet.marketName},
       oddName = ${bet.oddName}, status = ${bet.status}, new data:`, payload)
     bet = Object.assign(bet, payload)
-    setBetsToStorage(state.bets)
+    setFieldToStorage('bets', state.bets, { array: true })
   },
   setBetStake (state, { oddId, stakeValue }) {
     let bet = state.bets.find(bet => bet.oddId === oddId)
     if (!bet) { return }
     bet.stake = stakeValue
-    setBetsToStorage(state.bets)
+    setFieldToStorage('bets', state.bets, { array: true })
   },
   clearBetslip (state) {
     state.bets = []
-    setBetsToStorage(state.bets)
+    setFieldToStorage('bets', state.bets, { array: true })
   },
   setBetStatusAsSubmitted (state) {
     state.bets = state.bets.map((bet) => {
       bet.status = Bet.statuses.submitted
       return bet
     })
-    setBetsToStorage(state.bets)
+    setFieldToStorage('bets', state.bets, { array: true })
   },
   updateAcceptAll (state, acceptValue) {
     state.acceptAll = acceptValue
@@ -95,7 +82,7 @@ export const mutations = {
   setComboBetsMode (state, { enabled }) {
     state.isComboBetsMode = enabled
 
-    setBettingModeToStorage(enabled)
+    setFieldToStorage('isComboBetsMode', enabled)
   },
   updateBetAfterValidation (state, { oddId, valid, errorMessages }) {
     let bet = state.bets.find(el => el.oddId === oddId)
@@ -110,7 +97,7 @@ export const mutations = {
     }
 
     bet = Object.assign(bet, attributes)
-    setBetsToStorage(state.bets)
+    setFieldToStorage('bets', state.bets, { array: true })
   },
   cleanBetErrors (state) {
     state.bets.forEach((bet) => {
@@ -118,13 +105,20 @@ export const mutations = {
 
       Object.assign(bet, { status: INITIAL, message: null, success: null })
     })
-    setBetsToStorage(state.bets)
+    setFieldToStorage('bets', state.bets, { array: true })
+
+    state.validationMessages = []
+    setFieldToStorage('betslipValidationMessages', state.validationMessages, { array: true })
   },
   startValidation (state) {
     state.validating = true
   },
   finishValidation (state) {
     state.validating = false
+  },
+  setValidationMessages (state, { messages }) {
+    state.validationMessages = messages || []
+    setFieldToStorage('betslipValidationMessages', state.validationMessages, { array: true })
   }
 }
 
@@ -241,6 +235,12 @@ export const getters = {
   },
   isValidating (state) {
     return state.validating
+  },
+  getValidationMessages (state) {
+    return state.validationMessages || []
+  },
+  hasValidationMessages (state) {
+    return state.validationMessages && state.validationMessages.length
   }
 }
 
@@ -301,12 +301,12 @@ export const actions = {
   pushBet ({ dispatch, state }, { event, market, odd }) {
     if (state.bets.find(bet => bet.oddId === odd.id)) { return }
     state.bets.push(Bet.initial(event, market, odd))
-    setBetsToStorage(state.bets)
+    setFieldToStorage('bets', state.bets, { array: true })
     dispatch('validateBets')
   },
   removeBetFromBetslip ({ dispatch, state }, oddId) {
     state.bets = state.bets.filter(e => e.oddId !== oddId)
-    setBetsToStorage(state.bets)
+    setFieldToStorage('bets', state.bets, { array: true })
     dispatch('validateBets')
   },
   placeBets ({ state }, payload) {
@@ -373,9 +373,10 @@ export const actions = {
         fetchPolicy: NETWORK_ONLY
       })
       .then(({ data }) => {
-        const odds = data.validateComboBets
+        const response = data.validateComboBets
 
-        odds.forEach((oddResponse) => commit('updateBetAfterValidation', oddResponse))
+        commit('setValidationMessages', { messages: response.generalMessages })
+        response.odds.forEach((oddResponse) => commit('updateBetAfterValidation', oddResponse))
         commit('finishValidation')
       })
   },
@@ -386,18 +387,19 @@ export const actions = {
   updateComboBetsMode ({ dispatch, commit, state }, { enabled }) {
     commit('setComboBetsMode', { enabled })
     dispatch('validateBets')
-  },
+  }
 }
 
 export default {
   namespaced: true,
   state: {
     validating: false,
-    bets: getBetsFromStorage(),
+    bets: getFieldFromStorage('bets', []).map((betAttributes) => new Bet(betAttributes)),
     acceptAll: false,
     subscriptions: {},
     betslipSidebarState: false,
-    isComboBetsMode: getBettingModeFromStorage()
+    validationMessages: getFieldFromStorage('betslipValidationMessages', []),
+    isComboBetsMode: getFieldFromStorage('isComboBetsMode', false)
   },
   actions,
   mutations,
