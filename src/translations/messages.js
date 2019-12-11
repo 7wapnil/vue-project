@@ -150,7 +150,7 @@ const messages = {
       viewAll: 'View all',
       realModeLaunch: 'Play for real',
       funModeLaunch: 'Log-in to play for real or click to play in demo',
-      liveDealerLaunch: 'Log-in to play',
+      providers: 'Providers',
       sidemenu: {
         labels: {
           myCashier: 'My cashier',
@@ -321,12 +321,6 @@ const messages = {
           other: 'Other'
         }
       }
-    },
-    bottomNavBar: {
-      sports: 'sports',
-      esports: 'esports',
-      casino: 'casino',
-      liveCasino: 'live casino'
     }
   }
 }
