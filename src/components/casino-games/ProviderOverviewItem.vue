@@ -4,7 +4,7 @@
       :src="itemImg"
       :alt="provider.representationName"
       class="provider-overview-item-image"
-      center/>
+    />
   </div>
 </template>
 
@@ -43,18 +43,16 @@ export default {
        scoped>
     .provider-overview-item {
         background: #2F2f2f;
-        flex: 0 0 auto;
         margin: 5px;
         cursor: pointer;
         border-radius: 5px;
         height: 80px;
-        max-width: 160px;
         overflow: hidden;
-        width: 100%;
-        position: relative;
+        flex: 0 0 160px;
         display: flex;
         align-items: center;
         justify-content: center;
+
         &:first-child {
             margin-left: 0;
         }
@@ -66,11 +64,10 @@ export default {
                 transform: scale(1.2);
             }
         }
-        .provider-overview-item-image {
-            overflow: hidden;
+        &-image {
             transition: all .4s ease-in-out;
-            width: 120px;
-            height: 60px;
+            max-width: 80%;
+            height: auto;
         }
     }
     </style>

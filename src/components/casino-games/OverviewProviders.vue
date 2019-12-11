@@ -1,13 +1,17 @@
 <template>
   <div>
-    <b-row no-gutters>
-      <b-col class="px-4 pt-4 pb-2 d-inline-flex events-list-title">
+    <b-row
+      class="d-flex align-items-center"
+      no-gutters>
+      <b-col class="px-4 pt-4 pb-2 d-flex events-list-title">
         <icon
           :size="26"
           name="casino-providers"
           style="margin-left: 26px"/>
         <h4
-          class="ml-3 mb-0 text-arc-clr-white font-weight-light letter-spacing-1 pointer">Providers</h4>
+          class="ml-3 mb-0 text-arc-clr-white font-weight-light letter-spacing-1 pointer">
+          {{ $t('casino.providers') }}
+        </h4>
       </b-col>
       <b-col class="px-4 pt-4 pb-2 d-flex justify-content-center flex-row align-items-center">
         <arc-circle
@@ -49,10 +53,9 @@
       <transition-group
         tag="div"
         style="-webkit-overflow-scrolling: touch; margin: 0 24px;"
-        class="d-flex flex-nowrap overflow-auto no-scrollbars"
+        class="d-flex overflow-auto no-scrollbars"
         name="providers-appearance"
         appear>
-        {{ providersCollection }}
         <provider-overview-item
           v-for="(provider, index) in providers"
           :key="provider.id"
