@@ -17,7 +17,7 @@
       </div>
       <transition-group
         tag="div"
-        class="no-scrollbars play-items-wrapper"
+        class="no-scrollbars play-items-wrapper mx-md-4 mx-2"
         name="play-items-appearance"
         appear>
         <category-play-item
@@ -92,7 +92,6 @@ export default {
     }
     .play-items-wrapper {
       -webkit-overflow-scrolling: touch;
-      margin: 0 24px;
       display: flex;
       overflow: auto;
       flex-wrap: nowrap;

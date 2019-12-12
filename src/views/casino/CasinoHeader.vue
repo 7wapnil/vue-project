@@ -9,6 +9,12 @@
         :height="backgroundHeight"
         fluid-grow
         alt="Arcanebet-Casino-Promo"/>
+      <b-row no-gutters
+             class="mt-4 yo">
+        <b-col>
+          <auth-block/>
+        </b-col>
+      </b-row>
       <div class="casino-header-tab-container">
         <slot/>
       </div>
@@ -17,7 +23,8 @@
 </template>
 
 <script>
-    import { mapGetters } from 'vuex'
+import { mapGetters } from 'vuex'
+import AuthBlock from '@/views/events-list/AuthBlock'
 
 const MOBILE_BACKGROUND_HEIGHT = '172'
 const MOBILE_BACKGROUND_HEIGHT_WITH_AUTH_BLOCK = '266'
@@ -25,7 +32,8 @@ const DESKTOP_BACKGROUND_HEIGHT = '356'
 
 export default {
   name: 'CasinoHeader',
-  computed: {
+    components: { AuthBlock },
+    computed: {
       ...mapGetters([
           'isLoggedIn'
       ]),
@@ -49,7 +57,11 @@ export default {
       }
       &-mobile-container {
         overflow: hidden;
-        height: 172px;
+        .yo {
+          width: 100%;
+          position: absolute;
+          top: 0;
+        }
       }
       &-desktop-container {
         overflow: hidden;

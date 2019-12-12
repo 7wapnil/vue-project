@@ -1,6 +1,6 @@
 <template>
   <b-row no-gutters>
-    <b-col class="py-4">
+    <b-col class="pt-0 pb-4 py-md-4">
       <overview-play-items
         v-for="category in categories"
         :key="category.id"
