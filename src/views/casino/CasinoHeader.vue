@@ -17,15 +17,24 @@
 </template>
 
 <script>
+    import { mapGetters } from 'vuex'
+
 const MOBILE_BACKGROUND_HEIGHT = '172'
+const MOBILE_BACKGROUND_HEIGHT_WITH_AUTH_BLOCK = '266'
 const DESKTOP_BACKGROUND_HEIGHT = '356'
 
 export default {
   name: 'CasinoHeader',
   computed: {
-    backgroundHeight () {
-      return this.isMobile ? MOBILE_BACKGROUND_HEIGHT : DESKTOP_BACKGROUND_HEIGHT
-    }
+      ...mapGetters([
+          'isLoggedIn'
+      ]),
+      backgroundHeight () {
+          if (this.isMobile && !this.isLoggedIn) {
+              return MOBILE_BACKGROUND_HEIGHT_WITH_AUTH_BLOCK
+          }
+          return this.isMobile ? MOBILE_BACKGROUND_HEIGHT : DESKTOP_BACKGROUND_HEIGHT
+      }
   }
 }
 </script>
