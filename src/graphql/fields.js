@@ -5,18 +5,19 @@ export const PROVIDER_FIELDS = `
 `
 
 export const BONUSES_LIST_FIELDS = `
-      amount
-      casino
-      code
-      expiresAt
-      id
-      maxRolloverPerBet
-      minOddsPerBet
-      rolloverBalance
-      rolloverInitialValue
-      sportsbook
-      status
-      validForDays
+  amount
+  casino
+  code
+  expiresAt
+  id
+  maxRolloverPerBet
+  minOddsPerBet
+  rolloverBalance
+  rolloverInitialValue
+  sportsbook
+  status
+  validForDays
+  minOddsPerBet
 `
 
 export const WALLET_FIELDS = `

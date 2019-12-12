@@ -1,7 +1,7 @@
 <template>
   <ul>
     <li
-      v-for="(listItem, index) in listItems"
+      v-for="(listItem, index) in activeListItems"
       :key="index"
       :bonus-item="bonusItem"
       class="text-arc-clr-iron letter-spacing-2">
@@ -30,44 +30,63 @@ export default {
         {
           description: this.$t('account.bonus.longTerms.list.list1'),
           data: this.bonusItem.rolloverInitialValue,
-          additionalData: ''
+          additionalData: '',
+          active: true
         },
         {
           description: this.$t('account.bonus.longTerms.list.list2'),
           data: this.bonusItem.amount,
-          additionalData: ''
+          additionalData: '',
+          active: true
         },
         {
           description: this.$t('account.bonus.longTerms.list.list3'),
           data: this.$options.filters.asFormattedDate(this.bonusItem.expiresAt, 'DD/MM/YYYY', 'DD.MM.YY'),
-          additionalData: ''
+          additionalData: '',
+          active: true
         },
         {
           description: this.$t('account.bonus.longTerms.list.list4'),
           data: this.$tc('account.bonus.longTerms.list.list4Days', this.bonusItem.validForDays, { n: this.bonusItem.validForDays }),
-          additionalData: this.$t('account.bonus.longTerms.list.list4Part2')
+          additionalData: this.$t('account.bonus.longTerms.list.list4Part2'),
+          active: true
         },
         {
           description: this.$t('account.bonus.longTerms.list.list5'),
           data: '',
-          additionalData: ''
+          additionalData: '',
+          active: true
         },
         {
           description: this.$t('account.bonus.longTerms.list.list6'),
           data: '',
-          additionalData: ''
+          additionalData: '',
+          active: this.bonusItem.minOddsPerBet
         },
         {
           description: this.$t('account.bonus.longTerms.list.list7'),
           data: '',
-          additionalData: ''
+          additionalData: '',
+          active: true
         },
         {
           description: this.$t('account.bonus.longTerms.list.list8'),
           data: '',
-          additionalData: ''
+          additionalData: '',
+          active: true
+        },
+        {
+          description: this.$t('account.bonus.longTerms.list.list9'),
+          data: '',
+          additionalData: '',
+          active: true
         }
       ]
+    }
+  },
+  computed: {
+    activeListItems () {
+      return this.listItems.filter(item => item.active)
     }
   }
 }
