@@ -346,9 +346,10 @@ const messages = {
             list4Days: '{n} day | {n} days',
             list4Part2: ' to reach the rollover before the bonus expires.',
             list5: 'Only settled bets will count towards rollover. If a selection that is settled is later re-settled to a void, the rollover achieved will be recalculated accordingly',
-            list6: 'You may only have one active bonus at a time',
-            list7: 'You may withdraw at any point, if you do this will confiscate your entire bonus balance if you have not reached the rollover yet',
-            list8: 'You may only use this code once per household per real account. If it is found that there is any attempt to avoid this limitation, we reserve the right to void all bets and confiscate all funds',
+            list6: 'The odds of every selection in Combo Bet need to be higher than Minimum odds',
+            list7: 'You may only have one active bonus at a time',
+            list8: 'You may withdraw at any point, if you do this will confiscate your entire bonus balance if you have not reached the rollover yet',
+            list9: 'You may only use this code once per household per real account. If it is found that there is any attempt to avoid this limitation, we reserve the right to void all bets and confiscate all funds',
           }
         },
       },
