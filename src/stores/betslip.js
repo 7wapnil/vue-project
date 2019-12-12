@@ -119,6 +119,10 @@ export const mutations = {
   setValidationMessages (state, { messages }) {
     state.validationMessages = messages || []
     setFieldToStorage('betslipValidationMessages', state.validationMessages, { array: true })
+  },
+  clearBetIds (state) {
+    state.bets.forEach((bet) => Object.assign(bet, { id: null }))
+    setFieldToStorage('bets', state.bets, { array: true })
   }
 }
 
@@ -161,16 +165,15 @@ export const getters = {
     return activeWallet.amount
   },
   betslipValuesConfirmed: (state) => {
-    const betWithUnconfirmedValue = state.bets.find((bet) => {
-      return bet.currentOddValue !== bet.approvedOddValue
-    })
-    return (betWithUnconfirmedValue === undefined)
+    return state.acceptAll || !state.bets.some((bet) => bet.oddChanged)
   },
   getBets (state) {
     return state.bets
   },
   getPlacedBetIds (state) {
-    return state.bets.map((item) => item.id).filter((item) => item)
+    const list = state.bets.map((item) => item.id).filter((item) => item)
+
+    return [...new Set(list)]
   },
   getOddIds (state) {
     return state.bets.map((bet) => bet.oddId)
@@ -246,30 +249,36 @@ export const getters = {
 
 export const actions = {
   subscribeBets ({ dispatch, getters }) {
-    const bets = getters.getBets
-
-    bets
-      .filter(bet => !!bet.id)
-      .filter((bet, index) => bets.findIndex(savedBet => savedBet['id'] === bet['id']) === index)
-      .forEach(bet => dispatch('subscribeBet', bet))
+    getters
+      .getPlacedBetIds
+      .forEach(betId => dispatch('subscribeBet', betId))
   },
-  subscribeBet ({ state, commit, dispatch, getters }, bet) {
-    state.subscriptions[bet.id] = graphqlClient
+  subscribeBet ({ state, commit, dispatch, getters }, betId) {
+    state.subscriptions[betId] = graphqlClient
       .subscribe({
         query: BET_UPDATED,
-        variables: { id: bet.id }
+        variables: { id: betId }
       })
       .subscribe({
         next ({ data: { betUpdated } }) {
-          betUpdated.oddId = bet.oddId
+          const betLegs = betUpdated.betLegs || []
 
-          commit('updateBet', {
-            oddId: bet.oddId,
-            payload: {
-              status: betUpdated.status,
-              notificationCode: betUpdated.notificationCode,
-              message: betUpdated.message
+          betLegs.forEach(betLeg => {
+            let betItemPayload = { status: betUpdated.status }
+
+            if (state.isComboBetsMode) {
+              Object.assign(betItemPayload, {
+                notificationCode: betLeg.notificationCode,
+                message: betLeg.message
+              })
+            } else {
+              Object.assign(betItemPayload, {
+                notificationCode: betUpdated.notificationCode,
+                message: betUpdated.message
+              })
             }
+
+            commit('updateBet', { oddId: betLeg.oddId, payload: betItemPayload })
           })
 
           dispatch('removeAcceptedBet', betUpdated)
@@ -279,7 +288,7 @@ export const actions = {
         }
       })
 
-    Vue.$log.debug(`Subscribed bet ID ${bet.id}`)
+    Vue.$log.debug(`Subscribed bet ID ${betId}`)
   },
   removeAcceptedBet ({ state, commit, dispatch }, { betLegs, status }) {
     if (status !== Bet.statuses.accepted) return
@@ -339,13 +348,15 @@ export const actions = {
           const betLegs = bet.betLegs || []
 
           betLegs.forEach((betLeg) => {
+            const betItem = state.bets.find(item => item.oddId === betLeg.oddId)
+
             bet.oddId = betLeg.oddId
 
             commit('updateBet', {
               oddId: bet.oddId,
               payload: {
-                status: bet.status,
-                message: bet.message
+                message: bet.message,
+                status: bet.status !== INITIAL ? bet.status : betItem.status
               }
             })
           })
@@ -385,6 +396,7 @@ export const actions = {
     commit('finishValidation')
   },
   updateComboBetsMode ({ dispatch, commit, state }, { enabled }) {
+    commit('clearBetIds')
     commit('setComboBetsMode', { enabled })
     dispatch('validateBets')
   }

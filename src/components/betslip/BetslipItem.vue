@@ -342,9 +342,7 @@ export default {
           payload: { currentOddValue: odd.value, marketStatus: market.status }
         })
 
-        if (bet.oddsChanged) {
-          this.confirmValue()
-        }
+        if (bet.oddsChanged) this.confirmValue()
       })
     },
     disableBetByOddStatus () {

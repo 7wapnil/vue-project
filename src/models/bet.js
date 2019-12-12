@@ -2,6 +2,9 @@ const STATUSES = {
   initial: 'initial',
   submitted: 'submitted',
   pending: 'pending',
+  pendingMtsCancellation: 'pending_mts_cancellation',
+  pendingCancellation: 'pending_cancellation',
+  sentToExternalValidation: 'sent_to_external_validation',
   accepted: 'accepted',
   settled: 'settled',
   failed: 'failed',
@@ -47,7 +50,8 @@ export default class Bet {
     return [
       STATUSES.submitted,
       STATUSES.pending,
-      STATUSES.accepted
+      STATUSES.accepted,
+      STATUSES.sentToExternalValidation
     ].includes(this.status)
   }
 
@@ -59,7 +63,9 @@ export default class Bet {
     return [
       STATUSES.failed,
       STATUSES.rejected,
-      STATUSES.conflicted
+      STATUSES.conflicted,
+      STATUSES.pendingMtsCancellation,
+      STATUSES.pendingCancellation
     ].includes(this.status)
   }
 
@@ -67,7 +73,9 @@ export default class Bet {
     return [
       STATUSES.initial,
       STATUSES.failed,
-      STATUSES.rejected
+      STATUSES.rejected,
+      STATUSES.pendingMtsCancellation,
+      STATUSES.pendingCancellation
     ].includes(this.status)
   }
 

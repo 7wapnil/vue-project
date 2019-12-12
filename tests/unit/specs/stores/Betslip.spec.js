@@ -164,40 +164,48 @@ describe('betslip store', () => {
     describe('betslipValuesConfirmed', () => {
       it('returns true when all bets confirmed', () => {
         const oddId = 3
-        const confirmedValue = 1.11
-        const currentOddValue = 1.11
         const betsState = [
-          { currentOddValue: currentOddValue, approvedOddValue: confirmedValue, odd: { id: oddId } },
+          { oddChanged: false, odd: { id: oddId } },
         ]
 
         const state = { bets: betsState }
         const events = [
-          { id: 1, markets: [{ id: 2, odds: [{ id: oddId, value: currentOddValue }] }] }
+          { id: 1, markets: [{ id: 2, odds: [{ id: oddId }] }] }
         ]
 
-        const gettersWithEvents = {
-          getEvents: events
-        }
+        const gettersWithEvents = { getEvents: events }
+
+        expect(getters.betslipValuesConfirmed(state, gettersWithEvents)).to.eql(true)
+      })
+
+      it('returns true on accepting all odds', () => {
+        const oddId = 3
+        const betsState = [
+          { oddChanged: true, odd: { id: oddId } },
+        ]
+
+        const state = { bets: betsState, acceptAll: true }
+        const events = [
+          { id: 1, markets: [{ id: 2, odds: [{ id: oddId }] }] }
+        ]
+
+        const gettersWithEvents = { getEvents: events }
 
         expect(getters.betslipValuesConfirmed(state, gettersWithEvents)).to.eql(true)
       })
 
       it('returns false when one of bets not confirmed', () => {
         const oddId = 3
-        const confirmedValue = 1.11
-        const currentOddValue = 1.12
         const betsState = [
-          { currentOddValue: currentOddValue, approvedOddValue: confirmedValue, odd: { id: oddId } },
+          { oddChanged: true, odd: { id: oddId } },
         ]
 
         const state = { bets: betsState }
         const events = [
-          { id: 1, markets: [{ id: 2, odds: [{ id: oddId, value: currentOddValue }] }] }
+          { id: 1, markets: [{ id: 2, odds: [{ id: oddId }] }] }
         ]
 
-        const gettersWithEvents = {
-          getEvents: events
-        }
+        const gettersWithEvents = { getEvents: events }
 
         expect(getters.betslipValuesConfirmed(state, gettersWithEvents)).to.eql(false)
       })
@@ -253,10 +261,13 @@ describe('betslip store', () => {
             { id: 1 },
             { id: 3 },
             { id: 1142 },
-            { id: 12 }
+            { id: 12 },
+            { id: 1 },
+            { id: 12 },
+            { id: 5 }
           ]
         }
-        expect(getters.getPlacedBetIds(state)).to.eql([1, 3, 1142, 12])
+        expect(getters.getPlacedBetIds(state)).to.eql([1, 3, 1142, 12, 5])
       })
     })
 

@@ -132,6 +132,8 @@ export const BET_FIELDS = `
   betLegs {
     id
     oddId
+    message
+    notificationCode
   }
 `
 

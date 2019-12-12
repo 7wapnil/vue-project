@@ -21,9 +21,12 @@ describe('Bet', () => {
         initial: 'initial',
         submitted: 'submitted',
         pending: 'pending',
+        pendingMtsCancellation: 'pending_mts_cancellation',
+        pendingCancellation: 'pending_cancellation',
+        sentToExternalValidation: 'sent_to_external_validation',
         accepted: 'accepted',
-        failed: 'failed',
         settled: 'settled',
+        failed: 'failed',
         rejected: 'rejected',
         disabled: 'disabled',
         conflicted: 'conflicted'
