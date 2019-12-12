@@ -370,7 +370,8 @@ export default {
         odds: this.getBets.map(bet => {
           return { id: bet.oddId, value: bet.approvedOddValue }
         }),
-        currencyCode: this.getUserActiveWallet.currency.code
+        currencyCode: this.getUserActiveWallet.currency.code,
+        oddsChange: this.acceptAllOdds
       }
     },
     getSingleBetPayload () {
@@ -378,7 +379,8 @@ export default {
         return {
           amount: parseFloat(bet.stake),
           odds: [{ id: bet.oddId, value: bet.approvedOddValue }],
-          currencyCode: this.getUserActiveWallet.currency.code
+          currencyCode: this.getUserActiveWallet.currency.code,
+          oddsChange: this.acceptAllOdds
         }
       })
     },
