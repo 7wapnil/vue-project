@@ -2,16 +2,15 @@
   <b-row
     no-gutters>
     <b-col
-      :class="[isMobile ? 'casino-header-mobile-container' :
-      'casino-header-desktop-container']">
+      :class="containerClass">
       <b-img
         :src="require('@/assets/images/casino-games/arcane-casino-header-promo.png')"
-        :height="backgroundHeight"
         fluid-grow
         alt="Arcanebet-Casino-Promo"/>
-      <b-row no-gutters
-             class="mt-4 yo">
-        <b-col>
+      <b-row
+        v-if="isMobile && !isLoggedIn"
+        no-gutters>
+        <b-col class="casino-header-mobile-container-auth-block">
           <auth-block/>
         </b-col>
       </b-row>
@@ -26,23 +25,19 @@
 import { mapGetters } from 'vuex'
 import AuthBlock from '@/views/events-list/AuthBlock'
 
-const MOBILE_BACKGROUND_HEIGHT = '172'
-const MOBILE_BACKGROUND_HEIGHT_WITH_AUTH_BLOCK = '266'
-const DESKTOP_BACKGROUND_HEIGHT = '356'
-
 export default {
   name: 'CasinoHeader',
-    components: { AuthBlock },
-    computed: {
-      ...mapGetters([
-          'isLoggedIn'
-      ]),
-      backgroundHeight () {
-          if (this.isMobile && !this.isLoggedIn) {
-              return MOBILE_BACKGROUND_HEIGHT_WITH_AUTH_BLOCK
-          }
-          return this.isMobile ? MOBILE_BACKGROUND_HEIGHT : DESKTOP_BACKGROUND_HEIGHT
+  components: { AuthBlock },
+  computed: {
+    ...mapGetters([
+      'isLoggedIn'
+    ]),
+    containerClass () {
+      if (this.isMobile && !this.isLoggedIn) {
+        return 'casino-header-mobile-container-auth'
       }
+      return this.isMobile ? 'casino-header-mobile-container' : 'casino-header-desktop-container'
+    }
   }
 }
 </script>
@@ -56,11 +51,21 @@ export default {
         width: 100%;
       }
       &-mobile-container {
+        height: 100px;
         overflow: hidden;
-        .yo {
-          width: 100%;
-          position: absolute;
-          top: 0;
+        &-auth {
+          height: 200px;
+          overflow: hidden;
+          img {
+            height: 200px;
+          }
+          &-block {
+            margin: 20px 0;
+            width: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+          }
         }
       }
       &-desktop-container {
