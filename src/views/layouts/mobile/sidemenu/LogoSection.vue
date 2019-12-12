@@ -1,6 +1,5 @@
 <template>
   <b-row
-    :class="[getSidebarKind === 'esports' ? 'bg-arc-clr-esport-bg' : 'bg-arc-clr-sport-bg']"
     class="mobile-navigation-sidemenu-logo-section"
     no-gutters>
     <b-col class="d-flex align-items-center justify-content-center">
