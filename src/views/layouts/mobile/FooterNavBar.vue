@@ -40,31 +40,31 @@ export default {
       items: [
         {
           id: 1,
-          title: this.$t('bottomNavBar.casino'),
-          name: 'casino',
-          icon: 'sidemenu-casino-games',
-          route: { name: 'casino' }
+          title: this.$t('bottomNavBar.esports'),
+          name: 'esports',
+          icon: 'sidemenu-esports',
+          route: { name: 'esports' }
         },
         {
           id: 2,
-          title: this.$t('bottomNavBar.liveCasino'),
-          name: 'live-casino',
-          icon: 'sidemenu-live-casino',
-          route: { name: 'live-casino' }
-        },
-        {
-          id: 3,
           title: this.$t('bottomNavBar.sports'),
           name: 'sports',
           icon: 'sidemenu-sports',
           route: { name: 'sports' }
         },
         {
+          id: 3,
+          title: this.$t('bottomNavBar.casino'),
+          name: 'casino',
+          icon: 'sidemenu-casino-games',
+          route: { name: 'casino' }
+        },
+        {
           id: 4,
-          title: this.$t('bottomNavBar.esports'),
-          name: 'esports',
-          icon: 'sidemenu-esports',
-          route: { name: 'esports' }
+          title: this.$t('bottomNavBar.liveCasino'),
+          name: 'live-casino',
+          icon: 'sidemenu-live-casino',
+          route: { name: 'live-casino' }
         }
       ]
     }
