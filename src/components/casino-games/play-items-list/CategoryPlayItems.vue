@@ -1,44 +1,39 @@
 <template>
   <div>
     <b-row
-      class="mt-2"
+      class="mt-2 item-header-block"
       no-gutters>
-      <b-col class="header-title d-flex align-items-center p-4">
+      <b-col class="d-flex align-items-center p-4">
         <icon
           :name="categoryIcon"
-          class="header-icon mx-4"
-          color="arc-clr-live-casino-glow"
-          size="28px"/>
+          class="mx-2 mx-md-4"
+          :size="isMobile ? 20 : 26"/>
         <h4 class="mb-0 font-weight-light">
           {{ category.label }}
         </h4>
       </b-col>
-      <b-col class="px-4 pt-4 pb-2 mr-4 text-right">
+      <b-col @click="pushLobby"
+             class="px-md-4 px-2 py-4 d-flex align-items-center justify-content-end pointer">
+        <icon name="chevron-left"
+              class="mr-1"
+              :size="12"/>
         <span class="mr-1">
-          {{ this.$i18n.t('casino.viewAll') }}
+          {{ this.$i18n.t('casino.return') }}
         </span>
-        {{ playItems.length }}
       </b-col>
     </b-row>
-    <b-container
-      fluid
-      class="p-0">
-      <b-row no-gutters>
-        <b-col class="p-4">
-          <transition-group
-            tag="div"
-            class="play-items-container d-flex flex-row flex-wrap align-items-center justify-content-start"
-            name="play-items">
-            <category-play-item
-              v-for="playItem in playItems"
-              :key="playItem.id"
-              :item="playItem"
-              :category="category"
-            />
-          </transition-group>
-        </b-col>
-      </b-row>
-    </b-container>
+    <b-row no-gutters>
+      <b-col class="p-4">
+        <div class="play-items-container d-flex flex-wrap align-items-center justify-content-start">
+          <category-play-item
+            v-for="playItem in playItems"
+            :key="playItem.id"
+            :item="playItem"
+            :category="category"
+          />
+        </div>
+      </b-col>
+    </b-row>
   </div>
 </template>
 <script>
@@ -64,7 +59,13 @@ export default {
     categoryIcon () {
       return `${this.$route.params.titleKind}-${this.category.name}`
     }
-  }
+  },
+    methods: {
+      pushLobby() {
+          const lobby = this.$route.params.titleKind
+          this.$router.push({ name: lobby })
+      }
+    }
 }
 </script>
 

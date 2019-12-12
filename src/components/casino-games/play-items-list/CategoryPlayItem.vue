@@ -153,10 +153,23 @@ export default {
         margin: 5px;
         border-radius: 5px;
         height: 120px;
-        width: 195.6px;
+        width: 180px;
         background: #343434;
         flex: 0 0 auto;
         overflow: hidden;
+        &:first-child {
+          margin-left: 0;
+        }
+        &:last-child {
+          margin-right: 0;
+        }
+        .image {
+          height: 100%;
+          width: 100%;
+          object-fit: cover;
+          border-radius: 5px;
+          transition: all .4s ease-in-out;
+        }
       }
     }
 </style>

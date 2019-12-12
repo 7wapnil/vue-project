@@ -1,6 +1,8 @@
 <template>
   <b-nav
     class="casino-tabs-nav no-scrollbars"
+    fill
+    justified
     tabs>
     <b-nav-item
       v-for="tab in tabs"
@@ -28,6 +30,8 @@
         </b-col>
       </b-row>
     </b-nav-item>
+    <b-nav-form class="w-50">
+    </b-nav-form>
   </b-nav>
 </template>
 
@@ -89,17 +93,19 @@ export default {
             white-space: nowrap;
             max-width: 100%;
             overflow: auto;
-            padding: 0 20px;
+            margin: 0 20px;
         }
 
     }
     .casino-tab {
       padding: 16px;
+      min-width: 75px;
         &-active {
             letter-spacing: -0.004em;
             transition: all .3s ease-in-out;
             background: #3D3D3D !important;
             border-radius: 4px 4px 0 0;
+            min-width: 75px;
             .casino-tab-icon {
                 color: $arc-clr-casino-glow !important;
             }

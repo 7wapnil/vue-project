@@ -34,8 +34,7 @@ export default [
     path: '/casino/:category/:playItemSlug',
     name: 'casino-game',
     props: {
-      content: true,
-      right: true
+      content: true
     },
     components: {
       content: CasinoGamePage
