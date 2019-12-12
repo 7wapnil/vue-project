@@ -15,8 +15,7 @@
           <icon
             :name="tab.icon"
             :size="26"
-            class="casino-tab-icon"
-            color="arc-clr-iron"/>
+            class="casino-tab-icon"/>
         </b-col>
         <b-col
           class="text-center"
@@ -38,7 +37,6 @@ export default {
   name: 'LiveCasinoTabs',
   data () {
     return {
-      arrows: true,
       defaultTab: {
         id: 0,
         name: 'live-casino',
@@ -88,7 +86,7 @@ export default {
             white-space: nowrap;
             max-width: 100%;
             overflow: auto;
-            padding: 0 20px;
+            margin: 0 20px;
         }
 
     }
@@ -104,6 +102,7 @@ export default {
             }
         }
         &-icon {
+             color: $arc-clr-iron;
             .casino-tab:hover &{
                 color: $arc-clr-live-casino-glow !important;
                 transition: .3s ease-in-out;

@@ -1,29 +1,36 @@
 <template>
   <div>
     <b-row
-      class="mt-2 item-header-block"
+      class="item-header-block mt-2"
       no-gutters>
-      <b-col class="d-flex align-items-center p-4">
+      <b-col
+        cols="8"
+        class="d-flex align-items-center p-4">
         <icon
           :name="categoryIcon"
-          class="mx-2 mx-md-4"
-          :size="isMobile ? 20 : 26"/>
+          :size="isMobile ? 20 : 26"
+          class="mr-2 mx-md-4"/>
         <h4 class="mb-0 font-weight-light">
           {{ category.label }}
         </h4>
       </b-col>
-      <b-col @click="pushLobby"
-             class="px-md-4 px-2 py-4 d-flex align-items-center justify-content-end pointer">
-        <icon name="chevron-left"
-              class="mr-1"
-              :size="12"/>
+      <b-col
+        cols="4"
+        class="p-4 d-flex align-items-center justify-content-end pointer"
+        @click="pushLobby">
+        <icon
+          :size="12"
+          name="chevron-left"
+          class="mr-1"/>
         <span class="mr-1">
           {{ this.$i18n.t('casino.return') }}
         </span>
       </b-col>
     </b-row>
-    <b-row no-gutters>
-      <b-col class="px-2 pb-4">
+    <b-row
+      v-if="playItems.length > 0"
+      no-gutters>
+      <b-col class="px-1 px-md-2 pb-4">
         <div class="play-items-container">
           <category-play-item
             v-for="playItem in playItems"
@@ -40,6 +47,7 @@
 import CategoryPlayItem from './CategoryPlayItem'
 
 export default {
+  name: 'CategoryPlayItems',
   components: {
     CategoryPlayItem
   },
@@ -60,23 +68,17 @@ export default {
       return `${this.$route.params.titleKind}-${this.category.name}`
     }
   },
-    methods: {
-      pushLobby() {
-          const lobby = this.$route.params.titleKind
-          this.$router.push({ name: lobby })
-      }
+  methods: {
+    pushLobby () {
+      const lobby = this.$route.params.titleKind
+      this.$router.push({ name: lobby })
     }
+  }
 }
 </script>
 
 <style lang="scss"
        scoped>
-  .play-items-enter-active, .play-items-leave-active {
-    transition: all 1s;
-  }
-  .play-items-enter, .play-items-leave-to {
-    transform: scale(1.1, 1.1);
-  }
   .play-item {
     &-desktop:first-child {
       margin: 10px;
@@ -84,9 +86,26 @@ export default {
   }
   .play-items-container {
     display: flex;
-    flex-direction: row;
     flex-wrap: wrap;
     align-items: center;
     justify-content: start;
+  }
+  .play-item {
+    &-desktop {
+      flex: 0 0 auto;
+      margin: 10px;
+      cursor: pointer;
+      border-radius: 5px;
+      height: 177.3px;
+      max-width: 266px;
+      position: relative;
+    }
+    &-mobile {
+      margin: 5px;
+      flex: 0 0 46%;
+      &:first-child {
+        margin-left: 5px;
+      }
+    }
   }
 </style>

@@ -18,8 +18,7 @@
           <icon
             :name="tab.icon"
             :size="26"
-            class="casino-tab-icon"
-            color="arc-clr-iron"/>
+            class="casino-tab-icon"/>
         </b-col>
         <b-col
           class="text-center"
@@ -30,8 +29,7 @@
         </b-col>
       </b-row>
     </b-nav-item>
-    <b-nav-form class="w-50">
-    </b-nav-form>
+    <b-nav-form class="w-50"/>
   </b-nav>
 </template>
 
@@ -111,7 +109,8 @@ export default {
             }
         }
         &-icon {
-            .casino-tab:hover &{
+            color: $arc-clr-iron;
+            .casino-tab:hover & {
               color: $arc-clr-casino-glow !important;
               transition: .3s ease-in-out;
           }

@@ -1,14 +1,20 @@
 <template>
-  <b-row no-gutters>
+  <b-row
+    no-gutters>
     <b-col
-      :class="[isMobile ? 'live-casino-header-mobile-container' :
-      'live-casino-header-desktop-container']">
+      :class="containerClass">
       <b-img
         :src="require('@/assets/images/live-casino-games/arcane-live-casino-header-promo.png')"
-        :height="backgroundHeight"
         fluid-grow
-        alt="Arcanebet-Casino-Promo"/>
-      <div class="live-casino-header-tab-container">
+        alt="Arcanebet-Live-Casino-Promo"/>
+      <b-row
+        v-if="isMobile && !isLoggedIn"
+        no-gutters>
+        <b-col class="casino-header-mobile-container-auth-block">
+          <auth-block/>
+        </b-col>
+      </b-row>
+      <div class="casino-header-tab-container">
         <slot/>
       </div>
     </b-col>
@@ -16,29 +22,51 @@
 </template>
 
 <script>
-const MOBILE_BACKGROUND_HEIGHT = '172'
-const DESKTOP_BACKGROUND_HEIGHT = '356'
+import { mapGetters } from 'vuex'
+import AuthBlock from '@/views/events-list/AuthBlock'
 
 export default {
-  name: 'LiveCasinoHeader',
+  name: 'CasinoHeader',
+  components: { AuthBlock },
   computed: {
-    backgroundHeight () {
-      return this.isMobile ? MOBILE_BACKGROUND_HEIGHT : DESKTOP_BACKGROUND_HEIGHT
+    ...mapGetters([
+      'isLoggedIn'
+    ]),
+    containerClass () {
+      if (this.isMobile && !this.isLoggedIn) {
+        return 'casino-header-mobile-container-auth'
+      }
+      return this.isMobile ? 'casino-header-mobile-container' : 'casino-header-desktop-container'
     }
   }
 }
 </script>
 <style lang="scss"
        scoped>
-  .live-casino-header {
+  .casino-header {
     &-tab-container {
       position: absolute;
       bottom: 0;
       left: 0;
+      width: 100%;
     }
     &-mobile-container {
+      height: 100px;
       overflow: hidden;
-      height: 172px;
+      &-auth {
+        height: 200px;
+        overflow: hidden;
+        img {
+          height: 200px;
+        }
+        &-block {
+          margin: 20px 0;
+          width: 100%;
+          position: absolute;
+          top: 0;
+          left: 0;
+        }
+      }
     }
     &-desktop-container {
       overflow: hidden;

@@ -1,8 +1,9 @@
 <template>
   <b-row no-gutters>
-    <b-col cols="8"
-           md="4"
-           class="px-4 pt-4 pb-2 overview-item-header-block">
+    <b-col
+      cols="8"
+      md="4"
+      class="px-4 pt-4 pb-2 overview-item-header-block">
       <icon
         :name="category.icon"
         :size="isMobile ? 20 : 26"
@@ -15,14 +16,16 @@
         {{ category.label }}
       </b-link>
     </b-col>
-    <b-col v-if="!isMobile"
-           md="4"
-           class="px-4 pt-4 pb-2 overview-item-header-indication-block">
+    <b-col
+      v-if="!isMobile"
+      md="4"
+      class="px-4 pt-4 pb-2 overview-item-header-indication-block">
       <overview-item-header-indication/>
     </b-col>
-    <b-col cols="4"
-           md="4"
-           class="px-4 pt-4 pb-2 overview-item-header-viewall-block">
+    <b-col
+      cols="4"
+      md="4"
+      class="px-4 pt-4 pb-2 overview-item-header-viewall-block">
       <b-link
         :to="{ name: 'casino-category', params: { category: category.name } }"
         :disabled="!category.name"
