@@ -121,8 +121,8 @@ describe('BetslipItem component', () => {
     })
 
     it('potential return has correct value', () => {
-      const potentialRetunValue = (bet.stake * bet.approvedOddValue).toString()
-      expect(wrapper.find('.potential-return').text()).to.equal(potentialRetunValue)
+      const potentialRetunValue = (bet.stake * bet.approvedOddValue)
+      expect(wrapper.vm.potentialReturn).to.equal(potentialRetunValue)
     })
 
     it('shows approved value', () => {

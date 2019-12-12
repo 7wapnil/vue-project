@@ -99,7 +99,7 @@
               Total stake:
             </h6>
           </b-col>
-          <b-col class="text-right mr-4">
+          <b-col class="text-right mr-1">
             <h6 class="total-stake m-0 text-arc-clr-white">
               {{ parseFloat(getTotalStakes.toFixed(2)) }}
             </h6>
