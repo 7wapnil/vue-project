@@ -220,7 +220,7 @@ const messages = {
         clearAll: 'Clear all'
       },
       mobileButton: 'Betslip',
-      stake: 'Stake:'
+      stake: 'Stake'
     },
     betslipItem: {
       oddsChanged: 'Odds Changed',

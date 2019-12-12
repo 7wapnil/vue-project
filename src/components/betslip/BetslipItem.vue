@@ -6,12 +6,12 @@
     no-body>
 
     <b-row
-      class="mb-1"
+      class="mb-2"
       no-gutters>
       <b-col class="d-flex justify-content-start">
         <span
-          :class="[ isBetDisabled ? 'text-arc-clr-iron' : 'text-arc-clr-iron-light']"
-          class="event-name font-size-12 font-weight-bold">
+          :class="[ isBetDisabled ? 'opacity-2' : 'opacity-4']"
+          class="event-name text-arc-clr-iron font-size-10 pr-3">
           {{ bet.eventName }}
         </span>
       </b-col>
@@ -26,14 +26,21 @@
       </b-col>
     </b-row>
     <b-row
-      class="mb-1"
+      class="mb-2"
       no-gutters>
       <b-col>
         <span
           :class="[ isBetDisabled ? 'text-arc-clr-iron' : 'text-arc-clr-iron-light']"
-          class="market-name font-size-12 line-height-10">
+          class="market-name letter-spacing-2 text-truncate">
           {{ bet.marketName }}
         </span>
+      </b-col>
+      <b-col cols="auto">
+        <b-button
+          :disabled="isBetDisabled"
+          variant="arc-betslip-odd">
+          {{ bet.approvedOddValue }}
+        </b-button>
       </b-col>
     </b-row>
     <b-row
@@ -41,19 +48,12 @@
       no-gutters>
       <b-col>
         <b-row no-gutters>
-          <b-col class="pr-2">
+          <b-col>
             <span
-              :class="[ isBetDisabled ? 'text-arc-clr-iron' : 'text-arc-clr-iron-light']"
-              class="font-size-12 font-weight-bold letter-spacing-2">
+              :class="[ isBetDisabled ? 'opacity-2' : 'opacity-7']"
+              class="text-arc-clr-iron font-size-11 letter-spacing-2 d-inline-block">
               {{ bet.oddName }}
             </span>
-          </b-col>
-          <b-col cols="auto">
-            <b-button
-              :disabled="isBetDisabled"
-              variant="arc-betslip-odd">
-              {{ bet.approvedOddValue }}
-            </b-button>
           </b-col>
         </b-row>
       </b-col>
@@ -64,9 +64,25 @@
         <b-col>
           <b-row no-gutters>
             <b-col class="mb-1">
-              <small class="text-arc-clr-iron text-uppercase font-weight-bold letter-spacing-2">
-                {{ $t('betslip.stake') }}
-              </small>
+              <b-row no-gutters>
+                <b-col>
+                  <small class="text-arc-clr-iron letter-spacing-2 opacity-4">
+                    {{ $t('betslipItem.return') }}
+                  </small>
+                </b-col>
+              </b-row>
+
+              <b-row
+                no-gutters
+                class="mt-n1">
+                <b-col class="potential-return pr-4 text-truncate">
+                  <small
+                    v-if="getUserActiveWallet"
+                    class="text-arc-clr-iron" >
+                    {{ formatedPotentialReturn }}
+                  </small>
+                </b-col>
+              </b-row>
             </b-col>
           </b-row>
         </b-col>
@@ -74,25 +90,12 @@
           <masked-input
             :disabled="isDisabled"
             v-model="betStake"
+            :placeholder="$t('betslip.stake')"
             :mask="mask"
             type="text"
             name="stake"
             class="betslip-input form-control"
           />
-        </b-col>
-      </b-row>
-      <b-row
-        class="pt-3"
-        no-gutters>
-        <b-col>
-          <small class="text-arc-clr-iron letter-spacing-2">
-            {{ $t('betslipItem.return') }}
-          </small>
-        </b-col>
-        <b-col class="potential-return pr-4 text-right text-truncate">
-          <small>
-            {{ parseFloat(potentialReturn.toFixed(2)) }}
-          </small>
         </b-col>
       </b-row>
     </div>
@@ -260,9 +263,14 @@ export default {
       'getAnyFrozenBet',
       'isComboBetsMode'
     ]),
+    ...mapGetters(['getUserActiveWallet']),
     potentialReturn: function () {
       const stake = this.bet.stake > 0 ? this.bet.stake : 0
       return stake * this.bet.approvedOddValue
+    },
+    formatedPotentialReturn () {
+      const currency = this.getUserActiveWallet.currency.code
+      return `${parseFloat(this.potentialReturn.toFixed(2))} ${currency}`
     },
     betStake: {
       get () {
@@ -407,5 +415,12 @@ export default {
   border-radius: 4px;
   padding: 0.3rem 0;
   color: $arc-clr-gold;
+}
+
+.market-name {
+  display:inline-block;
+  max-width: 150px;
+  font-size: 12px;
+  line-height: 10px;
 }
 </style>
