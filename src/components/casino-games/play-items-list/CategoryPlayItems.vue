@@ -23,8 +23,8 @@
       </b-col>
     </b-row>
     <b-row no-gutters>
-      <b-col class="p-4">
-        <div class="play-items-container d-flex flex-wrap align-items-center justify-content-start">
+      <b-col class="px-2 pb-4">
+        <div class="play-items-container">
           <category-play-item
             v-for="playItem in playItems"
             :key="playItem.id"
@@ -81,5 +81,12 @@ export default {
     &-desktop:first-child {
       margin: 10px;
     }
+  }
+  .play-items-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: start;
   }
 </style>
