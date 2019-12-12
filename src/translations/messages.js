@@ -3,6 +3,13 @@ const messages = {
     auth: {
       impersonate: {
         success: "You successfully logged in as '{username}'."
+      },
+      headerBlock: {
+        message: 'Sign up now and get bonuses!'
+      },
+      cta: {
+        login: 'Login',
+        signup: 'SignUp'
       }
     },
     meta: {
