@@ -169,13 +169,13 @@
       <b-col>
         <b-button
           v-if="!getAnySubmittedBet && !getAnyBetInValidation"
-          :disabled="!isBetslipSubmittable"
+          :disabled="!isSubmitButtonEnabled"
           variant="arc-primary"
           class="submit-bets text-uppercase"
           size="lg"
           block
           @click="submit">
-          {{ $t('betslip.cta.placeBet') }}
+          {{ submitButtonCaption }}
         </b-button>
 
         <spinner-button
@@ -201,10 +201,14 @@ const REFRESH_BETSLIP_AFTER_PLACING_BET_TIME = 3000
 const REFRESH_BETSLIP_TIMEOUT = 1000
 const SCROLL_ON_LOAD_TIMEOUT = 1500
 const SCROLL_ON_UPDATE_TIMEOUT = 100
+
 const SINGLE_BET_TAB_INDEX = 0
 const COMBO_BETS_TAB_INDEX = 1
+
 const MAX_VALUABLE_RETURN_VALUE = 1000000000
 const DIGITS_LIMIT_FOR_STAKE = 7
+
+const DEPOSIT_TAB = 3
 
 export default {
   components: {
@@ -268,8 +272,11 @@ export default {
       }
     },
     getTooltipContent () {
-      if (this.isBetslipSubmittable) return
       if (!this.isLoggedIn) return this.$i18n.t('betslip.tooltipMessages.default')
+      if (!this.hasEnoughFundsOnBalance) return this.$i18n.t('betslip.tooltipMessages.notEnoughFundsOnBalance')
+
+      if (this.isBetslipSubmittable) return
+
       if (this.hasValidationMessages) return this.getValidationMessages.join('\r\n')
 
       let content = this.$i18n.t('betslip.tooltipMessages.defaultLoggedIn')
@@ -278,14 +285,14 @@ export default {
       if (this.isComboBetsMode) {
         conditions = {
           anyConflictedBets: this.anyConflictedBets,
-          notEnoughMoney: !this.isEnoughFundsCombo,
+          notEnoughFundsOnBalance: !this.isEnoughFundsCombo,
           notEnoughBetLegs: !(this.betsLength > 1),
           invalidStakeAmount: !this.isValidBetslipStake
         }
       } else {
         conditions = {
           invalidStakeAmount: this.getAnyEmptyStake,
-          notEnoughMoney: !this.getIsEnoughFundsToBet
+          notEnoughFundsOnBalance: !this.getIsEnoughFundsToBet
         }
       }
 
@@ -327,6 +334,9 @@ export default {
         return this.betslipSubmittable
       }
     },
+    isSubmitButtonEnabled () {
+      return !this.isLoggedIn || !this.hasEnoughFundsOnBalance || this.isBetslipSubmittable
+    },
     isValidBetslipStake () {
       return this.getBetslipStakeFloat > 0
     },
@@ -357,6 +367,19 @@ export default {
     },
     digitsLimitForStake () {
       return DIGITS_LIMIT_FOR_STAKE
+    },
+    submitButtonCaption () {
+      if (!this.isLoggedIn) return this.$i18n.t('betslip.cta.login')
+      if (!this.hasEnoughFundsOnBalance) return this.$i18n.t('betslip.cta.deposit')
+
+      return this.$i18n.t('betslip.cta.placeBet')
+    },
+    hasEnoughFundsOnBalance () {
+      if (this.isComboBetsMode) {
+        return this.isEnoughFundsCombo
+      } else {
+        return this.getIsEnoughFundsToBet
+      }
     }
   },
   watch: {
@@ -387,6 +410,7 @@ export default {
       'updateComboBetsMode',
       'clearBetslip'
     ]),
+    ...mapMutations(['updateAuth']),
     ...mapMutations('betslip', [
       'setBetStatusAsSubmitted',
       'updateBet',
@@ -394,7 +418,11 @@ export default {
       'toggleBetslip',
       'setKeepAllSelections'
     ]),
+    ...mapMutations('tabs', ['changeTabIndex']),
     submit () {
+      if (!this.isLoggedIn) return this.displayLoginModal()
+      if (!this.hasEnoughFundsOnBalance) return this.displayDepositModal()
+
       this.setBetStatusAsSubmitted()
 
       const payload = this.isComboBetsMode ? this.getComboBetPayload() : this.getSingleBetPayload()
@@ -402,6 +430,13 @@ export default {
       this
         .placeBets(payload)
         .then(this.updateBetsFromResponse)
+    },
+    displayLoginModal () {
+      this.updateAuth(0)
+    },
+    displayDepositModal () {
+      this.changeTabIndex(DEPOSIT_TAB)
+      this.$bvModal.show('AccountModal')
     },
     getComboBetPayload () {
       return {
