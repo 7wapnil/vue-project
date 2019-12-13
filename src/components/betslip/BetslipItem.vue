@@ -79,7 +79,7 @@
                   <small
                     v-if="getUserActiveWallet"
                     class="text-arc-clr-iron" >
-                    {{ formatedPotentialReturn }}
+                    {{ formattedPotentialReturn }}
                   </small>
                 </b-col>
               </b-row>
@@ -100,88 +100,28 @@
       </b-row>
     </div>
 
-    <b-row
-      v-if="valuesUnconfirmed && !getAnyFrozenBet"
-      class="alert-odd-value-changed mt-3"
-      no-gutters>
-      <b-col>
-        <b-row
-          class="pl-2 py-1"
-          no-gutters>
-          <b-col class="line-height-14">
-            <small class="text-arc-clr-gold letter-spacing-2">
-              Odds changed:
-            </small>
-          </b-col>
-          <div class="w-100"/>
-          <b-col class="line-height-14">
-            <small class="approved">
-              {{ bet.approvedOddValue }}
-            </small>
-            <small class="text-arc-clr-gold mx-2">
-              >
-            </small>
-            <small class="current">
-              {{ bet.currentOddValue }}
-            </small>
-          </b-col>
-        </b-row>
-      </b-col>
-      <b-col
-        class="d-flex align-items-center justify-content-center"
-        cols="auto">
-        <b-button
-          variant="arc-odd-changed"
-          @click="confirmValue">
-          Accept
-        </b-button>
-      </b-col>
-    </b-row>
-
-    <b-row
-      v-show="bet.oddChanged"
-      no-gutters>
-      <b-col class="alert-odds-changed">
-        {{ $t('betslip.betslipItem.oddsChanged') }}
-      </b-col>
-    </b-row>
-
-    <b-alert
-      :show="isFail"
-      class="bet-message-alert mt-3 mx-auto p-2 text-center"
-      variant="danger"
-      v-html="betMessage"/>
-    <b-alert
-      :show="isSuccess"
-      class="success-message mt-3 mx-auto p-2 text-center"
-      variant="success">
-      {{ successMessage }}
-    </b-alert>
-    <b-alert
-      :show="isBetDisabled && !getAnyFrozenBet && !isAccepted"
-      class="odd-disabled-message"
-      variant="odd-disabled">
-      {{ disabledMessage }}
-    </b-alert>
+    <betslip-item-message
+      :bet="bet"
+      :alert-message="alertMessage"/>
   </b-card>
 </template>
 
 <script>
 import Bet from '@/models/bet'
 import { mapGetters, mapMutations, mapActions } from 'vuex'
-import { MESSAGE_SETTLED, MESSAGE_DISABLED, MESSAGE_SUCCESS } from '@/constants/betslip-messages'
+import { MESSAGE_SETTLED, MESSAGE_DISABLED } from '@/constants/betslip-messages'
 import { MARKET_BY_ID_QUERY, EVENT_BET_STOPPED, eventUpdatedSubscription } from '@/graphql'
 import { INACTIVE_STATUS, SETTLED_STATUS, INACTIVE_STATUSES } from '@/models/market'
-import { STATUSES as FAILURE_STATUSES } from '@/constants/bet-fail-statuses'
 import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
 import MaskedInput from 'vue-text-mask'
 import createNumberMask from 'text-mask-addons/dist/createNumberMask'
-
-const DISABLED = 'disabled'
-const SETTLED = 'settled'
+import BetslipItem from '@/views/styleguide/Pages/Betslip/component/BetslipItem'
+import BetslipItemMessage from '@/components/betslip/BetslipItemMessage'
 
 export default {
   components: {
+    BetslipItem,
+    BetslipItemMessage,
     MaskedInput
   },
   props: {
@@ -194,7 +134,7 @@ export default {
     return {
       betMarketStatus: null,
       betOddStatus: null,
-      disabledMessage: null
+      alertMessage: null
     }
   },
   apollo: {
@@ -249,6 +189,8 @@ export default {
     }
   },
   computed: {
+    ...mapGetters('betslip', ['getBets', 'isComboBetsMode']),
+    ...mapGetters(['getUserActiveWallet']),
     mask () {
       return createNumberMask({
         prefix: '',
@@ -257,18 +199,11 @@ export default {
         includeThousandsSeparator: false
       })
     },
-    ...mapGetters('betslip', [
-      'acceptAllChecked',
-      'getBets',
-      'getAnyFrozenBet',
-      'isComboBetsMode'
-    ]),
-    ...mapGetters(['getUserActiveWallet']),
     potentialReturn: function () {
       const stake = this.bet.stake > 0 ? this.bet.stake : 0
       return stake * this.bet.approvedOddValue
     },
-    formatedPotentialReturn () {
+    formattedPotentialReturn () {
       const currency = this.getUserActiveWallet.currency.code
       return `${parseFloat(this.potentialReturn.toFixed(2))} ${currency}`
     },
@@ -281,42 +216,15 @@ export default {
         this.setBetStake({ oddId: this.bet.oddId, stakeValue: stakeValue })
       }
     },
-    valuesUnconfirmed () {
-      if (!this.acceptAllChecked) {
-        return this.bet.isAcceptable && this.bet.approvedOddValue !== this.bet.currentOddValue
-      }
-
-      return false
-    },
-    isSuccess () {
-      if (!this.bet.status) return
-
-      return this.bet.status === Bet.statuses.accepted || this.bet.status === Bet.statuses.settled
-    },
-    isAccepted () {
-      if (!this.bet.status) return
-
-      return this.bet.isStatusAccepted
-    },
-    isFail () {
-      if (!this.bet.status) return
-
-      return FAILURE_STATUSES.includes(this.bet.status)
-    },
     isBetDisabled () {
       return this.isDisabled || this.isSettled
     },
     isDisabled () {
-      return this.betMarketStatus === DISABLED || this.betOddStatus === DISABLED
+      return this.betMarketStatus === Bet.statuses.disabled ||
+        this.betOddStatus === Bet.statuses.disabled
     },
     isSettled () {
-      return this.status === SETTLED
-    },
-    successMessage () {
-      return MESSAGE_SUCCESS
-    },
-    betMessage () {
-      return this.bet.message || this.$i18n.t('betslip.generic')
+      return this.status === Bet.statuses.settled
     }
   },
   mounted () {
@@ -324,10 +232,7 @@ export default {
   },
   methods: {
     ...mapActions('betslip', ['removeBetFromBetslip']),
-    ...mapMutations('betslip', [
-      'setBetStake',
-      'updateBet',
-    ]),
+    ...mapMutations('betslip', ['setBetStake', 'updateBet']),
     updateOdds (market) {
       if (!market.hasOwnProperty('id')) return
 
@@ -350,12 +255,12 @@ export default {
           payload: { currentOddValue: odd.value, marketStatus: market.status }
         })
 
-        if (bet.oddsChanged) this.confirmValue()
+        if (bet.oddsChanged) this.acceptNewOdds()
       })
     },
     disableBetByOddStatus () {
-      this.disabledMessage = MESSAGE_DISABLED
-      this.betOddStatus = DISABLED
+      this.alertMessage = MESSAGE_DISABLED
+      this.betOddStatus = Bet.statuses.disabled
 
       this.updateBet({
         oddId: this.bet.oddId,
@@ -371,13 +276,13 @@ export default {
       if (!market.status || INACTIVE_STATUSES.includes(market.status)) {
         return this.disableBetByMarketStatus()
       }
-      if (market.status === SETTLED_STATUS) { return this.settleBetByMarketStatus() }
+      if (market.status === SETTLED_STATUS) return this.settleBetByMarketStatus()
 
       this.betMarketStatus = null
     },
     disableBetByMarketStatus () {
-      this.disabledMessage = MESSAGE_DISABLED
-      this.betMarketStatus = DISABLED
+      this.alertMessage = MESSAGE_DISABLED
+      this.betMarketStatus = Bet.statuses.disabled
 
       this.updateBet({
         oddId: this.bet.oddId,
@@ -385,18 +290,18 @@ export default {
       })
     },
     settleBetByMarketStatus () {
-      this.disabledMessage = MESSAGE_SETTLED
-      this.betMarketStatus = SETTLED
+      this.alertMessage = MESSAGE_SETTLED
+      this.betMarketStatus = Bet.statuses.settled
 
       this.updateBet({
         oddId: this.bet.oddId,
         payload: { marketStatus: SETTLED_STATUS }
       })
     },
-    confirmValue () {
+    acceptNewOdds () {
       this.updateBet({
         oddId: this.bet.oddId,
-        payload: { approvedOddValue: this.bet.currentOddValue, oddChanged: true }
+        payload: { approvedOddValue: this.bet.currentOddValue }
       })
     },
     removeOdd (oddId) {
@@ -407,16 +312,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.alert-odds-changed {
-  margin-top:0.3rem;
-  text-align: center;
-  font-size: 0.8rem;
-  border: 1px solid $arc-clr-gold;
-  border-radius: 4px;
-  padding: 0.3rem 0;
-  color: $arc-clr-gold;
-}
-
 .market-name {
   display:inline-block;
   max-width: 150px;

@@ -41,8 +41,7 @@ export default class Bet {
       externalId: null,
       approvedOddValue: odd.value,
       currentOddValue: odd.value,
-      success: null,
-      oddChanged: false
+      success: null
     })
   }
 

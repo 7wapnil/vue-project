@@ -1,5 +1,6 @@
 import { expect } from 'chai'
 import { mutations, getters, actions } from '@/stores/betslip'
+import Bet from '@/models/bet'
 
 describe('betslip store', () => {
   describe('actions', () => {
@@ -164,13 +165,15 @@ describe('betslip store', () => {
     describe('betslipValuesConfirmed', () => {
       it('returns true when all bets confirmed', () => {
         const oddId = 3
+        const confirmedValue = 1.11
+        const currentOddValue = 1.11
         const betsState = [
-          { oddChanged: false, odd: { id: oddId } },
+          { currentOddValue: currentOddValue, approvedOddValue: confirmedValue, oddId: oddId }
         ]
 
-        const state = { bets: betsState }
+        const state = { bets: betsState, acceptAll: false }
         const events = [
-          { id: 1, markets: [{ id: 2, odds: [{ id: oddId }] }] }
+          { id: 1, markets: [{ id: 2, odds: [{ id: oddId, value: currentOddValue }] }] }
         ]
 
         const gettersWithEvents = { getEvents: events }
@@ -180,13 +183,15 @@ describe('betslip store', () => {
 
       it('returns true on accepting all odds', () => {
         const oddId = 3
+        const confirmedValue = 1.11
+        const currentOddValue = 1.12
         const betsState = [
-          { oddChanged: true, odd: { id: oddId } },
+          new Bet({ currentOddValue: currentOddValue, approvedOddValue: confirmedValue, oddId: oddId })
         ]
 
         const state = { bets: betsState, acceptAll: true }
         const events = [
-          { id: 1, markets: [{ id: 2, odds: [{ id: oddId }] }] }
+          new Bet({ id: 1, markets: [{ id: 2, odds: [{ id: oddId, value: currentOddValue }] }] })
         ]
 
         const gettersWithEvents = { getEvents: events }
@@ -196,13 +201,15 @@ describe('betslip store', () => {
 
       it('returns false when one of bets not confirmed', () => {
         const oddId = 3
+        const confirmedValue = 1.11
+        const currentOddValue = 1.12
         const betsState = [
-          { oddChanged: true, odd: { id: oddId } },
+          new Bet({ currentOddValue: currentOddValue, approvedOddValue: confirmedValue, oddId: oddId })
         ]
 
-        const state = { bets: betsState }
+        const state = { bets: betsState, acceptAll: false }
         const events = [
-          { id: 1, markets: [{ id: 2, odds: [{ id: oddId }] }] }
+          { id: 1, markets: [{ id: 2, odds: [{ id: oddId, value: currentOddValue }] }] }
         ]
 
         const gettersWithEvents = { getEvents: events }

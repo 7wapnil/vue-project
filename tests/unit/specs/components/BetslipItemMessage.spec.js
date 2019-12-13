@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 import { createLocalVue, shallowMount } from '@vue/test-utils'
 import Vuex from 'vuex'
-import BetslipItem from '@/components/betslip/BetslipItem.vue'
+import BetslipItemMessage from '@/components/betslip/BetslipItemMessage.vue'
 
 import Bet from '@/models/bet'
 import VueI18n from 'vue-i18n'
@@ -99,7 +99,7 @@ describe('BetslipItem component', () => {
       messages
     })
 
-    wrapper = shallowMount(BetslipItem, {
+    wrapper = shallowMount(BetslipItemMessage, {
       propsData: {
         bet
       },
@@ -110,36 +110,12 @@ describe('BetslipItem component', () => {
   })
 
   describe('initial state', () => {
-    it('shows bet event name', () => {
-      expect(wrapper.find('.event-name').text()).to.equal(bet.eventName)
+    it('shows approved value', () => {
+      expect(wrapper.find('.approved').text()).to.equal(bet.approvedOddValue.toString())
     })
 
-    it('shows bet market name', () => {
-      expect(wrapper.find('.market-name').text()).to.equal(bet.marketName)
-    })
-
-    it('potential return has correct value', () => {
-      const potentialRetunValue = (bet.stake * bet.approvedOddValue)
-      expect(wrapper.vm.potentialReturn).to.equal(potentialRetunValue)
-    })
-
-    it('dispatches remove odd method', () => {
-      const removeOddStub = sinon.stub()
-      wrapper.setMethods({ removeOdd: removeOddStub })
-      wrapper.vm.removeOdd(bet.oddId)
-      expect(removeOddStub.calledOnce).to.equal(true)
-    })
-
-    it('shows no alert messages on init state', () => {
-      expect(wrapper.contains('.bet-message-alert')).to.equal(false)
-    })
-
-    it('shows no success alert messages on init state', () => {
-      expect(wrapper.contains('.success-message')).to.equal(false)
-    })
-
-    it('shows no odd disabled alert messages on init state', () => {
-      expect(wrapper.contains('.odd-disabled-message')).to.equal(false)
+    it('shows current value', () => {
+      expect(wrapper.find('.current').text()).to.equal(bet.currentOddValue.toString())
     })
   })
 })
