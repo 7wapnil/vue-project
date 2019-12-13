@@ -205,7 +205,7 @@ const messages = {
         default: 'Please login to place a bet',
         defaultLoggedIn: 'Your betslip is empty',
         oddsNotConfirmed: 'Please confirm all odds changes',
-        notEnoughMoney: 'Please check your available balance',
+        notEnoughFundsOnBalance: 'Please fill your balance to place bet',
         inactiveMarkets: 'Please remove any inactive bets',
         unacceptableBets: 'Please remove any inactive bets',
         betsBeingSubmitted: 'Bet placement in progress',
@@ -219,7 +219,9 @@ const messages = {
       cta: {
         placeBet: 'Place Bet',
         clearAll: 'Clear all',
-        placementInProgress: 'Placing bet'
+        placementInProgress: 'Placing bet',
+        login: 'Login',
+        deposit: 'Deposit'
       },
       mobileButton: 'Betslip',
       totalStake: 'Total stake:',

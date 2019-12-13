@@ -121,15 +121,15 @@ describe('Betslip', () => {
     })
 
     it('shows place bet button', () => {
-      expect(wrapper.find('button.btn-arc-primary').text()).to.equal(i18n.t('betslip.cta.placeBet'))
+      expect(wrapper.find('button.btn-arc-primary').text()).to.equal(i18n.t('betslip.cta.login'))
     })
 
     it('has no checkbox', () => {
       expect(wrapper.contains('.accept-all-odds-checkbox')).to.equal(false)
     })
 
-    it('has submit button as disabled on initial state', () => {
-      expect(wrapper.find('.submit-bets').attributes()['disabled']).to.equal('disabled')
+    it('has submit button as enabled on initial state', () => {
+      expect(wrapper.find('.submit-bets').attributes()['disabled']).to.equal(undefined)
     })
   })
 
