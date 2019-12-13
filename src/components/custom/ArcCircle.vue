@@ -2,7 +2,7 @@
   <div
     :class="['bg-' + bgColor,
              depends ? 'arc-circle' : 'text-' + color,
-             inline ? 'd-inline-flex' : 'd-flex']"
+             displayClass]"
     :style="{ 'width': size + 'px',
               'height': size + 'px',
               'border-radius': '50px'}"
@@ -33,6 +33,17 @@ export default {
     depends: {
       type: Boolean,
       default: false
+    },
+    show: {
+      type: Boolean,
+      default: true
+    }
+  },
+  computed: {
+    displayClass () {
+      if (!this.show) return 'd-none'
+
+      return this.inline ? 'd-inline-flex' : 'd-flex'
     }
   }
 }

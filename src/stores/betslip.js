@@ -165,7 +165,7 @@ export const getters = {
     return activeWallet.amount
   },
   betslipValuesConfirmed: (state) => {
-    return state.acceptAll || !state.bets.some((bet) => bet.oddChanged)
+    return state.acceptAll || !state.bets.some((bet) => bet.oddsChanged)
   },
   getBets (state) {
     return state.bets

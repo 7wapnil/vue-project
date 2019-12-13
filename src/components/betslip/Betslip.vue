@@ -19,8 +19,8 @@
             Betslip
           </span>
           <arc-circle
-            v-show="betsLength"
             :size="24"
+            :show="betsLength && !isComboBetsMode"
             class="bet-amount font-weight-bold font-size-12"
             bg-color="arc-clr-soil-cover"
             depends

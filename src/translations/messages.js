@@ -224,7 +224,8 @@ const messages = {
     },
     betslipItem: {
       oddsChanged: 'Odds Changed',
-      return: 'Potential Return:'
+      return: 'Potential Return:',
+      accept: 'Accept'
     },
     wallet: {
       balance: 'Balance',
