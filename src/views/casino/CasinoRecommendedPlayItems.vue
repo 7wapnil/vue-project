@@ -64,7 +64,7 @@ export default {
       this.$forceUpdate()
 
       return this.$router.push({
-        name: 'casino-game',
+        name: `${this.$route.params.titleKind}-game`,
         params: {
           playItemSlug: item.slug,
           category: 'all-games'

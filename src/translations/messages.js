@@ -173,6 +173,11 @@ const messages = {
       },
       cta: {
         depositNow: 'Deposit Now',
+      },
+      unavailableCountryModal: {
+        title: 'This game is unavailable',
+        text: 'Unfortunately, this game cannot be played from your current region. Please, try another one.',
+        buttonText: 'I understand'
       }
     },
     betslip: {
