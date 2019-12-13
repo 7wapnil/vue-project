@@ -96,6 +96,9 @@ export default {
           this.launchUrl = data.createEveryMatrixSession.launchUrl
           this.playItem = data.createEveryMatrixSession.playItem
         })
+        .catch(() => {
+          this.$bvModal.show('UnavailableCountryModal')
+        })
     },
     openFullScreen () {
       const elem = this.$refs.gameContainer
