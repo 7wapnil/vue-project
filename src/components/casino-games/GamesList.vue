@@ -2,11 +2,22 @@
   <div>
     <category-play-items :play-items="gamesCollection"/>
     <loader v-if="$apollo.loading"/>
-    <b-row
-      v-if="!$apollo.loading && !gamesCollection.length"
-      no-gutters>
-      <b-col class="text-center p-4">
-        No result
+    <b-row no-gutters>
+      <b-col
+        v-if="lastPage"
+        class="text-center p-4">
+        {{ this.$i18n.t('casino.playItemsList.noMoreResults') }}
+      </b-col>
+      <b-col
+        v-observe-visibility="{
+          throttle: 300,
+          callback: loadMoreGames
+        }"
+        v-else/>
+      <b-col
+        v-if="!$apollo.loading && !gamesCollection.length"
+        class="text-center p-4">
+        {{ this.$i18n.t('casino.playItemsList.noResults') }}
       </b-col>
     </b-row>
   </div>
@@ -63,7 +74,9 @@ export default {
     }
   },
   methods: {
-    loadMoreGames () {
+    loadMoreGames (isVisible) {
+      if (this.$apollo.loading || !isVisible) return
+
       this.page = this.paginationProps.next
       this.$apollo.queries.games.fetchMore({
         variables: {
@@ -71,16 +84,22 @@ export default {
           page: this.page
         },
         updateQuery: (previousResult, { fetchMoreResult }) => {
+          if (!fetchMoreResult) return previousResult
+
           return {
-            games: this.mergePlayItems(previousResult, fetchMoreResult).games,
-            paginationProps: fetchMoreResult.games.pagination
+            games: {
+              collection: this.mergePlayItems(previousResult, fetchMoreResult),
+              __typename: previousResult.games.__typename,
+              pagination: fetchMoreResult.games.pagination
+            }
           }
         }
       })
     },
     mergePlayItems (oldItems, newItems) {
-      newItems.games.collection = [...oldItems.games.collection, ...newItems.games.collection]
-      return newItems
+      oldItems.games.collection.push(...newItems.games.collection)
+
+      return oldItems.games.collection
     }
   }
 }
