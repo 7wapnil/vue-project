@@ -4,11 +4,10 @@
     @click="launchGame"
     @mouseover="hover = true"
     @mouseleave="hover = false">
-    <b-img
-      :src="itemIcon"
+    <img
+      v-lazy="itemIcon"
       :alt="itemTitle"
-      class="image"
-      blank-color="#2F2F2F"/>
+      class="image">
     <div
       v-show="hover && !isMobile"
       class="zbutton">
@@ -45,10 +44,10 @@ export default {
       activeWallet: 'getUserActiveWallet'
     }),
     itemIcon () {
-      return this.item.logoUrl || this.defaultIcon
-    },
-    defaultIcon () {
-      return require('@/assets/images/logo/arcanebet-logo.png')
+      return {
+        src: this.item.logoUrl,
+        error: require('@/assets/images/logo/arcanebet-logo.png')
+      }
     },
     itemTitle () {
       return this.item.name
@@ -109,6 +108,7 @@ export default {
     border-radius: 5px;
     height: 200px;
     max-width: 300px;
+    width: 100%;
     position: relative;
       &:first-child {
         margin-left: 0;
@@ -147,6 +147,10 @@ export default {
         object-fit: cover;
         border-radius: 5px;
         transition: all .4s ease-in-out;
+
+        &[lazy=loading] {
+          background: url(#{'~@/assets/images/casino-common/loading-icon.svg'}) no-repeat 50% 50%, #2F2F2F 0 0 no-repeat padding-box !important;
+        }
       }
     }
       &-mobile {
@@ -169,6 +173,10 @@ export default {
           object-fit: cover;
           border-radius: 5px;
           transition: all .4s ease-in-out;
+
+          &[lazy=loading] {
+            background: url(#{'~@/assets/images/casino-common/loading-icon.svg'}) no-repeat 50% 50%, #2F2F2F 0 0 no-repeat padding-box !important;
+          }
         }
       }
     }

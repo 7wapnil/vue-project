@@ -98,6 +98,7 @@ export default {
       border-radius: 5px;
       height: 177.3px;
       max-width: 266px;
+      width: 100%;
       position: relative;
     }
     &-mobile {
