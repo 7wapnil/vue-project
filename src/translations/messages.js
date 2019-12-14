@@ -178,7 +178,11 @@ const messages = {
         title: 'This game is unavailable',
         text: 'Unfortunately, this game cannot be played from your current region. Please, try another one.',
         buttonText: 'I understand'
-      }
+      },
+      playItemsList: {
+        noMoreResults: 'No more results.',
+        noResults: 'No results'
+      },
     },
     betslip: {
       generic: 'Bet placement unsuccessful. Please try again or contact support.',

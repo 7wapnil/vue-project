@@ -12,10 +12,12 @@ import ModalList from '@/components/custom/ModalList'
 import ArcCircle from '@/components/custom/ArcCircle'
 import PaymentMethodIcon from '@/components/PaymentMethodIcon'
 import ArcSeparator from '@/components/custom/ArcSeparator'
+import VueObserveVisibility from 'vue-observe-visibility'
 import VueLazyload from 'vue-lazyload'
 
 Vue.use(Router)
 Vue.use(BootstrapVue)
+Vue.use(VueObserveVisibility)
 Vue.use(VueLazyload, {
   preLoad: 1.3,
   attempt: 1

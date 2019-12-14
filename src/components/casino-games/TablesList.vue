@@ -2,11 +2,22 @@
   <div>
     <category-play-items :play-items="tablesCollection"/>
     <loader v-if="$apollo.loading"/>
-    <b-row
-      v-if="!$apollo.loading && !tablesCollection.length"
-      no-gutters>
-      <b-col class="text-center p-4">
-        No result
+    <b-row no-gutters>
+      <b-col
+        v-if="lastPage"
+        class="text-center p-4">
+        {{ this.$i18n.t('casino.playItemsList.noMoreResults') }}
+      </b-col>
+      <b-col
+        v-observe-visibility="{
+          throttle: 300,
+          callback: loadMoreTables
+        }"
+        v-else/>
+      <b-col
+        v-if="!$apollo.loading && !tablesCollection.length"
+        class="text-center p-4">
+        {{ this.$i18n.t('casino.playItemsList.noResults') }}
       </b-col>
     </b-row>
   </div>
@@ -57,6 +68,38 @@ export default {
   computed: {
     computedCategory () {
       return this.isMobile ? `${this.category}-mobile` : `${this.category}-desktop`
+    },
+    lastPage () {
+      return this.paginationProps.next === null
+    }
+  },
+  methods: {
+    loadMoreTables (isVisible) {
+      if (this.$apollo.loading || !isVisible) return
+
+      this.page = this.paginationProps.next
+      this.$apollo.queries.tables.fetchMore({
+        variables: {
+          perPage: this.itemsPerPage,
+          page: this.page
+        },
+        updateQuery: (previousResult, { fetchMoreResult }) => {
+          if (!fetchMoreResult) return previousResult
+
+          return {
+            tables: {
+              collection: this.mergePlayItems(previousResult, fetchMoreResult),
+              __typename: previousResult.tables.__typename,
+              pagination: fetchMoreResult.tables.pagination
+            }
+          }
+        }
+      })
+    },
+    mergePlayItems (oldItems, newItems) {
+      oldItems.tables.collection.push(...newItems.tables.collection)
+
+      return oldItems.tables.collection
     }
   }
 }
