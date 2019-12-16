@@ -200,6 +200,7 @@ const messages = {
         'Click on any odds to add them\n' +
         'to betslip.',
       acceptAllCheckbox: 'Accept all odds changes',
+      keepAllSelections: 'Keep my selections',
       tooltipMessages: {
         default: 'Please login to place a bet',
         defaultLoggedIn: 'Your betslip is empty',

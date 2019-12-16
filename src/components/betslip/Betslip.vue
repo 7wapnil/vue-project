@@ -146,9 +146,16 @@
         class="px-3 pb-3 mb-0 bg-arc-clr-soil-black">
         <b-form-checkbox
           v-model="acceptAllOdds"
-          class="accept-all-odds-checkbox">
+          class="accept-all-odds-checkbox mb-1">
           <span class="font-size-14 text-arc-clr-iron letter-spacing-2 ml-2 pointer">
             {{ $t('betslip.acceptAllCheckbox') }}
+          </span>
+        </b-form-checkbox>
+        <b-form-checkbox
+          v-model="keepAllSelections"
+          class="accept-all-odds-checkbox">
+          <span class="font-size-14 text-arc-clr-iron letter-spacing-2 ml-2 pointer">
+            {{ $t('betslip.keepAllSelections') }}
           </span>
         </b-form-checkbox>
       </b-form-group>
@@ -239,7 +246,8 @@ export default {
       'hasBetslipMessages',
       'hasAnyFrozenBet',
       'getBetslipStake',
-      'getBetslipStakeFloat'
+      'getBetslipStakeFloat',
+      'keepAllSelectionsChecked'
     ]),
     ...mapGetters(['isLoggedIn', 'getUserActiveWallet']),
     acceptAllOdds: {
@@ -248,7 +256,15 @@ export default {
       },
       set (value) {
         if (value) { this.updateBets() }
-        this.updateAcceptAll(value)
+        this.setAcceptAll(value)
+      }
+    },
+    keepAllSelections: {
+      get () {
+        return this.keepAllSelectionsChecked
+      },
+      set (value) {
+        this.setKeepAllSelections(value)
       }
     },
     getTooltipContent () {
@@ -374,8 +390,9 @@ export default {
     ...mapMutations('betslip', [
       'setBetStatusAsSubmitted',
       'updateBet',
-      'updateAcceptAll',
-      'toggleBetslip'
+      'setAcceptAll',
+      'toggleBetslip',
+      'setKeepAllSelections'
     ]),
     submit () {
       this.setBetStatusAsSubmitted()
