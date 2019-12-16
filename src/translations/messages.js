@@ -217,15 +217,26 @@ const messages = {
       },
       cta: {
         placeBet: 'Place Bet',
-        clearAll: 'Clear all'
+        clearAll: 'Clear all',
+        placementInProgress: 'Placing bet'
       },
       mobileButton: 'Betslip',
-      stake: 'Stake'
+      totalStake: 'Total stake:',
+      totalReturn: 'Total return:',
+      tabs: {
+        singleBet: {
+          title: 'Single'
+        },
+        comboBets: {
+          title: 'Combo'
+        }
+      }
     },
     betslipItem: {
       oddsChanged: 'Odds Changed',
       return: 'Potential Return:',
-      accept: 'Accept'
+      accept: 'Accept',
+      stake: 'Stake'
     },
     wallet: {
       balance: 'Balance',

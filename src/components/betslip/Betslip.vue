@@ -46,41 +46,58 @@
           nav-wrapper-class="betslip-nav-wrapper"
           @input="changeBettingTab">
           <b-tab
+            :disabled="hasAnyFrozenBet && isComboBetsMode"
             :title-link-class="changeStyleTab(0)"
-            title="Single"
+            :title="$t('betslip.tabs.singleBet.title')"
             no-body>
             <b-row no-gutters>
               <b-col>
                 <div
                   v-for="betLeg in getBets"
                   :key="`single-${betLeg.oddId}`">
-                  <betslip-item
-                    :bet="betLeg"/>
+                  <betslip-item :bet="betLeg"/>
                 </div>
               </b-col>
             </b-row>
+
+            <div
+              v-show="hasBetslipMessages"
+              :style="{ 'margin-left': isMobile ? '0' : '6px' }"
+              class="card pb-2 pl-3 pr-2 mb-1 bg-arc-clr-soil-dark">
+              <betslip-message
+                :message="getBetslipMessageObject"
+                :show="hasBetslipMessages"/>
+            </div>
           </b-tab>
 
           <b-tab
+            :disabled="hasAnyFrozenBet && !isComboBetsMode"
             :title-link-class="changeStyleTab(1)"
-            title="Combo"
+            :title="$t('betslip.tabs.comboBets.title')"
             no-body>
             <b-row no-gutters>
               <b-col>
                 <div
                   v-for="betLeg in getBets"
                   :key="`combo-${betLeg.oddId}`">
-                  <betslip-item
-                    :bet="betLeg"/>
+                  <betslip-item :bet="betLeg"/>
                 </div>
               </b-col>
             </b-row>
 
+            <div
+              v-show="hasBetslipMessages"
+              :style="{ 'margin-left': isMobile ? '0' : '6px' }"
+              class="card pb-2 pl-3 pr-2 mb-1 mt-n1 bg-arc-clr-soil-dark">
+              <betslip-message
+                :message="getBetslipMessageObject"
+                :show="hasBetslipMessages"/>
+            </div>
+
             <betslip-stake
               :is-disabled="false"
               :integer-limit="digitsLimitForStake"
-              :decimal-limit="2"
-              @stake-changed:betslip-stake="updateComboStake"/>
+              :decimal-limit="2"/>
           </b-tab>
 
         </b-tabs>
@@ -96,7 +113,7 @@
           class="mb-2">
           <b-col cols="8">
             <h6 class="m-0 text-arc-clr-iron">
-              Total stake:
+              {{ $t('betslip.totalStake') }}
             </h6>
           </b-col>
           <b-col class="text-right mr-1">
@@ -108,7 +125,7 @@
         <b-row no-gutters>
           <b-col cols="8">
             <h5 class="m-0 text-arc-clr-iron">
-              Total return:
+              {{ $t('betslip.totalReturn') }}
             </h5>
           </b-col>
           <b-col class="text-right mr-1">
@@ -157,7 +174,7 @@
         <spinner-button
           v-if="placingBetInProgress"
           class="submitting">
-          Placing bet
+          {{ $t('betslip.cta.placementInProgress') }}
         </spinner-button>
       </b-col>
     </b-row>
@@ -171,10 +188,11 @@ import NoBetsBlock from './NoBetsBlock'
 import { mapGetters, mapMutations, mapActions } from 'vuex'
 import SpinnerButton from './SpinnerButton'
 import BetslipStake from '@/components/betslip/BetslipStake'
+import BetslipMessage from '@/components/betslip/BetslipMessage'
 
 const REFRESH_BETSLIP_AFTER_PLACING_BET_TIME = 3000
 const REFRESH_BETSLIP_TIMEOUT = 1000
-const SCROLL_ON_LOAD_TIMEOUT = 1000
+const SCROLL_ON_LOAD_TIMEOUT = 1500
 const SCROLL_ON_UPDATE_TIMEOUT = 100
 const SINGLE_BET_TAB_INDEX = 0
 const COMBO_BETS_TAB_INDEX = 1
@@ -186,16 +204,12 @@ export default {
     BetslipItem,
     NoBetsBlock,
     SpinnerButton,
-    BetslipStake
+    BetslipStake,
+    BetslipMessage
   },
   filters: {
     numberize (value) {
       return value ? new Intl.NumberFormat().format(value) : 0
-    }
-  },
-  data () {
-    return {
-      comboStake: ''
     }
   },
   computed: {
@@ -219,7 +233,13 @@ export default {
       'anyConflictedBets',
       'isValidating',
       'hasValidationMessages',
-      'getValidationMessages'
+      'getValidationMessages',
+      'getBetslipMessageObject',
+      'getBetslipMessageVariant',
+      'hasBetslipMessages',
+      'hasAnyFrozenBet',
+      'getBetslipStake',
+      'getBetslipStakeFloat'
     ]),
     ...mapGetters(['isLoggedIn', 'getUserActiveWallet']),
     acceptAllOdds: {
@@ -244,7 +264,7 @@ export default {
           anyConflictedBets: this.anyConflictedBets,
           notEnoughMoney: !this.isEnoughFundsCombo,
           notEnoughBetLegs: !(this.betsLength > 1),
-          invalidStakeAmount: !this.isValidComboStake
+          invalidStakeAmount: !this.isValidBetslipStake
         }
       } else {
         conditions = {
@@ -291,16 +311,16 @@ export default {
         return this.betslipSubmittable
       }
     },
-    isValidComboStake () {
-      return this.comboStake > 0
+    isValidBetslipStake () {
+      return this.getBetslipStakeFloat > 0
     },
     isComboBetSubmittable () {
       return this.betslipComboSubmittable &&
-        this.isValidComboStake &&
+        this.isValidBetslipStake &&
         this.isEnoughFundsCombo
     },
     isEnoughFundsCombo () {
-      return this.getFundsToBet > this.comboStake
+      return this.getFundsToBet > this.getBetslipStakeFloat
     },
     getComboReturn () {
       const bets = this.getBets
@@ -308,7 +328,7 @@ export default {
         return totalOdd * bet.approvedOddValue
       }, 1)
 
-      return (Number(this.comboStake) * totalOdd).toFixed(2)
+      return (this.getBetslipStakeFloat * totalOdd).toFixed(2)
     },
     tabIndex: {
       get () {
@@ -326,10 +346,12 @@ export default {
   watch: {
     betsLength (val) {
       if (this.isMobile && !val) this.toggleBetslip()
-      if (!val) this.resetBetslip()
     },
     isValidationInProgress (validating) {
       if (!validating) setTimeout(this.scrollSubmit, SCROLL_ON_UPDATE_TIMEOUT)
+    },
+    getBetslipMessageVariant (value) {
+      if (value) setTimeout(this.scrollSubmit, SCROLL_ON_UPDATE_TIMEOUT)
     }
   },
   created () {
@@ -346,12 +368,12 @@ export default {
       'placeBets',
       'refreshBetslip',
       'removeBetFromBetslip',
-      'updateComboBetsMode'
+      'updateComboBetsMode',
+      'clearBetslip'
     ]),
     ...mapMutations('betslip', [
       'setBetStatusAsSubmitted',
       'updateBet',
-      'clearBetslip',
       'updateAcceptAll',
       'toggleBetslip'
     ]),
@@ -366,7 +388,7 @@ export default {
     },
     getComboBetPayload () {
       return {
-        amount: parseFloat(this.comboStake),
+        amount: this.getBetslipStakeFloat,
         odds: this.getBets.map(bet => {
           return { id: bet.oddId, value: bet.approvedOddValue }
         }),
@@ -442,15 +464,6 @@ export default {
     },
     changeStyleTab (index) {
       return (this.tabIndex === index) ? 'betslipActiveTab' : 'betslipTab'
-    },
-    resetBetslip () {
-      this.clearComboStake()
-    },
-    updateComboStake (stake) {
-      this.comboStake = stake
-    },
-    clearComboStake () {
-      this.comboStake = ''
     },
     changeBettingTab (newTab) {
       this.updateComboBetsMode({ enabled: newTab === COMBO_BETS_TAB_INDEX })
