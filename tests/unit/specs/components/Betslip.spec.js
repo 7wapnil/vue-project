@@ -185,8 +185,12 @@ describe('Betslip', () => {
         isLoggedIn: () => true
       }
 
-      mutations = {
+      actions = {
         clearBetslip: () => { state.bets = [] }
+      }
+
+      mutations = {
+        clearBets: () => { state.bets = [] }
       }
 
       store = new Vuex.Store({

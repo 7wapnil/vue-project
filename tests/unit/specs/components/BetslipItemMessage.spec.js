@@ -73,8 +73,8 @@ describe('BetslipItem component', () => {
       getTotalStakes: () => 10,
       getTotalReturn: () => 15,
       acceptAllChecked: () => false,
-      valuesUnconfirmed: () => true,
-      getAnyFrozenBet: () => false,
+      hasUnconfirmedValues: () => true,
+      hasAnyFrozenBet: () => false,
       isBetDisabled: () => false
     }
 

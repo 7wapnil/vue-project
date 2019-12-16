@@ -65,13 +65,13 @@ describe('betslip store', () => {
       })
     })
 
-    describe('clearBetslip', () => {
-      it('clears all betslip', () => {
+    describe('clearBets', () => {
+      it('clears all bets', () => {
         const state = {
           bets: [ { oddId: 1 }, { oddId: 2, status: 'xxx' } ]
         }
 
-        mutations.clearBetslip(state, 1)
+        mutations.clearBets(state)
 
         expect(state.bets).to.eql([])
       })
@@ -395,14 +395,14 @@ describe('betslip store', () => {
       })
     })
 
-    describe('getAnyFrozenBet', () => {
+    describe('hasAnyFrozenBet', () => {
       it('returns true when the bet status is "submitted"', () => {
         const state = {
           bets: [
             { frozen: true }
           ]
         }
-        expect(getters.getAnyFrozenBet(state)).to.eql(true)
+        expect(getters.hasAnyFrozenBet(state)).to.eql(true)
       })
 
       it('returns false when the bet status is "not frozen"', () => {
@@ -411,7 +411,7 @@ describe('betslip store', () => {
             { status: 'not_frozen' }
           ]
         }
-        expect(getters.getAnyFrozenBet(state)).to.eql(false)
+        expect(getters.hasAnyFrozenBet(state)).to.eql(false)
       })
     })
   })

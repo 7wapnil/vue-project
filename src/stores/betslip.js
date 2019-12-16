@@ -22,6 +22,7 @@ import {
 import { ACTIVE_STATUS } from '@/models/market'
 import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
 import VueLogger from 'vuejs-logger'
+import { MESSAGE_SUCCESS, SUCCESS, DANGER } from '@/constants/betslip-messages'
 
 const BET_DESTROY_TIMEOUT = 3000
 
@@ -31,7 +32,13 @@ Vue.use(VueLogger, { logLevel: isProduction ? 'error' : 'debug' })
 const getFieldFromStorage = (fieldName, defaultValue) => {
   const rawData = localStorage.getItem(fieldName)
 
-  return rawData ? JSON.parse(rawData) : defaultValue
+  if (!rawData) return defaultValue
+
+  try {
+    return JSON.parse(rawData)
+  } catch (error) {
+    return rawData
+  }
 }
 
 const setFieldToStorage = (fieldName, value, context = {}) => {
@@ -62,7 +69,7 @@ export const mutations = {
     bet.stake = stakeValue
     setFieldToStorage('bets', state.bets, { array: true })
   },
-  clearBetslip (state) {
+  clearBets (state) {
     state.bets = []
     setFieldToStorage('bets', state.bets, { array: true })
   },
@@ -123,6 +130,28 @@ export const mutations = {
   clearBetIds (state) {
     state.bets.forEach((bet) => Object.assign(bet, { id: null }))
     setFieldToStorage('bets', state.bets, { array: true })
+  },
+  updateBetslipMessages (state, { messages, variant }) {
+    state.betslipMessages = messages
+    setFieldToStorage('betslipMessages', state.betslipMessages, { array: true })
+
+    state.betslipMessageVariant = variant
+    setFieldToStorage('betslipMessageVariant', state.betslipMessageVariant)
+  },
+  clearBetslipMessages (state) {
+    state.betslipMessages = []
+    setFieldToStorage('betslipMessages', [], { array: true })
+
+    state.betslipMessageVariant = null
+    setFieldToStorage('betslipMessageVariant', null)
+  },
+  setBetslipStake (state, stake) {
+    state.betslipStake = stake
+    setFieldToStorage('betslipStake', state.betslipStake)
+  },
+  clearBetslipStake (state) {
+    state.betslipStake = null
+    setFieldToStorage('betslipStake', null)
   }
 }
 
@@ -218,7 +247,7 @@ export const getters = {
       return bet.status === Bet.statuses.submitted
     })
   },
-  getAnyFrozenBet (state) {
+  hasAnyFrozenBet (state) {
     return state.bets.some((bet) => bet.frozen)
   },
   getAllBetsAcceptable (state) {
@@ -244,6 +273,24 @@ export const getters = {
   },
   hasValidationMessages (state) {
     return state.validationMessages && state.validationMessages.length
+  },
+  getBetslipMessageObject (state) {
+    return {
+      text: state.betslipMessages.join('\r\n'),
+      variant: state.betslipMessageVariant
+    }
+  },
+  getBetslipMessageVariant (state) {
+    return state.betslipMessageVariant
+  },
+  hasBetslipMessages (state) {
+    return !!(state.betslipMessageVariant && state.betslipMessages.length)
+  },
+  getBetslipStake (state) {
+    return state.betslipStake
+  },
+  getBetslipStakeFloat (state) {
+    return state.betslipStake ? Number(state.betslipStake) : 0.0
   }
 }
 
@@ -281,6 +328,8 @@ export const actions = {
             commit('updateBet', { oddId: betLeg.oddId, payload: betItemPayload })
           })
 
+          if (state.isComboBetsMode) dispatch('updateBetslipMessagesForComboBets', betUpdated)
+
           dispatch('removeAcceptedBet', betUpdated)
         },
         error (error) {
@@ -313,12 +362,19 @@ export const actions = {
     setFieldToStorage('bets', state.bets, { array: true })
     dispatch('validateBets')
   },
-  removeBetFromBetslip ({ dispatch, state }, oddId) {
+  removeBetFromBetslip ({ dispatch, commit, state }, oddId) {
     state.bets = state.bets.filter(e => e.oddId !== oddId)
     setFieldToStorage('bets', state.bets, { array: true })
     dispatch('validateBets')
+
+    if (!state.bets.length) {
+      commit('clearBetslipMessages')
+      commit('clearBetslipStake')
+    }
   },
-  placeBets ({ state }, payload) {
+  placeBets ({ commit, state }, payload) {
+    commit('clearBetslipMessages')
+
     if (state.isComboBetsMode) {
       return graphqlClient.mutate({
         mutation: BETSLIP_PLACEMENT_COMBO_QUERY,
@@ -361,6 +417,8 @@ export const actions = {
             })
           })
 
+          if (state.isComboBetsMode) dispatch('updateBetslipMessagesForComboBets', bet)
+
           dispatch('removeAcceptedBet', bet)
         })
       })
@@ -397,8 +455,21 @@ export const actions = {
   },
   updateComboBetsMode ({ dispatch, commit, state }, { enabled }) {
     commit('clearBetIds')
+    commit('clearBetslipMessages')
     commit('setComboBetsMode', { enabled })
     dispatch('validateBets')
+  },
+  updateBetslipMessagesForComboBets ({ commit, state }, bet) {
+    if (bet.status === Bet.statuses.accepted || bet.status === Bet.statuses.settled) {
+      commit('updateBetslipMessages', { messages: [MESSAGE_SUCCESS], variant: SUCCESS })
+    } else {
+      if (bet.message) commit('updateBetslipMessages', { messages: [bet.message], variant: DANGER })
+    }
+  },
+  clearBetslip ({ commit }) {
+    commit('clearBets')
+    commit('clearBetslipMessages')
+    commit('clearBetslipStake')
   }
 }
 
@@ -411,7 +482,10 @@ export default {
     subscriptions: {},
     betslipSidebarState: false,
     validationMessages: getFieldFromStorage('betslipValidationMessages', []),
-    isComboBetsMode: getFieldFromStorage('isComboBetsMode', false)
+    isComboBetsMode: getFieldFromStorage('isComboBetsMode', false),
+    betslipMessages: getFieldFromStorage('betslipMessages', []),
+    betslipMessageVariant: getFieldFromStorage('betslipMessageVariant'),
+    betslipStake: getFieldFromStorage('betslipStake')
   },
   actions,
   mutations,

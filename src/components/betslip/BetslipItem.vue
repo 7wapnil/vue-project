@@ -90,7 +90,7 @@
           <masked-input
             :disabled="isDisabled"
             v-model="betStake"
-            :placeholder="$t('betslip.stake')"
+            :placeholder="$t('betslipItem.stake')"
             :mask="mask"
             type="text"
             name="stake"
@@ -102,14 +102,14 @@
 
     <betslip-item-message
       :bet="bet"
-      :alert-message="alertMessage"/>
+      :bet-market-status="betMarketStatus"
+      :bet-odd-status="betOddStatus"/>
   </b-card>
 </template>
 
 <script>
 import Bet from '@/models/bet'
 import { mapGetters, mapMutations, mapActions } from 'vuex'
-import { MESSAGE_SETTLED, MESSAGE_DISABLED } from '@/constants/betslip-messages'
 import { MARKET_BY_ID_QUERY, EVENT_BET_STOPPED, eventUpdatedSubscription } from '@/graphql'
 import { INACTIVE_STATUS, SETTLED_STATUS, INACTIVE_STATUSES } from '@/models/market'
 import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
@@ -133,8 +133,7 @@ export default {
   data () {
     return {
       betMarketStatus: null,
-      betOddStatus: null,
-      alertMessage: null
+      betOddStatus: null
     }
   },
   apollo: {
@@ -165,7 +164,7 @@ export default {
             return { id: this.bet.eventId }
           },
           result ({ data: { eventUpdated } }) {
-            const market = eventUpdated.markets[0] || {}
+            const market = eventUpdated.dashboardMarket || {}
             const isMarketVisible = eventUpdated.visible && market.visible
 
             this.updateOdds(market)
@@ -181,7 +180,6 @@ export default {
             return { id: this.bet.eventId }
           },
           result ({ data: { eventBetStopped } }) {
-            this.bet.marketStatus = eventBetStopped.marketStatus
             this.handleMarketStatus({ status: eventBetStopped.marketStatus })
           }
         }
@@ -189,7 +187,11 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('betslip', ['getBets', 'isComboBetsMode']),
+    ...mapGetters('betslip', [
+      'getBets',
+      'isComboBetsMode',
+      'acceptAllChecked'
+    ]),
     ...mapGetters(['getUserActiveWallet']),
     mask () {
       return createNumberMask({
@@ -238,7 +240,7 @@ export default {
 
       let marketHasOdd = market.odds.some((odd) => this.bet.oddId === odd.id)
       if (!marketHasOdd || INACTIVE_STATUSES.includes(market.status)) {
-        return this.disableBetByOddStatus()
+        this.betOddStatus = Bet.statuses.disabled
       } else {
         this.betOddStatus = null
       }
@@ -255,16 +257,7 @@ export default {
           payload: { currentOddValue: odd.value, marketStatus: market.status }
         })
 
-        if (bet.oddsChanged) this.acceptNewOdds()
-      })
-    },
-    disableBetByOddStatus () {
-      this.alertMessage = MESSAGE_DISABLED
-      this.betOddStatus = Bet.statuses.disabled
-
-      this.updateBet({
-        oddId: this.bet.oddId,
-        payload: { status: Bet.statuses.disabled }
+        if (this.acceptAllChecked && bet.oddsChanged) this.acceptNewOdds()
       })
     },
     handleMarketVisibility (market) {
@@ -279,9 +272,12 @@ export default {
       if (market.status === SETTLED_STATUS) return this.settleBetByMarketStatus()
 
       this.betMarketStatus = null
+      this.updateBet({
+        oddId: this.bet.oddId,
+        payload: { marketStatus: market.status }
+      })
     },
     disableBetByMarketStatus () {
-      this.alertMessage = MESSAGE_DISABLED
       this.betMarketStatus = Bet.statuses.disabled
 
       this.updateBet({
@@ -290,7 +286,6 @@ export default {
       })
     },
     settleBetByMarketStatus () {
-      this.alertMessage = MESSAGE_SETTLED
       this.betMarketStatus = Bet.statuses.settled
 
       this.updateBet({

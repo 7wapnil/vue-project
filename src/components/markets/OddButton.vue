@@ -61,7 +61,7 @@ export default {
     ...mapGetters('betslip', [
       'getBets',
       'placingBetInProgress',
-      'getAnyFrozenBet'
+      'hasAnyFrozenBet'
     ]),
     isEventAvailable () {
       if (this.event.startStatus === LIVE && !this.isLiveConnected) return false
@@ -86,7 +86,7 @@ export default {
         return this.isBetExists()
       },
       set () {
-        if (this.isBetExists() && !this.getAnyFrozenBet) {
+        if (this.isBetExists() && !this.hasAnyFrozenBet) {
           return this.removeBetFromBetslip(this.odd.id)
         }
         this.pushBetToBetslip()
@@ -112,7 +112,7 @@ export default {
       return !!this.getBets.find(item => item.oddId === this.odd.id)
     },
     pushBetToBetslip () {
-      if (this.placingBetInProgress || this.getAnyFrozenBet) return
+      if (this.placingBetInProgress || this.hasAnyFrozenBet) return
 
       this.pushBet({
         event: this.event,

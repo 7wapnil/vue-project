@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-row
-      v-if="valuesUnconfirmed && !getAnyFrozenBet"
+      v-if="hasUnconfirmedValues && !hasAnyFrozenBet"
       class="alert-odd-value-changed mt-3"
       no-gutters>
       <b-col>
@@ -38,53 +38,60 @@
       </b-col>
     </b-row>
 
-    <b-alert
-      :class="messageObject.classes"
-      :variant="messageObject.variant"
-      :show="showAlert"
-      v-html="messageObject.text"/>
+    <betslip-message
+      :message="messageObject"
+      :show="!isMessageBlockHidden"/>
   </div>
 </template>
 
 <script>
 import Bet from '@/models/bet'
 import { mapGetters, mapMutations } from 'vuex'
-import { MESSAGE_SUCCESS } from '@/constants/betslip-messages'
+import {
+  MESSAGE_SUCCESS, MESSAGE_DISABLED, MESSAGE_SETTLED,
+  SUCCESS, DANGER, ODD_DISABLED
+} from '@/constants/betslip-messages'
 import { STATUSES as FAILURE_STATUSES } from '@/constants/bet-fail-statuses'
+import BetslipMessage from '@/components/betslip/BetslipMessage'
 
 export default {
+  components: {
+    BetslipMessage
+  },
   props: {
     bet: {
       type: Bet,
       required: true
     },
-    alertMessage: {
+    betMarketStatus: {
       type: String,
       default: null
-    }
+    },
+    betOddStatus: {
+      type: String,
+      default: null
+    },
   },
   computed: {
-    ...mapGetters('betslip', ['acceptAllChecked', 'getAnyFrozenBet']),
-    valuesUnconfirmed () {
+    ...mapGetters('betslip', [
+      'acceptAllChecked',
+      'hasAnyFrozenBet',
+      'isComboBetsMode'
+    ]),
+    hasUnconfirmedValues () {
       return !this.acceptAllChecked && this.bet.isAcceptable && this.bet.oddsChanged
-    },
-    successMessage () {
-      return MESSAGE_SUCCESS
     },
     betMessage () {
       return this.bet.message || this.$i18n.t('betslip.generic')
     },
-    showAlert () {
-      return !!this.messageObject.variant
-    },
     messageObject () {
       if (this.isSuccess) return this.successMessageObject
 
-      if (this.isFailure && !this.bet.oddsChanged) return this.failureMessageObject
-
-      if (this.isBetDisabled && !this.getAnyFrozenBet && !this.isAccepted) {
+      if (this.isBetDisabled && !this.hasAnyFrozenBet && !this.isAccepted) {
         return this.disabledMessageObject
       }
+
+      if (this.isFailure && !this.bet.oddsChanged) return this.failureMessageObject
 
       return {}
     },
@@ -95,9 +102,8 @@ export default {
     },
     successMessageObject () {
       return {
-        text: this.successMessage,
-        variant: 'success',
-        classes: 'success-message mt-3 mx-auto p-2 text-center'
+        text: MESSAGE_SUCCESS,
+        variant: SUCCESS
       }
     },
     isFailure () {
@@ -108,8 +114,7 @@ export default {
     failureMessageObject () {
       return {
         text: this.betMessage,
-        variant: 'danger',
-        classes: 'bet-message-alert mt-3 mx-auto p-2 text-center'
+        variant: DANGER
       }
     },
     isBetDisabled () {
@@ -123,16 +128,24 @@ export default {
       return this.status === Bet.statuses.settled
     },
     isAccepted () {
-      if (!this.bet.status) return
-
-      return this.bet.isStatusAccepted
+      return this.bet.status && this.bet.isStatusAccepted
     },
     disabledMessageObject () {
       return {
-        text: this.alertMessage,
-        variant: 'odd-disabled',
-        classes: 'odd-disabled-message'
+        text: this.disabledMessage,
+        variant: ODD_DISABLED
       }
+    },
+    disabledMessage () {
+      if (this.isSettled) return MESSAGE_SETTLED
+      if (this.isDisabled) return MESSAGE_DISABLED
+
+      return null
+    },
+    isMessageBlockHidden () {
+      return this.isComboBetsMode &&
+        !(this.bet.status === Bet.statuses.conflicted) &&
+        (this.isSuccess || this.isFailure)
     }
   },
   mounted () {
@@ -153,15 +166,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-.alert-odds-changed {
-  margin-top:0.3rem;
-  text-align: center;
-  font-size: 0.8rem;
-  border: 1px solid $arc-clr-gold;
-  border-radius: 4px;
-  padding: 0.3rem 0;
-  color: $arc-clr-gold;
-}
-</style>

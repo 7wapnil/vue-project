@@ -7,7 +7,7 @@
         <b-col class="mt-1">
           <small
             class="text-arc-clr-iron text-uppercase font-weight-bold letter-spacing-2">
-            {{ $t('betslip.stake') }}
+            {{ $t('betslipItem.stake') }}
           </small>
         </b-col>
       </b-row>
@@ -26,6 +26,7 @@
 </template>
 
 <script>
+import { mapGetters, mapMutations } from 'vuex'
 import MaskedInput from 'vue-text-mask'
 import createNumberMask from 'text-mask-addons/dist/createNumberMask'
 
@@ -48,12 +49,8 @@ export default {
       default: null
     }
   },
-  data () {
-    return {
-      betStake: ''
-    }
-  },
   computed: {
+    ...mapGetters('betslip', ['getBetslipStake']),
     mask () {
       return createNumberMask({
         prefix: '',
@@ -66,13 +63,15 @@ export default {
     },
     stake: {
       get () {
-        return this.betStake ? this.betStake.toString() : null
+        return this.getBetslipStake ? String(this.getBetslipStake) : undefined
       },
       set (value) {
-        this.betStake = value > 0 ? value : null
-        this.$emit('stake-changed:betslip-stake', this.betStake)
+        this.setBetslipStake(value)
       }
     }
+  },
+  methods: {
+    ...mapMutations('betslip', ['setBetslipStake'])
   }
 }
 </script>
