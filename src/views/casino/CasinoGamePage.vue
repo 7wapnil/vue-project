@@ -126,6 +126,7 @@ export default {
         min-height: calc(100vh - 80px);
         padding: 20px 0 20px 20px;
         .embed-responsive {
+            max-height: 100%;
             border-radius: 6px 0 6px 6px;
             box-shadow: 2px 2px 10px 0 $black;
         }
