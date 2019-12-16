@@ -77,13 +77,13 @@ describe('betslip store', () => {
       })
     })
 
-    describe('updateAcceptAll', () => {
+    describe('setAcceptAll', () => {
       it('updates bet with correct id according to payload', () => {
         const state = {
           acceptAll: false
         }
 
-        mutations.updateAcceptAll(state, true)
+        mutations.setAcceptAll(state, true)
 
         expect(state.acceptAll).to.eql(true)
       })

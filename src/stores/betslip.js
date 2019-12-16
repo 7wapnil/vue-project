@@ -80,8 +80,9 @@ export const mutations = {
     })
     setFieldToStorage('bets', state.bets, { array: true })
   },
-  updateAcceptAll (state, acceptValue) {
-    state.acceptAll = acceptValue
+  setAcceptAll (state, value) {
+    state.acceptAll = value
+    setFieldToStorage('acceptAllOddsChanges', value)
   },
   toggleBetslip (state) {
     state.betslipSidebarState = !state.betslipSidebarState
@@ -152,6 +153,30 @@ export const mutations = {
   clearBetslipStake (state) {
     state.betslipStake = null
     setFieldToStorage('betslipStake', null)
+  },
+  setKeepAllSelections (state, value) {
+    state.keepAllSelections = value
+    setFieldToStorage('keepAllSelections', value)
+  },
+  resetBet (state, oddId) {
+    let bet = state.bets.find(el => el.oddId === oddId)
+
+    if (!bet) return
+
+    bet = Object.assign(bet, {
+      id: null,
+      status: Bet.statuses.initial,
+      message: null,
+      success: null
+    })
+    setFieldToStorage('bets', state.bets, { array: true })
+  },
+  clearCheckboxes (state) {
+    state.acceptAll = false
+    setFieldToStorage('acceptAllOddsChanges', state.acceptAll)
+
+    state.keepAllSelections = false
+    setFieldToStorage('keepAllSelections', state.keepAllSelections)
   }
 }
 
@@ -291,6 +316,9 @@ export const getters = {
   },
   getBetslipStakeFloat (state) {
     return state.betslipStake ? Number(state.betslipStake) : 0.0
+  },
+  keepAllSelectionsChecked (state) {
+    return state.keepAllSelections
   }
 }
 
@@ -339,11 +367,17 @@ export const actions = {
 
     Vue.$log.debug(`Subscribed bet ID ${betId}`)
   },
-  removeAcceptedBet ({ state, commit, dispatch }, { betLegs, status }) {
+  removeAcceptedBet ({ state, dispatch }, { betLegs, status }) {
     if (status !== Bet.statuses.accepted) return
 
     betLegs.forEach(betLeg => {
-      setTimeout(() => { dispatch('removeBetFromBetslip', betLeg.oddId) }, BET_DESTROY_TIMEOUT)
+      setTimeout(() => {
+        if (state.keepAllSelections) {
+          dispatch('resetBetInBetslip', betLeg.oddId)
+        } else {
+          dispatch('removeBetFromBetslip', betLeg.oddId)
+        }
+      }, BET_DESTROY_TIMEOUT)
     })
   },
   unsubscribeBet ({ state }, bet) {
@@ -357,7 +391,8 @@ export const actions = {
     getters.getBets.forEach(bet => dispatch('unsubscribeBet', bet))
   },
   pushBet ({ dispatch, state }, { event, market, odd }) {
-    if (state.bets.find(bet => bet.oddId === odd.id)) { return }
+    if (state.bets.find(bet => bet.oddId === odd.id)) return
+
     state.bets.push(Bet.initial(event, market, odd))
     setFieldToStorage('bets', state.bets, { array: true })
     dispatch('validateBets')
@@ -370,6 +405,7 @@ export const actions = {
     if (!state.bets.length) {
       commit('clearBetslipMessages')
       commit('clearBetslipStake')
+      commit('clearCheckboxes')
     }
   },
   placeBets ({ commit, state }, payload) {
@@ -470,6 +506,14 @@ export const actions = {
     commit('clearBets')
     commit('clearBetslipMessages')
     commit('clearBetslipStake')
+    commit('clearCheckboxes')
+  },
+  resetBetInBetslip ({ commit, state }, oddId) {
+    commit('resetBet', oddId)
+
+    if (state.bets.every(bet => bet.status === Bet.statuses.initial)) {
+      commit('clearBetslipMessages')
+    }
   }
 }
 
@@ -478,7 +522,8 @@ export default {
   state: {
     validating: false,
     bets: getFieldFromStorage('bets', []).map((betAttributes) => new Bet(betAttributes)),
-    acceptAll: false,
+    acceptAll: getFieldFromStorage('acceptAllOddsChanges', false),
+    keepAllSelections: getFieldFromStorage('keepAllSelections', false),
     subscriptions: {},
     betslipSidebarState: false,
     validationMessages: getFieldFromStorage('betslipValidationMessages', []),
