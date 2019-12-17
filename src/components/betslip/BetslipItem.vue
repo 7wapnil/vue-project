@@ -117,6 +117,7 @@ import MaskedInput from 'vue-text-mask'
 import createNumberMask from 'text-mask-addons/dist/createNumberMask'
 import BetslipItem from '@/views/styleguide/Pages/Betslip/component/BetslipItem'
 import BetslipItemMessage from '@/components/betslip/BetslipItemMessage'
+import { DIGITS_LIMIT_FOR_STAKE } from '@/constants/betslip-settings'
 
 export default {
   components: {
@@ -198,7 +199,9 @@ export default {
         prefix: '',
         allowDecimal: true,
         allowLeadingZeroes: true,
-        includeThousandsSeparator: false
+        includeThousandsSeparator: false,
+        integerLimit: DIGITS_LIMIT_FOR_STAKE,
+        decimalLimit: 2
       })
     },
     potentialReturn: function () {

@@ -94,10 +94,7 @@
                 :show="hasBetslipMessages"/>
             </div>
 
-            <betslip-stake
-              :is-disabled="false"
-              :integer-limit="digitsLimitForStake"
-              :decimal-limit="2"/>
+            <betslip-stake/>
           </b-tab>
 
         </b-tabs>
@@ -108,7 +105,7 @@
         class="pl-3 pr-4 py-3"
         no-body>
         <b-row
-          v-if="!isComboBetsMode"
+          v-show="!isComboBetsMode"
           no-gutters
           class="mb-2">
           <b-col cols="8">
@@ -118,7 +115,23 @@
           </b-col>
           <b-col class="text-right mr-1">
             <h6 class="total-stake m-0 text-arc-clr-white">
-              {{ parseFloat(getTotalStakes.toFixed(2)) }}
+              {{ formattedMoneyAmount(getTotalStakes) }}
+            </h6>
+          </b-col>
+        </b-row>
+
+        <b-row
+          v-show="isComboBetsMode"
+          no-gutters
+          class="mb-2">
+          <b-col cols="8">
+            <h6 class="m-0 text-arc-clr-iron">
+              {{ $t('betslip.totalOdds') }}
+            </h6>
+          </b-col>
+          <b-col class="text-right mr-1">
+            <h6 class="total-stake m-0 text-arc-clr-white">
+              {{ totalOddsValue | normalizeFloat }}
             </h6>
           </b-col>
         </b-row>
@@ -132,7 +145,7 @@
             <h5
               id="betslip-total-return"
               class="total-return m-0 text-arc-clr-white font-weight-bold">
-              {{ formattedReturn }}
+              {{ formattedMoneyAmount(getReturn) }}
             </h5>
             <b-tooltip
               target="betslip-total-return"
@@ -196,19 +209,17 @@ import { mapGetters, mapMutations, mapActions } from 'vuex'
 import SpinnerButton from './SpinnerButton'
 import BetslipStake from '@/components/betslip/BetslipStake'
 import BetslipMessage from '@/components/betslip/BetslipMessage'
+import {
+  SINGLE_BET_TAB_INDEX,
+  COMBO_BETS_TAB_INDEX,
+  DEPOSIT_TAB_INDEX,
+  MAX_VALUABLE_RETURN_VALUE
+} from '@/constants/betslip-settings'
 
 const REFRESH_BETSLIP_AFTER_PLACING_BET_TIME = 3000
 const REFRESH_BETSLIP_TIMEOUT = 1000
 const SCROLL_ON_LOAD_TIMEOUT = 1500
 const SCROLL_ON_UPDATE_TIMEOUT = 100
-
-const SINGLE_BET_TAB_INDEX = 0
-const COMBO_BETS_TAB_INDEX = 1
-
-const MAX_VALUABLE_RETURN_VALUE = 1000000000
-const DIGITS_LIMIT_FOR_STAKE = 7
-
-const DEPOSIT_TAB = 3
 
 export default {
   components: {
@@ -220,7 +231,14 @@ export default {
   },
   filters: {
     numberize (value) {
-      return value ? new Intl.NumberFormat().format(value) : 0
+      const number = value || 0
+
+      return new Intl.NumberFormat('en-US', { minimumFractionDigits: 2 }).format(number)
+    },
+    normalizeFloat (value) {
+      const number = value || 0
+
+      return parseFloat(number).toFixed(2)
     }
   },
   computed: {
@@ -314,17 +332,19 @@ export default {
       return this.getBets ? this.getBets.length : 0
     },
     getReturn () {
-      return (this.isComboBetsMode) ? this.getComboReturn : parseFloat(this.getTotalReturn.toFixed(2))
+      return (this.isComboBetsMode) ? this.getComboReturn : this.getTotalReturn
     },
     formattedReturn () {
       if (this.getReturn <= MAX_VALUABLE_RETURN_VALUE) {
-        return new Intl.NumberFormat().format(this.getReturn)
+        return new Intl.NumberFormat('en-US', { minimumFractionDigits: 2 }).format(this.getReturn)
       } else {
-        return this.$i18n.t('betslip.bigNumber', {
-          number: new Intl.NumberFormat().format(MAX_VALUABLE_RETURN_VALUE)
-        })
+        const formattedNumber = new Intl.NumberFormat('en-US', { minimumFractionDigits: 2 })
+          .format(MAX_VALUABLE_RETURN_VALUE)
+
+        return this.$i18n.t('betslip.bigNumber', { number: formattedNumber })
       }
     },
+
     isBetslipSubmittable () {
       if (this.hasValidationMessages) return false
 
@@ -349,12 +369,12 @@ export default {
       return this.getFundsToBet > this.getBetslipStakeFloat
     },
     getComboReturn () {
-      const bets = this.getBets
-      const totalOdd = bets.reduce((totalOdd, bet) => {
+      return this.getBetslipStakeFloat * this.totalOddsValue
+    },
+    totalOddsValue () {
+      return this.getBets.reduce((totalOdd, bet) => {
         return totalOdd * bet.approvedOddValue
       }, 1)
-
-      return (this.getBetslipStakeFloat * totalOdd).toFixed(2)
     },
     tabIndex: {
       get () {
@@ -364,9 +384,6 @@ export default {
     },
     isValidationInProgress () {
       return this.isValidating
-    },
-    digitsLimitForStake () {
-      return DIGITS_LIMIT_FOR_STAKE
     },
     submitButtonCaption () {
       if (!this.isLoggedIn) return this.$i18n.t('betslip.cta.login')
@@ -435,7 +452,7 @@ export default {
       this.updateAuth(0)
     },
     displayDepositModal () {
-      this.changeTabIndex(DEPOSIT_TAB)
+      this.changeTabIndex(DEPOSIT_TAB_INDEX)
       this.$bvModal.show('AccountModal')
     },
     getComboBetPayload () {
@@ -521,7 +538,17 @@ export default {
       this.updateComboBetsMode({ enabled: newTab === COMBO_BETS_TAB_INDEX })
 
       setTimeout(this.scrollSubmit, SCROLL_ON_UPDATE_TIMEOUT)
-    }
+    },
+    formattedMoneyAmount (value) {
+      if (value <= MAX_VALUABLE_RETURN_VALUE) {
+        return new Intl.NumberFormat('en-US', { minimumFractionDigits: 2 }).format(value)
+      } else {
+        const formattedNumber = new Intl.NumberFormat('en-US', { minimumFractionDigits: 2 })
+          .format(MAX_VALUABLE_RETURN_VALUE)
+
+        return this.$i18n.t('betslip.bigNumber', { number: formattedNumber })
+      }
+    },
   }
 }
 </script>

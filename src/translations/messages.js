@@ -225,6 +225,7 @@ const messages = {
       },
       mobileButton: 'Betslip',
       totalStake: 'Total stake:',
+      totalOdds: 'Total odds:',
       totalReturn: 'Total return:',
       tabs: {
         singleBet: {
