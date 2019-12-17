@@ -420,10 +420,8 @@ export default {
   methods: {
     ...mapActions('betslip', [
       'subscribeBets',
-      'unsubscribeBets',
       'placeBets',
       'refreshBetslip',
-      'removeBetFromBetslip',
       'updateComboBetsMode',
       'clearBetslip'
     ]),

@@ -387,8 +387,8 @@ export const actions = {
       Vue.$log.debug(`Unsubscribed bet ID ${bet.id}`)
     }
   },
-  unsubscribeBets ({ dispatch, getters }) {
-    getters.getBets.forEach(bet => dispatch('unsubscribeBet', bet))
+  unsubscribeBets ({ dispatch, state }) {
+    state.bets.forEach(bet => dispatch('unsubscribeBet', bet))
   },
   pushBet ({ dispatch, state }, { event, market, odd }) {
     if (state.bets.find(bet => bet.oddId === odd.id)) return
@@ -398,8 +398,12 @@ export const actions = {
     dispatch('validateBets')
   },
   removeBetFromBetslip ({ dispatch, commit, state }, oddId) {
+    const foundBet = state.bets.find(e => e.oddId === oddId) || {}
+
     state.bets = state.bets.filter(e => e.oddId !== oddId)
     setFieldToStorage('bets', state.bets, { array: true })
+
+    dispatch('unsubscribeBet', foundBet)
     dispatch('validateBets')
 
     if (!state.bets.length) {
@@ -502,7 +506,9 @@ export const actions = {
       if (bet.message) commit('updateBetslipMessages', { messages: [bet.message], variant: DANGER })
     }
   },
-  clearBetslip ({ commit }) {
+  clearBetslip ({ dispatch, commit }) {
+    dispatch('unsubscribeBets')
+
     commit('clearBets')
     commit('clearBetslipMessages')
     commit('clearBetslipStake')
