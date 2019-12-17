@@ -230,12 +230,12 @@ describe('Betslip', () => {
     })
 
     it('shows total stakes', () => {
-      const value = getters.getTotalStakes().toString()
+      const value = getters.getTotalStakes().toFixed(2)
       expect(wrapper.find('.total-stake').text()).to.equal(value)
     })
 
     it('shows total return', () => {
-      const value = getters.getTotalReturn().toString()
+      const value = getters.getTotalReturn().toFixed(2)
       expect(wrapper.find('.total-return').text()).to.equal(value)
     })
   })

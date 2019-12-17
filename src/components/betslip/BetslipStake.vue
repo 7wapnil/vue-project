@@ -29,6 +29,7 @@
 import { mapGetters, mapMutations } from 'vuex'
 import MaskedInput from 'vue-text-mask'
 import createNumberMask from 'text-mask-addons/dist/createNumberMask'
+import { DIGITS_LIMIT_FOR_STAKE } from '@/constants/betslip-settings'
 
 export default {
   name: 'BetslipStake',
@@ -39,14 +40,6 @@ export default {
     isDisabled: {
       type: Boolean,
       default: false
-    },
-    integerLimit: {
-      type: Number,
-      default: null
-    },
-    decimalLimit: {
-      type: Number,
-      default: null
     }
   },
   computed: {
@@ -57,8 +50,8 @@ export default {
         allowDecimal: true,
         allowLeadingZeroes: true,
         includeThousandsSeparator: false,
-        integerLimit: this.integerLimit,
-        decimalLimit: this.decimalLimit
+        integerLimit: DIGITS_LIMIT_FOR_STAKE,
+        decimalLimit: 2
       })
     },
     stake: {
