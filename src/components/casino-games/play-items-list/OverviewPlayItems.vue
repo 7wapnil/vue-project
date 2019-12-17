@@ -104,8 +104,9 @@ export default {
       this.scrollPosition = wrapper.scrollLeft
     },
     calculateCurrentPage () {
-      const a = Math.round(this.scrollPosition / (this.itemsPerPage * this.itemWidth))
-      this.currentPage = a < 1 ? 1 : a + 1
+      const currentPageNumber = Math.round(this.scrollPosition / (this.itemsPerPage *
+          this.itemWidth))
+      this.currentPage = currentPageNumber < 1 ? 1 : currentPageNumber + 1
     },
     slideLeft () {
       const wrapper = this.$refs[this.category.id].$el
