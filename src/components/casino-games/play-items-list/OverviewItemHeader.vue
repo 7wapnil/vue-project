@@ -1,28 +1,37 @@
 <template>
   <b-row no-gutters>
-    <b-col class="px-4 pt-4 pb-2 overview-item-header-block">
+    <b-col
+      cols="8"
+      md="4"
+      class="px-4 pt-4 pb-2 overview-item-header-block">
       <icon
         :name="category.icon"
-        :size="26"
-        class="overview-item-header-icon"/>
+        :size="isMobile ? 20 : 26"
+        class="overview-item-header-icon ml-md-4 ml-2"/>
       <b-link
         :to="{ name: 'casino-category', params: { category: category.name } }"
         :disabled="!category.name"
-        router-tag="h4"
+        :router-tag="isMobile ? 'h5' : 'h4'"
         class="overview-item-header-title">
         {{ category.label }}
       </b-link>
     </b-col>
-    <b-col class="px-4 pt-4 pb-2 overview-item-header-indication-block">
+    <b-col
+      v-if="!isMobile"
+      md="4"
+      class="px-4 pt-4 pb-2 overview-item-header-indication-block">
       <overview-item-header-indication
         :pages="pages"
         :current-page="currentPage"/>
     </b-col>
-    <b-col class="px-4 pt-4 pb-2 overview-item-header-viewall-block">
+    <b-col
+      cols="4"
+      md="4"
+      class="px-4 pt-4 pb-2 overview-item-header-viewall-block">
       <b-link
         :to="{ name: 'casino-category', params: { category: category.name } }"
         :disabled="!category.name"
-        class="mr-2">
+        class="mr-md-2 mr-0">
         {{ this.$i18n.t('casino.viewAll') }}
       </b-link>
     </b-col>
@@ -59,13 +68,13 @@ export default {
         &-header {
             &-block {
                 display: inline-flex;
+                align-items: center;
             }
             &-icon {
-                margin-left: 26px;
                 pointer-events: none;
             }
             &-title {
-                margin-left: 14px;
+                margin-left: 12px;
                 margin-bottom: 0;
                 color: $arc-clr-iron-light;
                 font-weight: $font-weight-light;
