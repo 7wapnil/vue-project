@@ -1,10 +1,10 @@
 <template>
   <div class="d-flex flex-row">
     <arc-circle
-      v-for="n in pages"
-      :class="{'active': n === activePage }"
-      :key="n"
+      v-for="page in pages"
+      :key="page"
       :size="6"
+      :class="[page === activePage ? activeClass : '']"
       class="indication-item"
     />
   </div>
@@ -25,6 +25,9 @@ export default {
   computed: {
     activePage () {
       return this.currentPage === 0 ? 1 : this.currentPage
+    },
+    activeClass () {
+      return `${this.$route.params.titleKind}-active`
     }
   }
 }
@@ -34,9 +37,14 @@ export default {
     .indication-item {
         margin-left: 10px;
     }
-    .active {
-        width: 20px !important;
-        background-color: #1b9cb0 !important;
-        transition: all .7s ease-in-out;
+    .casino-active {
+      width: 20px !important;
+      transition: all .7s ease-in-out;
+      background-color: $arc-clr-casino-glow !important;
+    }
+    .live-casino-active {
+      width: 20px !important;
+      transition: all .7s ease-in-out;
+      background-color: $arc-clr-live-casino-glow !important;
     }
 </style>
