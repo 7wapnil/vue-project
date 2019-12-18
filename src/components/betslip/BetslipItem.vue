@@ -18,7 +18,7 @@
       <b-col
         cols="auto"
         class="remove-odd d-flex justify-content-center"
-        @click="removeOdd(bet.oddId)">
+        @click="removeBetItem(bet.oddId)">
         <icon
           v-show="!bet.frozen"
           size="12px"
@@ -100,10 +100,7 @@
       </b-row>
     </div>
 
-    <betslip-item-message
-      :bet="bet"
-      :bet-market-status="betMarketStatus"
-      :bet-odd-status="betOddStatus"/>
+    <betslip-item-message :bet="bet"/>
   </b-card>
 </template>
 
@@ -111,7 +108,8 @@
 import Bet from '@/models/bet'
 import { mapGetters, mapMutations, mapActions } from 'vuex'
 import { MARKET_BY_ID_QUERY, EVENT_BET_STOPPED, eventUpdatedSubscription } from '@/graphql'
-import { INACTIVE_STATUS, SETTLED_STATUS, INACTIVE_STATUSES } from '@/models/market'
+import { SETTLED_STATUS } from '@/models/market'
+import { ACTIVE } from '@/constants/odd-statuses'
 import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
 import MaskedInput from 'vue-text-mask'
 import createNumberMask from 'text-mask-addons/dist/createNumberMask'
@@ -149,11 +147,12 @@ export default {
         },
         update: data => data.markets[0],
         result ({ data }) {
-          const market = data.markets[0] || {}
+          const market = data.markets[0]
 
-          this.updateOdds(market)
-          this.handleMarketStatus(market)
-          this.handleMarketVisibility(market)
+          if (!market) return this.disableBetWhenMarketNotFound()
+
+          this.synchronizeMarket(market)
+          this.synchronizeOdd(market)
         }
       }
     },
@@ -165,12 +164,13 @@ export default {
             return { id: this.bet.eventId }
           },
           result ({ data: { eventUpdated } }) {
-            const market = eventUpdated.dashboardMarket || {}
-            const isMarketVisible = eventUpdated.visible && market.visible
+            const market = eventUpdated.markets.find((item) => item.id === this.bet.marketId)
 
-            this.updateOdds(market)
-            this.handleMarketStatus(market)
-            this.handleMarketVisibility({ visible: isMarketVisible })
+            if (!market) return this.disableBetWhenMarketNotFound()
+
+            this.synchronizeEvent(eventUpdated)
+            this.synchronizeMarket(market)
+            this.synchronizeOdd(market)
           }
         }
       },
@@ -181,7 +181,14 @@ export default {
             return { id: this.bet.eventId }
           },
           result ({ data: { eventBetStopped } }) {
-            this.handleMarketStatus({ status: eventBetStopped.marketStatus })
+            const isEnabled = eventBetStopped.marketStatus === ACTIVE && this.bet.marketVisible
+            const market = {
+              status: eventBetStopped.marketStatus,
+              isEnabled: isEnabled,
+              visible: this.bet.marketVisible
+            }
+
+            this.synchronizeMarket(market)
           }
         }
       }
@@ -225,11 +232,10 @@ export default {
       return this.isDisabled || this.isSettled
     },
     isDisabled () {
-      return this.betMarketStatus === Bet.statuses.disabled ||
-        this.betOddStatus === Bet.statuses.disabled
+      return !(this.bet.eventEnabled && this.bet.marketEnabled && this.bet.oddEnabled)
     },
     isSettled () {
-      return this.status === Bet.statuses.settled
+      return this.bet.marketStatus === SETTLED_STATUS
     }
   },
   mounted () {
@@ -238,71 +244,49 @@ export default {
   methods: {
     ...mapActions('betslip', ['removeBetFromBetslip']),
     ...mapMutations('betslip', ['setBetStake', 'updateBet']),
-    updateOdds (market) {
-      if (!market.hasOwnProperty('id')) return
-
-      let marketHasOdd = market.odds.some((odd) => this.bet.oddId === odd.id)
-      if (!marketHasOdd || INACTIVE_STATUSES.includes(market.status)) {
-        this.betOddStatus = Bet.statuses.disabled
-      } else {
-        this.betOddStatus = null
-      }
-
-      let bets = this.getBets
-
-      market.odds.forEach((odd) => {
-        let bet = bets.find(el => el.oddId === odd.id)
-
-        if (!bet) return
-
-        this.updateBet({
-          oddId: bet.oddId,
-          payload: { currentOddValue: odd.value, marketStatus: market.status }
-        })
-
-        if (this.acceptAllChecked && bet.oddsChanged) this.acceptNewOdds()
+    disableBetWhenMarketNotFound () {
+      return this.updateBet({
+        oddId: this.bet.oddId,
+        payload: {
+          marketStatus: null,
+          marketEnabled: false,
+          marketVisible: null
+        }
       })
     },
-    handleMarketVisibility (market) {
-      if (!market.visible) {
-        return this.disableBetByMarketStatus()
-      }
-    },
-    handleMarketStatus (market) {
-      if (!market.status || INACTIVE_STATUSES.includes(market.status)) {
-        return this.disableBetByMarketStatus()
-      }
-      if (market.status === SETTLED_STATUS) return this.settleBetByMarketStatus()
-
-      this.betMarketStatus = null
+    synchronizeEvent (event) {
       this.updateBet({
         oddId: this.bet.oddId,
-        payload: { marketStatus: market.status }
+        payload: { eventEnabled: event.isEnabled }
       })
     },
-    disableBetByMarketStatus () {
-      this.betMarketStatus = Bet.statuses.disabled
+    synchronizeMarket (market) {
+      this.updateBet({
+        oddId: this.bet.oddId,
+        payload: {
+          marketStatus: market.status,
+          marketEnabled: market.isEnabled,
+          marketVisible: market.visible
+        }
+      })
+    },
+    synchronizeOdd (market) {
+      const odd = market.odds.find(item => this.bet.oddId === item.id)
+      const oddEnabled = odd && odd.status === ACTIVE
+      const approvedOddValue = this.acceptAllChecked && this.bet.oddsChanged
+        ? this.bet.currentOddValue
+        : this.bet.approvedOddValue
 
       this.updateBet({
         oddId: this.bet.oddId,
-        payload: { marketStatus: INACTIVE_STATUS }
+        payload: {
+          currentOddValue: odd.value,
+          approvedOddValue: approvedOddValue,
+          oddEnabled: oddEnabled
+        }
       })
     },
-    settleBetByMarketStatus () {
-      this.betMarketStatus = Bet.statuses.settled
-
-      this.updateBet({
-        oddId: this.bet.oddId,
-        payload: { marketStatus: SETTLED_STATUS }
-      })
-    },
-    acceptNewOdds () {
-      this.updateBet({
-        oddId: this.bet.oddId,
-        payload: { approvedOddValue: this.bet.currentOddValue }
-      })
-    },
-    removeOdd (oddId) {
+    removeBetItem (oddId) {
       this.removeBetFromBetslip(oddId)
     }
   }

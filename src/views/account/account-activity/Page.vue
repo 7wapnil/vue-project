@@ -124,7 +124,7 @@
                   <td>
                     <b-badge
                       :variant="badgeStatus[betLeg.displayStatus]"
-                      class="border-4 text-uppercase font-size-11 text-arc-clr-soil-dark p-2"
+                      class="border-4 text-uppercase font-size-11 text-arc-clr-soil-dark p-2 opacity-5"
                       v-html="statusTextComboLeg(betLeg)" />
                   </td>
                 </tr>
@@ -425,11 +425,9 @@ export default {
       this.loadMoreHistory()
     },
     statusText (item) {
-      if (item.displayStatus === 'won') {
-        return (item.amount * item.oddValue).toFixed(2)
-      }
+      if (item.displayStatus !== Bet.settlementStatuses.won) return item.displayStatus
 
-      return item.displayStatus
+      return (item.amount * item.oddValue).toFixed(2)
     },
     statusTextComboLeg (betLeg) {
       return betLeg.displayStatus

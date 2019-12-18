@@ -206,7 +206,7 @@ const messages = {
         defaultLoggedIn: 'Your betslip is empty',
         oddsNotConfirmed: 'Please confirm all odds changes',
         notEnoughFundsOnBalance: 'Please fill your balance to place bet',
-        inactiveMarkets: 'Please remove any inactive bets',
+        hasInactiveBets: 'Please remove any inactive bets',
         unacceptableBets: 'Please remove any inactive bets',
         betsBeingSubmitted: 'Bet placement in progress',
         invalidStakeAmount: 'Please make sure your stake is correct',

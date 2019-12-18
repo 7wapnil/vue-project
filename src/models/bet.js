@@ -13,6 +13,12 @@ const STATUSES = {
   conflicted: 'conflicted'
 }
 
+const SETTLEMENT_STATUSES = {
+  won: 'won',
+  voided: 'voided',
+  lost: 'lost'
+}
+
 export default class Bet {
   constructor (attributes = {}) {
     Object.keys(attributes).forEach((key) => {
@@ -24,16 +30,23 @@ export default class Bet {
     return STATUSES
   }
 
+  static get settlementStatuses () {
+    return SETTLEMENT_STATUSES
+  }
+
   static initial (event, market, odd) {
     return new Bet({
       id: null,
       eventId: event.id,
-      marketStatus: null,
       eventName: event.name,
+      eventEnabled: true,
       marketId: market.id,
       marketName: market.name,
+      marketStatus: market.status,
+      marketEnabled: true,
       oddId: odd.id,
       oddName: odd.name,
+      oddEnabled: true,
       stake: null,
       status: STATUSES.initial,
       message: null,

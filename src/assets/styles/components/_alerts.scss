@@ -29,7 +29,7 @@
 
 .alert-odd {
   &-disabled {
-    height: 75%;
+    height: 85%;
     width: 100%;
     border: none;
     color: $arc-clr-gold;
@@ -43,6 +43,18 @@
     background-image: linear-gradient(-179deg, #2F2F2F 1%, rgba(36,36,36, .6) 95%);
     margin-bottom: 0;
     padding: 0;
+
+    &.extended {
+      height: 90%;
+    }
+
+    &.combo {
+      height: 75%;
+
+      &.extended {
+        height: 85%;
+      }
+    }
   }
   &-value-changed {
       height: 44px;

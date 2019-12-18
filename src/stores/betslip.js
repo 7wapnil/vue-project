@@ -19,7 +19,6 @@ import {
   BET_UPDATED,
   BETSLIP_VALIDATE_COMBO_BETS_QUERY
 } from '@/graphql'
-import { ACTIVE_STATUS } from '@/models/market'
 import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
 import VueLogger from 'vuejs-logger'
 import { MESSAGE_SUCCESS, SUCCESS, DANGER } from '@/constants/betslip-messages'
@@ -186,7 +185,7 @@ export const getters = {
     if (getters.betslipValuesConfirmed &&
       getters.getIsEnoughFundsToBet &&
       getters.getTotalStakes > 0 &&
-      !getters.getAnyInactiveMarket &&
+      !getters.hasInactiveBets &&
       !getters.getAnyEmptyStake &&
       getters.getAllBetsAcceptable
     ) {
@@ -197,7 +196,7 @@ export const getters = {
   },
   betslipComboSubmittable: (state, getters) => {
     return getters.betslipValuesConfirmed &&
-      !getters.getAnyInactiveMarket &&
+      !getters.hasInactiveBets &&
       getters.getAllBetsAcceptable &&
       !getters.anyConflictedBets &&
       getters.getBets.length > 1
@@ -250,10 +249,8 @@ export const getters = {
       .map(el => (el.stake > 0 ? el.stake : 0) * el.approvedOddValue)
       .reduce((a, b) => Number(a) + Number(b), 0)
   },
-  getAnyInactiveMarket (state) {
-    return state.bets.some((bet) => {
-      return bet.marketStatus !== ACTIVE_STATUS
-    })
+  hasInactiveBets (state) {
+    return state.bets.some(bet => !(bet.eventEnabled && bet.marketEnabled && bet.oddEnabled))
   },
   getAnyEmptyStake (state) {
     return state.bets.some((bet) => {
@@ -339,7 +336,14 @@ export const actions = {
           const betLegs = betUpdated.betLegs || []
 
           betLegs.forEach(betLeg => {
-            let betItemPayload = { status: betUpdated.status }
+            let betItemPayload = {
+              status: betUpdated.status,
+              eventEnabled: betLeg.eventEnabled,
+              marketStatus: betLeg.marketStatus,
+              marketVisible: betLeg.marketVisible,
+              marketEnabled: betLeg.marketEnabled,
+              oddEnabled: betLeg.oddEnabled
+            }
 
             if (state.isComboBetsMode) {
               Object.assign(betItemPayload, {
@@ -452,7 +456,12 @@ export const actions = {
               oddId: bet.oddId,
               payload: {
                 message: bet.message,
-                status: bet.status !== INITIAL ? bet.status : betItem.status
+                status: bet.status !== INITIAL ? bet.status : betItem.status,
+                eventEnabled: betLeg.eventEnabled,
+                marketStatus: betLeg.marketStatus,
+                marketVisible: betLeg.marketVisible,
+                marketEnabled: betLeg.marketEnabled,
+                oddEnabled: betLeg.oddEnabled
               }
             })
           })

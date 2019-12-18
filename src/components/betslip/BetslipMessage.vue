@@ -7,6 +7,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import { SUCCESS, DANGER, ODD_DISABLED } from '@/constants/betslip-messages'
 
 export default {
@@ -18,9 +19,14 @@ export default {
     show: {
       type: Boolean,
       default: true
+    },
+    extended: {
+      type: Boolean,
+      default: false
     }
   },
   computed: {
+    ...mapGetters('betslip', ['isComboBetsMode']),
     classes () {
       switch (this.message.variant) {
         case SUCCESS:
@@ -28,7 +34,11 @@ export default {
         case DANGER:
           return 'bet-message-alert mt-3 mx-auto p-2 text-center'
         case ODD_DISABLED:
-          return 'odd-disabled-message'
+          return {
+            'odd-disabled-message': true,
+            'combo': this.isComboBetsMode,
+            'extended': this.extended
+          }
       }
     },
     isShown () {
@@ -37,15 +47,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-.alert-odds-changed {
-  margin-top:0.3rem;
-  text-align: center;
-  font-size: 0.8rem;
-  border: 1px solid $arc-clr-gold;
-  border-radius: 4px;
-  padding: 0.3rem 0;
-  color: $arc-clr-gold;
-}
-</style>

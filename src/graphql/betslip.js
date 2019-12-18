@@ -44,6 +44,11 @@ export const BETSLIP_BETS_QUERY = gql`
         betLegs {
           id
           oddId
+          eventEnabled
+          marketStatus
+          marketVisible
+          marketEnabled
+          oddEnabled
         }
       }
     }
