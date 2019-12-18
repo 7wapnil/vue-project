@@ -106,7 +106,7 @@ describe('betslip store', () => {
         getTotalStakes: 2,
         getAllBetsAcceptable: true,
         betslipValuesConfirmed: true,
-        getAnyInactiveMarket: false,
+        hasInactiveBets: false,
         getIsEnoughFundsToBet: true
       }
 
@@ -154,7 +154,7 @@ describe('betslip store', () => {
 
           const invalidGetters = {
             ...validGettersState,
-            getAnyInactiveMarket: true
+            hasInactiveBets: true
           }
 
           expect(getters.betslipSubmittable(state, invalidGetters, {})).to.eql(false)
@@ -287,24 +287,45 @@ describe('betslip store', () => {
       })
     })
 
-    describe('getAnyInactiveMarket', () => {
+    describe('hasInactiveBets', () => {
+      it('returns true when there is at least one bet with inactive event', () => {
+        const state = {
+          bets: [
+            { eventEnabled: true, marketEnabled: true, oddEnabled: true },
+            { eventEnabled: false, marketEnabled: true, oddEnabled: true }
+          ]
+        }
+        expect(getters.hasInactiveBets(state)).to.eql(true)
+      })
+
       it('returns true when there is at least one bet with inactive market', () => {
         const state = {
           bets: [
-            { marketStatus: 'inactive' },
-            { marketStatus: 'active' },
+            { eventEnabled: true, marketEnabled: true, oddEnabled: true },
+            { eventEnabled: true, marketEnabled: false, oddEnabled: true }
           ]
         }
-        expect(getters.getAnyInactiveMarket(state)).to.eql(true)
+        expect(getters.hasInactiveBets(state)).to.eql(true)
       })
 
-      it('returns false when there is no bets with inactive market', () => {
+      it('returns true when there is at least one bet with inactive odd', () => {
         const state = {
           bets: [
-            { marketStatus: 'active' }
+            { eventEnabled: true, marketEnabled: true, oddEnabled: true },
+            { eventEnabled: true, marketEnabled: true, oddEnabled: false }
           ]
         }
-        expect(getters.getAnyInactiveMarket(state)).to.eql(false)
+        expect(getters.hasInactiveBets(state)).to.eql(true)
+      })
+
+      it('returns false when there is no bets with inactive associations', () => {
+        const state = {
+          bets: [
+            { eventEnabled: true, marketEnabled: true, oddEnabled: true },
+            { eventEnabled: true, marketEnabled: true, oddEnabled: true }
+          ]
+        }
+        expect(getters.hasInactiveBets(state)).to.eql(false)
       })
     })
 

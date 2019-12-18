@@ -233,7 +233,9 @@ export default {
     numberize (value) {
       const number = value || 0
 
-      return new Intl.NumberFormat('en-US', { minimumFractionDigits: 2 }).format(number)
+      return new Intl
+        .NumberFormat('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+        .format(number)
     },
     normalizeFloat (value) {
       const number = value || 0
@@ -251,7 +253,7 @@ export default {
       'acceptAllChecked',
       'betslipValuesConfirmed',
       'getIsEnoughFundsToBet',
-      'getAnyInactiveMarket',
+      'hasInactiveBets',
       'getAnySubmittedBet',
       'getAnyEmptyStake',
       'getAllBetsAcceptable',
@@ -316,7 +318,7 @@ export default {
 
       Object.assign(conditions, {
         betsBeingSubmitted: this.getAnySubmittedBet,
-        inactiveMarkets: this.getAnyInactiveMarket,
+        hasInactiveBets: this.hasInactiveBets,
         oddsNotConfirmed: !this.betslipValuesConfirmed,
         unacceptableBets: !this.getAllBetsAcceptable,
       })
@@ -334,17 +336,6 @@ export default {
     getReturn () {
       return (this.isComboBetsMode) ? this.getComboReturn : this.getTotalReturn
     },
-    formattedReturn () {
-      if (this.getReturn <= MAX_VALUABLE_RETURN_VALUE) {
-        return new Intl.NumberFormat('en-US', { minimumFractionDigits: 2 }).format(this.getReturn)
-      } else {
-        const formattedNumber = new Intl.NumberFormat('en-US', { minimumFractionDigits: 2 })
-          .format(MAX_VALUABLE_RETURN_VALUE)
-
-        return this.$i18n.t('betslip.bigNumber', { number: formattedNumber })
-      }
-    },
-
     isBetslipSubmittable () {
       if (this.hasValidationMessages) return false
 
@@ -539,9 +530,12 @@ export default {
     },
     formattedMoneyAmount (value) {
       if (value <= MAX_VALUABLE_RETURN_VALUE) {
-        return new Intl.NumberFormat('en-US', { minimumFractionDigits: 2 }).format(value)
+        return new Intl
+          .NumberFormat('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+          .format(value)
       } else {
-        const formattedNumber = new Intl.NumberFormat('en-US', { minimumFractionDigits: 2 })
+        const formattedNumber = new Intl
+          .NumberFormat('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
           .format(MAX_VALUABLE_RETURN_VALUE)
 
         return this.$i18n.t('betslip.bigNumber', { number: formattedNumber })

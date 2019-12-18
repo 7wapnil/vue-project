@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-row
-      v-if="hasUnconfirmedValues && !hasAnyFrozenBet"
+      v-if="suggestNewOddsValue"
       class="alert-odd-value-changed mt-3"
       no-gutters>
       <b-col>
@@ -40,7 +40,8 @@
 
     <betslip-message
       :message="messageObject"
-      :show="!isMessageBlockHidden"/>
+      :show="!isMessageBlockHidden"
+      :extended="suggestNewOddsValue"/>
   </div>
 </template>
 
@@ -53,6 +54,7 @@ import {
 } from '@/constants/betslip-messages'
 import { STATUSES as FAILURE_STATUSES } from '@/constants/bet-fail-statuses'
 import BetslipMessage from '@/components/betslip/BetslipMessage'
+import { SETTLED_STATUS } from '@/models/market'
 
 export default {
   components: {
@@ -62,15 +64,7 @@ export default {
     bet: {
       type: Bet,
       required: true
-    },
-    betMarketStatus: {
-      type: String,
-      default: null
-    },
-    betOddStatus: {
-      type: String,
-      default: null
-    },
+    }
   },
   computed: {
     ...mapGetters('betslip', [
@@ -121,11 +115,10 @@ export default {
       return this.isDisabled || this.isSettled
     },
     isDisabled () {
-      return this.betMarketStatus === Bet.statuses.disabled ||
-        this.betOddStatus === Bet.statuses.disabled
+      return !(this.bet.eventEnabled && this.bet.marketEnabled && this.bet.oddEnabled)
     },
     isSettled () {
-      return this.status === Bet.statuses.settled
+      return this.bet.marketStatus === SETTLED_STATUS
     },
     isAccepted () {
       return this.bet.status && this.bet.isStatusAccepted
@@ -146,6 +139,9 @@ export default {
       return this.isComboBetsMode &&
         !(this.bet.status === Bet.statuses.conflicted) &&
         (this.isSuccess || this.isFailure)
+    },
+    suggestNewOddsValue () {
+      return this.hasUnconfirmedValues && !this.hasAnyFrozenBet
     }
   },
   mounted () {

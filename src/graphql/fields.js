@@ -94,7 +94,8 @@ export const EVENT_FIELDS = `
     id
     name
     qualifier
-  }
+  },
+  isEnabled
 `
 
 export const EVENT_CONTEXTS_FIELDS = `
@@ -109,6 +110,7 @@ export const MARKET_FIELDS = `
   status
   visible
   category
+  isEnabled
   odds {
     id
     name
