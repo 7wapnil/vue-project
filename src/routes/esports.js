@@ -4,6 +4,7 @@ import EventsPage from '@/views/events-list/Page.vue'
 import TournamentPage from '@/views/events-list/TournamentPage.vue'
 import CategoryTabs from '@/components/custom/CategoryTabs'
 import IntroductionArea from '@/components/custom/IntroductionArea'
+import EventPage from '@/views/event/Page'
 
 export default [
   {
@@ -15,27 +16,44 @@ export default [
       right: Betslip,
       tabs: CategoryTabs,
       header: IntroductionArea
+    }
+  },
+  {
+    path: '/esports/title/:titleId',
+    name: 'esports-title',
+    props: {
+      content: true
     },
-    children: [
-      {
-        path: 'title/:titleId',
-        name: 'title'
-      },
-      {
-        path: 'title/:titleId/tour/:tournamentId',
-        name: 'tournament',
-        components: {
-          content: TournamentPage,
-          left: Sidemenu,
-          right: Betslip,
-        }
-      },
-      {
-        path: 'event/:eventName',
-        name: 'event',
-        component: () => import('@/views/event/Page'),
-        props: true
-      }
-    ]
+    components: {
+      content: EventsPage,
+      tabs: CategoryTabs,
+      header: IntroductionArea,
+      left: Sidemenu,
+      right: Betslip
+    }
+  },
+  {
+    path: '/esports/title/:titleId/tour/:tournamentId',
+    name: 'esports-tournament',
+    props: {
+      content: true
+    },
+    components: {
+      content: TournamentPage,
+      left: Sidemenu,
+      right: Betslip
+    }
+  },
+  {
+    path: '/esports/event/:id',
+    name: 'esports-event',
+    props: {
+      content: true
+    },
+    components: {
+      content: EventPage,
+      left: Sidemenu,
+      right: Betslip
+    }
   }
 ]
