@@ -1,7 +1,6 @@
 <template>
   <b-nav
     tag="div"
-    class="flex-nowrap"
     vertical>
     <b-nav-item class="d-inline-flex align-items-center justify-content-start p-3 bg-arc-clr-soil-dark side-menu-categories w-100">
       <span class="text-arc-clr-iron letter-spacing-2 text-uppercase">
@@ -10,7 +9,7 @@
     </b-nav-item>
     <b-nav-item
       v-for="(item, itemIndex) in menuItems"
-      :key="itemIndex">
+      :key="item.id">
       <menu-item
         :item="item"
         :index="itemIndex"/>
@@ -29,12 +28,6 @@ export default {
   components: {
     MenuItem
   },
-  props: {
-    titleKind: {
-      type: String,
-      default: null
-    }
-  },
   data () {
     return {
       titles: [],
@@ -46,7 +39,7 @@ export default {
         query: TITLES_QUERY,
         variables () {
           return {
-            kind: this.isKindTriggered,
+            kind: this.$route.params.titleKind,
             withScopes: true
           }
         },
@@ -55,11 +48,8 @@ export default {
     }
   },
   computed: {
-    isKindTriggered () {
-      return this.titleKind ? this.titleKind : this.$route.params.titleKind
-    },
     menuItems () {
-      return buildTree(this.isKindTriggered, this.titles, this.$route)
+      return buildTree(this.$route.params.titleKind, this.titles, this.$route)
     }
   }
 }
