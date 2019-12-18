@@ -61,9 +61,6 @@ export default {
   computed: {
     eventId () {
       return this.$route.params.id
-    },
-    eventName () {
-      return this.$route.params.eventName
     }
   },
   watch: {
