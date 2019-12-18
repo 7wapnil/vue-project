@@ -188,7 +188,7 @@ export default {
   methods: {
     goToEventPage () {
       if (this.marketsCount > 0) {
-        this.$router.push({ name: 'event', params: { id: this.event.id } })
+        this.$router.push({ name: 'sports-event', params: { id: this.event.id } })
       }
     }
   }
