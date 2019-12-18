@@ -21,7 +21,7 @@ const buildTournaments = (titleKind, title, route, parentId = null) => {
         id: tournament.id,
         label: tournament.name,
         active: route.params.tournamentId && route.params.tournamentId === tournament.id,
-        to: { name: 'tournament', params: { titleKind, titleId: title.id, tournamentId: tournament.id } },
+        to: { name: `${titleKind}-tournament`, params: { titleKind, titleId: title.id, tournamentId: tournament.id } },
         children: []
       }
     })
