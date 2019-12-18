@@ -61,7 +61,7 @@ export default {
           description: this.$t('account.bonus.longTerms.list.list6'),
           data: '',
           additionalData: '',
-          active: this.bonusItem.minOddsPerBet
+          active: this.bonusItem.minOddsPerBetLeg
         },
         {
           description: this.$t('account.bonus.longTerms.list.list7'),
