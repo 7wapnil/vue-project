@@ -5,11 +5,11 @@ export const PROVIDER_FIELDS = `
 `
 
 export const BONUSES_LIST_FIELDS = `
+  id
   amount
   casino
   code
   expiresAt
-  id
   maxRolloverPerBet
   minOddsPerBet
   rolloverBalance
@@ -18,6 +18,7 @@ export const BONUSES_LIST_FIELDS = `
   status
   validForDays
   minOddsPerBet
+  minOddsPerBetLeg
 `
 
 export const WALLET_FIELDS = `
