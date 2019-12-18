@@ -30,17 +30,22 @@ export default {
         return [
           {
             text: getTitleShortName(this.event.title),
-            to: { name: `${titleKind}-title`, params: { titleKind: titleKind, titleId:
+            to: { name: `${titleKind}-title`,
+              params: { titleKind: titleKind,
+                titleId:
                     this.event.title.id,
-                } }
+              } }
           },
           {
             text: this.category.name
           },
           {
             text: this.event.tournament.name,
-            to: { name: `${titleKind}-tournament`, params: { titleKind: titleKind, titleId:
-                    this.event.title.id, tournamentId: this.event.tournament.id } }
+            to: { name: `${titleKind}-tournament`,
+              params: { titleKind: titleKind,
+                titleId:
+                    this.event.title.id,
+                tournamentId: this.event.tournament.id } }
           }, {}
         ]
       }

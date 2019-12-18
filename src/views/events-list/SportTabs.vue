@@ -23,10 +23,10 @@ export default {
       return {
         query: TITLES_QUERY,
         variables () {
-            return {
-                kind: this.$route.params.titleKind,
-                context: this.$route.params.titleKind === ESPORTS ? UPCOMING : UPCOMING_FOR_TIME_TITLES_CONTEXT
-            }
+          return {
+            kind: this.$route.params.titleKind,
+            context: this.$route.params.titleKind === ESPORTS ? UPCOMING : UPCOMING_FOR_TIME_TITLES_CONTEXT
+          }
         }
       }
     }
