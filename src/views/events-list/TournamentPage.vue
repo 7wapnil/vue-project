@@ -62,9 +62,11 @@ export default {
       return {
         query: TOURNAMENT_EVENTS,
         fetchPolicy: NETWORK_ONLY,
-        variables: {
-          tournamentId: this.$route.params.tournamentId,
-          withScopes: true
+        variables() {
+            return {
+                tournamentId: this.$route.params.tournamentId,
+                withScopes: true
+            }
         }
       }
     },
