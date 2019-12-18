@@ -87,11 +87,11 @@ import EsportsUpcomingCard from '@/components/cards/esports-upcoming-card/Esport
 export default {
   extends: EsportsUpcomingCard,
   methods: {
-      goToEventPage() {
-              if (this.marketsCount > 0) {
-                  this.$router.push({ name: 'sports-event', params: { id: this.event.id } })
-              }
+    goToEventPage () {
+      if (this.marketsCount > 0) {
+        this.$router.push({ name: 'sports-event', params: { id: this.event.id } })
       }
+    }
   }
 }
 </script>

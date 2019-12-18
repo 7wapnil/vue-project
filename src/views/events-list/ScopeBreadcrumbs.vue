@@ -89,7 +89,7 @@ export default {
     },
     tournamentLink () {
       if (this.getTournament) {
-          const titleKind = this.$route.params.titleKind
+        const titleKind = this.$route.params.titleKind
         return {
           text: this.getTournament.name,
           to: {
