@@ -16,7 +16,8 @@ export default [
       left: CasinoSidebar,
       header: CasinoHeader,
       tabs: CasinoTabs,
-      content: GamesOverview
+      content: GamesOverview,
+      mobileSidemenu: CasinoSidebar
     }
   }, {
     path: '/casino/:category',
@@ -28,7 +29,8 @@ export default [
       left: CasinoSidebar,
       header: CasinoHeader,
       tabs: CasinoTabs,
-      content: GamesList
+      content: GamesList,
+      mobileSidemenu: CasinoSidebar
     }
   }, {
     path: '/casino/:category/:playItemSlug',
@@ -37,7 +39,8 @@ export default [
       content: true
     },
     components: {
-      content: CasinoGamePage
+      content: CasinoGamePage,
+      mobileSidemenu: CasinoSidebar
     }
   }
 ]

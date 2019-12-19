@@ -20,7 +20,8 @@ export const support = {
       components: {
         left: InfoPageSidemenu,
         content: ContactUsPage,
-        right: Betslip
+        right: Betslip,
+        mobileSidemenu: InfoPageSidemenu
       }
     },
     {
@@ -29,7 +30,8 @@ export const support = {
       components: {
         left: InfoPageSidemenu,
         content: ContactUsPage,
-        right: Betslip
+        right: Betslip,
+        mobileSidemenu: InfoPageSidemenu
       }
     },
     {
@@ -38,7 +40,8 @@ export const support = {
       components: {
         left: InfoPageSidemenu,
         content: TermsConditionPage,
-        right: Betslip
+        right: Betslip,
+        mobileSidemenu: InfoPageSidemenu
       }
     },
     {
@@ -47,7 +50,8 @@ export const support = {
       components: {
         left: InfoPageSidemenu,
         content: BettingRulesPage,
-        right: Betslip
+        right: Betslip,
+        mobileSidemenu: InfoPageSidemenu
       }
     },
     {
@@ -56,7 +60,8 @@ export const support = {
       components: {
         left: InfoPageSidemenu,
         content: PrivacyPolicyPage,
-        right: Betslip
+        right: Betslip,
+        mobileSidemenu: InfoPageSidemenu
       }
     },
     {
@@ -65,7 +70,8 @@ export const support = {
       components: {
         left: InfoPageSidemenu,
         content: CookiePolicyPage,
-        right: Betslip
+        right: Betslip,
+        mobileSidemenu: InfoPageSidemenu
       }
     },
     {
@@ -74,7 +80,8 @@ export const support = {
       components: {
         left: InfoPageSidemenu,
         content: FAQPage,
-        right: Betslip
+        right: Betslip,
+        mobileSidemenu: InfoPageSidemenu
       }
     },
     {
@@ -83,7 +90,8 @@ export const support = {
       components: {
         left: InfoPageSidemenu,
         content: AboutPage,
-        right: Betslip
+        right: Betslip,
+        mobileSidemenu: InfoPageSidemenu
       },
     },
     {
@@ -92,7 +100,8 @@ export const support = {
       components: {
         left: InfoPageSidemenu,
         content: AboutPage,
-        right: Betslip
+        right: Betslip,
+        mobileSidemenu: InfoPageSidemenu
       }
     },
     {
@@ -106,7 +115,8 @@ export const support = {
       components: {
         left: InfoPageSidemenu,
         content: PromotionsPage,
-        right: Betslip
+        right: Betslip,
+        mobileSidemenu: InfoPageSidemenu
       },
     },
     {
@@ -115,7 +125,8 @@ export const support = {
       components: {
         left: InfoPageSidemenu,
         content: BonusRulesPage,
-        right: Betslip
+        right: Betslip,
+        mobileSidemenu: InfoPageSidemenu
       }
     },
     {
@@ -124,7 +135,8 @@ export const support = {
       components: {
         left: InfoPageSidemenu,
         content: IntroductionPage,
-        right: Betslip
+        right: Betslip,
+        mobileSidemenu: InfoPageSidemenu
       },
     },
     {
@@ -133,7 +145,8 @@ export const support = {
       components: {
         left: InfoPageSidemenu,
         content: IntroductionPage,
-        right: Betslip
+        right: Betslip,
+        mobileSidemenu: InfoPageSidemenu
       }
     },
     {
@@ -142,7 +155,8 @@ export const support = {
       components: {
         left: InfoPageSidemenu,
         content: LimitsPage,
-        right: Betslip
+        right: Betslip,
+        mobileSidemenu: InfoPageSidemenu
       }
     }
   ]
