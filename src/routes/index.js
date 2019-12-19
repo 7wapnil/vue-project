@@ -11,6 +11,7 @@ import moment from 'moment'
 import filters from '@/mixins/filters'
 import { colors } from '@/constants/android-theme-colors'
 import Layout from '@/views/layouts/common/Layout'
+import { TITLE_KINDS } from '@/constants/title-kinds'
 
 const rootChilds = [...Esports, ...Sports, ...LiveCasino, ...Casino, ...support.routes, ...system]
 
@@ -46,8 +47,11 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
   const path = to.matched[1].path.split('/')
-  if (path) {
+  const isSupported = TITLE_KINDS.includes(path[1])
+  if (path && isSupported) {
     to.params.titleKind = path[1]
+  } else {
+    to.params.titleKind = 'esports'
   }
 
   if (to.params.titleKind) {
