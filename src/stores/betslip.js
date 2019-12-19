@@ -396,6 +396,8 @@ export const actions = {
   },
   pushBet ({ dispatch, state }, { event, market, odd }) {
     if (state.bets.find(bet => bet.oddId === odd.id)) return
+    const betSameMarket = state.bets.find(bet => bet.marketId === market.id)
+    if (betSameMarket) dispatch('removeBetFromBetslip', betSameMarket.oddId)
 
     state.bets.push(Bet.initial(event, market, odd))
     setFieldToStorage('bets', state.bets, { array: true })
