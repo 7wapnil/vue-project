@@ -1,30 +1,35 @@
-import Affiliates from '@/views/information-pages/affiliates/main/Page'
+import PasswordRecoveryPage from '@/views/auth/PasswordResetForm'
+import EmailVerificationPage from '@/views/auth/EmailVerification'
+import ImpersonatePage from '@/views/auth/Impersonation'
+import NotFound from '@/views/layouts/common/NotFound'
 
 export default [
   {
     path: 'reset_password/:token',
     name: 'reset_password',
-    component: () => import('@/views/auth/PasswordResetForm')
+    components: {
+      content: PasswordRecoveryPage,
+    }
   },
   {
     path: 'email_verification/:token',
     name: 'email_verification',
-    component: () => import('@/views/auth/EmailVerification')
+    components: {
+      content: EmailVerificationPage,
+    }
   },
   {
     path: 'impersonate/:token',
     name: 'impersonation',
-    component: () => import('@/views/auth/Impersonation')
+    components: {
+      content: ImpersonatePage,
+    }
   },
   {
-    path: 'affiliates',
-    component: () => import('@/views/layouts/information-page/Content'),
-    children: [
-      {
-        path: '',
-        name: 'affiliates',
-        component: Affiliates
-      }
-    ]
+    path: '*',
+    name: 'not-found',
+    components: {
+      content: NotFound,
+    }
   }
 ]

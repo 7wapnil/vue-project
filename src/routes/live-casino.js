@@ -16,7 +16,8 @@ export default [
       left: LiveCasinoSidebar,
       header: LiveCasinoHeader,
       tabs: LiveCasinoTabs,
-      content: TablesOverview
+      content: TablesOverview,
+      mobileSidemenu: LiveCasinoSidebar
     }
   }, {
     path: '/live-casino/:category',
@@ -28,7 +29,8 @@ export default [
       left: LiveCasinoSidebar,
       header: LiveCasinoHeader,
       tabs: LiveCasinoTabs,
-      content: TablesList
+      content: TablesList,
+      mobileSidemenu: LiveCasinoSidebar
     }
   }, {
     path: '/live-casino/:category/:playItemSlug',
@@ -38,7 +40,8 @@ export default [
       right: true
     },
     components: {
-      content: CasinoGamePage
+      content: CasinoGamePage,
+      mobileSidemenu: LiveCasinoSidebar
     }
   }
 ]

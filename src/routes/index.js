@@ -29,7 +29,7 @@ const router = new Router({
       path: 'maintenance',
       name: 'Maintenance',
       component: Maintenance
-    },
+    }
   ],
   scrollBehavior (to, from, savedPosition) {
     return new Promise((resolve, reject) => {

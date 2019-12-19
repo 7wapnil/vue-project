@@ -15,7 +15,8 @@ export default [
       left: Sidemenu,
       right: Betslip,
       tabs: CategoryTabs,
-      header: IntroductionArea
+      header: IntroductionArea,
+      mobileSidemenu: Sidemenu
     },
   },
   {
@@ -29,7 +30,8 @@ export default [
       tabs: CategoryTabs,
       header: IntroductionArea,
       left: Sidemenu,
-      right: Betslip
+      right: Betslip,
+      mobileSidemenu: Sidemenu
     }
   },
   {
@@ -41,7 +43,8 @@ export default [
     components: {
       content: TournamentPage,
       left: Sidemenu,
-      right: Betslip
+      right: Betslip,
+      mobileSidemenu: Sidemenu
     }
   },
   {
@@ -53,7 +56,8 @@ export default [
     components: {
       content: EventPage,
       left: Sidemenu,
-      right: Betslip
+      right: Betslip,
+      mobileSidemenu: Sidemenu
     }
   }
 ]
