@@ -6,7 +6,7 @@
       <logo-section/>
     </template>
     <template #content>
-      <router-view name="left"/>
+      <router-view name="mobileSidemenu"/>
     </template>
   </sidebar>
 </template>

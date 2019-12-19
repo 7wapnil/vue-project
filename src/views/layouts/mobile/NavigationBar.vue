@@ -9,6 +9,7 @@
         class="navbar-mobile-burger-section d-flex align-items-center justify-content-start"
         @click="$emit('burger-clicked')">
         <icon
+          v-show="$route.meta.components.mobileSidemenu"
           name="sidebar-menu"
           color="arc-clr-white"
           size="20px"/>
