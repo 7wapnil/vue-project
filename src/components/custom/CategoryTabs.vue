@@ -95,7 +95,7 @@ export default {
       this.tabIndex = tab
     },
     $route () {
-        this.tabIndex = 0
+      this.tabIndex = 0
     }
   },
   created () {
