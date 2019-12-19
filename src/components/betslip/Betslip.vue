@@ -108,7 +108,7 @@
           v-show="!isComboBetsMode"
           no-gutters
           class="mb-2">
-          <b-col cols="8">
+          <b-col>
             <h6 class="m-0 text-arc-clr-iron">
               {{ $t('betslip.totalStake') }}
             </h6>
@@ -136,7 +136,7 @@
           </b-col>
         </b-row>
         <b-row no-gutters>
-          <b-col cols="8">
+          <b-col>
             <h5 class="m-0 text-arc-clr-iron">
               {{ $t('betslip.totalReturn') }}
             </h5>
