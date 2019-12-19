@@ -93,6 +93,9 @@ export default {
   watch: {
     position (tab) {
       this.tabIndex = tab
+    },
+    $route () {
+        this.tabIndex = 0
     }
   },
   created () {
