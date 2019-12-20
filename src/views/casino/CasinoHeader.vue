@@ -16,6 +16,7 @@
       </b-row>
       <div class="casino-header-tab-container">
         <slot/>
+        <search-game-input route-name="casino" />
       </div>
     </b-col>
   </b-row>
@@ -24,10 +25,11 @@
 <script>
 import { mapGetters } from 'vuex'
 import AuthBlock from '@/views/events-list/AuthBlock'
+import SearchGameInput from '@/components/casino-games/SearchGameInput'
 
 export default {
   name: 'CasinoHeader',
-  components: { AuthBlock },
+  components: { AuthBlock, SearchGameInput },
   computed: {
     ...mapGetters([
       'isLoggedIn'
@@ -49,10 +51,17 @@ export default {
         bottom: 0;
         left: 0;
         width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: nowrap;
       }
       &-mobile-container {
-        height: 100px;
+        height: 162px;
         overflow: hidden;
+        .casino-header-tab-container {
+          flex-wrap: wrap;
+        }
         &-auth {
           height: 200px;
           overflow: hidden;

@@ -186,7 +186,8 @@ const messages = {
       },
       playItemsList: {
         noMoreResults: 'No more results.',
-        noResults: 'No results'
+        noResults: 'No results',
+        search: 'Search'
       },
     },
     betslip: {
