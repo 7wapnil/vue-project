@@ -357,7 +357,7 @@ export default {
         this.isEnoughFundsCombo
     },
     isEnoughFundsCombo () {
-      return this.getFundsToBet > this.getBetslipStakeFloat
+      return this.getFundsToBet >= this.getBetslipStakeFloat
     },
     getComboReturn () {
       return this.getBetslipStakeFloat * this.totalOddsValue
