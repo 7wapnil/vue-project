@@ -100,3 +100,16 @@ export const CREATE_EVERY_MATRIX_SESSION_MUTATION = gql`
     }
   }
 `
+
+export const SEARCH_GAMES_QUERY = gql`
+  query searchCasinoGames($context: String = null, $page: Int, $perPage: Int, $query: String!) {
+    searchCasinoGames(context: $context, page: $page, perPage: $perPage, query: $query) {
+      collection {
+        ${PLAY_ITEM_FIELDS}
+      }
+      pagination {
+        ${PAGINATION_FIELDS}
+      }
+    }
+  }
+`

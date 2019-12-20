@@ -3,6 +3,7 @@ import CasinoHeader from '@/views/casino/CasinoHeader'
 import CasinoTabs from '@/views/casino/CasinoTabs'
 import GamesList from '@/components/casino-games/GamesList'
 import CasinoOverviewPage from '@/components/casino-games/CasinoOverviewPage'
+import GamesSearch from '@/components/casino-games/GamesSearch'
 import CasinoGamePage from '@/views/casino/CasinoGamePage'
 import CasinoProvidersPage from '@/views/casino/providers/CasinoProvidersPage'
 
@@ -31,8 +32,21 @@ export default [
       content: CasinoProvidersPage,
       mobileSidemenu: CasinoSidebar
     }
-  },
-  {
+  }, {
+    path: '/casino/search',
+    name: 'casino-search',
+    props: (route) => ({
+      query: route.query.q,
+      content: true
+    }),
+    components: {
+      left: CasinoSidebar,
+      header: CasinoHeader,
+      tabs: CasinoTabs,
+      content: GamesSearch,
+      mobileSidemenu: CasinoSidebar
+    }
+  }, {
     path: '/casino/:category',
     name: 'casino-category',
     props: {
