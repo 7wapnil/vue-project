@@ -190,7 +190,12 @@ const messages = {
       playItemsList: {
         noMoreResults: 'No more results.',
         noResults: 'No results',
-        search: 'Search'
+        search: 'Search',
+        countResultsFound: '{count} results found',
+        countResultsFoundWithQuery: `{count} results found for "{query}"`,
+        noResultsFound: 'No results found for your search. Please, try something else.',
+        noResultsShort: 'No results found',
+        noResultsForQuery: `No results found for "{query}"`
       },
     },
     betslip: {

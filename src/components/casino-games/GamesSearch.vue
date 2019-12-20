@@ -2,6 +2,7 @@
   <div>
     <search-play-items
       :play-items="gamesCollection"
+      :loading="this.$apollo.loading"
       :count="paginationProps.count" />
     <loader v-if="$apollo.loading"/>
     <b-row no-gutters>
