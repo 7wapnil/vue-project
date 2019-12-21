@@ -4,7 +4,7 @@
       v-for="page in pages"
       :key="page"
       :size="6"
-      :class="[page === activePage ? activeClass : '']"
+      :class="[page === currentPage ? activeClass : '']"
       class="indication-item"
     />
   </div>
@@ -23,9 +23,6 @@ export default {
     }
   },
   computed: {
-    activePage () {
-      return this.currentPage === 0 ? 1 : this.currentPage
-    },
     activeClass () {
       return `${this.$route.params.titleKind}-active`
     }

@@ -78,7 +78,7 @@ export default {
       wrapperWidth: 0,
       scrollPosition: 0,
       rowWidth: 0,
-      itemWidth: 160,
+      itemWidth: 170,
       providersCategory: {
         icon: 'casino-providers',
         name: 'providers',
@@ -194,7 +194,8 @@ export default {
     scroll-snap-type: x mandatory;
     margin: 0 24px;
     display: flex;
-    overflow: auto;
+    overflow-x: auto;
+    overflow-y: hidden;
     flex-wrap: nowrap;
     scroll-behavior: smooth;
     transform: translate3d(0,0,1px);
