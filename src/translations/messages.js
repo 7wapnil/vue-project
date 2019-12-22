@@ -29,7 +29,7 @@ const messages = {
         title: 'arcanebet - Casino',
         description: 'Bet on casino'
       },
-      'live-casino': {
+      liveCasino: {
         title: 'arcanebet - Live casino',
         description: 'Bet on live casino'
       },
@@ -155,9 +155,14 @@ const messages = {
     casino: {
       return: 'Return',
       viewAll: 'View all',
+      viewGames: 'View games',
       realModeLaunch: 'Play for real',
       funModeLaunch: 'Log-in to play for real or click to play in demo',
       providers: 'Providers',
+      liveDealerLaunch: 'Log-in to play',
+      headings: {
+        gameProviders: 'Game providers'
+      },
       sidemenu: {
         labels: {
           myCashier: 'My cashier',
@@ -337,6 +342,12 @@ const messages = {
           other: 'Other'
         }
       }
+    },
+    bottomNavBar: {
+      sports: 'sports',
+      esports: 'esports',
+      casino: 'casino',
+      liveCasino: 'live casino'
     }
   }
 }
