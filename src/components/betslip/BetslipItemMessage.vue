@@ -136,6 +136,8 @@ export default {
       return null
     },
     isMessageBlockHidden () {
+      if (this.bet.oddsChanged) return true
+
       return this.isComboBetsMode &&
         !(this.bet.status === Bet.statuses.conflicted) &&
         (this.isSuccess || this.isFailure)
@@ -150,11 +152,13 @@ export default {
   methods: {
     ...mapMutations('betslip', ['updateBet']),
     acceptNewOdds () {
+      const status = this.outdatedOddsError ? Bet.statuses.initial : this.bet.status
+
       this.updateBet({
         oddId: this.bet.oddId,
         payload: {
           id: null,
-          status: Bet.statuses.initial,
+          status: status,
           approvedOddValue: this.bet.currentOddValue
         }
       })

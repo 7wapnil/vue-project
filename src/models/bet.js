@@ -1,3 +1,6 @@
+import { ODDS_TOO_HIGH_ERROR } from '@/constants/notification-codes'
+import { REJECTED } from '@/constants/bet-fail-statuses'
+
 const STATUSES = {
   initial: 'initial',
   submitted: 'submitted',
@@ -86,6 +89,7 @@ export default class Bet {
       STATUSES.initial,
       STATUSES.failed,
       STATUSES.rejected,
+      STATUSES.conflicted,
       STATUSES.pendingMtsCancellation,
       STATUSES.pendingCancellation
     ].includes(this.status)
@@ -93,5 +97,9 @@ export default class Bet {
 
   get oddsChanged () {
     return this.approvedOddValue !== this.currentOddValue
+  }
+
+  get outdatedOddsError () {
+    return this.status === REJECTED && this.notificationCode === ODDS_TOO_HIGH_ERROR
   }
 }

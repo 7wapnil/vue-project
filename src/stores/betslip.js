@@ -482,6 +482,8 @@ export const actions = {
     }
   },
   validateComboBets ({ commit, getters }) {
+    commit('cleanBetErrors')
+    commit('clearBetslipMessages')
     commit('startValidation')
 
     graphqlClient
