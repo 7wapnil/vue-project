@@ -1,12 +1,15 @@
 <template>
   <b-nav
     class="casino-tabs-nav no-scrollbars"
+    fill
+    justified
     tabs>
     <b-nav-item
       v-for="tab in tabs"
       :key="tab.id"
       :to="tab.route"
-      active-class="casino-tab-active"
+      exact
+      exact-active-class="casino-tab-active"
       link-classes="casino-tab">
       <b-row no-gutters>
         <b-col
@@ -26,6 +29,7 @@
         </b-col>
       </b-row>
     </b-nav-item>
+    <b-nav-form class="w-50"/>
   </b-nav>
 </template>
 
