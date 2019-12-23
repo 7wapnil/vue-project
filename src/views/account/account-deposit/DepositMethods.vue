@@ -24,7 +24,6 @@ import Paysafecard from '@/assets/images/withdrawal-methods/paysafecard.png'
 import Idebit from '@/assets/images/withdrawal-methods/idebit.png'
 import CreditCard from '@/assets/images/withdrawal-methods/card.png'
 import Bitcoin from '@/assets/images/withdrawal-methods/btc.png'
-import Yandex from '@/assets/images/withdrawal-methods/yandex.png'
 import Neteller from '@/assets/images/withdrawal-methods/neteller.png'
 
 export default {
@@ -36,7 +35,6 @@ export default {
         Idebit,
         CreditCard,
         Bitcoin,
-        Yandex,
         Neteller
       ]
     }
