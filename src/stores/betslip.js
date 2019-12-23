@@ -525,10 +525,10 @@ export const actions = {
     commit('clearBetslipStake')
     commit('clearCheckboxes')
   },
-  resetBetInBetslip ({ commit, state }, oddId) {
+  resetBetInBetslip ({ commit, state }, oddId, areMessagesCleared) {
     commit('resetBet', oddId)
 
-    if (state.bets.every(bet => bet.status === Bet.statuses.initial)) {
+    if (areMessagesCleared || state.bets.every(bet => bet.status === Bet.statuses.initial)) {
       commit('clearBetslipMessages')
     }
   }

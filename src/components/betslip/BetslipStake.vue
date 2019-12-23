@@ -20,13 +20,15 @@
         name="stake"
         type="text"
         class="betslip-input form-control"
+        @input="stakeChanged"
       />
     </b-col>
   </b-row>
 </template>
 
 <script>
-import { mapGetters, mapMutations } from 'vuex'
+import Bet from '@/models/bet'
+import { mapGetters, mapMutations, mapActions } from 'vuex'
 import MaskedInput from 'vue-text-mask'
 import createNumberMask from 'text-mask-addons/dist/createNumberMask'
 import { DIGITS_LIMIT_FOR_STAKE } from '@/constants/betslip-settings'
@@ -43,7 +45,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('betslip', ['getBetslipStake']),
+    ...mapGetters('betslip', ['getBetslipStake', 'getBets']),
     mask () {
       return createNumberMask({
         prefix: '',
@@ -64,7 +66,15 @@ export default {
     }
   },
   methods: {
-    ...mapMutations('betslip', ['setBetslipStake'])
+    ...mapActions('betslip', ['resetBetInBetslip']),
+    ...mapMutations('betslip', ['setBetslipStake']),
+    stakeChanged () {
+      this.getBets.forEach((bet) => {
+        if (bet.notificationCode === Bet.notificationCodes.liability_limit_reached_error) {
+          this.resetBetInBetslip(bet.oddId, true)
+        }
+      })
+    }
   }
 }
 </script>

@@ -22,6 +22,10 @@ const SETTLEMENT_STATUSES = {
   lost: 'lost'
 }
 
+const NOTIFICATION_CODES = {
+  liability_limit_reached_error: 'liability_limit_reached_error'
+}
+
 export default class Bet {
   constructor (attributes = {}) {
     Object.keys(attributes).forEach((key) => {
@@ -35,6 +39,10 @@ export default class Bet {
 
   static get settlementStatuses () {
     return SETTLEMENT_STATUSES
+  }
+
+  static get notificationCodes () {
+    return NOTIFICATION_CODES
   }
 
   static initial (event, market, odd) {

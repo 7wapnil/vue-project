@@ -95,6 +95,7 @@
             type="text"
             name="stake"
             class="betslip-input form-control"
+            @input="stakeChanged"
           />
         </b-col>
       </b-row>
@@ -242,7 +243,7 @@ export default {
     this.$emit('betslip-item-mounted')
   },
   methods: {
-    ...mapActions('betslip', ['removeBetFromBetslip']),
+    ...mapActions('betslip', ['removeBetFromBetslip', 'resetBetInBetslip']),
     ...mapMutations('betslip', ['setBetStake', 'updateBet']),
     disableBetWhenMarketNotFound () {
       return this.updateBet({
@@ -288,6 +289,11 @@ export default {
     },
     removeBetItem (oddId) {
       this.removeBetFromBetslip(oddId)
+    },
+    stakeChanged () {
+      if (this.bet.notificationCode === Bet.notificationCodes.liability_limit_reached_error) {
+        this.resetBetInBetslip(this.bet.oddId)
+      }
     }
   }
 }

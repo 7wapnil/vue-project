@@ -137,6 +137,11 @@ export const BET_FIELDS = `
     oddId
     message
     notificationCode
+    eventEnabled
+    marketStatus
+    marketVisible
+    marketEnabled
+    oddEnabled
   }
 `
 
