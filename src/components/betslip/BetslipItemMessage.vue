@@ -80,6 +80,7 @@ export default {
     },
     messageObject () {
       if (this.isSuccess) return this.successMessageObject
+      if (this.bet.isConflicted) return this.failureMessageObject
 
       if (this.isBetDisabled && !this.hasAnyFrozenBet && !this.isAccepted) {
         return this.disabledMessageObject
@@ -136,7 +137,7 @@ export default {
       return null
     },
     isMessageBlockHidden () {
-      if (this.bet.oddsChanged) return true
+      if (this.hasUnconfirmedValues) return true
 
       return this.isComboBetsMode &&
         !(this.bet.status === Bet.statuses.conflicted) &&

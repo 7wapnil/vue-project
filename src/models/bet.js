@@ -74,6 +74,10 @@ export default class Bet {
     return this.status === STATUSES.accepted
   }
 
+  get isConflicted () {
+    return this.status === STATUSES.conflicted
+  }
+
   get hasFailureStatus () {
     return [
       STATUSES.failed,
@@ -89,7 +93,6 @@ export default class Bet {
       STATUSES.initial,
       STATUSES.failed,
       STATUSES.rejected,
-      STATUSES.conflicted,
       STATUSES.pendingMtsCancellation,
       STATUSES.pendingCancellation
     ].includes(this.status)
