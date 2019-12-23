@@ -540,7 +540,7 @@ export default {
 
         return this.$i18n.t('betslip.bigNumber', { number: formattedNumber })
       }
-    },
+    }
   }
 }
 </script>
