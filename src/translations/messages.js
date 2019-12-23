@@ -205,6 +205,9 @@ const messages = {
         betsBeingSubmitted: 'Bet placement in progress',
         invalidStakeAmount: 'Please make sure your stake is correct'
       },
+      betslipItem: {
+        oddsChanged: 'Odds Changed'
+      },
       cta: {
         placeBet: 'Place Bet',
         clearAll: 'Clear all'

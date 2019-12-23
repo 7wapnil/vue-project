@@ -136,7 +136,7 @@
       v-show="oddsChanged"
       no-gutters>
       <b-col class="alert-odds-changed">
-        {{ $t('betslipItem.oddsChanged') }}
+        {{ $t('betslip.betslipItem.oddsChanged') }}
       </b-col>
     </b-row>
 
