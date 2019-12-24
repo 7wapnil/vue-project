@@ -320,19 +320,16 @@ export const getters = {
 }
 
 export const actions = {
-  subscribeBets ({ dispatch, getters }) {
-    getters
-      .getPlacedBetIds
-      .forEach(betId => dispatch('subscribeBet', betId))
-  },
-  subscribeBet ({ state, commit, dispatch, getters }, betId) {
-    state.subscriptions[betId] = graphqlClient
-      .subscribe({
-        query: BET_UPDATED,
-        variables: { id: betId }
-      })
+  subscribeBetSlip ({ state, commit, dispatch }, user) {
+    if (!user) return
+    if (state.subscription) state.subscription.unsubscribe()
+
+    state.subscription = graphqlClient
+      .subscribe({ query: BET_UPDATED })
       .subscribe({
         next ({ data: { betUpdated } }) {
+          if (!state.bets.find(bet => bet.id === betUpdated.id)) return
+
           const betLegs = betUpdated.betLegs || []
 
           betLegs.forEach(betLeg => {
@@ -369,7 +366,7 @@ export const actions = {
         }
       })
 
-    Vue.$log.debug(`Subscribed bet ID ${betId}`)
+    Vue.$log.debug(`Subscribed betslip for user ID ${user.id}`)
   },
   removeAcceptedBet ({ state, dispatch }, { betLegs, status }) {
     if (status !== Bet.statuses.accepted) return
@@ -384,16 +381,6 @@ export const actions = {
       }, BET_DESTROY_TIMEOUT)
     })
   },
-  unsubscribeBet ({ state }, bet) {
-    if (state.subscriptions[bet.id]) {
-      state.subscriptions[bet.id].unsubscribe()
-      delete state.subscriptions[bet.id]
-      Vue.$log.debug(`Unsubscribed bet ID ${bet.id}`)
-    }
-  },
-  unsubscribeBets ({ dispatch, state }) {
-    state.bets.forEach(bet => dispatch('unsubscribeBet', bet))
-  },
   pushBet ({ dispatch, state }, { event, market, odd }) {
     if (state.bets.find(bet => bet.oddId === odd.id)) return
     const betSameMarket = state.bets.find(bet => bet.marketId === market.id)
@@ -404,12 +391,9 @@ export const actions = {
     dispatch('validateBets')
   },
   removeBetFromBetslip ({ dispatch, commit, state }, oddId) {
-    const foundBet = state.bets.find(e => e.oddId === oddId) || {}
-
     state.bets = state.bets.filter(e => e.oddId !== oddId)
     setFieldToStorage('bets', state.bets, { array: true })
 
-    dispatch('unsubscribeBet', foundBet)
     dispatch('validateBets')
 
     if (!state.bets.length) {
@@ -520,8 +504,6 @@ export const actions = {
     }
   },
   clearBetslip ({ dispatch, commit }) {
-    dispatch('unsubscribeBets')
-
     commit('clearBets')
     commit('clearBetslipMessages')
     commit('clearBetslipStake')
@@ -543,7 +525,7 @@ export default {
     bets: getFieldFromStorage('bets', []).map((betAttributes) => new Bet(betAttributes)),
     acceptAll: getFieldFromStorage('acceptAllOddsChanges', false),
     keepAllSelections: getFieldFromStorage('keepAllSelections', false),
-    subscriptions: {},
+    subscription: null,
     betslipSidebarState: false,
     validationMessages: getFieldFromStorage('betslipValidationMessages', []),
     isComboBetsMode: getFieldFromStorage('isComboBetsMode', false),

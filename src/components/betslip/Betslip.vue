@@ -216,8 +216,6 @@ import {
   MAX_VALUABLE_RETURN_VALUE
 } from '@/constants/betslip-settings'
 
-const REFRESH_BETSLIP_AFTER_PLACING_BET_TIME = 3000
-const REFRESH_BETSLIP_TIMEOUT = 1000
 const SCROLL_ON_LOAD_TIMEOUT = 1500
 const SCROLL_ON_UPDATE_TIMEOUT = 100
 
@@ -273,7 +271,7 @@ export default {
       'getBetslipStakeFloat',
       'keepAllSelectionsChecked'
     ]),
-    ...mapGetters(['isLoggedIn', 'getUserActiveWallet']),
+    ...mapGetters(['isLoggedIn', 'getUser', 'getUserActiveWallet']),
     acceptAllOdds: {
       get () {
         return this.acceptAllChecked
@@ -399,18 +397,20 @@ export default {
     },
     getBetslipMessageVariant (value) {
       if (value) setTimeout(this.scrollSubmit, SCROLL_ON_UPDATE_TIMEOUT)
+    },
+    isLoggedIn (value) {
+      if (value) this.actualizeBetSlip()
     }
   },
   created () {
-    this.subscribeBets()
-    setTimeout(this.refreshBetslip, REFRESH_BETSLIP_TIMEOUT)
+    this.actualizeBetSlip()
   },
   mounted () {
     setTimeout(this.scrollSubmit, SCROLL_ON_LOAD_TIMEOUT)
   },
   methods: {
     ...mapActions('betslip', [
-      'subscribeBets',
+      'subscribeBetSlip',
       'placeBets',
       'refreshBetslip',
       'updateComboBetsMode',
@@ -492,8 +492,6 @@ export default {
           })
         })
       })
-      this.subscribeBets()
-      setTimeout(this.refreshBetslip, REFRESH_BETSLIP_AFTER_PLACING_BET_TIME)
     },
     betListFromResponse (response) {
       if (!response.hasOwnProperty('data')) return []
@@ -540,6 +538,10 @@ export default {
 
         return this.$i18n.t('betslip.bigNumber', { number: formattedNumber })
       }
+    },
+    actualizeBetSlip () {
+      this.subscribeBetSlip(this.getUser)
+      this.refreshBetslip()
     }
   }
 }
