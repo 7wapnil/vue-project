@@ -53,7 +53,7 @@ export default {
         fetchPolicy: NETWORK_ONLY,
         variables () {
           return {
-            context: this.computedCategory,
+            context: this.category,
             page: 1,
             perPage: this.itemsPerPage
           }
@@ -66,9 +66,6 @@ export default {
     }
   },
   computed: {
-    computedCategory () {
-      return this.isMobile ? `${this.category}-mobile` : `${this.category}-desktop`
-    },
     lastPage () {
       return this.paginationProps.next === null
     }

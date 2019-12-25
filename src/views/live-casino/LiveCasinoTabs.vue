@@ -61,11 +61,11 @@ export default {
             return {
               ...data,
               id: index + 1, // +1 because of default tab
-              icon: `live-casino-${data.name}`,
+              icon: `live-casino-${data.context}`,
               route: {
                 name: 'live-casino-category',
                 params: {
-                  category: `${data.name}`,
+                  category: `${data.context}`,
                   label: data.label
                 }
               }

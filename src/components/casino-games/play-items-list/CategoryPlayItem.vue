@@ -74,7 +74,7 @@ export default {
           name: `${this.$route.params.titleKind}-game`,
           params: {
             playItemSlug: this.item.slug,
-            category: this.category.name
+            category: this.category.context
           }
         })
       }

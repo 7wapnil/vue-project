@@ -34,7 +34,7 @@ export default {
           this.categories = tablesOverview.map((category, index) => {
             return {
               ...category,
-              icon: findCategoryIcon({ context: category.name }),
+              icon: findCategoryIcon({ context: category.context }),
               index: index + 1 // + 1 because of default category
             }
           })
