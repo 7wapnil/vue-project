@@ -9,8 +9,8 @@
         :size="isMobile ? 20 : 26"
         class="overview-item-header-icon ml-md-4 ml-2"/>
       <b-link
-        :to="{ name: 'casino-category', params: { category: category.name } }"
-        :disabled="!category.name"
+        :to="{ name: 'casino-category', params: { category: category.context } }"
+        :disabled="!category.context"
         :router-tag="isMobile ? 'h5' : 'h4'"
         class="overview-item-header-title">
         {{ category.label }}
@@ -29,8 +29,8 @@
       md="4"
       class="px-4 pt-4 pb-2 overview-item-header-viewall-block">
       <b-link
-        :to="{ name: 'casino-category', params: { category: category.name } }"
-        :disabled="!category.name"
+        :to="{ name: 'casino-category', params: { category: category.context } }"
+        :disabled="!category.context"
         class="mr-md-2 mr-0">
         {{ this.$i18n.t('casino.viewAll') }}
       </b-link>

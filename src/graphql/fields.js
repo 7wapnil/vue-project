@@ -140,7 +140,6 @@ export const CASINO_CATEGORIES_FIELDS = `
   label
   position
   context
-  name
 `
 
 export const OVERVIEW_FIELDS = `

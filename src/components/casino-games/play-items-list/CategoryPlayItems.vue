@@ -60,12 +60,12 @@ export default {
   computed: {
     category () {
       return {
-        name: this.$route.params.category,
+        context: this.$route.params.category,
         label: this.$route.params.label
       }
     },
     categoryIcon () {
-      return `${this.$route.params.titleKind}-${this.category.name}`
+      return `${this.$route.params.titleKind}-${this.category.context}`
     }
   },
   methods: {
