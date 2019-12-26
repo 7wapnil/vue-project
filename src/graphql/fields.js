@@ -4,7 +4,7 @@ export const PROVIDER_FIELDS = `
   state
 `
 
-export const BONUSES_LIST_QUERY_FIELDS = `
+export const BONUSES_LIST_FIELDS = `
       amount
       casino
       code
