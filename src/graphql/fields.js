@@ -217,5 +217,5 @@ export const GAME_PROVIDERS_FIELDS = `
   enabled
   logoUrl
   name
-  representationName
+  internalImageName
 `

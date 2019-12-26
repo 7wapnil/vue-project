@@ -69,7 +69,7 @@ export default {
   },
   data () {
     return {
-      providersCollection: [],
+      gameProviders: [],
       paginationProps: Object,
       itemsPerPage: 20,
       visibleItems: 0,
@@ -90,24 +90,14 @@ export default {
     gameProviders () {
       return {
         query: GAME_PROVIDERS_QUERY,
-        fetchPolicy: NETWORK_ONLY,
-        variables () {
-          return {
-            page: 1,
-            perPage: this.itemsPerPage
-          }
-        },
-        result ({ data }) {
-          this.providersCollection = data.gameProviders.collection
-          this.paginationProps = data.gameProviders.pagination
-        }
+        fetchPolicy: NETWORK_ONLY
       }
     }
   },
   computed: {
     providers () {
-      if (this.providersCollection) {
-        return this.providersCollection.filter(provider => provider.enabled === 'true')
+      if (this.gameProviders) {
+        return this.gameProviders.filter(provider => provider.enabled === 'true')
       }
     }
   },
