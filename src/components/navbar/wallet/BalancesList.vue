@@ -11,7 +11,7 @@
           <b-row no-gutters>
             <b-col class="d-inline-flex pb-2">
               <span class="font-weight-bold font-size-12 letter-spacing-2">
-                {{ activeWallet.amount | round }}
+                {{ activeBonusesList }}
 
                 <span class="currency-code">
                   {{ activeWallet.currency.code }}
@@ -92,6 +92,8 @@
 <script>
 import BonusSection from './BonusSection'
 import { mapGetters, mapMutations } from 'vuex'
+import { BONUSES_LIST_QUERY } from '@/graphql'
+import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
 
 export default {
   components: {
@@ -106,6 +108,22 @@ export default {
       return this.wallets.filter((wallet) => {
         return (wallet.id !== null && this.activeWallet.id !== wallet.id)
       })
+    },
+    activeBonusesList () {
+      if (this.customerBonuses) {
+        const activeSectionBonuses = this.customerBonuses.filter(bonus => bonus.status === 'active' && bonus[this.currentLobbySection] === true)
+        const sumOfActiveBonuses = activeSectionBonuses.map(bonus => parseInt(bonus.amount))[0]
+        return sumOfActiveBonuses ? (this.activeWallet.realMoneyBalance + sumOfActiveBonuses).toFixed(2) : this.activeWallet.realMoneyBalance.toFixed(2)
+      }
+      return this.activeWallet.realMoneyBalance.toFixed(2)
+    }
+  },
+  apollo: {
+    customerBonuses () {
+      return {
+        query: BONUSES_LIST_QUERY,
+        fetchPolicy: NETWORK_ONLY
+      }
     }
   },
   methods: {

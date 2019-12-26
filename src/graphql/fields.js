@@ -4,6 +4,21 @@ export const PROVIDER_FIELDS = `
   state
 `
 
+export const BONUSES_LIST_QUERY_FIELDS = `
+      amount
+      casino
+      code
+      expiresAt
+      id
+      maxRolloverPerBet
+      minOddsPerBet
+      rolloverBalance
+      rolloverInitialValue
+      sportsbook
+      status
+      validForDays
+`
+
 export const WALLET_FIELDS = `
   id
   amount
@@ -12,6 +27,8 @@ export const WALLET_FIELDS = `
     code
     kind
   }
+  realMoneyBalance
+  bonusBalance
 `
 
 export const TITLE_FIELDS = `
