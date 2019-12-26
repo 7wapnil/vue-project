@@ -1,5 +1,5 @@
 import gql from 'graphql-tag'
-import { BONUSES_LIST_QUERY_FIELDS } from './fields'
+import { BONUSES_LIST_FIELDS } from './fields'
 
 export const BONUS_CALCULATION_MUTATION = gql`
         mutation depositBonus($amount: Float!, $code: String!, $currencyCode: String!) {
@@ -13,7 +13,7 @@ export const BONUS_CALCULATION_MUTATION = gql`
 export const BONUSES_LIST_QUERY = gql`
   query customerBonuses {
     customerBonuses {
-      ${BONUSES_LIST_QUERY_FIELDS}
+      ${BONUSES_LIST_FIELDS}
     }
   }
 `
