@@ -19,6 +19,13 @@ export default {
     },
     isKindEsport () {
       return this.$route.params.titleKind === 'esports'
+    },
+    currentLobbyName () {
+      return this.$route.params.titleKind
+    },
+    currentLobbySection () {
+      const isEsportLobby = ['esports', 'sports'].includes(this.$route.params.titleKind)
+      return isEsportLobby ? 'sportsbook' : 'casino'
     }
   },
   methods: {

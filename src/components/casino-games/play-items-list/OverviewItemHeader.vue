@@ -74,7 +74,7 @@ export default {
                 pointer-events: none;
             }
             &-title {
-                margin-left: 12px;
+                margin-left: 16px;
                 margin-bottom: 0;
                 color: $arc-clr-iron-light;
                 font-weight: $font-weight-light;

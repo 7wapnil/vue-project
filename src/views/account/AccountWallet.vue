@@ -12,7 +12,7 @@
           <div class="w-100"/>
           <b-col class="p-0 mt-1">
             <span class="font-weight-bold text-arc-clr-white letter-spacing-2">
-              {{ activeWallet.amount | round }}
+              {{ activeBonusesList }}
             </span>
             <span class="font-weight-bold text-arc-clr-iron ml-1 letter-spacing-2">
               {{ activeWallet.currency.code }}
@@ -80,8 +80,10 @@
 </template>
 <script>
 import { mapGetters, mapMutations } from 'vuex'
+import BalancesList from '@/components/navbar/wallet/BalancesList'
 
 export default {
+  extends: BalancesList,
   data () {
     return {
       wallet: () => {}
