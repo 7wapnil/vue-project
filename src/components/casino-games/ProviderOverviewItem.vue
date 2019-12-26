@@ -2,15 +2,13 @@
   <div class="provider-overview-item">
     <b-img
       :src="itemImg"
-      :alt="provider.representationName"
+      :alt="provider.name"
       class="provider-overview-item-image"
     />
   </div>
 </template>
 
 <script>
-import { slug } from '@/helpers/strings';
-
 export default {
   props: {
     provider: {
@@ -23,7 +21,7 @@ export default {
       const images = require.context('@/assets/images/casino-games/providers', false, /\.svg$/)
       let providerImage = ''
       try {
-        providerImage = images(`./${this.itemTitle}.svg`)
+        providerImage = images(`./${this.provider.internalImageName}.svg`)
       } catch (error) {
         providerImage = this.provider.logoUrl || this.defaultImg
       }
@@ -31,9 +29,6 @@ export default {
     },
     defaultImg () {
       return require('@/assets/icons/sidemenu/arcanebet-default-icon.svg')
-    },
-    itemTitle () {
-      return slug(this.provider.representationName)
     }
   }
 }

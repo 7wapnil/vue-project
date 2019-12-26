@@ -73,14 +73,9 @@ export const TABLES_OVERVIEW_QUERY = gql`
 `
 
 export const GAME_PROVIDERS_QUERY = gql`
-  query gameProviders($page: Int, $perPage: Int) {
-    gameProviders(page: $page, perPage: $perPage) {
-      collection {
-        ${GAME_PROVIDERS_FIELDS}
-      }
-      pagination {
-        ${PAGINATION_FIELDS}
-      }
+  query gameProviders {
+    gameProviders {
+      ${GAME_PROVIDERS_FIELDS} 
     }
   }
 `
