@@ -41,7 +41,9 @@ export default {
     getCurrentBonusValue () {
       if (!this.getMainBonus) return null
 
-      return (this.getMainBonus.rolloverInitialValue - this.getMainBonus.rolloverBalance).toFixed(2)
+      return parseFloat(
+        (this.getMainBonus.rolloverInitialValue - this.getMainBonus.rolloverBalance).toFixed(2)
+      )
     },
     getMainBonusPercentageValue () {
       if (!this.getMainBonus) return null

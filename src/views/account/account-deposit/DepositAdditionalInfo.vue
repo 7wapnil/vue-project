@@ -62,6 +62,20 @@
       </b-form-group>
 
       <b-form-group
+        :invalid-feedback="form.errors.get('zipCode')"
+        :state="form.errors.state('zipCode')"
+        :label="$i18n.t('auth.depositAdditionalInfo.zipCode')"
+        label-for="needMoreInfo-zipCode">
+
+        <b-form-input
+          id="needMoreInfo-zipCode"
+          v-model="form.zipCode"
+          :state="form.errors.state('zipCode')"
+          :placeholder="$i18n.t('auth.depositAdditionalInfo.zipCode')"
+          @input="form.clearError(['zipCode'])"/>
+      </b-form-group>
+
+      <b-form-group
         :invalid-feedback="form.errors.get('city')"
         :state="form.errors.state('city')"
         :label="$i18n.t('auth.depositAdditionalInfo.city')"
@@ -74,6 +88,21 @@
           :placeholder="$i18n.t('auth.depositAdditionalInfo.city')"
           @input="form.clearError(['city'])"/>
       </b-form-group>
+
+      <b-form-group
+        :invalid-feedback="form.errors.get('state')"
+        :state="form.errors.state('state')"
+        :label="$i18n.t('auth.depositAdditionalInfo.state')"
+        label-for="needMoreInfo-state">
+
+        <b-form-input
+          id="needMoreInfo-state"
+          v-model="form.state"
+          :state="form.errors.state('state')"
+          :placeholder="$i18n.t('auth.depositAdditionalInfo.state')"
+          @input="form.clearError(['state'])"/>
+      </b-form-group>
+
       <b-row
         class="mb-4 mt-5"
         no-gutters>
@@ -97,7 +126,7 @@ import { mapActions } from 'vuex'
 import { Form } from '@/helpers'
 import DepositHeader from '@/views/account/account-deposit/DepositHeader'
 import DepositAdditionalInfoDescription from '@/views/account/account-deposit/DepositAdditionalInfoDescription'
-import { supportedCountries, getCodeByCountryName } from '@/helpers/countries'
+import { supportedCountries } from '@/helpers/countries'
 
 export default {
   components: {
@@ -115,24 +144,22 @@ export default {
       submitting: false,
       form: new Form(
         {
-          firstName: '',
-          lastName: '',
-          phone: '',
-          streetAddress: '',
-          city: '',
+          firstName: this.user.firstName || '',
+          lastName: this.user.lastName || '',
+          phone: this.user.phone || '',
+          streetAddress: this.user.addressStreetAddress || '',
+          zipCode: this.user.addressZipCode || '',
+          city: this.user.addressCity || '',
+          state: this.user.addressState || ''
         }
-      ),
+      )
     }
   },
   computed: {
-    userCountryCode () {
-      return getCodeByCountryName(this.user.addressCountry);
-    },
     phoneCode () {
-      const result = supportedCountries.filter(obj => {
-        return obj.value === this.user.addressCountry
-      })
-      return result.length ? `+${result[0].phone}` : ''
+      const result = supportedCountries.find(obj => obj.value === this.user.addressCountry)
+
+      return result ? `+${result.phone}` : ''
     }
   },
   mounted () {
@@ -156,8 +183,8 @@ export default {
         errors[error.path] = error.message
       })
       this.form.setErrors(errors)
-    },
-  },
+    }
+  }
 }
 </script>
 
@@ -167,6 +194,10 @@ export default {
     & /deep/ label {
       text-transform: uppercase;
       font-size: 0.75rem;
+    }
+
+    input::placeholder {
+      opacity: 0.5
     }
   }
 </style>

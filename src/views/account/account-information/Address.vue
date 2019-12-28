@@ -127,7 +127,7 @@
         class="pl-4">
         <b-form-input
           id="phone"
-          :value="`+${user.phone}`"
+          :value="user.phone"
           disabled/>
       </b-col>
     </b-row>
