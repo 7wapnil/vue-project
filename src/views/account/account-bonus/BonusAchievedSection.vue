@@ -8,7 +8,7 @@
         {{ $t('account.bonus.bonusAchieved') }}
       </h6>
       <span class="font-size-36 font-weight-bold text-arc-clr-white letter-spacing-5">
-        {{ bonusAchieved }}
+        {{ bonusAchieved | normalizeFloat }}
       </span>
     </div>
   </b-col>
@@ -16,6 +16,13 @@
 
 <script>
 export default {
+  filters: {
+    normalizeFloat (value) {
+      const number = value || 0
+
+      return number.toFixed(2)
+    }
+  },
   props: {
     bonusAchieved: {
       type: String,

@@ -29,7 +29,9 @@ const messages = {
         phone: 'Phone',
         phoneNumber: 'Phone Number',
         streetAddress: 'Street Address',
+        zipCode: 'Postal Code',
         city: 'City',
+        state: 'Province',
         next: 'Next'
       }
     },

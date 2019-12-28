@@ -21,7 +21,9 @@ export const USER_QUERY = gql`
       phone
       username
       addressCountry
+      addressState
       addressCity
+      addressZipCode
       addressStreetAddress
       wallets {
         ${WALLET_FIELDS}
@@ -198,7 +200,9 @@ export const UPDATE_USER_MUTATION = gql`
       firstName
       lastName
       phone
+      addressState
       addressCity
+      addressZipCode
       addressStreetAddress
       needMoreInfo
     }
