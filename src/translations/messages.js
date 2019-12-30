@@ -29,7 +29,7 @@ const messages = {
         title: 'arcanebet - Casino',
         description: 'Bet on casino'
       },
-      liveCasino: {
+      'live-casino': {
         title: 'arcanebet - Live casino',
         description: 'Bet on live casino'
       },
