@@ -192,6 +192,11 @@ const messages = {
         noResults: 'No results',
         search: 'Search'
       },
+      promo: {
+        jackpot: 'Arcanebet jackpot',
+        totalJackpot: 'Arcanebet total jackpot',
+        playTheseGames: 'Play these games to win'
+      }
     },
     betslip: {
       generic: 'Bet placement unsuccessful. Please try again or contact support.',

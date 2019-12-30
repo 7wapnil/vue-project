@@ -113,3 +113,10 @@ export const SEARCH_GAMES_QUERY = gql`
     }
   }
 `
+export const JACKPOT_TOTAL_QUERY = gql`
+  query jackpotTotal {
+    jackpotTotal {
+      amount
+    }
+  }
+`
