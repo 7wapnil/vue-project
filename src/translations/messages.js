@@ -160,6 +160,9 @@ const messages = {
       funModeLaunch: 'Log-in to play for real or click to play in demo',
       providers: 'Providers',
       liveDealerLaunch: 'Log-in to play',
+      yourBalance: 'Your Balance',
+      viewMyWallet: 'View my wallet',
+      seeInGame: 'See in game',
       headings: {
         gameProviders: 'Game providers'
       },

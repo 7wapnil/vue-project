@@ -10,10 +10,13 @@
         <b-col>
           <b-row no-gutters>
             <b-col class="d-inline-flex pb-2">
-              <span class="font-weight-bold font-size-12 letter-spacing-2">
+              <span
+                :class="balancePlaceholderColor"
+                class="font-weight-bold font-size-12 letter-spacing-2">
                 {{ activeBonusesList }}
-
-                <span class="currency-code">
+                <span
+                  v-if="!isGamePage"
+                  class="currency-code">
                   {{ activeWallet.currency.code }}
                 </span>
               </span>
@@ -24,11 +27,12 @@
               cols="12"
               class="d-flex">
               <icon
+                v-if="!isGamePage"
                 name="wallet-triangle-down"
                 class="mr-2 d-flex justify-content-center align-items-center"
                 size="6px"/>
               <span class="text-arc-clr-iron-light font-size-12 letter-spacing-2">
-                View my wallet
+                {{ walletDescription }}
               </span>
             </b-col>
           </b-row>
@@ -109,7 +113,19 @@ export default {
         return (wallet.id !== null && this.activeWallet.id !== wallet.id)
       })
     },
+    walletDescription () {
+      return this.isGamePage ? this.$i18n.t('casino.seeInGame') : this.$i18n.t('casino.viewMyWallet')
+    },
+    isGamePage () {
+      return this.$route.name === 'casino-game' || this.$route.name === 'live-casino-game'
+    },
+    balancePlaceholderColor () {
+      if (this.isGamePage) {
+        return this.currentLobbyName === 'casino' ? 'text-arc-clr-casino-glow' : 'text-arc-clr-live-casino-glow'
+      }
+    },
     activeBonusesList () {
+      if (this.isGamePage) return this.$i18n.t('casino.yourBalance')
       if (this.customerBonuses) {
         const activeSectionBonuses = this.customerBonuses.filter(bonus => bonus.status === 'active' &&
             bonus[this.currentLobbySection] === true)
