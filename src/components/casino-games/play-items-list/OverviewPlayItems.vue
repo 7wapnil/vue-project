@@ -25,8 +25,9 @@
 
       <transition-group
         :ref="category.id"
+        :class="[isMobile ? 'play-items-wrapper-mobile' : 'play-items-wrapper']"
         tag="div"
-        class="no-scrollbars play-items-wrapper"
+        class="no-scrollbars"
         name="play-items-appearance"
         appear>
         <category-play-item
@@ -168,7 +169,8 @@ export default {
             z-index: 9;
         }
     }
-    .play-items-wrapper {
+    .play-items-wrapper,
+    %play-items-wrapper {
       -webkit-overflow-scrolling: touch;
       scroll-snap-type: x mandatory;
       margin: 0 24px;
@@ -180,6 +182,10 @@ export default {
       transform: translate3d(0,0,1px);
       backface-visibility: hidden;
       will-change: transform;
+      &-mobile {
+        @extend %play-items-wrapper;
+        margin: 0 12px;
+      }
     }
     .play-item-desktop {
       scroll-snap-align: start;

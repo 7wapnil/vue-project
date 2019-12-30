@@ -1,11 +1,11 @@
 <template>
-  <div class="d-flex flex-row">
+  <div class="d-flex flex-row flex-wrap">
     <arc-circle
       v-for="page in pages"
       :key="page"
       :size="6"
       :class="[page === currentPage ? activeClass : '']"
-      class="indication-item"
+      class="indication-item m-1"
     />
   </div>
 </template>

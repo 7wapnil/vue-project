@@ -80,6 +80,9 @@ export default {
       &-desktop-container {
         overflow: hidden;
         height: 291px;
+        img {
+          min-height: 291px;
+        }
       }
     }
 </style>
