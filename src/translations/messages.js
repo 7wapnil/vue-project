@@ -188,7 +188,6 @@ const messages = {
         buttonText: 'I understand'
       },
       playItemsList: {
-        noMoreResults: 'No more results.',
         noResults: 'No results',
         search: 'Search'
       },

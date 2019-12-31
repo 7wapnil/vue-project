@@ -6,16 +6,11 @@
     <loader v-if="$apollo.loading"/>
     <b-row no-gutters>
       <b-col
-        v-if="lastPage"
-        class="text-center p-4">
-        {{ this.$i18n.t('casino.playItemsList.noMoreResults') }}
-      </b-col>
-      <b-col
         v-observe-visibility="{
           throttle: 300,
           callback: loadMoreGames
         }"
-        v-else/>
+        v-if="!lastPage"/>
     </b-row>
     <overview-providers/>
   </div>
