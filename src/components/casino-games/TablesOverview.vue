@@ -1,6 +1,7 @@
 <template>
   <b-row no-gutters>
     <b-col class="py-4">
+      <loader v-if="$apollo.loading"/>
       <overview-play-items
         v-for="category in categories"
         :key="category.id"
