@@ -437,10 +437,11 @@ export default {
       this.page = 1
       this.loadMoreCasinoHistory()
     },
-    tableTimeFilter (state) {
+    tableTimeFilter (state, lazy = false) {
       this.timeFilterState = state.event
       this.page = 1
-      this.loadMoreHistory()
+
+      if (!lazy) this.loadMoreHistory()
     },
     tableBetFilter (state) {
       this.betFilterState = state.event

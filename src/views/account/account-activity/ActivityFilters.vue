@@ -4,7 +4,9 @@
       class="mt-2 mb-4 mb-md-5"
       no-gutters>
       <b-col class="text-center text-md-left">
-        <b-button-group class="mb-4 mb-md-0">
+        <b-button-group
+          ref="timeButtons"
+          class="mb-4 mb-md-0">
           <b-btn
             v-for="(timeButton, index) in timeButtons"
             :key="index"
@@ -16,13 +18,15 @@
           <b-btn
             :class="{ active: dateSelected === 4 }"
             variant="arc-filters"
-            @click="openCalendar">
+            @click="toggleCalendar">
             <icon
               name="calender"
               size="16px"/>
           </b-btn>
         </b-button-group>
-        <b-button-group class="ml-0 ml-md-4">
+        <b-button-group
+          ref="stateButtons"
+          class="ml-0 ml-md-4">
           <b-btn
             v-for="(stateButton, index) in stateButtons"
             :key="index"
@@ -91,22 +95,54 @@ export default {
       ]
     }
   },
+  mounted () {
+    document.addEventListener('click', this.onClickOutside)
+  },
+  beforeDestroy () {
+    document.removeEventListener('click', this.onClickOutside)
+  },
   methods: {
     calendarChangeTimeFilter (date) {
       this.dateSelected = 4
       this.$emit('table-filtered-by-time', { event: moment(date).format('DD/MM/YYYY') })
     },
     changeTimeFilter (index) {
+      this.$refs.datepicker.close()
       this.dateSelected = index
       this.$emit('table-filtered-by-time', this.timeButtons[index])
     },
     changeBetFilter (index) {
+      this.lazyCloseOpenedCalendar()
       this.betStateSelected = index
       this.$emit('table-filtered-by-bet-state', this.stateButtons[index])
     },
-    openCalendar () {
-      this.dateSelected !== 4 ? this.dateSelected = 4 : this.dateSelected = 0
+    toggleCalendar () {
+      if (this.isOpenedCalendar()) return this.lazyCloseOpenedCalendar(false)
+
+      this.dateSelected = 4
       this.$refs.datepicker.showCalendar()
+    },
+    lazyCloseOpenedCalendar (lazy = true) {
+      if (!this.$refs.datepicker.isOpen) return
+
+      this.$refs.datepicker.close()
+      this.dateSelected = 0
+      this.$emit('table-filtered-by-time', 0, lazy)
+    },
+    onClickOutside (event) {
+      if (!this.$refs.datepicker || !this.$refs.datepicker.$el) return
+      if (!this.$refs.datepicker.isOpen) return
+      if (this.isInsideClick(event)) return
+
+      this.lazyCloseOpenedCalendar(false)
+    },
+    isOpenedCalendar () {
+      return this.dateSelected === 4 && this.$refs.datepicker.isOpen
+    },
+    isInsideClick (event) {
+      return this.$refs.datepicker.$el.contains(event.target) ||
+             this.$refs.timeButtons.contains(event.target) ||
+             this.$refs.stateButtons.contains(event.target)
     }
   },
 }
