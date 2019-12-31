@@ -1,6 +1,6 @@
 <template>
   <div>
-    <overview-item-header
+    <overview-providers-item-header
       :category="providersCategory"
       :pages="numberOfPages"
       :current-page="currentPage"/>
@@ -60,12 +60,12 @@
 import ProviderOverviewItem from '@/components/casino-games/ProviderOverviewItem'
 import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
 import { GAME_PROVIDERS_QUERY } from '@/graphql'
-import OverviewItemHeader from '@/components/casino-games/play-items-list/OverviewItemHeader'
+import OverviewProvidersItemHeader from '@/components/casino-games/play-items-list/OverviewProvidersItemHeader'
 
 export default {
   components: {
     ProviderOverviewItem,
-    OverviewItemHeader
+    OverviewProvidersItemHeader
   },
   data () {
     return {
