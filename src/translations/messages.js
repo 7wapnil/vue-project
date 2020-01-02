@@ -231,7 +231,11 @@ const messages = {
         bonus: 'Bonus',
         accountVerification: 'Account verification',
         accountStatus: 'Account status',
-        transactionHistory: 'Transaction history'
+        transactionHistory: 'Transaction history',
+        livechat: {
+          open: 'Open support chat',
+          close: 'Close support chat'
+        }
       },
       cta: {
         resetPassword: 'Reset password',
