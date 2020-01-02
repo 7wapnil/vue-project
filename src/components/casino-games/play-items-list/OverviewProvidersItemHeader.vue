@@ -1,59 +1,59 @@
 <template>
-    <b-row no-gutters>
-        <b-col
-                class="px-4 pt-4 pb-2 overview-item-header-block">
-            <icon
-                    :name="category.icon"
-                    :size="isMobile ? 20 : 26"
-                    class="overview-item-header-icon ml-md-4 ml-2"/>
-            <b-link
-                    :to="{ name: 'casino-providers' }"
-                    :router-tag="isMobile ? 'h5' : 'h4'"
-                    class="overview-item-header-title">
-                {{ category.label }}
-            </b-link>
-        </b-col>
-        <b-col
-                v-if="!isMobile"
-                class="px-4 pt-4 pb-2 overview-item-header-indication-block">
-            <overview-item-header-indication
-                    :pages="pages"
-                    :current-page="currentPage"/>
-        </b-col>
-        <b-col
-                class="px-4 pt-4 pb-2 overview-item-header-viewall-block">
-            <b-link
-                    :to="{ name: 'casino-providers' }"
-                    class="mr-md-2 mr-0">
-                {{ this.$i18n.t('casino.viewAll') }}
-            </b-link>
-        </b-col>
-    </b-row>
+  <b-row no-gutters>
+    <b-col
+      class="px-4 pt-4 pb-2 overview-item-header-block">
+      <icon
+        :name="category.icon"
+        :size="isMobile ? 20 : 26"
+        class="overview-item-header-icon ml-md-4 ml-2"/>
+      <b-link
+        :to="{ name: 'casino-providers' }"
+        :router-tag="isMobile ? 'h5' : 'h4'"
+        class="overview-item-header-title">
+        {{ category.label }}
+      </b-link>
+    </b-col>
+    <b-col
+      v-if="!isMobile"
+      class="px-4 pt-4 pb-2 overview-item-header-indication-block">
+      <overview-item-header-indication
+        :pages="pages"
+        :current-page="currentPage"/>
+    </b-col>
+    <b-col
+      class="px-4 pt-4 pb-2 overview-item-header-viewall-block">
+      <b-link
+        :to="{ name: 'casino-providers' }"
+        class="mr-md-2 mr-0">
+        {{ this.$i18n.t('casino.viewAll') }}
+      </b-link>
+    </b-col>
+  </b-row>
 </template>
 
 <script>
-    import OverviewItemHeaderIndication from '@/components/casino-games/play-items-list/OverviewItemHeaderIndication'
+import OverviewItemHeaderIndication from '@/components/casino-games/play-items-list/OverviewItemHeaderIndication'
 
-    export default {
-        name: 'OverviewProvidersItemHeader',
-        components: {
-            OverviewItemHeaderIndication
-        },
-        props: {
-            category: {
-                type: Object,
-                required: true
-            },
-            pages: {
-                type: Number,
-                required: true
-            },
-            currentPage: {
-                type: Number,
-                required: true
-            }
-        }
+export default {
+  name: 'OverviewProvidersItemHeader',
+  components: {
+    OverviewItemHeaderIndication
+  },
+  props: {
+    category: {
+      type: Object,
+      required: true
+    },
+    pages: {
+      type: Number,
+      required: true
+    },
+    currentPage: {
+      type: Number,
+      required: true
     }
+  }
+}
 </script>
 
 <style lang="scss" scoped>

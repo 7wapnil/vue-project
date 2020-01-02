@@ -32,12 +32,12 @@ export default {
     }
   },
   apollo: {
-      gameProviders () {
-          return {
-              query: GAME_PROVIDERS_QUERY,
-              fetchPolicy: NETWORK_ONLY
-          }
+    gameProviders () {
+      return {
+        query: GAME_PROVIDERS_QUERY,
+        fetchPolicy: NETWORK_ONLY
       }
+    }
   },
   computed: {
     providers () {
