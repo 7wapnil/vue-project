@@ -324,6 +324,7 @@ const messages = {
         },
       },
       accountVerification: {
+        activated: 'Your account has been successfully activated',
         status: {
           verified: 'Verified',
           notVerified: 'Not Verified'
