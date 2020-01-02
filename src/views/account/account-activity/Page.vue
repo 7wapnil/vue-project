@@ -135,7 +135,7 @@
             <b-row no-gutters>
               <b-col>
                 <span class="font-size-11">
-                  Transaction ID: {{ data.item.transactionId }}
+                  Transaction ID: {{ data.item.id }}
                 </span>
               </b-col>
             </b-row>
