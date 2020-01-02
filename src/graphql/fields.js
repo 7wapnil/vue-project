@@ -202,7 +202,7 @@ export const EVERY_MATRIX_SESSION_FIELDS = `
 
 export const EVERY_MATRIX_TRANSACTION_FIELDS = `
   id
-  customerId
+  userId
   debit
   credit
   balance
