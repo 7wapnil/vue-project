@@ -459,8 +459,6 @@ export const actions = {
       })
   },
   validateBets ({ dispatch, commit, state }) {
-    commit('startValidation')
-
     if (state.isComboBetsMode) {
       dispatch('validateComboBets')
     } else {
@@ -468,9 +466,9 @@ export const actions = {
     }
   },
   validateComboBets ({ commit, getters }) {
+    commit('startValidation')
     commit('cleanBetErrors')
     commit('clearBetslipMessages')
-    commit('startValidation')
 
     graphqlClient
       .query({
@@ -487,8 +485,12 @@ export const actions = {
       })
   },
   validateSingleBets ({ commit }) {
-    commit('cleanBetErrors')
-    commit('finishValidation')
+    commit('startValidation')
+
+    setTimeout(() => {
+      commit('cleanBetErrors')
+      commit('finishValidation')
+    })
   },
   updateComboBetsMode ({ dispatch, commit, state }, { enabled }) {
     commit('clearBetIds')

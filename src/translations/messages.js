@@ -269,6 +269,11 @@ const messages = {
       balance: 'Balance',
       secondWallet: '2nd Wallet'
     },
+    sidemenu: {
+      settings: {
+        livechat: 'livechat'
+      }
+    },
     account: {
       tabs: {
         account: 'Account info & settings',
@@ -426,6 +431,9 @@ const messages = {
       esports: 'esports',
       casino: 'casino',
       liveCasino: 'live casino'
+    },
+    common: {
+      noEventsFound: 'No events found'
     }
   }
 }

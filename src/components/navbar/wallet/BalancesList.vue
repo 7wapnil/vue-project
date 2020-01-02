@@ -126,8 +126,8 @@ export default {
     },
     activeBonusesList () {
       if (this.isGamePage) return this.$i18n.t('casino.yourBalance')
-      if (this.customerBonuses) {
-        const activeSectionBonuses = this.customerBonuses.filter(bonus => bonus.status === 'active' &&
+      if (this.bonuses) {
+        const activeSectionBonuses = this.bonuses.filter(bonus => bonus.status === 'active' &&
             bonus[this.currentLobbySection] === true)
         return activeSectionBonuses.length > 0
           ? (this.activeWallet.realMoneyBalance + this.activeWallet.bonusBalance).toFixed(2)
@@ -137,7 +137,7 @@ export default {
     }
   },
   apollo: {
-    customerBonuses () {
+    bonuses () {
       return {
         query: BONUSES_LIST_QUERY,
         fetchPolicy: NETWORK_ONLY
