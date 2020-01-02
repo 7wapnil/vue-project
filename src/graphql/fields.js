@@ -147,6 +147,7 @@ export const PLAY_ITEM_FIELDS = `
   description
   logoUrl
   backgroundImageUrl
+  freeMode
   url
   slug
   type
@@ -218,4 +219,5 @@ export const GAME_PROVIDERS_FIELDS = `
   logoUrl
   name
   internalImageName
+  slug
 `

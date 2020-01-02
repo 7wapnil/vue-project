@@ -1,5 +1,7 @@
 <template>
-  <div class="provider-overview-item">
+  <div
+    class="provider-overview-item"
+    @click="pushProvider(provider.slug)">
     <b-img
       :src="itemImg"
       :alt="provider.name"
@@ -29,6 +31,13 @@ export default {
     },
     defaultImg () {
       return require('@/assets/icons/sidemenu/arcanebet-default-icon.svg')
+    }
+  },
+  methods: {
+    pushProvider (provider) {
+      this.$router.push({ name: 'casino-games-by-provider-name',
+        params: { providerName: provider }
+      })
     }
   }
 }
