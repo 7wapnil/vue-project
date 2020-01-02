@@ -129,9 +129,8 @@ export default {
       if (this.customerBonuses) {
         const activeSectionBonuses = this.customerBonuses.filter(bonus => bonus.status === 'active' &&
             bonus[this.currentLobbySection] === true)
-        const sumOfActiveBonuses = activeSectionBonuses.map(bonus => parseInt(bonus.amount))[0]
-        return sumOfActiveBonuses
-          ? (this.activeWallet.realMoneyBalance + sumOfActiveBonuses).toFixed(2)
+        return activeSectionBonuses.length > 0
+          ? (this.activeWallet.realMoneyBalance + this.activeWallet.bonusBalance).toFixed(2)
           : this.activeWallet.realMoneyBalance.toFixed(2)
       }
       return this.activeWallet.realMoneyBalance.toFixed(2)
