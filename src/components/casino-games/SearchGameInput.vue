@@ -17,6 +17,7 @@
       class="search-reset"
       @click="reset">
       <icon
+        :color="routeName === 'casino' ? 'arc-clr-casino-glow' : 'arc-clr-live-casino-glow'"
         name="close"
         size="18px"/>
     </div>
