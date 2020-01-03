@@ -27,30 +27,17 @@
         </span>
       </b-col>
     </b-row>
-    <b-row
+    <component
       v-if="playItems.length > 0"
-      no-gutters>
-      <b-col class="px-1 px-md-2 pb-4">
-        <div class="play-items-container">
-          <category-play-item
-            v-for="playItem in playItems"
-            :key="playItem.id"
-            :item="playItem"
-            :category="category"
-          />
-        </div>
-      </b-col>
-    </b-row>
+      :is="currentComponent"
+      :play-items="playItems"
+      :category="category" />
   </div>
 </template>
 <script>
-import CategoryPlayItem from './CategoryPlayItem'
 
 export default {
   name: 'CategoryPlayItems',
-  components: {
-    CategoryPlayItem
-  },
   props: {
     playItems: {
       type: Array,
@@ -66,7 +53,12 @@ export default {
     },
     categoryIcon () {
       return `${this.$route.params.titleKind}-${this.category.context}`
-    }
+    },
+    currentComponent () {
+      const Mobile = () => import(`@/components/casino-games/play-items-list/CategoryPlayItemsMobile`)
+      const Desktop = () => import(`@/components/casino-games/play-items-list/CategoryPlayItemsDesktop`)
+      return this.isMobile ? Mobile : Desktop;
+    },
   },
   methods: {
     pushLobby () {
@@ -76,37 +68,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss"
-       scoped>
-  .play-item {
-    &-desktop:first-child {
-      margin: 10px;
-    }
-  }
-  .play-items-container {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: flex-start;
-  }
-  .play-item {
-    &-desktop {
-      flex: 0 0 auto;
-      margin: 10px;
-      cursor: pointer;
-      border-radius: 5px;
-      height: 177.3px;
-      max-width: 266px;
-      width: 100%;
-      position: relative;
-    }
-    &-mobile {
-      margin: 5px;
-      flex: 0 0 46%;
-      &:first-child {
-        margin-left: 5px;
-      }
-    }
-  }
-</style>
