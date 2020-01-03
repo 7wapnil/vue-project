@@ -1,7 +1,6 @@
 import PasswordRecoveryPage from '@/views/auth/PasswordResetForm'
 import EmailVerificationPage from '@/views/auth/EmailVerification'
 import ImpersonatePage from '@/views/auth/Impersonation'
-import NotFound from '@/views/layouts/common/NotFound'
 
 export default [
   {
@@ -25,11 +24,4 @@ export default [
       content: ImpersonatePage,
     }
   },
-  {
-    path: '*',
-    name: 'not-found',
-    components: {
-      content: NotFound,
-    }
-  }
 ]
