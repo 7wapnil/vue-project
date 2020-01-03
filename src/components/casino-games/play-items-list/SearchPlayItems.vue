@@ -7,9 +7,9 @@
         cols="8"
         class="d-flex align-items-center p-4">
         <h4
-          v-if="count"
+          v-if="!loading"
           class="mb-0 font-weight-light">
-          {{ count }} results found for "{{ $route.query.q }}"
+          {{ searchMessage }}
         </h4>
       </b-col>
       <b-col
@@ -23,6 +23,16 @@
         <span class="mr-1">
           {{ this.$i18n.t('casino.return') }}
         </span>
+      </b-col>
+    </b-row>
+    <b-row
+      v-if="!loading && count === 0"
+      no-gutters>
+      <b-col class="px-4">
+        <h6
+          class="mb-0 font-weight-light text-arc-clr-iron">
+          {{ this.$i18n.t('casino.playItemsList.noResultsFound') }}
+        </h6>
       </b-col>
     </b-row>
     <b-row
@@ -57,6 +67,10 @@ export default {
     count: {
       type: Number,
       default: null
+    },
+    loading: {
+      type: Boolean,
+      required: true
     }
   },
   data () {
@@ -64,6 +78,19 @@ export default {
       category: {
         name: 'all-games',
         label: 'all-games'
+      }
+    }
+  },
+  computed: {
+    searchMessage () {
+      if (this.count > 0) {
+        return this.isMobile
+          ? this.$i18n.t('casino.playItemsList.countResultsFound', { count: this.count })
+          : this.$i18n.t('casino.playItemsList.countResultsFoundWithQuery', { count: this.count, query: this.$route.query.q })
+      } else {
+        return this.isMobile
+          ? this.$i18n.t('casino.playItemsList.noResultsShort')
+          : this.$i18n.t('casino.playItemsList.noResultsForQuery', { query: this.$route.query.q })
       }
     }
   },

@@ -8,7 +8,7 @@
       class="search-icon"
       size="12px"/>
     <input
-      v-model="query"
+      v-model.trim="query"
       :placeholder="$i18n.t('casino.playItemsList.search')"
       type="text"
       class="search-game-input"
