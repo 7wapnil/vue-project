@@ -1,14 +1,14 @@
 <template>
   <div>
     <b-row
-      v-if="!providersCollection.length"
+      v-if="!gamesCollection.length"
       no-gutters>
       <b-col class="text-center p-4">
         {{ $t('casino.noProviders') }}
       </b-col>
     </b-row>
 
-    <category-play-items :play-items="providersCollection"/>
+    <category-play-items :play-items="gamesCollection"/>
   </div>
 </template>
 
@@ -24,7 +24,7 @@ export default {
   data () {
     return {
       itemsPerPage: 20,
-      providersCollection: []
+      gamesCollection: []
     }
   },
   computed: {
@@ -38,7 +38,7 @@ export default {
   },
   created () {
     this.$route.params.category = 'providers'
-    this.$route.params.label = this.formatLabelName
+    this.$route.params.label = this.$route.params.providerFullName || this.formatLabelName
   },
   apollo: {
     providerGames () {
@@ -53,7 +53,7 @@ export default {
           }
         },
         result ({ data }) {
-          this.providersCollection = data.gamesByProvider.collection
+          this.gamesCollection = data.gamesByProvider.collection
         }
       }
     }
