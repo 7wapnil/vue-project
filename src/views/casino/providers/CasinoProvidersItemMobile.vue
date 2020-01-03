@@ -1,5 +1,8 @@
 <template>
-  <b-row no-gutters>
+  <b-row
+    no-gutters
+    @click="pushProviderPage
+    ">
     <b-col class="bg-arc-clr-soil-dark mx-2 my-1 p-0 border-4 pointer">
       <b-row
         class="mb-0"
@@ -41,6 +44,13 @@ export default {
     provider: {
       type: Object,
       required: true
+    }
+  },
+  methods: {
+    pushProviderPage () {
+      this.$router.push({ name: 'casino-games-by-provider-name',
+        params: { providerName: this.provider.slug }
+      })
     }
   }
 }

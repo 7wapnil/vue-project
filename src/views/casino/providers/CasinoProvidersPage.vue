@@ -4,7 +4,7 @@
     <div class="p-0 px-md-2 mb-md-2">
       <b-row no-gutters>
         <b-col
-          v-for="provider in providers"
+          v-for="provider in gameProviders"
           :key="provider.id"
           cols="12"
           md="6">
@@ -28,35 +28,18 @@ export default {
   },
   data () {
     return {
-      providersCollection: [],
-      paginationProps: Object,
-      itemsPerPage: 20
+      gameProviders: []
     }
   },
   apollo: {
     gameProviders () {
       return {
         query: GAME_PROVIDERS_QUERY,
-        fetchPolicy: NETWORK_ONLY,
-        variables () {
-          return {
-            page: 1,
-            perPage: this.itemsPerPage
-          }
-        },
-        result ({ data }) {
-          this.providersCollection = data.gameProviders.collection
-          this.paginationProps = data.gameProviders.pagination
-        }
+        fetchPolicy: NETWORK_ONLY
       }
     }
   },
   computed: {
-    providers () {
-      if (this.providersCollection) {
-        return this.providersCollection.filter(provider => provider.enabled === 'true')
-      }
-    },
     providerComponent () {
       const ProviderItem = () => import('@/views/casino/providers/CasinoProvidersItem')
       const ProviderItemMobile = () => import('@/views/casino/providers/CasinoProvidersItemMobile')

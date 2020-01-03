@@ -14,6 +14,7 @@
         <b-col class="text-right p-3 p-md-0 d-flex align-items-start justify-content-end item-header-block">
           <b-link
             v-if="!isMobile"
+            :to="{ name: 'casino-games-by-provider-name', params: { providerName: provider.slug }}"
             router-tag="h6">
             {{ $t('casino.viewGames') }}
             <icon
