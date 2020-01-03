@@ -12,6 +12,7 @@ import filters from '@/mixins/filters'
 import { colors } from '@/constants/android-theme-colors'
 import Layout from '@/views/layouts/common/Layout'
 import { TITLE_KINDS } from '@/constants/title-kinds'
+import NotFound from '@/views/layouts/common/NotFound'
 
 const rootChilds = [...Esports, ...Sports, ...LiveCasino, ...Casino, ...support.routes, ...system]
 
@@ -30,6 +31,17 @@ const router = new Router({
       path: 'maintenance',
       name: 'Maintenance',
       component: Maintenance
+    },
+    {
+      path: '*',
+      name: 'not-found',
+      component: Layout,
+      children: [{
+        path: '*',
+        components: {
+          content: NotFound,
+        }
+      }]
     }
   ],
   scrollBehavior (to, from, savedPosition) {
