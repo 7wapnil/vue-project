@@ -1,7 +1,7 @@
 <template>
   <div
     class="provider-overview-item"
-    @click="pushProvider(provider.slug)">
+    @click="pushProvider">
     <b-img
       :src="itemImg"
       :alt="provider.name"
@@ -34,9 +34,9 @@ export default {
     }
   },
   methods: {
-    pushProvider (provider) {
+    pushProvider () {
       this.$router.push({ name: 'casino-games-by-provider-name',
-        params: { providerName: provider }
+        params: { providerName: this.provider.slug, providerFullName: this.provider.name }
       })
     }
   }

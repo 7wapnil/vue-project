@@ -4,7 +4,7 @@
     <div class="p-0 px-md-2 mb-md-2">
       <b-row no-gutters>
         <b-col
-          v-for="provider in providers"
+          v-for="provider in gameProviders"
           :key="provider.id"
           cols="12"
           md="6">
@@ -40,11 +40,6 @@ export default {
     }
   },
   computed: {
-    providers () {
-      if (this.gameProviders) {
-        return this.gameProviders.filter(provider => provider.enabled === 'true')
-      }
-    },
     providerComponent () {
       const ProviderItem = () => import('@/views/casino/providers/CasinoProvidersItem')
       const ProviderItemMobile = () => import('@/views/casino/providers/CasinoProvidersItemMobile')
