@@ -59,7 +59,8 @@ if (process.env.NODE_ENV === 'production') {
         '/support/terms-and-conditions'],
       renderer: new Renderer({
         headless: true,
-        args: ['--no-sandbox', '--disable-setuid-sandbox']
+        args: ['--no-sandbox', '--disable-setuid-sandbox'],
+        renderAfterDocumentEvent: 'render-event'
       })
     }),
     new CompressionPlugin({
