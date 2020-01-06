@@ -69,6 +69,7 @@ a:focus {
 
 .mobile-container {
   margin-top: 60px;
+  transform: translate3d(0,0,0);
   background-color: $arc-clr-soil-light;
 }
 .event-list-container {
