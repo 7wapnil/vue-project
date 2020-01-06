@@ -9,17 +9,25 @@
       :alt="itemTitle"
       class="image">
     <div
-      v-show="hover && !isMobile"
-      class="zbutton">
-      <h4 class="mb-0">
+      v-if="hover && !isMobile"
+      class="launch-button">
+      <h5 class="mb-0 letter-spacing-2 text-center">
         {{ buttonText }}
-      </h4>
+      </h5>
+    </div>
+    <div
+      v-if="isFunModeLabelAvaible"
+      class="fun-mode-button"
+      @click.stop="lauchFunMode">
+      <h6 class="try-for-free-label">
+        {{ $t('casino.tryForFree') }}
+      </h6>
     </div>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 import { CREATE_EVERY_MATRIX_SESSION_MUTATION } from '@/graphql'
 
 export default {
@@ -52,33 +60,42 @@ export default {
     itemTitle () {
       return this.item.name
     },
-    buttonText () {
-      if (this.isLoggedIn) return this.$i18n.t('casino.realModeLaunch')
-      if (this.isTableGame) return this.$i18n.t('casino.liveDealerLaunch')
-
-      return this.$i18n.t('casino.funModeLaunch')
-    },
     walletId () {
       if (this.activeWallet) return parseInt(this.activeWallet.id)
     },
+    buttonText () {
+      if (this.isLoggedIn) return this.$i18n.t('casino.realModeLaunch')
+
+      return this.$i18n.t('casino.loginToPlay')
+    },
     isTableGame () {
       return this.item.type === 'table'
+    },
+    isFunModeLabelAvaible () {
+      return this.hover && !this.isMobile && !this.isTableGame
     }
   },
   methods: {
+    ...mapMutations([
+      'storeGameSlug'
+    ]),
     launchGame () {
-      if (!this.isLoggedIn && this.isTableGame) return
+      if (!this.isLoggedIn && this.isMobile) {
+        this.storeGameSlug(this.item.slug)
+        return this.$bvModal.show('GameModeModal')
+      }
+
+      if (!this.isLoggedIn && !this.isMobile) return this.$bvModal.show('AuthModal')
 
       if (this.isDesktop) {
         return this.$router.push({
-          name: `${this.$route.params.titleKind}-game`,
+          name: `${this.currentLobbyName}-game`,
           params: {
             playItemSlug: this.item.slug,
             category: this.category.context
           }
         })
       }
-
       this
         .$apollo
         .mutate({
@@ -94,7 +111,17 @@ export default {
         .catch(() => {
           this.$router.push({ name: 'not-found' })
         })
+    },
+    lauchFunMode () {
+      return this.$router.push({
+        name: `${this.currentLobbyName}-game`,
+        params: {
+          playItemSlug: this.item.slug,
+          category: this.category.context
+        }
+      })
     }
+
   }
 }
 </script>
@@ -122,7 +149,11 @@ export default {
           transform: scale(1.09);
         }
       }
-      .zbutton {
+      .try-for-free-label {
+        color: $arc-clr-grey-light;
+        margin-bottom: 0;
+      }
+      .launch-button {
         margin-left: auto;
         margin-right: auto;
         left: 0;
@@ -137,9 +168,22 @@ export default {
         align-items: center;
         justify-content: center;
         display: flex;
-        font-size: 12px;
-        letter-spacing: .002em;
         text-transform: uppercase;
+        padding: 10px;
+      }
+      .fun-mode-button {
+        display: flex;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 20%;
+        align-items: center;
+        justify-content: center;
+        &:hover > .try-for-free-label{
+          color: $arc-clr-white;
+          transition: color .3s ease;
+        }
       }
       .image {
         height: 100%;

@@ -30,6 +30,7 @@
 <script>
 import { RECOMMENDED_GAMES_QUERY } from '@/graphql'
 import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'CasinoRecommendedPlayItems',
@@ -38,6 +39,11 @@ export default {
       recommendedItems: [],
       hover: true
     }
+  },
+  computed: {
+    ...mapGetters({
+      isLoggedIn: 'isLoggedIn'
+    })
   },
   methods: {
     fetchRecommendedItems (playItemId) {
@@ -62,6 +68,8 @@ export default {
     },
     launchGame (item) {
       this.$forceUpdate()
+
+      if (!this.isLoggedIn) { return this.$bvModal.show('AuthModal') }
 
       return this.$router.push({
         name: `${this.$route.params.titleKind}-game`,
