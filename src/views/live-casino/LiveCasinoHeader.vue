@@ -63,7 +63,10 @@ export default {
         flex-wrap: wrap;
       }
       &-auth {
-        height: 200px;
+        .casino-header-tab-container {
+          flex-wrap: wrap;
+        }
+        height: 250px;
         overflow: hidden;
         img {
           height: 200px;
