@@ -154,7 +154,7 @@
       <b-form-invalid-feedback
         :state="form.errors.state('agreedWithPrivacy')"
         role="alert"
-        class="invalid-feedback">{{ form.errors.get('agreedWithPrivacy') }}</b-form-invalid-feedback>
+        class="invalid-feedback agreed-with-privacy">{{ form.errors.get('agreedWithPrivacy') }}</b-form-invalid-feedback>
     </b-row>
     <b-button
       id="signup-submit"
@@ -232,5 +232,8 @@ export default {
     border-bottom-right-radius: 0;
     border-top-right-radius: 6px;
     min-width: 70px;
+  }
+  .agreed-with-privacy {
+    margin-bottom: 8px;
   }
 </style>
