@@ -77,7 +77,8 @@ export default {
     return {
       category: {
         name: 'all-games',
-        label: 'all-games'
+        label: 'all-games',
+        context: 'all-games'
       }
     }
   },
