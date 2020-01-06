@@ -4,8 +4,12 @@
       :category="category"
       :pages="numberOfPages"
       :current-page="currentPage"/>
+    <promo-item
+      v-if="showPromoItem && isMobile && itemsPerPage <= 3"
+      key="promo-item"
+      :items-per-page="itemsPerPage"
+      :category="category" />
     <div class="position-relative">
-
       <transition name="arrow-left">
         <div
           v-show="scrollPosition > 0"
@@ -30,6 +34,11 @@
         class="no-scrollbars"
         name="play-items-appearance"
         appear>
+        <promo-item
+          v-if="showPromoItem && !isMobile || showPromoItem && itemsPerPage > 3"
+          key="promo-item"
+          :items-per-page="itemsPerPage"
+          :category="category" />
         <category-play-item
           v-for="(playItem, index) in playItems"
           :key="playItem.id"
@@ -61,11 +70,13 @@
 <script>
 import CategoryPlayItem from '@/components/casino-games/play-items-list/CategoryPlayItem'
 import OverviewItemHeader from '@/components/casino-games/play-items-list/OverviewItemHeader'
+import PromoItem from '@/components/casino-games/play-items-list/PromoItem'
 
 export default {
   components: {
     CategoryPlayItem,
-    OverviewItemHeader
+    OverviewItemHeader,
+    PromoItem
   },
   props: {
     category: {
@@ -87,6 +98,11 @@ export default {
       rowWidth: 0
     }
   },
+  computed: {
+    showPromoItem () {
+      return this.category.context === 'jackpots'
+    }
+  },
   mounted () {
     this.calculateDimensions()
     this.calculateCurrentPage()
@@ -95,7 +111,8 @@ export default {
   methods: {
     calculateDimensions () {
       const wrapper = this.$refs[this.category.id].$el
-      const item = this.$refs[this.category.id].$children[0].$el
+      const children = this.$refs[this.category.id].$children;
+      const item = this.showPromoItem ? children[1].$el : children[0].$el
 
       this.wrapperWidth = wrapper.clientWidth
       this.itemWidth = item.clientWidth
