@@ -2,21 +2,31 @@
   <b-form
     novalidate
     @submit.prevent="submit">
-    <b-form-group>
+    <b-form-group
+      :label="$i18n.t('auth.signUpForm.username')"
+      label-for="signin-username">
       <b-form-input
+        id="signin-username"
+        :placeholder="$i18n.t('auth.signUpForm.username')"
         v-model="fields.login"
-        placeholder="Username"
         autocomplete="username"
         class="mb-4"
         required/>
+    </b-form-group>
+
+    <b-form-group
+      :label="$i18n.t('auth.signUpForm.password')"
+      label-for="signin-password">
       <b-form-input
+        id="signin-password"
+        :placeholder="$i18n.t('auth.signUpForm.password')"
         v-model="fields.password"
         class="mb-4"
         autocomplete="current-password"
-        placeholder="Password"
         type="password"
         required/>
     </b-form-group>
+
     <b-row
       v-if="isSuspicious"
       no-gutters>
@@ -126,3 +136,15 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+  .form-group {
+    & /deep/ label {
+      text-transform: uppercase;
+      font-size: 0.75rem;
+    }
+  }
+  .invalid-feedback {
+    margin-bottom: 8px;
+  }
+</style>
