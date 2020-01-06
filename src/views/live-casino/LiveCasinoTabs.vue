@@ -5,12 +5,12 @@
     justified
     tabs>
     <b-nav-item
-      v-for="tab in tabs"
+      v-for="(tab, index) in tabs"
       :key="tab.id"
-      :to="tab.route"
-      exact
-      exact-active-class="casino-tab-active"
-      link-classes="casino-tab">
+      :active="activeIndex === index"
+      :class="[activeIndex === index ? 'casino-tab-active' : '']"
+      link-classes="casino-tab"
+      @click="scrollIntoView(tab.context, index)">
       <b-row no-gutters>
         <b-col
           class="text-center"
@@ -45,10 +45,11 @@ export default {
         id: 0,
         name: 'live-casino',
         icon: 'live-casino-live-casino',
-        label: 'Live Casino',
+        label: this.$i18n.t('casino.sidemenu.labels.liveCasino'),
         route: { name: 'live-casino' }
       },
-      tabs: []
+      tabs: [],
+      activeIndex: 0
     }
   },
   apollo: {
@@ -76,6 +77,25 @@ export default {
         }
       }
     }
+  },
+  methods: {
+    scrollIntoView (section, index) {
+      this.activeIndex = index
+      if (section) {
+        const targetSection = document.getElementById(section)
+        const bodyRect = document.body.getBoundingClientRect().top
+        const elementRect = targetSection.getBoundingClientRect().top
+        const elementPosition = elementRect - bodyRect
+        this.scrollToPosition(elementPosition)
+      }
+      this.scrollToPosition(0)
+    },
+    scrollToPosition (position) {
+      return window.scrollTo({
+        top: position,
+        behavior: 'smooth'
+      })
+    }
   }
 }
 </script>
@@ -96,7 +116,7 @@ export default {
     }
     .casino-tab {
         padding: 16px;
-        &-active {
+        &-active a {
             letter-spacing: -0.004em;
             transition: all .3s ease-in-out;
             background: #3D3D3D !important;
