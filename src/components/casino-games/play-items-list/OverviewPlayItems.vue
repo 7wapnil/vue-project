@@ -185,6 +185,7 @@ export default {
       &-mobile {
         @extend %play-items-wrapper;
         margin: 0 12px;
+        transform: translate3d(0,0,0);
       }
     }
     .play-item-desktop {
