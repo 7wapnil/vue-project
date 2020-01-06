@@ -86,16 +86,11 @@ export default {
   },
   methods: {
     launchGame () {
-      if (this.isLoggedIn && this.walletId === undefined) { return }
-
       this
         .$apollo
         .mutate({
           mutation: CREATE_EVERY_MATRIX_SESSION_MUTATION,
-          variables: {
-            walletId: this.walletId,
-            playItemSlug: this.$attrs.playItemSlug
-          }
+          variables: this.gameMode()
         })
         .then(({ data }) => {
           this.launchUrl = data.createEveryMatrixSession.launchUrl
@@ -119,8 +114,18 @@ export default {
       }
     },
     pushLobby () {
-      const lobby = this.$route.params.titleKind
-      this.$router.push({ name: lobby })
+      this.$router.push({ name: this.currentLobbyName })
+    },
+    gameMode () {
+      if ((this.isLoggedIn && this.walletId === undefined) ||
+          (this.$route.params.gameMode === 'fun')) {
+        return { playItemSlug: this.$attrs.playItemSlug }
+      } else {
+        return {
+          walletId: this.walletId,
+          playItemSlug: this.$attrs.playItemSlug
+        }
+      }
     }
   }
 }
