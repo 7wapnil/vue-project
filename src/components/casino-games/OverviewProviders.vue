@@ -188,7 +188,7 @@ export default {
     overflow-y: hidden;
     flex-wrap: nowrap;
     scroll-behavior: smooth;
-    transform: translate3d(0,0,1px);
+    transform: translate3d(0,0,0);
     backface-visibility: hidden;
     will-change: transform;
   }
