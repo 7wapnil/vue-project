@@ -39,6 +39,9 @@
   }
   &-body {
     padding: 0 14px 14px 14px;
+    &.ios-device {
+      margin-bottom: 44px;
+    }
   }
   &-dialog {
     margin: 0;

@@ -4,9 +4,9 @@
     :lazy="false"
     v-model="modalVisible"
     :dialog-class="[ isMobile ? 'auth-modal-dialog-mobile' : '']"
+    :body-class="`auth-modal-body ${isMobile && isIosDevice ? 'ios-device' : ''}`"
     scrollable
-    header-class="auth-modal-header"
-    body-class="auth-modal-body">
+    header-class="auth-modal-header">
     <template #modal-header="{ close }">
       <img
         src="~@/assets/images/logo/arcanebet-logo.svg"
