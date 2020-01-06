@@ -68,7 +68,6 @@ export default {
   methods: {
     launchGame () {
       if (!this.isLoggedIn && this.isTableGame) return
-
       if (this.isDesktop) {
         return this.$router.push({
           name: `${this.$route.params.titleKind}-game`,
