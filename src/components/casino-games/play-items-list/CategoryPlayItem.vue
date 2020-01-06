@@ -80,10 +80,7 @@ export default {
       'storeGameSlug'
     ]),
     launchGame () {
-      if (!this.isLoggedIn && this.isMobile) {
-        this.storeGameSlug(this.item.slug)
-        return this.$bvModal.show('GameModeModal')
-      }
+      if (!this.isLoggedIn && this.isMobile) return this.openGameModalMobile()
 
       if (!this.isLoggedIn && !this.isMobile) return this.$bvModal.show('AuthModal')
 
@@ -96,6 +93,7 @@ export default {
           }
         })
       }
+
       this
         .$apollo
         .mutate({
@@ -117,9 +115,14 @@ export default {
         name: `${this.currentLobbyName}-game`,
         params: {
           playItemSlug: this.item.slug,
-          category: this.category.context
+          category: this.category.context,
+          gameMode: 'fun'
         }
       })
+    },
+    openGameModalMobile () {
+      this.storeGameSlug(this.item.slug)
+      return this.$bvModal.show('GameModeModal')
     }
 
   }
