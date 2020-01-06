@@ -22,7 +22,7 @@
           {{ $t('cookies.description') }}
           <u>
             <b-link
-              :to="{ name: 'Cookie Policy'}"
+              :to="{ name: 'cookie policy'}"
               class="text-arc-clr-iron-light font-weight-bold letter-spacing-2 ">
               {{ $t('cookies.policy') }}
             </b-link>
