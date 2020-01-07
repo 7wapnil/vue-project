@@ -39,7 +39,7 @@ export default {
   },
   watch: {
     '$route.query' (to) {
-      if (to.q === '') this.query = ''
+      if (to.q === '' || !to.q) this.query = ''
     }
   },
   created () {
@@ -47,11 +47,11 @@ export default {
   },
   methods: {
     setQuery (e) {
-      this.$router.replace({ name: `${this.routeName}-search`, query: { q: this.query } })
+      this.$router.push({ name: `${this.routeName}-search`, query: { q: this.query } })
     },
     reset () {
       this.query = ''
-      this.$router.replace({ name: this.routeName })
+      this.$router.push({ name: this.routeName })
     }
   }
 }

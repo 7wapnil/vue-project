@@ -49,7 +49,7 @@ export default {
     }
   },
   destroyed () {
-    this.$route.query.q = ''
+    delete this.$route.query.q
   },
   methods: {
     loadMoreGames (isVisible) {
