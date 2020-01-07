@@ -144,7 +144,7 @@
           :per-page="betsPerPage"
           class="table-pagination"
           align="center"
-          @input="loadMoreHistory"
+          @input="loadMore"
         />
       </b-tab>
       <b-tab
@@ -236,7 +236,7 @@
           :per-page="betsPerPage"
           class="table-pagination"
           align="center"
-          @input="loadMoreCasinoHistory"
+          @input="loadMore"
         />
       </b-tab>
     </b-tabs>
@@ -266,7 +266,7 @@ export default {
       page: 1,
       paginationProps: Object,
       betsPerPage: 10,
-      betKind: null,
+      betKind: 'esports',
       loadingBets: true,
       fields: [
         this.$i18n.t('account.activity.table.headers.time'),
@@ -306,10 +306,11 @@ export default {
   },
   computed: {
     hasBetHistory () {
-      return this.bets.collection && this.bets.collection.length
+      return !!(this.bets.collection && this.bets.collection.length)
     },
     hasEveryMatrixTransactionsHistory () {
-      return this.everyMatrixTransactions.collection && this.everyMatrixTransactions.collection.length
+      return !!(this.everyMatrixTransactions.collection &&
+          this.everyMatrixTransactions.collection.length)
     },
     currentPage: {
       get () {
@@ -317,16 +318,6 @@ export default {
       },
       set (value) {
         this.page = value
-      }
-    },
-    variables () {
-      return {
-        page: this.currentPage,
-        perPage: this.betsPerPage,
-        kind: this.betKind,
-        settlementStatus: this.betFilterState,
-        dateRange: this.timeFilterState,
-        excludedStatuses: [Bet.statuses.failed, Bet.statuses.rejected]
       }
     },
     badgeStatus () {
@@ -341,7 +332,32 @@ export default {
         lost: 'wp-clr-notif-red',
         voided: 'arc-clr-gold-light'
       }
+    },
+    variables () {
+      return {
+        page: this.currentPage,
+        perPage: this.betsPerPage,
+        kind: this.betKind,
+        settlementStatus: this.betFilterState,
+        dateRange: this.timeFilterState,
+        excludedStatuses: [Bet.statuses.failed, Bet.statuses.rejected]
+      }
     }
+  },
+  watch: {
+    betKind: function (newValue) {
+      if (newValue === 'sports' || newValue === 'esports') {
+        this.$apollo.queries.everyMatrixTransactions.skip = true
+        this.$apollo.queries.bets.skip = false
+      }
+      if (newValue === 'casino') {
+        this.$apollo.queries.everyMatrixTransactions.skip = false
+        this.$apollo.queries.bets.skip = true
+      }
+    }
+  },
+  created () {
+    this.$apollo.queries.everyMatrixTransactions.skip = true
   },
   apollo: {
     bets () {
@@ -352,7 +368,7 @@ export default {
         variables: {
           page: 1,
           perPage: this.betsPerPage,
-          kind: null,
+          kind: this.betKind,
           excludedStatuses: [Bet.statuses.failed, Bet.statuses.rejected]
         },
         result ({ data }) {
@@ -379,6 +395,12 @@ export default {
     }
   },
   methods: {
+    loadMore () {
+      if (this.betKind === 'esports' || this.betKind === 'sports') {
+        return this.loadMoreHistory()
+      }
+      return this.loadMoreCasinoHistory()
+    },
     loadMoreHistory () {
       this.loadingBets = true
       this.$apollo.queries.bets.fetchMore({
@@ -411,6 +433,7 @@ export default {
       this.loadMoreHistory()
     },
     changeToEveryMatrixTransactions (tab) {
+      this.betKind = tab.kind
       this.page = 1
       this.loadMoreCasinoHistory()
     },
