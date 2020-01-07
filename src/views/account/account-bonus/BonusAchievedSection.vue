@@ -25,7 +25,7 @@ export default {
   },
   props: {
     bonusAchieved: {
-      type: String,
+      type: Number,
       required: true
     }
   }
