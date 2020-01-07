@@ -14,7 +14,9 @@
             <span class="font-weight-bold text-arc-clr-white letter-spacing-2">
               {{ activeBonusesList }}
             </span>
-            <span class="font-weight-bold text-arc-clr-iron ml-1 letter-spacing-2">
+            <span
+              v-if="!isGamePage"
+              class="font-weight-bold text-arc-clr-iron ml-1 letter-spacing-2">
               {{ activeWallet.currency.code }}
             </span>
           </b-col>

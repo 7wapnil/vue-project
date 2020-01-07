@@ -125,7 +125,7 @@ export default {
       }
     },
     activeBonusesList () {
-      if (this.isGamePage) return this.$i18n.t('casino.yourBalance')
+      if (this.isGamePage) return this.$i18n.t('casino.seeInGame')
       if (this.bonuses) {
         const activeSectionBonuses = this.bonuses.filter(bonus => bonus.status === 'active' &&
             bonus[this.currentLobbySection] === true)
