@@ -59,6 +59,10 @@ export default {
       this.$livechat.setUser(this.getUser)
     }
 
+    if (!this.isLoggedIn && this.isMobile) {
+      return this.$livechat.hideWidget()
+    }
+
     this.$livechat.initWidget()
 
     if (localStorage.livechat_visible) {
