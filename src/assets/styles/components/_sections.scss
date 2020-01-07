@@ -34,6 +34,9 @@
   user-select: none;
   box-shadow: 0 1px 0 0 $arc-clr-soil-cover;
   margin-bottom: 1px;
+  &.mobile:last-child {
+    margin-bottom: 64px;
+  }
   .arc-bonus-chevron-down {
     transform: rotateX(180deg);
     transition: transform .8s ease;
