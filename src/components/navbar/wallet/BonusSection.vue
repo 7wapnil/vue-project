@@ -12,7 +12,7 @@
     <b-row no-gutters>
       <b-col align="center">
         <small class="text-arc-clr-white">
-          {{ getCurrentBonusValue }}
+          {{ Number(getCurrentBonusValue).toFixed(2) }}
         </small>
       </b-col>
     </b-row>
