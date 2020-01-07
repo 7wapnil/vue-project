@@ -8,7 +8,7 @@
         fluid-grow
         alt="Arcanebet-Casino-Promo"/>
       <b-row
-        v-if="isMobile && !isLoggedIn"
+        v-if="isMobileDevice && !isLoggedIn"
         no-gutters>
         <b-col class="casino-header-mobile-container-auth-block">
           <auth-block/>

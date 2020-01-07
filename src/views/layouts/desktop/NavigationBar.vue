@@ -23,7 +23,6 @@
         v-if="!isLoggedIn"
         style="max-width: 268px"
         class="ml-auto">
-
         <b-button
           variant="arc-secondary"
           class="m-2"
