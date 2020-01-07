@@ -1,6 +1,6 @@
 <template>
   <b-row
-    v-if="isMobile && !isLoggedIn"
+    v-if="isMobileDevice && !isLoggedIn"
     no-gutters
     class="h-auto mt-4"
     align-v="start">

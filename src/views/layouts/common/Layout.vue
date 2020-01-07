@@ -21,7 +21,7 @@ export default {
       return this.$route.params.titleKind || ESPORTS
     },
     layoutName () {
-      const name = this.isMobile ? 'mobile' : 'desktop'
+      const name = this.isMobileDevice ? 'mobile' : 'desktop'
       return () => import(`@/views/layouts/${name}/Layout`)
     }
   },
