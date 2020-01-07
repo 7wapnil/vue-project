@@ -119,7 +119,7 @@ export default {
         &-active a {
             letter-spacing: -0.004em;
             transition: all .3s ease-in-out;
-            background: #3D3D3D !important;
+            background: $arc-clr-soil-light !important;
             border-radius: 4px 4px 0 0;
             .casino-tab-icon {
                 color: $arc-clr-live-casino-glow !important;
