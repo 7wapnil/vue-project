@@ -11,7 +11,7 @@
     </b-row>
     <b-tabs
       nav-wrapper-class="border-top-tabs-orange-tabs"
-      content-class="py-4">
+      content-class="pt-4">
       <b-tab
         v-for="tab in tabs"
         :key="tab.id"
