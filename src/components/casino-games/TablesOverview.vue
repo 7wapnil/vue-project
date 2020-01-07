@@ -6,6 +6,7 @@
         v-for="category in categories"
         :key="category.id"
         :category="category"
+        :id="category.context"
         :play-items="category.playItems"/>
     </b-col>
   </b-row>
