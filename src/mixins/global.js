@@ -17,8 +17,11 @@ export default {
     isDesktop () {
       return this.$mq === 'desktop'
     },
+    isMobileDevice () {
+      return this.isMobile || this.isTablet
+    },
     isIosDevice () {
-      return /iPhone|iPad|iPod/i.test(navigator.userAgent) && /AppleWebKit/i.test(navigator.userAgent)
+      return /iPhone|iPad/i.test(navigator.userAgent) && /AppleWebKit/i.test(navigator.userAgent)
     },
     isKindEsport () {
       return this.$route.params.titleKind === 'esports'
