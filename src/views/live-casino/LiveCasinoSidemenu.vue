@@ -41,7 +41,7 @@ export default {
           id: 1,
           name: 'my cashier',
           label: this.$t('casino.sidemenu.labels.myCashier'),
-          icon: { name: 'sidemenu-cashier' },
+          icon: { name: 'nav-wallet' },
           route: { name: 'cashier' }
         },
         {
