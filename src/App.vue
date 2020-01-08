@@ -54,23 +54,7 @@ export default {
     EVENTS.forEach(event => window.addEventListener(event, this.updateOnlineStatus))
     this.updateOnlineStatus()
 
-    if (this.isLoggedIn) {
-      this.requestUser()
-      this.$livechat.setUser(this.getUser)
-    }
-
-    if (!this.isLoggedIn && this.isMobile) {
-      return this.$livechat.hideWidget()
-    }
-
-    this.$livechat.initWidget()
-
-    if (localStorage.livechat_visible) {
-      const livechatStatus = !JSON.parse(localStorage.getItem('livechat_visible'))
-      if (livechatStatus) {
-        this.$livechat.hideWidgetOnPageLoad()
-      }
-    }
+    this.livechatInit()
   },
   beforeDestroy () {
     EVENTS.forEach(event => window.removeEventListener(event, this.updateOnlineStatus))
@@ -87,6 +71,24 @@ export default {
     },
     updateOnlineStatus () {
       !navigator.onLine ? this.$bvModal.show('ConnectionModal') : this.$bvModal.hide('ConnectionModal')
+    },
+    livechatInit () {
+      if (this.isLoggedIn) {
+        this.requestUser()
+        this.$livechat.setUser(this.getUser)
+      }
+      if (localStorage.livechat_visible) {
+        const livechatStatus = !JSON.parse(localStorage.getItem('livechat_visible'))
+        if (livechatStatus) {
+          this.$livechat.initWidget()
+          this.$livechat.hideWidgetOnPageLoad()
+        }
+      } else {
+        if (this.isMobile && !this.isLoggedIn) {
+          this.$livechat.initWidget()
+          this.$livechat.hideWidgetOnPageLoad()
+        }
+      }
     }
   }
 }
