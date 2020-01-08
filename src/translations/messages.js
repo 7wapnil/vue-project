@@ -225,7 +225,10 @@ const messages = {
       promo: {
         jackpot: 'Arcanebet jackpot',
         totalJackpot: 'Arcanebet total jackpot',
-        playTheseGames: 'Play these games to win'
+        playTheseGames: 'Play these games to win',
+        hotTables: 'Players are on a',
+        hotStreak: 'Hot streak',
+        onTheseTables: 'On these tables'
       }
     },
     betslip: {
