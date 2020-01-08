@@ -56,7 +56,7 @@
 
 <script>
 import VueRecaptcha from 'vue-recaptcha'
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapActions, mapMutations } from 'vuex'
 
 export default {
   components: {
@@ -78,8 +78,10 @@ export default {
   computed: {
     ...mapGetters({
       isSuspicious: 'isSuspicious',
-      lastLogin: 'getLastLogin'
+      lastLogin: 'getLastLogin',
+      onSuccessRedirect: 'getSuccessLoginUrl',
     }),
+    ...mapMutations(['storeSuccessLoginUrl']),
     isSubmitDisabled () {
       const hasLength = !!(this.fields.login && this.fields.password)
       return !hasLength || (this.isSuspicious && !this.fields.captcha) || this.submitting
@@ -108,7 +110,10 @@ export default {
     },
     onSuccess ({ data: { signIn } }) {
       this.login(signIn)
-      this.$router.push({ name: 'home' })
+      if (this.onSuccessRedirect) {
+        this.$router.push(this.onSuccessRedirect)
+        this.storeSuccessLoginUrl(null)
+      } else this.$router.push({ name: 'home' })
       this.$livechat.setUser(signIn.user)
       this.$livechat.initWidget()
       this.close()
