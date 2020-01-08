@@ -6,7 +6,15 @@
         :name="category.icon"
         :size="isMobile ? 20 : 26"
         class="overview-item-header-icon ml-md-4 ml-2"/>
+      <component
+        v-if="isCasino"
+        :is="isMobile ? 'h5' : 'h4'"
+        :class="[ currentLobbyName === 'live-casino' ? 'not-active' : '']"
+        class="overview-item-header-title">
+        {{ category.label }}
+      </component>
       <b-link
+        v-else
         :to="{ name: `${currentLobbyName}-category`, params: { category: category.context,
                                                                label: category.label }}"
         :router-tag="isMobile ? 'h5' : 'h4'"
@@ -75,6 +83,9 @@ export default {
     walletId () {
       if (this.activeWallet) return parseInt(this.activeWallet.id)
     },
+    isCasino () {
+      return this.currentLobbyName === 'live-casino'
+    }
   },
   methods: {
     ...mapMutations(['storeSuccessLoginUrl']),
@@ -133,6 +144,12 @@ export default {
                 cursor: pointer;
                 &:hover {
                     color: $arc-clr-white;
+                }
+                &.not-active {
+                  cursor: default;
+                  &:hover {
+                    color: $arc-clr-iron-light;
+                  }
                 }
             }
             &-indication-block {
