@@ -37,7 +37,7 @@ export default {
             return {
               ...category,
               icon: findCategoryIcon({ context: category.context }),
-              index: index + 1 // + 1 because of default category
+              index
             }
           })
         }

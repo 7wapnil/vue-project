@@ -178,7 +178,10 @@ export const mutations = {
   setActiveWallet (state, id) {
     state.activeWalletId = id
     localStorage.setItem('active_wallet', id)
-  }
+  },
+  storeSuccessLoginUrl (state, name) {
+    state.successLoginUrl = name
+  },
 }
 
 export const getters = {
@@ -205,7 +208,10 @@ export const getters = {
   },
   getUserFiatWallet (state) {
     return state.session.user.wallets.find(el => el.currency.kind === FIAT)
-  }
+  },
+  getSuccessLoginUrl (state) {
+    return state.successLoginUrl
+  },
 }
 
 export default {
@@ -213,7 +219,8 @@ export default {
     session: arcanebetSession.getSession() || {},
     isSuspicious: null,
     lastLogin: null,
-    activeWalletId: null
+    activeWalletId: null,
+    successLoginUrl: null
   },
   actions,
   mutations,

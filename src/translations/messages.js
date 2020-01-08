@@ -188,6 +188,7 @@ const messages = {
       viewMyWallet: 'View my wallet',
       seeInGame: 'See in game',
       noProviders: 'No games for this provider',
+      goToLobby: 'Go to lobby',
       headings: {
         gameProviders: 'Game providers'
       },

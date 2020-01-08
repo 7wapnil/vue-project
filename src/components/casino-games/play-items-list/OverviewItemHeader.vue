@@ -23,19 +23,20 @@
     </b-col>
     <b-col
       class="px-4 pt-4 pb-2 overview-item-header-viewall-block">
-      <b-link
-        :to="{ name: `${currentLobbyName}-category`, params: { category: category.context,
-                                                               label: category.label }}"
-        class="mr-md-2 mr-0">
-        {{ this.$i18n.t('casino.viewAll') }}
-      </b-link>
+      <span
+        class="mr-md-2 mr-0"
+        style="cursor: pointer;"
+        @click="openLobby">
+        {{ this.$i18n.t('casino.goToLobby') }}
+      </span>
     </b-col>
   </b-row>
 </template>
 
 <script>
 import OverviewItemHeaderIndication from '@/components/casino-games/play-items-list/OverviewItemHeaderIndication'
-
+import { mapGetters, mapMutations } from 'vuex'
+import { CREATE_EVERY_MATRIX_SESSION_MUTATION } from '@/graphql'
 export default {
   name: 'OverviewItemHeader',
   components: {
@@ -54,6 +55,61 @@ export default {
       type: Number,
       required: true
     }
+  },
+  data () {
+    return {
+      lobbySlugs: {
+        roulette: 'roulette-evo',
+        blackjack: 'blackjack-evo',
+        poker: 'holdem-evo',
+        'hot-tables': 'roulette-evo',
+        'other-tables': 'dream-catcher'
+      }
+    }
+  },
+  computed: {
+    ...mapGetters({
+      isLoggedIn: 'isLoggedIn',
+      activeWallet: 'getUserActiveWallet'
+    }),
+    walletId () {
+      if (this.activeWallet) return parseInt(this.activeWallet.id)
+    },
+  },
+  methods: {
+    ...mapMutations(['storeSuccessLoginUrl']),
+    openLobby () {
+      const playItemSlug = this.lobbySlugs[this.category.context]
+      const route = {
+        name: `${this.currentLobbyName}-game`,
+        params: {
+          playItemSlug,
+          category: this.category.context
+        }
+      };
+      if (!this.isLoggedIn) {
+        this.storeSuccessLoginUrl(route)
+        return this.$bvModal.show('AuthModal')
+      }
+
+      if (this.isDesktop) return this.$router.push(route)
+
+      this
+        .$apollo
+        .mutate({
+          mutation: CREATE_EVERY_MATRIX_SESSION_MUTATION,
+          variables: {
+            walletId: this.walletId,
+            playItemSlug
+          }
+        })
+        .then(({ data }) => {
+          window.location = data.createEveryMatrixSession.launchUrl
+        })
+        .catch(() => {
+          this.$router.push({ name: 'not-found' })
+        })
+    },
   }
 }
 </script>
