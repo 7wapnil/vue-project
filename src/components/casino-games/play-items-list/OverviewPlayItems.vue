@@ -49,7 +49,7 @@
 
       <transition name="arrow-right">
         <div
-          v-show="currentPage !== numberOfPages"
+          v-show="scrollPosition < endPosition"
           class="slider-control-right"
           @click="slideRight">
           <arc-circle
@@ -94,6 +94,7 @@ export default {
       currentPage: 0,
       wrapperWidth: 0,
       scrollPosition: 0,
+      endPosition: 0,
       itemsPerPage: 0,
       rowWidth: 0
     }
@@ -119,7 +120,7 @@ export default {
       this.itemsPerPage = Math.floor(this.wrapperWidth / this.itemWidth)
       this.numberOfPages = Math.floor(this.playItems.length / this.itemsPerPage)
       this.rowWidth = this.numberOfPages * this.wrapperWidth
-      this.scrollPosition = wrapper.scrollLeft
+      this.endPosition = wrapper.scrollWidth - this.wrapperWidth - 20
     },
     calculateCurrentPage () {
       const currentPageNumber = Math.round(this.scrollPosition / (this.itemsPerPage *
@@ -144,7 +145,6 @@ export default {
 
       wrapper.addEventListener('scroll', () => {
         lastKnownScrollPosition = wrapper.scrollLeft
-
         if (!ticking) {
           window.requestAnimationFrame(() => {
             this.scrollPosition = lastKnownScrollPosition
