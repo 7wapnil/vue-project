@@ -4,7 +4,7 @@
     <b-col
       :class="containerClass">
       <b-img
-        :src="require('@/assets/images/casino-games/arcane-casino-header-promo.png')"
+        :src="headerImg"
         fluid-grow
         alt="Arcanebet-Casino-Promo"/>
       <b-row
@@ -39,6 +39,11 @@ export default {
         return 'casino-header-mobile-container-auth'
       }
       return this.isMobile ? 'casino-header-mobile-container' : 'casino-header-desktop-container'
+    },
+    headerImg () {
+      const desktopImg = require('@/assets/images/casino-games/arcane-casino-header-promo.png')
+      const mobileImg = require('@/assets/images/casino-games/arcane-casino-header-promo-mobile.png')
+      return this.isMobile ? mobileImg : desktopImg
     }
   }
 }
