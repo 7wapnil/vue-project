@@ -1,8 +1,36 @@
 <template>
   <b-row no-gutters>
-    <b-col class="promotional-block"/>
+    <b-col
+      class="promotional-block"
+      @click="pushGame"/>
   </b-row>
 </template>
+
+<script>
+import { mapGetters } from 'vuex'
+
+export default {
+  computed: {
+    computed: {
+      ...mapGetters([
+        'isLoggedIn'
+      ])
+    }
+  },
+  methods: {
+    pushGame () {
+      if (this.isLoggedIn) {
+        this.$router.push({ name: 'live-casino-game',
+          params: { category: 'all-games',
+            playItemSlug: 'double-ball-roulette-evo'
+          }
+        })
+      }
+      return this.$bvModal.show('AuthModal')
+    }
+  }
+}
+</script>
 
 <style lang="scss"
        scoped>
