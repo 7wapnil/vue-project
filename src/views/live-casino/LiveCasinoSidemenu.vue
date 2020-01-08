@@ -66,7 +66,7 @@ export default {
           id: 5,
           name: 'sports',
           label: this.$t('casino.sidemenu.labels.sportsBetting'),
-          icon: { name: 'sidemenu-sports' },
+          icon: { name: 'sidemenu-soccer' },
           route: { name: 'sports' },
         },
         {
