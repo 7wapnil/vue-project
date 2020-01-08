@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="row.length === itemsPerRow"
+    v-if="row.length === itemsPerRow && !bigAlign"
     class="d-flex play-items-row"
   >
     <category-play-item
