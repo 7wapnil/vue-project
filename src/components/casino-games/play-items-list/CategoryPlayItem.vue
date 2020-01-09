@@ -8,20 +8,17 @@
       v-lazy="itemIcon"
       :alt="itemTitle"
       class="image">
-    <div
-      v-if="hover && !isMobile"
-      class="launch-button">
-      <h5 class="mb-0 letter-spacing-2 text-center">
-        {{ buttonText }}
-      </h5>
-    </div>
-    <div
-      v-if="isFunModeLabelAvaible"
-      class="fun-mode-button"
-      @click.stop="lauchFunMode">
-      <h6 class="try-for-free-label">
-        {{ $t('casino.tryForFree') }}
-      </h6>
+    <div v-if="hover && !isMobile">
+      <div class="launch-button">
+        <div class="triangle"/>
+      </div>
+      <div
+        class="fun-mode-button"
+        @click.stop="lauchFunMode">
+        <h6 class="try-for-free-label">
+          {{ funModeLabel }}
+        </h6>
+      </div>
     </div>
   </div>
 </template>
@@ -57,22 +54,20 @@ export default {
         error: require('@/assets/images/logo/arcanebet-logo.png')
       }
     },
+    funModeLabel () {
+      if (!this.isFunModeAvailable && !this.isLoggedIn) return this.$i18n.t('casino.loginToPlay')
+      if (this.isFunModeAvailable && !this.isLoggedIn) return this.$i18n.t('casino.tryForFree')
+      if (this.isFunModeAvailable && this.isLoggedIn) return this.$i18n.t('casino.tryForFree')
+      if (!this.isFunModeAvailable && this.isLoggedIn) return this.$i18n.t('casino.play')
+    },
     itemTitle () {
       return this.item.name
     },
     walletId () {
       if (this.activeWallet) return parseInt(this.activeWallet.id)
     },
-    buttonText () {
-      if (this.isLoggedIn) return this.$i18n.t('casino.realModeLaunch')
-
-      return this.$i18n.t('casino.loginToPlay')
-    },
-    isTableGame () {
-      return this.item.type === 'table'
-    },
-    isFunModeLabelAvaible () {
-      return this.hover && !this.isMobile && !this.isTableGame
+    isFunModeAvailable () {
+      return this.item.freeMode === 'true'
     }
   },
   methods: {
@@ -80,37 +75,46 @@ export default {
       'storeGameSlug'
     ]),
     launchGame () {
-      if (!this.isLoggedIn && this.isMobile) return this.openGameModalMobile()
-
-      if (!this.isLoggedIn && !this.isMobile) return this.$bvModal.show('AuthModal')
-
-      if (this.isDesktop) {
-        return this.$router.push({
-          name: `${this.currentLobbyName}-game`,
-          params: {
-            playItemSlug: this.item.slug,
-            category: this.category.context
-          }
-        })
+      if (!this.isLoggedIn) {
+        if (!this.isMobile) return this.$bvModal.show('AuthModal')
+        if (this.isMobile) return this.openGameModalMobile()
       }
 
-      this
-        .$apollo
-        .mutate({
-          mutation: CREATE_EVERY_MATRIX_SESSION_MUTATION,
-          variables: {
-            walletId: this.walletId,
-            playItemSlug: this.item.slug
-          }
-        })
-        .then(({ data }) => {
-          window.location = data.createEveryMatrixSession.launchUrl
-        })
-        .catch(() => {
-          this.$router.push({ name: 'not-found' })
-        })
+      if (this.isLoggedIn) {
+        if (this.isDesktop) {
+          return this.$router.push({
+            name: `${this.currentLobbyName}-game`,
+            params: {
+              playItemSlug: this.item.slug,
+              category: this.category.context
+            }
+          })
+        } else {
+          this
+            .$apollo
+            .mutate({
+              mutation: CREATE_EVERY_MATRIX_SESSION_MUTATION,
+              variables: {
+                walletId: this.walletId,
+                playItemSlug: this.item.slug
+              }
+            })
+            .then(({ data }) => {
+              window.location = data.createEveryMatrixSession.launchUrl
+            })
+            .catch(() => {
+              this.$router.push({ name: 'not-found' })
+            })
+        }
+      }
     },
     lauchFunMode () {
+      if (!this.isFunModeAvailable && !this.isLoggedIn) return this.$bvModal.show('AuthModal')
+      if (this.isFunModeAvailable && !this.isLoggedIn) return this.lauchFunModeGame()
+      if (this.isFunModeAvailable && this.isLoggedIn) return this.lauchFunModeGame()
+      if (!this.isFunModeAvailable && this.isLoggedIn) return this.lauchFunModeGame()
+    },
+    lauchFunModeGame () {
       return this.$router.push({
         name: `${this.currentLobbyName}-game`,
         params: {
@@ -124,7 +128,6 @@ export default {
       this.storeGameSlug(this.item.slug)
       return this.$bvModal.show('GameModeModal')
     }
-
   }
 }
 </script>
@@ -161,26 +164,36 @@ export default {
         margin-right: auto;
         left: 0;
         right: 0;
+        width: 80px;
+        height: 80px;
         top: 25%;
         position: absolute;
-        border: 3px solid white;
-        background: #000000ab;
-        border-radius: 5px;
-        width: 200px;
-        height: 100px;
+        background-color: #ECA95F;
+        box-shadow: 0 0 10px 0 black;
+        border-radius: 8px 0 8px 0;
+        padding: 30px;
         align-items: center;
         justify-content: center;
         display: flex;
-        text-transform: uppercase;
-        padding: 10px;
+      }
+      .triangle {
+        border-color: transparent black;
+        border-style: solid;
+        border-width: 15px 0 15px 25px;
+        height: 0;
+        width: 0;
       }
       .fun-mode-button {
+        margin-left: auto;
+        margin-right: auto;
         display: flex;
         position: absolute;
-        bottom: 0;
+        right: 0;
         left: 0;
-        width: 100%;
-        height: 20%;
+        bottom: 10%;
+        width: 110px;
+        height: 35px;
+        background: $arc-clr-soil-black;
         align-items: center;
         justify-content: center;
         &:hover > .try-for-free-label{
