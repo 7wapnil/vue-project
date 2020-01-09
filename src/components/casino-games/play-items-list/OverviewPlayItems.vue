@@ -4,9 +4,10 @@
       :category="category"
       :pages="numberOfPages"
       :current-page="currentPage"/>
-    <promo-item
+    <component
       v-if="showPromoItem && isMobile && itemsPerPage <= 3"
       key="promo-item"
+      :is="promoItem"
       :items-per-page="itemsPerPage"
       :category="category" />
     <div class="position-relative">
@@ -34,9 +35,10 @@
         class="no-scrollbars"
         name="play-items-appearance"
         appear>
-        <promo-item
+        <component
           v-if="showPromoItem && !isMobile || showPromoItem && itemsPerPage > 3"
           key="promo-item"
+          :is="promoItem"
           :items-per-page="itemsPerPage"
           :category="category" />
         <category-play-item
@@ -70,13 +72,11 @@
 <script>
 import CategoryPlayItem from '@/components/casino-games/play-items-list/CategoryPlayItem'
 import OverviewItemHeader from '@/components/casino-games/play-items-list/OverviewItemHeader'
-import PromoItem from '@/components/casino-games/play-items-list/PromoItem'
 
 export default {
   components: {
     CategoryPlayItem,
     OverviewItemHeader,
-    PromoItem
   },
   props: {
     category: {
@@ -101,7 +101,19 @@ export default {
   },
   computed: {
     showPromoItem () {
-      return this.category.context === 'jackpots'
+      switch (this.category.context) {
+        case 'jackpots':
+        case 'hot-tables':
+          return true;
+        default: return false;
+      }
+    },
+    promoItem () {
+      switch (this.category.context) {
+        case 'jackpots': return () => import(`@/components/casino-games/play-items-list/promo-items/PromoItemJackpot`)
+        case 'hot-tables': return () => import(`@/components/casino-games/play-items-list/promo-items/PromoItemHotTables`)
+        default: return null;
+      }
     }
   },
   mounted () {
