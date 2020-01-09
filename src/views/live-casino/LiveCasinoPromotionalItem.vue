@@ -11,11 +11,9 @@ import { mapGetters } from 'vuex'
 
 export default {
   computed: {
-    computed: {
-      ...mapGetters([
-        'isLoggedIn'
-      ])
-    }
+    ...mapGetters([
+      'isLoggedIn'
+    ])
   },
   methods: {
     pushGame () {
