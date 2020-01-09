@@ -10,7 +10,6 @@
         :placeholder="$i18n.t('auth.signUpForm.username')"
         v-model="fields.login"
         autocomplete="username"
-        class="mb-4"
         required/>
     </b-form-group>
 
@@ -21,7 +20,6 @@
         id="signin-password"
         :placeholder="$i18n.t('auth.signUpForm.password')"
         v-model="fields.password"
-        class="mb-4"
         autocomplete="current-password"
         type="password"
         required/>
@@ -45,7 +43,7 @@
     </b-form-invalid-feedback>
     <b-button
       :disabled="isSubmitDisabled"
-      class="mb-3"
+      class="mb-4 mt-4"
       type="submit"
       variant="user-profile-button"
       block>
@@ -144,6 +142,7 @@ export default {
 
 <style lang="scss" scoped>
   .form-group {
+    margin-bottom: 0.5rem;
     & /deep/ label {
       text-transform: uppercase;
       font-size: 0.75rem;
