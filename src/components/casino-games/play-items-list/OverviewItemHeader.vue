@@ -32,11 +32,19 @@
     <b-col
       class="px-4 pt-4 pb-2 overview-item-header-viewall-block">
       <span
+        v-if="isCasino"
         class="mr-md-2 mr-0"
         style="cursor: pointer;"
         @click="openLobby">
         {{ this.$i18n.t('casino.goToLobby') }}
       </span>
+      <b-link
+        v-else
+        :to="{ name: `${currentLobbyName}-category`, params: { category: category.context,
+                                                               label: category.label }}"
+        class="mr-md-2 mr-0">
+        {{ this.$i18n.t('casino.viewAll') }}
+      </b-link>
     </b-col>
   </b-row>
 </template>
