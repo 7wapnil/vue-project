@@ -381,11 +381,8 @@ export default {
       return this.$i18n.t('betslip.cta.placeBet')
     },
     hasEnoughFundsOnBalance () {
-      if (this.isComboBetsMode) {
-        return this.isEnoughFundsCombo
-      } else {
-        return this.getIsEnoughFundsToBet
-      }
+      if (this.isComboBetsMode) return this.isEnoughFundsCombo
+      else return this.getIsEnoughFundsToBet
     }
   },
   watch: {
