@@ -194,13 +194,13 @@ const messages = {
       },
       sidemenu: {
         labels: {
-          myCashier: 'My cashier',
-          casinoGames: 'Casino games',
-          liveCasino: 'Live casino',
+          myCashier: 'My Cashier',
+          casinoGames: 'Casino Games',
+          liveCasino: 'Live Casino',
           sportsBetting: 'Sports Betting',
           esportsBetting: 'Esport Betting',
-          bonusesPromos: 'Bonuses and promo\'s',
-          contactSupport: 'Contact support',
+          bonusesPromos: 'Bonuses and Promo\'s',
+          contactSupport: 'Contact Support',
           interestingCategories: 'Interesting categories',
           special: 'Special'
         }
