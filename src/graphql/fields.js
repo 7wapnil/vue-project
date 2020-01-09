@@ -31,6 +31,10 @@ export const WALLET_FIELDS = `
   }
   realMoneyBalance
   bonusBalance
+  userBonus {
+    casino
+    sportsbook
+  }
 `
 
 export const TITLE_FIELDS = `

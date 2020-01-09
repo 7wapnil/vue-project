@@ -206,16 +206,16 @@ export const getters = {
     if (activeWallet === null) {
       return false
     }
-
-    return getters.getTotalStakes <= activeWallet.amount
+    const sportBonus = activeWallet.userBonus.sportsbook ? activeWallet.bonusBalance : 0
+    return getters.getTotalStakes <= activeWallet.realMoneyBalance + sportBonus
   },
   getFundsToBet: (state, getters, rootState, rootGetters) => {
     const activeWallet = rootGetters['getUserActiveWallet']
     if (activeWallet === null) {
       return false
     }
-
-    return activeWallet.amount
+    const sportBonus = activeWallet.userBonus.sportsbook ? activeWallet.bonusBalance : 0
+    return activeWallet.realMoneyBalance + sportBonus
   },
   betslipValuesConfirmed: (state) => {
     return state.acceptAll || !state.bets.some((bet) => bet.oddsChanged)
