@@ -73,22 +73,27 @@ export default {
       !navigator.onLine ? this.$bvModal.show('ConnectionModal') : this.$bvModal.hide('ConnectionModal')
     },
     livechatInit () {
+      // If user logged in, take user information and use in livechat form
       if (this.isLoggedIn) {
         this.requestUser()
         this.$livechat.setUser(this.getUser)
       }
+
+      // If localstorage have record about livechat visibility, show / hide livechat
       if (localStorage.livechat_visible) {
         const livechatStatus = !JSON.parse(localStorage.getItem('livechat_visible'))
         if (livechatStatus) {
-          this.$livechat.initWidget()
-          this.$livechat.hideWidgetOnPageLoad()
+          this.livechatHide()
         }
-      } else {
+      } else { // if not, hide it for not logged in mobile users
         if (this.isMobile && !this.isLoggedIn) {
-          this.$livechat.initWidget()
-          this.$livechat.hideWidgetOnPageLoad()
+          this.livechatHide()
         }
       }
+    },
+    livechatHide () {
+      this.$livechat.initWidget()
+      this.$livechat.hideWidgetOnPageLoad()
     }
   }
 }
