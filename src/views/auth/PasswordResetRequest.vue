@@ -1,7 +1,9 @@
 <template>
   <b-form
     @submit.prevent="submit">
-    <b-form-group>
+    <b-form-group
+      :label="$i18n.t('auth.signUpForm.email')"
+      label-for="reset-email">
       <b-form-input
         id="reset-email"
         v-model="fields.email"
@@ -114,3 +116,13 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+  .form-group {
+    margin-bottom: 0.5rem;
+    & /deep/ label {
+      text-transform: uppercase;
+      font-size: 0.75rem;
+    }
+  }
+</style>
