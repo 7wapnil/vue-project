@@ -295,7 +295,7 @@ const messages = {
     account: {
       tabs: {
         account: 'Account info & settings',
-        activity: 'Activity',
+        betHistory: 'Bet history',
         depositFunds: 'Deposit funds',
         withdrawFunds: 'Withdraw funds',
         bonus: 'Bonus',
