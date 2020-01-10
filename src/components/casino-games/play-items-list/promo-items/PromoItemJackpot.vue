@@ -9,11 +9,9 @@
       <h2 class="amount">€ {{ amount }}</h2>
       <h4 class="play-these-games">
         {{ this.$i18n.t('casino.promo.playTheseGames') }}
-        <icon
+        <b-img
           v-if="!isMobile || itemsPerPage > 2"
-          color="arc-clr-soil-light"
-          size="20px"
-          name="upcoming-event-arrow-right"/>
+          :src="require('@/assets/icons/long-arrow.svg')"/>
       </h4>
     </div>
   </promo-item>
@@ -81,7 +79,7 @@ export default {
 
 <style lang="scss"
        scoped>
-  .play-these-games i {
+  .play-these-games img {
     margin-left: 20px;
   }
 </style>

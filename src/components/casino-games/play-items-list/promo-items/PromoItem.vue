@@ -9,6 +9,7 @@
       v-if="isMobile && itemsPerPage <= 3"
       :size="30"
       class="down-icon"
+      bg-color="arc-clr-soil-light"
       inline
       depends>
       <icon
