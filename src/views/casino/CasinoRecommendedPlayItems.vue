@@ -14,13 +14,25 @@
         <b-col
           class="play-item"
           @click="launchGame(recommendedItem)"
-          @mouseover="hover = true"
-          @mouseleave="hover = false">
+          @mouseover="hover = recommendedItem.id"
+          @mouseleave="hover = null">
           <b-img
             :src="itemIcon(recommendedItem)"
             :alt="itemTitle(recommendedItem)"
             class="image"
             blank-color="#2F2F2F"/>
+          <div v-if="hover === recommendedItem.id">
+            <div class="launch-button">
+              <div class="triangle"/>
+            </div>
+            <div
+              class="fun-mode-button"
+              @click.stop="lauchFunMode(recommendedItem)">
+              <div class="try-for-free-label">
+                {{ funModeLabel }}
+              </div>
+            </div>
+          </div>
         </b-col>
       </b-row>
     </b-col>
@@ -37,13 +49,19 @@ export default {
   data () {
     return {
       recommendedItems: [],
-      hover: true
+      hover: null
     }
   },
   computed: {
     ...mapGetters({
       isLoggedIn: 'isLoggedIn'
-    })
+    }),
+    funModeLabel () {
+      if (!this.isFunModeAvailable && !this.isLoggedIn) return this.$i18n.t('casino.loginToPlay')
+      if (this.isFunModeAvailable && !this.isLoggedIn) return this.$i18n.t('casino.tryForFree')
+      if (this.isFunModeAvailable && this.isLoggedIn) return this.$i18n.t('casino.tryForFree')
+      if (!this.isFunModeAvailable && this.isLoggedIn) return this.$i18n.t('casino.play')
+    },
   },
   methods: {
     fetchRecommendedItems (playItemId) {
@@ -78,6 +96,22 @@ export default {
           category: 'all-games'
         }
       })
+    },
+    lauchFunMode (item) {
+      if (!this.isFunModeAvailable && !this.isLoggedIn) return this.$bvModal.show('AuthModal')
+      if (this.isFunModeAvailable && !this.isLoggedIn) return this.lauchFunModeGame(item)
+      if (this.isFunModeAvailable && this.isLoggedIn) return this.lauchFunModeGame(item)
+      if (!this.isFunModeAvailable && this.isLoggedIn) return this.lauchFunModeGame(item)
+    },
+    lauchFunModeGame (item) {
+      return this.$router.push({
+        name: `${this.currentLobbyName}-game`,
+        params: {
+          playItemSlug: item.slug,
+          category: 'all-games',
+          gameMode: 'fun'
+        }
+      })
     }
   }
 }
@@ -101,5 +135,52 @@ export default {
         transform: scale(1.09);
       }
     }
+  }
+  .launch-button {
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    width: 80px;
+    height: 80px;
+    top: 25%;
+    position: absolute;
+    background-color: #ECA95F;
+    box-shadow: 0 0 10px 0 black;
+    border-radius: 8px 0 8px 0;
+    padding: 30px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+  }
+  .triangle {
+    border-color: transparent black;
+    border-style: solid;
+    border-width: 15px 0 15px 25px;
+    height: 0;
+    width: 0;
+  }
+  .fun-mode-button {
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    position: absolute;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    width: 110px;
+    height: 25px;
+    background: $arc-clr-soil-black;
+    align-items: center;
+    justify-content: center;
+    &:hover > .try-for-free-label{
+      color: $arc-clr-white;
+      transition: color .3s ease;
+    }
+  }
+  .try-for-free-label {
+    color: $arc-clr-grey-light;
+    font-size: 12px;
+    margin-bottom: 0;
   }
 </style>

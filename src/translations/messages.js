@@ -182,15 +182,16 @@ const messages = {
       viewAll: 'View all',
       viewGames: 'View games',
       realModeLaunch: 'Play for real',
-      loginToPlay: 'Log-in to play for real',
+      loginToPlay: 'LOGIN TO PLAY',
       loginToPlayNow: 'Log-in to play now',
-      tryForFree: 'Try for free',
+      tryForFree: 'TRY FOR FREE',
       providers: 'Providers',
       yourBalance: 'Your Balance',
       viewMyWallet: 'View my wallet',
       seeInGame: 'See in game',
       noProviders: 'No games for this provider',
       goToLobby: 'Go to lobby',
+      play: 'PLAY',
       headings: {
         gameProviders: 'Game providers'
       },
