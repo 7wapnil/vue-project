@@ -34,7 +34,7 @@
               :block="isMobile"
               size="lg"
               variant="arc-secondary"
-              class="px-5 bg-arc-clr-esport-bg border-0 letter-spacing-2 font-weight-bold mb-4 text-uppercase">
+              class="px-5 bg-arc-clr-esport-bg border-0 letter-spacing-2 font-weight-bold mb-4 text-uppercase font-size-12">
               {{ $t('noFoundPage.esportButton') }}
             </b-button>
           </b-col>
@@ -44,8 +44,28 @@
               :to="{ path: '/sports'}"
               size="lg"
               variant="arc-secondary"
-              class="px-5 bg-arc-clr-sport-bg border-0 letter-spacing-2 font-weight-bold text-uppercase">
+              class="px-5 bg-arc-clr-sport-bg border-0 letter-spacing-2 font-weight-bold text-uppercase font-size-13">
               {{ $t('noFoundPage.sportButton') }}
+            </b-button>
+          </b-col>
+          <b-col class="text-right px-2 px-md-4">
+            <b-button
+              :block="isMobile"
+              :to="{ path: '/casino'}"
+              size="lg"
+              variant="arc-secondary"
+              class="px-5 bg-arc-clr-casino-bg border-0 letter-spacing-2 font-weight-bold text-uppercase font-size-12">
+              {{ $t('noFoundPage.casinoButton') }}
+            </b-button>
+          </b-col>
+          <b-col class="text-right px-2 px-md-4">
+            <b-button
+              :block="isMobile"
+              :to="{ path: '/live-casino'}"
+              size="lg"
+              variant="arc-secondary"
+              class="px-5 bg-arc-clr-live-casino-bg border-0 letter-spacing-2 font-weight-bold text-uppercase font-size-12">
+              {{ $t('noFoundPage.liveCasinoButton') }}
             </b-button>
           </b-col>
         </b-row>
