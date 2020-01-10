@@ -32,14 +32,14 @@
     <b-col
       class="px-4 pt-4 pb-2 overview-item-header-viewall-block">
       <span
-        v-if="isCasino"
+        v-if="isCasino && (isLoggedIn || !isMobile)"
         class="mr-md-2 mr-0"
         style="cursor: pointer;"
         @click="openLobby">
         {{ this.$i18n.t('casino.goToLobby') }}
       </span>
       <b-link
-        v-else
+        v-if="!isCasino"
         :to="{ name: `${currentLobbyName}-category`, params: { category: category.context,
                                                                label: category.label }}"
         class="mr-md-2 mr-0">
@@ -105,7 +105,8 @@ export default {
           playItemSlug,
           category: this.category.context
         }
-      };
+      }
+
       if (!this.isLoggedIn) {
         this.storeSuccessLoginUrl(route)
         return this.$bvModal.show('AuthModal')
