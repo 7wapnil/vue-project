@@ -127,3 +127,9 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+  .form-group .is-invalid {
+    margin-bottom: 0;
+  }
+</style>
