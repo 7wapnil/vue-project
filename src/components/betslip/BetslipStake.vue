@@ -17,6 +17,7 @@
         :mask="mask"
         :disabled="isDisabled"
         v-model="stake"
+        :placeholder="$t('betslipItem.stake')"
         name="stake"
         type="text"
         class="betslip-input form-control"
