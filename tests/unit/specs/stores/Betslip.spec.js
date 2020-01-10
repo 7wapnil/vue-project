@@ -223,10 +223,16 @@ describe('betslip store', () => {
         const invalidGetters = {
           'getUserActiveWallet': {
             id: 1,
-            amount: 0,
+            amount: 10,
             currency: {
               code: 'EUR',
               name: 'Euro'
+            },
+            realMoneyBalance: 0,
+            bonusMoney: 10,
+            userBonus: {
+              casino: true,
+              sportsbook: false
             }
           },
           getTotalStakes: 1
@@ -243,6 +249,12 @@ describe('betslip store', () => {
             currency: {
               code: 'EUR',
               name: 'Euro'
+            },
+            realMoneyBalance: 100,
+            bonusMoney: 100,
+            userBonus: {
+              casino: true,
+              sportsbook: false
             }
           },
           getTotalStakes: 2

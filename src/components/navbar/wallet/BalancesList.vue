@@ -96,8 +96,6 @@
 <script>
 import BonusSection from './BonusSection'
 import { mapGetters, mapMutations } from 'vuex'
-import { BONUSES_LIST_QUERY } from '@/graphql'
-import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
 
 export default {
   components: {
@@ -126,22 +124,10 @@ export default {
     },
     activeBonusesList () {
       if (this.isGamePage) return this.$i18n.t('casino.seeInGame')
-      if (this.bonuses) {
-        const activeSectionBonuses = this.bonuses.filter(bonus => bonus.status === 'active' &&
-            bonus[this.currentLobbySection] === true)
-        return activeSectionBonuses.length > 0
-          ? (this.activeWallet.realMoneyBalance + this.activeWallet.bonusBalance).toFixed(2)
-          : this.activeWallet.realMoneyBalance.toFixed(2)
-      }
-      return this.activeWallet.realMoneyBalance.toFixed(2)
-    }
-  },
-  apollo: {
-    bonuses () {
-      return {
-        query: BONUSES_LIST_QUERY,
-        fetchPolicy: NETWORK_ONLY
-      }
+      const bonus = this.activeWallet.userBonus[this.currentLobbySection]
+        ? this.activeWallet.bonusBalance : 0
+
+      return (this.activeWallet.realMoneyBalance + bonus).toFixed(2)
     }
   },
   methods: {
