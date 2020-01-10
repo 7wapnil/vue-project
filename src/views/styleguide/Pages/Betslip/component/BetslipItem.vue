@@ -107,10 +107,10 @@
             class="d-flex align-items-center"
             style="max-width: 79px">
             <b-input
+              :placeholder="$t('betslipItem.stake')"
               class="betslip-input"
               type="number"
               name="odd-value"
-              placeholder="0"
               min="0"/>
           </b-col>
         </b-row>
