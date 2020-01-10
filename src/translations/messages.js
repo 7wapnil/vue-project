@@ -163,7 +163,9 @@ const messages = {
       '          If this is a problem from our end, please be assured we\'re doing all we\n' +
       '          can to resolve the situation.',
       esportButton: 'Esport home',
-      sportButton: 'Sport home'
+      sportButton: 'Sport home',
+      casinoButton: 'Casino home',
+      liveCasinoButton: 'Live Casino home'
     },
     eventPage: {
       minute: 'minute'
