@@ -66,7 +66,7 @@ export default {
         icon: 'account-bonus',
         id: 'account-bonus'
       }, {
-        title: this.$i18n.t('account.tabs.activity'),
+        title: this.$i18n.t('account.tabs.betHistory'),
         icon: 'account-activity',
         size: '18px',
         id: 'account-activity'
