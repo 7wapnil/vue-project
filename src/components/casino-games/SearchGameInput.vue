@@ -14,6 +14,7 @@
       class="search-game-input"
       @input="setQuery">
     <div
+      v-if="query"
       class="search-reset"
       @click="reset">
       <icon
