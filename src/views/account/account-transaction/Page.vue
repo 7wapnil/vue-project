@@ -10,6 +10,7 @@
       </b-col>
     </b-row>
     <b-tabs
+      :fill="isMobile"
       nav-wrapper-class="border-top-tabs-orange-tabs"
       content-class="pt-4">
       <b-tab
