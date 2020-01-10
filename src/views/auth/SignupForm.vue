@@ -41,7 +41,9 @@
     </b-form-group>
 
     <b-form-group
+      :invalid-feedback="form.errors.get('password')"
       :label="$i18n.t('auth.signUpForm.password')"
+      :state="form.errors.state('password')"
       label-for="signup-password">
 
       <b-input-group>
@@ -52,8 +54,7 @@
           :type="passwordFieldType"
           :placeholder="$i18n.t('auth.signUpForm.password')"
           @input="form.clearError(['password'])"/>
-        <b-input-group-append
-          :class="{'is-invalid': form.errors.get('password')}">
+        <b-input-group-append>
           <b-button
             id="signup-password-show"
             class="px-4 py-1"
@@ -69,10 +70,7 @@
       </b-input-group>
 
     </b-form-group>
-    <b-form-invalid-feedback
-      :state="form.errors.state('password')"
-      role="alert"
-      class="invalid-feedback">{{ form.errors.get('password') }}</b-form-invalid-feedback>
+
     <b-row no-gutters>
       <b-col
         cols="7"
@@ -132,7 +130,10 @@
       <b-form-checkbox
         id="signup-agreedWithPrivacy"
         v-model="form.registration.agreedWithPrivacy"
-        class="accept-all-odds-checkbox mb-4"
+        :class="{
+          'mb-4': !form.errors.get('agreedWithPrivacy')
+        }"
+        class="accept-all-odds-checkbox"
         @input="form.clearError(['agreedWithPrivacy'])">
         <span class="d-block font-size-14 text-arc-clr-iron pointer letter-spacing-2 ml-3 mt-1">
           Confirm I am not underage,
@@ -235,5 +236,10 @@ export default {
   }
   .agreed-with-privacy {
     margin-bottom: 8px;
+  }
+  #signup-country.is-invalid,
+  #signup-password.is-invalid,
+  .agreedWithPrivacy.is-invalid {
+    margin-bottom: 0;
   }
 </style>
