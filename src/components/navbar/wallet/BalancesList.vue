@@ -124,7 +124,8 @@ export default {
     },
     activeBonusesList () {
       if (this.isGamePage) return this.$i18n.t('casino.seeInGame')
-      const bonus = this.activeWallet.userBonus[this.currentLobbySection]
+      const bonus = this.activeWallet.userBonus &&
+        this.activeWallet.userBonus[this.currentLobbySection]
         ? this.activeWallet.bonusBalance : 0
 
       return (this.activeWallet.realMoneyBalance + bonus).toFixed(2)
