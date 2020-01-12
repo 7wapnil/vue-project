@@ -87,8 +87,9 @@ export default {
         const elementRect = targetSection.getBoundingClientRect().top
         const elementPosition = elementRect - bodyRect
         this.scrollToPosition(elementPosition)
+      } else {
+        this.scrollToPosition(0)
       }
-      this.scrollToPosition(0)
     },
     scrollToPosition (position) {
       return window.scrollTo({
