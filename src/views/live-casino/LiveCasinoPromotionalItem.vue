@@ -34,6 +34,7 @@ export default {
        scoped>
     .promotional-block {
         height: 259px;
+        max-width: 248px;
         border-radius: 4px;
         box-shadow: 0 0 10px 2px #101010;
         background-image:
