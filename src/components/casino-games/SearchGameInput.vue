@@ -61,14 +61,14 @@ export default {
   .search-game-container {
     position: relative;
     height: 42px;
-    background: $arc-clr-soil-cover;
+    background: rgba($black, .6);
     margin-right: 20px;
     border-radius: $input-border-radius;
     .search-icon {
       position: absolute;
       top: calc(50% - 6px);
       left: 10px;
-      color: "#7E7E7E";
+      color: #7E7E7E;
     }
     .search-reset {
       position: absolute;
