@@ -55,7 +55,7 @@ export default {
       const images = require.context('@/assets/images/casino-games/providers', false, /\.svg$/)
       let providerImage = ''
       try {
-        providerImage = images(`./${this.itemTitle}.svg`)
+        providerImage = images(`./${this.provider.internalImageName}.svg`)
       } catch (error) {
         providerImage = this.provider.logoUrl || this.defaultImg
       }
