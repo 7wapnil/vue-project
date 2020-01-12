@@ -41,7 +41,6 @@ export default {
   name: 'CasinoTabs',
   data () {
     return {
-      arrows: true,
       defaultTab: {
         id: 0,
         name: 'popular',
