@@ -1,14 +1,20 @@
 <template>
   <div>
-    <b-row
-      v-if="!gamesCollection.length"
-      no-gutters>
-      <b-col class="text-center p-4">
+    <category-play-items :play-items="gamesCollection"/>
+    <loader v-if="$apollo.loading"/>
+    <b-row no-gutters>
+      <b-col
+        v-observe-visibility="{
+          throttle: 300,
+          callback: loadMoreGames
+        }"
+        v-if="!lastPage"/>
+      <b-col
+        v-if="!gamesCollection.length && !$apollo.loading"
+        class="text-center p-4">
         {{ $t('casino.noProviders') }}
       </b-col>
     </b-row>
-
-    <category-play-items :play-items="gamesCollection"/>
   </div>
 </template>
 
@@ -24,7 +30,8 @@ export default {
   data () {
     return {
       itemsPerPage: 20,
-      gamesCollection: []
+      gamesCollection: [],
+      paginationProps: Object
     }
   },
   computed: {
@@ -34,6 +41,9 @@ export default {
                     name.substr(1).toLowerCase()
 
       return capitalizedName.split('-').join(' ')
+    },
+    lastPage () {
+      return this.paginationProps.next === null
     }
   },
   created () {
@@ -41,7 +51,7 @@ export default {
     this.$route.params.label = this.$route.params.providerFullName || this.formatLabelName
   },
   apollo: {
-    providerGames () {
+    gamesByProvider () {
       return {
         query: GAMES_BY_PROVIDER,
         fetchPolicy: NETWORK_ONLY,
@@ -54,8 +64,39 @@ export default {
         },
         result ({ data }) {
           this.gamesCollection = data.gamesByProvider.collection
+          this.paginationProps = data.gamesByProvider.pagination
         }
       }
+    }
+  },
+  methods: {
+    loadMoreGames (isVisible) {
+      if (this.$apollo.loading || !isVisible) return
+
+      this.page = this.paginationProps.next
+      this.$apollo.queries.gamesByProvider.fetchMore({
+        variables: {
+          perPage: this.itemsPerPage,
+          page: this.page,
+          providerSlug: this.$route.params.providerName
+        },
+        updateQuery: (previousResult, { fetchMoreResult }) => {
+          if (!fetchMoreResult) return previousResult
+
+          return {
+            gamesByProvider: {
+              collection: this.mergePlayItems(previousResult, fetchMoreResult),
+              __typename: previousResult.gamesByProvider.__typename,
+              pagination: fetchMoreResult.gamesByProvider.pagination
+            }
+          }
+        }
+      })
+    },
+    mergePlayItems (oldItems, newItems) {
+      oldItems.gamesByProvider.collection.push(...newItems.gamesByProvider.collection)
+
+      return oldItems.gamesByProvider.collection
     }
   }
 }
