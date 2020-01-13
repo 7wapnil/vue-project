@@ -1,6 +1,7 @@
 <template>
   <div>
     <casino-providers-header/>
+    <loader v-if="$apollo.loading"/>
     <div class="p-0 px-md-2 mb-md-2">
       <b-row no-gutters>
         <b-col
