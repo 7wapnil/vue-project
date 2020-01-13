@@ -53,7 +53,6 @@ export default {
   created () {
     EVENTS.forEach(event => window.addEventListener(event, this.updateOnlineStatus))
     this.updateOnlineStatus()
-
     this.livechatInit()
   },
   beforeDestroy () {
@@ -73,6 +72,8 @@ export default {
       !navigator.onLine ? this.$bvModal.show('ConnectionModal') : this.$bvModal.hide('ConnectionModal')
     },
     livechatInit () {
+      this.$livechat.initWidget()
+
       // If user logged in, take user information and use in livechat form
       if (this.isLoggedIn) {
         this.requestUser()
@@ -85,15 +86,16 @@ export default {
         if (livechatStatus) {
           this.livechatHide()
         }
-      } else { // if not, hide it for not logged in mobile users
-        if (this.isMobile && !this.isLoggedIn) {
+      } else { // If no localstorage storage, hide for mobile, show for desktop
+        if (window.matchMedia('(max-width: 800px)').matches) {
           this.livechatHide()
+        } else {
+          this.$livechat.showWidget()
         }
       }
     },
     livechatHide () {
-      this.$livechat.initWidget()
-      this.$livechat.hideWidgetOnPageLoad()
+      return this.$livechat.hideWidgetOnPageLoad()
     }
   }
 }
