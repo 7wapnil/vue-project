@@ -32,8 +32,9 @@ describe('betslip store', () => {
           bets: [ { oddId: 1 }, { oddId: 2, status: 'xxx' } ]
         }
         const dispatch = sinon.spy()
+        const commit = sinon.spy()
 
-        actions.removeBetFromBetslip({ dispatch, state }, 1)
+        actions.removeBetFromBetslip({ dispatch, state, commit }, 1)
 
         expect(state.bets).to.eql([{ oddId: 2, status: 'xxx' }])
       })

@@ -381,18 +381,21 @@ export const actions = {
       }, BET_DESTROY_TIMEOUT)
     })
   },
-  pushBet ({ dispatch, state }, { event, market, odd }) {
+  pushBet ({ dispatch, state, commit }, { event, market, odd }) {
     if (state.bets.find(bet => bet.oddId === odd.id)) return
     const betSameMarket = state.bets.find(bet => bet.marketId === market.id)
     if (betSameMarket) dispatch('removeBetFromBetslip', betSameMarket.oddId)
 
     state.bets.push(Bet.initial(event, market, odd))
+    if (state.bets.length > 1) commit('setComboBetsMode', { enabled: true })
     setFieldToStorage('bets', state.bets, { array: true })
     dispatch('validateBets')
   },
   removeBetFromBetslip ({ dispatch, commit, state }, oddId) {
     state.bets = state.bets.filter(e => e.oddId !== oddId)
     setFieldToStorage('bets', state.bets, { array: true })
+
+    if (state.bets.length < 2) commit('setComboBetsMode', { enabled: false })
 
     dispatch('validateBets')
 
