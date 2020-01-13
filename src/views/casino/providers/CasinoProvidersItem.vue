@@ -1,5 +1,7 @@
 <template>
-  <b-row no-gutters>
+  <b-row
+    no-gutters
+    @click="pushProviderPage">
     <b-col class="bg-arc-clr-soil-dark mx-2 my-1 m-md-2 p-0 p-md-4 border-4 pointer">
       <b-row
         class="mb-0 mb-md-4"
@@ -14,7 +16,6 @@
         <b-col class="text-right p-3 p-md-0 d-flex align-items-start justify-content-end item-header-block">
           <b-link
             v-if="!isMobile"
-            :to="{ name: 'casino-games-by-provider-name', params: { providerName: provider.slug }}"
             router-tag="h6">
             {{ $t('casino.viewGames') }}
             <icon
@@ -60,6 +61,12 @@ export default {
         providerImage = this.provider.logoUrl || this.defaultImg
       }
       return providerImage
+    }
+  },
+  methods: {
+    pushProviderPage () {
+      this.$router.push({ name: 'casino-games-by-provider-name',
+        params: { providerName: this.provider.slug } })
     }
   }
 }
