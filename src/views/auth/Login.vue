@@ -112,9 +112,9 @@ export default {
         this.$router.push(this.onSuccessRedirect)
         this.storeSuccessLoginUrl(null)
       } else this.$router.push({ name: 'home' })
+      this.close()
       this.$livechat.setUser(signIn.user)
       this.$livechat.initWidget()
-      this.close()
     },
     onError (err) {
       if (!err.graphQLErrors || !err.graphQLErrors.length) return
