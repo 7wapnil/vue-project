@@ -30,7 +30,7 @@
         name="items-appearance"
         appear>
         <provider-overview-item
-          v-for="(provider, index) in providers"
+          v-for="(provider, index) in gameProviders"
           :key="provider.id"
           :provider="provider"
           :style="{ transitionDelay: index * .1 + 's' }"/>
@@ -94,21 +94,15 @@ export default {
       }
     }
   },
-  computed: {
-    providers () {
-      if (this.gameProviders) {
-        return this.gameProviders.filter(provider => provider.enabled === 'true')
-      }
-    }
-  },
   updated () {
+    if (this.gameProviders.length === 0 || this.wrapperWidth > 0) return
     this.calculateDimensions()
     this.calculateCurrentPage()
     this.addScrollListener()
   },
   methods: {
     calculateDimensions () {
-      if (this.providers.length) {
+      if (this.gameProviders.length) {
         const wrapper = document.getElementsByClassName('items-wrapper')[0]
         this.wrapperWidth = wrapper.clientWidth
         this.itemsPerPage = this.gameProviders.length
