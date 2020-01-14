@@ -32,7 +32,12 @@ const messages = {
         zipCode: 'Postal Code',
         city: 'City',
         state: 'Province',
-        next: 'Next'
+        next: 'Next',
+        nextStep: 'Next step',
+        almostThere: 'Almost there',
+        additionalInfo: 'Additional Information',
+        beforeContinue: 'Before continuing, we require some additional information from you',
+        pleaseComplete: 'Please complete the form on the left and you will be on your way to betting'
       }
     },
     meta: {
