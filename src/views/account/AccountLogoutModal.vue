@@ -78,6 +78,7 @@ export default {
     }),
     logout () {
       this.dispatchLogout(this)
+      this.$bvModal.hide('AccountLogoutModal')
     },
     hideModal () {
       this.$bvModal.hide('AccountLogoutModal')
