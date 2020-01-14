@@ -6,7 +6,7 @@
   >
     <div class="promo-text">
       <h4 class="promo-text-header">{{ isMobile ? this.$i18n.t('casino.promo.jackpot') : this.$i18n.t('casino.promo.totalJackpot') }}:</h4>
-      <h2 class="amount">€ {{ amount }}</h2>
+      <h2 class="amount">€ {{ amount.toLocaleString('de-DE') }}</h2>
       <h4 class="play-these-games">
         {{ this.$i18n.t('casino.promo.playTheseGames') }}
         <b-img

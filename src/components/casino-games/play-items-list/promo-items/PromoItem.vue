@@ -65,15 +65,14 @@ export default {
       background-image: url(#{'~@/assets/images/casino-games/promo-coins.png'});
       background-repeat: no-repeat;
       background-size: cover;
-      width: 220px;
-      float: left;
+      width: 255px;
+      position: absolute;
+      left: 0;
+      z-index: 1;
     }
 
     .promo-text {
-      width: 380px;
-      padding: 35px 0;
       text-transform: uppercase;
-      float: right;
       &-header {
         color: $arc-clr-gold;
         font-weight: $font-weight-bold;
@@ -96,6 +95,17 @@ export default {
       max-width: 620px;
       width: 100%;
       .play-these-games {display: flex;}
+      .promo-text {
+        position: absolute;
+        left: 0;
+        top: 50%;
+        border: 1px solid $arc-clr-gold;
+        box-sizing: border-box;
+        width: calc(100% - 15px);
+        z-index: 0;
+        transform: translateY(-50%);
+        padding: 20px 0 20px 255px;
+      }
     }
     &-mobile {
       margin: 10px;
