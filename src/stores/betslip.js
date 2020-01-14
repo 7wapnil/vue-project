@@ -206,7 +206,7 @@ export const getters = {
     if (activeWallet === null) {
       return false
     }
-    const sportBonus = activeWallet.userBonus.sportsbook ? activeWallet.bonusBalance : 0
+    const sportBonus = activeWallet.userBonus && activeWallet.userBonus.sportsbook ? activeWallet.bonusBalance : 0
     return getters.getTotalStakes <= activeWallet.realMoneyBalance + sportBonus
   },
   getFundsToBet: (state, getters, rootState, rootGetters) => {
@@ -214,7 +214,7 @@ export const getters = {
     if (activeWallet === null) {
       return false
     }
-    const sportBonus = activeWallet.userBonus.sportsbook ? activeWallet.bonusBalance : 0
+    const sportBonus = activeWallet.userBonus && activeWallet.userBonus.sportsbook ? activeWallet.bonusBalance : 0
     return activeWallet.realMoneyBalance + sportBonus
   },
   betslipValuesConfirmed: (state) => {
