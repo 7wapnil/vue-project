@@ -193,7 +193,8 @@ const messages = {
       goToLobby: 'Go to lobby',
       play: 'PLAY',
       headings: {
-        gameProviders: 'Game providers'
+        gameProviders: 'Game providers',
+        providers: 'Providers'
       },
       sidemenu: {
         labels: {

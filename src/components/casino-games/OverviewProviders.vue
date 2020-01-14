@@ -30,15 +30,14 @@
         name="items-appearance"
         appear>
         <provider-overview-item
-          v-for="(provider, index) in providers"
+          v-for="(provider, index) in gameProviders"
           :key="provider.id"
           :provider="provider"
           :style="{ transitionDelay: index * .1 + 's' }"/>
       </transition-group>
-
       <transition name="arrow-right">
         <div
-          v-show="currentPage !== numberOfPages"
+          v-show="scrollPosition < endPosition"
           class="slider-control-right"
           @click="slideRight">
           <arc-circle
@@ -71,18 +70,19 @@ export default {
     return {
       gameProviders: [],
       paginationProps: Object,
-      itemsPerPage: 20,
+      itemsPerPage: 0,
       visibleItems: 0,
       numberOfPages: 0,
       currentPage: 0,
       wrapperWidth: 0,
       scrollPosition: 0,
+      endPosition: 0,
       rowWidth: 0,
-      itemWidth: 170,
+      itemWidth: 160,
       providersCategory: {
         icon: 'casino-providers',
         name: 'providers',
-        label: 'Providers'
+        label: this.$i18n.t('casino.headings.providers')
       }
     }
   },
@@ -94,29 +94,28 @@ export default {
       }
     }
   },
-  computed: {
-    providers () {
-      if (this.gameProviders) {
-        return this.gameProviders.filter(provider => provider.enabled === 'true')
-      }
-    }
-  },
-  mounted () {
+  updated () {
+    if (this.gameProviders.length === 0 || this.wrapperWidth > 0) return
     this.calculateDimensions()
     this.calculateCurrentPage()
     this.addScrollListener()
   },
   methods: {
     calculateDimensions () {
-      const wrapper = document.getElementsByClassName('items-wrapper')[0]
-      this.wrapperWidth = wrapper.clientWidth
-      this.visibleItems = Math.floor(this.wrapperWidth / this.itemWidth)
-      this.numberOfPages = Math.floor(this.itemsPerPage / this.visibleItems)
-      this.rowWidth = this.numberOfPages * this.wrapperWidth
-      this.scrollPosition = wrapper.scrollLeft
+      if (this.gameProviders.length) {
+        const wrapper = document.getElementsByClassName('items-wrapper')[0]
+        this.wrapperWidth = wrapper.clientWidth
+        this.itemsPerPage = this.gameProviders.length
+        this.visibleItems = Math.floor(this.wrapperWidth / this.itemWidth)
+        this.numberOfPages = Math.ceil(this.itemsPerPage / this.visibleItems)
+        this.rowWidth = this.numberOfPages * this.wrapperWidth
+        this.scrollPosition = wrapper.scrollLeft
+        this.endPosition = wrapper.scrollWidth - this.wrapperWidth - 20
+      }
     },
     calculateCurrentPage () {
-      const currentPageNumber = Math.round(this.scrollPosition / (this.visibleItems * this.itemWidth))
+      const currentPageNumber = Math.ceil(this.scrollPosition / (this.visibleItems *
+          this.itemWidth))
       this.currentPage = currentPageNumber < 1 ? 1 : currentPageNumber + 1
     },
     slideLeft () {

@@ -86,7 +86,7 @@ export default {
         if (livechatStatus) {
           this.livechatHide()
         }
-      } else { // If no localstorage storage, hide for mobile, show for desktop
+      } else { // If no localstorage records, hide for mobile, show for desktop
         if (window.matchMedia('(max-width: 800px)').matches) {
           this.livechatHide()
         } else {
