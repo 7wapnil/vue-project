@@ -10,7 +10,7 @@
     <input
       v-model.trim="query"
       :placeholder="$i18n.t('casino.playItemsList.search')"
-      type="text"
+      type="search"
       class="search-game-input"
       @input="setQuery">
     <div
@@ -83,6 +83,12 @@ export default {
       border: none;
       color: $arc-clr-white;
       border-radius: $input-border-radius;
+      &::-webkit-search-decoration,
+      &::-webkit-search-cancel-button,
+      &::-webkit-search-results-button,
+      &::-webkit-search-results-decoration {
+        -webkit-appearance:none;
+      }
       &:focus {
         outline: 0;
       }
