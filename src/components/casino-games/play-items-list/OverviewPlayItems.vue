@@ -128,14 +128,14 @@ export default {
       const item = this.showPromoItem ? children[1].$el : children[0].$el
 
       this.wrapperWidth = wrapper.clientWidth
-      this.itemWidth = item.clientWidth
+      this.itemWidth = item.clientWidth + 20
       this.itemsPerPage = Math.floor(this.wrapperWidth / this.itemWidth)
-      this.numberOfPages = Math.floor(this.playItems.length / this.itemsPerPage)
+      this.numberOfPages = Math.ceil((this.showPromoItem ? this.playItems.length + 1 : this.playItems.length) / this.itemsPerPage)
       this.rowWidth = this.numberOfPages * this.wrapperWidth
       this.endPosition = wrapper.scrollWidth - this.wrapperWidth - 20
     },
     calculateCurrentPage () {
-      const currentPageNumber = Math.round(this.scrollPosition / (this.itemsPerPage *
+      const currentPageNumber = Math.ceil(this.scrollPosition / (this.itemsPerPage *
           this.itemWidth))
       this.currentPage = currentPageNumber < 1 ? 1 : currentPageNumber + 1
     },
