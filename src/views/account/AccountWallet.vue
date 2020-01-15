@@ -53,7 +53,7 @@
                   <b-row no-gutters>
                     <b-col class="auto">
                       <span class="font-weight-bold text-arc-clr-white font-size-12 letter-spacing-2 mobile-wallet-switch-amount">
-                        {{ wallet.amount | round }}
+                        {{ getBalanceWithBonus(wallet, currentLobbySection) }}
                       </span>
                       <span class="font-weight-bold text-arc-clr-iron font-size-12 ml-1 letter-spacing-2">
                         {{ wallet.currency.code }}
@@ -83,6 +83,7 @@
 <script>
 import { mapGetters, mapMutations } from 'vuex'
 import BalancesList from '@/components/navbar/wallet/BalancesList'
+import { getBalanceWithBonus } from '@/helpers/wallet'
 
 export default {
   extends: BalancesList,
@@ -111,7 +112,8 @@ export default {
     ]),
     selectWallet (wallet) {
       this.setActiveWallet(wallet.id)
-    }
+    },
+    getBalanceWithBonus
   }
 }
 </script>
