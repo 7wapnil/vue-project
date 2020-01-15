@@ -21,7 +21,7 @@ export default {
       return this.isMobile || this.isTablet
     },
     isIosDevice () {
-      return /iPhone|iPad/i.test(navigator.userAgent) && /AppleWebKit/i.test(navigator.userAgent)
+      return /iPhone/i.test(navigator.userAgent) && /AppleWebKit/i.test(navigator.userAgent)
     },
     isKindEsport () {
       return this.$route.params.titleKind === 'esports'

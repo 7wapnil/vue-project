@@ -1,6 +1,10 @@
 // Modals //
 @import '../variables';
 
+.modal-body.ios-device {
+  margin-bottom: 64px;
+}
+
 #AccountModal {
   .custom-select:disabled {
     background: $arc-clr-white;
@@ -39,9 +43,6 @@
   }
   &-body {
     padding: 0 14px 14px 14px;
-    &.ios-device {
-      margin-bottom: 44px;
-    }
   }
   &-dialog {
     margin: 0;

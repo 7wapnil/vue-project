@@ -3,7 +3,7 @@
     <b-col>
       <profile-wallet @open-account-deposit-tab="changeTabIndex(depositTabIndex);addTabName('Deposit')"/>
       <b-nav
-        class="h-100 bg-arc-clr-soil-black"
+        class="bg-arc-clr-soil-black"
         vertical>
         <b-nav-item
           v-for="(tab, index) in tabs"
