@@ -56,7 +56,19 @@ $section-top-border: inset 0 1px 0 0 $arc-clr-soil-light;
   }
   &-nav-item {
     background-color: $arc-clr-soil-darker;
+    box-shadow: $section-top-border;
     padding: 21px 25px;
+    & > .nav-link {
+      padding: 0 !important;
+      & > div {
+        .collapsed {
+          .arc-sidemenu-chevron-down {
+            transform: rotateX(0deg);
+            transition: transform .3s ease-in-out;
+          }
+        }
+      }
+    }
     &-active {
       background-color: #171717;
     }
