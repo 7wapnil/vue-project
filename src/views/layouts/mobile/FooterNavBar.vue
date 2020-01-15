@@ -49,7 +49,7 @@ export default {
           id: 2,
           title: this.$t('bottomNavBar.sports'),
           name: 'sports',
-          icon: 'sidemenu-sports',
+          icon: 'sidemenu-soccer',
           route: { name: 'sports' }
         },
         {
