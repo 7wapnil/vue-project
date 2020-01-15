@@ -46,6 +46,7 @@ export default {
   'jackpots': 'casino-jackpots',
   'table-games': 'casino-table-games',
   'skill-games': 'casino-skill-games',
+  'golden-oldies': 'casino-golden-oldies',
 
   // Live Casino
   'poker': 'live-casino-poker',
