@@ -1,5 +1,6 @@
 <template>
   <div>
+    <promotional-item/>
     <no-bets-block/>
     <b-container
       v-if="betsLength"
@@ -215,6 +216,7 @@ import {
   DEPOSIT_TAB_INDEX,
   MAX_VALUABLE_RETURN_VALUE
 } from '@/constants/betslip-settings'
+import PromotionalItem from '@/components/promotional/PromotionalItem'
 
 const SCROLL_ON_LOAD_TIMEOUT = 1500
 const SCROLL_ON_UPDATE_TIMEOUT = 100
@@ -225,7 +227,8 @@ export default {
     NoBetsBlock,
     SpinnerButton,
     BetslipStake,
-    BetslipMessage
+    BetslipMessage,
+    PromotionalItem
   },
   filters: {
     numberize (value) {
