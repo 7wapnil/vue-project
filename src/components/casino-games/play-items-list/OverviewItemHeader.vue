@@ -33,8 +33,7 @@
       class="px-4 pt-4 pb-2 overview-item-header-viewall-block">
       <span
         v-if="isCasino && (isLoggedIn || !isMobile)"
-        class="mr-md-2 mr-0"
-        style="cursor: pointer;"
+        class="mr-md-2 mr-0 pointer"
         @click="openLobby">
         {{ this.$i18n.t('casino.goToLobby') }}
       </span>
