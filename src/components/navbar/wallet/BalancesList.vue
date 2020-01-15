@@ -65,7 +65,7 @@
           <b-row no-gutters>
             <b-col class="pr-2">
               <span class="font-weight-bold font-size-12 letter-spacing-2">
-                {{ wallet.amount | round }}
+                {{ getBalanceWithBonus(wallet, currentLobbySection) }}
               </span>
               <span class="currency-code font-weight-bold font-size-12 letter-spacing-2">
                 {{ wallet.currency.code }}
@@ -96,6 +96,7 @@
 <script>
 import BonusSection from './BonusSection'
 import { mapGetters, mapMutations } from 'vuex'
+import { getBalanceWithBonus } from '@/helpers/wallet'
 
 export default {
   components: {
@@ -124,12 +125,8 @@ export default {
     },
     activeBonusesList () {
       if (this.isGamePage) return this.$i18n.t('casino.seeInGame')
-      const bonus = this.activeWallet.userBonus &&
-        this.activeWallet.userBonus[this.currentLobbySection]
-        ? this.activeWallet.bonusBalance : 0
-
-      return (this.activeWallet.realMoneyBalance + bonus).toFixed(2)
-    }
+      return this.getBalanceWithBonus(this.activeWallet, this.currentLobbySection)
+    },
   },
   methods: {
     ...mapMutations({ setActiveWallet: 'setActiveWallet' }),
@@ -142,7 +139,8 @@ export default {
     goToDepositPage () {
       this.changeTabIndex(3)
       this.$bvModal.show('AccountModal')
-    }
+    },
+    getBalanceWithBonus
   },
 }
 </script>
