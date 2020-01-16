@@ -14,6 +14,7 @@
         @click="changeKind(tab)">
 
         <activity-filters
+          :ref="tab.kind"
           @table-filtered-by-time="tableTimeFilter"
           @table-filtered-by-bet-state="tableBetFilter"/>
 
@@ -430,6 +431,9 @@ export default {
     changeKind (tab) {
       this.betKind = tab.kind
       this.page = 1
+      this.$refs[tab.kind][0].resetData()
+      this.timeFilterState = ''
+      this.betFilterState = ''
       this.loadMoreHistory()
     },
     changeToEveryMatrixTransactions (tab) {

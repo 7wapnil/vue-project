@@ -52,49 +52,51 @@
 import Datepicker from 'vuejs-datepicker'
 import moment from 'moment'
 
+const getDefaultData = () => {
+  return {
+    calendarDate: new Date(),
+    dateSelected: 0,
+    betStateSelected: 0,
+    timeButtons: [
+      {
+        name: 'All',
+        event: ''
+      },
+      {
+        name: 'Today',
+        event: 'today'
+      },
+      {
+        name: 'Week',
+        event: 'week'
+      },
+      {
+        name: 'Month',
+        event: 'month'
+      },
+    ],
+    stateButtons: [
+      {
+        name: 'All',
+        event: ''
+      },
+      {
+        name: 'Won',
+        event: 'won'
+      },
+      {
+        name: 'Lost',
+        event: 'lost'
+      },
+    ]
+  }
+}
+
 export default {
   components: {
     'datepicker': Datepicker
   },
-  data () {
-    return {
-      calendarDate: new Date(),
-      dateSelected: 0,
-      betStateSelected: 0,
-      timeButtons: [
-        {
-          name: 'All',
-          event: ''
-        },
-        {
-          name: 'Today',
-          event: 'today'
-        },
-        {
-          name: 'Week',
-          event: 'week'
-        },
-        {
-          name: 'Month',
-          event: 'month'
-        },
-      ],
-      stateButtons: [
-        {
-          name: 'All',
-          event: ''
-        },
-        {
-          name: 'Won',
-          event: 'won'
-        },
-        {
-          name: 'Lost',
-          event: 'lost'
-        },
-      ]
-    }
-  },
+  data: getDefaultData,
   mounted () {
     document.addEventListener('click', this.onClickOutside)
   },
@@ -143,6 +145,9 @@ export default {
       return this.$refs.datepicker.$el.contains(event.target) ||
              this.$refs.timeButtons.contains(event.target) ||
              this.$refs.stateButtons.contains(event.target)
+    },
+    resetData () {
+      Object.assign(this.$data, getDefaultData())
     }
   },
 }
