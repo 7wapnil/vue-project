@@ -48,7 +48,7 @@ export default {
     category () {
       return {
         context: this.$route.params.category,
-        label: this.$route.params.label
+        label: this.$route.params.label || this.categoryFromParams
       }
     },
     categoryIcon () {
@@ -57,13 +57,25 @@ export default {
     currentComponent () {
       const Mobile = () => import(`@/components/casino-games/play-items-list/CategoryPlayItemsMobile`)
       const Desktop = () => import(`@/components/casino-games/play-items-list/CategoryPlayItemsDesktop`)
-      return this.isMobile ? Mobile : Desktop;
+      return this.isMobile ? Mobile : Desktop
     },
+    categoryFromParams () {
+      const name = this.$route.params.category
+      if (name) {
+        const capitalizedName = (name) => {
+          return name
+            .toLowerCase()
+            .split('-')
+            .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+            .join(' ')
+        }
+        return capitalizedName(name)
+      }
+    }
   },
   methods: {
     pushLobby () {
-      const lobby = this.$route.params.titleKind
-      this.$router.push({ name: lobby })
+      this.$router.push({ name: this.currentLobbyName })
     }
   }
 }
