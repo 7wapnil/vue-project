@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="!$apollo.loading">
     <overview-providers-item-header
       :category="providersCategory"
       :pages="numberOfPages"
