@@ -133,7 +133,7 @@ describe('DepositPage', () => {
         })
 
         it('has correct text', () => {
-          expect(formWrapper.find('#needMoreInfo-submit').text()).to.equal('Next')
+          expect(formWrapper.find('#needMoreInfo-submit').text()).to.equal('Next step')
         })
 
         it('has correct type', () => {
