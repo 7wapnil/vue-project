@@ -1,46 +1,28 @@
 <template>
-  <b-row
-    no-gutters
-    class="pb-3 pt-3"
-  >
-    <b-col
-      class="d-flex"
-      align-self="center">
-      Additional Data
-    </b-col>
-    <b-col
-      class="d-flex justify-content-center"
-      align-self="center">
-      <icon
-        name="chevron-right"
-        size="18px"
-        color="arc-clr-white"/>
-      <icon
-        name="chevron-right"
-        size="18px"
-        color="arc-clr-white"/>
-    </b-col>
-    <b-col
-      class="d-flex justify-content-center"
-      align-self="center">
-      Deposit & Bonus
-    </b-col>
-    <b-col
-      class="d-flex justify-content-center"
-      align-self="center">
-      <icon
-        name="chevron-right"
-        size="18px"
-        color="arc-clr-white"/>
-      <icon
-        name="chevron-right"
-        size="18px"
-        color="arc-clr-white"/>
-    </b-col>
-    <b-col
-      class="d-flex justify-content-end"
-      align-self="center">
-      Play
-    </b-col>
-  </b-row>
+  <div
+    :class="{
+      'mb-2 p-2': isMobile,
+      'p-4': !isMobile,
+    }"
+    class="additional-info-container">
+    <div class="text-arc-clr-gold font-size-14">{{ $t('auth.depositAdditionalInfo.almostThere') }}!</div>
+    <div class="font-size-18">{{ $t('auth.depositAdditionalInfo.additionalInfo') }}</div>
+    <div class="text-arc-clr-iron font-size-14">
+      <p
+        :class="{'mb-0': isMobile}"
+        class="mt-2">
+        {{ $t('auth.depositAdditionalInfo.beforeContinue') }}<span v-if="!isMobile">.</span>
+      </p>
+      <p
+        v-if="!isMobile"
+        class="my-0">{{ $t('auth.depositAdditionalInfo.pleaseComplete') }}!</p>
+    </div>
+  </div>
 </template>
+
+<style lang="scss" scoped>
+  .additional-info-container {
+    background: $arc-clr-soil-dark;
+    border-radius: $input-border-radius;
+  }
+</style>
