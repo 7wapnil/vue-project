@@ -25,7 +25,7 @@
       :accordion="`${level}-menu`">
       <b-nav
         vertical
-        class="flex-nowrap">
+        class="flex-nowrap bg-arc-clr-soil-black">
         <b-nav-item
           v-for="(child, childIndex) in item.children"
           :key="childIndex">
