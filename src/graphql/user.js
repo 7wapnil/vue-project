@@ -69,7 +69,13 @@ export const USER_WITHDRAWAL_METHODS_QUERY = gql`
             title
             userPaymentOptionId
             name
-          },
+          }
+          ... on PaymentMethodEcoPayz {
+            id
+            title
+            userPaymentOptionId
+            name
+          }
           ... on PaymentMethodIdebit {
             id
             title

@@ -107,6 +107,7 @@ export default {
         'skrill',
         'neteller',
         'paysafecard',
+        'ecoPayz',
         'iDebit',
         'bitcoin'
       ],

@@ -21,6 +21,7 @@
 <script>
 import Skrill from '@/assets/images/withdrawal-methods/skrill.png'
 import Paysafecard from '@/assets/images/withdrawal-methods/paysafecard.png'
+import EcoPayz from '@/assets/images/withdrawal-methods/ecoPayz-with-offsets.png'
 import Idebit from '@/assets/images/withdrawal-methods/idebit-with-offsets.png'
 import CreditCard from '@/assets/images/withdrawal-methods/card.png'
 import Bitcoin from '@/assets/images/withdrawal-methods/btc.png'
@@ -32,6 +33,7 @@ export default {
       depositMethods: [
         Skrill,
         Paysafecard,
+        EcoPayz,
         Idebit,
         CreditCard,
         Bitcoin,

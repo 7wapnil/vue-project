@@ -388,6 +388,7 @@ const messages = {
         skrillAddress: 'Skrill address',
         nettelerAddress: 'Neteller address',
         iDebitAccountId: 'iDebit account id',
+        ecoPayzAccountId: 'ecoPayz account id',
         arcanebetPassword: 'Arcanebet password',
         notAvailable: 'The withdrawal page will only be available once you\'ve made a' +
         ' successful deposit and your account has been verified. <br><br> Please make a deposit' +

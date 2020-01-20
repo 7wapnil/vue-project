@@ -12,6 +12,7 @@ const fragmentMatcher = new IntrospectionFragmentMatcher({
             { name: 'PaymentMethodCreditCard' },
             { name: 'PaymentMethodSkrill' },
             { name: 'PaymentMethodNeteller' },
+            { name: 'PaymentMethodEcoPayz' },
             { name: 'PaymentMethodIdebit' }
           ]
         }
