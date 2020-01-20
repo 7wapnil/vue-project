@@ -27,6 +27,10 @@ $section-top-border: inset 0 1px 0 0 $arc-clr-soil-light;
   }
   &-topicons-section {
     padding: 68px 0;
+
+    .iDebit-icon img {
+      height: 32px;
+    }
   }
   &-policy-section {
     color: #6F6F6F;

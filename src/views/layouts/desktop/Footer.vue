@@ -11,7 +11,7 @@
         <b-col
           v-for="(topicon, index) in topicons"
           :key="index"
-          class="d-flex justify-content-center">
+          :class="`d-flex justify-content-center ${topicon}-icon`">
           <b-img :src="require(`@/assets/images/footer/${topicon}.svg`)"/>
         </b-col>
       </b-row>
@@ -119,7 +119,7 @@ export default {
           'skrill',
           'neteller',
           'paysafecard',
-          'skinpay',
+          'iDebit',
           'bitcoin'],
       bottomicons:
         ['18years',

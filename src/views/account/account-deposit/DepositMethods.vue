@@ -21,7 +21,7 @@
 <script>
 import Skrill from '@/assets/images/withdrawal-methods/skrill.png'
 import Paysafecard from '@/assets/images/withdrawal-methods/paysafecard.png'
-import Idebit from '@/assets/images/withdrawal-methods/idebit.png'
+import Idebit from '@/assets/images/withdrawal-methods/idebit-with-offsets.png'
 import CreditCard from '@/assets/images/withdrawal-methods/card.png'
 import Bitcoin from '@/assets/images/withdrawal-methods/btc.png'
 import Neteller from '@/assets/images/withdrawal-methods/neteller.png'
