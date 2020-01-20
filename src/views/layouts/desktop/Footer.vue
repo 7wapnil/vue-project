@@ -113,14 +113,15 @@ export default {
   name: 'DesktopFooter',
   data () {
     return {
-      topicons:
-        ['visa',
-          'master-card',
-          'skrill',
-          'neteller',
-          'paysafecard',
-          'iDebit',
-          'bitcoin'],
+      topicons: [
+        'visa',
+        'master-card',
+        'skrill',
+        'neteller',
+        'paysafecard',
+        'iDebit',
+        'bitcoin'
+      ],
       bottomicons:
         ['18years',
           'gamcare',

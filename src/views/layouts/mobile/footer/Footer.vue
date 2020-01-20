@@ -8,7 +8,7 @@
         <b-col
           v-for="(topicon, index) in topicons"
           :key="index"
-          class="d-flex justify-content-center py-2 px-3">
+          :class="`d-flex justify-content-center py-2 px-3 ${topicon}-icon`">
           <b-img :src="require(`@/assets/images/footer/${topicon}.svg`)"/>
         </b-col>
       </b-row>
@@ -101,14 +101,15 @@ export default {
   },
   data () {
     return {
-      topicons:
-          ['visa',
-            'master-card',
-            'skrill',
-            'neteller',
-            'paysafecard',
-            'skinpay',
-            'bitcoin'],
+      topicons: [
+        'visa',
+        'master-card',
+        'skrill',
+        'neteller',
+        'paysafecard',
+        'iDebit',
+        'bitcoin'
+      ],
       footerItems: [
         {
           id: 1,
