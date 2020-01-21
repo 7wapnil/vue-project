@@ -62,7 +62,6 @@ import DepositHeader from '@/views/account/account-deposit/DepositHeader'
 import DepositAmount from '@/views/account/account-deposit/deposit-form/DepositAmount'
 import DepositBonus from '@/views/account/account-deposit/deposit-form/DepositBonus'
 import DepositMethods from '@/views/account/account-deposit/deposit-form/DepositMethods'
-// import DepositMethods from '@/views/account/account-deposit/DepositMethods'
 import DepositErrors from '@/views/account/account-deposit/DepositErrors'
 import DepositSummary from '@/views/account/account-deposit/deposit-summary/DepositSummary'
 import { EUR } from '@/constants/currencies'
@@ -76,7 +75,6 @@ export default {
     DepositAmount,
     DepositBonus,
     DepositMethods,
-    // DepositMethods,
     DepositErrors,
     DepositSummary,
   },
@@ -138,7 +136,7 @@ export default {
     },
     buttonDisabled () {
       let parsedAmount = parseFloat(this.fields.amount)
-      return parsedAmount <= 0 || isNaN(parsedAmount) || !this.paymentMethod || this.isSubmitting
+      return parsedAmount <= 0 || isNaN(parsedAmount) || !this.paymentMethod || this.isSubmitting || !this.bonusValid
     }
   },
   watch: {
@@ -179,6 +177,10 @@ export default {
       this.isCryptoSectionShown = false
       this.paymentMethod = null
     },
+    resetBonus () {
+      this.bonusValid = true
+      this.calculatedBonus = 0
+    },
     updateAmount (val) {
       if (this.amountError) this.amountError = null
       if (this.bonusError) this.bonusError = null
@@ -194,6 +196,7 @@ export default {
     },
     calculateBonus (val) {
       this.fields.bonusCode = val
+      if (val.length === 0) this.resetBonus()
       if (val.length < 2) return
 
       if (this.fields.amount) {
@@ -227,10 +230,6 @@ export default {
       }
     },
     submitDeposit () {
-      if (this.fields.bonusCode && !this.bonusValid) this.bonusError = 'Bonus not found'
-      else this.submitDepositCallback()
-    },
-    submitDepositCallback () {
       this.isSubmitting = true
       const input = {
         paymentMethod: this.paymentMethod.code,
