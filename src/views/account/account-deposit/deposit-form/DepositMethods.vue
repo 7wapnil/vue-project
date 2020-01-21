@@ -112,13 +112,12 @@ export default {
   justify-content: space-between;
   margin-top: 10px;
   .deposit-method {
-    flex: 0 45%;
-    padding: 10px;
+    flex: 0 30%;
+    padding: 5px;
     margin-bottom: 10px;
     position: relative;
     img {
       width: 100%;
-      height: 100px;
     }
     .overlay {
       position: absolute;
