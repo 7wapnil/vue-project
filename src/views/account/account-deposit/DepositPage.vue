@@ -1,79 +1,84 @@
 <template>
   <div>
     <deposit-header/>
-    <deposit-description/>
     <deposit-errors
-      v-if="!isMobile"
       :deposit-state="depositState"
-      :deposit-message="depositMessage"
-      :bonus-error="bonusError"/>
-    <deposit-form-layout>
-      <template #depositform>
-        <deposit-presets
-          :currency="currency"
-          @preset-selected="addPresetAmount"/>
-        <deposit-form
-          :currency="currency"
-          :deposit-methods="depositMethods"
-          :fields="fields"
-          :selected-payment-method-code="selectedPaymentMethodCode"
-          :bonus-error="bonusError"
-          @action:calculate="calculateBonus"
-          @update:amount="updateAmount"
-          @update:payment="updatePaymentMethod"
-          @update:bonuscode="updateBonus"/>
-      </template>
-      <template #summary>
-        <deposit-summary
-          :is-crypto-section-shown="isCryptoSectionShown"
-          :calculated-bonus="calculatedBonus"
-          :deposit-state="depositState"
-          :deposit-message="depositMessage"
-          :address="address"
-          :fields="fields"
-          :currency="currency"
-          :get-total="getTotal"
-          :button-disabled="buttonDisabled"
-          @submit:deposit="submitDeposit"/>
-      </template>
-    </deposit-form-layout>
-    <deposit-methods/>
+      :deposit-message="depositMessage"/>
+    <component
+      :is="layout"
+      :deposit-state="depositState">
+      <deposit-amount
+        v-if="showBlock"
+        slot="deposit-amount"
+        :currency="currency"
+        :amount-error="amountError"
+        :update-amount="updateAmount"
+        :fields="fields"/>
+      <deposit-methods
+        v-if="showBlock"
+        slot="deposit-methods"
+        :set-payment-method="setPaymentMethod"
+        :deposit-methods="depositMethods"
+        :loading="$apollo.queries.user.loading"
+        :payment-method="paymentMethod"
+        :fields="fields"/>
+      <deposit-bonus
+        v-if="showBlock"
+        slot="deposit-bonus"
+        :bonus-error="bonusError"
+        :calculate-bonus="calculateBonus"
+        :set-bonus-error="setBonusError"
+        :payment-method="paymentMethod"
+        :fields="fields"
+        :bonus-success="bonusSuccess" />
+      <deposit-summary
+        slot="deposit-summary"
+        :address="address"
+        :fields="fields"
+        :currency="currency"
+        :payment-method="paymentMethod"
+        :get-total="getTotal"
+        :button-disabled="buttonDisabled"
+        :is-crypto-section-shown="isCryptoSectionShown"
+        :calculated-bonus="calculatedBonus"
+        :bonus-loading="bonusLoading"
+        :deposit-state="depositState"
+        @submit:deposit="submitDeposit"/>
+    </component>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 import {
-  CURRENCIES_LIST_QUERY,
   BONUS_CALCULATION_MUTATION,
-  DEPOSIT_METHODS_QUERY,
+  USER_DEPOSIT_METHODS_QUERY,
   DEPOSIT_MUTATION
 } from '@/graphql'
+import { HIDE_ALERT_TIMEOUT } from '@/constants/timeouts'
+import { DEPOSIT_FAIL, DEPOSIT_SUCCESS } from '@/constants/deposit-states'
+import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
 import DepositHeader from '@/views/account/account-deposit/DepositHeader'
-import DepositMethods from '@/views/account/account-deposit/DepositMethods'
-import DepositDescription from '@/views/account/account-deposit/DepositDescription'
+import DepositAmount from '@/views/account/account-deposit/deposit-form/DepositAmount'
+import DepositBonus from '@/views/account/account-deposit/deposit-form/DepositBonus'
+import DepositMethods from '@/views/account/account-deposit/deposit-form/DepositMethods'
+// import DepositMethods from '@/views/account/account-deposit/DepositMethods'
 import DepositErrors from '@/views/account/account-deposit/DepositErrors'
 import DepositSummary from '@/views/account/account-deposit/deposit-summary/DepositSummary'
-import DepositPresets from '@/views/account/account-deposit/deposit-form/DepositPresets'
-import DepositForm from '@/views/account/account-deposit/deposit-form/DepositForm'
-import DepositFormLayout from '@/views/account/account-deposit/deposit-form/DepositFormLayout'
 import { EUR } from '@/constants/currencies'
-import { BITCOIN, CREDIT_CARD } from '@/constants/payments/methods'
-import { FIAT } from '@/constants/currency-kinds'
-import QRCode from 'qrcode'
+import { BITCOIN } from '@/constants/payments/methods'
 import { Form } from '@/helpers'
 
 export default {
   name: 'DepositFunds',
   components: {
     DepositHeader,
+    DepositAmount,
+    DepositBonus,
     DepositMethods,
-    DepositDescription,
+    // DepositMethods,
     DepositErrors,
     DepositSummary,
-    DepositPresets,
-    DepositForm,
-    DepositFormLayout
   },
   data () {
     return {
@@ -81,120 +86,122 @@ export default {
         amount: null,
         bonusCode: null,
       }),
+      isSubmitting: false,
+      amountError: null,
       isCryptoSectionShown: false,
       paymentMethod: null,
-      currencies: [],
-      redirectUrl: process.env.VUE_APP_DEPOSIT_URL,
-      calculatedBonus: '',
+      calculatedBonus: 0,
+      bonusSuccess: null,
       bonusError: null,
+      bonusLoading: false,
+      bonusValid: true,
+      timeout: null,
       depositState: this.$route.query.depositState,
       depositMessage: this.$route.query.depositStateMessage,
+      depositDetails: this.$route.query.depositDetails,
       depositMethods: [],
       qrText: '',
-      address: '',
+      address: ''
     }
   },
   apollo: {
-    currencies () {
+    user () {
       return {
-        query: CURRENCIES_LIST_QUERY
-      }
-    },
-    depositMethods () {
-      return {
-        query: DEPOSIT_METHODS_QUERY
+        query: USER_DEPOSIT_METHODS_QUERY,
+        fetchPolicy: NETWORK_ONLY,
+        result ({ data }) {
+          this.depositMethods = data.user.availableDepositMethods
+        }
       }
     }
   },
   computed: {
-    ...mapGetters({
-      token: 'getToken',
-      fiatWallet: 'getUserFiatWallet',
-      activeWallet: 'getUserActiveWallet',
-      wallets: 'getUserWallets'
-    }),
+    layout () {
+      const MobileLayout = () => import(`@/views/account/account-deposit/deposit-form/DepositFormLayoutMobile`)
+      const DesktopLayout = () => import(`@/views/account/account-deposit/deposit-form/DepositFormLayoutDesktop`)
+      return this.isMobile ? MobileLayout : DesktopLayout
+    },
+    ...mapGetters({ activeWallet: 'getUserActiveWallet' }),
+    showBlock () {
+      if (this.depositDetails) return false
+
+      return !this.isCryptoSectionShown || (!this.isMobile && this.isCryptoSectionShown)
+    },
     getTotal () {
       let totalValue
-      if (this.fields.amount && this.fields.amount.includes(',')) {
-        this.fields.amount.replace(',', '.')
-      }
       totalValue = parseFloat(this.fields.amount)
-      if (this.calculatedBonus) {
-        totalValue += parseFloat(this.calculatedBonus)
-      }
-      if (!isNaN(totalValue)) {
-        return parseFloat(totalValue).toFixed(2)
-      }
+      if (this.calculatedBonus) totalValue += parseFloat(this.calculatedBonus)
+      return totalValue
     },
     currency () {
-      return (this.paymentMethod && this.paymentMethod.currencyCode) ||
-        (this.fiatWallet && this.fiatWallet.currency.code) ||
-        EUR
+      return (this.paymentMethod && this.paymentMethod.currencyCode) || (this.activeWallet && this.activeWallet.currency.code) || EUR
     },
     buttonDisabled () {
       let parsedAmount = parseFloat(this.fields.amount)
-      return parsedAmount <= 0 || isNaN(parsedAmount) || !this.paymentMethod
-    },
-    isFormEmpty () {
-      return Object.values(this.fields.values()).some(value => (value === null || value === ''))
-    },
-    selectedPaymentMethodCode: {
-      get: function () {
-        return this.selectedPaymentMethod ? this.selectedPaymentMethod.code : ''
-      },
-      set: function (paymentMethodCode) {
-        let newPaymentMethod = this.depositMethods.find((method) => method.code === paymentMethodCode)
+      return parsedAmount <= 0 || isNaN(parsedAmount) || !this.paymentMethod || this.isSubmitting
+    }
+  },
+  watch: {
+    depositMethods () {
+      if (this.depositMethods.length === 0 || this.paymentMethod || !this.depositDetails) return
 
-        if (this.paymentMethod && newPaymentMethod.currencyKind !== this.paymentMethod.currencyKind) {
-          this.calculatedBonus = null
-          this.bonusError = null
-          this.fields.reset()
-        }
-
-        this.paymentMethod = newPaymentMethod
-        this.isCryptoSectionShown = false
-      }
-    },
-    selectedPaymentMethod () {
-      return this.paymentMethod || this.initialPaymentMethod
-    },
-    initialPaymentMethod () {
-      let method = this.activeWalletPaymentMethod
-      if (method) return method
-
-      return this.secondaryWalletPaymentMethod
-    },
-    activeWalletPaymentMethod () {
-      if (!this.activeWallet) return
-
-      return this.depositMethods.find((method) => method.currencyCode === this.activeWallet.currency.code)
-    },
-    secondaryWalletPaymentMethod () {
-      if (!this.wallets.length) return
-
-      let foundMethod = null
-
-      this.wallets.some((wallet) => {
-        if (wallet.currency.kind === FIAT) {
-          foundMethod = this.depositMethods.find((method) => method.code === CREDIT_CARD)
-        } else {
-          foundMethod = this.depositMethods.find((method) => method.currencyCode === wallet.currency.code)
-        }
-
-        return foundMethod
-      })
-
-      return foundMethod
+      const decodedDepositDetails = atob(this.depositDetails)
+      const paymentMethod = new URLSearchParams(decodedDepositDetails).get('paymentMethod')
+      const [usedMethod] = this.depositMethods.filter(method => method.code === paymentMethod)
+      this.paymentMethod = usedMethod
     }
   },
   created () {
-    if (this.selectedPaymentMethod) {
-      this.paymentMethod = this.selectedPaymentMethod
-    }
+    if (!this.depositDetails) return
+
+    this.addTabName(this.$i18n.t('account.tabs.depositFunds'))
+    const decodedDepositDetails = atob(this.depositDetails)
+    const amount = new URLSearchParams(decodedDepositDetails).get('realMoneyAmount')
+    const bonus = new URLSearchParams(decodedDepositDetails).get('bonusAmount')
+    this.fields.amount = amount
+    this.calculatedBonus = Number(bonus)
   },
   methods: {
-    calculateBonus (callback = null) {
-      if (!this.isFormEmpty) {
+    ...mapMutations('tabs', {
+      addTabName: 'addTabName'
+    }),
+    setPaymentMethod (method) {
+      if (!method) return this.resetPaymentMethod()
+      const amount = Number(this.fields.amount);
+      if (!amount) this.amountError = this.$i18n.t('account.deposit.pleaseEnterAmount')
+      else {
+        if (amount > method.maxAmount || amount < method.minAmount) return
+
+        this.paymentMethod = method
+      }
+    },
+    resetPaymentMethod () {
+      this.isCryptoSectionShown = false
+      this.paymentMethod = null
+    },
+    updateAmount (val) {
+      if (this.amountError) this.amountError = null
+      if (this.bonusError) this.bonusError = null
+      if (!val) this.resetPaymentMethod()
+      if (this.paymentMethod && (val > this.paymentMethod.maxAmount || val < this.paymentMethod.minAmount)) this.paymentMethod = null
+
+      this.fields.amount = val
+
+      if (this.fields.bonusCode) this.calculateBonus(this.fields.bonusCode)
+    },
+    setBonusError (message) {
+      this.bonusError = message
+    },
+    calculateBonus (val) {
+      this.fields.bonusCode = val
+      if (val.length < 2) return
+
+      if (this.fields.amount) {
+        this.bonusLoading = true
+        this.bonusSuccess = null
+        this.bonusError = null
+        clearTimeout(this.timeout)
+
         this.$apollo.mutate({
           mutation: BONUS_CALCULATION_MUTATION,
           variables: {
@@ -205,27 +212,26 @@ export default {
         }).then(({ data }) => {
           this.calculatedBonus = data.depositBonus.bonus
           this.bonusError = null
-          if (callback === this.submitDepositCallback) {
-            callback()
-          }
+          this.bonusSuccess = this.$i18n.t('account.deposit.bonusFound')
+          this.bonusValid = true
+          this.timeout = setTimeout(() => {
+            this.bonusSuccess = null
+          }, HIDE_ALERT_TIMEOUT)
         }).catch(({ graphQLErrors }) => {
-          this.calculatedBonus = null
+          this.calculatedBonus = 0
+          this.bonusValid = false
           this.bonusError = graphQLErrors[0].message
-          setTimeout(() => {
-            this.bonusError = null
-            this.updateBonus(null)
-          }, 2000)
+        }).finally(() => {
+          this.bonusLoading = false
         })
       }
     },
     submitDeposit () {
-      if (this.isFormEmpty) {
-        this.submitDepositCallback()
-      } else {
-        this.calculateBonus(this.submitDepositCallback)
-      }
+      if (this.fields.bonusCode && !this.bonusValid) this.bonusError = 'Bonus not found'
+      else this.submitDepositCallback()
     },
     submitDepositCallback () {
+      this.isSubmitting = true
       const input = {
         paymentMethod: this.paymentMethod.code,
         currencyCode: this.currency,
@@ -240,30 +246,17 @@ export default {
         if (this.paymentMethod.code === BITCOIN) {
           this.isCryptoSectionShown = true
           this.address = deposit.url
-          this.qrText = `bitcoin:${this.address}?amount=${this.fields.amount / 1000}`
-          QRCode.toCanvas(document.getElementById('qrcode'), this.qrText, { scale: 4, margin: 2 })
         } else {
-          this.depositState = 'success'
+          this.depositState = DEPOSIT_SUCCESS
           this.depositMessage = deposit.message
           window.location.href = deposit.url
         }
       }).catch(({ graphQLErrors }) => {
-        this.depositState = 'fail'
+        this.depositState = DEPOSIT_FAIL
         this.depositMessage = graphQLErrors[0].message
+      }).finally(() => {
+        this.isSubmitting = false
       })
-    },
-    addPresetAmount (amount) {
-      this.fields.amount = amount.toString()
-      this.calculateBonus()
-    },
-    updateAmount (payload) {
-      this.fields.amount = payload
-    },
-    updateBonus (payload) {
-      this.fields.bonusCode = payload
-    },
-    updatePaymentMethod (payload) {
-      this.selectedPaymentMethodCode = payload
     }
   }
 }
