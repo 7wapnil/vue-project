@@ -383,7 +383,20 @@ const messages = {
         },
         serviceFees: 'We do not charge service fees.',
         paymentMethodsSupport: 'This is only a list of payment methods we support.You will select the one that suits you on the next page.',
-        bonusDescription: 'Bonus code description'
+        bonusDescription: 'Bonus code description',
+        enterDepositAmount: 'Enter deposit amount',
+        enterDepositBonus: 'Enter bonus code',
+        bonus: 'Bonus',
+        pleaseEnterAmount: 'Please enter amount',
+        method: 'Method',
+        notSelected: 'Not selected',
+        selectPaymentMethod: 'Select payment method',
+        pleaseSelectMethod: 'Please select payment method',
+        changePaymentMethod: 'Change payment method',
+        yourPaymentMethod: 'Your payment method',
+        bonusFound: 'Bonus found',
+        close: 'Close',
+        tryAgain: 'Try again'
       },
       withdraw: {
         withdrawFunds: 'Withdraw funds',

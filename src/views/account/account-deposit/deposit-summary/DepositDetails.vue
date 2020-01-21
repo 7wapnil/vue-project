@@ -1,10 +1,37 @@
 <template>
   <div id="summary">
+    <b-row
+      v-if="isMobile && !depositState"
+      no-gutters>
+      <b-col class="px-2 mt-4 mb-2">
+        <b-button
+          :disabled="buttonDisabled"
+          variant="user-profile-button"
+          block
+          @click.prevent="$emit('submit:deposit')">
+          {{ $t('account.cta.deposit') }}
+        </b-button>
+      </b-col>
+    </b-row>
     <b-row no-gutters>
       <b-col class="text-center py-2">
         <h4 class="mt-2 mb-4 font-weight-light letter-spacing-1">
           {{ $t('account.deposit.depositSummary') }}
         </h4>
+      </b-col>
+    </b-row>
+    <b-row
+      class="mb-1"
+      no-gutters>
+      <b-col>
+        <h6 class="text-right letter-spacing-2 text-arc-clr-iron">
+          {{ $tc('account.deposit.method', 1) }}:
+        </h6>
+      </b-col>
+      <b-col class="pl-2 text-truncate">
+        <h6 class="letter-spacing-2">
+          {{ method }}
+        </h6>
       </b-col>
     </b-row>
     <b-row
@@ -64,19 +91,8 @@
       </b-col>
     </b-row>
     <b-row
-      v-if="!!depositState && isMobile"
-      class="px-2"
+      v-if="!isMobile && !depositState"
       no-gutters>
-      <b-col>
-        <b-alert
-          :variant="mapDepositState"
-          show
-          class="mb-0">
-          {{ depositMessage }}
-        </b-alert>
-      </b-col>
-    </b-row>
-    <b-row no-gutters>
       <b-col class="px-2 mt-4 mb-2">
         <b-button
           :disabled="buttonDisabled"
@@ -87,10 +103,31 @@
         </b-button>
       </b-col>
     </b-row>
+    <b-row
+      v-if="depositState"
+      no-gutters>
+      <b-col class="px-2 mt-4 mb-2">
+        <b-button
+          variant="user-profile-button"
+          block
+          @click.prevent="close">
+          {{ $t('account.deposit.close') }}
+        </b-button>
+        <b-button
+          v-if="depositState === failState"
+          variant="user-profile-button"
+          block
+          @click.prevent="tryAgain">
+          {{ $t('account.deposit.tryAgain') }}
+        </b-button>
+      </b-col>
+    </b-row>
   </div>
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
+import { DEPOSIT_FAIL } from '@/constants/deposit-states'
 export default {
   props: {
     fields: {
@@ -102,25 +139,25 @@ export default {
       default: 'EUR'
     },
     calculatedBonus: {
-      type: [String, Number],
-      default: ''
+      type: Number,
+      default: 0
     },
     getTotal: {
-      type: String,
-      default: ''
+      type: Number,
+      default: 0
     },
     buttonDisabled: {
       type: Boolean,
       default: true
     },
+    paymentMethod: {
+      type: Object,
+      default: null
+    },
     depositState: {
       type: String,
-      default: null
-    },
-    depositMessage: {
-      type: String,
-      default: null
-    },
+      default: ''
+    }
   },
   data () {
     return {
@@ -128,7 +165,8 @@ export default {
         pending: 'warning',
         success: 'success',
         fail: 'danger'
-      }
+      },
+      failState: DEPOSIT_FAIL
     }
   },
   computed: {
@@ -143,6 +181,25 @@ export default {
     },
     mapDepositState () {
       return this.variantMap[this.depositState]
+    },
+    method () {
+      return this.paymentMethod ? this.paymentMethod.name : this.$t('account.deposit.notSelected')
+    }
+  },
+  methods: {
+    ...mapMutations('tabs', [
+      'toggleMenu',
+      'changeTabIndex'
+    ]),
+    close () {
+      this.changeTabIndex(0)
+      this.$bvModal.hide('AccountModal')
+      this.$router.replace({ name: this.$route.params.titleKind })
+    },
+    tryAgain () {
+      this.$router.replace({ name: this.$route.params.titleKind })
+      this.changeTabIndex(0)
+      this.changeTabIndex(3)
     }
   }
 }

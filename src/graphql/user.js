@@ -33,6 +33,23 @@ export const USER_QUERY = gql`
   }
 `
 
+export const USER_DEPOSIT_METHODS_QUERY = gql`
+  query {
+    user {
+      id
+      availableDepositMethods {
+        code
+        currencyCode
+        currencyKind
+        maxAmount
+        minAmount
+        name
+        note
+      }
+    }
+  }
+`
+
 export const USER_WITHDRAWAL_METHODS_QUERY = gql`
   query {
     user {
