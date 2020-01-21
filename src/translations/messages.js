@@ -394,7 +394,7 @@ const messages = {
         pleaseSelectMethod: 'Please select payment method',
         changePaymentMethod: 'Change payment method',
         yourPaymentMethod: 'Your payment method',
-        bonusFound: 'Bonus found',
+        bonusActivated: 'Bonus activated',
         close: 'Close',
         tryAgain: 'Try again'
       },

@@ -126,7 +126,7 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 import { DEPOSIT_FAIL } from '@/constants/deposit-states'
 export default {
   props: {
@@ -170,6 +170,9 @@ export default {
     }
   },
   computed: {
+    ...mapGetters('tabs', {
+      tabIndex: 'getCurrentTabIndex'
+    }),
     computeAmount () {
       return this.fields.amount ? `${this.fields.amount} ${this.currency}` : `0 ${this.currency}`
     },
@@ -177,6 +180,7 @@ export default {
       return this.calculatedBonus ? `${this.calculatedBonus} ${this.currency}` : `0 ${this.currency}`
     },
     computeTotal () {
+      if (this.depositState === DEPOSIT_FAIL) return `0 ${this.currency}`
       return this.getTotal ? `${this.getTotal} ${this.currency}` : `0 ${this.currency}`
     },
     mapDepositState () {
@@ -185,6 +189,11 @@ export default {
     method () {
       return this.paymentMethod ? this.paymentMethod.name : this.$t('account.deposit.notSelected')
     }
+  },
+  mounted () {
+    if (!this.depositState) return
+
+    this.$root.$once('bv::modal::hide', () => this.tryAgain())
   },
   methods: {
     ...mapMutations('tabs', [

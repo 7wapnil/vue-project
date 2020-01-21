@@ -159,6 +159,11 @@ export default {
     this.fields.amount = amount
     this.calculatedBonus = Number(bonus)
   },
+  beforeDestroy () {
+    if (!this.depositState) return
+
+    this.$router.replace({ name: this.$route.params.titleKind })
+  },
   methods: {
     ...mapMutations('tabs', {
       addTabName: 'addTabName'
@@ -215,7 +220,7 @@ export default {
         }).then(({ data }) => {
           this.calculatedBonus = data.depositBonus.bonus
           this.bonusError = null
-          this.bonusSuccess = this.$i18n.t('account.deposit.bonusFound')
+          this.bonusSuccess = this.$i18n.t('account.deposit.bonusActivated')
           this.bonusValid = true
           this.timeout = setTimeout(() => {
             this.bonusSuccess = null
