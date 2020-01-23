@@ -120,14 +120,20 @@ export default {
           children: [
             {
               id: 3.1,
-              title: 'Promotions',
-              route: { name: 'promotions' }
+              title: 'Welcome offer sport',
+              route: { name: 'welcome offer sport' }
             },
             {
               id: 3.2,
+              title: 'Welcome offer casino',
+              route: { name: 'welcome offer casino' }
+            },
+            {
+              id: 3.3,
               title: 'Bonus rules',
               route: { name: 'bonus rules' }
-            }],
+            }
+          ]
         },
         {
           id: 4,

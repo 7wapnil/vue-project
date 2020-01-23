@@ -11,13 +11,13 @@ export default {
   components: { StaticContent },
   data () {
     return {
-      id: process.env.VUE_APP_CONTENTFUL_PROMOTIONS_MAIN_ID
+      id: process.env.VUE_APP_CONTENTFUL_PROMOTIONS_PROMOTIONS_CASINO_ID
     }
   },
   metaInfo () {
     return {
-      title: this.$i18n.t('meta.promotions.main.title'),
-      meta: [{ name: 'description', content: this.$i18n.t('meta.promotions.main.description'), vmid: 'desc' }]
+      title: this.$i18n.t('meta.promotions.welcomeOfferCasino.title'),
+      meta: [{ name: 'description', content: this.$i18n.t('meta.promotions.welcomeOfferCasino.description'), vmid: 'desc' }]
     }
   }
 }
