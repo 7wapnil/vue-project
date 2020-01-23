@@ -10,11 +10,7 @@
 export default {
   methods: {
     pushGame () {
-      this.$router.push({ name: 'casino-game',
-        params: { category: 'slots',
-          playItemSlug: 'extra-chilli-bigtimegaming'
-        }
-      })
+      this.$router.push({ name: 'welcome offer casino' })
     }
   }
 }

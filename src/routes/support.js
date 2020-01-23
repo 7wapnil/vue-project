@@ -7,7 +7,8 @@ import PrivacyPolicyPage from '@/views/information-pages/support/privacy-policy/
 import CookiePolicyPage from '@/views/information-pages/support/cookie-policy/Page'
 import FAQPage from '@/views/information-pages/support/faq/Page'
 import AboutPage from '@/views/information-pages/about/main/Page'
-import PromotionsPage from '@/views/information-pages/promotions/main/Page'
+import WelcomeOfferSportPage from '@/views/information-pages/promotions/welcome-offer-sport/Page'
+import WelcomeOfferCasinoPage from '@/views/information-pages/promotions/welcome-offer-casino/Page'
 import BonusRulesPage from '@/views/information-pages/promotions/bonus-rules/Page'
 import IntroductionPage from '@/views/information-pages/responsible-gaming/introduction/Page'
 import LimitsPage from '@/views/information-pages/responsible-gaming/limits/Page'
@@ -114,10 +115,30 @@ export const support = {
       name: 'promotions',
       components: {
         left: InfoPageSidemenu,
-        content: PromotionsPage,
+        content: WelcomeOfferSportPage,
         right: Betslip,
         mobileSidemenu: InfoPageSidemenu
-      },
+      }
+    },
+    {
+      path: '/promotions/welcome-offer-sport',
+      name: 'welcome offer sport',
+      components: {
+        left: InfoPageSidemenu,
+        content: WelcomeOfferSportPage,
+        right: Betslip,
+        mobileSidemenu: InfoPageSidemenu
+      }
+    },
+    {
+      path: '/promotions/welcome-offer-casino',
+      name: 'welcome offer casino',
+      components: {
+        left: InfoPageSidemenu,
+        content: WelcomeOfferCasinoPage,
+        right: Betslip,
+        mobileSidemenu: InfoPageSidemenu
+      }
     },
     {
       path: '/promotions/bonus-rules',

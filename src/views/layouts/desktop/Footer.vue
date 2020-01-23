@@ -189,11 +189,16 @@ export default {
           children: [
             {
               id: 3.1,
-              title: 'Promotions',
-              route: { name: 'promotions' }
+              title: 'Welcome Offer Sport',
+              route: { name: 'welcome offer sport' }
             },
             {
               id: 3.2,
+              title: 'Welcome Offer Casino',
+              route: { name: 'welcome offer casino' }
+            },
+            {
+              id: 3.3,
               title: 'Bonus rules',
               route: { name: 'bonus rules' }
             }],

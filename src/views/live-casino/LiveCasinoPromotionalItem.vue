@@ -17,14 +17,7 @@ export default {
   },
   methods: {
     pushGame () {
-      if (this.isLoggedIn) {
-        this.$router.push({ name: 'live-casino-game',
-          params: { category: 'all-games',
-            playItemSlug: 'double-ball-roulette-evo'
-          }
-        })
-      }
-      return this.$bvModal.show('AuthModal')
+      this.$router.push({ name: 'welcome offer casino' })
     }
   }
 }

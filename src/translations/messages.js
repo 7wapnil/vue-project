@@ -94,8 +94,12 @@ const messages = {
         }
       },
       promotions: {
-        main: {
-          title: 'arcanebet - Promotional information',
+        welcomeOfferSport: {
+          title: 'arcanebet - Welcome Offer Sport | Promotions',
+          description: 'From deposit bonuses to rewards throughout your time on the website. Find your welcome offer terms and conditions here. For more details please log into your account.'
+        },
+        welcomeOfferCasino: {
+          title: 'arcanebet - Welcome Offer Casino | Promotions',
           description: 'From deposit bonuses to rewards throughout your time on the website. Find your welcome offer terms and conditions here. For more details please log into your account.'
         },
         bonusRules: {
