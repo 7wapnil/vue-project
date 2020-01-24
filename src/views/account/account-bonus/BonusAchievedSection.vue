@@ -10,6 +10,14 @@
       <span class="font-size-36 font-weight-bold text-arc-clr-white letter-spacing-5">
         {{ bonusAchieved | normalizeFloat }}
       </span>
+      <span class="font-size-36 font-weight-bold text-arc-clr-white letter-spacing-5">
+        <b-button
+          variant="user-profile-button"
+          block
+          @click.prevent="cancelActiveBonus">
+          {{ $t('account.bonus.cancelBonus') }}
+        </b-button>
+      </span>
     </div>
   </b-col>
 </template>
@@ -27,6 +35,19 @@ export default {
     bonusAchieved: {
       type: Number,
       required: true
+    },
+    bonusError: {
+      type: String,
+      default: null
+    },
+    bonusSuccess: {
+      type: String,
+      default: ''
+    }
+  },
+  methods: {
+    cancelActiveBonus () {
+      this.$bvModal.show('CancelActiveBonusModal')
     }
   }
 }

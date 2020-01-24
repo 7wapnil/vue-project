@@ -24,6 +24,14 @@ export default {
     mainBonus: {
       type: Object,
       required: true
+    },
+    bonusError: {
+      type: String,
+      default: null
+    },
+    bonusSuccess: {
+      type: String,
+      default: ''
     }
   }
 }

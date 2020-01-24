@@ -10,6 +10,12 @@ export const BONUS_CALCULATION_MUTATION = gql`
   }
 `
 
+export const BONUS_CANCELLATION_MUTATION = gql`
+  mutation{
+    cancelActiveBonus
+  }
+`
+
 export const BONUSES_LIST_QUERY = gql`
   query bonuses {
     bonuses {
