@@ -7,6 +7,9 @@
       v-if="getMainBonus"
       :bonus-achieved="getCurrentBonusValue"
       :main-bonus="getMainBonus"/>
+    <bonus-alerts
+      :bonus-error="bonusError"
+      :bonus-success="bonusSuccess"/>
     <progress-scale
       v-if="getMainBonus"
       :value="getMainBonusPercentageValue"/>
@@ -20,6 +23,7 @@ import BonusInformationSection from '@/views/account/account-bonus/BonusInformat
 import BonusItems from '@/views/account/account-bonus/BonusItems'
 import BonusPlaceholder from '@/views/account/account-bonus/BonusPlaceholder'
 import BonusHeader from '@/views/account/account-bonus/BonusHeader'
+import BonusAlerts from '@/views/account/account-bonus/BonusAlerts'
 import { BONUSES_LIST_QUERY } from '@/graphql'
 import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
 import { ACTIVE } from '@/constants/bonus-statuses'
@@ -30,11 +34,14 @@ export default {
     BonusInformationSection,
     BonusItems,
     BonusPlaceholder,
-    BonusHeader
+    BonusHeader,
+    BonusAlerts
   },
   data () {
     return {
-      bonuses: []
+      bonuses: [],
+      bonusError: null,
+      bonusSuccess: null
     }
   },
   computed: {

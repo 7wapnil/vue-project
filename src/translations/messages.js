@@ -421,6 +421,7 @@ const messages = {
         maximumRolloverPerBet: 'Maximum rollover per bet',
         expiryDate: 'Expiry date',
         bonusAchieved: 'Rollover achieved',
+        cancelBonus: 'Cancel Bonus',
         noBonus: 'It seems you have no active bonus at the moment. Please make a deposit and enter a bonus code to claim one.',
         longTerms: {
           header: 'Bonus rules for code:',
@@ -480,6 +481,12 @@ const messages = {
     },
     common: {
       noEventsFound: 'No events found'
+    },
+    cancelActiveBonusModal: {
+      header: 'Are you sure you want to cancel your bonus?',
+      body: 'If you click "{submitButton}", your current bonus balance of {amount} {currency} will be removed permanently. This is not reversible. Please contact support if you have any questions.',
+      backButton: 'Back',
+      submitButton: 'Cancel Bonus'
     }
   }
 }
