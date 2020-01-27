@@ -6,10 +6,11 @@
     <bonus-information-section
       v-if="getMainBonus"
       :bonus-achieved="getCurrentBonusValue"
-      :main-bonus="getMainBonus"/>
+      :main-bonus="getMainBonus"
+      @bonus-cancellation="cancellationResults"/>
     <bonus-alerts
-      :bonus-error="bonusError"
-      :bonus-success="bonusSuccess"/>
+      :cancel-bonus-status="cancelBonusStatus"
+      :cancel-bonus-message="cancelBonusMessage"/>
     <progress-scale
       v-if="getMainBonus"
       :value="getMainBonusPercentageValue"/>
@@ -40,8 +41,8 @@ export default {
   data () {
     return {
       bonuses: [],
-      bonusError: null,
-      bonusSuccess: null
+      cancelBonusMessage: null,
+      cancelBonusStatus: null
     }
   },
   computed: {
@@ -60,6 +61,13 @@ export default {
     },
     getMainBonus () {
       return this.bonuses.find((bonus) => bonus.status === ACTIVE)
+    }
+  },
+  methods: {
+    cancellationResults (status, message) {
+      this.cancelBonusStatus = status
+      this.cancelBonusMessage = message
+      this.$apollo.queries.bonuses.refetch()
     }
   },
   apollo: {

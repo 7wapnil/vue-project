@@ -14,7 +14,7 @@
         <b-button
           variant="user-profile-button"
           block
-          @click.prevent="cancelActiveBonus">
+          @click="$emit('cancel-active-bonus')">
           {{ $t('account.bonus.cancelBonus') }}
         </b-button>
       </span>
@@ -35,19 +35,6 @@ export default {
     bonusAchieved: {
       type: Number,
       required: true
-    },
-    bonusError: {
-      type: String,
-      default: null
-    },
-    bonusSuccess: {
-      type: String,
-      default: ''
-    }
-  },
-  methods: {
-    cancelActiveBonus () {
-      this.$bvModal.show('CancelActiveBonusModal')
     }
   }
 }
