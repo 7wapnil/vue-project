@@ -1,4 +1,4 @@
-export const DEFAULT_ICON = 'sidemenu-default-icon';
+export const DEFAULT_ICON = 'arcanebet-default-icon';
 export const DEFAULT_CATEGORY_ICON = 'arcanebet-default-icon'
 
 export default {
