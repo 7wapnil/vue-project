@@ -2,16 +2,10 @@
   <b-row no-gutters>
     <b-col class="p-md-0 py-2 px-4">
       <b-alert
-        :show="!!bonusError"
-        variant="danger"
+        :show="showMessage"
+        :variant="mapVariant"
         class="my-2">
-        {{ bonusError }}
-      </b-alert>
-      <b-alert
-        v-show="bonusSuccess"
-        variant="success"
-        class="my-2">
-        {{ bonusSuccess }}
+        {{ cancelBonusMessage }}
       </b-alert>
     </b-col>
   </b-row>
@@ -20,13 +14,23 @@
 <script>
 export default {
   props: {
-    bonusError: {
+    cancelBonusStatus: {
       type: String,
       default: null
     },
-    bonusSuccess: {
+    cancelBonusMessage: {
       type: String,
-      default: ''
+      default: null
+    }
+  },
+  computed: {
+    mapVariant () {
+      if (this.cancelBonusStatus === 'error') return 'danger'
+
+      return 'success'
+    },
+    showMessage () {
+      return this.cancelBonusMessage !== null
     }
   }
 }

@@ -485,6 +485,8 @@ const messages = {
     cancelActiveBonusModal: {
       header: 'Are you sure you want to cancel your bonus?',
       body: 'If you click "{submitButton}", your current bonus balance of {amount} {currency} will be removed permanently. This is not reversible. Please contact support if you have any questions.',
+      confirmMessage: 'Are you sure you wish to cancel your bonus? If you click cancel bonus, your current bonus balance will be removed permanently. This is not reversible. Please contact support if you have any questions.',
+      successfulCancellation: 'Bonus successfully cancelled. Please go to the deposit page to deposit and claim a new bonus',
       backButton: 'Back',
       submitButton: 'Cancel Bonus'
     }

@@ -3,7 +3,6 @@
     <div v-if="isLoggedIn">
       <account-modal/>
       <account-logout-modal/>
-      <cancel-active-bonus-modal/>
     </div>
     <div v-if="!isLoggedIn">
       <auth-modal/>
@@ -23,7 +22,6 @@ import AuthModal from '@/views/auth/AuthModal'
 import ConnectionModal from '@/views/layouts/common/ConnectionModal'
 import UnavailableCountryModal from '@/views/casino/modals/UnavailableCountryModal'
 import GameModeModal from '@/views/casino/modals/GameModeModal'
-import CancelActiveBonusModal from '@/views/account/CancelActiveBonusModal'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -33,8 +31,7 @@ export default {
     AuthModal,
     ConnectionModal,
     UnavailableCountryModal,
-    GameModeModal,
-    CancelActiveBonusModal
+    GameModeModal
   },
   computed: {
     ...mapGetters([
