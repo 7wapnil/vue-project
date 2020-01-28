@@ -61,8 +61,18 @@
               :to="{ path: '/sports'}"
               size="lg"
               variant="arc-secondary"
-              class="px-5 bg-arc-clr-sport-bg border-0 letter-spacing-2 font-weight-bold text-uppercase">
+              class="px-5 bg-arc-clr-sport-bg border-0 letter-spacing-2 font-weight-bold mb-4 text-uppercase">
               {{ $t('noFoundPage.sportButton') }}
+            </b-button>
+          </b-col>
+          <b-col class="text-right px-2 px-md-4">
+            <b-button
+              :block="isMobile"
+              :to="{ path: '/casino'}"
+              size="lg"
+              variant="arc-secondary"
+              class="px-5 bg-arc-clr-casino-bg border-0 letter-spacing-2 font-weight-bold text-uppercase">
+              {{ $t('noFoundPage.casinoButton') }}
             </b-button>
           </b-col>
         </b-row>
