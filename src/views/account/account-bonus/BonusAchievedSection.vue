@@ -12,7 +12,7 @@
       </span>
       <span class="font-size-36 font-weight-bold text-arc-clr-white letter-spacing-5">
         <b-button
-          variant="user-profile-button"
+          variant="arc-secondary"
           block
           @click="$emit('cancel-active-bonus')">
           {{ $t('account.bonus.cancelBonus') }}
