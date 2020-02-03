@@ -407,11 +407,9 @@ export default {
       this.$apollo.queries.bets.fetchMore({
         variables: this.variables,
         updateQuery: (previousResult, { fetchMoreResult }) => {
-          this.loadingBets = false
-          return {
-            bets: fetchMoreResult.bets,
-            paginationProps: fetchMoreResult.bets.pagination
-          }
+          this.loading[this.betKind] = false
+          this.bets = fetchMoreResult.bets
+          this.paginationProps = fetchMoreResult.bets.pagination
         }
       })
     },
