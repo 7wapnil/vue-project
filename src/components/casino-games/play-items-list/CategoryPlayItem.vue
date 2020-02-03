@@ -14,7 +14,7 @@
       </div>
       <div
         class="fun-mode-button"
-        @click.stop="lauchFunMode">
+        @click.stop="launchFunMode">
         <h6 class="try-for-free-label">
           {{ funModeLabel }}
         </h6>
@@ -86,7 +86,7 @@ export default {
             name: `${this.currentLobbyName}-game`,
             params: {
               playItemSlug: this.item.slug,
-              category: this.category.context
+              category: this.contextName()
             }
           })
         } else {
@@ -108,18 +108,18 @@ export default {
         }
       }
     },
-    lauchFunMode () {
+    launchFunMode () {
       if (!this.isFunModeAvailable && !this.isLoggedIn) return this.$bvModal.show('AuthModal')
-      if (this.isFunModeAvailable && !this.isLoggedIn) return this.lauchFunModeGame()
-      if (this.isFunModeAvailable && this.isLoggedIn) return this.lauchFunModeGame()
-      if (!this.isFunModeAvailable && this.isLoggedIn) return this.lauchFunModeGame()
+      if (this.isFunModeAvailable && !this.isLoggedIn) return this.launchFunModeGame()
+      if (this.isFunModeAvailable && this.isLoggedIn) return this.launchFunModeGame()
+      if (!this.isFunModeAvailable && this.isLoggedIn) return this.launchFunModeGame()
     },
-    lauchFunModeGame () {
+    launchFunModeGame () {
       return this.$router.push({
         name: `${this.currentLobbyName}-game`,
         params: {
           playItemSlug: this.item.slug,
-          category: this.category.context,
+          category: this.contextName(),
           gameMode: 'fun'
         }
       })
@@ -127,6 +127,11 @@ export default {
     openGameModalMobile () {
       this.storeGameSlug(this.item.slug)
       return this.$bvModal.show('GameModeModal')
+    },
+    contextName () {
+      if (this.category.context === 'providers') return 'all-games'
+
+      return this.category.context
     }
   }
 }

@@ -38,6 +38,7 @@ export default {
   'fifa': 'esports-fifa',
   'hearthstone': 'esports-hearthstone',
   'rainbow-six': 'esports-rainbow-six',
+  'rocket-league': 'esports-rocket-league',
 
   // Casino
   'new': 'casino-new',
@@ -52,5 +53,5 @@ export default {
   'poker': 'live-casino-poker',
   'hot-tables': 'live-casino-hot-tables',
   'roulette': 'live-casino-roulette',
-  'blackjack': 'live-casino-blackjack',
+  'blackjack': 'live-casino-blackjack'
 }
