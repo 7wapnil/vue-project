@@ -142,6 +142,7 @@ import Skrill from './withdrawal-methods/Skrill'
 import Neteller from './withdrawal-methods/Neteller'
 import CreditCard from './withdrawal-methods/CreditCard'
 import Bitcoin from './withdrawal-methods/Bitcoin'
+import EcoPayz from './withdrawal-methods/EcoPayz'
 import Idebit from './withdrawal-methods/Idebit'
 
 export default {
@@ -160,6 +161,7 @@ export default {
         'skrill': Skrill,
         'bitcoin': Bitcoin,
         'neteller': Neteller,
+        'eco_payz': EcoPayz,
         'idebit': Idebit
       },
       form: new Form({

@@ -11,7 +11,7 @@
         <b-col
           v-for="(topicon, index) in topicons"
           :key="index"
-          class="d-flex justify-content-center">
+          :class="`d-flex justify-content-center ${topicon}-icon`">
           <b-img :src="require(`@/assets/images/footer/${topicon}.svg`)"/>
         </b-col>
       </b-row>
@@ -113,14 +113,16 @@ export default {
   name: 'DesktopFooter',
   data () {
     return {
-      topicons:
-        ['visa',
-          'master-card',
-          'skrill',
-          'neteller',
-          'paysafecard',
-          'skinpay',
-          'bitcoin'],
+      topicons: [
+        'visa',
+        'master-card',
+        'skrill',
+        'neteller',
+        'paysafecard',
+        'ecoPayz',
+        'iDebit',
+        'bitcoin'
+      ],
       bottomicons:
         ['18years',
           'gamcare',
@@ -187,11 +189,16 @@ export default {
           children: [
             {
               id: 3.1,
-              title: 'Promotions',
-              route: { name: 'promotions' }
+              title: 'Welcome Offer Sport',
+              route: { name: 'welcome offer sport' }
             },
             {
               id: 3.2,
+              title: 'Welcome Offer Casino',
+              route: { name: 'welcome offer casino' }
+            },
+            {
+              id: 3.3,
               title: 'Bonus rules',
               route: { name: 'bonus rules' }
             }],

@@ -27,6 +27,14 @@ $section-top-border: inset 0 1px 0 0 $arc-clr-soil-light;
   }
   &-topicons-section {
     padding: 68px 0;
+
+    .iDebit-icon img {
+      height: 32px;
+    }
+
+    .ecoPayz-icon img {
+      height: 36px;
+    }
   }
   &-policy-section {
     color: #6F6F6F;
@@ -99,6 +107,14 @@ $section-top-border: inset 0 1px 0 0 $arc-clr-soil-light;
     padding: 25px 31px;
     max-width: 100vw;
     margin: 0;
+
+    .iDebit-icon img {
+      height: 32px;
+    }
+
+    .ecoPayz-icon img {
+      height: 36px;
+    }
   }
   .arc-sidemenu-chevron-down {
     transition: transform .3s ease-in-out;

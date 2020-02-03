@@ -2,7 +2,9 @@
   <b-row
     class="bonus-overview-section"
     no-gutters>
-    <bonus-achieved-section :bonus-achieved="bonusAchieved"/>
+    <bonus-achieved-section
+      :bonus-achieved="bonusAchieved"
+      @cancel-active-bonus="emitData"/>
     <bonus-details-section :main-bonus="mainBonus"/>
   </b-row>
 </template>
@@ -24,6 +26,11 @@ export default {
     mainBonus: {
       type: Object,
       required: true
+    }
+  },
+  methods: {
+    emitData () {
+      this.$emit('click-bonus-cancellation')
     }
   }
 }

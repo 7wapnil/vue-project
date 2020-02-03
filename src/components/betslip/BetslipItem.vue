@@ -240,7 +240,7 @@ export default {
     }
   },
   mounted () {
-    this.$emit('mounted:betslip-item')
+    this.$emit('betslip-item-mounted')
   },
   methods: {
     ...mapActions('betslip', ['removeBetFromBetslip', 'resetBetInBetslip']),

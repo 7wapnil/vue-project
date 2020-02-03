@@ -37,7 +37,7 @@
       </transition-group>
       <transition name="arrow-right">
         <div
-          v-show="scrollPosition < endPosition"
+          v-show="scrollPosition <= endPosition"
           class="slider-control-right"
           @click="slideRight">
           <arc-circle

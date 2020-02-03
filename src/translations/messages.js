@@ -94,8 +94,12 @@ const messages = {
         }
       },
       promotions: {
-        main: {
-          title: 'arcanebet - Promotional information',
+        welcomeOfferSport: {
+          title: 'arcanebet - Welcome Offer Sport | Promotions',
+          description: 'From deposit bonuses to rewards throughout your time on the website. Find your welcome offer terms and conditions here. For more details please log into your account.'
+        },
+        welcomeOfferCasino: {
+          title: 'arcanebet - Welcome Offer Casino | Promotions',
           description: 'From deposit bonuses to rewards throughout your time on the website. Find your welcome offer terms and conditions here. For more details please log into your account.'
         },
         bonusRules: {
@@ -379,7 +383,20 @@ const messages = {
         },
         serviceFees: 'We do not charge service fees.',
         paymentMethodsSupport: 'This is only a list of payment methods we support.You will select the one that suits you on the next page.',
-        bonusDescription: 'Bonus code description'
+        bonusDescription: 'Bonus code description',
+        enterDepositAmount: 'Enter deposit amount',
+        enterDepositBonus: 'Enter bonus code',
+        bonus: 'Bonus',
+        pleaseEnterAmount: 'Please enter amount',
+        method: 'Method',
+        notSelected: 'Not selected',
+        selectPaymentMethod: 'Select payment method',
+        pleaseSelectMethod: 'Please select payment method',
+        changePaymentMethod: 'Change payment method',
+        yourPaymentMethod: 'Your payment method',
+        bonusActivated: 'Bonus activated',
+        close: 'Close',
+        tryAgain: 'Try again'
       },
       withdraw: {
         withdrawFunds: 'Withdraw funds',
@@ -388,6 +405,7 @@ const messages = {
         skrillAddress: 'Skrill address',
         nettelerAddress: 'Neteller address',
         iDebitAccountId: 'iDebit account id',
+        ecoPayzAccountId: 'ecoPayz account id',
         arcanebetPassword: 'Arcanebet password',
         notAvailable: 'The withdrawal page will only be available once you\'ve made a' +
         ' successful deposit and your account has been verified. <br><br> Please make a deposit' +
@@ -403,6 +421,7 @@ const messages = {
         maximumRolloverPerBet: 'Maximum rollover per bet',
         expiryDate: 'Expiry date',
         bonusAchieved: 'Rollover achieved',
+        cancelBonus: 'Cancel Bonus',
         noBonus: 'It seems you have no active bonus at the moment. Please make a deposit and enter a bonus code to claim one.',
         longTerms: {
           header: 'Bonus rules for code:',
@@ -462,6 +481,12 @@ const messages = {
     },
     common: {
       noEventsFound: 'No events found'
+    },
+    cancelActiveBonus: {
+      warning: 'Are you sure you want to cancel your bonus? If you click cancel bonus, your current bonus balance of {amount} will be removed permanently. This is not reversible. Please contact support if you have any questions.',
+      backButton: 'Back',
+      submitButton: 'Cancel Bonus',
+      successfulCancellation: 'Bonus successfully cancelled. Please go to the deposit page to deposit and claim a new bonus'
     }
   }
 }

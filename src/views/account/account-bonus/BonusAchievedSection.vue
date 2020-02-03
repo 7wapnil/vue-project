@@ -10,6 +10,14 @@
       <span class="font-size-36 font-weight-bold text-arc-clr-white letter-spacing-5">
         {{ bonusAchieved | normalizeFloat }}
       </span>
+      <span class="font-size-36 font-weight-bold text-arc-clr-white letter-spacing-5">
+        <b-button
+          variant="arc-secondary"
+          block
+          @click="$emit('cancel-active-bonus')">
+          {{ $t('account.bonus.cancelBonus') }}
+        </b-button>
+      </span>
     </div>
   </b-col>
 </template>
