@@ -438,7 +438,8 @@ export default {
       this.$refs[tab.kind][0].resetData()
       this.timeFilterState = ''
       this.betFilterState = ''
-      this.loadMoreHistory()
+      this.loading[this.betKind] = true
+      this.$apollo.queries.bets.refetch({ kind: this.betKind })
     },
     changeToEveryMatrixTransactions (tab) {
       this.betKind = tab.kind
