@@ -11,6 +11,7 @@
     <bonus-cancellation-confirmation
       v-if="confirmationState"
       :cancel-bonus-confirmation-state="confirmBonusCancellationState"
+      :amount="bonusAmount"
       @bonus-cancellation="cancellationResults"
       @hide-confirmation="hideConfirmation"
     />
@@ -70,6 +71,9 @@ export default {
     },
     getMainBonus () {
       return this.bonuses.find((bonus) => bonus.status === ACTIVE)
+    },
+    bonusAmount () {
+      return this.getMainBonus.amount
     },
     confirmationState () {
       return this.confirmBonusCancellationState

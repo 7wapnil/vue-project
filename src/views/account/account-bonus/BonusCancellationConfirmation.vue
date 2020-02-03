@@ -26,15 +26,17 @@
 
 <script>
 import { BONUS_CANCELLATION_MUTATION } from '@/graphql'
-import { mapGetters } from 'vuex'
 
 export default {
+  props: {
+    amount: {
+      type: String,
+      required: true
+    }
+  },
   computed: {
-    ...mapGetters({
-      activeWallet: 'getUserActiveWallet'
-    }),
     warningMessage () {
-      return this.$i18n.t('cancelActiveBonus.warning', { amount: this.activeWallet.bonusBalance, currency: this.activeWallet.currency.code })
+      return this.$i18n.t('cancelActiveBonus.warning', { amount: this.amount })
     }
   },
   methods: {
