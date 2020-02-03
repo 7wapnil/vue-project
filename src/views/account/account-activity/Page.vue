@@ -411,10 +411,8 @@ export default {
         variables: this.variables,
         updateQuery: (previousResult, { fetchMoreResult }) => {
           this.loading[this.betKind] = false
-          return {
-            bets: fetchMoreResult.bets,
-            paginationProps: fetchMoreResult.bets.pagination
-          }
+          this.bets = fetchMoreResult.bets
+          this.paginationProps = fetchMoreResult.bets.pagination
         }
       })
     },
