@@ -12,15 +12,18 @@
           <div class="w-100"/>
           <b-col class="p-0 mt-1">
             <span class="font-weight-bold text-arc-clr-white letter-spacing-2">
-              {{ activeWallet.amount | round }}
+              {{ activeBonusesList }}
             </span>
-            <span class="font-weight-bold text-arc-clr-iron ml-1 letter-spacing-2">
+            <span
+              v-if="!isGamePage"
+              class="font-weight-bold text-arc-clr-iron ml-1 letter-spacing-2">
               {{ activeWallet.currency.code }}
             </span>
           </b-col>
         </b-col>
         <b-col cols="auto">
           <b-button
+            v-if="currentTabIndex !== 3"
             variant="user-profile-button"
             @click="$emit('open-account-deposit-tab')">
             {{ $t('account.cta.deposit') }}
@@ -35,25 +38,42 @@
             class="p-0 mb-2 text-uppercase text-arc-clr-iron font-size-10 letter-spacing-2">
             {{ $t('wallet.secondWallet') }}
           </b-col>
-          <div class="w-100"/>
 
-          <b-nav
-            vertical
-            pills
-            class="w-100">
-            <b-nav-item
-              v-for="(wallet, index) in inactiveWalletsList"
-              :key="index"
-              class="mobile-wallet-switch"
-              @click.prevent="selectWallet(wallet)">
-              <span class="font-weight-bold text-arc-clr-white font-size-12 letter-spacing-2">
-                {{ wallet.amount | round }}
-              </span>
-              <span class="font-weight-bold text-arc-clr-iron font-size-12 ml-1 letter-spacing-2">
-                {{ wallet.currency.code }}
-              </span>
-            </b-nav-item>
-          </b-nav>
+          <b-row no-gutters>
+            <b-col>
+              <b-nav
+                vertical
+                pills
+              >
+                <b-nav-item
+                  v-for="(wallet, index) in inactiveWalletsList"
+                  :key="index"
+                  :class="[isMobile ? 'mobile-wallet-switch-mobile' : 'mobile-wallet-switch']"
+                  @click.prevent="selectWallet(wallet)">
+                  <b-row no-gutters>
+                    <b-col class="auto">
+                      <span class="font-weight-bold text-arc-clr-white font-size-12 letter-spacing-2 mobile-wallet-switch-amount">
+                        {{ getBalanceWithBonus(wallet, currentLobbySection) }}
+                      </span>
+                      <span class="font-weight-bold text-arc-clr-iron font-size-12 ml-1 letter-spacing-2">
+                        {{ wallet.currency.code }}
+                      </span>
+                    </b-col>
+                    <b-col class="text-right">
+                      <span class="font-size-14 letter-spacing-2 d-inline-flex align-items-center justify-content-end ml-4 text-arc-clr-white">
+                        {{ $t('wallet.switch') }}
+                        <icon
+                          name="chevron-right"
+                          class="ml-2"
+                          color="arc-clr-white"
+                          size="10px"/>
+                      </span>
+                    </b-col>
+                  </b-row>
+                </b-nav-item>
+              </b-nav>
+            </b-col>
+          </b-row>
 
         </b-col>
       </b-row>
@@ -62,8 +82,11 @@
 </template>
 <script>
 import { mapGetters, mapMutations } from 'vuex'
+import BalancesList from '@/components/navbar/wallet/BalancesList'
+import { getBalanceWithBonus } from '@/helpers/wallet'
 
 export default {
+  extends: BalancesList,
   data () {
     return {
       wallet: () => {}
@@ -73,6 +96,9 @@ export default {
     ...mapGetters({
       wallets: 'getUserWallets',
       activeWallet: 'getUserActiveWallet'
+    }),
+    ...mapGetters('tabs', {
+      currentTabIndex: 'getCurrentTabIndex'
     }),
     inactiveWalletsList () {
       return this.wallets.filter((wallet) => {
@@ -86,7 +112,8 @@ export default {
     ]),
     selectWallet (wallet) {
       this.setActiveWallet(wallet.id)
-    }
+    },
+    getBalanceWithBonus
   }
 }
 </script>

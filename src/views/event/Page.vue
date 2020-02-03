@@ -1,18 +1,17 @@
 <template>
-  <div
-    v-visibility-change="checkEventStatus"
-    class="bg-arc-clr-soil-black">
+  <div>
     <header-section
       v-if="event"
       :event="event"
-      :showicons="false">
+      :twitch-size="twitchSize">
       <markets-categories
         :event="event"
         :active-index="activeIndex"
         lazy
         tabs-class="event-panel-tabs"
-        nav-class="event-panel-tabs-nav mx-md-4 mx-1"
+        nav-class="event-panel-tabs-nav mx-md-4 mx-1 no-scrollbars"
         title-class="event-panel-titles"
+        @update:twitch:size="updateTwitchSize"
         @category-changed="onTabChange"/>
     </header-section>
     <market-category
@@ -35,7 +34,7 @@
 import { UNLIMITED_QUERY } from '@/constants/graphql/limits'
 import { EVENT_BY_ID_QUERY } from '@/graphql'
 import MarketsCategories from '@/components/markets/MarketsCategories'
-import HeaderSection from './header-section/HeaderSection'
+import HeaderSection from '@/views/event/header-section/HeaderSection'
 import MarketsList from '@/components/markets/MarketsList'
 import EventDetailsCard from '@/components/cards/EventDetailsCard'
 import MarketCategory from '@/components/markets/MarketCategory'
@@ -56,12 +55,19 @@ export default {
       category: null,
       activeIndex: 0,
       userLeavedPage: false,
-      closingStatuses: ['ended', 'closed', 'cancelled', 'abandoned']
+      twitchSize: false
     }
   },
   computed: {
     eventId () {
       return this.$route.params.id
+    }
+  },
+  watch: {
+    'event.status': function (value) {
+      if (value === 'ended') {
+        this.loadModal()
+      }
     }
   },
   apollo: {
@@ -79,16 +85,15 @@ export default {
     onTabChange (tab) {
       this.category = tab
     },
-    checkEventStatus (evt, hidden) {
-      if (hidden) {
-        this.userLeavedPage = true
-      }
-      if (!hidden && this.userLeavedPage) {
-        if (this.event.status && this.closingStatuses.includes(this.event.status)) {
-          this.$router.push(`/${this.$route.params.titleKind}`)
-        }
-        this.userLeavedPage = false
-      }
+    updateTwitchSize (val) {
+      this.twitchSize = val
+    },
+    loadModal () {
+      this.$bvModal.show('PageLeaveModal')
+      setTimeout(() => {
+        this.$bvModal.hide('PageLeaveModal')
+        this.$router.push(`/${this.$route.params.titleKind}`)
+      }, 5000)
     }
   }
 }

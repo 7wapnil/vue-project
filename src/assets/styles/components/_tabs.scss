@@ -53,14 +53,6 @@
       color: $arc-clr-iron;
     }
   }
-  &-content {
-    min-height: 87vh;
-    overflow: hidden;
-
-    @media (max-width: 720px) {
-      min-height: 100vh !important;
-    }
-  }
 }
 
 .profile-modal-nav-mobile {
@@ -191,14 +183,9 @@
     flex-wrap: nowrap;
     white-space: nowrap;
     max-width: 100%;
-    overflow: hidden;
-
-    .mobile-container & {
-      overflow: auto;
-    }
+    overflow: auto;
   }
 }
-
 // Sorting Panel
 .sorting-panel {
   & > ul {
@@ -253,7 +240,6 @@
 .border-top-tabs-orange {
   &-tabs {
     border-bottom: 1px solid $arc-clr-soil-cover;
-    margin-top: 6px;
 
     .nav-link.active {
       color: $arc-clr-white !important;

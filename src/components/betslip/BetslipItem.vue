@@ -10,41 +10,19 @@
       no-gutters>
       <b-col class="d-flex justify-content-start">
         <span
-          :class="[ isBetDisabled ? 'text-arc-clr-iron' : 'text-arc-clr-iron-light']"
-          class="market-name font-size-12 font-weight-bold line-height-10">
-          {{ bet.marketName }}
+          :class="[ isBetDisabled ? 'opacity-2' : 'opacity-4']"
+          class="event-name text-arc-clr-iron font-size-10 pr-3">
+          {{ bet.eventName }}
         </span>
       </b-col>
       <b-col
         cols="auto"
         class="remove-odd d-flex justify-content-center"
-        @click="removeOdd(bet.oddId)">
+        @click="removeBetItem(bet.oddId)">
         <icon
           v-show="!bet.frozen"
           size="12px"
           name="betslip-close"/>
-      </b-col>
-    </b-row>
-    <b-row
-      class="mb-1"
-      no-gutters>
-      <b-col>
-        <b-row no-gutters>
-          <b-col class="pr-2">
-            <span
-              :class="[ isBetDisabled ? 'text-arc-clr-iron' : 'text-arc-clr-iron-light']"
-              class="font-size-14 font-weight-bold letter-spacing-2">
-              {{ bet.oddName }}
-            </span>
-          </b-col>
-          <b-col cols="auto">
-            <b-button
-              :disabled="isBetDisabled"
-              variant="arc-betslip-odd">
-              {{ bet.approvedOddValue }}
-            </b-button>
-          </b-col>
-        </b-row>
       </b-col>
     </b-row>
     <b-row
@@ -53,128 +31,97 @@
       <b-col>
         <span
           :class="[ isBetDisabled ? 'text-arc-clr-iron' : 'text-arc-clr-iron-light']"
-          class="event-name font-size-12">
-          {{ bet.eventName }}
+          class="market-name letter-spacing-2 text-truncate">
+          {{ bet.marketName }}
         </span>
       </b-col>
-    </b-row>
-    <b-row no-gutters>
-      <b-col>
-        <b-row no-gutters>
-          <b-col class="mb-1">
-            <small class="text-arc-clr-iron text-uppercase font-weight-bold letter-spacing-2">
-              Stake:
-            </small>
-          </b-col>
-        </b-row>
-      </b-col>
-      <b-col class="d-flex align-items-center justify-content-end">
-        <masked-input
-          :disabled="isDisabled"
-          v-model="betStake"
-          :mask="mask"
-          type="text"
-          name="stake"
-          class="betslip-input form-control"
-        />
-      </b-col>
-    </b-row>
-    <b-row
-      class="pt-3"
-      no-gutters>
-      <b-col>
-        <small class="text-arc-clr-iron letter-spacing-2">
-          Potential Return:
-        </small>
-      </b-col>
-      <b-col class="potential-return pr-4 text-right text-truncate">
-        <small>
-          {{ parseFloat(potentialReturn.toFixed(2)) }}
-        </small>
-      </b-col>
-    </b-row>
-
-    <b-row
-      v-if="valuesUnconfirmed && !getAnyFrozenBet"
-      class="alert-odd-value-changed mt-3"
-      no-gutters>
-      <b-col>
-        <b-row
-          class="pl-2 py-1"
-          no-gutters>
-          <b-col class="line-height-14">
-            <small class="text-arc-clr-gold letter-spacing-2">
-              Odds changed:
-            </small>
-          </b-col>
-          <div class="w-100"/>
-          <b-col class="line-height-14">
-            <small class="approved">
-              {{ bet.approvedOddValue }}
-            </small>
-            <small class="text-arc-clr-gold mx-2">
-              >
-            </small>
-            <small class="current">
-              {{ bet.currentOddValue }}
-            </small>
-          </b-col>
-        </b-row>
-      </b-col>
-      <b-col
-        class="d-flex align-items-center justify-content-center"
-        cols="auto">
+      <b-col cols="auto">
         <b-button
-          variant="arc-odd-changed"
-          @click="confirmValue">
-          Accept
+          :disabled="isBetDisabled"
+          variant="arc-betslip-odd">
+          {{ bet.approvedOddValue }}
         </b-button>
       </b-col>
     </b-row>
-    <b-alert
-      :show="isFail"
-      class="bet-message-alert mt-3 mx-auto p-2 text-center"
-      variant="danger">
-      {{ betMessage }}
-    </b-alert>
-    <b-alert
-      :show="isSuccess"
-      class="success-message mt-3 mx-auto p-2 text-center"
-      variant="success">
-      {{ successMessage }}
-    </b-alert>
-    <b-alert
-      :show="isBetDisabled && !getAnyFrozenBet && !isAccepted"
-      class="odd-disabled-message"
-      variant="odd-disabled">
-      {{ disabledMessage }}
-    </b-alert>
+    <b-row
+      class="mb-2"
+      no-gutters>
+      <b-col>
+        <b-row no-gutters>
+          <b-col>
+            <span
+              :class="[ isBetDisabled ? 'opacity-2' : 'opacity-7']"
+              class="text-arc-clr-iron font-size-11 letter-spacing-2 d-inline-block">
+              {{ bet.oddName }}
+            </span>
+          </b-col>
+        </b-row>
+      </b-col>
+    </b-row>
+
+    <div v-if="!isComboBetsMode">
+      <b-row no-gutters>
+        <b-col>
+          <b-row no-gutters>
+            <b-col class="mb-1">
+              <b-row no-gutters>
+                <b-col>
+                  <small class="text-arc-clr-iron letter-spacing-2 opacity-4">
+                    {{ $t('betslipItem.return') }}
+                  </small>
+                </b-col>
+              </b-row>
+
+              <b-row
+                no-gutters
+                class="mt-n1">
+                <b-col class="potential-return pr-4 text-truncate">
+                  <small
+                    v-if="getUserActiveWallet"
+                    class="text-arc-clr-iron" >
+                    {{ formattedPotentialReturn }}
+                  </small>
+                </b-col>
+              </b-row>
+            </b-col>
+          </b-row>
+        </b-col>
+        <b-col class="d-flex align-items-center justify-content-end">
+          <masked-input
+            :disabled="isDisabled"
+            v-model="betStake"
+            :placeholder="$t('betslipItem.stake')"
+            :mask="mask"
+            type="text"
+            name="stake"
+            class="betslip-input form-control"
+            @input="stakeChanged"
+          />
+        </b-col>
+      </b-row>
+    </div>
+
+    <betslip-item-message :bet="bet"/>
   </b-card>
 </template>
 
 <script>
 import Bet from '@/models/bet'
-import { mapGetters, mapMutations } from 'vuex'
-import { MESSAGE_SETTLED, MESSAGE_DISABLED, MESSAGE_SUCCESS } from '@/constants/betslip-messages'
+import { mapGetters, mapMutations, mapActions } from 'vuex'
 import { MARKET_BY_ID_QUERY, EVENT_BET_STOPPED, eventUpdatedSubscription } from '@/graphql'
-import { INACTIVE_STATUS, SETTLED_STATUS, INACTIVE_STATUSES } from '@/models/market'
-import {
-  PENDING_CANCELLATION,
-  ENPENDING_MANUAL_CANCELLATIONDED,
-  CANCELLED,
-  REJECTED,
-  CANCELLED_BY_SYSTEM,
-  FAILED
-} from '@/constants/bet-fail-statuses'
+import { SETTLED_STATUS } from '@/models/market'
+import { ACTIVE } from '@/constants/odd-statuses'
 import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
 import MaskedInput from 'vue-text-mask'
 import createNumberMask from 'text-mask-addons/dist/createNumberMask'
-
-const DISABLED = 'disabled'
-const SETTLED = 'settled'
+import BetslipItem from '@/views/styleguide/Pages/Betslip/component/BetslipItem'
+import BetslipItemMessage from '@/components/betslip/BetslipItemMessage'
+import { DIGITS_LIMIT_FOR_STAKE } from '@/constants/betslip-settings'
 
 export default {
   components: {
+    BetslipItem,
+    BetslipItemMessage,
     MaskedInput
   },
   props: {
@@ -186,8 +133,7 @@ export default {
   data () {
     return {
       betMarketStatus: null,
-      betOddStatus: null,
-      disabledMessage: null
+      betOddStatus: null
     }
   },
   apollo: {
@@ -202,10 +148,12 @@ export default {
         },
         update: data => data.markets[0],
         result ({ data }) {
-          const market = data.markets[0] || {}
+          const market = data.markets[0]
 
-          this.updateOdds(market)
-          this.handleMarketStatus(market)
+          if (!market) return this.disableBetWhenMarketNotFound()
+
+          this.synchronizeMarket(market)
+          this.synchronizeOdd(market)
         }
       }
     },
@@ -217,10 +165,13 @@ export default {
             return { id: this.bet.eventId }
           },
           result ({ data: { eventUpdated } }) {
-            const market = eventUpdated.markets[0] || {}
+            const market = eventUpdated.markets.find((item) => item.id === this.bet.marketId)
 
-            this.updateOdds(market)
-            this.handleMarketStatus(market)
+            if (!market) return this.disableBetWhenMarketNotFound()
+
+            this.synchronizeEvent(eventUpdated)
+            this.synchronizeMarket(market)
+            this.synchronizeOdd(market)
           }
         }
       },
@@ -231,30 +182,43 @@ export default {
             return { id: this.bet.eventId }
           },
           result ({ data: { eventBetStopped } }) {
-            this.bet.marketStatus = eventBetStopped.marketStatus
-            this.handleMarketStatus({ status: eventBetStopped.marketStatus })
+            const isEnabled = eventBetStopped.marketStatus === ACTIVE && this.bet.marketVisible
+            const market = {
+              status: eventBetStopped.marketStatus,
+              isEnabled: isEnabled,
+              visible: this.bet.marketVisible
+            }
+
+            this.synchronizeMarket(market)
           }
         }
       }
     }
   },
   computed: {
+    ...mapGetters('betslip', [
+      'getBets',
+      'isComboBetsMode',
+      'acceptAllChecked'
+    ]),
+    ...mapGetters(['getUserActiveWallet']),
     mask () {
       return createNumberMask({
         prefix: '',
         allowDecimal: true,
         allowLeadingZeroes: true,
-        includeThousandsSeparator: false
+        includeThousandsSeparator: false,
+        integerLimit: DIGITS_LIMIT_FOR_STAKE,
+        decimalLimit: 2
       })
     },
-    ...mapGetters('betslip', [
-      'acceptAllChecked',
-      'getBets',
-      'getAnyFrozenBet'
-    ]),
     potentialReturn: function () {
       const stake = this.bet.stake > 0 ? this.bet.stake : 0
       return stake * this.bet.approvedOddValue
+    },
+    formattedPotentialReturn () {
+      const currency = this.getUserActiveWallet.currency.code
+      return `${parseFloat(this.potentialReturn.toFixed(2))} ${currency}`
     },
     betStake: {
       get () {
@@ -265,135 +229,81 @@ export default {
         this.setBetStake({ oddId: this.bet.oddId, stakeValue: stakeValue })
       }
     },
-    valuesUnconfirmed () {
-      if (!this.acceptAllChecked) {
-        return this.bet.isAcceptable && this.bet.approvedOddValue !== this.bet.currentOddValue
-      }
-
-      return false
-    },
-    isSuccess () {
-      if (!this.bet.status) return
-
-      return this.bet.status === Bet.statuses.accepted || this.bet.status === Bet.statuses.settled
-    },
-    isAccepted () {
-      if (!this.bet.status) return
-
-      return this.bet.isStatusAccepted
-    },
-    isFail () {
-      if (!this.bet.status) return
-
-      return [ PENDING_CANCELLATION,
-        ENPENDING_MANUAL_CANCELLATIONDED,
-        CANCELLED,
-        REJECTED,
-        CANCELLED_BY_SYSTEM,
-        FAILED].includes(this.bet.status)
-    },
     isBetDisabled () {
       return this.isDisabled || this.isSettled
     },
     isDisabled () {
-      return this.betMarketStatus === DISABLED || this.betOddStatus === DISABLED
+      return !(this.bet.eventEnabled && this.bet.marketEnabled && this.bet.oddEnabled)
     },
     isSettled () {
-      return this.status === SETTLED
-    },
-    successMessage () {
-      return MESSAGE_SUCCESS
-    },
-    betMessage () {
-      return this.bet.message || this.$i18n.t('betslip.generic')
+      return this.bet.marketStatus === SETTLED_STATUS
     }
   },
   mounted () {
-    this.$nextTick(() => {
-      const submitButton = document.getElementById('betslip-submit')
-      submitButton.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' })
-    })
+    this.$emit('betslip-item-mounted')
   },
   methods: {
-    ...mapMutations('betslip', [
-      'setBetStake',
-      'updateBet',
-      'removeBetFromBetslip'
-    ]),
-    updateOdds (market) {
-      if (!market.hasOwnProperty('id')) return
-
-      let marketHasOdd = market.odds.some((odd) => this.bet.oddId === odd.id)
-      if (!marketHasOdd || INACTIVE_STATUSES.includes(market.status)) {
-        return this.disableBetByOddStatus()
-      } else {
-        this.betOddStatus = null
-      }
-
-      let bets = this.getBets
-
-      market.odds.forEach((odd) => {
-        let bet = bets.find(el => el.oddId === odd.id)
-
-        if (!bet) return
-
-        this.updateBet({
-          oddId: bet.oddId,
-          payload: { currentOddValue: odd.value, marketStatus: market.status }
-        })
-
-        if (this.acceptAllChecked && bet.currentOddValue !== bet.approvedOddValue) {
-          this.updateBet({
-            oddId: bet.oddId,
-            payload: { approvedOddValue: odd.value, marketStatus: market.status }
-          })
+    ...mapActions('betslip', ['removeBetFromBetslip', 'resetBetInBetslip']),
+    ...mapMutations('betslip', ['setBetStake', 'updateBet']),
+    disableBetWhenMarketNotFound () {
+      return this.updateBet({
+        oddId: this.bet.oddId,
+        payload: {
+          marketStatus: null,
+          marketEnabled: false,
+          marketVisible: null
         }
       })
     },
-    disableBetByOddStatus () {
-      this.disabledMessage = MESSAGE_DISABLED
-      this.betOddStatus = DISABLED
+    synchronizeEvent (event) {
+      this.updateBet({
+        oddId: this.bet.oddId,
+        payload: { eventEnabled: event.isEnabled }
+      })
+    },
+    synchronizeMarket (market) {
+      this.updateBet({
+        oddId: this.bet.oddId,
+        payload: {
+          marketStatus: market.status,
+          marketEnabled: market.isEnabled,
+          marketVisible: market.visible
+        }
+      })
+    },
+    synchronizeOdd (market) {
+      const odd = market.odds.find(item => this.bet.oddId === item.id)
+      const oddEnabled = odd && odd.status === ACTIVE
+      const approvedOddValue = this.acceptAllChecked && this.bet.oddsChanged
+        ? this.bet.currentOddValue
+        : this.bet.approvedOddValue
 
       this.updateBet({
         oddId: this.bet.oddId,
-        payload: { status: Bet.statuses.disabled }
+        payload: {
+          currentOddValue: odd.value,
+          approvedOddValue: approvedOddValue,
+          oddEnabled: oddEnabled
+        }
       })
     },
-    handleMarketStatus (market) {
-      if (!market.status || INACTIVE_STATUSES.includes(market.status)) {
-        return this.disableBetByMarketStatus()
-      }
-      if (market.status === SETTLED_STATUS) { return this.settleBetByMarketStatus() }
-
-      this.betMarketStatus = null
-    },
-    disableBetByMarketStatus () {
-      this.disabledMessage = MESSAGE_DISABLED
-      this.betMarketStatus = DISABLED
-
-      this.updateBet({
-        oddId: this.bet.oddId,
-        payload: { marketStatus: INACTIVE_STATUS }
-      })
-    },
-    settleBetByMarketStatus () {
-      this.disabledMessage = MESSAGE_SETTLED
-      this.betMarketStatus = SETTLED
-
-      this.updateBet({
-        oddId: this.bet.oddId,
-        payload: { marketStatus: SETTLED_STATUS }
-      })
-    },
-    confirmValue () {
-      this.updateBet({
-        oddId: this.bet.oddId,
-        payload: { approvedOddValue: this.bet.currentOddValue }
-      })
-    },
-    removeOdd (oddId) {
+    removeBetItem (oddId) {
       this.removeBetFromBetslip(oddId)
+    },
+    stakeChanged () {
+      if (this.bet.notificationCode === Bet.notificationCodes.liability_limit_reached_error) {
+        this.resetBetInBetslip(this.bet.oddId)
+      }
     }
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.market-name {
+  display:inline-block;
+  max-width: 150px;
+  font-size: 12px;
+  line-height: 10px;
+}
+</style>

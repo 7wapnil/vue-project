@@ -26,14 +26,17 @@ export default {
   'bowls': 'background-bowls',
   'field-hockey': 'background-field-hockey',
   'futsal': 'background-futsal',
+  'table-tennis': 'background-table-tennis',
+  'floorball': 'background-floorball',
 
   // Esports
   'call-of-duty': 'background-call-of-duty',
-  'counter-strike': 'background-counter-strike',
+  'cs:go': 'background-cs:go',
   'dota-2': 'background-dota-2',
-  'league-of-legends': 'background-league-of-legends',
+  'lol': 'background-lol',
   'overwatch': 'background-overwatch',
-  'starcraft': 'background-starcraft',
+  'starcraft-ii': 'background-starcraft-ii',
   'fifa': 'background-fifa',
-  'hearthstone': 'background-hearthstone'
+  'hearthstone': 'background-hearthstone',
+  'rainbow-six': 'background-rainbow-six'
 }

@@ -4,6 +4,23 @@ export const PROVIDER_FIELDS = `
   state
 `
 
+export const BONUSES_LIST_FIELDS = `
+  id
+  amount
+  casino
+  code
+  expiresAt
+  maxRolloverPerBet
+  minOddsPerBet
+  rolloverBalance
+  rolloverInitialValue
+  sportsbook
+  status
+  validForDays
+  minOddsPerBet
+  minOddsPerBetLeg
+`
+
 export const WALLET_FIELDS = `
   id
   amount
@@ -11,6 +28,12 @@ export const WALLET_FIELDS = `
     id
     code
     kind
+  }
+  realMoneyBalance
+  bonusBalance
+  userBonus {
+    casino
+    sportsbook
   }
 `
 
@@ -39,6 +62,22 @@ export const EVENT_FIELDS = `
   marketsCount
   startStatus
   displayStatus
+  dashboardMarket {
+    category
+    eventId
+    id
+    name
+    odds {
+      id
+      name
+      status
+      value
+    }
+    priority
+    status
+    visible
+  }
+  visible
   score
   timeInSeconds
   title {
@@ -51,11 +90,21 @@ export const EVENT_FIELDS = `
   }
   startAt
   endAt
+  visible
+  twitchUrl
+  twitchStartTime
+  twitchEndTime
   competitors {
     id
     name
     qualifier
-  }
+  },
+  isEnabled
+`
+
+export const EVENT_CONTEXTS_FIELDS = `
+  context
+  show
 `
 
 export const MARKET_FIELDS = `
@@ -63,7 +112,9 @@ export const MARKET_FIELDS = `
   name
   priority
   status
+  visible
   category
+  isEnabled
   odds {
     id
     name
@@ -82,10 +133,20 @@ export const BET_FIELDS = `
   id
   createdAt
   amount
-  oddValue
   status
   message
   notificationCode
+  betLegs {
+    id
+    oddId
+    message
+    notificationCode
+    eventEnabled
+    marketStatus
+    marketVisible
+    marketEnabled
+    oddEnabled
+  }
 `
 
 export const EVENT_BET_STOP_FIELDS = `
@@ -95,4 +156,86 @@ export const EVENT_BET_STOP_FIELDS = `
 
 export const MTS_CONNECTION_STATUS_FIELDS = `
   status
+`
+
+export const PLAY_ITEM_FIELDS = `
+  id
+  name
+  shortName
+  description
+  logoUrl
+  backgroundImageUrl
+  freeMode
+  url
+  slug
+  type
+`
+
+export const CASINO_CATEGORIES_FIELDS = `
+  id
+  label
+  position
+  context
+`
+
+export const OVERVIEW_FIELDS = `
+  ${CASINO_CATEGORIES_FIELDS}
+  playItems {
+    ${PLAY_ITEM_FIELDS}
+  }
+`
+
+export const PAGINATION_FIELDS = `
+  count
+  items
+  page
+  pages
+  offset
+  last
+  next
+  prev
+  from
+  to
+`
+
+export const EVERY_MATRIX_SESSION_FIELDS = `
+  launchUrl
+  playItem {
+    ${PLAY_ITEM_FIELDS}
+  }
+`
+
+export const EVERY_MATRIX_TRANSACTION_FIELDS = `
+  id
+  userId
+  debit
+  credit
+  balance
+  currencyCode
+  type
+  transactionId
+  gameName
+  vendorName
+  createdAt
+`
+
+export const CASINO_RECOMMENDED_GAMES_FIELDS = `
+  backgroundImageUrl
+  description
+  id
+  logoUrl
+  name
+  shortName
+  slug
+  type
+  url
+`
+
+export const GAME_PROVIDERS_FIELDS = `
+  id
+  enabled
+  logoUrl
+  name
+  internalImageName
+  slug
 `

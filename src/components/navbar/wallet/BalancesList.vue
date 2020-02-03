@@ -10,10 +10,13 @@
         <b-col>
           <b-row no-gutters>
             <b-col class="d-inline-flex pb-2">
-              <span class="font-weight-bold font-size-12 letter-spacing-2">
-                {{ activeWallet.amount | round }}
-
-                <span class="currency-code">
+              <span
+                :class="balancePlaceholderColor"
+                class="font-weight-bold font-size-12 letter-spacing-2">
+                {{ activeBonusesList }}
+                <span
+                  v-if="!isGamePage"
+                  class="currency-code">
                   {{ activeWallet.currency.code }}
                 </span>
               </span>
@@ -24,11 +27,12 @@
               cols="12"
               class="d-flex">
               <icon
+                v-if="!isGamePage"
                 name="wallet-triangle-down"
                 class="mr-2 d-flex justify-content-center align-items-center"
                 size="6px"/>
               <span class="text-arc-clr-iron-light font-size-12 letter-spacing-2">
-                View my wallet
+                {{ walletDescription }}
               </span>
             </b-col>
           </b-row>
@@ -50,21 +54,35 @@
 
     <template v-if="inactiveWalletsList.length">
       <div
-        v-for="(wallet, index) in inactiveWalletsList"
-        :key="index">
+        v-for="wallet in inactiveWalletsList"
+        :key="wallet.id">
 
         <b-dropdown-divider class="border-arc-dropdown-divider mx-3 my-0"/>
 
-        <b-dropdown-item-button
-          class="text-right wallet-button-menu-item px-3 py-2"
+        <b-dropdown-item
+          class="text-right wallet-button-menu-item"
           @click.prevent="selectWallet(wallet)">
-          <span class="font-weight-bold font-size-12 letter-spacing-2">
-            {{ wallet.amount | round }}
-          </span>
-          <span class="currency-code font-weight-bold font-size-12 letter-spacing-2">
-            {{ wallet.currency.code }}
-          </span>
-        </b-dropdown-item-button>
+          <b-row no-gutters>
+            <b-col class="pr-2">
+              <span class="font-weight-bold font-size-12 letter-spacing-2">
+                {{ getBalanceWithBonus(wallet, currentLobbySection) }}
+              </span>
+              <span class="currency-code font-weight-bold font-size-12 letter-spacing-2">
+                {{ wallet.currency.code }}
+              </span>
+            </b-col>
+            <b-col class="text-right">
+              <span class="font-size-12 letter-spacing-2 d-inline-flex align-items-center justify-content-end ml-2 text-arc-clr-white">
+                {{ $t('wallet.switch') }}
+                <icon
+                  name="chevron-right"
+                  class="ml-1"
+                  color="arc-clr-white"
+                  size="10px"/>
+              </span>
+            </b-col>
+          </b-row>
+        </b-dropdown-item>
       </div>
     </template>
 
@@ -78,6 +96,7 @@
 <script>
 import BonusSection from './BonusSection'
 import { mapGetters, mapMutations } from 'vuex'
+import { getBalanceWithBonus } from '@/helpers/wallet'
 
 export default {
   components: {
@@ -92,7 +111,22 @@ export default {
       return this.wallets.filter((wallet) => {
         return (wallet.id !== null && this.activeWallet.id !== wallet.id)
       })
-    }
+    },
+    walletDescription () {
+      return this.isGamePage ? this.$i18n.t('casino.seeInGame') : this.$i18n.t('casino.viewMyWallet')
+    },
+    isGamePage () {
+      return this.$route.name === 'casino-game' || this.$route.name === 'live-casino-game'
+    },
+    balancePlaceholderColor () {
+      if (this.isGamePage) {
+        return this.currentLobbyName === 'casino' ? 'text-arc-clr-casino-glow' : 'text-arc-clr-live-casino-glow'
+      }
+    },
+    activeBonusesList () {
+      if (this.isGamePage) return this.$i18n.t('casino.seeInGame')
+      return this.getBalanceWithBonus(this.activeWallet, this.currentLobbySection)
+    },
   },
   methods: {
     ...mapMutations({ setActiveWallet: 'setActiveWallet' }),
@@ -105,7 +139,8 @@ export default {
     goToDepositPage () {
       this.changeTabIndex(3)
       this.$bvModal.show('AccountModal')
-    }
+    },
+    getBalanceWithBonus
   },
 }
 </script>

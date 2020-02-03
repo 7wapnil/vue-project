@@ -35,14 +35,6 @@ export const SPORT_EVENT_UPDATED = gql`
   }
 `
 
-export const CATEGORY_EVENT_UPDATED = gql`
-  subscription categoryEventUpdated ($category: ID) {
-    categoryEventUpdated (category: $category) {
-      ${SUBSCRIPTION_FIELDS}
-    }
-  }
-`
-
 export const TOURNAMENT_EVENT_UPDATED = gql`
   subscription tournamentEventUpdated ($tournament: ID) {
     tournamentEventUpdated (tournament: $tournament) {
@@ -52,16 +44,10 @@ export const TOURNAMENT_EVENT_UPDATED = gql`
 `
 
 export const EVENT_UPDATED = gql`
-  subscription eventUpdated ($id: ID, $category: String = null) {
+  subscription eventUpdated ($id: ID) {
     eventUpdated (id: $id) {
       ${EVENT_FIELDS}
-      scopes {
-        ${SCOPE_FIELDS}
-      }
-      markets (eventId: $id, id: "273657") {
-        ${MARKET_FIELDS}
-      }
-    } 
+    }
   }
 `
 
@@ -69,7 +55,7 @@ export const EVENTS_BET_STOPPED = gql`
   subscription eventsBetStopped {
     eventsBetStopped {
       ${EVENT_BET_STOP_FIELDS}
-    } 
+    }
   }
 `
 
@@ -77,7 +63,7 @@ export const EVENT_BET_STOPPED = gql`
   subscription eventBetStopped ($id: ID) {
     eventBetStopped (id: $id) {
       ${EVENT_BET_STOP_FIELDS}
-    } 
+    }
   }
 `
 
@@ -101,7 +87,7 @@ export const eventUpdatedSubscription = (marketId = null, category = null) => {
         markets (${marketArgs.join(', ')}) {
           ${MARKET_FIELDS}
         }
-      } 
+      }
     }
   `
 }

@@ -24,10 +24,10 @@
           </b-col>
         </b-row>
         <b-row no-gutters>
-          <b-col class="mb-3 d-inline-flex align-items-center justify-content-center text-truncate">
-            <small class="text-arc-clr-iron">
+          <b-col class="mb-3 text-center">
+            <span class="font-size-12 text-arc-clr-iron letter-spacing-2 text-break">
               {{ event.tournament.name }}
-            </small>
+            </span>
           </b-col>
         </b-row>
       </b-col>
@@ -106,7 +106,7 @@ export default {
   methods: {
     goToEventPage () {
       if (this.marketsCount > 0) {
-        this.$router.push({ name: 'event', params: { id: this.event.id } })
+        this.$router.push({ name: 'esports-event', params: { id: this.event.id } })
       }
     }
   }

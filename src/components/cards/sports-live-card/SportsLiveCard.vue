@@ -20,17 +20,17 @@
           <b-row no-gutters>
             <b-col
               v-if="event.timeInSeconds"
-              class="d-flex justify-content-center text-center">
-              <span class="font-weight-bold text-arc-clr-iron text-uppercase mb-1 event-card-date letter-spacing-2">
+              class="d-flex justify-content-center text-center px-2 pt-2">
+              <span class="font-weight-bold text-arc-clr-iron text-uppercase mb-1 event-card-date letter-spacing-2 text-break">
                 {{ formattedTime }}'
               </span>
             </b-col>
 
             <div class="w-100"/>
 
-            <b-col class="d-flex align-items-start justify-content-center text-center">
+            <b-col class="d-flex align-items-start justify-content-center text-center px-2 pb-2">
               <span
-                class="font-size-10 text-arc-clr-iron text-uppercase font-weight-bold letter-spacing-2">
+                class="font-size-10 text-arc-clr-iron text-uppercase font-weight-bold letter-spacing-2 text-break">
                 {{ event.displayStatus }}
               </span>
             </b-col>
@@ -188,7 +188,7 @@ export default {
   methods: {
     goToEventPage () {
       if (this.marketsCount > 0) {
-        this.$router.push({ name: 'event', params: { id: this.event.id } })
+        this.$router.push({ name: 'sports-event', params: { id: this.event.id } })
       }
     }
   }

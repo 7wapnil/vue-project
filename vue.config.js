@@ -1,8 +1,11 @@
 var path = require('path')
 const PrerenderSPAPlugin = require('prerender-spa-plugin')
 const Renderer = PrerenderSPAPlugin.PuppeteerRenderer
+const CompressionPlugin = require('compression-webpack-plugin');
+const CompressionLevel = 5
 
 module.exports = {
+  productionSourceMap: false,
   pluginOptions: {
     s3Deploy: {}
   },
@@ -21,6 +24,7 @@ module.exports = {
     }
   },
   configureWebpack: {
+    devtool: 'sourcemaps',
     module: {
       rules: [
         {
@@ -58,6 +62,13 @@ if (process.env.NODE_ENV === 'production') {
         args: ['--no-sandbox', '--disable-setuid-sandbox'],
         renderAfterDocumentEvent: 'render-event'
       })
+    }),
+    new CompressionPlugin({
+      filename: '[path].gz[query]',
+      algorithm: 'gzip',
+      test: /\.(js|css|html)$/,
+      compressionOptions: { level: CompressionLevel },
+      minRatio: 0.8, // default
     })
   ])
 }

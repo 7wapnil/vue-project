@@ -13,21 +13,22 @@
           </h4>
         </b-col>
         <events-list
-          :title-id="$route.params.titleId"
-          :tournament-id="$route.params.tournamentId"
           :tab-id="tab.value"
-          :context="tab.context"/>
+          :events = "events_by_time(tab.value)"
+          :loading = "loading" />
       </div>
     </b-col>
   </b-row>
 </template>
 
 <script>
+import { TOURNAMENT_EVENTS } from '@/graphql'
 import EventsList from '@/components/events/EventsList'
-import { UPCOMING_UNLIMITED } from '@/constants/graphql/event-context'
-import { LIVE, UPCOMING } from '@/constants/graphql/event-start-statuses'
 import HybridCard from '@/views/events-list/HybridCard'
 import ScopeBreadcrumbs from '@/views/events-list/ScopeBreadcrumbs'
+import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
+import { UPCOMING, LIVE } from '@/constants/graphql/event-context'
+import { eventUpdatedSubscriber } from '@/helpers/event-subscriptions'
 
 export default {
   components: {
@@ -35,17 +36,53 @@ export default {
     EventsList,
     ScopeBreadcrumbs
   },
+  apollo: {
+    tournamentEvents () {
+      return {
+        ...this.query,
+        ...this.subscribeToMore
+      }
+    }
+  },
   data () {
     return {
+      loading: 0,
+      tournamentEvents: [],
       tabsMapping: [{
         value: LIVE,
-        title: this.$i18n.t('homePage.live'),
-        context: LIVE
+        title: this.$i18n.t('homePage.live')
       }, {
         value: UPCOMING,
-        title: this.$i18n.t('generalTerms.upcoming'),
-        context: UPCOMING_UNLIMITED
+        title: this.$i18n.t('generalTerms.upcoming')
       }]
+    }
+  },
+  computed: {
+    query () {
+      return {
+        query: TOURNAMENT_EVENTS,
+        fetchPolicy: NETWORK_ONLY,
+        variables () {
+          return {
+            tournamentId: this.$route.params.tournamentId,
+            withScopes: true
+          }
+        }
+      }
+    },
+    subscribeToMore () {
+      return eventUpdatedSubscriber({
+        tournamentId: this.$route.params.tournamentId
+      })
+    }
+  },
+  methods: {
+    events_by_time (tabValue) {
+      switch (tabValue) {
+        case LIVE: return this.tournamentEvents.live
+        case UPCOMING: return this.tournamentEvents.upcoming
+        default: return []
+      }
     }
   }
 }

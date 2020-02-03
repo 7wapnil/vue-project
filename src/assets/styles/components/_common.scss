@@ -59,8 +59,21 @@ a:focus {
   margin: 80px auto 0 auto;
   padding: 0 3px 0 0;
 }
+
+.casino .desktop-container {
+  min-width: unset;
+}
+.live-casino .desktop-container{
+  min-width: unset;
+}
+
 .mobile-container {
   margin-top: 60px;
+  transform: translate3d(0,0,0);
+  background-color: $arc-clr-soil-light;
+}
+.event-list-container {
+  min-height: calc(100vh - 172px - 60px);
 }
 iframe {
   overflow: hidden;
@@ -69,8 +82,11 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.breadcrumb-item.active {
-  &:before {
+.breadcrumb-item {
+  &:nth-of-type(2) > a{
+    pointer-events: none;
+  }
+  &.active:before {
     display: none;
   }
 }

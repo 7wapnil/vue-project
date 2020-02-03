@@ -20,6 +20,7 @@
 
 <script>
 import { mapGetters, mapMutations } from 'vuex'
+import { SPORTS, ESPORTS, CASINO, LIVE_CASINO } from '@/constants/title-kinds'
 
 export default {
   data () {
@@ -27,11 +28,19 @@ export default {
       categories: [
         {
           label: this.$i18n.t('homePage.esport'),
-          name: 'esports',
+          name: ESPORTS
         },
         {
           label: this.$i18n.t('homePage.sport'),
-          name: 'sports',
+          name: SPORTS
+        },
+        {
+          label: this.$i18n.t('homePage.casino'),
+          name: CASINO
+        },
+        {
+          label: this.$i18n.t('homePage.liveCasino'),
+          name: LIVE_CASINO
         }
       ]
     }

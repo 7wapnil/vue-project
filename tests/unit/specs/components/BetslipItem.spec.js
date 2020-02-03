@@ -6,10 +6,12 @@ import BetslipItem from '@/components/betslip/BetslipItem.vue'
 import Bet from '@/models/bet'
 import VueI18n from 'vue-i18n'
 import { messages } from '@/translations/'
+import globalMixin from '@/mixins/global'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
 localVue.use(VueI18n)
+localVue.mixin(globalMixin)
 
 describe('BetslipItem component', () => {
   let store
@@ -20,7 +22,6 @@ describe('BetslipItem component', () => {
   let mutations
   let state
   let i18n
-  let parentRef
 
   before(() => {
     state = {
@@ -55,7 +56,7 @@ describe('BetslipItem component', () => {
         message: null,
         externalId: null,
         approvedOddValue: 6.78,
-        currentOddValue: 3.45,
+        currentOddValue: 6.78,
         success: null
       })
       ]
@@ -72,9 +73,13 @@ describe('BetslipItem component', () => {
       getTotalStakes: () => 10,
       getTotalReturn: () => 15,
       acceptAllChecked: () => false,
-      valuesUnconfirmed: () => true,
-      getAnyFrozenBet: () => false,
+      hasUnconfirmedValues: () => true,
+      hasAnyFrozenBet: () => false,
       isBetDisabled: () => false
+    }
+
+    mutations = {
+      updateBet: (bet) => {}
     }
 
     store = new Vuex.Store({
@@ -96,8 +101,7 @@ describe('BetslipItem component', () => {
 
     wrapper = shallowMount(BetslipItem, {
       propsData: {
-        bet,
-        parentRef
+        bet
       },
       store,
       localVue,
@@ -115,16 +119,8 @@ describe('BetslipItem component', () => {
     })
 
     it('potential return has correct value', () => {
-      const potentialRetunValue = (bet.stake * bet.approvedOddValue).toString()
-      expect(wrapper.find('.potential-return').text()).to.equal(potentialRetunValue)
-    })
-
-    it('shows approved value', () => {
-      expect(wrapper.find('.approved').text()).to.equal(bet.approvedOddValue.toString())
-    })
-
-    it('shows current value', () => {
-      expect(wrapper.find('.current').text()).to.equal(bet.currentOddValue.toString())
+      const potentialRetunValue = (bet.stake * bet.approvedOddValue)
+      expect(wrapper.vm.potentialReturn).to.equal(potentialRetunValue)
     })
 
     it('dispatches remove odd method', () => {

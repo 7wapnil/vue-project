@@ -6,7 +6,9 @@ import { AUTH_INFO_QUERY,
   PASSWORD_RESET_REQUEST_MUTATION,
   PASSWORD_RESET_MUTATION,
   USER_QUERY,
-  WALLET_UPDATED_SUBSCRIPTION } from '@/graphql/index'
+  WALLET_UPDATED_SUBSCRIPTION,
+  UPDATE_USER_MUTATION,
+} from '@/graphql/index'
 import { NO_CACHE } from '@/constants/graphql/fetch-policy'
 import { wsClient } from '@/libs/apollo/ws-link'
 import router from '@/routes'
@@ -39,14 +41,36 @@ export const actions = {
       mutation: SIGN_UP_MUTATION,
       variables: {
         input: sessionData,
-        customerData: sbjsData
+        userData: sbjsData
       }
     })
     return response
   },
+  async updateUserInfo (context, [sessionData, sbjsData]) {
+    const response = await graphqlClient.mutate({
+      mutation: UPDATE_USER_MUTATION,
+      variables: {
+        input: sessionData,
+        customerData: sbjsData
+      },
+      update: (store, { data: { updateUser } }) => {
+        const data = store.readQuery({ query: USER_QUERY });
+        data.user = { ...data.user, ...updateUser };
+        store.writeQuery({ query: USER_QUERY, data });
+      },
+    })
+    const { updateUser } = response.data
+    context.commit('updateUser', {
+      token: context.getters.getToken,
+      user: { ...context.getters.getUser, ...updateUser }
+    })
+    return response
+  },
   login (context, sessionData) {
+    const wallet = sessionData.user.wallets[0]
+
     context.commit('storeSession', sessionData)
-    context.commit('setActiveWallet', sessionData.user.wallets[0].id)
+    if (wallet) context.commit('setActiveWallet', wallet.id)
     arcanebetSession.storeSession(sessionData)
     context.dispatch('subscribeToWallets')
     context.commit('resetConnection')
@@ -68,7 +92,8 @@ export const actions = {
     const response = graphqlClient.mutate({
       mutation: PASSWORD_RESET_REQUEST_MUTATION,
       variables: {
-        email: sessionData.email
+        email: sessionData.email,
+        captcha: sessionData.captcha
       }
     })
     return response
@@ -89,20 +114,24 @@ export const actions = {
       query: USER_QUERY
     }).then(res => {
       const wallet = res.data.user.wallets[0]
+      const localStorageActiveWalletId = localStorage.getItem('active_wallet')
+      const activeWalletId = localStorageActiveWalletId || wallet.id
 
       arcanebetSession.storeImpersonatedSession(context.getters.getToken, res.data.user)
       context.commit('updateUser', { token: context.getters.getToken, user: res.data.user })
-      if (wallet) context.commit('setActiveWallet', wallet.id)
+      if (wallet) context.commit('setActiveWallet', activeWalletId)
       context.dispatch('subscribeToWallets')
     })
   },
   refreshUserFromPayload (context, { token, user }) {
     const wallet = user.wallets[0]
+    const localStorageActiveWalletId = localStorage.getItem('active_wallet')
+    const activeWalletId = localStorageActiveWalletId || wallet.id
 
     arcanebetSession.storeImpersonatedSession(token, user)
     context.commit('storeSession', arcanebetSession.getSession())
     context.commit('updateUser', { token: token, user: user })
-    if (wallet) context.commit('setActiveWallet', wallet.id)
+    if (wallet) context.commit('setActiveWallet', activeWalletId)
     context.dispatch('subscribeToWallets')
     context.commit('resetConnection')
   },
@@ -148,7 +177,11 @@ export const mutations = {
   },
   setActiveWallet (state, id) {
     state.activeWalletId = id
-  }
+    localStorage.setItem('active_wallet', id)
+  },
+  storeSuccessLoginUrl (state, name) {
+    state.successLoginUrl = name
+  },
 }
 
 export const getters = {
@@ -175,7 +208,10 @@ export const getters = {
   },
   getUserFiatWallet (state) {
     return state.session.user.wallets.find(el => el.currency.kind === FIAT)
-  }
+  },
+  getSuccessLoginUrl (state) {
+    return state.successLoginUrl
+  },
 }
 
 export default {
@@ -183,7 +219,8 @@ export default {
     session: arcanebetSession.getSession() || {},
     isSuspicious: null,
     lastLogin: null,
-    activeWalletId: null
+    activeWalletId: null,
+    successLoginUrl: null
   },
   actions,
   mutations,

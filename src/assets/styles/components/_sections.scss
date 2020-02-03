@@ -64,11 +64,22 @@
 }
 
 // Introduction area
-.introduction-area {
+.introduction-area,
+%introduction-area {
   img {
     object-fit: cover;
     min-height: 100%;
     mask-image: linear-gradient(to bottom, rgba($black, 1) 75%, rgba($black, 0));
+  }
+}
+
+.event-introduction-area {
+  @extend %introduction-area;
+  .card-img-overlay {
+    position: relative;
+  }
+  img {
+    position: absolute;
   }
 }
 
@@ -78,13 +89,47 @@
 }
 
 // Mobile wallet section
-.mobile-wallet-switch {
+.mobile-wallet-switch,
+%mobile-wallet-switch {
     border-bottom: 1px solid $arc-clr-soil-cover;
+  &:hover {
+    background-color: $arc-clr-soil-black;
+    border-radius: 3px;
+    .mobile-wallet-switch-amount {
+      color: $arc-clr-gold !important;
+    }
+  }
   &:last-of-type {
     border: none;
   }
   &:active {
-    background-color: #6f6f6f30;
+    background-color: #171717;
     border-radius: 3px;
+  }
+}
+.mobile-wallet-switch-mobile {
+  @extend %mobile-wallet-switch;
+  border-bottom: 1px solid $arc-clr-soil-cover;
+  &:hover {
+    background-color: unset;
+    .mobile-wallet-switch-amount {
+      color: $arc-clr-white !important;
+    }
+  }
+  &:active {
+    background-color: #171717;
+    border-radius: 3px;
+  }
+}
+
+// Twitch section
+.twitch-section {
+  box-shadow: 0 0 8px 0 $arc-clr-soil-darker;
+}
+
+.withdrawal-method {
+  &-item {
+    min-height: 80px;
+    box-shadow: 0 1px 0 0 $arc-clr-soil-cover;
   }
 }

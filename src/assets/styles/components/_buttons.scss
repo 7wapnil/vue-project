@@ -41,7 +41,10 @@
 }
 
 // User profile button
-.btn-user-profile-button {
+// Button for game of the year //
+.btn-user-profile-button,
+.btn-game-of-the-day,
+.btn-promotion {
   @extend %btn-secondary;
   background-color: rgba(255,185,96, .9);
   border: 1px solid #FFC67E;
@@ -57,6 +60,10 @@
     border: 1px solid #FFC67E;
     box-shadow: unset;
   }
+}
+
+.btn-game-of-the-day {
+  line-height: 1.05rem;
 }
 
 // Primary button //
@@ -248,6 +255,15 @@
   height: 36px;
   padding: 6px 8px !important;
   border: none !important;
+  &-menu-item {
+    a {
+      padding: 16px 10px !important;
+    }
+    &:hover {
+      cursor: pointer;
+      background-color: $arc-clr-soil-cover;
+    }
+  }
 }
 
 // User profile / Bonus / Circle button
@@ -313,4 +329,8 @@
     text-shadow: 2px 2px 0 0 rgba($black, .4);
     border-radius: 6px 0 6px 0;
     background-color: $arc-clr-soil-dark;
+}
+
+.list-group-item-action:hover {
+  background-color: $arc-clr-soil-cover !important;
 }

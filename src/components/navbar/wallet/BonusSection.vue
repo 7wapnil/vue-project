@@ -1,5 +1,5 @@
 <template>
-  <div v-if="customerBonuses && customerBonuses.length && getMainBonus">
+  <div v-if="getMainBonus">
     <b-row
       no-gutters
       class="px-3 pt-3 pb-0">
@@ -12,7 +12,7 @@
     <b-row no-gutters>
       <b-col align="center">
         <small class="text-arc-clr-white">
-          {{ getCurrentBonusValue }}
+          {{ Number(getCurrentBonusValue).toFixed(2) }}
         </small>
       </b-col>
     </b-row>
@@ -40,11 +40,12 @@
 
 <script>
 import { BONUSES_LIST_QUERY } from '@/graphql'
+import { ACTIVE } from '@/constants/bonus-statuses'
 
 export default {
   data () {
     return {
-      customerBonuses: null
+      bonuses: []
     }
   },
   computed: {
@@ -56,11 +57,11 @@ export default {
       return parseFloat(calculatedPercentage.toFixed(2))
     },
     getMainBonus () {
-      return this.customerBonuses.find((bonus) => bonus.status === 'active')
+      return this.bonuses.find((bonus) => bonus.status === ACTIVE)
     }
   },
   apollo: {
-    customerBonuses () {
+    bonuses () {
       return {
         query: BONUSES_LIST_QUERY
       }

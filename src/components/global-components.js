@@ -11,9 +11,17 @@ import SimpleTabs from '@/components/custom/SimpleTabs'
 import ModalList from '@/components/custom/ModalList'
 import ArcCircle from '@/components/custom/ArcCircle'
 import PaymentMethodIcon from '@/components/PaymentMethodIcon'
+import ArcSeparator from '@/components/custom/ArcSeparator'
+import VueObserveVisibility from 'vue-observe-visibility'
+import VueLazyload from 'vue-lazyload'
 
 Vue.use(Router)
 Vue.use(BootstrapVue)
+Vue.use(VueObserveVisibility)
+Vue.use(VueLazyload, {
+  preLoad: 1.3,
+  attempt: 1
+})
 
 Vue.component('main-layout', MainLayout)
 Vue.component('simple-layout', SimpleLayout)
@@ -25,3 +33,4 @@ Vue.component('simple-tabs', SimpleTabs)
 Vue.component('modal-list', ModalList)
 Vue.component('arc-circle', ArcCircle)
 Vue.component('payment-method-icon', PaymentMethodIcon)
+Vue.component('arc-separator', ArcSeparator)

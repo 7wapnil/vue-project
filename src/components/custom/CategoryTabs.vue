@@ -5,11 +5,10 @@
     content-class="p-0 m-0"
     class="category-tabs"
     nav-wrapper-class="category-tabs-wrapper"
-    nav-class="category-tabs-nav mx-2 mx-md-5">
-
+    nav-class="category-tabs-nav mx-2 mx-md-5 no-scrollbars">
     <b-tab
-      v-for="(tab, index) in tabs"
-      :key="index"
+      v-for="tab in tabs"
+      :key="tab.value"
       no-body
       title-link-class="category-tab px-4 py-3">
       <template #title>
@@ -49,12 +48,6 @@
         <icon name="chevron-left"/>
       </b-nav-item>
     </template>
-
-    <div
-      slot="empty"
-      class="text-center text-muted">
-      No tabs. Try to check your connection.
-    </div>
   </b-tabs>
 </template>
 
@@ -66,6 +59,10 @@ export default {
       default () { return [] }
     },
     value: {
+      type: Number,
+      default: 0
+    },
+    position: {
       type: Number,
       default: 0
     },
@@ -91,6 +88,14 @@ export default {
           this.$emit('tab-changed', tab)
         }
       }
+    }
+  },
+  watch: {
+    position (tab) {
+      this.tabIndex = tab
+    },
+    $route () {
+      this.tabIndex = 0
     }
   },
   created () {

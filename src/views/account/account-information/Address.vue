@@ -1,6 +1,7 @@
 <template>
   <div>
     <b-row
+      v-if="user.addressCountry"
       class="mb-4"
       no-gutters>
       <b-col
@@ -15,7 +16,7 @@
       <b-col
         lg="6"
         cols="9"
-        class="ml-4">
+        class="pl-4">
         <b-form-select
           id="country"
           :value="null"
@@ -25,6 +26,7 @@
     </b-row>
 
     <b-row
+      v-if="user.addressState"
       class="mb-4"
       no-gutters>
       <b-col
@@ -39,7 +41,7 @@
       <b-col
         lg="6"
         cols="9"
-        class="ml-4">
+        class="pl-4">
         <b-form-select
           id="province"
           :value="null"
@@ -49,6 +51,7 @@
     </b-row>
 
     <b-row
+      v-if="user.addressCity"
       class="mb-4"
       no-gutters>
       <b-col
@@ -63,7 +66,7 @@
       <b-col
         lg="6"
         cols="9"
-        class="ml-4">
+        class="pl-4">
         <b-form-select
           id="city"
           :value="null"
@@ -73,6 +76,7 @@
     </b-row>
 
     <b-row
+      v-if="user.addressZipCode"
       class="mb-4"
       no-gutters>
       <b-col
@@ -87,7 +91,7 @@
       <b-col
         lg="6"
         cols="9"
-        class="ml-4">
+        class="pl-4">
         <b-row no-gutters>
           <b-col cols="8">
             <b-form-input
@@ -106,6 +110,7 @@
     </b-row>
 
     <b-row
+      v-if="user.phone"
       no-gutters>
       <b-col
         cols="3"
@@ -119,10 +124,10 @@
       <b-col
         lg="6"
         cols="9"
-        class="ml-4">
+        class="pl-4">
         <b-form-input
           id="phone"
-          :value="`+${user.phone}`"
+          :value="user.phone"
           disabled/>
       </b-col>
     </b-row>

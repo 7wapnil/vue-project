@@ -1,7 +1,10 @@
 <template>
   <div>
     <overlay>
-      <transition :name="sidebar.transition">
+      <transition
+        :name="sidebar.transition"
+        @after-enter="$emit('sidebar-opened')"
+        @after-leave="$emit('sidebar-closed')">
         <div
           v-if="isOpen"
           :class="sidebar.position"
@@ -27,8 +30,8 @@
   </div>
 </template>
 <script>
-import CloseButton from '@/views/layouts/mobile/sidemenu/CloseButton'
-import Overlay from '@/views/layouts/mobile/sidemenu/Overlay.vue'
+import CloseButton from './CloseButton'
+import Overlay from './Overlay.vue'
 import { mapMutations } from 'vuex'
 
 export default {
@@ -73,7 +76,7 @@ export default {
     ]),
     ...mapMutations('betslip', [
       'toggleBetslip'
-    ]),
+    ])
   }
 }
 </script>

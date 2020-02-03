@@ -31,6 +31,40 @@ const LiveChatPlugin = {
     lc.src = (document.location.protocol === 'https:' ? 'https://' : 'http://') + 'cdn.livechatinc.com/tracking.js'
     const s = document.getElementsByTagName('script')[0]
     s.parentNode.insertBefore(lc, s)
+  },
+  hideWidget () {
+    if (window.LC_API) {
+      window.LC_API.hide_chat_window()
+    }
+  },
+  showWidget () {
+    if (window.LC_API) {
+      window.LC_API.minimize_chat_window()
+    }
+  },
+  maximizeWidget () {
+    if (window.LC_API) {
+      window.LC_API.open_chat_window()
+    }
+  },
+  hideWidgetOnPageLoad () {
+    window.LC_API = window.LC_API || {}
+    let livechatChatStarted = false
+
+    window.LC_API.on_before_load = function () {
+      if (window.LC_API.visitor_engaged() === false && livechatChatStarted === false) {
+        window.LC_API.hide_chat_window()
+      }
+    }
+
+    window.LC_API.on_chat_started = function () {
+      livechatChatStarted = true
+    }
+  },
+  isHidden () {
+    if (window.LC_API) {
+      return window.LC_API.chat_window_hidden()
+    }
   }
 }
 

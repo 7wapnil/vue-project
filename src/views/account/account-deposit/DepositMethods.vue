@@ -19,32 +19,24 @@
 </template>
 
 <script>
-import Sofort from '@/assets/images/withdrawal-methods/sofort.png'
 import Skrill from '@/assets/images/withdrawal-methods/skrill.png'
-import Skinwallet from '@/assets/images/withdrawal-methods/skinwallet.png'
-import Skinpay from '@/assets/images/withdrawal-methods/skinpay.png'
-import Qiwi from '@/assets/images/withdrawal-methods/qiwi.png'
 import Paysafecard from '@/assets/images/withdrawal-methods/paysafecard.png'
-import Mru from '@/assets/images/withdrawal-methods/mru.png'
+import EcoPayz from '@/assets/images/withdrawal-methods/ecoPayz-with-offsets.png'
+import Idebit from '@/assets/images/withdrawal-methods/idebit-with-offsets.png'
 import CreditCard from '@/assets/images/withdrawal-methods/card.png'
 import Bitcoin from '@/assets/images/withdrawal-methods/btc.png'
-import Yandex from '@/assets/images/withdrawal-methods/yandex.png'
 import Neteller from '@/assets/images/withdrawal-methods/neteller.png'
 
 export default {
   data () {
     return {
       depositMethods: [
-        Sofort,
         Skrill,
-        Skinwallet,
-        Skinpay,
-        Qiwi,
         Paysafecard,
-        Mru,
+        EcoPayz,
+        Idebit,
         CreditCard,
         Bitcoin,
-        Yandex,
         Neteller
       ]
     }

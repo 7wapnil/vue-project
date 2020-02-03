@@ -1,23 +1,23 @@
 <template>
-  <b-row
-    class="pt-4 pl-4 pr-4 bg-arc-clr-soil-darker border-4 mb-n4"
-    no-gutters>
-    <b-col
-      v-for="(method, index) in methods"
-      :key="index"
-      class="d-flex align-items-center justify-content-center mb-3 mr-2">
+  <b-list-group>
+    <b-list-group-item
+      v-for="method in methods"
+      :key="method.id"
+      action
+      class="d-flex align-items-center justify-content-start pointer bg-arc-clr-soil-light"
+      @click="selectMethod(method)">
+
       <payment-method-icon
         :name="method.code"
-        class="pointer"
-        @click="selectMethod(method)"/>
-      <small
+        class="mr-4"/>
+
+      <span
         v-if="method.details.title"
-        class="text-arc-clr-iron ml-1 letter-spacing-2 pointer"
-        @click="selectMethod(method)">
+        class="text-arc-clr-iron ml-1 letter-spacing-2">
         {{ method.details.title }}
-      </small>
-    </b-col>
-  </b-row>
+      </span>
+    </b-list-group-item>
+  </b-list-group>
 </template>
 
 <script>
@@ -35,7 +35,7 @@ export default {
   },
   methods: {
     selectMethod (selectedMethod) {
-      this.$emit('change', selectedMethod)
+      this.$emit('update:withdraw:method', selectedMethod)
     }
   }
 }

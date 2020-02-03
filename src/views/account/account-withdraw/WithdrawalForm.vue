@@ -1,22 +1,26 @@
 <template>
   <div v-if="mainMethod">
     <b-row no-gutters>
-      <b-col class="pt-4 pb-3">
+      <b-col class="px-4 pt-4 pb-2 px-md-0">
         <span
           class="text-arc-clr-iron"
           v-html="mainMethod.description"/>
       </b-col>
     </b-row>
-    <b-alert
-      show
-      class="text-center mb-4"
-      variant="warning">
-      {{ $t('account.withdraw.warning') }}
-    </b-alert>
+    <b-row no-gutters>
+      <b-col class="px-4 pt-2 pb-md-2 px-md-0">
+        <b-alert
+          show
+          class="mb-4 mb-md-0 letter-spacing-2"
+          variant="warning">
+          {{ $t('account.withdraw.warning') }}
+        </b-alert>
+      </b-col>
+    </b-row>
     <b-row
       v-if="responseMessage"
       no-gutters>
-      <b-col class="pb-5">
+      <b-col class="px-4 py-2">
         <span class="text-arc-clr-white">
           {{ responseMessage }}
         </span>
@@ -34,21 +38,26 @@
         </li>
       </ul>
     </b-row>
+
     <b-row
-      class="mb-5"
       no-gutters>
-      <b-col class="text-md-right text-sm-left align-self-center">
+      <b-col
+        class="text-right pl-4 pl-md-0 pt-3 pb-4"
+        cols="3">
         <label
           for="amount"
-          class="text-arc-clr-iron font-size-14 letter-spacing-2 mb-0">
+          class="text-arc-clr-iron font-size-14 letter-spacing-2 pointer">
           {{ $t('generalTerms.amount') }}
         </label>
       </b-col>
-      <b-col class="user-profile-form">
+      <b-col
+        cols="9"
+        md="4"
+        class="px-4 pr-md-0 pl-md-4 pt-2 pb-4">
         <b-input-group
           v-if="currencyCode"
           :append="currencyCode"
-          class="ml-4 text-left w-50">
+          class="text-left">
           <b-form-input
             id="amount"
             v-model="form.amount"
@@ -57,53 +66,69 @@
             type="number"/>
         </b-input-group>
       </b-col>
-      <b-col/>
     </b-row>
+
+    <b-row
+      no-gutters>
+      <b-col
+        offset-md="3"
+        md="9"
+        class="pl-md-4">
+        <arc-separator class="mb-4"/>
+      </b-col>
+    </b-row>
+
     <component
       ref="paymentDetails"
       v-model="form.paymentDetails"
       :is="currentComponent"
-      :method="mainMethod"
-    />
-    <b-row no-gutters>
+      :method="mainMethod"/>
+
+    <b-row
+      no-gutters>
       <b-col
-        class="mr-1"
-        cols="3"/>
-      <b-col class="user-profile-form ml-4">
-        <div class="border-top border-arc-clr-soil-cover mb-4"/>
+        offset-md="3"
+        md="9"
+        class="pl-md-4">
+        <arc-separator class="mb-4"/>
       </b-col>
     </b-row>
+
     <b-row
-      class="mb-4"
       no-gutters>
-      <b-col class="text-md-right text-sm-left align-self-center">
+      <b-col
+        cols="3"
+        class="text-right pl-4 pt-2 pt-md-3 pl-md-0 pb-2">
         <label
           for="password"
-          class="text-arc-clr-iron font-size-14 letter-spacing-2 mb-0">
+          class="text-arc-clr-iron font-size-14 letter-spacing-2 mb-0 pointer">
           {{ $t('account.withdraw.arcanebetPassword') }}
         </label>
       </b-col>
-      <b-col class="user-profile-form">
+      <b-col
+        cols="9"
+        md="4"
+        class="px-4 pr-md-0 pl-md-4 py-2">
         <b-form-input
           id="password"
           v-model="form.password"
-          class="ml-4 text-left w-50"
           type="password"/>
       </b-col>
-      <b-col/>
     </b-row>
+
     <b-row no-gutters>
-      <b-col/>
-      <b-col class="mt-2 ml-4 user-profile-form">
+      <b-col
+        offset="3"
+        md="4"
+        class="pt-2 pb-4 py-md-2 pr-md-0 pl-md-4 px-4 mb-2">
         <b-button
           :disabled="isDisabled"
-          class="ml-2 w-50"
+          block
           variant="user-profile-button"
-          @click.prevent="submitWithdraw()">
+          @click.prevent="submitWithdraw">
           {{ $t('account.cta.withdraw') }}
         </b-button>
       </b-col>
-      <b-col/>
     </b-row>
   </div>
 </template>
@@ -117,6 +142,8 @@ import Skrill from './withdrawal-methods/Skrill'
 import Neteller from './withdrawal-methods/Neteller'
 import CreditCard from './withdrawal-methods/CreditCard'
 import Bitcoin from './withdrawal-methods/Bitcoin'
+import EcoPayz from './withdrawal-methods/EcoPayz'
+import Idebit from './withdrawal-methods/Idebit'
 
 export default {
   props: {
@@ -133,7 +160,9 @@ export default {
         'credit_card': CreditCard,
         'skrill': Skrill,
         'bitcoin': Bitcoin,
-        'neteller': Neteller
+        'neteller': Neteller,
+        'eco_payz': EcoPayz,
+        'idebit': Idebit
       },
       form: new Form({
         amount: null,

@@ -9,9 +9,10 @@
 import { TITLES_QUERY } from '@/graphql'
 import { TITLE_CHANGED } from '@/constants/custom-events'
 import FilterTabs from './FilterTabs'
-import { UPCOMING_UNLIMITED, UPCOMING_FOR_TIME_TITLES_CONTEXT } from '@/constants/graphql/title-context'
+import { UPCOMING, UPCOMING_FOR_TIME_TITLES_CONTEXT } from '@/constants/graphql/title-context'
 import { findTitleIcon } from '@/helpers/icon-finder'
 import { getTitleShortName } from '@/helpers/title-names'
+import { ESPORTS } from '@/constants/title-kinds'
 
 export default {
   components: {
@@ -21,9 +22,11 @@ export default {
     titles () {
       return {
         query: TITLES_QUERY,
-        variables: {
-          kind: this.$route.params.titleKind,
-          context: this.$route.params.titleKind === 'esports' ? UPCOMING_UNLIMITED : UPCOMING_FOR_TIME_TITLES_CONTEXT
+        variables () {
+          return {
+            kind: this.$route.params.titleKind,
+            context: this.$route.params.titleKind === ESPORTS ? UPCOMING : UPCOMING_FOR_TIME_TITLES_CONTEXT
+          }
         }
       }
     }

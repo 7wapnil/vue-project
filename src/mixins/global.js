@@ -17,8 +17,21 @@ export default {
     isDesktop () {
       return this.$mq === 'desktop'
     },
+    isMobileDevice () {
+      return this.isMobile || this.isTablet
+    },
+    isIosDevice () {
+      return /iPhone/i.test(navigator.userAgent) && /AppleWebKit/i.test(navigator.userAgent)
+    },
     isKindEsport () {
       return this.$route.params.titleKind === 'esports'
+    },
+    currentLobbyName () {
+      return this.$route.params.titleKind
+    },
+    currentLobbySection () {
+      const isEsportLobby = ['esports', 'sports'].includes(this.$route.params.titleKind)
+      return isEsportLobby ? 'sportsbook' : 'casino'
     }
   },
   methods: {

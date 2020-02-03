@@ -11,7 +11,7 @@
         <b-col
           v-for="(topicon, index) in topicons"
           :key="index"
-          class="d-flex justify-content-center">
+          :class="`d-flex justify-content-center ${topicon}-icon`">
           <b-img :src="require(`@/assets/images/footer/${topicon}.svg`)"/>
         </b-col>
       </b-row>
@@ -24,21 +24,21 @@
               Sport
             </li>
             <li
-              v-for="(item, index) in homepageLinks"
-              :key="index"
+              v-for="item in homepageLinks"
+              :key="item.id"
               class="footer-list">
               <b-link
-                :to="`${ item.path }`"
+                :to="{ name: item.name }"
                 class="text-capitalize">
-                {{ item.name }}
+                {{ item.title }}
               </b-link>
             </li>
           </ul>
         </b-col>
         <b-col
-          v-for="(item, index) in footerItems"
+          v-for="item in footerItems"
           v-if="item.children"
-          :key="index"
+          :key="item.id"
           class="d-flex justify-content-center">
           <ul
             class="p-0 footer-list">
@@ -46,12 +46,12 @@
               {{ item.title }}
             </li>
             <li
-              v-for="(child, index) in item.children"
-              :key="index"
+              v-for="child in item.children"
+              :key="child.id"
               class="footer-list">
               <b-link
-                :to="{ name: `${ child.name }` }">
-                {{ child.name }}
+                :to="child.route">
+                {{ child.title }}
               </b-link>
             </li>
           </ul>
@@ -108,32 +108,140 @@
 </template>
 
 <script>
-import InformationPages from '@/routes/information_pages'
 
 export default {
+  name: 'DesktopFooter',
   data () {
     return {
-      topicons:
-        ['visa',
-          'master-card',
-          'skrill',
-          'neteller',
-          'paysafecard',
-          'skinpay',
-          'bitcoin'],
+      topicons: [
+        'visa',
+        'master-card',
+        'skrill',
+        'neteller',
+        'paysafecard',
+        'ecoPayz',
+        'iDebit',
+        'bitcoin'
+      ],
       bottomicons:
         ['18years',
           'gamcare',
           'esic'],
-      footerItems: InformationPages.routes,
-      homepageLinks: [
+      footerItems: [
         {
-          path: '/esports',
-          name: 'Esport Homepage'
+          id: 1,
+          title: 'Support',
+          icon: 'support',
+          route: { name: 'support' },
+          children: [
+            {
+              id: 1.1,
+              title: 'Contact us',
+              route: { name: 'contact us' }
+            },
+            {
+              id: 1.2,
+              title: 'Terms and conditions',
+              route: { name: 'terms and conditions' }
+            },
+            {
+              id: 1.3,
+              title: 'Sports betting rules',
+              route: { name: 'sports betting rules' }
+            },
+            {
+              id: 1.4,
+              title: 'Privacy policy',
+              route: { name: 'privacy policy' }
+            },
+            {
+              id: 1.5,
+              title: 'Cookie policy',
+              route: { name: 'cookie policy' }
+            },
+            {
+              id: 1.6,
+              title: 'FAQ',
+              route: { name: 'faq' }
+            }]
         },
         {
-          path: '/sports',
-          name: 'Sport Homepage'
+          id: 2,
+          title: 'About',
+          icon: 'arcanebet-default-icon',
+          route: { name: 'about' },
+          children: [{
+            id: 2.1,
+            title: 'About Arcanebet',
+            route: { name: 'about arcanebet' }
+          },
+          {
+            id: 2.2,
+            title: 'Affiliates',
+            route: { name: 'affiliates' }
+          }],
+        },
+        {
+          id: 3,
+          title: 'Promotions',
+          icon: 'promotional',
+          route: { name: 'promotions' },
+          children: [
+            {
+              id: 3.1,
+              title: 'Welcome Offer Sport',
+              route: { name: 'welcome offer sport' }
+            },
+            {
+              id: 3.2,
+              title: 'Welcome Offer Casino',
+              route: { name: 'welcome offer casino' }
+            },
+            {
+              id: 3.3,
+              title: 'Bonus rules',
+              route: { name: 'bonus rules' }
+            }],
+        },
+        {
+          id: 4,
+          title: 'Responsible gaming',
+          icon: 'help',
+          route: { name: 'responsible gaming' },
+          children: [
+            {
+              id: 4.1,
+              title: 'Introduction',
+              route: { name: 'introduction' }
+            },
+            {
+              id: 4.2,
+              title: 'Setting limits',
+              route: { name: 'setting limits' }
+            }],
+        },
+
+      ],
+      homepageLinks: [
+        {
+          id: 1,
+          name: 'esports',
+          title: 'Esport Homepage'
+        },
+        {
+          id: 2,
+          name: 'sports',
+          title: 'Sport Homepage'
+        },
+        {
+          id: 3,
+          name: 'casino',
+          title: 'Casino Homepage'
+        },
+        {
+          id: 4,
+          name: 'live-casino',
+          title: 'Live casino Homepage'
         }
       ],
       socialIcons: [

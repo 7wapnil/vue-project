@@ -18,14 +18,16 @@ build:
       code: |
         rm -rf ./node_modules
 
-deploy:
+store:
+  docker: true
   box:
     id: arcanebet/frontend
     username: $DOCKERHUB_USERNAME
     password: $DOCKERHUB_PASSWORD
-    tag: puppeteer-v10
+    tag: puppeteer-v11
 
   steps:
+    # Install yarn and build assets in a puppeteer-v10 box
     - bashaus/yarn-install:
       name: install-dependencies
 
@@ -33,9 +35,62 @@ deploy:
       name: build-production-assets
       code: yarn build
 
+    # Build another docker image with just the assets and nginx
     - script:
-      name: deploy
+        name: Build docker image
+        code: |
+          docker build --network=$DOCKER_NETWORK_NAME -t arcanebet/frontend:$WERCKER_GIT_COMMIT -f deploy/${DOCKERFILE:-Dockerfile} .
+
+    - script:
+        name: Push
+        code: |
+          docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD
+          docker push arcanebet/frontend:$WERCKER_GIT_COMMIT
+
+deploy:
+  box: python:2.7-alpine
+
+  steps:
+    - script:
+      name: install-linux-deps
+      code: apk add -qU openssh git curl jq
+
+    - capgemini/terraform-install:
+      version: "0.11.14"
+
+    - edgecaseadmin/install-aws-cli:
+      key: $AWS_ACCESS_KEY_ID
+      secret: $AWS_SECRET_ACCESS_KEY
+      region: $AWS_DEFAULT_REGION
+
+    - add-ssh-key:
+      keyname: GITHUB
+
+    - script:
+      name: add-github-to-known-hosts
+      code: ssh-keyscan github.com >> /root/.ssh/known_hosts
+
+    - script:
+      name: clone-terraform-config
       code: |
-        echo $AWS_ACCESS_KEY_ID
-        echo $AWS_SECRET_ACCESS_KEY
-        yarn deploy
+        rm -rf $TERRAFORM_CONFIG_DIR
+        git clone \
+            git@github.com:arcanebet/infrastructure.git \
+            $TERRAFORM_CONFIG_DIR
+
+    - script:
+      name: update-image-tag
+      code: |
+        aws ssm put-parameter \
+            --name ${TAG_PARAM:-/frontend/tag} \
+            --value $WERCKER_GIT_COMMIT \
+            --type SecureString \
+            --overwrite
+
+    - script:
+      name: terraform-apply
+      code: |
+        cd $TERRAFORM_CONFIG_DIR/terraform/services/${FRONTEND_PATH:-frontend}
+        terraform init
+        terraform workspace select ${CASINO_ENV:-${TARGET_ENV}}
+        terraform apply -auto-approve

@@ -121,15 +121,15 @@ describe('Betslip', () => {
     })
 
     it('shows place bet button', () => {
-      expect(wrapper.find('button.btn-arc-primary').text()).to.equal(i18n.t('betslip.cta.placeBet'))
+      expect(wrapper.find('button.btn-arc-primary').text()).to.equal(i18n.t('betslip.cta.login'))
     })
 
     it('has no checkbox', () => {
       expect(wrapper.contains('.accept-all-odds-checkbox')).to.equal(false)
     })
 
-    it('has submit button as disabled on initial state', () => {
-      expect(wrapper.find('.submit-bets').attributes()['disabled']).to.equal('disabled')
+    it('has submit button as enabled on initial state', () => {
+      expect(wrapper.find('.submit-bets').attributes()['disabled']).to.equal(undefined)
     })
   })
 
@@ -185,8 +185,12 @@ describe('Betslip', () => {
         isLoggedIn: () => true
       }
 
-      mutations = {
+      actions = {
         clearBetslip: () => { state.bets = [] }
+      }
+
+      mutations = {
+        clearBets: () => { state.bets = [] }
       }
 
       store = new Vuex.Store({
@@ -226,12 +230,12 @@ describe('Betslip', () => {
     })
 
     it('shows total stakes', () => {
-      const value = getters.getTotalStakes().toString()
+      const value = getters.getTotalStakes().toFixed(2)
       expect(wrapper.find('.total-stake').text()).to.equal(value)
     })
 
     it('shows total return', () => {
-      const value = getters.getTotalReturn().toString()
+      const value = getters.getTotalReturn().toFixed(2)
       expect(wrapper.find('.total-return').text()).to.equal(value)
     })
   })

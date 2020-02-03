@@ -4,8 +4,8 @@
     <div role="tablist">
       <b-card
         v-for="(item, index) in items"
+        :class="`account-item bg-arc-clr-soil-light px-0 border-0 ${isMobile ? 'mobile' : ''}`"
         :key="index"
-        class="account-item bg-arc-clr-soil-light px-0 border-0"
         no-body>
         <b-card-header
           v-b-toggle="item.id"

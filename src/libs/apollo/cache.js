@@ -5,6 +5,8 @@ import fragmentMatcher from './fragment-matcher'
 const dataIdFromObject = object => {
   switch (object.__typename) {
     case 'DepositsPaymentMethod' : return `${object.__typename}:${object.code}`
+    case 'EventContext' : return `${object.__typename}:${object.context}`
+    case 'OddValidation' : return `${object.__typename}:${object.oddId}`
     default: return `${object.__typename}:${object.id}`
   }
 }

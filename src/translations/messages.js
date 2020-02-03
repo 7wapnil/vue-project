@@ -3,6 +3,41 @@ const messages = {
     auth: {
       impersonate: {
         success: "You successfully logged in as '{username}'."
+      },
+      headerBlock: {
+        message: 'Sign up now and get bonuses!'
+      },
+      cta: {
+        login: 'Login',
+        signup: 'SignUp'
+      },
+      signUpForm: {
+        username: 'Username',
+        email: 'Email',
+        dob: 'Date of Birth',
+        password: 'Password',
+        show: 'SHOW',
+        hide: 'HIDE',
+        country: 'Country',
+        currency: 'Currency',
+        agreedWithPromotional: 'I agree to receive promotional content',
+        register: 'Register'
+      },
+      depositAdditionalInfo: {
+        firstName: 'First Name',
+        lastName: 'Last Name',
+        phone: 'Phone',
+        phoneNumber: 'Phone Number',
+        streetAddress: 'Street Address',
+        zipCode: 'Postal Code',
+        city: 'City',
+        state: 'Province',
+        next: 'Next',
+        nextStep: 'Next step',
+        almostThere: 'Almost there',
+        additionalInfo: 'Additional Information',
+        beforeContinue: 'Before continuing, we require some additional information from you',
+        pleaseComplete: 'Please complete the form on the left and you will be on your way to betting'
       }
     },
     meta: {
@@ -17,6 +52,14 @@ const messages = {
       sports: {
         title: 'arcanebet - Sports Betting With Pre-Game and Live Odds',
         description: 'Bet on all your favourite Sports at arcanebet. Find popular sports markets for Football to Tennis, Basketball to Cricket. We have the sports betting odds for you.'
+      },
+      casino: {
+        title: 'arcanebet - Casino',
+        description: 'Bet on casino'
+      },
+      'live-casino': {
+        title: 'arcanebet - Live casino',
+        description: 'Bet on live casino'
       },
       support: {
         contact: {
@@ -51,8 +94,12 @@ const messages = {
         }
       },
       promotions: {
-        main: {
-          title: 'arcanebet - Promotional information',
+        welcomeOfferSport: {
+          title: 'arcanebet - Welcome Offer Sport | Promotions',
+          description: 'From deposit bonuses to rewards throughout your time on the website. Find your welcome offer terms and conditions here. For more details please log into your account.'
+        },
+        welcomeOfferCasino: {
+          title: 'arcanebet - Welcome Offer Casino | Promotions',
           description: 'From deposit bonuses to rewards throughout your time on the website. Find your welcome offer terms and conditions here. For more details please log into your account.'
         },
         bonusRules: {
@@ -114,7 +161,9 @@ const messages = {
       upcomingCommon: 'Upcoming',
       live: 'Live now',
       esport: 'Esports',
-      sport: 'Sports'
+      sport: 'Sports',
+      casino: 'Casino',
+      liveCasino: 'Live casino'
     },
     noFoundPage: {
       header: 'Oops, the page you are looking for doesn\'t seem to exist ',
@@ -123,7 +172,9 @@ const messages = {
       '          If this is a problem from our end, please be assured we\'re doing all we\n' +
       '          can to resolve the situation.',
       esportButton: 'Esport home',
-      sportButton: 'Sport home'
+      sportButton: 'Sport home',
+      casinoButton: 'Casino home',
+      liveCasinoButton: 'Live Casino home'
     },
     eventPage: {
       minute: 'minute'
@@ -132,45 +183,141 @@ const messages = {
       description: {
         time: 'time',
         score: 'score',
-        starts: 'starts'
+        starts: 'starts',
+        status: 'status'
+      }
+    },
+    casino: {
+      return: 'Return',
+      viewAll: 'View all',
+      viewGames: 'View games',
+      realModeLaunch: 'Play for real',
+      loginToPlay: 'LOGIN TO PLAY',
+      loginToPlayNow: 'Log-in to play now',
+      tryForFree: 'TRY FOR FREE',
+      providers: 'Providers',
+      yourBalance: 'Your Balance',
+      viewMyWallet: 'View my wallet',
+      seeInGame: 'See in game',
+      noProviders: 'No games for this provider',
+      goToLobby: 'Go to lobby',
+      play: 'PLAY',
+      headings: {
+        gameProviders: 'Game providers',
+        providers: 'Providers'
+      },
+      sidemenu: {
+        labels: {
+          myCashier: 'My Cashier',
+          casinoGames: 'Casino Games',
+          liveCasino: 'Live Casino',
+          sportsBetting: 'Sports Betting',
+          esportsBetting: 'Esport Betting',
+          bonusesPromos: 'Bonuses and Promo\'s',
+          contactSupport: 'Contact Support',
+          interestingCategories: 'Interesting categories',
+          special: 'Special'
+        }
+      },
+      cta: {
+        depositNow: 'Deposit Now',
+      },
+      unavailableCountryModal: {
+        title: 'This game is unavailable',
+        text: 'Unfortunately, this game cannot be played from your current region. Please, try another one.',
+        buttonText: 'I understand'
+      },
+      playItemsList: {
+        noResults: 'No results',
+        search: 'Search',
+        countResultsFound: '{count} results found',
+        countResultsFoundWithQuery: `{count} results found for "{query}"`,
+        noResultsFound: 'No results found for your search. Please, try something else.',
+        noResultsShort: 'No results found',
+        noResultsForQuery: `No results found for "{query}"`
+      },
+      promo: {
+        jackpot: 'Arcanebet jackpot',
+        totalJackpot: 'Arcanebet total jackpot',
+        playTheseGames: 'Play these games to win',
+        hotTables: 'Players are on a',
+        hotStreak: 'Hot streak',
+        onTheseTables: 'On these tables'
       }
     },
     betslip: {
       generic: 'Bet placement unsuccessful. Please try again or contact support.',
+      bigNumber: 'more than {number}',
       betslipEmpty: 'Your betslip is currently empty.\n' +
         'Click on any odds to add them\n' +
         'to betslip.',
       acceptAllCheckbox: 'Accept all odds changes',
+      keepAllSelections: 'Keep my selections',
       tooltipMessages: {
         default: 'Please login to place a bet',
         defaultLoggedIn: 'Your betslip is empty',
         oddsNotConfirmed: 'Please confirm all odds changes',
-        notEnoughMoney: 'Please check your available balance',
-        inactiveMarkets: 'Please remove any inactive bets',
+        notEnoughFundsOnBalance: 'Please top-up to place this bet',
+        hasInactiveBets: 'Please remove any inactive bets',
         unacceptableBets: 'Please remove any inactive bets',
         betsBeingSubmitted: 'Bet placement in progress',
-        invalidStakeAmount: 'Please make sure your stake is correct'
+        invalidStakeAmount: 'Please make sure your stake is correct',
+        notEnoughBetLegs: 'Please add more odds',
+        anyConflictedBets: 'Please remove conflicted bets'
+      },
+      betslipItem: {
+        oddsChanged: 'Odds Changed'
       },
       cta: {
         placeBet: 'Place Bet',
-        clearAll: 'Clear all'
+        clearAll: 'Clear all',
+        placementInProgress: 'Placing bet',
+        login: 'Login',
+        deposit: 'Deposit'
       },
-      mobileButton: 'Betslip'
+      mobileButton: 'Betslip',
+      totalStake: 'Total stake:',
+      totalOdds: 'Total odds:',
+      totalReturn: 'Total return:',
+      tabs: {
+        singleBet: {
+          title: 'Single'
+        },
+        comboBets: {
+          title: 'Combo'
+        }
+      }
+    },
+    betslipItem: {
+      oddsChanged: 'Odds Changed',
+      return: 'Potential Return:',
+      accept: 'Accept',
+      stake: 'Stake'
     },
     wallet: {
       balance: 'Balance',
-      secondWallet: '2nd Wallet'
+      secondWallet: '2nd Wallet',
+      switch: 'switch'
+    },
+    sidemenu: {
+      settings: {
+        livechat: 'livechat'
+      }
     },
     account: {
       tabs: {
         account: 'Account info & settings',
-        activity: 'Activity',
+        betHistory: 'Bet history',
         depositFunds: 'Deposit funds',
         withdrawFunds: 'Withdraw funds',
         bonus: 'Bonus',
         accountVerification: 'Account verification',
         accountStatus: 'Account status',
-        transactionHistory: 'Transaction history'
+        transactionHistory: 'Transaction history',
+        livechat: {
+          open: 'Open support chat',
+          close: 'Close support chat'
+        }
       },
       cta: {
         resetPassword: 'Reset password',
@@ -185,6 +332,7 @@ const messages = {
       accountInfo: {
         email: 'Email',
         username: 'Username',
+        password: 'Password',
         language: 'Language',
         currency: 'Currency',
         privateData: 'Private Data',
@@ -204,7 +352,21 @@ const messages = {
         repeatPassword: 'Repeat new password'
       },
       activity: {
-        noActivity: 'You don\'t have any activity'
+        noActivity: 'You don\'t have any activity',
+        comboBet: 'Combo bet',
+        comboBetSelections: 'selections',
+        clickToExpand: 'Click to expand',
+        clickToClose: 'Click to close',
+        table: {
+          headers: {
+            time: 'Time',
+            details: 'Details',
+            stake: 'Stake',
+            odds: 'Odds',
+            return: 'Return',
+            id: '#'
+          }
+        }
       },
       deposit: {
         paymentMethodsPlaceholder: 'Deposit methods',
@@ -226,9 +388,15 @@ const messages = {
       withdraw: {
         withdrawFunds: 'Withdraw funds',
         cardLastFourDigits: 'Card last four digits',
-        cardHolderName: 'Card holder Name',
+        cardHolderName: 'Card holder name',
+        skrillAddress: 'Skrill address',
+        nettelerAddress: 'Neteller address',
+        iDebitAccountId: 'iDebit account id',
+        ecoPayzAccountId: 'ecoPayz account id',
         arcanebetPassword: 'Arcanebet password',
-        notAvailable: 'Due to the migration to the new website, your bank details - for security reasons - were not imported. This means that, in able to withdraw, you need to make a deposit first, using the method you wish to withdraw to. This deposit can be immediately returned in full with your withdrawal request. We sincerely apologize for the inconvenience.<br/><br/>Skrill & Neteller withdrawals will become available early next week. For now we will be able to process transactions manually, please contact support to request a withdrawal.',
+        notAvailable: 'The withdrawal page will only be available once you\'ve made a' +
+        ' successful deposit and your account has been verified. <br><br> Please make a deposit' +
+        ' using your preferred method and upload your documents via our verification tab to unlock this page.',
         withdrawNoFeeInformation: 'Debit/Credit Card withdrawals come with a 0% withdrawal fee',
         warning: 'Please be aware that requesting a withdrawal while you have an active bonus will result in all of your bonus funds being confiscated. If you wish to check your bonus status, please navigate to the bonus tab on your profile or contact support for further assistance. Be aware that if you initiate a withdrawal and the bonus is confiscated this is NOT reversible.'
       },
@@ -240,6 +408,7 @@ const messages = {
         maximumRolloverPerBet: 'Maximum rollover per bet',
         expiryDate: 'Expiry date',
         bonusAchieved: 'Rollover achieved',
+        cancelBonus: 'Cancel Bonus',
         noBonus: 'It seems you have no active bonus at the moment. Please make a deposit and enter a bonus code to claim one.',
         longTerms: {
           header: 'Bonus rules for code:',
@@ -256,13 +425,15 @@ const messages = {
             list4Days: '{n} day | {n} days',
             list4Part2: ' to reach the rollover before the bonus expires.',
             list5: 'Only settled bets will count towards rollover. If a selection that is settled is later re-settled to a void, the rollover achieved will be recalculated accordingly',
-            list6: 'You may only have one active bonus at a time',
-            list7: 'You may withdraw at any point, if you do this will confiscate your entire bonus balance if you have not reached the rollover yet',
-            list8: 'You may only use this code once per household per real account. If it is found that there is any attempt to avoid this limitation, we reserve the right to void all bets and confiscate all funds',
+            list6: 'The odds of every selection in Combo Bet need to be higher than Minimum odds',
+            list7: 'You may only have one active bonus at a time',
+            list8: 'You may withdraw at any point, if you do this will confiscate your entire bonus balance if you have not reached the rollover yet',
+            list9: 'You may only use this code once per household per real account. If it is found that there is any attempt to avoid this limitation, we reserve the right to void all bets and confiscate all funds',
           }
         },
       },
       accountVerification: {
+        activated: 'Your account has been successfully activated',
         status: {
           verified: 'Verified',
           notVerified: 'Not Verified'
@@ -288,6 +459,23 @@ const messages = {
           other: 'Other'
         }
       }
+    },
+    bottomNavBar: {
+      sports: 'sports',
+      esports: 'esports',
+      casino: 'casino',
+      liveCasino: 'live casino'
+    },
+    common: {
+      noEventsFound: 'No events found'
+    },
+    cancelActiveBonusModal: {
+      header: 'Are you sure you want to cancel your bonus?',
+      body: 'If you click "{submitButton}", your current bonus balance of {amount} {currency} will be removed permanently. This is not reversible. Please contact support if you have any questions.',
+      confirmMessage: 'Are you sure you wish to cancel your bonus? If you click cancel bonus, your current bonus balance will be removed permanently. This is not reversible. Please contact support if you have any questions.',
+      successfulCancellation: 'Bonus successfully cancelled. Please go to the deposit page to deposit and claim a new bonus',
+      backButton: 'Back',
+      submitButton: 'Cancel Bonus'
     }
   }
 }

@@ -1,0 +1,7 @@
+export const MAX_VALUABLE_RETURN_VALUE = 1000000000
+export const DIGITS_LIMIT_FOR_STAKE = 7
+
+export const DEPOSIT_TAB_INDEX = 3
+
+export const SINGLE_BET_TAB_INDEX = 0
+export const COMBO_BETS_TAB_INDEX = 1

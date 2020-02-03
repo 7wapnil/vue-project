@@ -1,8 +1,7 @@
 <template>
-  <div
-    :class="titleKind">
+  <div :class="titleKind">
     <component :is="layoutName">
-      <router-view :key="$route.fullPath"/>
+      <router-view/>
     </component>
     <cookie-warning/>
     <modal-list/>
@@ -11,6 +10,7 @@
 
 <script>
 import CookieWarning from './CookieWarning'
+import { ESPORTS } from '@/constants/title-kinds'
 
 export default {
   components: {
@@ -18,16 +18,10 @@ export default {
   },
   computed: {
     titleKind () {
-      const DEFAULT_KIND = 'esports'
-
-      if (this.$route.name === 'live') {
-        return 'live'
-      }
-
-      return this.$route.params.titleKind || DEFAULT_KIND
+      return this.$route.params.titleKind || ESPORTS
     },
     layoutName () {
-      const name = this.isMobile ? 'mobile' : 'desktop'
+      const name = this.isMobileDevice ? 'mobile' : 'desktop'
       return () => import(`@/views/layouts/${name}/Layout`)
     }
   },

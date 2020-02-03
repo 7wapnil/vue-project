@@ -1,6 +1,7 @@
 <template>
   <b-card
     :id="tabId"
+    :class="{'event-list-container' : dynamicEventListContainer}"
     no-body
     class="px-1 px-md-4 py-md-4">
 
@@ -14,29 +15,19 @@
 
     <loader
       v-if="loading"
-      class="mt-4"/>
+      class="mt-5"/>
 
     <div
       v-if="!loading && !events.length"
       class="text-center">
-      <h6 class="my-4">No events found</h6>
+      <h6 class="my-4">
+        {{ $t('common.noEventsFound') }}
+      </h6>
     </div>
   </b-card>
 </template>
 
 <script>
-import {
-  EVENTS_LIST_QUERY,
-  KIND_EVENT_UPDATED,
-  SPORT_EVENT_UPDATED,
-  CATEGORY_EVENT_UPDATED,
-  TOURNAMENT_EVENT_UPDATED,
-  EVENTS_BET_STOPPED
-} from '@/graphql'
-import { updateCacheList } from '@/helpers/graphql'
-import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
-import { CONTEXT_TO_START_STATUS_MAP } from '@/constants/graphql/event-start-statuses'
-import { INACTIVE, SUSPENDED, MARKET_STOP_STATUSES } from '@/constants/graphql/event-market-statuses'
 import EventsGroup from '@/components/events/EventsGroup'
 
 const DEFAULT_POSITION = 9999
@@ -50,121 +41,21 @@ export default {
       type: String,
       default: 'Events'
     },
-    titleId: {
-      type: String,
-      default: null
-    },
-    categoryId: {
-      type: String,
-      default: null
-    },
-    tournamentId: {
-      type: String,
-      default: null
-    },
-    context: {
-      type: String,
-      default: null
-    },
     tabId: {
       type: String,
       default: null
-    }
-  },
-  apollo: {
-    events () {
-      return {
-        ...this.query,
-        subscribeToMore: [
-          {
-            document: this.eventsSubscription.document,
-            variables: this.eventsSubscription.variables,
-            updateQuery (currentData, { subscriptionData }) {
-              const events = currentData.events
-
-              if (!events) return
-
-              const endpoint = Object.keys(subscriptionData.data)[0]
-              const attributes = subscriptionData.data[endpoint]
-              const isRemoved = attributes.startStatus !== CONTEXT_TO_START_STATUS_MAP[this.context]
-
-              return { events: updateCacheList(events, attributes, isRemoved) }
-            }
-          },
-          {
-            document: EVENTS_BET_STOPPED,
-            updateQuery (currentData, { subscriptionData: { data } }) {
-              const events = currentData.events
-
-              if (!events) return
-
-              const subscriptionData = data.eventsBetStopped
-              const marketStatus = subscriptionData.marketStatus
-
-              if (MARKET_STOP_STATUSES.includes(marketStatus)) {
-                const eventIndex = events.findIndex(event => event.id === subscriptionData.eventId)
-
-                if (eventIndex === -1) return
-
-                const market = events[eventIndex].dashboardMarket
-
-                if (marketStatus === INACTIVE) events.splice(eventIndex, 1)
-                if (marketStatus === SUSPENDED && market) {
-                  market.odds.forEach(function (odd) { odd.status = INACTIVE })
-                }
-              }
-
-              return { events: events }
-            }
-          }
-        ]
-      }
-    }
-  },
-  data () {
-    return {
-      loading: 0,
-      events: []
+    },
+    events: {
+      type: Array,
+      default: () => { return [] },
+      required: true
+    },
+    loading: {
+      type: Number,
+      default: 0
     }
   },
   computed: {
-    query () {
-      return {
-        query: EVENTS_LIST_QUERY,
-        fetchPolicy: NETWORK_ONLY,
-        variables: {
-          titleKind: this.$route.params.titleKind,
-          titleId: this.titleId,
-          tournamentId: this.tournamentId,
-          categoryId: this.categoryId,
-          context: this.context,
-          withScopes: true
-        }
-      }
-    },
-    eventsSubscription () {
-      let document = null
-      let variables = {}
-
-      if (this.tournamentId) {
-        document = TOURNAMENT_EVENT_UPDATED
-        variables.tournament = this.tournamentId
-      } else if (this.categoryId) {
-        document = CATEGORY_EVENT_UPDATED
-        variables.category = this.categoryId
-      } else if (this.titleId) {
-        document = SPORT_EVENT_UPDATED
-        variables.title = this.titleId
-      } else {
-        document = KIND_EVENT_UPDATED
-        variables.kind = this.$route.params.titleKind
-      }
-
-      return {
-        document: document,
-        variables: variables
-      }
-    },
     parentizeEvents () {
       return this.events.map((event) => {
         const { title, scopes } = event
@@ -194,6 +85,10 @@ export default {
     },
     groupedEvents () {
       return this.buildEventBranch(this.parentizeEvents)
+    },
+    dynamicEventListContainer () {
+      const isLobbyPage = this.$route.fullPath === '/esports' || this.$route.fullPath === '/sports'
+      return this.isMobile && isLobbyPage
     }
   },
   methods: {

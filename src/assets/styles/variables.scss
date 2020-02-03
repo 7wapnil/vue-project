@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=IBM+Plex+Sans:300,400,700');
 
 // Colors //
+
 $arc-clr-sport-opacity-like: #004B2E;
 $arc-clr-sport-bg: #1B6945;
 $arc-clr-sport-bg-second: #33A256;
@@ -12,6 +13,18 @@ $arc-clr-esport-bg: #2D4686;
 $arc-clr-esport-bg-second: #3A72CE;
 $arc-clr-esport-glow: #4290FF;
 $arc-clr-esport-glow-second: #3C7EE1;
+
+$arc-clr-casino-opacity-like: #093E47;
+$arc-clr-casino-bg: #095965;
+$arc-clr-casino-bg-second: #117686;
+$arc-clr-casino-glow: #1D9CB1;
+$arc-clr-casino-glow-second: #188492;
+
+$arc-clr-live-casino-opacity-like: #2F244A;
+$arc-clr-live-casino-bg: #43336A;
+$arc-clr-live-casino-bg-second: #554388;
+$arc-clr-live-casino-glow: #6169B3;
+$arc-clr-live-casino-glow-second: #755FB2;
 
 $arc-clr-inplay-opacity-like: #1F110B;
 $arc-clr-inplay-bg: #281A12;
@@ -133,7 +146,17 @@ $theme-colors: ("arc-clr-soil-light": $arc-clr-soil-light,
                 "wp-clr-notif-yellow": $wp-clr-notif-yellow,
                 "wp-clr-notif-red": $wp-clr-notif-red,
                 "arc-dropdown-divider": $arc-dropdown-divider,
-                "arc-clr-grey-light": $arc-clr-grey-light
+                "arc-clr-grey-light": $arc-clr-grey-light,
+                "arc-clr-casino-opacity-like": $arc-clr-casino-opacity-like,
+                "arc-clr-casino-bg": $arc-clr-casino-bg,
+                "arc-clr-casino-bg-second": $arc-clr-casino-bg-second,
+                "arc-clr-casino-glow": $arc-clr-casino-glow,
+                "arc-clr-casino-glow-second": $arc-clr-casino-glow-second,
+                "arc-clr-live-casino-opacity-like": $arc-clr-live-casino-opacity-like,
+                "arc-clr-live-casino-bg": $arc-clr-live-casino-bg,
+                "arc-clr-live-casino-bg-second": $arc-clr-live-casino-bg-second,
+                "arc-clr-live-casino-glow": $arc-clr-live-casino-glow,
+                "arc-clr-live-casino-glow-second": $arc-clr-live-casino-glow-second
                 );
 
 // Modals //

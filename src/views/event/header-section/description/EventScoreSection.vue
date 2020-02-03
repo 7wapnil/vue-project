@@ -9,7 +9,7 @@
     </b-row>
 
     <b-row no-gutters>
-      <b-col class="letter-spacing-2">
+      <b-col class="letter-spacing-2 mb-2">
         {{ event.score }}
       </b-col>
     </b-row>

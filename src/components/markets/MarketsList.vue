@@ -45,7 +45,7 @@ export default {
     },
     markets: {
       type: Array,
-      required: true
+      default: function () { return [] }
     },
     itemComponent: {
       type: [String, Object],
@@ -58,7 +58,9 @@ export default {
         return []
       }
 
-      return this.markets.slice(0).sort((a, b) => {
+      return this.markets.slice(0).filter((market) => {
+        return market.visible
+      }).sort((a, b) => {
         return a.priority - b.priority || a.id - b.id
       })
     }

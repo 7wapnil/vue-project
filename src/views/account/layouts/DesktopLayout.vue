@@ -1,5 +1,7 @@
 <template>
-  <b-row no-gutters>
+  <b-row
+    class="profile-modal-desktop"
+    no-gutters>
     <b-col class="profile-modal-sidebar">
       <div class="profile-modal-sidebar-inner">
         <profile-wallet @open-account-deposit-tab="changeTabIndex(depositTabIndex)"/>
@@ -12,16 +14,15 @@
             :class="{'profile-modal-nav-item-active': currentTabIndex === index }"
             class="profile-modal-nav-item bg-arc-clr-soil-black"
             @click="changeTabIndex(index)">
-            <span>
-              <icon
-                :name="tab.icon"
-                :size="tab.size ? tab.size : '24px'"
-                class="tab-icon"/>
-            </span>
+            <icon
+              :name="tab.icon"
+              :size="tab.size ? tab.size : '24px'"
+              class="tab-icon"/>
             <span class="ml-3 font-weight-bold font-size-14 tab-title">
               {{ tab.title }}
             </span>
           </b-nav-item>
+          <livechat-item/>
           <b-nav-item
             class="profile-modal-nav-item bg-arc-clr-soil-black"
             @click="showConfirmationModal">
@@ -37,7 +38,7 @@
       </div>
     </b-col>
 
-    <b-col class="profile-modal-nav-content p-5">
+    <b-col class="profile-modal-content p-5">
       <component :is="currentComponent"/>
     </b-col>
   </b-row>
@@ -46,11 +47,13 @@
 import ChangePassword from '@/views/account/account-information/ChangePassword'
 import ProfileWallet from '@/views/account/AccountWallet'
 import { mapGetters, mapMutations } from 'vuex'
+import LivechatItem from '@/views/account/account-menu-items/LivechatItem'
 
 export default {
   components: {
     ChangePassword,
-    ProfileWallet
+    ProfileWallet,
+    LivechatItem
   },
   data () {
     return {
@@ -63,7 +66,7 @@ export default {
         icon: 'account-bonus',
         id: 'account-bonus'
       }, {
-        title: this.$i18n.t('account.tabs.activity'),
+        title: this.$i18n.t('account.tabs.betHistory'),
         icon: 'account-activity',
         size: '18px',
         id: 'account-activity'

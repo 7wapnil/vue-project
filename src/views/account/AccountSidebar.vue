@@ -3,7 +3,7 @@
     <b-col>
       <profile-wallet @open-account-deposit-tab="changeTabIndex(depositTabIndex);addTabName('Deposit')"/>
       <b-nav
-        class="h-100 bg-arc-clr-soil-black"
+        class="bg-arc-clr-soil-black"
         vertical>
         <b-nav-item
           v-for="(tab, index) in tabs"
@@ -21,6 +21,7 @@
             {{ tab.title }}
           </span>
         </b-nav-item>
+        <livechat-item/>
         <b-nav-item
           :class="[ isMobile ? 'profile-modal-nav-mobile-item' : 'profile-modal-nav-item' ]"
           class="bg-arc-clr-soil-black"
@@ -41,9 +42,11 @@
 import ChangePassword from './account-information/ChangePassword'
 import ProfileWallet from './AccountWallet'
 import { mapGetters, mapMutations } from 'vuex'
+import LivechatItem from '@/views/account/account-menu-items/LivechatItem';
 
 export default {
   components: {
+    LivechatItem,
     ChangePassword,
     ProfileWallet
   },
@@ -58,7 +61,7 @@ export default {
         icon: 'account-bonus',
         id: 'account-bonus'
       }, {
-        title: this.$i18n.t('account.tabs.activity'),
+        title: this.$i18n.t('account.tabs.betHistory'),
         icon: 'account-activity',
         size: '18px',
         id: 'account-activity'

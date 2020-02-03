@@ -1,4 +1,5 @@
-export const DEFAULT_ICON = 'sidemenu-default-icon';
+export const DEFAULT_ICON = 'arcanebet-default-icon';
+export const DEFAULT_CATEGORY_ICON = 'arcanebet-default-icon'
 
 export default {
   // Sports
@@ -35,5 +36,21 @@ export default {
   'overwatch': 'esports-overwatch',
   'starcraft': 'esports-sc2',
   'fifa': 'esports-fifa',
-  'hearthstone': 'esports-hearthstone'
+  'hearthstone': 'esports-hearthstone',
+  'rainbow-six': 'esports-rainbow-six',
+
+  // Casino
+  'new': 'casino-new',
+  'favorites': 'casino-favorites',
+  'slots': 'casino-slots',
+  'jackpots': 'casino-jackpots',
+  'table-games': 'casino-table-games',
+  'skill-games': 'casino-skill-games',
+  'golden-oldies': 'casino-golden-oldies',
+
+  // Live Casino
+  'poker': 'live-casino-poker',
+  'hot-tables': 'live-casino-hot-tables',
+  'roulette': 'live-casino-roulette',
+  'blackjack': 'live-casino-blackjack',
 }

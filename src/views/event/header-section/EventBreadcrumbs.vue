@@ -26,18 +26,26 @@ export default {
     },
     composedBreadcrumbs () {
       if (this.event) {
+        const titleKind = this.$route.params.titleKind
         return [
           {
             text: getTitleShortName(this.event.title),
-            to: { name: 'title', params: { titleKind: this.$route.params.titleKind, titleId: this.event.title.id, } }
+            to: { name: `${titleKind}-title`,
+              params: { titleKind: titleKind,
+                titleId:
+                    this.event.title.id,
+              } }
           },
           {
-            text: this.category.name,
-            to: { name: 'category-tournaments', params: { titleKind: this.$route.params.titleKind, titleId: this.event.title.id, categoryId: this.category.id } }
+            text: this.category.name
           },
           {
             text: this.event.tournament.name,
-            to: { name: 'tournament', params: { titleKind: this.$route.params.titleKind, titleId: this.event.title.id, tournamentId: this.event.tournament.id } }
+            to: { name: `${titleKind}-tournament`,
+              params: { titleKind: titleKind,
+                titleId:
+                    this.event.title.id,
+                tournamentId: this.event.tournament.id } }
           }, {}
         ]
       }

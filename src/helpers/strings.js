@@ -6,5 +6,5 @@
 export const slug = (words) => {
   return words
     .toLowerCase()
-    .replace(/\s+/g, '-')
+    .replace(/\W/g, '-')
 }

@@ -4,9 +4,9 @@
     :state="form.errors.state('dateOfBirth')">
     <b-row no-gutters>
       <b-col
-        cols="12"
+        cols="4"
         md="4"
-        class="mb-3 mb-md-0 pr-0 pr-md-3">
+        class="mb-3 mb-md-0 pr-1 pr-md-3">
         <b-form-select
           id="signup-day"
           v-model="model.day"
@@ -15,25 +15,25 @@
           @input="form.clearError(['dateOfBirth'])"/>
       </b-col>
       <b-col
-        cols="12"
+        cols="4"
         md="4"
-        class="pr-0 pr-md-3 mb-3 mb-md-0">
+        class="pr-1 pr-md-3 mb-3 mb-md-0">
         <b-form-select
           id="signup-month"
           v-model="model.month"
           :state="form.errors.state('dateOfBirth')"
           :options="months"
-          @input="form.clearError(['dateOfBirth'])"/>
+          @input="onMonthChange"/>
       </b-col>
       <b-col
-        cols="12"
+        cols="4"
         md="4">
         <b-form-select
           id="signup-year"
           v-model="model.year"
           :state="form.errors.state('dateOfBirth')"
           :options="years"
-          @input="form.clearError(['dateOfBirth'])"/>
+          @input="onYearChange"/>
       </b-col>
     </b-row>
   </b-form-group>
@@ -58,25 +58,12 @@ export default {
       required: true
     }
   },
-  data () {
-    return {
-      helpFields: {
-        day: null,
-        month: null,
-        year: null,
-      }
-    }
-  },
   computed: {
     days () {
       const days = [{ value: null, text: 'Day' }]
-      const month = moment()
+      const daysInMonth = this.getNumberOfDaysInMonth()
 
-      if (this.model.month) {
-        month.month(parseInt(this.model.month) - 1)
-      }
-
-      for (let i = 1; i <= month.daysInMonth(); ++i) {
+      for (let i = 1; i <= daysInMonth; ++i) {
         days.push({
           value: (i < 10 ? `0${i}` : `${i}`),
           text: i
@@ -115,6 +102,34 @@ export default {
 
       return years
     }
+  },
+  methods: {
+    getNumberOfDaysInMonth () {
+      const dateTime = moment()
+
+      if (this.model.year) dateTime.year(this.model.year)
+      if (this.model.month) dateTime.month(parseInt(this.model.month) - 1)
+
+      return dateTime.daysInMonth()
+    },
+    onMonthChange (e) {
+      this.model.month = e
+      const daysInMonth = this.getNumberOfDaysInMonth()
+      if (this.model.day > daysInMonth) this.model.day = daysInMonth
+      this.form.clearError(['dateOfBirth'])
+    },
+    onYearChange (e) {
+      this.model.year = e
+      const daysInMonth = this.getNumberOfDaysInMonth()
+      if (this.model.day > daysInMonth) this.model.day = daysInMonth
+      this.form.clearError(['dateOfBirth'])
+    }
   }
 }
 </script>
+
+<style lang="scss" scoped>
+  .form-group .is-invalid {
+    margin-bottom: 0;
+  }
+</style>

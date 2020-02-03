@@ -18,17 +18,17 @@ export const USER_QUERY = gql`
       email
       firstName
       lastName
-      gender
       phone
       username
       addressCountry
+      addressState
       addressCity
       addressZipCode
       addressStreetAddress
-      addressState
       wallets {
         ${WALLET_FIELDS}
       }
+      needMoreInfo
     }
   }
 `
@@ -65,6 +65,18 @@ export const USER_WITHDRAWAL_METHODS_QUERY = gql`
             name
           }
           ... on PaymentMethodNeteller {
+            id
+            title
+            userPaymentOptionId
+            name
+          }
+          ... on PaymentMethodEcoPayz {
+            id
+            title
+            userPaymentOptionId
+            name
+          }
+          ... on PaymentMethodIdebit {
             id
             title
             userPaymentOptionId
@@ -113,8 +125,8 @@ export const CHANGE_USER_PASSWORD = gql`
 `
 
 export const PASSWORD_RESET_REQUEST_MUTATION = gql`
-  mutation ($email: String!) {
-    requestPasswordReset (email: $email)
+  mutation ($email: String!, $captcha: String!) {
+    requestPasswordReset (email: $email, captcha: $captcha)
   }
 `
 
@@ -146,9 +158,11 @@ export const SIGN_IN_MUTATION = gql`
         username
         firstName
         lastName
+        addressCountry
         wallets {
           ${WALLET_FIELDS}
         }
+        needMoreInfo
       }
       token
     }
@@ -156,8 +170,8 @@ export const SIGN_IN_MUTATION = gql`
 `
 
 export const SIGN_UP_MUTATION = gql`
-  mutation($input: RegisterInput!, $customerData: CustomerDataInput) {
-    signUp(input: $input, customerData: $customerData) {
+  mutation($input: RegisterInput!, $userData: UserDataInput) {
+    signUp(input: $input, userData: $userData) {
        user {
         id
         email
@@ -165,6 +179,13 @@ export const SIGN_UP_MUTATION = gql`
         wallets {
           ${WALLET_FIELDS}
         }
+        firstName
+        lastName
+        phone
+        addressCountry
+        addressCity
+        addressStreetAddress
+        needMoreInfo
       }
       token
     }
@@ -175,6 +196,21 @@ export const TOKEN_VERIFICATION_QUERY = gql`
     verifyPasswordToken(token: $token) {
       message
       success
+    }
+  }
+`
+
+export const UPDATE_USER_MUTATION = gql`
+  mutation ($input: UpdateUserInput!) {
+    updateUser(input: $input) {
+      firstName
+      lastName
+      phone
+      addressState
+      addressCity
+      addressZipCode
+      addressStreetAddress
+      needMoreInfo
     }
   }
 `

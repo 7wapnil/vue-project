@@ -1,11 +1,11 @@
-import gql from 'graphql-tag';
+import gql from 'graphql-tag'
+import { PAGINATION_FIELDS } from './fields'
 
 export const TRANSACTION_LIST_QUERY = gql`
-query transactions ($filter: TransactionKind,  $page: Int, $perPage: Int) {
+query transactions ($filter: TransactionKind, $page: Int, $perPage: Int) {
   transactions (filter: $filter, page: $page, perPage: $perPage) {
     collection {
       id
-      customerId
       createdAt
       amount
       comment
@@ -15,16 +15,7 @@ query transactions ($filter: TransactionKind,  $page: Int, $perPage: Int) {
       mode
       }
     pagination {
-      count
-        items
-        page
-        pages
-        offset
-        last
-        next
-        prev
-        from
-        to
+      ${PAGINATION_FIELDS}
     }
   }
 }

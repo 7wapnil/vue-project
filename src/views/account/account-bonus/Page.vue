@@ -1,18 +1,20 @@
 <template>
   <div>
     <bonus-header v-if="!isMobile"/>
-    <div v-if="customerBonuses.length">
-      <bonus-placeholder
-        v-if="!getMainBonus"/>
-      <bonus-information-section
-        v-if="getMainBonus"
-        :bonus-achieved="getCurrentBonusValue"
-        :main-bonus="getMainBonus"/>
-      <progress-scale
-        v-if="getMainBonus"
-        :value="getMainBonusPercentageValue"/>
-      <bonus-items :bonus-items="customerBonuses"/>
-    </div>
+    <bonus-placeholder
+      v-if="!getMainBonus"/>
+    <bonus-information-section
+      v-if="getMainBonus"
+      :bonus-achieved="getCurrentBonusValue"
+      :main-bonus="getMainBonus"
+      @bonus-cancellation="cancellationResults"/>
+    <bonus-alerts
+      :cancel-bonus-status="cancelBonusStatus"
+      :cancel-bonus-message="cancelBonusMessage"/>
+    <progress-scale
+      v-if="getMainBonus"
+      :value="getMainBonusPercentageValue"/>
+    <bonus-items :bonus-items="bonuses"/>
   </div>
 </template>
 
@@ -22,8 +24,10 @@ import BonusInformationSection from '@/views/account/account-bonus/BonusInformat
 import BonusItems from '@/views/account/account-bonus/BonusItems'
 import BonusPlaceholder from '@/views/account/account-bonus/BonusPlaceholder'
 import BonusHeader from '@/views/account/account-bonus/BonusHeader'
+import BonusAlerts from '@/views/account/account-bonus/BonusAlerts'
 import { BONUSES_LIST_QUERY } from '@/graphql'
 import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
+import { ACTIVE } from '@/constants/bonus-statuses'
 
 export default {
   components: {
@@ -31,18 +35,23 @@ export default {
     BonusInformationSection,
     BonusItems,
     BonusPlaceholder,
-    BonusHeader
+    BonusHeader,
+    BonusAlerts
   },
   data () {
     return {
-      customerBonuses: []
+      bonuses: [],
+      cancelBonusMessage: null,
+      cancelBonusStatus: null
     }
   },
   computed: {
     getCurrentBonusValue () {
       if (!this.getMainBonus) return null
 
-      return (this.getMainBonus.rolloverInitialValue - this.getMainBonus.rolloverBalance).toFixed(2)
+      return parseFloat(
+        (this.getMainBonus.rolloverInitialValue - this.getMainBonus.rolloverBalance).toFixed(2)
+      )
     },
     getMainBonusPercentageValue () {
       if (!this.getMainBonus) return null
@@ -51,11 +60,18 @@ export default {
       return parseFloat(calculatedPercentage.toFixed(2))
     },
     getMainBonus () {
-      return this.customerBonuses.find((bonus) => bonus.status === 'active')
+      return this.bonuses.find((bonus) => bonus.status === ACTIVE)
+    }
+  },
+  methods: {
+    cancellationResults (status, message) {
+      this.cancelBonusStatus = status
+      this.cancelBonusMessage = message
+      this.$apollo.queries.bonuses.refetch()
     }
   },
   apollo: {
-    customerBonuses () {
+    bonuses () {
       return {
         query: BONUSES_LIST_QUERY,
         fetchPolicy: NETWORK_ONLY

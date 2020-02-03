@@ -1,15 +1,15 @@
 import { expect } from 'chai'
 import { mutations, getters, actions } from '@/stores/betslip'
+import Bet from '@/models/bet'
 
 describe('betslip store', () => {
   describe('actions', () => {
     describe('pushBet', () => {
       it('adds new bet to empty betslip based on odd', () => {
-        const state = {
-          bets: []
-        }
+        const state = { bets: [] }
+        const dispatch = sinon.spy()
 
-        actions.pushBet({ state }, { event: {}, market: {}, odd: { id: 1, value: 2 } })
+        actions.pushBet({ dispatch, state }, { event: {}, market: {}, odd: { id: 1, value: 2 } })
 
         expect(state.bets.length).to.eql(1)
         expect(state.bets[0].oddId).to.eql(1)
@@ -23,6 +23,20 @@ describe('betslip store', () => {
         actions.pushBet({ state }, { event: {}, market: {}, odd: { id: 1, value: 2 } })
 
         expect(state.bets.length).to.eql(1)
+      })
+    })
+
+    describe('removeBetFromBetslip', () => {
+      it('removes one item from betslip', () => {
+        const state = {
+          bets: [ { oddId: 1 }, { oddId: 2, status: 'xxx' } ]
+        }
+        const dispatch = sinon.spy()
+        const commit = sinon.spy()
+
+        actions.removeBetFromBetslip({ dispatch, state, commit }, 1)
+
+        expect(state.bets).to.eql([{ oddId: 2, status: 'xxx' }])
       })
     })
   })
@@ -52,37 +66,25 @@ describe('betslip store', () => {
       })
     })
 
-    describe('removeBetFromBetslip', () => {
-      it('removes one item from betslip', () => {
+    describe('clearBets', () => {
+      it('clears all bets', () => {
         const state = {
           bets: [ { oddId: 1 }, { oddId: 2, status: 'xxx' } ]
         }
 
-        mutations.removeBetFromBetslip(state, 1)
-
-        expect(state.bets).to.eql([{ oddId: 2, status: 'xxx' }])
-      })
-    })
-
-    describe('clearBetslip', () => {
-      it('clears all betslip', () => {
-        const state = {
-          bets: [ { oddId: 1 }, { oddId: 2, status: 'xxx' } ]
-        }
-
-        mutations.clearBetslip(state, 1)
+        mutations.clearBets(state)
 
         expect(state.bets).to.eql([])
       })
     })
 
-    describe('updateAcceptAll', () => {
+    describe('setAcceptAll', () => {
       it('updates bet with correct id according to payload', () => {
         const state = {
           acceptAll: false
         }
 
-        mutations.updateAcceptAll(state, true)
+        mutations.setAcceptAll(state, true)
 
         expect(state.acceptAll).to.eql(true)
       })
@@ -105,7 +107,7 @@ describe('betslip store', () => {
         getTotalStakes: 2,
         getAllBetsAcceptable: true,
         betslipValuesConfirmed: true,
-        getAnyInactiveMarket: false,
+        hasInactiveBets: false,
         getIsEnoughFundsToBet: true
       }
 
@@ -153,7 +155,7 @@ describe('betslip store', () => {
 
           const invalidGetters = {
             ...validGettersState,
-            getAnyInactiveMarket: true
+            hasInactiveBets: true
           }
 
           expect(getters.betslipSubmittable(state, invalidGetters, {})).to.eql(false)
@@ -167,17 +169,33 @@ describe('betslip store', () => {
         const confirmedValue = 1.11
         const currentOddValue = 1.11
         const betsState = [
-          { currentOddValue: currentOddValue, approvedOddValue: confirmedValue, odd: { id: oddId } },
+          { currentOddValue: currentOddValue, approvedOddValue: confirmedValue, oddId: oddId }
         ]
 
-        const state = { bets: betsState }
+        const state = { bets: betsState, acceptAll: false }
         const events = [
           { id: 1, markets: [{ id: 2, odds: [{ id: oddId, value: currentOddValue }] }] }
         ]
 
-        const gettersWithEvents = {
-          getEvents: events
-        }
+        const gettersWithEvents = { getEvents: events }
+
+        expect(getters.betslipValuesConfirmed(state, gettersWithEvents)).to.eql(true)
+      })
+
+      it('returns true on accepting all odds', () => {
+        const oddId = 3
+        const confirmedValue = 1.11
+        const currentOddValue = 1.12
+        const betsState = [
+          new Bet({ currentOddValue: currentOddValue, approvedOddValue: confirmedValue, oddId: oddId })
+        ]
+
+        const state = { bets: betsState, acceptAll: true }
+        const events = [
+          new Bet({ id: 1, markets: [{ id: 2, odds: [{ id: oddId, value: currentOddValue }] }] })
+        ]
+
+        const gettersWithEvents = { getEvents: events }
 
         expect(getters.betslipValuesConfirmed(state, gettersWithEvents)).to.eql(true)
       })
@@ -187,17 +205,15 @@ describe('betslip store', () => {
         const confirmedValue = 1.11
         const currentOddValue = 1.12
         const betsState = [
-          { currentOddValue: currentOddValue, approvedOddValue: confirmedValue, odd: { id: oddId } },
+          new Bet({ currentOddValue: currentOddValue, approvedOddValue: confirmedValue, oddId: oddId })
         ]
 
-        const state = { bets: betsState }
+        const state = { bets: betsState, acceptAll: false }
         const events = [
           { id: 1, markets: [{ id: 2, odds: [{ id: oddId, value: currentOddValue }] }] }
         ]
 
-        const gettersWithEvents = {
-          getEvents: events
-        }
+        const gettersWithEvents = { getEvents: events }
 
         expect(getters.betslipValuesConfirmed(state, gettersWithEvents)).to.eql(false)
       })
@@ -208,10 +224,16 @@ describe('betslip store', () => {
         const invalidGetters = {
           'getUserActiveWallet': {
             id: 1,
-            amount: 0,
+            amount: 10,
             currency: {
               code: 'EUR',
               name: 'Euro'
+            },
+            realMoneyBalance: 0,
+            bonusMoney: 10,
+            userBonus: {
+              casino: true,
+              sportsbook: false
             }
           },
           getTotalStakes: 1
@@ -228,6 +250,12 @@ describe('betslip store', () => {
             currency: {
               code: 'EUR',
               name: 'Euro'
+            },
+            realMoneyBalance: 100,
+            bonusMoney: 100,
+            userBonus: {
+              casino: true,
+              sportsbook: false
             }
           },
           getTotalStakes: 2
@@ -253,10 +281,13 @@ describe('betslip store', () => {
             { id: 1 },
             { id: 3 },
             { id: 1142 },
-            { id: 12 }
+            { id: 12 },
+            { id: 1 },
+            { id: 12 },
+            { id: 5 }
           ]
         }
-        expect(getters.getPlacedBetIds(state)).to.eql([1, 3, 1142, 12])
+        expect(getters.getPlacedBetIds(state)).to.eql([1, 3, 1142, 12, 5])
       })
     })
 
@@ -269,24 +300,45 @@ describe('betslip store', () => {
       })
     })
 
-    describe('getAnyInactiveMarket', () => {
+    describe('hasInactiveBets', () => {
+      it('returns true when there is at least one bet with inactive event', () => {
+        const state = {
+          bets: [
+            { eventEnabled: true, marketEnabled: true, oddEnabled: true },
+            { eventEnabled: false, marketEnabled: true, oddEnabled: true }
+          ]
+        }
+        expect(getters.hasInactiveBets(state)).to.eql(true)
+      })
+
       it('returns true when there is at least one bet with inactive market', () => {
         const state = {
           bets: [
-            { marketStatus: 'inactive' },
-            { marketStatus: 'active' },
+            { eventEnabled: true, marketEnabled: true, oddEnabled: true },
+            { eventEnabled: true, marketEnabled: false, oddEnabled: true }
           ]
         }
-        expect(getters.getAnyInactiveMarket(state)).to.eql(true)
+        expect(getters.hasInactiveBets(state)).to.eql(true)
       })
 
-      it('returns false when there is no bets with inactive market', () => {
+      it('returns true when there is at least one bet with inactive odd', () => {
         const state = {
           bets: [
-            { marketStatus: 'active' }
+            { eventEnabled: true, marketEnabled: true, oddEnabled: true },
+            { eventEnabled: true, marketEnabled: true, oddEnabled: false }
           ]
         }
-        expect(getters.getAnyInactiveMarket(state)).to.eql(false)
+        expect(getters.hasInactiveBets(state)).to.eql(true)
+      })
+
+      it('returns false when there is no bets with inactive associations', () => {
+        const state = {
+          bets: [
+            { eventEnabled: true, marketEnabled: true, oddEnabled: true },
+            { eventEnabled: true, marketEnabled: true, oddEnabled: true }
+          ]
+        }
+        expect(getters.hasInactiveBets(state)).to.eql(false)
       })
     })
 
@@ -377,14 +429,14 @@ describe('betslip store', () => {
       })
     })
 
-    describe('getAnyFrozenBet', () => {
+    describe('hasAnyFrozenBet', () => {
       it('returns true when the bet status is "submitted"', () => {
         const state = {
           bets: [
             { frozen: true }
           ]
         }
-        expect(getters.getAnyFrozenBet(state)).to.eql(true)
+        expect(getters.hasAnyFrozenBet(state)).to.eql(true)
       })
 
       it('returns false when the bet status is "not frozen"', () => {
@@ -393,7 +445,7 @@ describe('betslip store', () => {
             { status: 'not_frozen' }
           ]
         }
-        expect(getters.getAnyFrozenBet(state)).to.eql(false)
+        expect(getters.hasAnyFrozenBet(state)).to.eql(false)
       })
     })
   })

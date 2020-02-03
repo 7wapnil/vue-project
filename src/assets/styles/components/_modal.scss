@@ -1,17 +1,30 @@
 // Modals //
 @import '../variables';
 
-.modal-content {
-  background-color: unset;
+.modal-body.ios-device {
+  padding-bottom: 104px !important;
 }
 
 #AccountModal {
-  .custom-select {
+  .custom-select:disabled {
     background: $arc-clr-white;
   }
   @media (min-width: 992px) {
     .modal-lg {
       max-width: 1179px;
+    }
+  }
+  @media (max-width: 990px) {
+    .modal-dialog-scrollable > .modal-content {
+      height: 100vh !important;
+      max-height: 100vh !important;
+    }
+  }
+  @media (min-width: 576px) {
+    .modal-dialog {
+      min-width: 576px !important;
+      max-width: 1179px !important;
+      overflow-y: hidden;
     }
   }
 }
@@ -32,7 +45,7 @@
     padding: 0 14px 14px 14px;
   }
   &-dialog {
-    margin: .5rem;
+    margin: 0;
     &-mobile {
       margin: 0;
     }
@@ -43,13 +56,20 @@
   #AuthModal .modal-dialog {
     max-width: 564px;
   }
-
   #ConnectionModal .modal-dialog {
     max-width: 564px;
   }
 
 }
 .profile-modal {
+  &-desktop {
+    min-height: 100%;
+    height: 100%;
+    overflow-y: hidden;
+    @media (max-width: 720px) {
+      min-height: 100vh !important;
+    }
+  }
   &-header {
     height: 80px;
     padding: 26px 24px;
@@ -61,10 +81,19 @@
     padding: 0;
     flex: 0 0 330px;
     background: $arc-clr-soil-dark;
+    overflow-y: scroll;
+    height: 100%;
     &-inner {
-      position: fixed;
-      width: 330px;
+      & > div {
+        position: sticky;
+        top: 0;
+        box-shadow: 0 5px 8px -7px black;
+      }
     }
+  }
+  &-content {
+    height: 100%;
+    overflow-y: auto;
   }
 }
 #ConnectionModal {
@@ -77,4 +106,3 @@
     opacity: .8;
   }
 }
-

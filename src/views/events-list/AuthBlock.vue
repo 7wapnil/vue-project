@@ -3,7 +3,7 @@
     <b-row no-gutters>
       <b-col class="mb-3 text-center">
         <span class="font-size-14 letter-spacing-2 text-arc-clr-iron">
-          Sign up now and get bonuses!
+          {{ $t('auth.headerBlock.message') }}
         </span>
       </b-col>
     </b-row>
@@ -13,7 +13,7 @@
           class="mx-2 w-75"
           variant="arc-secondary"
           @click="showAuthModal(0)">
-          Login
+          {{ $t('auth.cta.login') }}
         </b-button>
       </b-col>
       <b-col class="text-left">
@@ -21,7 +21,7 @@
           class="mx-2 w-75"
           variant="arc-primary"
           @click="showAuthModal(1)">
-          SignUp
+          {{ $t('auth.cta.signup') }}
         </b-button>
       </b-col>
     </b-row>

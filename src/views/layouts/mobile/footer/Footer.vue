@@ -8,7 +8,7 @@
         <b-col
           v-for="(topicon, index) in topicons"
           :key="index"
-          class="d-flex justify-content-center py-2 px-3">
+          :class="`d-flex justify-content-center py-2 px-3 ${topicon}-icon`">
           <b-img :src="require(`@/assets/images/footer/${topicon}.svg`)"/>
         </b-col>
       </b-row>
@@ -25,8 +25,8 @@
           </span>
         </b-nav-item>
         <b-nav-item
-          v-for="(item, index) in footerItems"
-          :key="index"
+          v-for="item in footerItems"
+          :key="item.id"
           class="footer-mobile-nav-item">
           <footer-menu-item :item="item"/>
         </b-nav-item>
@@ -92,24 +92,120 @@
 </template>
 
 <script>
-import InformationPages from '@/routes/information_pages'
-import FooterMenuItem from '@/views/layouts/mobile/footer/FooterMenuItem'
+import FooterMenuItem from './FooterMenuItem'
 
 export default {
+  name: 'MobileFooter',
   components: {
     FooterMenuItem
   },
   data () {
     return {
-      topicons:
-          ['visa',
-            'master-card',
-            'skrill',
-            'neteller',
-            'paysafecard',
-            'skinpay',
-            'bitcoin'],
-      footerItems: InformationPages.routes,
+      topicons: [
+        'visa',
+        'master-card',
+        'skrill',
+        'neteller',
+        'paysafecard',
+        'ecoPayz',
+        'iDebit',
+        'bitcoin'
+      ],
+      footerItems: [
+        {
+          id: 1,
+          title: 'Support',
+          icon: 'support',
+          route: { name: 'support' },
+          children: [
+            {
+              id: 1.1,
+              title: 'Contact us',
+              route: { name: 'contact us' }
+            },
+            {
+              id: 1.2,
+              title: 'Terms and conditions',
+              route: { name: 'terms and conditions' }
+            },
+            {
+              id: 1.3,
+              title: 'Sports betting rules',
+              route: { name: 'sports betting rules' }
+            },
+            {
+              id: 1.4,
+              title: 'Privacy policy',
+              route: { name: 'privacy policy' }
+            },
+            {
+              id: 1.5,
+              title: 'Cookie policy',
+              route: { name: 'cookie policy' }
+            },
+            {
+              id: 1.6,
+              title: 'FAQ',
+              route: { name: 'faq' }
+            }]
+        },
+        {
+          id: 2,
+          title: 'About',
+          icon: 'arcanebet-default-icon',
+          route: { name: 'about' },
+          children: [{
+            id: 2.1,
+            title: 'About Arcanebet',
+            route: { name: 'about arcanebet' }
+          },
+          {
+            id: 2.2,
+            title: 'Affiliates',
+            route: { name: 'affiliates' }
+          }],
+        },
+        {
+          id: 3,
+          title: 'Promotions',
+          icon: 'promotional',
+          route: { name: 'promotions' },
+          children: [
+            {
+              id: 3.1,
+              title: 'Welcome Offer Sport',
+              route: { name: 'welcome offer sport' }
+            },
+            {
+              id: 3.2,
+              title: 'Welcome Offer Casino',
+              route: { name: 'welcome offer casino' }
+            },
+            {
+              id: 3.3,
+              title: 'Bonus rules',
+              route: { name: 'bonus rules' }
+            }],
+        },
+        {
+          id: 4,
+          title: 'Responsible gaming',
+          icon: 'help',
+          route: { name: 'responsible gaming' },
+          children: [
+            {
+              id: 4.1,
+              title: 'Introduction',
+              route: { name: 'introduction' }
+            },
+            {
+              id: 4.2,
+              title: 'Setting limits',
+              route: { name: 'setting limits' }
+            }],
+        },
+
+      ],
       homepageLinks: [
         {
           path: '/esports',
@@ -118,6 +214,14 @@ export default {
         {
           path: '/sports',
           name: 'Sport Homepage'
+        },
+        {
+          path: '/casino',
+          name: 'Casino Homepage'
+        },
+        {
+          path: '/live-casino',
+          name: 'Live casino Homepage'
         }
       ],
       socialicons: ['facebook', 'twitter', 'discord']

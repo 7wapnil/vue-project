@@ -23,7 +23,7 @@
 
 <script>
 import { INACTIVE_STATUS as ODD_INACTIVE_STATUS } from '@/models/odd'
-import { mapActions, mapGetters, mapMutations } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import { LIVE } from '@/constants/graphql/event-start-statuses'
 import { getOddValue } from '@/helpers/odds'
 import OddStatus from '@/components/markets/OddStatus'
@@ -58,36 +58,35 @@ export default {
     }
   },
   computed: {
+    ...mapGetters('betslip', [
+      'getBets',
+      'placingBetInProgress',
+      'hasAnyFrozenBet'
+    ]),
     isEventAvailable () {
-      if (this.event.startStatus === LIVE && !this.isLiveConnected) {
-        return false
-      }
+      if (this.event.startStatus === LIVE && !this.isLiveConnected) return false
+      if (!this.event.startStatus === LIVE && !this.isPreLiveConnected) return false
 
-      if (!this.event.startStatus === LIVE && !this.isPreLiveConnected) {
-        return false
-      }
-
-      return true
+      return this.event.visible
+    },
+    isMarketVisible () {
+      return this.market.visible
     },
     isDisabled () {
       return this.disabled ||
-        this.odd.status === ODD_INACTIVE_STATUS ||
-       !this.isEventAvailable
+             this.odd.status === ODD_INACTIVE_STATUS ||
+            !this.isEventAvailable ||
+            !this.isMarketVisible
     },
     oddValue () {
       return getOddValue(this.odd.value)
     },
-    ...mapGetters('betslip', [
-      'getBets',
-      'placingBetInProgress',
-      'getAnyFrozenBet'
-    ]),
     toggleButton: {
       get () {
         return this.isBetExists()
       },
       set () {
-        if (this.isBetExists() && !this.getAnyFrozenBet) {
+        if (this.isBetExists() && !this.hasAnyFrozenBet) {
           return this.removeBetFromBetslip(this.odd.id)
         }
         this.pushBetToBetslip()
@@ -105,26 +104,22 @@ export default {
     }
   },
   methods: {
+    ...mapActions('betslip', [
+      'pushBet',
+      'removeBetFromBetslip'
+    ]),
     isBetExists () {
       return !!this.getBets.find(item => item.oddId === this.odd.id)
     },
     pushBetToBetslip () {
-      if (this.placingBetInProgress || this.getAnyFrozenBet) {
-        return
-      }
+      if (this.placingBetInProgress || this.hasAnyFrozenBet) return
 
       this.pushBet({
         event: this.event,
         market: this.market,
         odd: this.odd
       })
-    },
-    ...mapActions('betslip', [
-      'pushBet'
-    ]),
-    ...mapMutations('betslip', [
-      'removeBetFromBetslip'
-    ])
+    }
   }
 }
 </script>

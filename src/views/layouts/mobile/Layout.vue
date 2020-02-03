@@ -1,31 +1,38 @@
 <template>
   <div>
     <mobile-navigation-bar @burger-clicked="toggleSidebar"/>
-    <mobile-content class="mobile-container"/>
+    <div class="mobile-container">
+      <router-view name="header">
+        <router-view name="tabs"/>
+      </router-view>
+      <router-view
+        name="content"/>
+    </div>
     <navigation-sidebar v-show="isSidebarOpen"/>
     <betslip-button/>
     <betslip-container/>
     <mobile-footer/>
+    <footer-nav-bar/>
   </div>
 </template>
 
 <script>
-import MobileNavigationBar from '@/views/layouts/mobile/NavigationBar'
+import MobileNavigationBar from './NavigationBar'
 import MobileFooter from '@/views/layouts/mobile/footer/Footer'
-import NavigationSidebar from '@/views/layouts/mobile/sidemenu/SidebarLayout'
+import NavigationSidebar from './sidemenu/SidebarLayout'
 import { mapGetters, mapMutations } from 'vuex'
-import MobileContent from '@/views/layouts/mobile/Content'
-import BetslipButton from '@/views/layouts/mobile/betslip/BetslipButton'
-import BetslipContainer from '@/views/layouts/mobile/betslip/BetslipContainer'
+import BetslipButton from './betslip/BetslipButton'
+import BetslipContainer from './betslip/BetslipContainer'
+import FooterNavBar from '@/views/layouts/mobile/FooterNavBar'
 
 export default {
   components: {
     MobileNavigationBar,
     MobileFooter,
     NavigationSidebar,
-    MobileContent,
     BetslipButton,
-    BetslipContainer
+    BetslipContainer,
+    FooterNavBar
   },
   computed: {
     ...mapGetters([

@@ -8,15 +8,14 @@
     height: calc(100vh - 80px);
     overflow-y: auto !important;
     overflow-x: hidden !important;
-    max-width: 268px;
-    min-width: 268px;
+    flex: 0 0 268px;
   }
   &-empty-card  {
     border: 1px solid $arc-clr-soil-light !important;
     border-radius: 6px 6px 0 6px !important;
   }
   &-input {
-    border-radius: 0 0 6px 0 !important;
+    border-radius: 0 6px 0 6px !important;
     text-align: center;
     font-weight: bold;
     font-size: $h6-font-size !important;
@@ -27,6 +26,9 @@
       border: 1px solid $arc-clr-soil-darker;
       color: $arc-clr-iron;
       border-radius: 0 6px  0 6px !important;
+    }
+    &::placeholder {
+      opacity: 0.3;
     }
   }
   &-nav-wrapper {
@@ -42,7 +44,7 @@
         box-shadow: 0 0 8px 0 rgba($black, .5);
         padding-top: 6px;
         position: fixed;
-        bottom: 0;
+        bottom: 60px;
         right: 0;
         z-index: 1036;
         display: flex;

@@ -6,7 +6,7 @@
     <transition name="sidemenu-close-button">
       <div v-if="isOpen">
         <icon
-          :color="getSidebarKind === 'esports' ? 'arc-clr-esport-glow' : 'arc-clr-sport-glow'"
+          :color="closeIconColor[currentLobbyName]"
           name="betslip-close"
           size="20px"/>
       </div>
@@ -32,7 +32,15 @@ export default {
     ...mapGetters([
       'getSidebarKind',
       'isSidebarOpen'
-    ])
+    ]),
+    closeIconColor () {
+      return {
+        esports: 'arc-clr-esport-glow',
+        sports: 'arc-clr-sport-glow',
+        casino: 'arc-clr-casino-glow',
+        'live-casino': 'arc-clr-live-casino-glow',
+      }
+    }
   },
   methods: {
     ...mapMutations([

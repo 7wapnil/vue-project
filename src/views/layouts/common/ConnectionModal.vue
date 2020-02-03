@@ -42,7 +42,9 @@
           <b-col
             class="mb-5 text-center"
             cols="12">
-            <b-button variant="arc-secondary">
+            <b-button
+              variant="arc-secondary"
+              @click="checkStatus">
               {{ $t('offlineModal.recconect') }}
             </b-button>
           </b-col>
@@ -51,3 +53,15 @@
     </b-row>
   </modal>
 </template>
+
+<script>
+export default {
+  methods: {
+    checkStatus () {
+      if (navigator.onLine) {
+        this.$bvModal.hide('ConnectionModal')
+      }
+    }
+  }
+}
+</script>

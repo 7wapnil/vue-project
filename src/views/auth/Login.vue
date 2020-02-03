@@ -2,21 +2,29 @@
   <b-form
     novalidate
     @submit.prevent="submit">
-    <b-form-group>
+    <b-form-group
+      :label="$i18n.t('auth.signUpForm.username')"
+      label-for="signin-username">
       <b-form-input
+        id="signin-username"
+        :placeholder="$i18n.t('auth.signUpForm.username')"
         v-model="fields.login"
-        placeholder="Username"
         autocomplete="username"
-        class="mb-4"
         required/>
+    </b-form-group>
+
+    <b-form-group
+      :label="$i18n.t('auth.signUpForm.password')"
+      label-for="signin-password">
       <b-form-input
+        id="signin-password"
+        :placeholder="$i18n.t('auth.signUpForm.password')"
         v-model="fields.password"
-        class="mb-4"
         autocomplete="current-password"
-        placeholder="Password"
         type="password"
         required/>
     </b-form-group>
+
     <b-row
       v-if="isSuspicious"
       no-gutters>
@@ -28,11 +36,6 @@
           theme="dark"
           @verify="onCaptchaVerified"
           @expired="resetCaptcha"/>
-        <b-alert
-          v-if="isCaptchaMissing"
-          variant="danger">
-          Please, pass Captcha verification!
-        </b-alert>
       </b-col>
     </b-row>
     <b-form-invalid-feedback :state="isRequestSuccessful">
@@ -40,7 +43,7 @@
     </b-form-invalid-feedback>
     <b-button
       :disabled="isSubmitDisabled"
-      class="mb-3"
+      class="mb-4 mt-4"
       type="submit"
       variant="user-profile-button"
       block>
@@ -51,7 +54,7 @@
 
 <script>
 import VueRecaptcha from 'vue-recaptcha'
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapActions, mapMutations } from 'vuex'
 
 export default {
   components: {
@@ -67,37 +70,30 @@ export default {
       },
       recaptchaSiteKey: process.env.VUE_APP_RECAPTCHA_SITE_KEY,
       submitting: false,
-      isCaptchaMissing: false,
       isRequestSuccessful: null
     }
   },
   computed: {
     ...mapGetters({
       isSuspicious: 'isSuspicious',
-      lastLogin: 'getLastLogin'
+      lastLogin: 'getLastLogin',
+      onSuccessRedirect: 'getSuccessLoginUrl',
     }),
+    ...mapMutations(['storeSuccessLoginUrl']),
     isSubmitDisabled () {
       const hasLength = !!(this.fields.login && this.fields.password)
-      return !hasLength && !this.isCaptchaMissing && !this.submitting
+      return !hasLength || (this.isSuspicious && !this.fields.captcha) || this.submitting
     }
   },
   methods: {
-    isCaptchaEmpty () {
-      return this.isSuspicious && this.fields.captcha === ''
-    },
     onCaptchaVerified (token) {
       this.fields.captcha = token
-      this.isCaptchaMissing = false
     },
     resetCaptcha () {
       this.$refs.recaptcha.reset()
       this.fields.captcha = null
     },
     submit () {
-      if (this.isCaptchaEmpty()) {
-        this.isCaptchaMissing = true
-        return
-      }
       this.submitting = true
 
       if (this.lastLogin !== this.fields.login) { this.removeCaptcha() }
@@ -112,10 +108,13 @@ export default {
     },
     onSuccess ({ data: { signIn } }) {
       this.login(signIn)
-      this.$router.push({ name: 'home' })
+      if (this.onSuccessRedirect) {
+        this.$router.push(this.onSuccessRedirect)
+        this.storeSuccessLoginUrl(null)
+      } else this.$router.push({ name: 'home' })
+      this.close()
       this.$livechat.setUser(signIn.user)
       this.$livechat.initWidget()
-      this.close()
     },
     onError (err) {
       if (!err.graphQLErrors || !err.graphQLErrors.length) return
@@ -140,3 +139,16 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+  .form-group {
+    margin-bottom: 0.5rem;
+    & /deep/ label {
+      text-transform: uppercase;
+      font-size: 0.75rem;
+    }
+  }
+  .invalid-feedback {
+    margin-bottom: 8px;
+  }
+</style>
