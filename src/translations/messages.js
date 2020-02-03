@@ -470,7 +470,7 @@ const messages = {
       noEventsFound: 'No events found'
     },
     cancelActiveBonus: {
-      warning: 'Are you sure you want to cancel your bonus? If you click cancel bonus, your current bonus balance of {amount} {currency} will be removed permanently. This is not reversible. Please contact support if you have any questions.',
+      warning: 'Are you sure you want to cancel your bonus? If you click cancel bonus, your current bonus balance of {amount} will be removed permanently. This is not reversible. Please contact support if you have any questions.',
       backButton: 'Back',
       submitButton: 'Cancel Bonus',
       successfulCancellation: 'Bonus successfully cancelled. Please go to the deposit page to deposit and claim a new bonus'
