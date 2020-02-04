@@ -106,7 +106,7 @@ export default {
   methods: {
     goToEventPage () {
       if (this.marketsCount > 0) {
-        this.$router.push({ name: 'esports-event', params: { id: this.event.id } })
+        this.$router.push({ name: 'esports-event', params: { eventSlug: this.event.slug } })
       }
     }
   }

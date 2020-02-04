@@ -1,5 +1,6 @@
-import { findTitleIcon } from './icon-finder'
-import { getTitleName } from './title-names'
+import { CATEGORY, TOURNAMENT } from '@/constants/event-scopes/kinds'
+import { findTitleIcon } from '@/helpers/icon-finder'
+import { getTitleName } from '@/helpers/titles'
 
 /**
  * Build tournaments list by parent ID
@@ -13,15 +14,22 @@ import { getTitleName } from './title-names'
 const buildTournaments = (titleKind, title, route, parentId = null) => {
   return title.eventScopes
     .filter((scope) => {
-      return scope.kind === 'tournament' &&
+      return scope.kind === TOURNAMENT &&
         (parentId === null ? true : scope.eventScopeId === parentId)
     })
     .map((tournament) => {
       return {
         id: tournament.id,
         label: tournament.name,
-        active: route.params.tournamentId && route.params.tournamentId === tournament.id,
-        to: { name: `${titleKind}-tournament`, params: { titleKind, titleId: title.id, tournamentId: tournament.id } },
+        active: route.params.tournamentSlug && route.params.tournamentSlug === tournament.slug,
+        to: {
+          name: `${titleKind}-tournament`,
+          params: {
+            titleKind,
+            titleSlug: title.slug,
+            tournamentSlug: tournament.slug
+          }
+        },
         children: []
       }
     })
@@ -43,7 +51,7 @@ const buildSubTree = (titleKind, title, route) => {
   return title
     .eventScopes
     .filter((scope) => {
-      return scope.kind === 'category'
+      return scope.kind === CATEGORY
     })
     .map((category) => {
       const tournamentList = buildTournaments(titleKind, title, route, category.id)

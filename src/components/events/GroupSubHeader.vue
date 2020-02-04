@@ -32,9 +32,20 @@ export default {
   },
   data () {
     const titleKind = this.$route.params.titleKind
+
     return {
-      showMoreLink: { name: `${titleKind}-tournament`, params: { titleKind: titleKind, titleId: this.item.title.id, tournamentId: this.item.id } },
-      tournamentLink: { name: `${titleKind}-tournament`, params: { titleId: this.item.title.id, tournamentId: this.item.id } }
+      showMoreLink: {
+        name: `${titleKind}-tournament`,
+        params: {
+          titleKind: titleKind,
+          titleSlug: this.item.title.slug,
+          tournamentSlug: this.item.slug
+        }
+      },
+      tournamentLink: {
+        name: `${titleKind}-tournament`,
+        params: { titleSlug: this.item.title.slug, tournamentSlug: this.item.slug }
+      }
     }
   },
   computed: {
