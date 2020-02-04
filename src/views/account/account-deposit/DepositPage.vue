@@ -13,12 +13,16 @@
         :currency="currency"
         :amount-error="amountError"
         :update-amount="updateAmount"
+        :wallets="wallets"
+        :set-wallet-filter="setWalletFilter"
+        :default-currency="defaultCurrency"
+        :filter="filter"
         :fields="fields"/>
       <deposit-methods
         v-if="showBlock"
         slot="deposit-methods"
         :set-payment-method="setPaymentMethod"
-        :deposit-methods="depositMethods"
+        :deposit-methods="filteredDepositMethods"
         :loading="$apollo.queries.user.loading"
         :payment-method="paymentMethod"
         :fields="fields"/>
@@ -99,7 +103,8 @@ export default {
       depositDetails: this.$route.query.depositDetails,
       depositMethods: [],
       qrText: '',
-      address: ''
+      address: '',
+      filter: null,
     }
   },
   apollo: {
@@ -119,7 +124,14 @@ export default {
       const DesktopLayout = () => import(`@/views/account/account-deposit/deposit-form/DepositFormLayoutDesktop`)
       return this.isMobile ? MobileLayout : DesktopLayout
     },
-    ...mapGetters({ activeWallet: 'getUserActiveWallet' }),
+    ...mapGetters({
+      activeWallet: 'getUserActiveWallet',
+      wallets: 'getUserWallets',
+    }),
+    defaultCurrency () {
+      if (!this.activeWallet) return null
+      return this.activeWallet.currency.code
+    },
     showBlock () {
       if (this.depositDetails) return false
 
@@ -137,6 +149,11 @@ export default {
     buttonDisabled () {
       let parsedAmount = parseFloat(this.fields.amount)
       return parsedAmount <= 0 || isNaN(parsedAmount) || !this.paymentMethod || this.isSubmitting || !this.bonusValid
+    },
+    filteredDepositMethods () {
+      if (!this.filter) return this.depositMethods
+
+      return this.depositMethods.filter(method => method.currencyKind === this.filter)
     }
   },
   watch: {
@@ -174,7 +191,7 @@ export default {
       if (!amount) this.amountError = this.$i18n.t('account.deposit.pleaseEnterAmount')
       else {
         if (amount > method.maxAmount || amount < method.minAmount) return
-
+        this.filter = method.currencyKind
         this.paymentMethod = method
       }
     },
@@ -198,6 +215,11 @@ export default {
     },
     setBonusError (message) {
       this.bonusError = message
+    },
+    setWalletFilter (code) {
+      const [ wallet ] = this.wallets.filter(wallet => wallet.currency.code === code)
+      this.filter = wallet.currency.kind
+      this.resetPaymentMethod()
     },
     calculateBonus (val) {
       this.fields.bonusCode = val
