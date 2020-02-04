@@ -42,6 +42,7 @@ export const TITLE_FIELDS = `
   externalName
   name
   shortName
+  slug
   position
   showCategoryInNavigation
 `
@@ -49,6 +50,7 @@ export const TITLE_FIELDS = `
 export const SCOPE_FIELDS = `
   id
   name
+  slug
   kind
   eventScopeId
   position
@@ -57,6 +59,7 @@ export const SCOPE_FIELDS = `
 export const EVENT_FIELDS = `
   id
   name
+  slug
   description
   status
   marketsCount
@@ -85,6 +88,7 @@ export const EVENT_FIELDS = `
   }
   tournament {
     id
+    slug
     kind
     name
   }

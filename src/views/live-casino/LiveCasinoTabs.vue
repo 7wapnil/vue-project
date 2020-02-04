@@ -9,6 +9,7 @@
       :key="tab.id"
       :active="activeIndex === index"
       :class="[activeIndex === index ? 'casino-tab-active' : '']"
+      :disabled="isTabDisabled"
       link-classes="casino-tab"
       @click="scrollIntoView(tab.context, index)">
       <b-row no-gutters>
@@ -74,8 +75,15 @@ export default {
           })
 
           this.tabs = [this.defaultTab, ...categories]
+
+          if (this.isTabDisabled) this.selectTabFromUrl()
         }
       }
+    }
+  },
+  computed: {
+    isTabDisabled () {
+      return this.$route.params.category !== undefined
     }
   },
   methods: {
@@ -96,47 +104,54 @@ export default {
         top: position,
         behavior: 'smooth'
       })
+    },
+    selectTabFromUrl () {
+      const tabIndexToShow = this.tabs.findIndex(tab => tab.context === this.$route.params.category)
+
+      if (tabIndexToShow > -1) this.activeIndex = tabIndexToShow
     }
   }
 }
 </script>
 
-<style lang="scss"
-       scoped>
-    @import '@/assets/styles/variables.scss';
+<style lang="scss" scoped>
+@import '@/assets/styles/variables.scss';
 
-    .casino-tabs {
-        &-nav {
-            flex-wrap: nowrap;
-            white-space: nowrap;
-            max-width: 100%;
-            overflow: auto;
-            margin: 0 20px;
-        }
+.casino-tabs {
+  &-nav {
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    max-width: 100%;
+    overflow: auto;
+    margin: 0 20px;
+  }
+}
 
+.casino-tab {
+  padding: 16px;
+
+  &-active a {
+    letter-spacing: -0.004em;
+    transition: all .3s ease-in-out;
+    background: $arc-clr-soil-light !important;
+    border-radius: 4px 4px 0 0;
+    .casino-tab-icon {
+      color: $arc-clr-live-casino-glow !important;
     }
-    .casino-tab {
-        padding: 16px;
-        &-active a {
-            letter-spacing: -0.004em;
-            transition: all .3s ease-in-out;
-            background: $arc-clr-soil-light !important;
-            border-radius: 4px 4px 0 0;
-            .casino-tab-icon {
-                color: $arc-clr-live-casino-glow !important;
-            }
-        }
-        &-icon {
-             color: $arc-clr-iron;
-            .casino-tab:hover &{
-                color: $arc-clr-live-casino-glow !important;
-                transition: .3s ease-in-out;
-            }
-        }
-        &-label {
-            font-size: $small-font-size;
-            color: $arc-clr-iron-light;
-            line-height: 14px;
-        }
+  }
+
+  &-icon {
+     color: $arc-clr-iron;
+    .casino-tab:hover & {
+      color: $arc-clr-live-casino-glow !important;
+      transition: .3s ease-in-out;
     }
+  }
+
+  &-label {
+    font-size: $small-font-size;
+    color: $arc-clr-iron-light;
+    line-height: 14px;
+  }
+}
 </style>
