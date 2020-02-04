@@ -19,18 +19,25 @@
     <esport-events
       v-if="checkEventKind('esports')"
       :selected-event-scope="selectedEventScope"
+      :selected-tournament="selectedTournament"
       :selected-filter="selectedFilter"
       :key="key" />
 
     <sport-events
       v-if="checkEventKind('sports')"
       :selected-event-scope="selectedEventScope"
+      :selected-tournament="selectedTournament"
       :selected-filter="selectedFilter"
       :key="key" />
   </div>
 </template>
 
 <script>
+import { ESPORTS } from '@/constants/title-kinds'
+import { TOURNAMENT } from '@/constants/event-scopes/kinds'
+import { TITLE_QUERY, SCOPE_QUERY } from '@/graphql'
+import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
+import { buildTitleTag } from '@/helpers/titles'
 import EventsList from '@/components/events/EventsList'
 import EsportEvents from '@/components/events/EsportEvents'
 import SportEvents from '@/components/events/SportEvents'
@@ -53,9 +60,37 @@ export default {
     PromoSection,
     TabsSection
   },
+  apollo: {
+    title () {
+      return {
+        query: TITLE_QUERY,
+        variables: { slug: this.$route.params.titleSlug },
+        skip: this.hasTournamentSlug || !this.hasTitleSlug,
+        fetchPolicy: NETWORK_ONLY,
+        result ({ data }) {
+          this.selectedEventScope = buildTitleTag(data.title)
+        }
+      }
+    },
+    eventScope () {
+      return {
+        query: SCOPE_QUERY,
+        variables: { slug: this.$route.params.tournamentSlug, kind: TOURNAMENT },
+        skip: !this.hasTournamentSlug,
+        fetchPolicy: NETWORK_ONLY,
+        result ({ data }) {
+          const payload = data.eventScope
+
+          this.selectedTournament = payload
+          this.selectedEventScope = buildTitleTag(payload.title)
+        }
+      }
+    }
+  },
   data () {
     return {
       selectedEventScope: null,
+      selectedTournament: null,
       selectedFilter: null,
       isCategoryChanged: false
     }
@@ -65,8 +100,8 @@ export default {
       if (!this.selectedFilter) { return null }
 
       return {
-        titleId: this.selectedEventScope ? this.selectedEventScope.value : null,
-        tournamentId: this.$route.params.tournamentId || null,
+        titleId: this.selectedEventScope ? this.selectedEventScope.id : null,
+        tournamentId: this.selectedTournament ? this.selectedTournament.id : null,
         context: this.selectedFilter ? this.selectedFilter.value : null
       }
     },
@@ -76,6 +111,12 @@ export default {
     },
     activeTitle () {
       return { name: this.selectedEventScope ? this.selectedEventScope.label : 'default' }
+    },
+    hasTitleSlug () {
+      return this.$route.params.titleSlug !== undefined
+    },
+    hasTournamentSlug () {
+      return this.$route.params.tournamentSlug !== undefined
     }
   },
   methods: {
@@ -85,7 +126,7 @@ export default {
     onFilterChange (tab) {
       this.selectedFilter = tab
     },
-    checkEventKind (kind = 'esports') {
+    checkEventKind (kind = ESPORTS) {
       return this.$route.params.titleKind === kind && this.eventListProps
     }
   }

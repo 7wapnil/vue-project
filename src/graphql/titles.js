@@ -20,16 +20,10 @@ export const TITLES_QUERY = gql`
   }
 `
 
-export const TITLE_BY_ID_QUERY = gql`
-  query title(
-    $id: ID!,
-    $withTournaments: Boolean = false
-  ) {
-    titles (id: $id) {
+export const TITLE_QUERY = gql`
+  query title($slug: String!) {
+    title (slug: $slug) {
       ${TITLE_FIELDS}
-      tournaments @include (if: $withTournaments) {
-        ${SCOPE_FIELDS}
-      }
     }
   }
 `

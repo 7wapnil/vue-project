@@ -32,6 +32,7 @@
 
 <script>
 import { UNLIMITED_QUERY } from '@/constants/graphql/limits'
+import { ENDED } from '@/constants/event-statuses'
 import { EVENT_BY_ID_QUERY } from '@/graphql'
 import MarketsCategories from '@/components/markets/MarketsCategories'
 import HeaderSection from '@/views/event/header-section/HeaderSection'
@@ -58,16 +59,9 @@ export default {
       twitchSize: false
     }
   },
-  computed: {
-    eventId () {
-      return this.$route.params.id
-    }
-  },
   watch: {
     'event.status': function (value) {
-      if (value === 'ended') {
-        this.loadModal()
-      }
+      if (value === ENDED) this.loadModal()
     }
   },
   apollo: {
@@ -75,8 +69,11 @@ export default {
       return {
         query: EVENT_BY_ID_QUERY,
         variables: {
-          id: this.eventId,
+          slug: this.$route.params.eventSlug,
           withScopes: true
+        },
+        error () {
+          this.$router.push({ path: '/page-not-found' })
         }
       }
     }
