@@ -396,7 +396,8 @@ const messages = {
         yourPaymentMethod: 'Your payment method',
         bonusActivated: 'Bonus activated',
         close: 'Close',
-        tryAgain: 'Try again'
+        tryAgain: 'Try again',
+        wallet: 'Wallet'
       },
       withdraw: {
         withdrawFunds: 'Withdraw funds',
