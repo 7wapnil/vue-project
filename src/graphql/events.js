@@ -100,8 +100,8 @@ export const EVENTS_LIST_QUERY = gql`
 `
 
 export const EVENT_BY_ID_QUERY = gql`
-  query event ($id: ID!, $withScopes: Boolean = false) {
-    event (id: $id) {
+  query event ($slug: String, $withScopes: Boolean = false) {
+    event (slug: $slug) {
       ${EVENT_FIELDS_WITH_SCOPES}
       scopes @include (if: $withScopes) {
         ${SCOPE_FIELDS}

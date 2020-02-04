@@ -29,6 +29,7 @@
 
 <script>
 import EventsGroup from '@/components/events/EventsGroup'
+import { CATEGORY, TOURNAMENT } from '@/constants/event-scopes/kinds'
 
 const DEFAULT_POSITION = 9999
 
@@ -59,8 +60,8 @@ export default {
     parentizeEvents () {
       return this.events.map((event) => {
         const { title, scopes } = event
-        const category = scopes.find(s => s.kind === 'category')
-        const tournament = scopes.find(s => s.kind === 'tournament')
+        const category = scopes.find(scope => scope.kind === CATEGORY)
+        const tournament = scopes.find(scope => scope.kind === TOURNAMENT)
 
         return {
           ...event,

@@ -20,7 +20,7 @@ export default [
     }
   },
   {
-    path: '/esports/title/:titleId',
+    path: '/esports/:titleSlug',
     name: 'esports-title',
     props: {
       content: true
@@ -35,7 +35,7 @@ export default [
     }
   },
   {
-    path: '/esports/title/:titleId/tour/:tournamentId',
+    path: '/esports/:titleSlug/tournament/:tournamentSlug',
     name: 'esports-tournament',
     props: {
       content: true
@@ -48,11 +48,9 @@ export default [
     }
   },
   {
-    path: '/esports/event/:id',
+    path: '/esports/event/:eventSlug',
     name: 'esports-event',
-    props: {
-      content: true
-    },
+    props: { content: true },
     components: {
       content: EventPage,
       left: Sidemenu,

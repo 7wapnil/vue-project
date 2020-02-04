@@ -33,13 +33,24 @@ const router = new Router({
       component: Maintenance
     },
     {
+      path: 'page-not-found',
+      name: 'page-not-found',
+      component: Layout,
+      children: [{
+        path: '*',
+        components: {
+          content: NotFound
+        }
+      }]
+    },
+    {
       path: '*',
       name: 'not-found',
       component: Layout,
       children: [{
         path: '*',
         components: {
-          content: NotFound,
+          content: NotFound
         }
       }]
     }

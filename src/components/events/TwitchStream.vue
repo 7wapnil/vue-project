@@ -64,9 +64,7 @@ export default {
       return {
         query: EVENT_BY_ID_QUERY,
         fetchPolicy: NETWORK_ONLY,
-        variables: {
-          id: this.originalEvent.id
-        }
+        variables: { slug: this.originalEvent.slug }
       }
     },
     twitchStream () {
