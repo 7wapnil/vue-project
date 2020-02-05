@@ -55,6 +55,7 @@
 <script>
 import VueRecaptcha from 'vue-recaptcha'
 import { mapGetters, mapActions, mapMutations } from 'vuex'
+import { getCookie } from '@/helpers/cookies'
 
 export default {
   components: {
@@ -115,6 +116,7 @@ export default {
       this.close()
       this.$livechat.setUser(signIn.user)
       this.$livechat.initWidget()
+      this.pushGtm(signIn.user)
     },
     onError (err) {
       if (!err.graphQLErrors || !err.graphQLErrors.length) return
@@ -130,6 +132,16 @@ export default {
     },
     close () {
       this.$bvModal.hide('AuthModal')
+    },
+    pushGtm (user) {
+      this.$gtm.push({
+        'event': 'customerLogin',
+        'gaClientID': this.computeGaClientID() || null,
+        'customerID': user || null
+      })
+    },
+    computeGaClientID () {
+      return (getCookie('_ga') || '').substring('GA1.2.'.length)
     },
     ...mapActions([
       'authenticate',
