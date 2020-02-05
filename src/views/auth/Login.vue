@@ -137,7 +137,7 @@ export default {
       this.$gtm.push({
         'event': 'customerLogin',
         'gaClientID': this.computeGaClientID() || null,
-        'customerID': user || null
+        'customerID': user.id || null
       })
     },
     computeGaClientID () {
