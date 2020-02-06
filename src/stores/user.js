@@ -212,6 +212,11 @@ export const getters = {
   getSuccessLoginUrl (state) {
     return state.successLoginUrl
   },
+  getUserCurrentBonusBalance (state) {
+    const wallet = state.session.user.wallets.find(el => el.bonusBalance > 0)
+
+    return `${wallet.bonusBalance} ${wallet.currency.code}`
+  }
 }
 
 export default {
