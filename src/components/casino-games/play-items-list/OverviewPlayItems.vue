@@ -50,7 +50,7 @@
       </transition-group>
       <transition name="arrow-right">
         <div
-          v-show="scrollPosition <= endPosition && numberOfPages > 0"
+          v-show="scrollPosition <= endPosition && numberOfPages > 1"
           class="slider-control-right"
           @click="slideRight">
           <arc-circle
