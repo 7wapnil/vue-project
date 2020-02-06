@@ -159,7 +159,7 @@
     </b-row>
     <b-button
       id="signup-submit"
-      :disabled="submitting"
+      :disabled="isSubmitDisabled"
       variant="user-profile-button"
       type="submit"
       block>
@@ -204,6 +204,28 @@ export default {
   computed: {
     iconName () {
       return this.passwordFieldType === 'password' ? 'input-eye-solid' : 'input-eye-slash-solid'
+    },
+    isSubmitDisabled () {
+      const {
+        username,
+        email,
+        password,
+        country,
+        currency,
+        agreedWithPromotional,
+        agreedWithPrivacy
+      } = this.form.registration
+      const {
+        day,
+        month,
+        year
+      } = this.dobProxy
+
+      const hasProperFields = username && email &&
+        password && country && currency &&
+        agreedWithPromotional && agreedWithPrivacy &&
+        day && month && year
+      return !hasProperFields || this.submitting
     }
   },
   methods: {
