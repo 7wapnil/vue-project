@@ -12,7 +12,8 @@
         :state="form.errors.state('username')"
         :placeholder="$i18n.t('auth.signUpForm.username')"
         autocomplete="username"
-        @input="form.clearError(['username'])"/>
+        @input="form.clearError(['username'])"
+        @keydown.space.prevent/>
     </b-form-group>
 
     <b-form-group
