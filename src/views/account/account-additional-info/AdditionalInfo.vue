@@ -3,7 +3,7 @@
     <deposit-header/>
     <b-row v-if="isMobile">
       <b-col>
-        <deposit-additional-info-description />
+        <additional-info-description />
       </b-col>
     </b-row>
     <b-row no-gutters>
@@ -228,13 +228,13 @@
 import { mapActions } from 'vuex'
 import { Form } from '@/helpers'
 import DepositHeader from '@/views/account/account-deposit/DepositHeader'
-import DepositAdditionalInfoDescription from '@/views/account/account-deposit/DepositAdditionalInfoDescription'
+import AdditionalInfoDescription from '@/views/account/account-additional-info/AdditionalInfoDescription'
 import { supportedCountries } from '@/helpers/countries'
 
 export default {
   components: {
     DepositHeader,
-    DepositAdditionalInfoDescription
+    AdditionalInfoDescription
   },
   props: {
     user: {
