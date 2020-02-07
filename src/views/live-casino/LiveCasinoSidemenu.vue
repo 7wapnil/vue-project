@@ -102,8 +102,12 @@ export default {
       'isLoggedIn'
     ]),
     items () {
-      if (this.isLoggedIn) { return this.menuItems }
-      return this.menuItems.filter(x => x.name !== 'my cashier')
+      const filterCashier = this.isLoggedIn
+        ? this.menuItems
+        : this.menuItems.filter(x => x.name !== 'my cashier')
+      return this.currentLobbyName === 'live-casino'
+        ? filterCashier.filter(x => x.name !== 'live-casino')
+        : filterCashier
     }
   },
   methods: {
