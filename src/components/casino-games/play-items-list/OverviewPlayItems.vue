@@ -13,7 +13,7 @@
     <div class="position-relative">
       <transition name="arrow-left">
         <div
-          v-show="scrollPosition > 0"
+          v-if="scrollPosition > 0 && !isMobile"
           class="slider-control-left"
           @click="slideLeft">
           <arc-circle
@@ -51,7 +51,7 @@
 
       <transition name="arrow-right">
         <div
-          v-show="scrollPosition <= endPosition"
+          v-if="scrollPosition <= endPosition && !isMobile && numberOfPages > 1"
           class="slider-control-right"
           @click="slideRight">
           <arc-circle
