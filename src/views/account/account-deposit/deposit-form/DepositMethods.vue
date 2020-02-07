@@ -109,18 +109,26 @@ export default {
 .deposit-methods-container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
   margin-top: 10px;
   .deposit-method {
-    flex: 0 30%;
+    flex: 0 calc(33% - 8px);
     padding: 5px;
-    margin-bottom: 10px;
+    margin: 0 6px 10px 6px;
     position: relative;
     border: 1px solid transparent;
     border-radius: $btn-border-radius;
     cursor: pointer;
     height: 40px;
     transition: all .4s ease-in-out;
+    &:nth-child(3n) {
+      margin-right: 0;
+    }
+    &:nth-child(3n - 1) {
+      margin: 0 6px 10px 6px;
+    }
+    &:nth-child(3n - 2) {
+      margin-left: 0;
+    }
     &.active {
       border: 1px solid $arc-clr-gold;
     }
