@@ -35,11 +35,16 @@
 </template>
 
 <script>
+import { getCurrencyOptions } from '@/helpers/wallet'
 export default {
   props: {
     currency: {
       type: String,
       required: true
+    },
+    paymentMethod: {
+      type: Object,
+      default: null
     },
     fields: {
       type: Object,
@@ -72,13 +77,10 @@ export default {
   },
   computed: {
     currencies () {
-      return this.wallets.map(wallet => ({
-        value: wallet.currency.code,
-        text: wallet.currency.code
-      }))
+      return getCurrencyOptions(this.wallets)
     },
     value () {
-      return this.defaultCurrency
+      return this.paymentMethod ? this.paymentMethod.currency.code : this.defaultCurrency
     }
   }
 }

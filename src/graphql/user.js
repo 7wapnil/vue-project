@@ -39,8 +39,11 @@ export const USER_DEPOSIT_METHODS_QUERY = gql`
       id
       availableDepositMethods {
         code
-        currencyCode
-        currencyKind
+        currency {
+          id
+          code
+          kind
+        }
         maxAmount
         minAmount
         name
