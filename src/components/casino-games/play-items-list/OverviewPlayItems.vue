@@ -47,11 +47,15 @@
           :item="playItem"
           :category="category"
           :style="{ transitionDelay: index * .1 + 's' }"/>
+        <view-more-component
+          ref="viewMoreComponent"
+          key="view-more-item"
+          :category="category"/>
       </transition-group>
 
       <transition name="arrow-right">
         <div
-          v-show="scrollPosition <= endPosition"
+          v-if="scrollPosition <= endPosition"
           class="slider-control-right"
           @click="slideRight">
           <arc-circle
@@ -72,11 +76,13 @@
 <script>
 import CategoryPlayItem from '@/components/casino-games/play-items-list/CategoryPlayItem'
 import OverviewItemHeader from '@/components/casino-games/play-items-list/OverviewItemHeader'
+import ViewMoreComponent from '@/components/casino-games/ViewMoreComponent'
 
 export default {
   components: {
     CategoryPlayItem,
     OverviewItemHeader,
+    ViewMoreComponent
   },
   props: {
     category: {
@@ -96,7 +102,8 @@ export default {
       scrollPosition: 0,
       endPosition: 0,
       itemsPerPage: 0,
-      rowWidth: 0
+      rowWidth: 0,
+      viewMoreComponentWidth: 0
     }
   },
   computed: {
@@ -104,15 +111,15 @@ export default {
       switch (this.category.context) {
         case 'jackpots':
         case 'hot-tables':
-          return true;
-        default: return false;
+          return true
+        default: return false
       }
     },
     promoItem () {
       switch (this.category.context) {
         case 'jackpots': return () => import(`@/components/casino-games/play-items-list/promo-items/PromoItemJackpot`)
         case 'hot-tables': return () => import(`@/components/casino-games/play-items-list/promo-items/PromoItemHotTables`)
-        default: return null;
+        default: return null
       }
     }
   },
@@ -126,12 +133,16 @@ export default {
       const wrapper = this.$refs[this.category.id].$el
       const children = this.$refs[this.category.id].$children;
       const item = this.showPromoItem ? children[1].$el : children[0].$el
+      const viewMoreComponent = this.$refs.viewMoreComponent.$el
 
+      this.viewMoreComponentWidth = viewMoreComponent.clientWidth
       this.wrapperWidth = wrapper.clientWidth
       this.itemWidth = item.clientWidth + 20
       this.itemsPerPage = Math.floor(this.wrapperWidth / this.itemWidth)
-      this.numberOfPages = Math.ceil((this.showPromoItem ? this.playItems.length + 1 : this.playItems.length) / this.itemsPerPage)
-      this.rowWidth = this.numberOfPages * this.wrapperWidth
+      this.numberOfPages = Math.ceil((this.showPromoItem
+        ? this.playItems.length + 2
+        : this.playItems.length + 1) / this.itemsPerPage)
+      this.rowWidth = this.numberOfPages * this.wrapperWidth + this.viewMoreComponentWidth
       this.endPosition = wrapper.scrollWidth - this.wrapperWidth - 20
     },
     calculateCurrentPage () {
