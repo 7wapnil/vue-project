@@ -212,7 +212,6 @@ export default {
         password,
         country,
         currency,
-        agreedWithPromotional,
         agreedWithPrivacy
       } = this.form.registration
       const {
@@ -223,8 +222,7 @@ export default {
 
       const hasProperFields = username && email &&
         password && country && currency &&
-        agreedWithPromotional && agreedWithPrivacy &&
-        day && month && year
+        agreedWithPrivacy && day && month && year
       return !hasProperFields || this.submitting
     }
   },

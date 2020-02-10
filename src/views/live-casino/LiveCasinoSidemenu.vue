@@ -85,7 +85,7 @@ export default {
           name: 'bonuses',
           label: this.$t('casino.sidemenu.labels.bonusesPromos'),
           icon: { name: 'sidemenu-bonuses', size: 22 },
-          route: { name: 'promotions' },
+          route: { name: 'welcome offer casino' },
         },
         {
           id: 9,
