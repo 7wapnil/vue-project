@@ -10,6 +10,7 @@
       <deposit-amount
         v-if="showBlock"
         slot="deposit-amount"
+        :payment-method="paymentMethod"
         :currency="currency"
         :amount-error="amountError"
         :update-amount="updateAmount"
@@ -71,6 +72,7 @@ import DepositSummary from '@/views/account/account-deposit/deposit-summary/Depo
 import { EUR } from '@/constants/currencies'
 import { BITCOIN } from '@/constants/payments/methods'
 import { Form } from '@/helpers'
+import { getCurrencyKind } from '@/helpers/wallet'
 
 export default {
   name: 'DepositFunds',
@@ -144,7 +146,7 @@ export default {
       return totalValue
     },
     currency () {
-      return (this.paymentMethod && this.paymentMethod.currencyCode) || (this.activeWallet && this.activeWallet.currency.code) || EUR
+      return (this.paymentMethod && this.paymentMethod.currency.code) || (this.activeWallet && this.activeWallet.currency.code) || EUR
     },
     buttonDisabled () {
       let parsedAmount = parseFloat(this.fields.amount)
@@ -153,7 +155,7 @@ export default {
     filteredDepositMethods () {
       if (!this.filter) return this.depositMethods
 
-      return this.depositMethods.filter(method => method.currencyKind === this.filter)
+      return this.depositMethods.filter(method => method.currency.kind === this.filter)
     }
   },
   watch: {
@@ -183,15 +185,18 @@ export default {
   },
   methods: {
     ...mapMutations('tabs', {
-      addTabName: 'addTabName'
+      addTabName: 'addTabName',
     }),
+    ...mapMutations({ setActiveWallet: 'setActiveWallet' }),
     setPaymentMethod (method) {
       if (!method) return this.resetPaymentMethod()
       const amount = Number(this.fields.amount);
       if (!amount) this.amountError = this.$i18n.t('account.deposit.pleaseEnterAmount')
       else {
         if (amount > method.maxAmount || amount < method.minAmount) return
-        this.filter = method.currencyKind
+        this.filter = method.currency.kind
+        const wallet = this.wallets.find(wallet => wallet.currency.code === method.currency.code)
+        if (wallet && wallet.id) this.setActiveWallet(wallet.id)
         this.paymentMethod = method
       }
     },
@@ -217,8 +222,14 @@ export default {
       this.bonusError = message
     },
     setWalletFilter (code) {
-      const [ wallet ] = this.wallets.filter(wallet => wallet.currency.code === code)
-      this.filter = wallet.currency.kind
+      const wallet = this.wallets.find(wallet => wallet.currency.code === code)
+      if (wallet) {
+        this.filter = wallet.currency.kind
+        this.setActiveWallet(wallet.id)
+      } else {
+        const kind = getCurrencyKind(code)
+        this.filter = kind
+      }
       this.resetPaymentMethod()
     },
     calculateBonus (val) {
