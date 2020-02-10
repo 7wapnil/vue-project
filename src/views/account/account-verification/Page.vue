@@ -4,7 +4,8 @@
     <component
       v-if="user"
       :is="currentComponent"
-      :user="user" />
+      :user="user"
+      type="account-verification" />
   </div>
 </template>
 
