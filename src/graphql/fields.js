@@ -4,18 +4,22 @@ export const PROVIDER_FIELDS = `
   state
 `
 
-export const BONUSES_LIST_FIELDS = `
+export const BONUS_SUBSCTIPTION_LIST_FIELDS = `
   id
+  rolloverBalance
+  rolloverInitialValue
+  status
+`
+
+export const BONUSES_LIST_FIELDS = `
+  ${BONUS_SUBSCTIPTION_LIST_FIELDS}
   amount
   casino
   code
   expiresAt
   maxRolloverPerBet
   minOddsPerBet
-  rolloverBalance
-  rolloverInitialValue
   sportsbook
-  status
   validForDays
   minOddsPerBet
   minOddsPerBetLeg
