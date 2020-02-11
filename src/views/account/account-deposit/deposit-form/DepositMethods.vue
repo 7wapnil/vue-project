@@ -2,11 +2,15 @@
   <div>
     <loader v-if="loading" />
     <div v-else>
-      <div>{{ methodsCopy }}:</div>
+      <div>{{ $t('account.deposit.selectPaymentMethod') }}:</div>
       <div class="deposit-methods-container">
         <b-card
-          v-for="method in methods"
+          v-for="method in depositMethods"
           :key="method.code"
+          :class="{
+            active: paymentMethod && method.code === paymentMethod.code,
+            disabled: showOverlay(method)
+          }"
           no-body
           bg-variant="arc-clr-soil-black"
           class="deposit-method"
@@ -14,16 +18,15 @@
           <div
             v-if="showOverlay(method)"
             class="overlay">
-            <pre>{{ getOverlayText(method) }}</pre>
+            <div>
+              {{ getOverlayText(method) }}
+            </div>
+            <div>
+              {{ getOverlayAmount(method) }}
+            </div>
           </div>
           <b-img :src="depositIcons[method.code]"/>
         </b-card>
-      </div>
-      <div
-        v-if="paymentMethod"
-        class="go-back"
-        @click="setPaymentMethod(null)">
-        >> {{ $t('account.deposit.changePaymentMethod') }}
       </div>
     </div>
   </div>
@@ -74,21 +77,18 @@ export default {
       }
     }
   },
-  computed: {
-    methods () {
-      if (!this.paymentMethod) return this.depositMethods
-      else return this.depositMethods.filter(method => method.code === this.paymentMethod.code)
-    },
-    methodsCopy () {
-      return this.paymentMethod ? this.$t('account.deposit.yourPaymentMethod') : this.$t('account.deposit.selectPaymentMethod')
-    }
-  },
   methods: {
     getOverlayText (method) {
       const { fields: { amount } } = this;
       const numberAmount = Number(amount)
-      if (numberAmount < method.minAmount) return `Min: \n ${method.minAmount}`
-      else return `Max: \n ${method.maxAmount}`
+      if (numberAmount < method.minAmount) return `${this.$t('account.deposit.minLimit')}:`
+      return `${this.$t('account.deposit.maxLimit')}:`
+    },
+    getOverlayAmount (method) {
+      const { fields: { amount } } = this;
+      const numberAmount = Number(amount)
+      if (numberAmount < method.minAmount) return method.minAmount
+      return method.maxAmount
     },
     showOverlay (method) {
       const { fields: { amount } } = this
@@ -109,15 +109,48 @@ export default {
 .deposit-methods-container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
   margin-top: 10px;
   .deposit-method {
-    flex: 0 30%;
+    flex: 0 calc(33% - 8px);
     padding: 5px;
-    margin-bottom: 10px;
+    margin: 0 6px 10px 6px;
     position: relative;
+    border: 1px solid transparent;
+    border-radius: $btn-border-radius;
+    cursor: pointer;
+    height: 40px;
+    transition: all .4s ease-in-out;
+    &:nth-child(3n) {
+      margin-right: 0;
+    }
+    &:nth-child(3n - 1) {
+      margin: 0 6px 10px 6px;
+    }
+    &:nth-child(3n - 2) {
+      margin-left: 0;
+    }
+    &.active {
+      border: 1px solid $arc-clr-gold;
+    }
+    &.disabled {
+      border: 1px solid $wp-clr-notif-red;
+      cursor: default;
+    }
+    &:hover {
+      & > img {
+          transform: scale(1.1);
+      }
+    }
     img {
-      width: 100%;
+      width: 80%;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      margin: auto;
+      left: 0;
+      right: 0;
+      z-index: 1;
+      transition: all .4s ease-in-out;
     }
     .overlay {
       position: absolute;
@@ -127,11 +160,18 @@ export default {
       height: 100%;
       background: rgba(0, 0, 0, 0.7);
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
-      font-size: 18px;
-      pre {
+      font-size: 14px;
+      line-height: 16px;
+      z-index: 2;
+      border-radius: $btn-border-radius;
+      div:first-child {
         color: $wp-clr-notif-red;
+      }
+      div:last-child {
+        font-weight: bold;
       }
     }
   }

@@ -28,7 +28,7 @@
           {{ $tc('account.deposit.method', 1) }}:
         </h6>
       </b-col>
-      <b-col class="pl-2 text-truncate">
+      <b-col class="pl-2">
         <h6 class="letter-spacing-2">
           {{ method }}
         </h6>
@@ -42,7 +42,7 @@
           {{ $tc('generalTerms.deposit', 1) }}:
         </h6>
       </b-col>
-      <b-col class="pl-2 text-truncate">
+      <b-col class="pl-2">
         <h6 class="letter-spacing-2">
           {{ computeAmount }}
         </h6>
@@ -56,7 +56,7 @@
           {{ $tc('generalTerms.bonus', 1) }}:
         </h6>
       </b-col>
-      <b-col class="pl-2 text-truncate">
+      <b-col class="pl-2">
         <h6 class="letter-spacing-2">
           {{ calculateBonus }}
         </h6>
@@ -70,7 +70,7 @@
           {{ $tc('generalTerms.fee', 1) }}:
         </h6>
       </b-col>
-      <b-col class="pl-2 text-truncate">
+      <b-col class="pl-2">
         <h6 class="mb-2 letter-spacing-2">
           0.00 {{ currency }}
         </h6>
@@ -84,7 +84,7 @@
           {{ $t('account.deposit.total') }}:
         </h6>
       </b-col>
-      <b-col class="pl-2 mb-4 text-truncate">
+      <b-col class="pl-2 mb-4">
         <span class="letter-spacing-2 font-weight-bold">
           {{ computeTotal }}
         </span>

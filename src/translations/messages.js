@@ -392,11 +392,12 @@ const messages = {
         notSelected: 'Not selected',
         selectPaymentMethod: 'Select payment method',
         pleaseSelectMethod: 'Please select payment method',
-        changePaymentMethod: 'Change payment method',
-        yourPaymentMethod: 'Your payment method',
         bonusActivated: 'Bonus activated',
         close: 'Close',
-        tryAgain: 'Try again'
+        tryAgain: 'Try again',
+        wallet: 'Wallet',
+        minLimit: 'Min limit',
+        maxLimit: 'Max limit'
       },
       withdraw: {
         withdrawFunds: 'Withdraw funds',
