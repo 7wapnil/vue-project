@@ -114,7 +114,7 @@ export default {
       }
     },
     pushBack () {
-        this.$router.go(-1) || this.$router.push({ name: this.currentLobbyName })
+      this.$router.go(-1) || this.$router.push({ name: this.currentLobbyName })
     },
     gameMode () {
       if ((this.isLoggedIn && this.walletId === undefined) ||
