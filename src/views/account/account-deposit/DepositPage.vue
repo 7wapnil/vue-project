@@ -107,6 +107,7 @@ export default {
       qrText: '',
       address: '',
       filter: null,
+      storedMethod: null
     }
   },
   apollo: {
@@ -190,15 +191,11 @@ export default {
     ...mapMutations({ setActiveWallet: 'setActiveWallet' }),
     setPaymentMethod (method) {
       if (!method) return this.resetPaymentMethod()
-      const amount = Number(this.fields.amount);
-      if (!amount) this.amountError = this.$i18n.t('account.deposit.pleaseEnterAmount')
-      else {
-        if (amount > method.maxAmount || amount < method.minAmount) return
-        this.filter = method.currency.kind
-        const wallet = this.wallets.find(wallet => wallet.currency.code === method.currency.code)
-        if (wallet && wallet.id) this.setActiveWallet(wallet.id)
-        this.paymentMethod = method
-      }
+      this.filter = method.currency.kind
+      this.storedMethod = method
+      const wallet = this.wallets.find(wallet => wallet.currency.code === method.currency.code)
+      if (wallet && wallet.id) this.setActiveWallet(wallet.id)
+      this.paymentMethod = method
     },
     resetPaymentMethod () {
       this.isCryptoSectionShown = false
@@ -211,9 +208,13 @@ export default {
     updateAmount (val) {
       if (this.amountError) this.amountError = null
       if (this.bonusError) this.bonusError = null
-      if (!val) this.resetPaymentMethod()
-      if (this.paymentMethod && (val > this.paymentMethod.maxAmount || val < this.paymentMethod.minAmount)) this.paymentMethod = null
-
+      if (this.paymentMethod && (val > this.paymentMethod.maxAmount || val < this.paymentMethod.minAmount)) {
+        this.storedMethod = this.paymentMethod
+        this.paymentMethod = null
+      } else if (this.storedMethod) {
+        this.paymentMethod = this.storedMethod
+        this.storedMethod = null
+      }
       this.fields.amount = val
 
       if (this.fields.bonusCode) this.calculateBonus(this.fields.bonusCode)
