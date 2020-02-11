@@ -47,6 +47,10 @@
           :item="playItem"
           :category="category"
           :style="{ transitionDelay: index * .1 + 's' }"/>
+        <view-more-component
+          ref="viewMoreComponent"
+          key="view-more-item"
+          :category="category"/>
       </transition-group>
       <transition name="arrow-right">
         <div
@@ -71,11 +75,13 @@
 <script>
 import CategoryPlayItem from '@/components/casino-games/play-items-list/CategoryPlayItem'
 import OverviewItemHeader from '@/components/casino-games/play-items-list/OverviewItemHeader'
+import ViewMoreComponent from '@/components/casino-games/ViewMoreComponent'
 
 export default {
   components: {
     CategoryPlayItem,
     OverviewItemHeader,
+    ViewMoreComponent
   },
   props: {
     category: {
@@ -96,6 +102,7 @@ export default {
       endPosition: 0,
       itemsPerPage: 0,
       rowWidth: 0,
+      viewMoreComponentWidth: 0,
       promoWidth: 0,
       itemMargin: 20
     }
@@ -127,16 +134,18 @@ export default {
       const wrapper = this.$refs[this.category.id].$el
       const children = this.$refs[this.category.id].$children
       const item = this.showPromoItem ? children[1].$el : children[0].$el
+      const viewMoreComponent = this.$refs.viewMoreComponent.$el
 
+      this.viewMoreComponentWidth = viewMoreComponent.clientWidth
       this.wrapperWidth = wrapper.clientWidth
       this.itemWidth = item.clientWidth + this.itemMargin
       this.promoWidth = this.showPromoItem ? children[0].$el.clientWidth + this.itemMargin : 0
       this.itemsPerPage = Math.floor(this.wrapperWidth / this.itemWidth)
-      this.numberOfPages = Math.ceil((this.showPromoItem ? this.playItems.length + 1 : this.playItems.length) / this.itemsPerPage)
-      this.rowWidth = this.numberOfPages * this.wrapperWidth
-      this.endPosition = this.showPromoItem
-        ? wrapper.scrollWidth - this.wrapperWidth - this.itemMargin + this.promoWidth
-        : wrapper.scrollWidth - this.wrapperWidth - this.itemMargin
+      this.numberOfPages = Math.ceil((this.showPromoItem
+        ? this.playItems.length + 2
+        : this.playItems.length + 1) / this.itemsPerPage)
+      this.rowWidth = this.numberOfPages * this.wrapperWidth + this.viewMoreComponentWidth
+      this.endPosition = wrapper.scrollWidth - this.wrapperWidth - 20
     },
     calculateCurrentPage () {
       const currentPageNumber = Math.ceil(this.scrollPosition / (this.itemsPerPage *
