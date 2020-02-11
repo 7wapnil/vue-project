@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :key="currentLobbyName">
     <introduction-area :title="activeTitle">
 
       <promo-section>
@@ -80,7 +80,6 @@ export default {
         fetchPolicy: NETWORK_ONLY,
         result ({ data }) {
           const payload = data.eventScope
-
           this.selectedTournament = payload
           this.selectedEventScope = buildTitleTag(payload.title)
         }
