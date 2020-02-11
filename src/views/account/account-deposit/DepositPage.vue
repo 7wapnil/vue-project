@@ -206,16 +206,17 @@ export default {
       this.calculatedBonus = 0
     },
     updateAmount (val) {
+      const valNum = Number(val)
       if (this.amountError) this.amountError = null
       if (this.bonusError) this.bonusError = null
-      if (this.paymentMethod && (val > this.paymentMethod.maxAmount || val < this.paymentMethod.minAmount)) {
+      if (this.paymentMethod && (valNum > this.paymentMethod.maxAmount || valNum < this.paymentMethod.minAmount)) {
         this.storedMethod = this.paymentMethod
         this.paymentMethod = null
-      } else if (this.storedMethod) {
+      } else if (this.storedMethod && (valNum <= this.storedMethod.maxAmount && valNum >= this.storedMethod.minAmount)) {
         this.paymentMethod = this.storedMethod
         this.storedMethod = null
       }
-      this.fields.amount = val
+      this.fields.amount = valNum
 
       if (this.fields.bonusCode) this.calculateBonus(this.fields.bonusCode)
     },
