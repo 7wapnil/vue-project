@@ -237,7 +237,8 @@ const messages = {
         noResultsFound: 'No results found for your search. Please, try something else.',
         noResultsShort: 'No results found',
         noResultsForQuery: `No results found for "{query}"`,
-        noGamesOverview: `We do not offer games in your country: {country}`
+        noGamesOverview: `We do not offer games in your country: {country}`,
+        noGamesProvider: `This provider does not offer games in your country: {country}`
       },
       promo: {
         jackpot: 'Arcanebet jackpot',
