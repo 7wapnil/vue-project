@@ -9,7 +9,7 @@
           id="deposit-amount"
           :value="fields.amount"
           :placeholder="$i18n.t('account.deposit.enterDepositAmount')"
-          min="1"
+          min="0"
           type="number"
           @input="updateAmount"/>
       </b-form-group>
