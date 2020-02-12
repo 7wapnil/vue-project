@@ -206,7 +206,7 @@ export default {
       this.calculatedBonus = 0
     },
     updateAmount (val) {
-      const valNum = Number(val)
+      const valNum = parseFloat(val)
       if (this.amountError) this.amountError = null
       if (this.bonusError) this.bonusError = null
       if (this.paymentMethod && (valNum > this.paymentMethod.maxAmount || valNum < this.paymentMethod.minAmount)) {
@@ -216,7 +216,7 @@ export default {
         this.paymentMethod = this.storedMethod
         this.storedMethod = null
       }
-      this.fields.amount = valNum
+      this.fields.amount = val
 
       if (this.fields.bonusCode) this.calculateBonus(this.fields.bonusCode)
     },
