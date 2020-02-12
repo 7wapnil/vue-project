@@ -31,7 +31,7 @@
             no-gutters>
             <b-col
               class="d-flex align-items-center justify-content-center"
-              @click="pushLobby">
+              @click="pushBack">
               <icon
                 :size="13"
                 name="game-close"/>
@@ -113,8 +113,8 @@ export default {
         elem.msRequestFullscreen()
       }
     },
-    pushLobby () {
-      this.$router.push({ name: this.currentLobbyName })
+    pushBack () {
+      this.$router.go(-1) || this.$router.push({ name: this.currentLobbyName })
     },
     gameMode () {
       if ((this.isLoggedIn && this.walletId === undefined) ||
