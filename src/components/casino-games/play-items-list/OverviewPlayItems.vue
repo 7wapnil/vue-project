@@ -13,7 +13,7 @@
     <div class="position-relative">
       <transition name="arrow-left">
         <div
-          v-show="scrollPosition > 0"
+          v-if="scrollPosition > 0 && !isMobile"
           class="slider-control-left"
           @click="slideLeft">
           <arc-circle
@@ -48,6 +48,7 @@
           :category="category"
           :style="{ transitionDelay: index * .1 + 's' }"/>
         <view-more-component
+          v-if="currentLobbyName === 'casino'"
           ref="viewMoreComponent"
           key="view-more-item"
           :category="category"/>
@@ -55,7 +56,7 @@
 
       <transition name="arrow-right">
         <div
-          v-if="scrollPosition <= endPosition"
+          v-if="scrollPosition <= endPosition && !isMobile && numberOfPages > 1"
           class="slider-control-right"
           @click="slideRight">
           <arc-circle
@@ -103,7 +104,8 @@ export default {
       endPosition: 0,
       itemsPerPage: 0,
       rowWidth: 0,
-      viewMoreComponentWidth: 0
+      viewMoreComponentWidth: 0,
+      itemMargin: 20
     }
   },
   computed: {
@@ -131,19 +133,26 @@ export default {
   methods: {
     calculateDimensions () {
       const wrapper = this.$refs[this.category.id].$el
-      const children = this.$refs[this.category.id].$children;
+      const children = this.$refs[this.category.id].$children
       const item = this.showPromoItem ? children[1].$el : children[0].$el
-      const viewMoreComponent = this.$refs.viewMoreComponent.$el
 
-      this.viewMoreComponentWidth = viewMoreComponent.clientWidth
+      if (this.currentLobbyName === 'casino') {
+        const viewMoreComponent = this.$refs.viewMoreComponent.$el
+        this.viewMoreComponentWidth = viewMoreComponent.clientWidth
+      }
+
       this.wrapperWidth = wrapper.clientWidth
-      this.itemWidth = item.clientWidth + 20
+      this.itemWidth = item.clientWidth + this.itemMargin
       this.itemsPerPage = Math.floor(this.wrapperWidth / this.itemWidth)
+
+      const additionalPartsWithPromo = this.currentLobbyName === 'casino' ? 3 : 2
+      const additionalPartsWithoutPromo = this.currentLobbyName === 'casino' ? 1 : 0
+
       this.numberOfPages = Math.ceil((this.showPromoItem
-        ? this.playItems.length + 2
-        : this.playItems.length + 1) / this.itemsPerPage)
+        ? this.playItems.length + additionalPartsWithPromo
+        : this.playItems.length + additionalPartsWithoutPromo) / this.itemsPerPage)
       this.rowWidth = this.numberOfPages * this.wrapperWidth + this.viewMoreComponentWidth
-      this.endPosition = wrapper.scrollWidth - this.wrapperWidth - 20
+      this.endPosition = wrapper.scrollWidth - this.wrapperWidth - this.itemMargin
     },
     calculateCurrentPage () {
       const currentPageNumber = Math.ceil(this.scrollPosition / (this.itemsPerPage *
