@@ -14,7 +14,8 @@
     </b-row>
     <div class="description">
       <b-row no-gutters>
-        <b-col class="d-flex align-items-center justify-content-center font-weight-bold letter-spacing-2 opacity-4">
+        <b-col
+          class="d-flex align-items-center justify-content-center font-weight-bold letter-spacing-2 text-arc-clr-iron-light">
           {{ $t('casino.discoverAll') }}
         </b-col>
       </b-row>
