@@ -22,6 +22,7 @@
 import CategoryPlayItems from './play-items-list/CategoryPlayItems'
 import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
 import { GAMES_QUERY } from '@/graphql'
+import { mapMutations, mapGetters } from 'vuex'
 
 export default {
   components: {
@@ -49,8 +50,8 @@ export default {
         variables () {
           return {
             context: this.category,
-            page: 1,
-            perPage: this.itemsPerPage
+            page: this.getIsReturned ? this.getLazyLoadPage : 1,
+            perPage: this.getIsReturned ? this.itemsPerPage * this.getLazyLoadPage : this.itemsPerPage
           }
         },
         result ({ data }) {
@@ -63,7 +64,12 @@ export default {
   computed: {
     lastPage () {
       return this.paginationProps.next === null
-    }
+    },
+    ...mapGetters(['getLazyLoadPage', 'getIsReturned']),
+  },
+  watch: {
+    'page': 'storePageNumber',
+    '$route': 'clearPageStore'
   },
   methods: {
     loadMoreGames (isVisible) {
@@ -71,9 +77,11 @@ export default {
 
       this.page = this.paginationProps.next
       this.$apollo.queries.games.fetchMore({
-        variables: {
-          perPage: this.itemsPerPage,
-          page: this.page
+        variables () {
+          return {
+            perPage: this.getIsReturned ? this.itemsPerPage * this.getLazyLoadPage : this.itemsPerPage,
+            page: this.getIsReturned ? this.getLazyLoadPage : 1
+          }
         },
         updateQuery: (previousResult, { fetchMoreResult }) => {
           if (!fetchMoreResult) return previousResult
@@ -92,6 +100,16 @@ export default {
       oldItems.games.collection.push(...newItems.games.collection)
 
       return oldItems.games.collection
+    },
+    ...mapMutations(['storeLazyLoadPage', 'isReturned']),
+    storePageNumber () {
+      this.storeLazyLoadPage(this.page)
+    },
+    clearPageStore (to, from) {
+      if (from.name !== 'casino-game') {
+        this.storeLazyLoadPage(1)
+        this.isReturned(false)
+      }
     }
   }
 }

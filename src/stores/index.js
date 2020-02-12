@@ -7,6 +7,7 @@ import account from './account'
 import tabs from './tabs'
 import sidebar from './sidebar'
 import games from './games'
+import scroller from './scroller'
 
 Vue.use(Vuex)
 
@@ -29,6 +30,7 @@ export default new Vuex.Store({
     account,
     tabs,
     sidebar,
-    games
+    games,
+    scroller
   }
 })

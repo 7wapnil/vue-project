@@ -13,6 +13,7 @@ import { colors } from '@/constants/android-theme-colors'
 import Layout from '@/views/layouts/common/Layout'
 import { TITLE_KINDS } from '@/constants/title-kinds'
 import NotFound from '@/views/layouts/common/NotFound'
+import store from '@/stores'
 
 const rootChilds = [...Esports, ...Sports, ...LiveCasino, ...Casino, ...support.routes, ...system]
 
@@ -70,6 +71,8 @@ router.beforeEach((to, from, next) => {
     document.title = `${filters.capitalizeFirstLetter(to.params.titleKind)} - Arcanebet`
   }
 
+  if (from.name === 'casino-game' && store.getters.getLazyLoadPage) { store.commit('isReturned', true) }
+
   const components = to.matched[to.matched.length - 1].components
   if (components) {
     to.meta.components = components
@@ -81,7 +84,6 @@ router.beforeEach((to, from, next) => {
     const themeColor = document.querySelector('meta[name=theme-color]')
     themeColor.setAttribute('content', newColor)
   }
-
   if (to.query.btag) { setCookie('btag', to.query.btag, moment().add(1, 'month').toDate()) }
 
   next()
