@@ -35,7 +35,15 @@ export default {
   data () {
     return {
       categories: [],
-      errorMessage: null
+      emptyOverview: false,
+      country: null
+    }
+  },
+  computed: {
+    errorMessage () {
+      if (!this.emptyOverview) return false
+
+      return this.$i18n.t('casino.playItemsList.noGamesOverview', { country: this.country })
     }
   },
   apollo: {
@@ -45,8 +53,7 @@ export default {
         fetchPolicy: NETWORK_ONLY,
         result ({ data: { tablesOverview } }) {
           if (this.noTablesForCategories(tablesOverview)) {
-            this.errorMessage =
-              this.$i18n.t('casino.playItemsList.noGamesOverview', { country: this.countryByRequest.country })
+            this.emptyOverview = true
           }
 
           this.categories = tablesOverview.map((category, index) => {
@@ -62,7 +69,10 @@ export default {
     countryByRequest () {
       return {
         query: COUNTRY_BY_REQUEST_QUERY,
-        fetchPolicy: NETWORK_ONLY
+        fetchPolicy: NETWORK_ONLY,
+        result ({ data: { countryByRequest: { country } } }) {
+          this.country = country
+        }
       }
     }
   },
