@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 import { createLocalVue, mount } from '@vue/test-utils'
 import Vuex from 'vuex'
-import DepositAdditionalInfo from '@/views/account/account-deposit/DepositAdditionalInfo.vue'
+import AdditionalInfo from '@/views/account/account-additional-info/AdditionalInfo.vue'
 import VueI18n from 'vue-i18n'
 import { Form } from '@/helpers'
 import { messages } from '@/translations/'
@@ -53,7 +53,7 @@ describe('DepositPage', () => {
   describe('DepositNeedMoreInfo Form Component', () => {
     describe('Inputs', () => {
       before(() => {
-        formWrapper = mount(DepositAdditionalInfo,
+        formWrapper = mount(AdditionalInfo,
           {
             data () {
               return {

@@ -407,11 +407,9 @@ export default {
       this.$apollo.queries.bets.fetchMore({
         variables: this.variables,
         updateQuery: (previousResult, { fetchMoreResult }) => {
-          this.loadingBets = false
-          return {
-            bets: fetchMoreResult.bets,
-            paginationProps: fetchMoreResult.bets.pagination
-          }
+          this.loading[this.betKind] = false
+          this.bets = fetchMoreResult.bets
+          this.paginationProps = fetchMoreResult.bets.pagination
         }
       })
     },
@@ -434,7 +432,8 @@ export default {
       this.$refs[tab.kind][0].resetData()
       this.timeFilterState = ''
       this.betFilterState = ''
-      this.loadMoreHistory()
+      this.loading[this.betKind] = true
+      this.$apollo.queries.bets.refetch({ kind: this.betKind })
     },
     changeToEveryMatrixTransactions (tab) {
       this.betKind = tab.kind
