@@ -60,7 +60,6 @@ export default {
       const input = {
         ...this.form.registration,
         bTag: getCookie('btag') || null,
-        gaClientID: this.computeGaClientID() || null
       }
 
       this.$store
