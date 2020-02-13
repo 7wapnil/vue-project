@@ -13,7 +13,6 @@ import { colors } from '@/constants/android-theme-colors'
 import Layout from '@/views/layouts/common/Layout'
 import { TITLE_KINDS } from '@/constants/title-kinds'
 import NotFound from '@/views/layouts/common/NotFound'
-import store from '@/stores'
 
 const rootChilds = [...Esports, ...Sports, ...LiveCasino, ...Casino, ...support.routes, ...system]
 

@@ -66,34 +66,33 @@ export default {
     }
   },
   methods: {
-      loadMoreGames(isVisible) {
+    loadMoreGames (isVisible) {
+      if (this.$apollo.loading || !isVisible) return
 
-          if (this.$apollo.loading || !isVisible) return
+      this.page = this.paginationProps.next
+      this.$apollo.queries.games.fetchMore({
+        variables: {
+          perPage: this.itemsPerPage,
+          page: this.page
+        },
+        updateQuery: (previousResult, { fetchMoreResult }) => {
+          if (!fetchMoreResult) return previousResult
 
-          this.page = this.paginationProps.next
-          this.$apollo.queries.games.fetchMore({
-              variables: {
-                  perPage: this.itemsPerPage,
-                  page: this.page
-              },
-              updateQuery: (previousResult, {fetchMoreResult}) => {
-                  if (!fetchMoreResult) return previousResult
+          return {
+            games: {
+              collection: this.mergePlayItems(previousResult, fetchMoreResult),
+              __typename: previousResult.games.__typename,
+              pagination: fetchMoreResult.games.pagination
+            }
+          }
+        }
+      })
+    },
+    mergePlayItems (oldItems, newItems) {
+      oldItems.games.collection.push(...newItems.games.collection)
 
-                  return {
-                      games: {
-                          collection: this.mergePlayItems(previousResult, fetchMoreResult),
-                          __typename: previousResult.games.__typename,
-                          pagination: fetchMoreResult.games.pagination
-                      }
-                  }
-              }
-          })
-      },
-      mergePlayItems(oldItems, newItems) {
-          oldItems.games.collection.push(...newItems.games.collection)
-
-          return oldItems.games.collection
-      }
+      return oldItems.games.collection
+    }
   }
 }
 </script>
