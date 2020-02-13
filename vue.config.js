@@ -60,7 +60,8 @@ if (process.env.NODE_ENV === 'production') {
       renderer: new Renderer({
         headless: true,
         args: ['--no-sandbox', '--disable-setuid-sandbox'],
-        renderAfterDocumentEvent: 'render-event'
+        renderAfterDocumentEvent: 'render-event',
+        maxConcurrentRoutes: 4
       })
     }),
     new CompressionPlugin({
