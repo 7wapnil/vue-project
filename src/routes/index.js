@@ -71,8 +71,6 @@ router.beforeEach((to, from, next) => {
     document.title = `${filters.capitalizeFirstLetter(to.params.titleKind)} - Arcanebet`
   }
 
-  if (from.name === 'casino-game' && store.getters.getLazyLoadPage) { store.commit('isReturned', true) }
-
   const components = to.matched[to.matched.length - 1].components
   if (components) {
     to.meta.components = components
