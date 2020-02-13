@@ -177,7 +177,8 @@ const messages = {
       liveCasinoButton: 'Live Casino home'
     },
     eventPage: {
-      minute: 'minute'
+      minute: 'minute',
+      loading: 'Loading'
     },
     tournamentPage: {
       description: {
