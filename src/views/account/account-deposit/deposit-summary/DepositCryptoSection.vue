@@ -1,7 +1,5 @@
 <template>
-  <div
-    id="cryptoSection"
-    :class="{ 'd-none' : !isCryptoSectionShown }">
+  <div id="cryptoSection">
     <p
       class="text font-size-14 text-justify"
       v-html="$t('account.deposit.crypto.howTo')"/>
@@ -17,6 +15,7 @@
   </div>
 </template>
 <script>
+import QRCode from 'qrcode'
 export default {
   props: {
     address: {
@@ -26,12 +25,20 @@ export default {
     isCryptoSectionShown: {
       type: Boolean,
       default: false
+    },
+    fields: {
+      type: Object,
+      required: true
     }
+  },
+  mounted () {
+    const qrText = `bitcoin:${this.address}?amount=${this.fields.amount / 1000}`
+    QRCode.toCanvas(document.getElementById('qrcode'), qrText, { scale: 4, margin: 2 })
   },
   methods: {
     onCopyAddress () {
       this.$noty.info(this.$t('account.deposit.crypto.addressCopied'))
-    }
+    },
   }
 }
 </script>

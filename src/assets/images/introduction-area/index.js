@@ -38,5 +38,6 @@ export default {
   'starcraft-ii': 'background-starcraft-ii',
   'fifa': 'background-fifa',
   'hearthstone': 'background-hearthstone',
-  'rainbow-six': 'background-rainbow-six'
+  'rainbow-six': 'background-rainbow-six',
+  'rocket-league': 'background-rocket-league'
 }

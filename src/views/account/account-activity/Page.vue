@@ -18,8 +18,10 @@
           @table-filtered-by-time="tableTimeFilter"
           @table-filtered-by-bet-state="tableBetFilter"/>
 
+        <loader v-if="loading[tab.kind]" />
+
         <table
-          v-if="hasBetHistory && !loadingBets"
+          v-if="hasBetHistory && !loading[tab.kind]"
           class="activity-table"
         >
           <thead>
@@ -134,12 +136,10 @@
           </tbody>
         </table>
 
-        <loader v-if="loadingBets"/>
-
-        <activity-placeholder v-if="!hasBetHistory && !loadingBets"/>
+        <activity-placeholder v-if="!hasBetHistory && !loading[tab.kind]"/>
 
         <b-pagination
-          v-if="paginationProps.count > 0 && !loadingBets"
+          v-if="paginationProps.count > 0 && !loading[tab.kind]"
           v-model="currentPage"
           :total-rows="paginationProps.count"
           :per-page="betsPerPage"
@@ -155,15 +155,15 @@
         title-link-class="border-top-tabs-orange-titles"
         @click="changeToEveryMatrixTransactions(tab)">
 
+        <loader v-if="loading.casino"/>
+
         <b-table
-          v-if="hasEveryMatrixTransactionsHistory && !loadingEveryMatrixTransactions"
+          v-if="hasEveryMatrixTransactionsHistory && !loading.casino"
           :items="everyMatrixTransactions.collection"
           :fields="casinoFields"
           thead-class="activity-table-head"
           tbody-class="activity-table-body"
           tbody-tr-class="activity-table-body-row">
-
-          <loader v-if="loadingEveryMatrixTransactions"/>
 
           <template
             slot="time"
@@ -226,12 +226,11 @@
             {{ data.item.balance }} {{ data.item.currencyCode }}
           </template>
         </b-table>
-        <loader v-if="loadingEveryMatrixTransactions"/>
 
-        <activity-placeholder v-if="!hasEveryMatrixTransactionsHistory && !loadingEveryMatrixTransactions"/>
+        <activity-placeholder v-if="!hasEveryMatrixTransactionsHistory && !loading.casino"/>
 
         <b-pagination
-          v-if="paginationProps.count > 0 && !loadingEveryMatrixTransactions"
+          v-if="paginationProps.count > 0 && !loading.casino"
           v-model="currentPage"
           :total-rows="paginationProps.count"
           :per-page="betsPerPage"
@@ -268,7 +267,11 @@ export default {
       paginationProps: Object,
       betsPerPage: 10,
       betKind: 'esports',
-      loadingBets: true,
+      loading: {
+        esports: true,
+        sports: false,
+        casino: false,
+      },
       fields: [
         this.$i18n.t('account.activity.table.headers.time'),
         this.$i18n.t('account.activity.table.headers.details'),
@@ -299,7 +302,6 @@ export default {
         'balance'
       ],
       everyMatrixTransactions: {},
-      loadingEveryMatrixTransactions: true,
       timeFilterState: '',
       betFilterState: '',
       displayBetLegs: {}
@@ -362,7 +364,7 @@ export default {
   },
   apollo: {
     bets () {
-      this.loadingBets = true
+      this.loading[this.betKind] = true
       return {
         query: BETS_LIST_QUERY,
         fetchPolicy: NETWORK_ONLY,
@@ -373,14 +375,14 @@ export default {
           excludedStatuses: [Bet.statuses.failed, Bet.statuses.rejected]
         },
         result ({ data }) {
-          this.loadingBets = false
+          this.loading[this.betKind] = false
           this.paginationProps = data.bets.pagination
           this.displayBetLegs = {}
         }
       }
     },
     everyMatrixTransactions () {
-      this.loadingEveryMatrixTransactions = true
+      this.loading.casino = true
       return {
         query: EVERY_MATRIX_TRANSACTIONS_LIST_QUERY,
         fetchPolicy: NETWORK_ONLY,
@@ -389,7 +391,7 @@ export default {
           perPage: this.betsPerPage
         },
         result ({ data }) {
-          this.loadingEveryMatrixTransactions = false
+          this.loading.casino = false
           this.paginationProps = data.everyMatrixTransactions.pagination
         }
       }
@@ -403,24 +405,24 @@ export default {
       return this.loadMoreCasinoHistory()
     },
     loadMoreHistory () {
-      this.loadingBets = true
+      this.loading[this.betKind] = true
+      this.bets.collection = []
       this.$apollo.queries.bets.fetchMore({
         variables: this.variables,
         updateQuery: (previousResult, { fetchMoreResult }) => {
-          this.loadingBets = false
-          return {
-            bets: fetchMoreResult.bets,
-            paginationProps: fetchMoreResult.bets.pagination
-          }
+          this.loading[this.betKind] = false
+          this.bets = fetchMoreResult.bets
+          this.paginationProps = fetchMoreResult.bets.pagination
         }
       })
     },
     loadMoreCasinoHistory () {
-      this.loadingEveryMatrixTransactions = true
+      this.loading.casino = true
+      this.everyMatrixTransactions.collection = []
       this.$apollo.queries.everyMatrixTransactions.fetchMore({
         variables: this.variables,
         updateQuery: (previousResult, { fetchMoreResult }) => {
-          this.loadingEveryMatrixTransactions = false
+          this.loading.casino = false
           return {
             everyMatrixTransactions: fetchMoreResult.everyMatrixTransactions,
             paginationProps: fetchMoreResult.everyMatrixTransactions.pagination
@@ -434,7 +436,8 @@ export default {
       this.$refs[tab.kind][0].resetData()
       this.timeFilterState = ''
       this.betFilterState = ''
-      this.loadMoreHistory()
+      this.loading[this.betKind] = true
+      this.$apollo.queries.bets.refetch({ kind: this.betKind })
     },
     changeToEveryMatrixTransactions (tab) {
       this.betKind = tab.kind
