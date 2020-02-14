@@ -1,7 +1,7 @@
 <template>
   <b-row no-gutters>
     <b-col>
-      <profile-wallet @open-account-deposit-tab="changeTabIndex(depositTabIndex);addTabName('Deposit')"/>
+      <account-wallet @open-account-deposit-tab="changeTabIndex(depositTabIndex);addTabName('Deposit')"/>
       <b-nav
         class="bg-arc-clr-soil-black"
         vertical>
@@ -40,7 +40,7 @@
 </template>
 <script>
 import ChangePassword from './account-information/ChangePassword'
-import ProfileWallet from './AccountWallet'
+import AccountWallet from '@/views/account/account-wallet/AccountWallet'
 import { mapGetters, mapMutations } from 'vuex'
 import LivechatItem from '@/views/account/account-menu-items/LivechatItem';
 
@@ -48,7 +48,7 @@ export default {
   components: {
     LivechatItem,
     ChangePassword,
-    ProfileWallet
+    AccountWallet
   },
   data () {
     return {

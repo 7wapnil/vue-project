@@ -24,9 +24,15 @@
       <b-col class="navbar-mobile-profile-section">
         <div
           v-if="isLoggedIn"
-          class="h-100 w-100 d-flex align-items-center justify-content-end"
+          class="h-100 w-100 d-flex flex-column align-items-end justify-content-center"
           @click="showModal">
           <b-button variant="arc-profile-button-mobile"/>
+          <div
+            v-if="activeWallet"
+            class="font-size-12 letter-spacing-2">
+            <span>{{ amount }} </span>
+            {{ currencyCode }}
+          </div>
         </div>
       </b-col>
     </b-row>

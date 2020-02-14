@@ -297,7 +297,12 @@ const messages = {
     wallet: {
       balance: 'Balance',
       secondWallet: '2nd Wallet',
-      switch: 'switch'
+      switch: 'switch',
+      realMoney: 'Real money',
+      sportsBonus: 'Sports bonus',
+      casinoBonus: 'Casino bonus',
+      totalBalance: 'Total balance',
+      otherWallets: 'Other wallets'
     },
     sidemenu: {
       settings: {
