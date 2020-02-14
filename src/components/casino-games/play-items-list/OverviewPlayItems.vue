@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="category.playItems.length">
     <overview-item-header
       :category="category"
       :pages="numberOfPages"

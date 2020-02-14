@@ -234,3 +234,11 @@ export const UPDATE_USER_MUTATION = gql`
     }
   }
 `
+
+export const COUNTRY_BY_REQUEST_QUERY = gql`
+  query {
+    countryByRequest {
+      country
+    }
+  }
+`
