@@ -7,7 +7,14 @@
       v-if="getMainBonus"
       :bonus-achieved="getCurrentBonusValue"
       :main-bonus="getMainBonus"
-      @bonus-cancellation="cancellationResults"/>
+      @click-bonus-cancellation="showConfirmation"/>
+    <bonus-cancellation-confirmation
+      v-if="confirmationState"
+      :cancel-bonus-confirmation-state="confirmBonusCancellationState"
+      :amount="bonusAmount"
+      @bonus-cancellation="cancellationResults"
+      @hide-confirmation="hideConfirmation"
+    />
     <bonus-alerts
       :cancel-bonus-status="cancelBonusStatus"
       :cancel-bonus-message="cancelBonusMessage"/>
@@ -25,6 +32,7 @@ import BonusItems from '@/views/account/account-bonus/BonusItems'
 import BonusPlaceholder from '@/views/account/account-bonus/BonusPlaceholder'
 import BonusHeader from '@/views/account/account-bonus/BonusHeader'
 import BonusAlerts from '@/views/account/account-bonus/BonusAlerts'
+import BonusCancellationConfirmation from '@/views/account/account-bonus/BonusCancellationConfirmation'
 import { BONUSES_LIST_QUERY } from '@/graphql'
 import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
 import { ACTIVE } from '@/constants/bonus-statuses'
@@ -36,13 +44,15 @@ export default {
     BonusItems,
     BonusPlaceholder,
     BonusHeader,
-    BonusAlerts
+    BonusAlerts,
+    BonusCancellationConfirmation
   },
   data () {
     return {
       bonuses: [],
       cancelBonusMessage: null,
-      cancelBonusStatus: null
+      cancelBonusStatus: null,
+      confirmBonusCancellationState: false
     }
   },
   computed: {
@@ -61,6 +71,12 @@ export default {
     },
     getMainBonus () {
       return this.bonuses.find((bonus) => bonus.status === ACTIVE)
+    },
+    bonusAmount () {
+      return this.getMainBonus.amount
+    },
+    confirmationState () {
+      return this.confirmBonusCancellationState
     }
   },
   methods: {
@@ -68,6 +84,12 @@ export default {
       this.cancelBonusStatus = status
       this.cancelBonusMessage = message
       this.$apollo.queries.bonuses.refetch()
+    },
+    showConfirmation () {
+      this.confirmBonusCancellationState = true
+    },
+    hideConfirmation () {
+      this.confirmBonusCancellationState = false
     }
   },
   apollo: {

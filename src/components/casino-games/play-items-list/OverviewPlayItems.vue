@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="category.playItems.length">
     <overview-item-header
       :category="category"
       :pages="numberOfPages"
@@ -53,7 +53,6 @@
           key="view-more-item"
           :category="category"/>
       </transition-group>
-
       <transition name="arrow-right">
         <div
           v-if="scrollPosition <= endPosition && !isMobile && numberOfPages > 1"

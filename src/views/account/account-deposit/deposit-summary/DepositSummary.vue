@@ -1,20 +1,21 @@
 <template>
   <b-col class="bg-arc-clr-soil-dark p-4 border-4 mt-md-4">
+    <loader v-if="bonusLoading" />
     <deposit-details
-      v-if="!isCryptoSectionShown"
+      v-if="!isCryptoSectionShown && !bonusLoading"
       :fields="fields"
       :currency="currency"
-      :calculated-bonus="calculatedBonus"
+      :payment-method="paymentMethod"
       :get-total="getTotal"
       :button-disabled="buttonDisabled"
+      :calculated-bonus="calculatedBonus"
       :deposit-state="depositState"
-      :deposit-message="depositMessage"
       @submit:deposit="$emit('submit:deposit')"/>
     <deposit-crypto-section
+      v-if="isCryptoSectionShown && !bonusLoading"
+      :fields="fields"
       :is-crypto-section-shown="isCryptoSectionShown"
-      :address="address">
-      <slot/>
-    </deposit-crypto-section>
+      :address="address" />
   </b-col>
 </template>
 
@@ -32,6 +33,10 @@ export default {
       type: Boolean,
       default: false
     },
+    paymentMethod: {
+      type: Object,
+      default: null
+    },
     fields: {
       type: Object,
       required: true
@@ -45,24 +50,24 @@ export default {
       default: 'EUR'
     },
     calculatedBonus: {
-      type: [String, Number],
-      default: ''
+      type: Number,
+      default: 0
     },
     getTotal: {
-      type: String,
-      default: ''
+      type: Number,
+      default: 0
     },
     buttonDisabled: {
       type: Boolean,
       default: true
     },
+    bonusLoading: {
+      type: Boolean,
+      default: false
+    },
     depositState: {
       type: String,
-      default: null
-    },
-    depositMessage: {
-      type: String,
-      default: null
+      default: ''
     }
   },
 }

@@ -33,6 +33,26 @@ export const USER_QUERY = gql`
   }
 `
 
+export const USER_DEPOSIT_METHODS_QUERY = gql`
+  query {
+    user {
+      id
+      availableDepositMethods {
+        code
+        currency {
+          id
+          code
+          kind
+        }
+        maxAmount
+        minAmount
+        name
+        note
+      }
+    }
+  }
+`
+
 export const USER_WITHDRAWAL_METHODS_QUERY = gql`
   query {
     user {
@@ -211,6 +231,14 @@ export const UPDATE_USER_MUTATION = gql`
       addressZipCode
       addressStreetAddress
       needMoreInfo
+    }
+  }
+`
+
+export const COUNTRY_BY_REQUEST_QUERY = gql`
+  query {
+    countryByRequest {
+      country
     }
   }
 `
