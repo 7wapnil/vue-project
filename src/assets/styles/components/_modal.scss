@@ -4,6 +4,9 @@
 .modal-body.ios-device {
   padding-bottom: 104px !important;
 }
+.modal-body {
+  height: 100%;
+}
 
 #AccountModal {
   .custom-select:disabled {
@@ -80,7 +83,7 @@
     letter-spacing: .02em;
     padding: 0;
     flex: 0 0 330px;
-    background: $arc-clr-soil-dark;
+    background: $arc-clr-soil-black;
     overflow-y: scroll;
     height: 100%;
     &-inner {

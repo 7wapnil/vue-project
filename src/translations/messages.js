@@ -383,7 +383,21 @@ const messages = {
         },
         serviceFees: 'We do not charge service fees.',
         paymentMethodsSupport: 'This is only a list of payment methods we support.You will select the one that suits you on the next page.',
-        bonusDescription: 'Bonus code description'
+        bonusDescription: 'Bonus code description',
+        enterDepositAmount: 'Enter deposit amount',
+        enterDepositBonus: 'Enter bonus code',
+        bonus: 'Bonus',
+        pleaseEnterAmount: 'Please enter amount',
+        method: 'Method',
+        notSelected: 'Not selected',
+        selectPaymentMethod: 'Select payment method',
+        pleaseSelectMethod: 'Please select payment method',
+        bonusActivated: 'Bonus activated',
+        close: 'Close',
+        tryAgain: 'Try again',
+        wallet: 'Wallet',
+        minLimit: 'Min limit',
+        maxLimit: 'Max limit'
       },
       withdraw: {
         withdrawFunds: 'Withdraw funds',
@@ -469,13 +483,11 @@ const messages = {
     common: {
       noEventsFound: 'No events found'
     },
-    cancelActiveBonusModal: {
-      header: 'Are you sure you want to cancel your bonus?',
-      body: 'If you click "{submitButton}", your current bonus balance of {amount} {currency} will be removed permanently. This is not reversible. Please contact support if you have any questions.',
-      confirmMessage: 'Are you sure you wish to cancel your bonus? If you click cancel bonus, your current bonus balance will be removed permanently. This is not reversible. Please contact support if you have any questions.',
-      successfulCancellation: 'Bonus successfully cancelled. Please go to the deposit page to deposit and claim a new bonus',
+    cancelActiveBonus: {
+      warning: 'Are you sure you want to cancel your bonus? If you click cancel bonus, your current bonus balance of {amount} will be removed permanently. This is not reversible. Please contact support if you have any questions.',
       backButton: 'Back',
-      submitButton: 'Cancel Bonus'
+      submitButton: 'Cancel Bonus',
+      successfulCancellation: 'Bonus successfully cancelled. Please go to the deposit page to deposit and claim a new bonus'
     }
   }
 }
