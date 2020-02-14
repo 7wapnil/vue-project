@@ -36,7 +36,6 @@ import BonusCancellationConfirmation from '@/views/account/account-bonus/BonusCa
 import { BONUSES_LIST_QUERY } from '@/graphql'
 import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
 import { ACTIVE } from '@/constants/bonus-statuses'
-import { mapGetters } from 'vuex'
 
 export default {
   components: {
@@ -57,9 +56,6 @@ export default {
     }
   },
   computed: {
-    ...mapGetters({
-      bonusAmount: 'getUserCurrentBonusBalance'
-    }),
     getCurrentBonusValue () {
       if (!this.getMainBonus) return null
 
@@ -75,6 +71,9 @@ export default {
     },
     getMainBonus () {
       return this.bonuses.find((bonus) => bonus.status === ACTIVE)
+    },
+    bonusAmount () {
+      return this.getMainBonus.amount
     },
     confirmationState () {
       return this.confirmBonusCancellationState

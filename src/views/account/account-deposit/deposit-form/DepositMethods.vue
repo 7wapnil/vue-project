@@ -25,7 +25,9 @@
               {{ getOverlayAmount(method) }}
             </div>
           </div>
-          <b-img :src="depositIcons[method.code]"/>
+          <b-img
+            :class="method.code"
+            :src="depositIcons[method.code]"/>
         </b-card>
       </div>
     </div>
@@ -151,6 +153,9 @@ export default {
       right: 0;
       z-index: 1;
       transition: all .4s ease-in-out;
+      &.idebit {
+        width: 60%;
+      }
     }
     .overlay {
       position: absolute;
