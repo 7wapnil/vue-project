@@ -47,6 +47,8 @@ export const TITLE_FIELDS = `
   name
   shortName
   slug
+  metaTitle
+  metaDescription
   position
   showCategoryInNavigation
 `
@@ -55,6 +57,8 @@ export const SCOPE_FIELDS = `
   id
   name
   slug
+  metaTitle
+  metaDescription
   kind
   eventScopeId
   position
@@ -64,7 +68,8 @@ export const EVENT_FIELDS = `
   id
   name
   slug
-  description
+  metaTitle
+  metaDescription
   status
   marketsCount
   startStatus
@@ -93,6 +98,8 @@ export const EVENT_FIELDS = `
   tournament {
     id
     slug
+    metaTitle
+    metaDescription
     kind
     name
   }
@@ -171,11 +178,15 @@ export const PLAY_ITEM_FIELDS = `
   name
   shortName
   description
+  metaTitle
+  metaDescription
   logoUrl
   backgroundImageUrl
   freeMode
   url
   slug
+  metaTitle
+  metaDescription
   type
 `
 
@@ -184,6 +195,8 @@ export const CASINO_CATEGORIES_FIELDS = `
   label
   position
   context
+  metaTitle
+  metaDescription
 `
 
 export const OVERVIEW_FIELDS = `
@@ -239,11 +252,13 @@ export const CASINO_RECOMMENDED_GAMES_FIELDS = `
   url
 `
 
-export const GAME_PROVIDERS_FIELDS = `
+export const GAME_PROVIDER_FIELDS = `
   id
   enabled
   logoUrl
   name
   internalImageName
   slug
+  metaTitle
+  metaDescription
 `

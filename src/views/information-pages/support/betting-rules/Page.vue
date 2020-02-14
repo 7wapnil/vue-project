@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import { buildDefaultMetaTags } from '@/helpers/meta'
 import StaticContent from '@/views/layouts/information-page/StaticContent'
 
 export default {
@@ -40,10 +41,12 @@ export default {
     }
   },
   metaInfo () {
-    return {
+    return buildDefaultMetaTags({
       title: this.$i18n.t('meta.support.bettingRules.title'),
-      meta: [{ name: 'description', content: this.$i18n.t('meta.support.bettingRules.description'), vmid: 'desc' }]
-    }
+      description: this.$i18n.t('meta.support.bettingRules.description'),
+      i18n: this.$i18n,
+      siteUrl: window.location.href
+    })
   }
 }
 </script>

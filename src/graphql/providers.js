@@ -1,5 +1,10 @@
 import gql from 'graphql-tag'
-import { PROVIDER_FIELDS, PAGINATION_FIELDS, PLAY_ITEM_FIELDS } from './fields'
+import {
+  PROVIDER_FIELDS,
+  PAGINATION_FIELDS,
+  PLAY_ITEM_FIELDS,
+  GAME_PROVIDER_FIELDS
+} from './fields'
 
 export const PROVIDERS_QUERY = gql`
   query providersQuery {
@@ -20,9 +25,12 @@ export const PROVIDER_SUBSCRIPTION = gql`
 export const GAMES_BY_PROVIDER = gql`
   query gamesByProvider($providerSlug: String = null, $page: Int, $perPage: Int) {
     gamesByProvider(providerSlug: $providerSlug, page: $page, perPage: $perPage) {
-       collection {
+      provider {
+        ${GAME_PROVIDER_FIELDS}
+      }
+      collection {
         ${PLAY_ITEM_FIELDS}
-       }
+      }
       pagination {
         ${PAGINATION_FIELDS}
       }

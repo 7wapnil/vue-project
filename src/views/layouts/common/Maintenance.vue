@@ -10,3 +10,19 @@
     <b-col cols="2"/>
   </b-row>
 </template>
+
+<script>
+import { buildDefaultMetaTags } from '@/helpers/meta'
+
+export default {
+  metaInfo () {
+    return buildDefaultMetaTags({
+      title: this.$i18n.t('meta.maintenance.title'),
+      description: this.$i18n.t('meta.maintenance.description'),
+      i18n: this.$i18n,
+      siteUrl: window.location.href,
+      robots: 'noindex,nofollow'
+    })
+  }
+}
+</script>

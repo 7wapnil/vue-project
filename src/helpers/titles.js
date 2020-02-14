@@ -12,6 +12,7 @@ export const buildTitleTag = (title) => {
   return {
     id: title.id,
     slug: title.slug,
+    name: getTitleName(title),
     label: getTitleShortName(title),
     icon: findTitleIcon(title)
   }
