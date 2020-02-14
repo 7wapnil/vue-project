@@ -31,12 +31,23 @@
     </b-row>
   </div>
 </template>
+
 <script>
+import { buildDefaultMetaTags } from '@/helpers/meta'
 import SectionButtons from '@/views/layouts/common/SectionButtons'
 
 export default {
   components: {
     SectionButtons
+  },
+  metaInfo () {
+    return buildDefaultMetaTags({
+      title: this.$i18n.t('meta.notFound.title'),
+      description: this.$i18n.t('meta.notFound.description'),
+      i18n: this.$i18n,
+      siteUrl: window.location.href,
+      robots: 'noindex,nofollow'
+    })
   }
 }
 </script>

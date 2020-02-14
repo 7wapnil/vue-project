@@ -49,6 +49,7 @@
 </template>
 
 <script>
+import { buildDefaultMetaTags } from '@/helpers/meta'
 import { VERIFY_EMAIL } from '@/graphql'
 import SectionButtons from '@/views/layouts/common/SectionButtons'
 
@@ -61,6 +62,15 @@ export default {
       sending: true,
       error: null
     }
+  },
+  metaInfo () {
+    return buildDefaultMetaTags({
+      title: this.$i18n.t('meta.emailVerification.title'),
+      description: this.$i18n.t('meta.emailVerification.description'),
+      i18n: this.$i18n,
+      siteUrl: window.location.href,
+      robots: 'noindex,nofollow'
+    })
   },
   computed: {
     token () {

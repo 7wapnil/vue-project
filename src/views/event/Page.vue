@@ -31,6 +31,7 @@
 </template>
 
 <script>
+import { buildDefaultMetaTags } from '@/helpers/meta'
 import { UNLIMITED_QUERY } from '@/constants/graphql/limits'
 import { ENDED } from '@/constants/event-statuses'
 import { EVENT_BY_ID_QUERY } from '@/graphql'
@@ -57,6 +58,26 @@ export default {
       activeIndex: 0,
       userLeavedPage: false,
       twitchSize: false
+    }
+  },
+  metaInfo () {
+    return buildDefaultMetaTags({
+      title: this.metaTitle,
+      description: this.metaDescription,
+      i18n: this.$i18n,
+      siteUrl: window.location.href
+    })
+  },
+  computed: {
+    metaTitle () {
+      return (this.event && this.event.metaTitle)
+        ? this.event.metaTitle
+        : this.$i18n.t(`meta.${this.$route.params.titleKind}.event.title`)
+    },
+    metaDescription () {
+      return (this.event && this.event.metaDescription)
+        ? this.event.metaDescription
+        : this.$i18n.t(`meta.${this.$route.params.titleKind}.event.description`)
     }
   },
   watch: {
