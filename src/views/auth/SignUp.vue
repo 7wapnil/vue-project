@@ -88,14 +88,12 @@ export default {
       })
       this.form.setErrors(errors)
     },
-    computeAffiliateID () {
-      const path = this.$route.fullPath
-      if (path.includes('b-tag=')) {
-        return path.substring(path.indexOf('=') + 1, path.lastIndexOf('_'))
-      }
-    },
     computeGaClientID () {
       return (getCookie('_ga') || '').substring('GA1.2.'.length)
+    },
+    computeAffiliateID () {
+      const btag = getCookie('btag')
+      return btag.substring(0, btag.lastIndexOf('_'))
     }
   }
 }
