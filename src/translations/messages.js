@@ -191,6 +191,8 @@ const messages = {
       return: 'Return',
       viewAll: 'View all',
       viewGames: 'View games',
+      discoverAll: 'Discover all',
+      newGames: 'New games',
       realModeLaunch: 'Play for real',
       loginToPlay: 'LOGIN TO PLAY',
       loginToPlayNow: 'Log-in to play now',
