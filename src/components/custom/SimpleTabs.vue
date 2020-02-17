@@ -1,10 +1,22 @@
 <template>
   <b-tabs
-    v-if="tabs.length"
     :value="currentTabIndex"
+    :nav-wrapper-class="'px-0 px-md-4 bg-arc-clr-soil-light ' + `${ tabs.length ?
+    'sorting-panel' : ''}`"
     nav-class="bg-arc-clr-soil-light-cover"
-    nav-wrapper-class="px-0 px-md-4 sorting-panel bg-arc-clr-soil-light"
     @input="changeTabIndex">
+
+    <template slot="empty">
+      <b-row
+        class="loading-row"
+        no-gutters>
+        <b-col class="loading-col d-flex justify-content-center align-items-center">
+          <h6 class="m-0 letter-spacing-2">
+            {{ $t('eventPage.loading') }}...
+          </h6>
+        </b-col>
+      </b-row>
+    </template>
 
     <b-tab
       v-for="tab in tabs"
@@ -73,3 +85,15 @@ export default {
   }
 }
 </script>
+
+<style lang="scss"
+       scoped>
+  .loading-row {
+    min-height: 65px;
+    background: #3d3d3d;
+  }
+  .loading-col {
+    border-bottom: 1px solid $arc-clr-soil-cover;
+    margin: 0 20px;
+  }
+</style>

@@ -42,30 +42,7 @@
             </div>
           </b-col>
         </b-row>
-
-        <b-row
-          no-gutters>
-          <b-col class="text-left px-2 px-md-4">
-            <b-button
-              :to="{ path: '/esports' }"
-              :block="isMobile"
-              size="lg"
-              variant="arc-secondary"
-              class="px-5 bg-arc-clr-esport-bg border-0 letter-spacing-2 font-weight-bold mb-4 text-uppercase">
-              {{ $t('noFoundPage.esportButton') }}
-            </b-button>
-          </b-col>
-          <b-col class="text-right px-2 px-md-4">
-            <b-button
-              :block="isMobile"
-              :to="{ path: '/sports'}"
-              size="lg"
-              variant="arc-secondary"
-              class="px-5 bg-arc-clr-sport-bg border-0 letter-spacing-2 font-weight-bold text-uppercase">
-              {{ $t('noFoundPage.sportButton') }}
-            </b-button>
-          </b-col>
-        </b-row>
+        <section-buttons/>
       </b-col>
     </b-row>
   </div>
@@ -73,8 +50,12 @@
 
 <script>
 import { VERIFY_EMAIL } from '@/graphql'
+import SectionButtons from '@/views/layouts/common/SectionButtons'
 
 export default {
+  components: {
+    SectionButtons
+  },
   data () {
     return {
       sending: true,
