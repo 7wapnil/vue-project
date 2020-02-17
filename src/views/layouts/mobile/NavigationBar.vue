@@ -28,6 +28,16 @@
           @click="showModal">
           <b-button variant="arc-profile-button-mobile"/>
         </div>
+        <div
+          v-if="!isLoggedIn && !isParentRoute"
+          class="d-flex align-items-center justify-content-end">
+          <b-btn
+            v-b-modal.AuthModal
+            variant="arc-primary"
+            class="mobile-auth-button">
+            {{ $t('auth.cta.login') }}
+          </b-btn>
+        </div>
       </b-col>
     </b-row>
   </b-navbar>
@@ -35,8 +45,23 @@
 
 <script>
 import UserProfileMenu from '@/components/navbar/profile/UserProfileMenu'
+import { TITLE_KINDS } from '@/constants/title-kinds'
 
 export default {
-  extends: UserProfileMenu
+  extends: UserProfileMenu,
+  computed: {
+    isParentRoute () {
+      return TITLE_KINDS.includes(this.$route.name)
+    }
+  }
 }
 </script>
+
+<style scoped
+       lang="scss">
+  .mobile-auth-button {
+    padding: 6px 25px;
+    letter-spacing: .02em;
+    font-size: 12px;
+  }
+</style>
