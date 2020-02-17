@@ -60,6 +60,10 @@
     border: 1px solid #FFC67E;
     box-shadow: unset;
   }
+  &:disabled {
+    background-color: rgba(255,185,96, .4);
+    border: 1px solid rgba(255,185,96, .2);
+  }
 }
 
 .btn-game-of-the-day {
