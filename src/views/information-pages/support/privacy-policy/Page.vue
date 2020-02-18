@@ -16,6 +16,8 @@ export default {
     }
   },
   metaInfo () {
+    if (!this.$i18n) return
+
     return buildDefaultMetaTags({
       title: this.$i18n.t('meta.support.privacyPolicy.title'),
       description: this.$i18n.t('meta.support.privacyPolicy.description'),

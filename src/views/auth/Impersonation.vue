@@ -19,6 +19,8 @@ export default {
     this.impersonate()
   },
   metaInfo () {
+    if (!this.$i18n) return
+
     return buildDefaultMetaTags({
       title: this.$i18n.t('meta.impersonation.title'),
       description: this.$i18n.t('meta.impersonation.description'),

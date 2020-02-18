@@ -15,6 +15,7 @@
           v-for="item in mainMenu"
           :key="item.id"
           :to="item.route"
+          :active="item.route.name === $route.params.titleKind"
           class="navbar-menu-item font-weight-bold">
           {{ item.label }}
         </b-nav-item>

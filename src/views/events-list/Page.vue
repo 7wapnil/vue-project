@@ -92,6 +92,8 @@ export default {
     }
   },
   metaInfo () {
+    if (!this.$i18n) return
+
     return buildDefaultMetaTags({
       title: this.metaTitle,
       description: this.metaDescription,
@@ -109,6 +111,8 @@ export default {
   },
   computed: {
     metaTitle () {
+      if (this.$route.name === 'home') return this.$i18n.t(`meta.defaultTags.title`)
+
       if (this.hasTournamentSlug && this.selectedTournament) {
         return this.selectedTournament.metaTitle ||
                this.$i18n.t(`meta.${this.$route.params.titleKind}.tournament.title`)
@@ -120,6 +124,8 @@ export default {
       }
     },
     metaDescription () {
+      if (this.$route.name === 'home') return this.$i18n.t(`meta.defaultTags.description`)
+
       if (this.hasTournamentSlug && this.selectedTournament) {
         return this.selectedTournament.metaDescription ||
                this.$i18n.t(`meta.${this.$route.params.titleKind}.tournament.description`)
