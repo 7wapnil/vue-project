@@ -116,12 +116,14 @@ export default {
       if (this.hasTournamentSlug && this.selectedTournament) {
         return this.selectedTournament.metaTitle ||
                this.$i18n.t(`meta.${this.$route.params.titleKind}.tournament.title`)
-      } else if (this.hasTitleSlug && this.selectedEventScope && this.selectedEventScope.id) {
+      }
+
+      if (this.hasTitleSlug && this.selectedEventScope && this.selectedEventScope.id) {
         return this.selectedEventScope.metaTitle ||
                this.$i18n.t(`meta.${this.$route.params.titleKind}.eventScope.title`, { name: this.selectedEventScope.name })
-      } else {
-        return this.$i18n.t(`meta.${this.$route.params.titleKind}.title`)
       }
+
+      return this.$i18n.t(`meta.${this.$route.params.titleKind}.title`)
     },
     metaDescription () {
       if (this.$route.name === 'home') return this.$i18n.t(`meta.defaultTags.description`)
@@ -129,12 +131,14 @@ export default {
       if (this.hasTournamentSlug && this.selectedTournament) {
         return this.selectedTournament.metaDescription ||
                this.$i18n.t(`meta.${this.$route.params.titleKind}.tournament.description`)
-      } else if (this.hasTitleSlug && this.selectedEventScope && this.selectedEventScope.id) {
+      }
+
+      if (this.hasTitleSlug && this.selectedEventScope && this.selectedEventScope.id) {
         return this.selectedEventScope.metaDescription ||
                this.$i18n.t(`meta.${this.$route.params.titleKind}.eventScope.description`, { name: this.selectedEventScope.name })
-      } else {
-        return this.$i18n.t(`meta.${this.$route.params.titleKind}.description`)
       }
+
+      return this.$i18n.t(`meta.${this.$route.params.titleKind}.description`)
     },
     eventListProps () {
       if (!this.selectedFilter) { return null }

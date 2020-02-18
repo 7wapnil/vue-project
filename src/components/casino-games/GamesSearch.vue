@@ -45,7 +45,7 @@ export default {
       description: this.$i18n.t(`meta.${this.$route.params.titleKind}.description`),
       i18n: this.$i18n,
       siteUrl: window.location.href,
-      robots: 'noindex,follow'
+      robots: 'noindex'
     })
   },
   computed: {

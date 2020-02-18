@@ -190,7 +190,7 @@ export const PLAY_ITEM_FIELDS = `
   type
 `
 
-export const CASINO_CATEGORIES_FIELDS = `
+export const CASINO_CATEGORY_FIELDS = `
   id
   label
   position
@@ -200,7 +200,7 @@ export const CASINO_CATEGORIES_FIELDS = `
 `
 
 export const OVERVIEW_FIELDS = `
-  ${CASINO_CATEGORIES_FIELDS}
+  ${CASINO_CATEGORY_FIELDS}
   playItems {
     ${PLAY_ITEM_FIELDS}
   }
