@@ -31,7 +31,7 @@
             no-gutters>
             <b-col
               class="d-flex align-items-center justify-content-center"
-              @click="pushLobby">
+              @click="pushBack">
               <icon
                 :size="13"
                 name="game-close"/>
@@ -52,6 +52,7 @@
 import { mapGetters } from 'vuex'
 import CasinoGameSidebar from '@/views/casino/CasinoGameSidebar'
 import { CREATE_EVERY_MATRIX_SESSION_MUTATION } from '@/graphql'
+import { TITLE_KINDS } from '@/constants/title-kinds'
 
 export default {
   components: { CasinoGameSidebar },
@@ -113,8 +114,13 @@ export default {
         elem.msRequestFullscreen()
       }
     },
-    pushLobby () {
-      this.$router.push({ name: this.currentLobbyName })
+    pushBack () {
+      if (!this.$route.meta.fromPage ||
+            TITLE_KINDS.includes(this.$route.meta.fromPage) ||
+            this.$route.params.category === 'all-games') { return this.$router.push({ name: this.currentLobbyName }) }
+
+      this.$router.push({ name: `${this.currentLobbyName}-category`,
+        params: { category: this.$route.params.category } })
     },
     gameMode () {
       if ((this.isLoggedIn && this.walletId === undefined) ||
