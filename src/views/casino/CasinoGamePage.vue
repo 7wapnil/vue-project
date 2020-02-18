@@ -52,6 +52,7 @@
 import { mapGetters } from 'vuex'
 import CasinoGameSidebar from '@/views/casino/CasinoGameSidebar'
 import { CREATE_EVERY_MATRIX_SESSION_MUTATION } from '@/graphql'
+import { TITLE_KINDS } from '@/constants/title-kinds'
 
 export default {
   components: { CasinoGameSidebar },
@@ -114,7 +115,12 @@ export default {
       }
     },
     pushBack () {
-      this.$router.go(-1) || this.$router.push({ name: this.currentLobbyName })
+      if (!this.$route.meta.fromPage ||
+            TITLE_KINDS.includes(this.$route.meta.fromPage) ||
+            this.$route.params.category === 'all-games') { return this.$router.push({ name: this.currentLobbyName }) }
+
+      this.$router.push({ name: `${this.currentLobbyName}-category`,
+        params: { category: this.$route.params.category } })
     },
     gameMode () {
       if ((this.isLoggedIn && this.walletId === undefined) ||

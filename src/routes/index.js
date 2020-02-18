@@ -86,6 +86,10 @@ router.beforeEach((to, from, next) => {
     to.meta.components = components
   }
 
+  if (to.name === 'casino-game' || to.name === 'live-casino-game') {
+    to.meta.fromPage = from.name
+  }
+
   const section = to.meta.themeColor || to.params.titleKind
   if (section) {
     const newColor = colors[section.toString()]
