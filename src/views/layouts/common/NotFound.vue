@@ -91,6 +91,8 @@ import { buildDefaultMetaTags } from '@/helpers/meta'
 
 export default {
   metaInfo () {
+    if (!this.$i18n) return
+
     return buildDefaultMetaTags({
       title: this.$i18n.t('meta.notFound.title'),
       description: this.$i18n.t('meta.notFound.description'),

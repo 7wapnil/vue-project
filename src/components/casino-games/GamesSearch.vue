@@ -38,6 +38,8 @@ export default {
     }
   },
   metaInfo () {
+    if (!this.$i18n) return
+
     return buildDefaultMetaTags({
       title: this.$i18n.t(`meta.${this.$route.params.titleKind}.title`),
       description: this.$i18n.t(`meta.${this.$route.params.titleKind}.description`),
