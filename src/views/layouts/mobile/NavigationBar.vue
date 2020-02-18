@@ -51,7 +51,7 @@ export default {
   extends: UserProfileMenu,
   computed: {
     isParentRoute () {
-      return TITLE_KINDS.includes(this.$route.name)
+      return TITLE_KINDS.includes(this.$route.params.titleKind)
     }
   }
 }

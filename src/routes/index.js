@@ -74,7 +74,7 @@ router.beforeEach((to, from, next) => {
   if (path && isSupported) {
     to.params.titleKind = path[1]
   } else {
-    to.params.titleKind = 'esports'
+    to.params.titleKind = 'support'
   }
 
   if (to.params.titleKind) {
