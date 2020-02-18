@@ -66,9 +66,14 @@ export default {
         result ({ data }) {
           const payload = data.games
 
+          if (!payload) return
+
           this.categoryObject = payload.category
           this.gamesCollection = payload.collection
           this.paginationProps = payload.pagination
+        },
+        error () {
+          this.$router.push({ name: 'not-found' })
         }
       }
     }
