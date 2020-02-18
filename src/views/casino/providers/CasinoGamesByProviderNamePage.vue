@@ -1,18 +1,22 @@
 <template>
   <div>
     <category-play-items :play-items="gamesCollection"/>
-    <loader v-if="$apollo.loading"/>
+    <loader v-if="$apollo.loading && !errorMessage"/>
     <b-row no-gutters>
       <b-col
         v-observe-visibility="{
           throttle: 300,
           callback: loadMoreGames
         }"
-        v-if="!lastPage"/>
+        v-if="!errorMessage && !lastPage"
+      />
       <b-col
-        v-if="!gamesCollection.length && !$apollo.loading"
-        class="text-center p-4">
-        {{ $t('casino.noProviders') }}
+        v-else
+        class="px-4">
+        <h4
+          class="mb-0 text-arc-clr-iron">
+          {{ errorMessage }}
+        </h4>
       </b-col>
     </b-row>
   </div>
@@ -21,7 +25,7 @@
 <script>
 import CategoryPlayItems from '@/components/casino-games/play-items-list/CategoryPlayItems'
 import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
-import { GAMES_BY_PROVIDER } from '@/graphql'
+import { GAMES_BY_PROVIDER, COUNTRY_BY_REQUEST_QUERY } from '@/graphql'
 
 export default {
   components: {
@@ -31,7 +35,9 @@ export default {
     return {
       itemsPerPage: 20,
       gamesCollection: [],
-      paginationProps: Object
+      paginationProps: Object,
+      emptyGamesList: false,
+      country: ''
     }
   },
   computed: {
@@ -44,6 +50,11 @@ export default {
     },
     lastPage () {
       return this.paginationProps.next === null
+    },
+    errorMessage () {
+      if (!this.emptyGamesList) return false
+
+      return this.$i18n.t('casino.playItemsList.noGamesProvider', { country: this.country })
     }
   },
   created () {
@@ -63,8 +74,21 @@ export default {
           }
         },
         result ({ data }) {
+          if (!data.gamesByProvider.collection.length) {
+            this.emptyGamesList = true
+          }
+
           this.gamesCollection = data.gamesByProvider.collection
           this.paginationProps = data.gamesByProvider.pagination
+        }
+      }
+    },
+    countryByRequest () {
+      return {
+        query: COUNTRY_BY_REQUEST_QUERY,
+        fetchPolicy: NETWORK_ONLY,
+        result ({ data: { countryByRequest: { country } } }) {
+          this.country = country
         }
       }
     }

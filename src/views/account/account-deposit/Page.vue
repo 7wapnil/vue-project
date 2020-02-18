@@ -4,7 +4,8 @@
     <component
       v-if="user"
       :is="currentComponent"
-      :user="user" />
+      :user="user"
+      type="deposit" />
   </div>
 </template>
 
@@ -14,8 +15,8 @@ export default {
   computed: {
     currentComponent () {
       const DepositPage = () => import(`@/views/account/account-deposit/DepositPage`)
-      const DepositAdditionalInfo = () => import(`@/views/account/account-deposit/DepositAdditionalInfo`)
-      return this.user.needMoreInfo === false ? DepositPage : DepositAdditionalInfo
+      const AdditionalInfo = () => import(`@/views/account/account-additional-info/AdditionalInfo`)
+      return this.user.needMoreInfo === false ? DepositPage : AdditionalInfo
     }
   },
   apollo: {

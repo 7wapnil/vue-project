@@ -1,6 +1,6 @@
 <template>
   <b-row
-    v-if="depositState || bonusError"
+    v-if="depositState"
     no-gutters>
     <b-col class="p-md-0 py-2 px-4">
       <b-alert
@@ -8,12 +8,6 @@
         :variant="mapDepositState"
         class="mb-0">
         {{ depositMessage }}
-      </b-alert>
-      <b-alert
-        :show="!!bonusError"
-        class="mb-0"
-        variant="danger">
-        {{ bonusError }}
       </b-alert>
     </b-col>
   </b-row>
@@ -27,10 +21,6 @@ export default {
       default: null
     },
     depositMessage: {
-      type: String,
-      default: null
-    },
-    bonusError: {
       type: String,
       default: null
     }

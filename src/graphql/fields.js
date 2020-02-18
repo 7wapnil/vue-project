@@ -4,18 +4,22 @@ export const PROVIDER_FIELDS = `
   state
 `
 
-export const BONUSES_LIST_FIELDS = `
+export const BONUS_SUBSCTIPTION_LIST_FIELDS = `
   id
+  rolloverBalance
+  rolloverInitialValue
+  status
+`
+
+export const BONUSES_LIST_FIELDS = `
+  ${BONUS_SUBSCTIPTION_LIST_FIELDS}
   amount
   casino
   code
   expiresAt
   maxRolloverPerBet
   minOddsPerBet
-  rolloverBalance
-  rolloverInitialValue
   sportsbook
-  status
   validForDays
   minOddsPerBet
   minOddsPerBetLeg
@@ -42,6 +46,7 @@ export const TITLE_FIELDS = `
   externalName
   name
   shortName
+  slug
   position
   showCategoryInNavigation
 `
@@ -49,6 +54,7 @@ export const TITLE_FIELDS = `
 export const SCOPE_FIELDS = `
   id
   name
+  slug
   kind
   eventScopeId
   position
@@ -57,6 +63,7 @@ export const SCOPE_FIELDS = `
 export const EVENT_FIELDS = `
   id
   name
+  slug
   description
   status
   marketsCount
@@ -85,6 +92,7 @@ export const EVENT_FIELDS = `
   }
   tournament {
     id
+    slug
     kind
     name
   }

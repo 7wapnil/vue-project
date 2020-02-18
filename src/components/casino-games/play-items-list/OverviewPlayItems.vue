@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="category.playItems.length">
     <overview-item-header
       :category="category"
       :pages="numberOfPages"
@@ -13,7 +13,7 @@
     <div class="position-relative">
       <transition name="arrow-left">
         <div
-          v-show="scrollPosition > 0"
+          v-if="scrollPosition > 0 && !isMobile"
           class="slider-control-left"
           @click="slideLeft">
           <arc-circle
@@ -47,11 +47,15 @@
           :item="playItem"
           :category="category"
           :style="{ transitionDelay: index * .1 + 's' }"/>
+        <view-more-component
+          v-if="currentLobbyName === 'casino'"
+          ref="viewMoreComponent"
+          key="view-more-item"
+          :category="category"/>
       </transition-group>
-
       <transition name="arrow-right">
         <div
-          v-show="scrollPosition <= endPosition"
+          v-if="scrollPosition <= endPosition && !isMobile && numberOfPages > 1"
           class="slider-control-right"
           @click="slideRight">
           <arc-circle
@@ -72,11 +76,13 @@
 <script>
 import CategoryPlayItem from '@/components/casino-games/play-items-list/CategoryPlayItem'
 import OverviewItemHeader from '@/components/casino-games/play-items-list/OverviewItemHeader'
+import ViewMoreComponent from '@/components/casino-games/ViewMoreComponent'
 
 export default {
   components: {
     CategoryPlayItem,
     OverviewItemHeader,
+    ViewMoreComponent
   },
   props: {
     category: {
@@ -96,7 +102,9 @@ export default {
       scrollPosition: 0,
       endPosition: 0,
       itemsPerPage: 0,
-      rowWidth: 0
+      rowWidth: 0,
+      viewMoreComponentWidth: 0,
+      itemMargin: 20
     }
   },
   computed: {
@@ -104,15 +112,15 @@ export default {
       switch (this.category.context) {
         case 'jackpots':
         case 'hot-tables':
-          return true;
-        default: return false;
+          return true
+        default: return false
       }
     },
     promoItem () {
       switch (this.category.context) {
         case 'jackpots': return () => import(`@/components/casino-games/play-items-list/promo-items/PromoItemJackpot`)
         case 'hot-tables': return () => import(`@/components/casino-games/play-items-list/promo-items/PromoItemHotTables`)
-        default: return null;
+        default: return null
       }
     }
   },
@@ -124,15 +132,26 @@ export default {
   methods: {
     calculateDimensions () {
       const wrapper = this.$refs[this.category.id].$el
-      const children = this.$refs[this.category.id].$children;
+      const children = this.$refs[this.category.id].$children
       const item = this.showPromoItem ? children[1].$el : children[0].$el
 
+      if (this.currentLobbyName === 'casino') {
+        const viewMoreComponent = this.$refs.viewMoreComponent.$el
+        this.viewMoreComponentWidth = viewMoreComponent.clientWidth
+      }
+
       this.wrapperWidth = wrapper.clientWidth
-      this.itemWidth = item.clientWidth + 20
+      this.itemWidth = item.clientWidth + this.itemMargin
       this.itemsPerPage = Math.floor(this.wrapperWidth / this.itemWidth)
-      this.numberOfPages = Math.ceil((this.showPromoItem ? this.playItems.length + 1 : this.playItems.length) / this.itemsPerPage)
-      this.rowWidth = this.numberOfPages * this.wrapperWidth
-      this.endPosition = wrapper.scrollWidth - this.wrapperWidth - 20
+
+      const additionalPartsWithPromo = this.currentLobbyName === 'casino' ? 3 : 2
+      const additionalPartsWithoutPromo = this.currentLobbyName === 'casino' ? 1 : 0
+
+      this.numberOfPages = Math.ceil((this.showPromoItem
+        ? this.playItems.length + additionalPartsWithPromo
+        : this.playItems.length + additionalPartsWithoutPromo) / this.itemsPerPage)
+      this.rowWidth = this.numberOfPages * this.wrapperWidth + this.viewMoreComponentWidth
+      this.endPosition = wrapper.scrollWidth - this.wrapperWidth - this.itemMargin
     },
     calculateCurrentPage () {
       const currentPageNumber = Math.ceil(this.scrollPosition / (this.itemsPerPage *

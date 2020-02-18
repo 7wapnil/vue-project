@@ -50,7 +50,7 @@ export default {
       variables () {
         return {
           titleKind: this.$route.params.titleKind,
-          titleId: this.selectedCategory.value,
+          titleId: this.selectedCategory.id,
           contexts: this.tabs.map(({ context }) => context)
         }
       }

@@ -1,5 +1,5 @@
 <template>
-  <div v-if="getMainBonus">
+  <div v-if="bonus">
     <b-row
       no-gutters
       class="px-3 pt-3 pb-0">
@@ -39,31 +39,43 @@
 </template>
 
 <script>
-import { BONUSES_LIST_QUERY } from '@/graphql'
+import { BONUSES_LIST_QUERY, CUSTOMER_BONUSES_UPDATED_SUBSCRIPTION } from '@/graphql'
 import { ACTIVE } from '@/constants/bonus-statuses'
 
 export default {
   data () {
     return {
-      bonuses: []
+      bonus: null
     }
   },
   computed: {
     getCurrentBonusValue () {
-      return this.getMainBonus.rolloverInitialValue - this.getMainBonus.rolloverBalance
+      return this.bonus.rolloverInitialValue - this.bonus.rolloverBalance
     },
     getMainBonusPercentageValue () {
-      let calculatedPercentage = (this.getCurrentBonusValue / this.getMainBonus.rolloverInitialValue) * 100
+      let calculatedPercentage = (this.getCurrentBonusValue / this.bonus.rolloverInitialValue) * 100
       return parseFloat(calculatedPercentage.toFixed(2))
-    },
-    getMainBonus () {
-      return this.bonuses.find((bonus) => bonus.status === ACTIVE)
     }
   },
   apollo: {
+    $subscribe: {
+      customerBonusUpdated: {
+        query () {
+          return CUSTOMER_BONUSES_UPDATED_SUBSCRIPTION;
+        },
+        result (subscriptionData) {
+          let receivedBonus = subscriptionData.data.customerBonusUpdated
+          this.bonus = receivedBonus.status === ACTIVE ? receivedBonus : null
+        }
+      }
+    },
     bonuses () {
       return {
-        query: BONUSES_LIST_QUERY
+        query: BONUSES_LIST_QUERY,
+        variables: { status: ACTIVE },
+        result ({ data: { bonuses } }) {
+          this.bonus = bonuses[0]
+        }
       }
     }
   }

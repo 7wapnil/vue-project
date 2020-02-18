@@ -1,7 +1,7 @@
 <template>
   <div :class="`items-level-${level}`">
     <div
-      v-b-toggle="`item-${level}-${index}`"
+      v-b-toggle="`item-${item.label}-${level}-${index}`"
       v-if="hasChildren"
       class="collapsed">
       <item-content
@@ -20,7 +20,7 @@
 
     <b-collapse
       v-if="hasChildren"
-      :id="`item-${level}-${index}`"
+      :id="`item-${item.label}-${level}-${index}`"
       :visible="item.active"
       :accordion="`${level}-menu`">
       <b-nav

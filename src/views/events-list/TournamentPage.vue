@@ -5,16 +5,16 @@
     <b-col>
       <scope-breadcrumbs/>
       <div
-        v-for="(tab, index) in tabsMapping"
+        v-for="(tabWithEvents, index) in tabsWithEvents"
         :key="index">
         <b-col class="d-inline-flex px-0 px-md-4 mt-4 events-list-title">
           <h4 class="ml-4 mb-0 text-arc-clr-white">
-            {{ tab.title }}
+            {{ tabWithEvents.tab.title }}
           </h4>
         </b-col>
         <events-list
-          :tab-id="tab.value"
-          :events = "events_by_time(tab.value)"
+          :tab-id="tabWithEvents.tab.value"
+          :events = "tabWithEvents.events"
           :loading = "loading" />
       </div>
     </b-col>
@@ -22,7 +22,8 @@
 </template>
 
 <script>
-import { TOURNAMENT_EVENTS } from '@/graphql'
+import { TOURNAMENT } from '@/constants/event-scopes/kinds'
+import { SCOPE_QUERY, TOURNAMENT_EVENTS } from '@/graphql'
 import EventsList from '@/components/events/EventsList'
 import HybridCard from '@/views/events-list/HybridCard'
 import ScopeBreadcrumbs from '@/views/events-list/ScopeBreadcrumbs'
@@ -37,6 +38,18 @@ export default {
     ScopeBreadcrumbs
   },
   apollo: {
+    eventScope () {
+      return {
+        query: SCOPE_QUERY,
+        fetchPolicy: NETWORK_ONLY,
+        variables () {
+          return { slug: this.$route.params.tournamentSlug, kind: TOURNAMENT }
+        },
+        result ({ data }) {
+          this.selectedTournament = data.eventScope
+        }
+      }
+    },
     tournamentEvents () {
       return {
         ...this.query,
@@ -48,6 +61,7 @@ export default {
     return {
       loading: 0,
       tournamentEvents: [],
+      selectedTournament: null,
       tabsMapping: [{
         value: LIVE,
         title: this.$i18n.t('homePage.live')
@@ -63,21 +77,24 @@ export default {
         query: TOURNAMENT_EVENTS,
         fetchPolicy: NETWORK_ONLY,
         variables () {
-          return {
-            tournamentId: this.$route.params.tournamentId,
-            withScopes: true
-          }
+          return { tournamentId: this.tournamentId, withScopes: true }
         }
       }
     },
     subscribeToMore () {
-      return eventUpdatedSubscriber({
-        tournamentId: this.$route.params.tournamentId
+      return eventUpdatedSubscriber({ tournamentId: this.tournamentId })
+    },
+    tournamentId () {
+      return this.selectedTournament ? this.selectedTournament.id : null
+    },
+    tabsWithEvents () {
+      return this.tabsMapping.map((tab) => {
+        return { tab: tab, events: this.getEventsByTime(tab.value) }
       })
     }
   },
   methods: {
-    events_by_time (tabValue) {
+    getEventsByTime (tabValue) {
       switch (tabValue) {
         case LIVE: return this.tournamentEvents.live
         case UPCOMING: return this.tournamentEvents.upcoming

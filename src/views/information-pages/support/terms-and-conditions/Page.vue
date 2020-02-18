@@ -1,8 +1,6 @@
 <template>
   <div>
-    <static-content
-      :items="tableOfContentItems"
-      :contentful-id="id"/>
+    <static-content :contentful-id="id"/>
   </div>
 </template>
 
