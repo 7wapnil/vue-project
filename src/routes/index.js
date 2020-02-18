@@ -12,6 +12,11 @@ import { colors } from '@/constants/android-theme-colors'
 import Layout from '@/views/layouts/common/Layout'
 import { TITLE_KINDS } from '@/constants/title-kinds'
 import NotFound from '@/views/layouts/common/NotFound'
+import Sidemenu from '@/components/side-menu/SideMenu'
+import Betslip from '@/components/betslip/Betslip'
+import EventsPage from '@/views/events-list/Page.vue'
+import CategoryTabs from '@/components/custom/CategoryTabs'
+import IntroductionArea from '@/components/custom/IntroductionArea'
 
 const rootChilds = [...Esports, ...Sports, ...LiveCasino, ...Casino, ...support.routes, ...system]
 
@@ -20,11 +25,23 @@ const router = new Router({
   linkActiveClass: 'active',
   routes: [
     {
-      path: '/',
-      redirect: '/esports',
-      name: 'home',
+      path: '',
       component: Layout,
-      children: rootChilds
+      children: [
+        {
+          path: '',
+          name: 'home',
+          components: {
+            content: EventsPage,
+            left: Sidemenu,
+            right: Betslip,
+            tabs: CategoryTabs,
+            header: IntroductionArea,
+            mobileSidemenu: Sidemenu
+          }
+        },
+        ...rootChilds
+      ]
     },
     {
       path: '/page-not-found',

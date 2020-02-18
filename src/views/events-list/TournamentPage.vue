@@ -62,6 +62,8 @@ export default {
     }
   },
   metaInfo () {
+    if (!this.$i18n) return
+
     return buildDefaultMetaTags({
       title: this.metaTitle,
       description: this.metaDescription,
