@@ -48,6 +48,9 @@ export default {
         },
         result ({ data }) {
           this.selectedTournament = data.eventScope
+        },
+        error () {
+          this.$router.push({ name: 'not-found' })
         }
       }
     },

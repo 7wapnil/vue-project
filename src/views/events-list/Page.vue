@@ -69,7 +69,10 @@ export default {
         skip: this.hasTournamentSlug || !this.hasTitleSlug,
         fetchPolicy: NETWORK_ONLY,
         result ({ data }) {
-          this.selectedEventScope = buildTitleTag(data.title)
+          if (data.length) this.selectedEventScope = buildTitleTag(data.title)
+        },
+        error () {
+          this.$router.push({ name: 'not-found' })
         }
       }
     },

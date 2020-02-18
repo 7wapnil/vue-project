@@ -94,7 +94,7 @@ export default {
           withScopes: true
         },
         error () {
-          this.$router.push({ path: '/page-not-found' })
+          this.$router.push({ name: 'not-found' })
         }
       }
     }
