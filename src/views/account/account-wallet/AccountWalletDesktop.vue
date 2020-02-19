@@ -44,8 +44,8 @@
               pills
             >
               <b-nav-item
-                v-for="(wallet, index) in inactiveWalletsList"
-                :key="index"
+                v-for="wallet in inactiveWalletsList"
+                :key="wallet.id"
                 class="mobile-wallet-switch"
                 @click.prevent="selectWallet(wallet)">
                 <b-row no-gutters>
