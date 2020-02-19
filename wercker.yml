@@ -1,4 +1,5 @@
 box: node:10.16-alpine
+command-timeout: 45
 
 build:
   steps:
@@ -20,7 +21,6 @@ build:
 
 store:
   docker: true
-  command-timeout: 45
   box:
     id: arcanebet/frontend
     username: $DOCKERHUB_USERNAME
