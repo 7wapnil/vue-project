@@ -33,6 +33,7 @@
 </template>
 
 <script>
+import { buildDefaultMetaTags } from '@/helpers/meta'
 import { ESPORTS } from '@/constants/title-kinds'
 import { TOURNAMENT } from '@/constants/event-scopes/kinds'
 import { TITLE_QUERY, SCOPE_QUERY } from '@/graphql'
@@ -68,7 +69,10 @@ export default {
         skip: this.hasTournamentSlug || !this.hasTitleSlug,
         fetchPolicy: NETWORK_ONLY,
         result ({ data }) {
-          this.selectedEventScope = buildTitleTag(data.title)
+          if (data.length) this.selectedEventScope = buildTitleTag(data.title)
+        },
+        error () {
+          this.$router.push({ name: 'not-found' })
         }
       }
     },
@@ -80,11 +84,22 @@ export default {
         fetchPolicy: NETWORK_ONLY,
         result ({ data }) {
           const payload = data.eventScope
+
           this.selectedTournament = payload
           this.selectedEventScope = buildTitleTag(payload.title)
         }
       }
     }
+  },
+  metaInfo () {
+    if (!this.$i18n) return
+
+    return buildDefaultMetaTags({
+      title: this.metaTitle,
+      description: this.metaDescription,
+      i18n: this.$i18n,
+      siteUrl: window.location.href
+    })
   },
   data () {
     return {
@@ -95,6 +110,36 @@ export default {
     }
   },
   computed: {
+    metaTitle () {
+      if (this.$route.name === 'home') return this.$i18n.t(`meta.defaultTags.title`)
+
+      if (this.hasTournamentSlug && this.selectedTournament) {
+        return this.selectedTournament.metaTitle ||
+               this.$i18n.t(`meta.${this.$route.params.titleKind}.tournament.title`)
+      }
+
+      if (this.hasTitleSlug && this.selectedEventScope && this.selectedEventScope.id) {
+        return this.selectedEventScope.metaTitle ||
+               this.$i18n.t(`meta.${this.$route.params.titleKind}.eventScope.title`, { name: this.selectedEventScope.name })
+      }
+
+      return this.$i18n.t(`meta.${this.$route.params.titleKind}.title`)
+    },
+    metaDescription () {
+      if (this.$route.name === 'home') return this.$i18n.t(`meta.defaultTags.description`)
+
+      if (this.hasTournamentSlug && this.selectedTournament) {
+        return this.selectedTournament.metaDescription ||
+               this.$i18n.t(`meta.${this.$route.params.titleKind}.tournament.description`)
+      }
+
+      if (this.hasTitleSlug && this.selectedEventScope && this.selectedEventScope.id) {
+        return this.selectedEventScope.metaDescription ||
+               this.$i18n.t(`meta.${this.$route.params.titleKind}.eventScope.description`, { name: this.selectedEventScope.name })
+      }
+
+      return this.$i18n.t(`meta.${this.$route.params.titleKind}.description`)
+    },
     eventListProps () {
       if (!this.selectedFilter) { return null }
 

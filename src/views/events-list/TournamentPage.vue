@@ -22,6 +22,7 @@
 </template>
 
 <script>
+import { buildDefaultMetaTags } from '@/helpers/meta'
 import { TOURNAMENT } from '@/constants/event-scopes/kinds'
 import { SCOPE_QUERY, TOURNAMENT_EVENTS } from '@/graphql'
 import EventsList from '@/components/events/EventsList'
@@ -47,6 +48,9 @@ export default {
         },
         result ({ data }) {
           this.selectedTournament = data.eventScope
+        },
+        error () {
+          this.$router.push({ name: 'not-found' })
         }
       }
     },
@@ -56,6 +60,16 @@ export default {
         ...this.subscribeToMore
       }
     }
+  },
+  metaInfo () {
+    if (!this.$i18n) return
+
+    return buildDefaultMetaTags({
+      title: this.metaTitle,
+      description: this.metaDescription,
+      i18n: this.$i18n,
+      siteUrl: window.location.href
+    })
   },
   data () {
     return {
@@ -72,6 +86,16 @@ export default {
     }
   },
   computed: {
+    metaTitle () {
+      return (this.selectedTournament && this.selectedTournament.metaTitle)
+        ? this.selectedTournament.metaTitle
+        : this.$i18n.t(`meta.${this.$route.params.titleKind}.tournament.title`)
+    },
+    metaDescription () {
+      return (this.selectedTournament && this.selectedTournament.metaDescription)
+        ? this.selectedTournament.metaDescription
+        : this.$i18n.t(`meta.${this.$route.params.titleKind}.tournament.description`)
+    },
     query () {
       return {
         query: TOURNAMENT_EVENTS,

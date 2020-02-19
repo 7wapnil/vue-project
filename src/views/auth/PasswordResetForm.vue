@@ -73,6 +73,7 @@
 </template>
 
 <script>
+import { buildDefaultMetaTags } from '@/helpers/meta'
 import { Form } from '@/helpers'
 import { mapActions } from 'vuex'
 import { TOKEN_VERIFICATION_QUERY } from '@/graphql/index'
@@ -107,6 +108,17 @@ export default {
         }
       }
     }
+  },
+  metaInfo () {
+    if (!this.$i18n) return
+
+    return buildDefaultMetaTags({
+      title: this.$i18n.t('meta.resetPassword.title'),
+      description: this.$i18n.t('meta.resetPassword.description'),
+      i18n: this.$i18n,
+      siteUrl: window.location.href,
+      robots: 'noindex,nofollow'
+    })
   },
   computed: {
     anyEmptyField () {

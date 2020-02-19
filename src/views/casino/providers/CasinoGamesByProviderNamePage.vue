@@ -23,6 +23,7 @@
 </template>
 
 <script>
+import { buildDefaultMetaTags } from '@/helpers/meta'
 import CategoryPlayItems from '@/components/casino-games/play-items-list/CategoryPlayItems'
 import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
 import { GAMES_BY_PROVIDER, COUNTRY_BY_REQUEST_QUERY } from '@/graphql'
@@ -36,11 +37,34 @@ export default {
       itemsPerPage: 20,
       gamesCollection: [],
       paginationProps: Object,
+      providerObject: null,
       emptyGamesList: false,
       country: ''
     }
   },
+  metaInfo () {
+    if (!this.$i18n) return
+
+    return buildDefaultMetaTags({
+      title: this.metaTitle,
+      description: this.metaDescription,
+      i18n: this.$i18n,
+      siteUrl: window.location.href
+    })
+  },
   computed: {
+    metaTitle () {
+      if (!this.providerObject) return this.$i18n.t('meta.casino.title')
+
+      return this.providerObject.metaTitle ||
+             this.$i18n.t('meta.casino.provider.title', { name: this.providerObject.name })
+    },
+    metaDescription () {
+      if (!this.providerObject) return this.$i18n.t('meta.live-casino.description')
+
+      return this.providerObject.metaDescription ||
+        this.$i18n.t('meta.casino.provider.description', { name: this.providerObject.name })
+    },
     formatLabelName () {
       const name = this.$route.params.providerName
       const capitalizedName = name.substr(0, 1).toUpperCase() +
@@ -59,7 +83,9 @@ export default {
   },
   created () {
     this.$route.params.category = 'providers'
-    this.$route.params.label = this.$route.params.providerFullName || this.formatLabelName
+    this.$route.params.label = this.providerObject
+      ? this.providerObject.name
+      : this.$route.params.providerFullName || this.formatLabelName
   },
   apollo: {
     gamesByProvider () {
@@ -74,12 +100,13 @@ export default {
           }
         },
         result ({ data }) {
-          if (!data.gamesByProvider.collection.length) {
-            this.emptyGamesList = true
-          }
+          const payload = data.gamesByProvider
 
-          this.gamesCollection = data.gamesByProvider.collection
-          this.paginationProps = data.gamesByProvider.pagination
+          if (!payload.collection.length) this.emptyGamesList = true
+
+          this.providerObject = payload.provider
+          this.gamesCollection = payload.collection
+          this.paginationProps = payload.pagination
         }
       }
     },
@@ -109,6 +136,7 @@ export default {
 
           return {
             gamesByProvider: {
+              provider: fetchMoreResult.gamesByProvider.provider,
               collection: this.mergePlayItems(previousResult, fetchMoreResult),
               __typename: previousResult.gamesByProvider.__typename,
               pagination: fetchMoreResult.gamesByProvider.pagination

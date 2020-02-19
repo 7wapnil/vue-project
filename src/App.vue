@@ -43,13 +43,6 @@ export default {
   computed: {
     ...mapGetters(['isLoggedIn', 'getUser'])
   },
-  metaInfo () {
-    const key = this.$route.params.titleKind || 'defaultTags'
-    return {
-      title: this.$i18n.t(`meta.${key}.title`),
-      meta: [{ name: 'description', content: this.$i18n.t(`meta.${key}.description`), vmid: 'desc' }]
-    }
-  },
   created () {
     EVENTS.forEach(event => window.addEventListener(event, this.updateOnlineStatus))
     this.updateOnlineStatus()

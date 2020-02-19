@@ -48,7 +48,7 @@ export default {
       let data = this.titles.map(buildTitleTag)
 
       if (this.isKindEsport) {
-        data.unshift({ id: null, slug: null, label: 'All', icon: 'arcanebet-default-icon' })
+        data.unshift({ id: null, slug: null, label: 'All', name: 'All', icon: 'arcanebet-default-icon' })
       }
 
       return data
