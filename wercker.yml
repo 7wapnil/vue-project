@@ -20,6 +20,7 @@ build:
 
 store:
   docker: true
+  command-timeout: 45
   box:
     id: arcanebet/frontend
     username: $DOCKERHUB_USERNAME
