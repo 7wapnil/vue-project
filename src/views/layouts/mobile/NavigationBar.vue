@@ -51,7 +51,8 @@ export default {
   extends: UserProfileMenu,
   computed: {
     isParentRoute () {
-      return TITLE_KINDS.includes(this.$route.params.titleKind)
+      return !this.$route.params.undefinedPage &&
+             TITLE_KINDS.includes(this.$route.params.titleKind)
     }
   }
 }

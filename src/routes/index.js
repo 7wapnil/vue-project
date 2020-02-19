@@ -10,7 +10,7 @@ import moment from 'moment'
 import filters from '@/mixins/filters'
 import { colors } from '@/constants/android-theme-colors'
 import Layout from '@/views/layouts/common/Layout'
-import { TITLE_KINDS } from '@/constants/title-kinds'
+import { TITLE_KINDS, ESPORTS } from '@/constants/title-kinds'
 import NotFound from '@/views/layouts/common/NotFound'
 import Sidemenu from '@/components/side-menu/SideMenu'
 import Betslip from '@/components/betslip/Betslip'
@@ -73,7 +73,8 @@ router.beforeEach((to, from, next) => {
   if (path && isSupported) {
     to.params.titleKind = path[1]
   } else {
-    to.params.titleKind = 'support'
+    to.params.titleKind = ESPORTS
+    to.params.undefinedPage = true
   }
 
   if (to.params.titleKind) {
