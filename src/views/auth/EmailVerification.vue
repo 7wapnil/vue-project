@@ -72,6 +72,7 @@
 </template>
 
 <script>
+import { buildDefaultMetaTags } from '@/helpers/meta'
 import { VERIFY_EMAIL } from '@/graphql'
 
 export default {
@@ -80,6 +81,17 @@ export default {
       sending: true,
       error: null
     }
+  },
+  metaInfo () {
+    if (!this.$i18n) return
+
+    return buildDefaultMetaTags({
+      title: this.$i18n.t('meta.emailVerification.title'),
+      description: this.$i18n.t('meta.emailVerification.description'),
+      i18n: this.$i18n,
+      siteUrl: window.location.href,
+      robots: 'noindex,nofollow'
+    })
   },
   computed: {
     token () {

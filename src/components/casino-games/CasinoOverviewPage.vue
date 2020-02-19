@@ -13,6 +13,7 @@
 </template>
 
 <script>
+import { buildDefaultMetaTags } from '@/helpers/meta'
 import OverviewPlayItems from '@/components/casino-games/play-items-list/OverviewPlayItems'
 import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
 import { GAMES_OVERVIEW_QUERY } from '@/graphql'
@@ -28,6 +29,16 @@ export default {
     return {
       categories: [],
     }
+  },
+  metaInfo () {
+    if (!this.$i18n) return
+
+    return buildDefaultMetaTags({
+      title: this.$i18n.t('meta.casino.title'),
+      description: this.$i18n.t('meta.casino.description'),
+      i18n: this.$i18n,
+      siteUrl: window.location.href
+    })
   },
   apollo: {
     gamesOverview () {

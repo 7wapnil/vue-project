@@ -19,6 +19,7 @@
 </template>
 
 <script>
+import { buildDefaultMetaTags } from '@/helpers/meta'
 import CategoryPlayItems from './play-items-list/CategoryPlayItems'
 import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
 import { GAMES_QUERY } from '@/graphql'
@@ -37,9 +38,20 @@ export default {
     return {
       gamesCollection: [],
       paginationProps: Object,
+      categoryObject: null,
       itemsPerPage: 25,
       page: 1
     }
+  },
+  metaInfo () {
+    if (!this.$i18n) return
+
+    return buildDefaultMetaTags({
+      title: this.metaTitle,
+      description: this.metaDescription,
+      i18n: this.$i18n,
+      siteUrl: window.location.href
+    })
   },
   apollo: {
     games () {
@@ -54,13 +66,33 @@ export default {
           }
         },
         result ({ data }) {
-          this.gamesCollection = data.games.collection
-          this.paginationProps = data.games.pagination
+          const payload = data.games
+
+          if (!payload) return
+
+          this.categoryObject = payload.category
+          this.gamesCollection = payload.collection
+          this.paginationProps = payload.pagination
+        },
+        error () {
+          this.$router.push({ name: 'not-found' })
         }
       }
     }
   },
   computed: {
+    metaTitle () {
+      if (!this.categoryObject) return this.$i18n.t('meta.casino.title')
+
+      return this.categoryObject.metaTitle ||
+             this.$i18n.t('meta.casino.category.title', { name: this.categoryObject.label })
+    },
+    metaDescription () {
+      if (!this.categoryObject) return this.$i18n.t('meta.casino.description')
+
+      return this.categoryObject.metaDescription ||
+             this.$i18n.t('meta.casino.category.description', { name: this.categoryObject.label })
+    },
     lastPage () {
       return this.paginationProps.next === null
     }
@@ -80,6 +112,7 @@ export default {
 
           return {
             games: {
+              category: fetchMoreResult.games.category,
               collection: this.mergePlayItems(previousResult, fetchMoreResult),
               __typename: previousResult.games.__typename,
               pagination: fetchMoreResult.games.pagination

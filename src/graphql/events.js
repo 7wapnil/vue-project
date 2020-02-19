@@ -129,7 +129,7 @@ export const EVENT_CONTEXTS = gql`
         tournamentId: $tournamentId,
         categoryId: $categoryId
       }) {
-          ${EVENT_CONTEXTS_FIELDS}
+        ${EVENT_CONTEXTS_FIELDS}
       }
   }
 `
