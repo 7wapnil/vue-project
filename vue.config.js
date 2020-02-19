@@ -48,7 +48,6 @@ if (process.env.NODE_ENV === 'production') {
       routes: [
         // Static pages
         '/',
-        '/maintenance',
         '/page-not-found',
         '/esports',
         '/sports',
@@ -66,7 +65,6 @@ if (process.env.NODE_ENV === 'production') {
         '/support/faq',
         '/about',
         '/about/about-arcanebet',
-        '/about/affiliates-arcanebet',
         '/promotions',
         '/promotions/welcome-offer-sport',
         '/promotions/welcome-offer-casino',
@@ -896,7 +894,10 @@ if (process.env.NODE_ENV === 'production') {
         headless: true,
         args: ['--no-sandbox', '--disable-setuid-sandbox'],
         renderAfterDocumentEvent: 'render-event',
-        maxConcurrentRoutes: 4
+        maxConcurrentRoutes: 2,
+        consoleHandler: (route, handler) => {
+          console.log(route, handler.text())
+        }
       })
     }),
     new CompressionPlugin({
@@ -904,7 +905,7 @@ if (process.env.NODE_ENV === 'production') {
       algorithm: 'gzip',
       test: /\.(js|css|html)$/,
       compressionOptions: { level: CompressionLevel },
-      minRatio: 0.8, // default
+      minRatio: 0.8 // default
     })
   ])
 }
