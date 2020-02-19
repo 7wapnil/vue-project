@@ -109,16 +109,12 @@
 }
 .mobile-wallet-switch-mobile {
   @extend %mobile-wallet-switch;
-  border-bottom: 1px solid $arc-clr-soil-cover;
-  &:hover {
-    background-color: unset;
-    .mobile-wallet-switch-amount {
-      color: $arc-clr-white !important;
-    }
-  }
-  &:active {
-    background-color: #171717;
-    border-radius: 3px;
+  background: $arc-clr-soil-dark;
+  height: 40px;
+  margin-bottom: 5px;
+  .nav-link {
+    background-color: $arc-clr-soil-black;
+    border-radius: 6px;
   }
 }
 
