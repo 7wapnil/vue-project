@@ -896,7 +896,21 @@ if (process.env.NODE_ENV === 'production') {
         renderAfterDocumentEvent: 'render-event',
         maxConcurrentRoutes: 2,
         consoleHandler: (route, handler) => {
-          console.log(route, handler.text())
+          let progressMarkers = [
+            '/',
+            '/esports/call-of-duty',
+            '/esports/37',
+            '/sports/7-ball-run',
+            '/sports/1',
+            '/casino/favorites',
+            '/live-casino/blackjack',
+            '/casino/providers/bet-on-finance',
+            '/casino/providers/1'
+          ]
+
+          if (progressMarkers.includes(route)) {
+            console.log(route, handler.text())
+          }
         }
       })
     }),
