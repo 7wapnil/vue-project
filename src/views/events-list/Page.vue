@@ -173,8 +173,8 @@ export default {
     checkEventKind (kind = ESPORTS) {
       return this.$route.params.titleKind === kind && this.eventListProps
     },
-    visibilityChanged () {
-      this.$emit('auth-block:changed:visibility')
+    visibilityChanged (isVisible) {
+      this.$emit('auth-block:changed:visibility', isVisible)
     }
   }
 }
