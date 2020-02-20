@@ -35,7 +35,7 @@
           </div>
         </div>
         <div
-          v-if="!isLoggedIn && !isParentRoute"
+          v-if="!hasLoginBlock && !isLoggedIn"
           class="d-flex align-items-center justify-content-end">
           <b-btn
             v-b-modal.AuthModal
@@ -51,14 +51,13 @@
 
 <script>
 import UserProfileMenu from '@/components/navbar/profile/UserProfileMenu'
-import { TITLE_KINDS } from '@/constants/title-kinds'
 
 export default {
   extends: UserProfileMenu,
-  computed: {
-    isParentRoute () {
-      return !this.$route.params.undefinedPage &&
-             TITLE_KINDS.includes(this.$route.params.titleKind)
+  props: {
+    hasLoginBlock: {
+      type: Boolean,
+      required: true
     }
   }
 }
