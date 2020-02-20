@@ -47,8 +47,8 @@ export default {
     }
   },
   methods: {
-    visibilityChanged () {
-      this.$emit('auth-block:changed:visibility')
+    visibilityChanged (isVisible) {
+      this.$emit('auth-block:changed:visibility', isVisible)
     }
   }
 }

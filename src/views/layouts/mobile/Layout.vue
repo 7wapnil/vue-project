@@ -6,12 +6,12 @@
     <div class="mobile-container">
       <router-view
         name="header"
-        @auth-block:changed:visibility="hasLoginBlock = !hasLoginBlock">
+        @auth-block:changed:visibility="changeLoginVisibility">
         <router-view name="tabs"/>
       </router-view>
       <router-view
         name="content"
-        @auth-block:changed:visibility="hasLoginBlock = !hasLoginBlock"/>
+        @auth-block:changed:visibility="changeLoginVisibility"/>
     </div>
     <navigation-sidebar v-show="isSidebarOpen"/>
     <betslip-button/>
@@ -59,7 +59,10 @@ export default {
   methods: {
     ...mapMutations([
       'toggleSidebar'
-    ])
+    ]),
+    changeLoginVisibility (isVisible) {
+      this.hasLoginBlock = isVisible
+    }
   }
 }
 </script>
