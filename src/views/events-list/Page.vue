@@ -3,7 +3,7 @@
     <introduction-area :title="activeTitle">
 
       <promo-section>
-        <auth-block/>
+        <auth-block v-observe-visibility="visibilityChanged"/>
       </promo-section>
 
       <tabs-section>
@@ -127,6 +127,9 @@ export default {
     },
     checkEventKind (kind = ESPORTS) {
       return this.$route.params.titleKind === kind && this.eventListProps
+    },
+    visibilityChanged () {
+      this.$emit('auth-block:changed:visibility')
     }
   }
 }
