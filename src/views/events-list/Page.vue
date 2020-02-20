@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :key="currentLobbyName">
     <introduction-area :title="activeTitle">
 
       <promo-section>

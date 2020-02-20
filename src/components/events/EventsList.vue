@@ -18,7 +18,7 @@
       class="mt-5"/>
 
     <div
-      v-if="!loading && !events.length"
+      v-if="!loading && !events.length && $route.params.titleSlug"
       class="text-center">
       <h6 class="my-4">
         {{ $t('common.noEventsFound') }}

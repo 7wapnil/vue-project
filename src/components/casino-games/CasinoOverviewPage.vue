@@ -55,8 +55,7 @@ export default {
         fetchPolicy: NETWORK_ONLY,
         result ({ data: { gamesOverview } }) {
           if (this.noGamesForCategories(gamesOverview)) {
-            this.errorMessage =
-              this.emptyOverview = true
+            this.emptyOverview = true
           }
 
           this.categories = gamesOverview.map((category, index) => {
