@@ -29,7 +29,7 @@
           <b-button variant="arc-profile-button-mobile"/>
         </div>
         <div
-          v-if="!hasLoginBlock"
+          v-if="!hasLoginBlock && !isLoggedIn"
           class="d-flex align-items-center justify-content-end">
           <b-btn
             v-b-modal.AuthModal
