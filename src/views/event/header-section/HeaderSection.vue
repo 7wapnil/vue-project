@@ -22,7 +22,7 @@ import TwitchStream from '@/components/events/TwitchStream'
 import EventBreadcrumbs from '@/views/event/header-section/EventBreadcrumbs'
 import EventDetails from '@/views/event/header-section/EventDetails'
 import EventDetailsBackground from '@/views/event/header-section/EventBackground'
-import { getTitleName } from '@/helpers/title-names'
+import { getTitleName } from '@/helpers/titles'
 
 export default {
   components: {

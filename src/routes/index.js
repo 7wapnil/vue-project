@@ -33,13 +33,24 @@ const router = new Router({
       component: Maintenance
     },
     {
+      path: 'page-not-found',
+      name: 'page-not-found',
+      component: Layout,
+      children: [{
+        path: '*',
+        components: {
+          content: NotFound
+        }
+      }]
+    },
+    {
       path: '*',
       name: 'not-found',
       component: Layout,
       children: [{
         path: '*',
         components: {
-          content: NotFound,
+          content: NotFound
         }
       }]
     }
@@ -73,6 +84,10 @@ router.beforeEach((to, from, next) => {
   const components = to.matched[to.matched.length - 1].components
   if (components) {
     to.meta.components = components
+  }
+
+  if (to.name === 'casino-game' || to.name === 'live-casino-game') {
+    to.meta.fromPage = from.name
   }
 
   const section = to.meta.themeColor || to.params.titleKind

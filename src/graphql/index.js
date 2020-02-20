@@ -1,6 +1,7 @@
 export * from './providers'
 export * from './titles'
 export * from './events'
+export * from './event-scopes'
 export * from './events-subscriptions'
 export * from './markets'
 export * from './documents'

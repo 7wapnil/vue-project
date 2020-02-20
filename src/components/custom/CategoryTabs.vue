@@ -8,25 +8,14 @@
     nav-class="category-tabs-nav mx-2 mx-md-5 no-scrollbars">
     <b-tab
       v-for="tab in tabs"
-      :key="tab.value"
+      :key="tab.id"
       no-body
-      title-link-class="category-tab px-4 py-3">
+      title-link-class="category-tab px-4 py-3"
+      @click="changeUrl(tab)">
       <template #title>
-        <b-row no-gutters>
-          <b-col>
-            <icon
-              :name="tab.icon"
-              color="arc-clr-iron"
-              size="24px"/>
-          </b-col>
-        </b-row>
-        <b-row no-gutters>
-          <b-col>
-            <span class="font-size-12 text-arc-clr-iron-light line-height-14">
-              {{ tab.label }}
-            </span>
-          </b-col>
-        </b-row>
+        <category-tab-body
+          :tab="tab"
+          @rendered="onTabRendered"/>
       </template>
     </b-tab>
 
@@ -34,7 +23,7 @@
       v-if="!isMobile"
       #tabs>
       <b-nav-item
-        v-if="categoryTabIndex !== tabs.length - 1"
+        v-if="tabIndex !== tabs.length - 1"
         class="right-side-navigation"
         @click="moveTab('right')">
         <icon
@@ -42,7 +31,7 @@
           name="chevron-right"/>
       </b-nav-item>
       <b-nav-item
-        v-if="categoryTabIndex > 0"
+        v-if="tabIndex > 0"
         class="left-side-navigation"
         @click="moveTab('left')">
         <icon name="chevron-left"/>
@@ -52,15 +41,16 @@
 </template>
 
 <script>
+import CategoryTabBody from './CategoryTabBody'
+
 export default {
+  components: {
+    CategoryTabBody
+  },
   props: {
     tabs: {
       type: Array,
       default () { return [] }
-    },
-    value: {
-      type: Number,
-      default: 0
     },
     position: {
       type: Number,
@@ -73,7 +63,8 @@ export default {
   },
   data () {
     return {
-      categoryTabIndex: 0
+      categoryTabIndex: this.position,
+      renderedTabsCount: 0
     }
   },
   computed: {
@@ -84,9 +75,8 @@ export default {
       set (value) {
         this.categoryTabIndex = value
         const tab = this.tabs[this.categoryTabIndex]
-        if (tab) {
-          this.$emit('tab-changed', tab)
-        }
+
+        if (tab) this.$emit('tab-changed', tab)
       }
     }
   },
@@ -94,27 +84,45 @@ export default {
     position (tab) {
       this.tabIndex = tab
     },
-    $route () {
-      this.tabIndex = 0
-    }
-  },
-  created () {
-    if (this.$route.params.titleKind) {
-      this.tabIndex = this.tabs.findIndex((tab) => tab.value === this.$route.params.titleId) || 0
+    tabs (_list, oldList) {
+      this.renderedTabsCount = oldList.length
     }
   },
   methods: {
     moveTab (side) {
       let content = document.querySelector('.category-tabs-nav')
       let step = document.getElementsByClassName('category-tab active')[0].clientWidth
+
       if (side === 'right') {
         content.scrollLeft += step
-        this.categoryTabIndex++
+        this.tabIndex++
       } else {
         content.scrollLeft -= step
-        this.categoryTabIndex--
+        this.tabIndex--
+      }
+
+      this.changeUrl(this.tabs[this.tabIndex])
+    },
+    onTabRendered () {
+      this.renderedTabsCount++
+
+      if (this.renderedTabsCount === this.tabs.length) {
+        this.tabIndex = this.position
+      }
+    },
+    changeUrl (tab) {
+      if (tab.slug) {
+        this.$router.push({
+          name: `${this.$route.params.titleKind}-title`,
+          params: {
+            titleKind: this.$route.params.titleKind,
+            titleSlug: tab.slug
+          }
+        })
+      } else {
+        this.$router.push({ name: this.$route.params.titleKind })
       }
     }
-  },
+  }
 }
 </script>
