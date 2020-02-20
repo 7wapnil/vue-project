@@ -21,7 +21,7 @@
           <img :src="require(`@/assets/images/logo/arcanebet-logo-mobile.svg`)">
         </b-navbar-brand>
       </b-col>
-      <b-col class="navbar-mobile-profile-section">
+      <b-col :class="[isLoggedIn ? 'navbar-mobile-profile-section' : 'mobile-login-section']">
         <div
           v-if="isLoggedIn"
           class="h-100 w-100 d-flex flex-column align-items-end justify-content-center"
@@ -69,5 +69,8 @@ export default {
     padding: 6px 25px;
     letter-spacing: .02em;
     font-size: 12px;
+  }
+  .mobile-login-section {
+    padding: 14px 16px !important;
   }
 </style>
