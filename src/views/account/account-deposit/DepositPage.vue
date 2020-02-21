@@ -4,7 +4,32 @@
     <deposit-errors
       :deposit-state="depositState"
       :deposit-message="depositMessage"/>
+    <div v-if="address && showChangelly">
+      <div
+        v-if="!isMobile"
+        class="mb-1 d-flex align-items-center pointer"
+        @click="resetAll">
+        <icon
+          name="chevron-left"
+          class="mr-2"
+          color="arc-clr-white"
+          size="14px"/>
+        {{ $t('account.deposit.crypto.goBack') }}
+      </div>
+      <b-embed
+        :src="`https://widget.changelly.com?currencies=*&from=eth&to=btc&amount=10&address=${address}&fiat=true&fixedTo=true&theme=default&merchant_id=fe955c18c16b&payment_id=`"
+        type="iframe"
+        aspect="1by1"
+        allowfullscreen
+        width="100%"
+        height="600"
+        class="changelly"
+        scrolling="no"
+        on-load="function ue(e){var t=e.target,n=t.parentNode,r=t.contentWindow,o=function(){return r.postMessage({width:n.offsetWidth},'undefined'!==typeof z?z.url:'https://widget.changelly.com')};window.addEventListener('resize',o),o()};ue.apply(this, arguments);"
+        style="min-width: 100%; width: 100px; overflow-y: hidden; border: none"/>
+    </div>
     <component
+      v-else
       :is="layout"
       :deposit-state="depositState">
       <deposit-amount
@@ -70,7 +95,7 @@ import DepositMethods from '@/views/account/account-deposit/deposit-form/Deposit
 import DepositErrors from '@/views/account/account-deposit/DepositErrors'
 import DepositSummary from '@/views/account/account-deposit/deposit-summary/DepositSummary'
 import { EUR } from '@/constants/currencies'
-import { BITCOIN } from '@/constants/payments/methods'
+import { BITCOIN, CHANGELLY } from '@/constants/payments/methods'
 import { Form } from '@/helpers'
 import { getCurrencyKind } from '@/helpers/wallet'
 
@@ -197,6 +222,13 @@ export default {
       if (wallet && wallet.id) this.setActiveWallet(wallet.id)
       this.paymentMethod = method
     },
+    resetAll () {
+      this.address = null
+      this.showChangelly = null
+      this.fields.amount = null
+      this.resetPaymentMethod()
+      this.resetBonus()
+    },
     resetPaymentMethod () {
       this.isCryptoSectionShown = false
       this.paymentMethod = null
@@ -271,6 +303,7 @@ export default {
     },
     submitDeposit () {
       this.isSubmitting = true
+
       const input = {
         paymentMethod: this.paymentMethod.code,
         currencyCode: this.currency,
@@ -281,21 +314,27 @@ export default {
       this.$apollo.mutate({
         mutation: DEPOSIT_MUTATION,
         variables: { input }
-      }).then(({ data: { deposit } }) => {
-        if (this.paymentMethod.code === BITCOIN) {
-          this.isCryptoSectionShown = true
-          this.address = deposit.url
-        } else {
-          this.depositState = DEPOSIT_SUCCESS
-          this.depositMessage = deposit.message
-          window.location.href = deposit.url
-        }
-      }).catch(({ graphQLErrors }) => {
-        this.depositState = DEPOSIT_FAIL
-        this.depositMessage = graphQLErrors[0].message
-      }).finally(() => {
-        this.isSubmitting = false
       })
+        .then(({ data: { deposit } }) => this.depositSuccess(deposit))
+        .catch(({ graphQLErrors }) => {
+          this.depositState = DEPOSIT_FAIL
+          this.depositMessage = graphQLErrors[0].message
+        }).finally(() => {
+          this.isSubmitting = false
+        })
+    },
+    depositSuccess (deposit) {
+      if (this.paymentMethod.code === BITCOIN) {
+        this.isCryptoSectionShown = true
+        this.address = deposit.url
+      } else if (this.paymentMethod.code === CHANGELLY) {
+        this.address = deposit.url
+        this.showChangelly = true
+      } else {
+        this.depositState = DEPOSIT_SUCCESS
+        this.depositMessage = deposit.message
+        window.location.href = deposit.url
+      }
     }
   }
 }
