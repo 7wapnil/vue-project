@@ -42,6 +42,7 @@ import creditCard from '@/assets/icons/payment-methods/card.svg'
 import bitcoin from '@/assets/icons/payment-methods/bitcoin.svg'
 import neteller from '@/assets/icons/payment-methods/neteller.svg'
 import ecoPayz from '@/assets/icons/payment-methods/ecopayz.svg'
+import changelly from '@/assets/icons/payment-methods/changelly.svg'
 
 export default {
   props: {
@@ -75,7 +76,8 @@ export default {
         credit_card: creditCard,
         eco_payz: ecoPayz,
         bitcoin,
-        neteller
+        neteller,
+        changelly
       }
     }
   },
