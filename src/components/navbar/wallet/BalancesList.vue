@@ -52,6 +52,17 @@
       </b-row>
     </template>
 
+    <b-dropdown-divider class="border-arc-dropdown-divider my-0"/>
+
+    <balance-amounts
+      :currency-code="currencyCode"
+      :real-money="realMoney"
+      :sport-money="sportMoney"
+      :casino-money="casinoMoney"
+    />
+
+    <b-dropdown-divider class="border-arc-dropdown-divider my-0"/>
+
     <template v-if="inactiveWalletsList.length">
       <div
         v-for="wallet in inactiveWalletsList"
@@ -95,12 +106,14 @@
 
 <script>
 import BonusSection from './BonusSection'
+import BalanceAmounts from '@/components/navbar/wallet/BalanceAmounts'
 import { mapGetters, mapMutations } from 'vuex'
 import { getBalanceWithBonus } from '@/helpers/wallet'
 
 export default {
   components: {
-    BonusSection
+    BonusSection,
+    BalanceAmounts
   },
   computed: {
     ...mapGetters({
@@ -127,6 +140,20 @@ export default {
       if (this.isGamePage) return this.$i18n.t('casino.seeInGame')
       return this.getBalanceWithBonus(this.activeWallet, this.currentLobbySection)
     },
+    currencyCode () {
+      return this.activeWallet.currency.code
+    },
+    realMoney () {
+      return this.activeWallet.realMoneyBalance || 0
+    },
+    sportMoney () {
+      if (!this.activeWallet.userBonus || !this.activeWallet.userBonus.sportsbook) return 0
+      return this.activeWallet.bonusBalance || 0
+    },
+    casinoMoney () {
+      if (!this.activeWallet.userBonus || !this.activeWallet.userBonus.casino) return 0
+      return this.activeWallet.bonusBalance || 0
+    }
   },
   methods: {
     ...mapMutations({ setActiveWallet: 'setActiveWallet' }),
