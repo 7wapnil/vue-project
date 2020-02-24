@@ -13,6 +13,7 @@ import { colors } from '@/constants/android-theme-colors'
 import Layout from '@/views/layouts/common/Layout'
 import { TITLE_KINDS } from '@/constants/title-kinds'
 import NotFound from '@/views/layouts/common/NotFound'
+import store from '@/stores'
 
 const rootChilds = [...Esports, ...Sports, ...LiveCasino, ...Casino, ...support.routes, ...system]
 
@@ -60,6 +61,14 @@ const router = new Router({
       const container = document.documentElement
       const position = savedPosition || { x: 0, y: 0 }
 
+      if ('scrollRestoration' in history) { history.scrollRestoration = 'manual' }
+
+      if (to.name === 'casino-category' && from.name === 'casino-game') {
+        store.commit('storeLazyLoadPosition', position)
+        store.commit('storeScrollStatus', true)
+      }
+      if (from.name === 'casino-game') { return }
+
       setTimeout(() => {
         container.scrollTo(position.x, position.y)
         resolve()
@@ -86,9 +95,8 @@ router.beforeEach((to, from, next) => {
     to.meta.components = components
   }
 
-  if (to.name === 'casino-game' || to.name === 'live-casino-game') {
-    to.meta.fromPage = from.name
-  }
+  to.meta.toPage = to.name ? to : null
+  to.meta.fromPage = from.name ? from : null
 
   const section = to.meta.themeColor || to.params.titleKind
   if (section) {

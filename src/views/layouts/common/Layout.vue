@@ -18,7 +18,7 @@ export default {
   },
   computed: {
     titleKind () {
-      return this.$route.params.titleKind === 'support' ? ESPORTS : this.$route.params.titleKind
+      return this.$route.params.titleKind || ESPORTS
     },
     layoutName () {
       const name = this.isMobileDevice ? 'mobile' : 'desktop'

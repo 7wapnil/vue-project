@@ -1,11 +1,12 @@
 <template>
   <div>
-    <category-play-items :play-items="gamesCollection"/>
+    <category-play-items
+      :play-items="gamesCollection"/>
     <loader v-if="$apollo.loading"/>
     <b-row no-gutters>
       <b-col
         v-observe-visibility="{
-          throttle: 300,
+
           callback: loadMoreGames
         }"
         v-if="!lastPage"/>
@@ -20,8 +21,9 @@
 
 <script>
 import CategoryPlayItems from './play-items-list/CategoryPlayItems'
-import { CACHE_AND_NETWORK } from '@/constants/graphql/fetch-policy'
+import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
 import { GAMES_QUERY } from '@/graphql'
+import { mapMutations, mapGetters } from 'vuex'
 
 export default {
   components: {
@@ -45,27 +47,46 @@ export default {
     games () {
       return {
         query: GAMES_QUERY,
-        fetchPolicy: CACHE_AND_NETWORK,
+        fetchPolicy: NETWORK_ONLY,
         variables () {
           return {
             context: this.category,
-            page: 1,
-            perPage: this.itemsPerPage,
+            page: this.page,
+            perPage: this.itemsPerPage
           }
         },
         result ({ data }) {
-          this.gamesCollection = data.games.collection
-          this.paginationProps = data.games.pagination
+            this.gamesCollection = data.games.collection
+            this.paginationProps = data.games.pagination
+
+            if (this.getLazyLoadPosition && this.getScrollStatus) { this.setPosition() }
         }
       }
     }
   },
+  mounted () {
+    this.page = this.getLazyLoadPosition ? this.getLazyLoadPageNumber : 1
+    this.itemsPerPage = this.getLazyLoadPosition ? this.getLazyLoadPageNumber * this.itemsPerPage : this.itemsPerPage
+  },
   computed: {
+    ...mapGetters([
+        'getLazyLoadPageNumber',
+        'getLazyLoadPosition',
+        'getScrollStatus'
+    ]),
     lastPage () {
       return this.paginationProps.next === null
     }
   },
+  watch: {
+    'page': 'savePageNumber'
+  },
   methods: {
+      ...mapMutations({
+      storeLazyLoadPageNumber: 'storeLazyLoadPageNumber',
+      storeLazyLoadPosition: 'storeLazyLoadPosition',
+      storeScrollStatus: 'storeScrollStatus'
+      }),
     loadMoreGames (isVisible) {
       if (this.$apollo.loading || !isVisible) return
 
@@ -77,7 +98,6 @@ export default {
         },
         updateQuery: (previousResult, { fetchMoreResult }) => {
           if (!fetchMoreResult) return previousResult
-
           return {
             games: {
               collection: this.mergePlayItems(previousResult, fetchMoreResult),
@@ -92,6 +112,13 @@ export default {
       oldItems.games.collection.push(...newItems.games.collection)
 
       return oldItems.games.collection
+    },
+    savePageNumber () {
+        return this.storeLazyLoadPageNumber(this.paginationProps.next)
+    },
+    setPosition () {
+        setTimeout(()=> { window.scrollTo(0, this.getLazyLoadPosition.y)}, 1)
+        this.storeScrollStatus(false)
     }
   }
 }
