@@ -51,28 +51,24 @@ export default {
         variables () {
           return {
             context: this.category,
-            page: this.page,
-            perPage: this.itemsPerPage
+            page: 1,
+            perPage: this.getScrollStatus ? this.getLazyLoadPageNumber * this.itemsPerPage : this.itemsPerPage
           }
         },
         result ({ data }) {
-            this.gamesCollection = data.games.collection
-            this.paginationProps = data.games.pagination
+          this.gamesCollection = data.games.collection
+          this.paginationProps = data.games.pagination
 
-            if (this.getLazyLoadPosition && this.getScrollStatus) { this.setPosition() }
+          if (this.getLazyLoadPosition && this.getScrollStatus) { this.setPosition() }
         }
       }
     }
   },
-  mounted () {
-    this.page = this.getLazyLoadPosition ? this.getLazyLoadPageNumber : 1
-    this.itemsPerPage = this.getLazyLoadPosition ? this.getLazyLoadPageNumber * this.itemsPerPage : this.itemsPerPage
-  },
   computed: {
     ...mapGetters([
-        'getLazyLoadPageNumber',
-        'getLazyLoadPosition',
-        'getScrollStatus'
+      'getLazyLoadPageNumber',
+      'getLazyLoadPosition',
+      'getScrollStatus'
     ]),
     lastPage () {
       return this.paginationProps.next === null
@@ -82,11 +78,11 @@ export default {
     'page': 'savePageNumber'
   },
   methods: {
-      ...mapMutations({
+    ...mapMutations({
       storeLazyLoadPageNumber: 'storeLazyLoadPageNumber',
       storeLazyLoadPosition: 'storeLazyLoadPosition',
       storeScrollStatus: 'storeScrollStatus'
-      }),
+    }),
     loadMoreGames (isVisible) {
       if (this.$apollo.loading || !isVisible) return
 
@@ -114,11 +110,11 @@ export default {
       return oldItems.games.collection
     },
     savePageNumber () {
-        return this.storeLazyLoadPageNumber(this.paginationProps.next)
+      return this.storeLazyLoadPageNumber(this.page)
     },
     setPosition () {
-        setTimeout(()=> { window.scrollTo(0, this.getLazyLoadPosition.y)}, 1)
-        this.storeScrollStatus(false)
+      setTimeout(() => { window.scrollTo(0, this.getLazyLoadPosition.y) }, 1)
+      this.storeScrollStatus(false)
     }
   }
 }
