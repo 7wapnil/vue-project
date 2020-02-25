@@ -51,6 +51,7 @@ export default {
   },
   watch: {
     $route () {
+      this.hasLoginBlock = false
       if (this.isSidebarOpen) {
         return this.toggleSidebar()
       }
