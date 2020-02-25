@@ -11,12 +11,16 @@
 <script>
 import CookieWarning from './CookieWarning'
 import { ESPORTS } from '@/constants/title-kinds'
+import { mapGetters, mapMutations } from 'vuex'
 
 export default {
   components: {
     CookieWarning
   },
   computed: {
+    ...mapGetters({
+      user: 'getUser',
+    }),
     titleKind () {
       return this.$route.params.titleKind || ESPORTS
     },
@@ -35,6 +39,17 @@ export default {
       this.$bvModal.show('AccountModal')
     }
 
+    if (this.$route.query.deposit) {
+      if (this.user) {
+        this.$bvModal.show('AccountModal')
+        this.changeTabIndex(3)
+      } else {
+        this.storeSuccessLoginUrl('openDeposit')
+        this.$bvModal.show('AuthModal')
+      }
+      this.$router.replace({ ...this.$router.currentRoute, query: { deposit: undefined } })
+    }
+
     if (this.$route.query.resetPassword) {
       this.$bvModal.show('AuthModal')
     }
@@ -42,6 +57,12 @@ export default {
     if (this.$route.query.changePassword) {
       this.$bvModal.show('AccountModal')
     }
-  }
+  },
+  methods: {
+    ...mapMutations({ storeSuccessLoginUrl: 'storeSuccessLoginUrl' }),
+    ...mapMutations('tabs', {
+      changeTabIndex: 'changeTabIndex',
+    }),
+  },
 }
 </script>
