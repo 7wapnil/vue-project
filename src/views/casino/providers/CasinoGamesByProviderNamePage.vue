@@ -11,7 +11,7 @@
         v-if="!errorMessage && !lastPage"
       />
       <b-col
-        v-else
+        v-if="errorMessage"
         class="px-4">
         <h4
           class="mb-0 text-arc-clr-iron">

@@ -4,7 +4,7 @@
     no-gutters>
     <b-col class="profile-modal-sidebar">
       <div class="profile-modal-sidebar-inner">
-        <profile-wallet @open-account-deposit-tab="changeTabIndex(depositTabIndex)"/>
+        <account-wallet @open-account-deposit-tab="changeTabIndex(depositTabIndex)"/>
         <b-nav
           class="h-100 bg-arc-clr-soil-black"
           vertical>
@@ -45,14 +45,14 @@
 </template>
 <script>
 import ChangePassword from '@/views/account/account-information/ChangePassword'
-import ProfileWallet from '@/views/account/AccountWallet'
+import AccountWallet from '@/views/account/account-wallet/AccountWallet'
 import { mapGetters, mapMutations } from 'vuex'
 import LivechatItem from '@/views/account/account-menu-items/LivechatItem'
 
 export default {
   components: {
     ChangePassword,
-    ProfileWallet,
+    AccountWallet,
     LivechatItem
   },
   data () {

@@ -23,8 +23,8 @@ export default {
         query: TITLES_QUERY,
         variables () {
           return {
-            kind: this.$route.params.titleKind,
-            context: this.$route.params.titleKind === ESPORTS ? UPCOMING : UPCOMING_FOR_TIME_TITLES_CONTEXT
+            kind: this.currentLobbyName,
+            context: this.currentLobbyName === ESPORTS ? UPCOMING : UPCOMING_FOR_TIME_TITLES_CONTEXT
           }
         },
         result () {
@@ -54,6 +54,9 @@ export default {
       return data
     }
   },
+  watch: {
+    titles: 'watchTitles'
+  },
   created () {
     this.$root.$on(TITLE_CHANGED, this.setActiveTabById)
   },
@@ -62,6 +65,19 @@ export default {
       const tabIndexToShow = this.tabs.findIndex(tab => tab.id === titleId)
 
       if (tabIndexToShow > -1) this.activeTabIndex = tabIndexToShow
+    },
+    watchTitles (val) {
+      const { titleSlug } = this.$route.params
+      if (val.length > 0 && this.currentLobbyName === 'sports' && !titleSlug) {
+        this.$router.push({
+          name: `${this.currentLobbyName}-title`,
+          params: {
+            titleKind: this.currentLobbyName,
+            titleSlug: val[0].slug
+          }
+        })
+        this.$emit('tab-changed', { ...val[0], label: val[0].name })
+      }
     }
   }
 }
