@@ -5,10 +5,7 @@
     <loader v-if="$apollo.loading"/>
     <b-row no-gutters>
       <b-col
-        v-observe-visibility="{
-
-          callback: loadMoreGames
-        }"
+        v-observe-visibility="loadMoreGames"
         v-if="!lastPage"/>
       <b-col
         v-if="!$apollo.loading && !gamesCollection.length"
@@ -21,9 +18,10 @@
 
 <script>
 import CategoryPlayItems from './play-items-list/CategoryPlayItems'
-import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
+import { CACHE_AND_NETWORK } from '@/constants/graphql/fetch-policy'
 import { GAMES_QUERY } from '@/graphql'
 import { mapMutations, mapGetters } from 'vuex'
+import { setCookie, getCookie } from '@/helpers/cookies'
 
 export default {
   components: {
@@ -40,26 +38,31 @@ export default {
       gamesCollection: [],
       paginationProps: Object,
       itemsPerPage: 25,
-      page: 1
+      page: 1,
+      positionSet: false
     }
   },
   apollo: {
     games () {
       return {
         query: GAMES_QUERY,
-        fetchPolicy: NETWORK_ONLY,
+        fetchPolicy: CACHE_AND_NETWORK,
         variables () {
           return {
             context: this.category,
             page: 1,
-            perPage: this.getScrollStatus ? this.getLazyLoadPageNumber * this.itemsPerPage : this.itemsPerPage
+            perPage: this.getScrollStatus ? Number(getCookie('page')) * this.itemsPerPage : this.itemsPerPage
           }
         },
         result ({ data }) {
           this.gamesCollection = data.games.collection
           this.paginationProps = data.games.pagination
 
-          if (this.getLazyLoadPosition && this.getScrollStatus) { this.setPosition() }
+          if (this.getLazyLoadPosition && this.getScrollStatus && !this.positionSet) {
+            const nextExists = Number(getCookie('page')) < Math.ceil(this.paginationProps.count / this.itemsPerPage)
+            this.paginationProps.next = nextExists ? Number(getCookie('page')) + 1 : null
+            this.setPosition()
+          }
         }
       }
     }
@@ -110,11 +113,11 @@ export default {
       return oldItems.games.collection
     },
     savePageNumber () {
-      return this.storeLazyLoadPageNumber(this.page)
+      return setCookie('page', +this.page)
     },
     setPosition () {
       setTimeout(() => { window.scrollTo(0, this.getLazyLoadPosition.y) }, 1)
-      this.storeScrollStatus(false)
+      this.positionSet = true
     }
   }
 }
