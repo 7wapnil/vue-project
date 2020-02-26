@@ -571,8 +571,8 @@ const messages = {
           waiting: 'Waiting for upload'
         },
         kinds: {
-          passport: 'Passport or Identity card',
-          bill: 'Utility Bill',
+          passport: 'ID documents',
+          proof_of_address: 'Proof of address',
           bank: 'Bank statement',
           card: 'Credit/Debit card',
           other: 'Other'
