@@ -8,7 +8,7 @@
 
       <b-form-input
         id="signup-username"
-        v-model="form.registration.username"
+        v-model.trim="form.registration.username"
         :state="form.errors.state('username')"
         :placeholder="$i18n.t('auth.signUpForm.username')"
         autocomplete="username"
