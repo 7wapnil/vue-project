@@ -72,7 +72,7 @@ export default {
   },
   methods: {
     ...mapMutations([
-      'storeGameSlug'
+      'storeGameInformation'
     ]),
     launchGame () {
       if (!this.isLoggedIn) {
@@ -125,7 +125,7 @@ export default {
       })
     },
     openGameModalMobile () {
-      this.storeGameSlug(this.item.slug)
+      this.storeGameInformation(this.item)
       return this.$bvModal.show('GameModeModal')
     },
     contextName () {

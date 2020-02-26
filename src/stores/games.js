@@ -7,12 +7,12 @@ export default {
     selectedGame: '',
   },
   mutations: {
-    storeGameSlug (state, name) {
+    storeGameInformation (state, name) {
       state.selectedGame = name
     }
   },
   getters: {
-    getGameSlug (state) {
+    getGameInformation (state) {
       return state.selectedGame
     }
   }

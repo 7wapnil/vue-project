@@ -125,8 +125,7 @@ export const actions = {
   },
   refreshUserFromPayload (context, { token, user }) {
     const wallet = user.wallets[0]
-    const localStorageActiveWalletId = localStorage.getItem('active_wallet')
-    const activeWalletId = localStorageActiveWalletId || wallet.id
+    const activeWalletId = wallet.id
 
     arcanebetSession.storeImpersonatedSession(token, user)
     context.commit('storeSession', arcanebetSession.getSession())
@@ -212,6 +211,11 @@ export const getters = {
   getSuccessLoginUrl (state) {
     return state.successLoginUrl
   },
+  getUserCurrentBonusBalance (state) {
+    const wallet = state.session.user.wallets.find(el => el.bonusBalance > 0)
+
+    return `${wallet.bonusBalance} ${wallet.currency.code}`
+  }
 }
 
 export default {

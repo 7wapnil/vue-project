@@ -1,4 +1,6 @@
 box: node:10.16-alpine
+command-timeout: 60
+no-response-timeout: 30
 
 build:
   steps:

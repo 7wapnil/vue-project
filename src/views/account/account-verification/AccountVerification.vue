@@ -78,15 +78,7 @@ export default {
         id: null,
         name: 'utility_bill',
         accept: 'image/jpeg, image/png, image/gif, application/pdf',
-        label: this.$t('account.accountVerification.kinds.bill'),
-        file: null,
-        error: ''
-      },
-      {
-        id: null,
-        name: 'bank_statement',
-        accept: 'image/jpeg, image/png, image/gif, application/pdf',
-        label: this.$t('account.accountVerification.kinds.bank'),
+        label: this.$t('account.accountVerification.kinds.proof_of_address'),
         file: null,
         error: ''
       },

@@ -13,7 +13,7 @@ query transactions ($filter: TransactionKind, $page: Int, $perPage: Int) {
       currencyCode
       updatedAt
       mode
-      }
+    }
     pagination {
       ${PAGINATION_FIELDS}
     }

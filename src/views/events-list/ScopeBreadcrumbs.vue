@@ -8,7 +8,8 @@
 
 <script>
 import { TITLES_QUERY } from '@/graphql'
-import { getTitleShortName } from '@/helpers/title-names'
+import { getTitleShortName } from '@/helpers/titles'
+import { CATEGORY, TOURNAMENT } from '@/constants/event-scopes/kinds'
 
 export default {
   data () {
@@ -34,7 +35,7 @@ export default {
       let currentTitle
 
       this.titles.filter(title => {
-        if (title.id === this.$route.params.titleId) {
+        if (title.slug === this.$route.params.titleSlug) {
           currentTitle = {
             id: title.id,
             name: getTitleShortName(title),
@@ -47,8 +48,8 @@ export default {
     },
     getTournament () {
       return this.getTitle.scopes.find((scope) => {
-        return scope.kind === 'tournament' &&
-                scope.id === this.$route.params.tournamentId
+        return scope.kind === TOURNAMENT &&
+               scope.slug === this.$route.params.tournamentSlug
       })
     },
     getCategory () {
@@ -61,7 +62,7 @@ export default {
       }
 
       return this.getTitle.scopes.find((scope) => {
-        return scope.kind === 'category' &&
+        return scope.kind === CATEGORY &&
                 scope.id === categoryId
       })
     },
@@ -75,7 +76,7 @@ export default {
           text: this.getTitle.name,
           to: {
             name: `${titleKind}-title`,
-            params: { titleKind: titleKind, titleId: this.$route.params.titleId }
+            params: { titleKind: titleKind, titleSlug: this.$route.params.titleSlug }
           }
         }
       }
@@ -96,8 +97,8 @@ export default {
             name: `${titleKind}-tournament`,
             params: {
               titleKind: titleKind,
-              titleId: this.$route.params.titleId,
-              tournamentId: this.$route.params.tournamentId
+              titleSlug: this.$route.params.titleSlug,
+              tournamentSlug: this.$route.params.tournamentSlug
             }
           }
         }

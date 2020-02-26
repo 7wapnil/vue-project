@@ -30,7 +30,7 @@
           </span>
         </div>
         <b-collapse
-          :visible="item.route.name === $route.params.titleKind"
+          :visible="isParentTabOpened(item)"
           :id="`item-${index}`"
           accordion="information-sidebar">
           <b-nav
@@ -38,13 +38,14 @@
             role="navigation"
             class="bg-arc-clr-soil-darker py-3">
             <b-nav-item
-              v-for="child in item.children"
+              v-for="(child, index) in item.children"
               :key="child.id"
               :to="child.route"
+              :active="isTabActive(child, index, item)"
+              active-class="information-page-sidemenu-active"
               link-classes="information-page-sidemenu-item"
               class="text-arc-clr-iron-light font-size-14 font-weight-bold text-truncate letter-spacing-2"
-              exact-active-class="information-page-sidemenu-active"
-              exact>
+              @click="onTabClick">
               {{ child.title }}
             </b-nav-item>
           </b-nav>
@@ -154,6 +155,19 @@ export default {
         },
 
       ]
+    }
+  },
+  methods: {
+    isTabActive (tab, index, parent) {
+      return tab.route.name === this.$route.name ||
+             (parent.route.name === this.$route.name && index === 0)
+    },
+    isParentTabOpened (parent) {
+      return parent.route.name === this.$route.name ||
+             (parent.children && parent.children.some((tab) => tab.route.name === this.$route.name))
+    },
+    onTabClick (event) {
+      event.stopPropagation()
     }
   }
 }
