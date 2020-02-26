@@ -11,6 +11,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import { getBalanceWithBonus } from '@/helpers/wallet'
 
 export default {
   computed: {
@@ -18,13 +19,22 @@ export default {
       'isLoggedIn'
     ]),
     ...mapGetters({
-      user: 'getUser'
-    })
+      user: 'getUser',
+      activeWallet: 'getUserActiveWallet'
+    }),
+    amount () {
+      if (!this.activeWallet) return null
+      return this.getBalanceWithBonus(this.activeWallet, this.currentLobbySection)
+    },
+    currencyCode () {
+      return this.activeWallet && this.activeWallet.currency.code
+    },
   },
   methods: {
     showModal () {
       this.$bvModal.show('AccountModal')
-    }
+    },
+    getBalanceWithBonus
   }
 }
 </script>
