@@ -7,7 +7,7 @@
     <div v-if="address && showChangelly">
       <div
         v-if="!isMobile"
-        class="mb-1 d-flex align-items-center pointer"
+        class="mb-2 d-flex align-items-center pointer"
         @click="resetAll">
         <icon
           name="chevron-left"
