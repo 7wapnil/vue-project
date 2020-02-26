@@ -70,7 +70,6 @@ export default {
           this.gamesCollection = data.games.collection
           this.paginationProps = data.games.pagination
 
-
           const payload = data.games
 
           if (!payload) return
@@ -80,9 +79,9 @@ export default {
           this.paginationProps = payload.pagination
 
           if (this.getLazyLoadPosition && this.getScrollStatus && !this.positionSet) {
-              const nextExists = Number(getCookie('page')) < Math.ceil(this.paginationProps.count / this.itemsPerPage)
-              this.paginationProps.next = nextExists ? Number(getCookie('page')) + 1 : null
-              this.setPosition()
+            const nextExists = Number(getCookie('page')) < Math.ceil(this.paginationProps.count / this.itemsPerPage)
+            this.paginationProps.next = nextExists ? Number(getCookie('page')) + 1 : null
+            this.setPosition()
           }
         },
         error () {
