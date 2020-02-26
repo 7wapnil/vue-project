@@ -1,5 +1,5 @@
 import gql from 'graphql-tag'
-import { WALLET_FIELDS } from './fields'
+import { WALLET_FIELDS, USER_FIELDS } from './fields'
 
 export const USER_VERIFICATION_QUERY = gql`
   query {
@@ -13,22 +13,10 @@ export const USER_VERIFICATION_QUERY = gql`
 export const USER_QUERY = gql`
   query {
     user {
-      id
-      dateOfBirth
-      email
-      firstName
-      lastName
-      phone
-      username
-      addressCountry
-      addressState
-      addressCity
-      addressZipCode
-      addressStreetAddress
+      ${USER_FIELDS}
       wallets {
         ${WALLET_FIELDS}
       }
-      needMoreInfo
     }
   }
 `
@@ -112,11 +100,7 @@ export const IMPERSONATE_MUTATION = gql`
   mutation ($token: String!) {
     impersonate (token: $token) {
       user {
-        id
-        email
-        username
-        firstName
-        lastName
+        ${USER_FIELDS}
         wallets {
           ${WALLET_FIELDS}
         }

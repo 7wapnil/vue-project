@@ -41,6 +41,22 @@ export const WALLET_FIELDS = `
   }
 `
 
+export const USER_FIELDS = `
+  id
+  dateOfBirth
+  email
+  firstName
+  lastName
+  phone
+  username
+  addressCountry
+  addressState
+  addressCity
+  addressZipCode
+  addressStreetAddress
+  needMoreInfo
+`
+
 export const TITLE_FIELDS = `
   id
   externalName
