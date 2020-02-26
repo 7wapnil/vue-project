@@ -195,6 +195,10 @@ export default {
     }
   },
   created () {
+    const script = document.createElement('script')
+    script.src = 'https://widget.changelly.com/affiliate.js'
+    document.head.appendChild(script)
+
     if (!this.depositDetails) return
 
     this.addTabName(this.$i18n.t('account.tabs.depositFunds'))
