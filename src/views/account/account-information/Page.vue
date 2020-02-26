@@ -31,12 +31,12 @@
 </template>
 
 <script>
-import { USER_QUERY } from '@/graphql/index'
 import ItemHeader from '@/views/account/account-information/ItemHeader'
 import UserInformationSection from '@/views/account/account-information/UserInformation'
 import PrivateDataSection from '@/views/account/account-information/PrivateData'
 import PasswordChangeSection from '@/views/account/account-information/ChangePassword'
 import AddressSection from '@/views/account/account-information/Address'
+import { mapGetters } from 'vuex'
 
 export default {
   components: {
@@ -48,7 +48,6 @@ export default {
   },
   data () {
     return {
-      user: null,
       items: [
         {
           id: '1',
@@ -68,12 +67,10 @@ export default {
       ]
     }
   },
-  apollo: {
-    user () {
-      return {
-        query: USER_QUERY,
-      }
-    }
+  computed: {
+    ...mapGetters({
+      user: 'getUser'
+    })
   }
 }
 </script>
