@@ -1,13 +1,11 @@
 <template>
   <div>
-    <category-play-items :play-items="gamesCollection"/>
+    <category-play-items
+      :play-items="gamesCollection"/>
     <loader v-if="$apollo.loading"/>
     <b-row no-gutters>
       <b-col
-        v-observe-visibility="{
-          throttle: 300,
-          callback: loadMoreGames
-        }"
+        v-observe-visibility="loadMoreGames"
         v-if="!lastPage"/>
       <b-col
         v-if="!$apollo.loading && !gamesCollection.length"
@@ -21,8 +19,10 @@
 <script>
 import { buildDefaultMetaTags } from '@/helpers/meta'
 import CategoryPlayItems from './play-items-list/CategoryPlayItems'
-import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
+import { CACHE_AND_NETWORK } from '@/constants/graphql/fetch-policy'
 import { GAMES_QUERY } from '@/graphql'
+import { mapMutations, mapGetters } from 'vuex'
+import { setCookie, getCookie } from '@/helpers/cookies'
 
 export default {
   components: {
@@ -40,7 +40,8 @@ export default {
       paginationProps: Object,
       categoryObject: null,
       itemsPerPage: 25,
-      page: 1
+      page: 1,
+      positionSet: false
     }
   },
   metaInfo () {
@@ -57,15 +58,19 @@ export default {
     games () {
       return {
         query: GAMES_QUERY,
-        fetchPolicy: NETWORK_ONLY,
+        fetchPolicy: CACHE_AND_NETWORK,
         variables () {
           return {
             context: this.category,
             page: 1,
-            perPage: this.itemsPerPage
+            perPage: this.getScrollStatus ? Number(getCookie('page')) * this.itemsPerPage : this.itemsPerPage
           }
         },
         result ({ data }) {
+          this.gamesCollection = data.games.collection
+          this.paginationProps = data.games.pagination
+
+
           const payload = data.games
 
           if (!payload) return
@@ -73,6 +78,12 @@ export default {
           this.categoryObject = payload.category
           this.gamesCollection = payload.collection
           this.paginationProps = payload.pagination
+
+          if (this.getLazyLoadPosition && this.getScrollStatus && !this.positionSet) {
+              const nextExists = Number(getCookie('page')) < Math.ceil(this.paginationProps.count / this.itemsPerPage)
+              this.paginationProps.next = nextExists ? Number(getCookie('page')) + 1 : null
+              this.setPosition()
+          }
         },
         error () {
           this.$router.push({ name: 'not-found' })
@@ -93,11 +104,24 @@ export default {
       return this.categoryObject.metaDescription ||
              this.$i18n.t('meta.casino.category.description', { name: this.categoryObject.label })
     },
+    ...mapGetters([
+      'getLazyLoadPageNumber',
+      'getLazyLoadPosition',
+      'getScrollStatus'
+    ]),
     lastPage () {
       return this.paginationProps.next === null
     }
   },
+  watch: {
+    'page': 'savePageNumber'
+  },
   methods: {
+    ...mapMutations({
+      storeLazyLoadPageNumber: 'storeLazyLoadPageNumber',
+      storeLazyLoadPosition: 'storeLazyLoadPosition',
+      storeScrollStatus: 'storeScrollStatus'
+    }),
     loadMoreGames (isVisible) {
       if (this.$apollo.loading || !isVisible) return
 
@@ -109,7 +133,6 @@ export default {
         },
         updateQuery: (previousResult, { fetchMoreResult }) => {
           if (!fetchMoreResult) return previousResult
-
           return {
             games: {
               category: fetchMoreResult.games.category,
@@ -125,6 +148,13 @@ export default {
       oldItems.games.collection.push(...newItems.games.collection)
 
       return oldItems.games.collection
+    },
+    savePageNumber () {
+      return setCookie('page', +this.page)
+    },
+    setPosition () {
+      setTimeout(() => { window.scrollTo(0, this.getLazyLoadPosition.y) }, 1)
+      this.positionSet = true
     }
   }
 }
