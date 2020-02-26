@@ -11,7 +11,7 @@
         v-if="isMobileDevice && !isLoggedIn"
         no-gutters>
         <b-col class="casino-header-mobile-container-auth-block">
-          <auth-block/>
+          <auth-block v-observe-visibility="visibilityChanged"/>
         </b-col>
       </b-row>
       <div class="casino-header-tab-container">
@@ -44,6 +44,11 @@ export default {
       const desktopImg = require('@/assets/images/live-casino-games/arcane-live-casino-header-promo.png')
       const mobileImg = require('@/assets/images/live-casino-games/arcane-live-casino-header-promo-mobile.png')
       return this.isMobile ? mobileImg : desktopImg
+    }
+  },
+  methods: {
+    visibilityChanged (isVisible) {
+      this.$emit('auth-block:changed:visibility', isVisible)
     }
   }
 }

@@ -31,7 +31,7 @@
             no-gutters>
             <b-col
               class="d-flex align-items-center justify-content-center"
-              @click="pushLobby">
+              @click="pushBack">
               <icon
                 :size="13"
                 name="game-close"/>
@@ -49,9 +49,11 @@
 </template>
 
 <script>
+import { buildDefaultMetaTags } from '@/helpers/meta'
 import { mapGetters } from 'vuex'
 import CasinoGameSidebar from '@/views/casino/CasinoGameSidebar'
 import { CREATE_EVERY_MATRIX_SESSION_MUTATION } from '@/graphql'
+import { TITLE_KINDS } from '@/constants/title-kinds'
 
 export default {
   components: { CasinoGameSidebar },
@@ -64,11 +66,33 @@ export default {
       launchUrl: ''
     }
   },
+  metaInfo () {
+    if (!this.$i18n) return
+
+    return buildDefaultMetaTags({
+      title: this.metaTitle,
+      description: this.metaDescription,
+      i18n: this.$i18n,
+      siteUrl: window.location.href
+    })
+  },
   computed: {
     ...mapGetters({
       isLoggedIn: 'isLoggedIn',
       activeWallet: 'getUserActiveWallet'
     }),
+    metaTitle () {
+      if (!this.playItem.id) return this.$i18n.t(`meta.${this.$route.params.titleKind}.playItem.blankTitle`)
+
+      return this.playItem.metaTitle ||
+             this.$i18n.t(`meta.${this.$route.params.titleKind}.playItem.title`, { name: this.playItem.name })
+    },
+    metaDescription () {
+      if (!this.playItem.id) return this.$i18n.t(`meta.${this.$route.params.titleKind}.playItem.blankDescription`)
+
+      return this.playItem.metaDescription ||
+             this.$i18n.t(`meta.${this.$route.params.titleKind}.playItem.description`, { name: this.playItem.name })
+    },
     walletId () {
       if (this.activeWallet) return parseInt(this.activeWallet.id)
     },
@@ -113,8 +137,13 @@ export default {
         elem.msRequestFullscreen()
       }
     },
-    pushLobby () {
-      this.$router.push({ name: this.currentLobbyName })
+    pushBack () {
+      if (!this.$route.meta.fromPage ||
+            TITLE_KINDS.includes(this.$route.meta.fromPage) ||
+            this.$route.params.category === 'all-games') { return this.$router.push({ name: this.currentLobbyName }) }
+
+      this.$router.push({ name: `${this.currentLobbyName}-category`,
+        params: { category: this.$route.params.category } })
     },
     gameMode () {
       if ((this.isLoggedIn && this.walletId === undefined) ||

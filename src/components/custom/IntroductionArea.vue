@@ -19,6 +19,7 @@ const MOBILE_BACKGROUND_HEIGHT_WITH_AUTH_BLOCK = '266'
 const DESKTOP_BACKGROUND_HEIGHT = '356'
 
 export default {
+  name: 'IntroductionArea',
   props: {
     title: {
       type: Object,
