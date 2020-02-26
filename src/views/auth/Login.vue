@@ -56,6 +56,9 @@
 import VueRecaptcha from 'vue-recaptcha'
 import { mapGetters, mapActions, mapMutations } from 'vuex'
 import { getCookie } from '@/helpers/cookies'
+import {
+  DEPOSIT_TAB_INDEX
+} from '@/constants/betslip-settings'
 
 export default {
   components: {
@@ -87,6 +90,9 @@ export default {
     }
   },
   methods: {
+    ...mapMutations('tabs', {
+      changeTabIndex: 'changeTabIndex',
+    }),
     onCaptchaVerified (token) {
       this.fields.captcha = token
     },
@@ -109,10 +115,7 @@ export default {
     },
     onSuccess ({ data: { signIn } }) {
       this.login(signIn)
-      if (this.onSuccessRedirect) {
-        this.$router.push(this.onSuccessRedirect)
-        this.storeSuccessLoginUrl(null)
-      } else this.$router.push({ name: 'home' })
+      this.redirectIfNeeded()
       this.close()
       this.$livechat.setUser(signIn.user)
       this.$livechat.initWidget()
@@ -126,6 +129,16 @@ export default {
         .then(() => {
           if (this.isSuspicious) this.resetCaptcha()
         })
+    },
+    redirectIfNeeded () {
+      if (!this.onSuccessRedirect) return this.$router.push({ name: 'home' })
+
+      if (this.onSuccessRedirect === 'openDeposit') {
+        this.changeTabIndex(DEPOSIT_TAB_INDEX)
+        // workaround for vue bootstrap rc19 modal bug
+        this.$nextTick(() => this.$bvModal.show('AccountModal'))
+      } else this.$router.push(this.onSuccessRedirect)
+      this.storeSuccessLoginUrl(null)
     },
     done () {
       this.submitting = false

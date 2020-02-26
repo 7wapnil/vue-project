@@ -17,7 +17,7 @@
         {{ $t('account.deposit.crypto.goBack') }}
       </div>
       <b-embed
-        src="https://widget.changelly.com?currencies=*&from=eth&to=btc&amount=10&address=xxxxxxxxxxxxxxxxxx&fiat=true&fixedTo=true&theme=default&merchant_id=fe955c18c16b&payment_id="
+        :src="`https://widget.changelly.com?currencies=*&from=eth&to=btc&amount=10&address=${address}&fiat=true&fixedTo=true&theme=default&merchant_id=fe955c18c16b&payment_id=`"
         type="iframe"
         aspect="1by1"
         allowfullscreen
@@ -195,6 +195,10 @@ export default {
     }
   },
   created () {
+    const script = document.createElement('script')
+    script.src = 'https://widget.changelly.com/affiliate.js'
+    document.head.appendChild(script)
+
     if (!this.depositDetails) return
 
     this.addTabName(this.$i18n.t('account.tabs.depositFunds'))
