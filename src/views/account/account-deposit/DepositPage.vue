@@ -22,7 +22,7 @@
         height="600"
         class="changelly"
         scrolling="no"
-        onLoad="function ue(e){var t=e.target,n=t.parentNode,r=t.contentWindow,o=function(){return r.postMessage({width:n.offsetWidth},'undefined'!==typeof B?B.url:'https://widget.changelly.com')};window.addEventListener('resize',o),o()};ue.apply(this, arguments);" 
+        onLoad="function ue(e){var t=e.target,n=t.parentNode,r=t.contentWindow,o=function(){return r.postMessage({width:n.offsetWidth},'undefined'!==typeof B?B.url:'https://widget.changelly.com')};window.addEventListener('resize',o),o()};ue.apply(this, arguments);"
         style="min-width: 100%; width: 100px; overflow-y: hidden; border: none">
         Can't load widget
       </iframe>
