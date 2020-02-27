@@ -466,6 +466,9 @@ export default {
     },
     scrollSubmit () {
       const submitButton = this.$refs['betslip-submit']
+
+      if (!submitButton) return
+
       submitButton.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' })
     },
     updateBetsFromResponse (response) {

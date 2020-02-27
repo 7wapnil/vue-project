@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import { buildDefaultMetaTags } from '@/helpers/meta'
 import { IMPERSONATE_MUTATION } from '@/graphql'
 import { mapActions, mapGetters } from 'vuex'
 
@@ -16,6 +17,17 @@ export default {
   },
   created () {
     this.impersonate()
+  },
+  metaInfo () {
+    if (!this.$i18n) return
+
+    return buildDefaultMetaTags({
+      title: this.$i18n.t('meta.impersonation.title'),
+      description: this.$i18n.t('meta.impersonation.description'),
+      i18n: this.$i18n,
+      siteUrl: window.location.href,
+      robots: 'noindex,nofollow'
+    })
   },
   methods: {
     ...mapActions(['refreshUserFromPayload']),

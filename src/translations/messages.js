@@ -1,5 +1,6 @@
 const messages = {
   en: {
+    localeName: 'en-US',
     auth: {
       impersonate: {
         success: "You successfully logged in as '{username}'."
@@ -42,24 +43,119 @@ const messages = {
     },
     meta: {
       defaultTags: {
+        siteName: 'arcanebet',
         title: 'arcanebet - Esports Betting, Sports Betting, Casino, Live Casino',
-        description: 'Bet on esports live and pre-game at arcanebet. The best esports betting odds for CSGO, Dota 2, League of Legends(LoL) and more. Get up to €100 first deposit bonus.'
+        description: 'Discover the most entertaining pre-game and in-play sports betting offering paired with the best casino games. Join arcanebet to claim your exclusive welcome offer.'
+      },
+      maintenance: {
+        title: 'arcanebet - Esports Betting, Sports Betting, Casino, Live Casino ',
+        description: 'Discover the most entertaining pre-game and in-play sports betting offering paired with the best casino games. Join arcanebet to claim your exclusive welcome offer.'
+      },
+      notFound: {
+        title: 'arcanebet - Esports Betting, Sports Betting, Casino, Live Casino ',
+        description: 'Discover the most entertaining pre-game and in-play sports betting offering paired with the best casino games. Join arcanebet to claim your exclusive welcome offer.'
+      },
+      resetPassword: {
+        title: 'arcanebet - Password Reset Form',
+        description: 'Here you can change your password.'
+      },
+      emailVerification: {
+        title: 'arcanebet - Email Verification Form',
+        description: 'Here you can verify your email address.'
+      },
+      impersonation: {
+        title: 'arcanebet - Impersonation',
+        description: 'Login as customer.'
       },
       esports: {
         title: 'arcanebet - Esports Betting Odds for CSGO, Dota 2, LoL',
-        description: 'Bet on esports live and pre-game at arcanebet. The best esports betting odds for CSGO, Dota 2, League of Legends(LoL) and more. Get up to €100 first deposit bonus.'
+        description: 'Bet on esports live and pre-game at arcanebet. The best esports betting odds for CSGO, Dota 2, League of Legends(LoL) and more. Get up to €100 first deposit bonus.',
+        event: {
+          title: 'arcanebet - Esports Betting Odds for CSGO, Dota 2, LoL',
+          description: 'Bet on esports live and pre-game at arcanebet. The best esports betting odds for CSGO, Dota 2, League of Legends(LoL) and more. Get up to €100 first deposit bonus.'
+        },
+        eventScope: {
+          title: 'arcanebet - {name}',
+          description: 'Discover the best {name} odds on arcanebet. Register free and claim your welcome bonus.'
+        },
+        tournament: {
+          title: 'arcanebet - Esports Betting Odds for CSGO, Dota 2, LoL',
+          description: 'Bet on esports live and pre-game at arcanebet. The best esports betting odds for CSGO, Dota 2, League of Legends(LoL) and more. Get up to €100 first deposit bonus.'
+        }
       },
       sports: {
         title: 'arcanebet - Sports Betting With Pre-Game and Live Odds',
-        description: 'Bet on all your favourite Sports at arcanebet. Find popular sports markets for Football to Tennis, Basketball to Cricket. We have the sports betting odds for you.'
+        description: 'Bet on all your favourite Sports at arcanebet. Find popular sports markets for Football to Tennis, Basketball to Cricket. We have the sports betting odds for you.',
+        event: {
+          title: 'arcanebet - Sports Betting With Pre-Game and Live Odds',
+          description: 'Bet on all your favourite Sports at arcanebet. Find popular sports markets for Football to Tennis, Basketball to Cricket. We have the sports betting odds for you.'
+        },
+        eventScope: {
+          title: 'arcanebet - {name}',
+          description: 'Discover the best {name} odds on arcanebet. Register free and claim your welcome bonus.'
+        },
+        tournament: {
+          title: 'arcanebet - Sports Betting With Pre-Game and Live Odds',
+          description: 'Bet on all your favourite Sports at arcanebet. Find popular sports markets for Football to Tennis, Basketball to Cricket. We have the sports betting odds for you.'
+        }
       },
       casino: {
-        title: 'arcanebet - Casino',
-        description: 'Bet on casino'
+        title: 'arcanebet - Casino Section with the Best Video and Table Games of Today',
+        description: 'Looking for an exclusive selection of Casino games and providers, offering you only the best online Casino video and table slots of the moment? The arcanebet Casino section is the place to be!',
+        providers: {
+          title: 'arcanebet - Casino Game Providers',
+          description: 'From NetEnt to Betsoft, Microgaming to Gammomat, Evolution to Quickspin, we have rounded up all the top industry providers of the moment, to bring you the ultimate selection of Casino games!'
+        },
+        provider: {
+          title: 'arcanebet - {name}',
+          description: 'Find the best {name} games in arcanebet Casino. Register free and claim your welcome bonus!'
+        },
+        category: {
+          title: 'arcanebet - {name}',
+          description: 'List of games for "{name}"'
+        },
+        playItem: {
+          blankTitle: 'arcanebet - Casino',
+          title: 'Play "{name}" at arcanebet casino',
+          blankDescription: 'Bet on casino',
+          description: 'Try your luck and win big with "{name}" and many other casino games. Win real cash or play for free! Sign-up and claim your Welcome Bonus.'
+        }
       },
       'live-casino': {
-        title: 'arcanebet - Live casino',
-        description: 'Bet on live casino'
+        title: 'arcanebet - Live Casino with the Best Live Dealers in the World',
+        description: 'Discover the authentic experience of Live Casino games, at some of the best and most atmospheric Roulette, Blackjack, Baccarat tables in the industry!',
+        category: {
+          title: 'arcanebet - {name}',
+          description: 'List of live tables for "{name}"'
+        },
+        playItem: {
+          blankTitle: 'arcanebet - Live Casino with the Best Live Blackjack, Roulette',
+          title: 'Play "{name}" at arcanebet casino',
+          blankDescription: 'Bet on live casino',
+          description: 'Try your luck and win big with "{name}" and many other casino games. Win real cash or play for free! Sign-up and claim your Welcome Bonus.'
+        }
+      },
+      about: {
+        blog: {
+          title: 'arcanebet - About | Blog',
+          description: 'Blog on arcanebet'
+        },
+        career: {
+          title: 'arcanebet - About | Career',
+          description: 'Career on arcanebet'
+        },
+        main: {
+          title: 'arcanebet - About us | About',
+          description: 'Do you want to get to know our origin story, what it is we strive for and what our ambitions are. You\'ll find all of that and more here, on our about us page. arcanebet is licenced and regulated in Curaçao under the Master License of Gaming Services Provider, N.V. #365/JAZ.'
+        },
+        welcome: {
+          title: 'arcanebet - About | Welcome',
+          description: 'Welcome to arcanebet'
+        }
+      },
+      affiliates: {
+        title: 'arcanebet - Affiliates | About',
+        description: 'At arcanebet we strive to give our affiliates the same VIP treatment we do to our customers. Bespoke offers, great deals and a team that will cater to your every need, our affiliate program will see you raking in the revenue in no time.'
       },
       support: {
         contact: {
@@ -68,9 +164,7 @@ const messages = {
         },
         terms: {
           title: 'arcanebet - Terms and Conditions | Support',
-          description: 'These general terms and conditions apply to any customers that register an account on arcanebet ' +
-            'or make use of our services as laid out in these terms. For any information please contact support (28 too ' +
-            'many characters. Most places are auto indexed by Google and the first 165 characters are shown)'
+          description: 'These general terms and conditions apply to any customers that register an account on arcanebet or make use of our services as laid out in these terms. For any information please contact support.'
         },
         bettingRules: {
           title: 'arcanebet - Sports Betting Rules | Support',
@@ -95,12 +189,12 @@ const messages = {
       },
       promotions: {
         welcomeOfferSport: {
-          title: 'arcanebet - Welcome Offer Sport | Promotions',
-          description: 'From deposit bonuses to rewards throughout your time on the website. Find your welcome offer terms and conditions here. For more details please log into your account.'
+          title: 'arcanebet - 100% Welcome Bonus | Promotions',
+          description: 'Looking for the best sports bonus on the market, look no further. Grab your 100% deposit bonus up to /$€100 and get betting. With the best of the esports and sports world, you\'ll never miss out.'
         },
         welcomeOfferCasino: {
-          title: 'arcanebet - Welcome Offer Casino | Promotions',
-          description: 'From deposit bonuses to rewards throughout your time on the website. Find your welcome offer terms and conditions here. For more details please log into your account.'
+          title: 'arcanebet - Casino Welcome Bonus Pack | Promotions',
+          description: 'Grab three rock-solid Welcome Bonus Offers for your first three deposits at arcanebet Casino, up to a great total of $/€ 600!'
         },
         bonusRules: {
           title: 'arcanebet - Bonus Rules | Promotions',
@@ -302,7 +396,12 @@ const messages = {
     wallet: {
       balance: 'Balance',
       secondWallet: '2nd Wallet',
-      switch: 'switch'
+      switch: 'switch',
+      realMoney: 'Real money',
+      sportsBonus: 'Sports bonus',
+      casinoBonus: 'Casino bonus',
+      totalBalance: 'Total balance',
+      otherWallets: 'Other wallets'
     },
     sidemenu: {
       settings: {
@@ -472,8 +571,8 @@ const messages = {
           waiting: 'Waiting for upload'
         },
         kinds: {
-          passport: 'Passport or Identity card',
-          bill: 'Utility Bill',
+          passport: 'ID documents',
+          proof_of_address: 'Proof of address',
           bank: 'Bank statement',
           card: 'Credit/Debit card',
           other: 'Other'

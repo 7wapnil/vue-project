@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import { buildDefaultMetaTags } from '@/helpers/meta'
 import StaticContent from '@/views/layouts/information-page/StaticContent'
 
 export default {
@@ -15,10 +16,14 @@ export default {
     }
   },
   metaInfo () {
-    return {
+    if (!this.$i18n) return
+
+    return buildDefaultMetaTags({
       title: this.$i18n.t('meta.support.paymentMethods.title'),
-      meta: [{ name: 'description', content: this.$i18n.t('meta.support.paymentMethods.description'), vmid: 'desc' }]
-    }
+      description: this.$i18n.t('meta.support.paymentMethods.description'),
+      i18n: this.$i18n,
+      siteUrl: window.location.href
+    })
   }
 }
 </script>

@@ -29,7 +29,9 @@
           </b-btn>
         </b-col>
       </b-row>
-      <b-row no-gutters>
+      <b-row
+        v-if="hasFreeMode"
+        no-gutters>
         <b-col>
           <b-btn
             class="text-uppercase"
@@ -51,8 +53,11 @@ import { CREATE_EVERY_MATRIX_SESSION_MUTATION } from '@/graphql'
 export default {
   computed: {
     ...mapGetters({
-      getGameSlug: 'getGameSlug',
-    })
+      getGameInformation: 'getGameInformation',
+    }),
+    hasFreeMode () {
+      return this.getGameInformation.freeMode === 'true'
+    }
   },
   methods: {
     lauchFunMode () {
@@ -62,7 +67,7 @@ export default {
         .mutate({
           mutation: CREATE_EVERY_MATRIX_SESSION_MUTATION,
           variables: {
-            playItemSlug: this.getGameSlug
+            playItemSlug: this.getGameInformation.slug
           }
         })
         .then(({ data }) => {

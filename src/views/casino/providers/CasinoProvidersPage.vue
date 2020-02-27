@@ -19,6 +19,7 @@
 </template>
 
 <script>
+import { buildDefaultMetaTags } from '@/helpers/meta'
 import CasinoProvidersHeader from '@/views/casino/providers/CasinoProvidersHeader'
 import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
 import { GAME_PROVIDERS_QUERY } from '@/graphql'
@@ -31,6 +32,16 @@ export default {
     return {
       gameProviders: []
     }
+  },
+  metaInfo () {
+    if (!this.$i18n) return
+
+    return buildDefaultMetaTags({
+      title: this.$i18n.t('meta.casino.providers.title'),
+      description: this.$i18n.t('meta.casino.providers.description'),
+      i18n: this.$i18n,
+      siteUrl: window.location.href
+    })
   },
   apollo: {
     gameProviders () {

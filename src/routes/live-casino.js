@@ -20,7 +20,8 @@ export default [
       content: TablesOverview,
       mobileSidemenu: LiveCasinoSidebar
     }
-  }, {
+  },
+  {
     path: '/live-casino/search',
     name: 'live-casino-search',
     props: (route) => ({
@@ -34,7 +35,8 @@ export default [
       content: GamesSearch,
       mobileSidemenu: LiveCasinoSidebar
     }
-  }, {
+  },
+  {
     path: '/live-casino/:category',
     name: 'live-casino-category',
     props: {
@@ -47,7 +49,8 @@ export default [
       content: TablesList,
       mobileSidemenu: LiveCasinoSidebar
     }
-  }, {
+  },
+  {
     path: '/live-casino/:category/:playItemSlug',
     name: 'live-casino-game',
     props: {

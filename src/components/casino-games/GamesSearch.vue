@@ -18,6 +18,7 @@
 </template>
 
 <script>
+import { buildDefaultMetaTags } from '@/helpers/meta'
 import OverviewProviders from '@/components/casino-games/OverviewProviders'
 import SearchPlayItems from '@/components/casino-games/play-items-list/SearchPlayItems'
 import { NETWORK_ONLY } from '@/constants/graphql/fetch-policy'
@@ -35,6 +36,17 @@ export default {
       itemsPerPage: 25,
       page: 1
     }
+  },
+  metaInfo () {
+    if (!this.$i18n) return
+
+    return buildDefaultMetaTags({
+      title: this.$i18n.t(`meta.${this.$route.params.titleKind}.title`),
+      description: this.$i18n.t(`meta.${this.$route.params.titleKind}.description`),
+      i18n: this.$i18n,
+      siteUrl: window.location.href,
+      robots: 'noindex'
+    })
   },
   computed: {
     lastPage () {

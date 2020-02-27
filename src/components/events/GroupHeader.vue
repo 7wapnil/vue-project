@@ -22,7 +22,7 @@
 <script>
 import { TITLE_CHANGED } from '@/constants/custom-events'
 import { findTitleIcon } from '@/helpers/icon-finder'
-import { getTitleName } from '@/helpers/title-names'
+import { getTitleName } from '@/helpers/titles'
 
 export default {
   props: {
