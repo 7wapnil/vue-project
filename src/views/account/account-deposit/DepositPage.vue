@@ -16,17 +16,16 @@
           size="14px"/>
         {{ $t('account.deposit.crypto.goBack') }}
       </div>
-      <b-embed
+      <iframe
         :src="`https://widget.changelly.com?currencies=*&from=eth&to=btc&amount=10&address=${address}&fiat=true&fixedTo=true&theme=default&merchant_id=fe955c18c16b&payment_id=`"
-        type="iframe"
-        aspect="1by1"
-        allowfullscreen
         width="100%"
         height="600"
         class="changelly"
         scrolling="no"
-        on-load="function ue(e){var t=e.target,n=t.parentNode,r=t.contentWindow,o=function(){return r.postMessage({width:n.offsetWidth},'undefined'!==typeof z?z.url:'https://widget.changelly.com')};window.addEventListener('resize',o),o()};ue.apply(this, arguments);"
-        style="min-width: 100%; width: 100px; overflow-y: hidden; border: none"/>
+        onLoad="function ue(e){var t=e.target,n=t.parentNode,r=t.contentWindow,o=function(){return r.postMessage({width:n.offsetWidth},'undefined'!==typeof B?B.url:'https://widget.changelly.com')};window.addEventListener('resize',o),o()};ue.apply(this, arguments);" 
+        style="min-width: 100%; width: 100px; overflow-y: hidden; border: none">
+        Can't load widget
+      </iframe>
     </div>
     <component
       v-else
