@@ -67,10 +67,6 @@ export default {
           }
         },
         result ({ data }) {
-          this.gamesCollection = data.games.collection
-          this.paginationProps = data.games.pagination
-          this.loadPreviousState()
-
           const payload = data.games
 
           if (!payload) return
@@ -78,6 +74,8 @@ export default {
           this.categoryObject = payload.category
           this.gamesCollection = payload.collection
           this.paginationProps = payload.pagination
+
+          this.loadPreviousState()
         },
         error () {
           this.$router.push({ name: 'not-found' })
@@ -91,15 +89,15 @@ export default {
       'getScrollStatus'
     ]),
     metaTitle () {
-        if (!this.categoryObject) return this.$i18n.t('meta.casino.title')
+      if (!this.categoryObject) return this.$i18n.t('meta.casino.title')
 
-        return this.categoryObject.metaTitle ||
+      return this.categoryObject.metaTitle ||
             this.$i18n.t('meta.casino.category.title', { name: this.categoryObject.label })
     },
     metaDescription () {
-        if (!this.categoryObject) return this.$i18n.t('meta.casino.description')
+      if (!this.categoryObject) return this.$i18n.t('meta.casino.description')
 
-        return this.categoryObject.metaDescription ||
+      return this.categoryObject.metaDescription ||
             this.$i18n.t('meta.casino.category.description', { name: this.categoryObject.label })
     },
     lastPage () {

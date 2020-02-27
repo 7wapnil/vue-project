@@ -1,5 +1,3 @@
-import { getCookie } from '@/helpers/cookies'
-
 const storageKey = 'session'
 const nullStorage = {
   setItem: function () {},
@@ -23,16 +21,6 @@ class ArcanebetSession {
      if (!data) {
        return null
      }
-
-     const userData = JSON.parse(data)
-     const ga = (getCookie('_ga') || '').substring('GA1.2.'.length)
-
-     this.$gtm.push({
-       'event': 'customerLogin',
-       'gaClientID': ga || null,
-       'customerID': userData.user.id || null
-     })
-
      return JSON.parse(data)
    }
 
