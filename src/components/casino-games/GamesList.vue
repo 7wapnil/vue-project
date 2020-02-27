@@ -69,6 +69,7 @@ export default {
         result ({ data }) {
           this.gamesCollection = data.games.collection
           this.paginationProps = data.games.pagination
+          this.loadPreviousState()
 
           const payload = data.games
 
@@ -77,12 +78,6 @@ export default {
           this.categoryObject = payload.category
           this.gamesCollection = payload.collection
           this.paginationProps = payload.pagination
-
-          if (this.getLazyLoadPosition && this.getScrollStatus && !this.positionSet) {
-            const nextExists = Number(getCookie('page')) < Math.ceil(this.paginationProps.count / this.itemsPerPage)
-            this.paginationProps.next = nextExists ? Number(getCookie('page')) + 1 : null
-            this.setPosition()
-          }
         },
         error () {
           this.$router.push({ name: 'not-found' })
@@ -91,23 +86,22 @@ export default {
     }
   },
   computed: {
-    metaTitle () {
-      if (!this.categoryObject) return this.$i18n.t('meta.casino.title')
-
-      return this.categoryObject.metaTitle ||
-             this.$i18n.t('meta.casino.category.title', { name: this.categoryObject.label })
-    },
-    metaDescription () {
-      if (!this.categoryObject) return this.$i18n.t('meta.casino.description')
-
-      return this.categoryObject.metaDescription ||
-             this.$i18n.t('meta.casino.category.description', { name: this.categoryObject.label })
-    },
-    ...mapGetters([
-      'getLazyLoadPageNumber',
+    ...mapGetters('pages', [
       'getLazyLoadPosition',
       'getScrollStatus'
     ]),
+    metaTitle () {
+        if (!this.categoryObject) return this.$i18n.t('meta.casino.title')
+
+        return this.categoryObject.metaTitle ||
+            this.$i18n.t('meta.casino.category.title', { name: this.categoryObject.label })
+    },
+    metaDescription () {
+        if (!this.categoryObject) return this.$i18n.t('meta.casino.description')
+
+        return this.categoryObject.metaDescription ||
+            this.$i18n.t('meta.casino.category.description', { name: this.categoryObject.label })
+    },
     lastPage () {
       return this.paginationProps.next === null
     }
@@ -117,9 +111,8 @@ export default {
   },
   methods: {
     ...mapMutations({
-      storeLazyLoadPageNumber: 'storeLazyLoadPageNumber',
-      storeLazyLoadPosition: 'storeLazyLoadPosition',
-      storeScrollStatus: 'storeScrollStatus'
+      storeLazyLoadPosition: 'pages/storeLazyLoadPosition',
+      storeScrollStatus: 'pages/storeScrollStatus'
     }),
     loadMoreGames (isVisible) {
       if (this.$apollo.loading || !isVisible) return
@@ -154,6 +147,13 @@ export default {
     setPosition () {
       setTimeout(() => { window.scrollTo(0, this.getLazyLoadPosition.y) }, 1)
       this.positionSet = true
+    },
+    loadPreviousState () {
+      if (this.getLazyLoadPosition && this.getScrollStatus && !this.positionSet) {
+        const nextExists = Number(getCookie('page')) < Math.ceil(this.paginationProps.count / this.itemsPerPage)
+        this.paginationProps.next = nextExists ? Number(getCookie('page')) + 1 : null
+        this.setPosition()
+      }
     }
   }
 }
