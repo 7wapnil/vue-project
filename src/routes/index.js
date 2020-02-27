@@ -13,7 +13,6 @@ import { colors } from '@/constants/android-theme-colors'
 import Layout from '@/views/layouts/common/Layout'
 import { TITLE_KINDS } from '@/constants/title-kinds'
 import NotFound from '@/views/layouts/common/NotFound'
-import store from '@/stores'
 
 const rootChilds = [...Esports, ...Sports, ...LiveCasino, ...Casino, ...support.routes, ...system]
 
@@ -64,8 +63,9 @@ const router = new Router({
       if ('scrollRestoration' in history) { history.scrollRestoration = 'manual' }
 
       if (to.name === 'casino-category' && from.name === 'casino-game') {
-        store.commit('storeLazyLoadPosition', position)
-        store.commit('storeScrollStatus', true)
+        const store = require('../stores/index')
+        store.default.commit('pages/storeLazyLoadPosition', position)
+        store.default.commit('pages/storeScrollStatus', true)
       }
       if (from.name === 'casino-game') { return }
 

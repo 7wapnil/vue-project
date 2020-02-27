@@ -57,19 +57,13 @@ export default {
         result ({ data }) {
           this.gamesCollection = data.games.collection
           this.paginationProps = data.games.pagination
-
-          if (this.getLazyLoadPosition && this.getScrollStatus && !this.positionSet) {
-            const nextExists = Number(getCookie('page')) < Math.ceil(this.paginationProps.count / this.itemsPerPage)
-            this.paginationProps.next = nextExists ? Number(getCookie('page')) + 1 : null
-            this.setPosition()
-          }
+          this.loadPreviousState()
         }
       }
     }
   },
   computed: {
-    ...mapGetters([
-      'getLazyLoadPageNumber',
+    ...mapGetters('pages', [
       'getLazyLoadPosition',
       'getScrollStatus'
     ]),
@@ -82,9 +76,8 @@ export default {
   },
   methods: {
     ...mapMutations({
-      storeLazyLoadPageNumber: 'storeLazyLoadPageNumber',
-      storeLazyLoadPosition: 'storeLazyLoadPosition',
-      storeScrollStatus: 'storeScrollStatus'
+      storeLazyLoadPosition: 'pages/storeLazyLoadPosition',
+      storeScrollStatus: 'pages/storeScrollStatus'
     }),
     loadMoreGames (isVisible) {
       if (this.$apollo.loading || !isVisible) return
@@ -118,6 +111,13 @@ export default {
     setPosition () {
       setTimeout(() => { window.scrollTo(0, this.getLazyLoadPosition.y) }, 1)
       this.positionSet = true
+    },
+    loadPreviousState () {
+      if (this.getLazyLoadPosition && this.getScrollStatus && !this.positionSet) {
+        const nextExists = Number(getCookie('page')) < Math.ceil(this.paginationProps.count / this.itemsPerPage)
+        this.paginationProps.next = nextExists ? Number(getCookie('page')) + 1 : null
+        this.setPosition()
+      }
     }
   }
 }

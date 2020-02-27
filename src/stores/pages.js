@@ -3,15 +3,12 @@
  */
 
 export default {
+  namespaced: true,
   state: {
-    lazyloadPageNumber: 1,
     lazyloadPosition: null,
     scrollStatus: false
   },
   mutations: {
-    storeLazyLoadPageNumber (state, number) {
-      state.lazyloadPageNumber = number
-    },
     storeLazyLoadPosition (state, position) {
       state.lazyloadPosition = position
     },
@@ -20,9 +17,6 @@ export default {
     }
   },
   getters: {
-    getLazyLoadPageNumber (state) {
-      return state.lazyloadPageNumber
-    },
     getLazyLoadPosition (state) {
       return state.lazyloadPosition
     },
