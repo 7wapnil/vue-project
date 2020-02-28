@@ -1,4 +1,5 @@
 import { getCookie } from '@/helpers/cookies'
+import GTMPlugin from '@/config/plugins/google-tag-manager'
 
 const storageKey = 'session'
 const nullStorage = {
@@ -27,7 +28,7 @@ class ArcanebetSession {
      const userData = JSON.parse(data)
      const ga = (getCookie('_ga') || '').substring('GA1.2.'.length)
 
-     this.$gtm.push({
+     GTMPlugin.push({
        'event': 'customerLogin',
        'gaClientID': ga || null,
        'customerID': userData.user.id || null
