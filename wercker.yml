@@ -37,22 +37,34 @@ store:
       name: build-production-assets
       code: yarn build
 
+    - script:
+      name: create-artifact
+      code: |
+        export ARTIFACT=$(date +%Y-%m-%d--%H-%M-%S)
+        if [ -e $WERCKER_GIT_COMMIT.txt ]; then rm $WERCKER_GIT_COMMIT.txt; fi
+        touch $WERCKER_GIT_COMMIT.txt
+        echo $ARTIFACT > $WERCKER_GIT_COMMIT.txt
+
     # Build another docker image with just the assets and nginx
     - script:
-        name: Build docker image
-        code: |
-          docker build --network=$DOCKER_NETWORK_NAME -t arcanebet/frontend:$WERCKER_GIT_COMMIT -f deploy/${DOCKERFILE:-Dockerfile} .
+      name: Build docker image
+      code: |
+        docker build --network=$DOCKER_NETWORK_NAME -t arcanebet/frontend:$WERCKER_GIT_COMMIT -f deploy/${DOCKERFILE:-Dockerfile} .
 
-    - script:
-        name: Push
-        code: |
-          docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD
-          docker push arcanebet/frontend:$WERCKER_GIT_COMMIT
+    - internal/docker-push:
+      username: $DOCKERHUB_USERNAME
+      password: $DOCKERHUB_PASSWORD
+      repository: arcanebet/frontend
+      tag: $WERCKER_GIT_COMMIT-$ARTIFACT
 
 deploy:
   box: python:2.7-alpine
 
   steps:
+    - script:
+      name: read-artifact
+      code: export ARTIFACT=$(cat $WERCKER_GIT_COMMIT.txt)
+
     - script:
       name: install-linux-deps
       code: apk add -qU openssh git curl jq
@@ -85,7 +97,7 @@ deploy:
       code: |
         aws ssm put-parameter \
             --name ${TAG_PARAM:-/frontend/tag} \
-            --value $WERCKER_GIT_COMMIT \
+            --value $WERCKER_GIT_COMMIT-$ARTIFACT \
             --type SecureString \
             --overwrite
 
