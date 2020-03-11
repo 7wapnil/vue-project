@@ -6,7 +6,7 @@ volumes:
 services:
 
   web:
-    image: arcanebet/frontend:base
+    build: .
     command: yarn serve
     volumes:
       - .:/usr/src/app
